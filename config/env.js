@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-param-reassign, no-use-before-define */
 'use strict';
 
 const fs = require('fs');

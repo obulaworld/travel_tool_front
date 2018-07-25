@@ -30,7 +30,7 @@ List out the microservices if any that this repo uses
 
 ## Testing
 
-Step by step instructions on how to run the tests so that the developer can be sure they've set up the code correctly
+- Run `yarn test` on the terminal
 
 ## Contribute
 
