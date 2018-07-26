@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import './App.scss';
-import AppHeader from '../../components/app-header/AppHeader';
+
+import { BrowserRouter } from "react-router-dom";
+
+import Routes from "../../routes/index";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <AppHeader />
-        <p className="App-intro">
-          To get started, edit 
-          {' '}
-          <code>
-src/App.js
-          </code>
-          {' '}
-and save to reload.
-        </p>
+      <div>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </div>
     );
   }

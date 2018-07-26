@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #1262e2;
   height: 150px;
   padding: 20px;
   color: white;
@@ -16,10 +16,25 @@
 
 .App-title {
   font-size: 1.5em;
+  text-align: center;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.Btn-log {
+  background-color: #1262e2;
+  font-size: medium;
+  margin: 50px 600px;
+  padding: 10px;
+  text-align: center;
+}
+.Login-header {
+  background-color: #0461f7;
+  height: 150px;
+  padding: 20px;
+  color: white;
 }
 
 @keyframes App-logo-spin {
