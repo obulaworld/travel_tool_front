@@ -29,7 +29,7 @@ class Login extends Component {
             <div className="log-in-form">
               <button
                 type="submit"
-                className="btn btn-success btn-lg"
+                className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                 style={{ marginTop: "20%" }}
               >
                 LogIn

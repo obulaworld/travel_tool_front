@@ -18,7 +18,11 @@ class IndexPage extends Component {
           </Link>
         </button>
         {click ? (
-          <button type="button" style={{ textDecoration: 'none', color:"white" }} className="Btn-log">
+          <button
+          type="button"
+          style={{ textDecoration: 'none', color:'white', height:'100%' }}
+          className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent Btn-log"          
+          >
           I HAVE BEEN CLICKED
           </button>
         ):(
