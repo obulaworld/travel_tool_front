@@ -34,9 +34,17 @@ List of libraries, tools, etc needed (e.g. yarn, node.js, python, etc)
 - Install project dependencies `yarn install`
 - Run the server `yarn start`
 
-### Run The Service
+### Run The Service Using Docker
 
-TODO - List of steps to run the service (e.g. docker commands)
+Make sure you have these installed:
+- yarn
+- docker
+
+For development purposes run
+`./docker.sh development`
+
+For production run
+`./docker.sh production`
 
 ## Testing
 
