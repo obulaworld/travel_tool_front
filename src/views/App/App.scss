@@ -1,31 +1,31 @@
-@import url('../../../node_modules/material-design-lite/material.css');
+@import url("../../../node_modules/material-design-lite/material.css");
 @font-face{
-  font-family: 'DIN Pro Black';
-  src: url('../../fonts/FontFont - DINPro-Black.otf');
+  font-family: "DIN Pro Black";
+  src: url("../../fonts/FontFont - DINPro-Black.otf");
 }
 @font-face{
-  font-family: 'DIN Pro Bold';
-  src: url('../../fonts/FontFont - DINPro-Bold.otf');
+  font-family: "DIN Pro Bold";
+  src: url("../../fonts/FontFont - DINPro-Bold.otf");
 }
 @font-face{
-  font-family: 'DIN Pro Extlight';
-  src: url('../../fonts/FontFont - DINPro-Extlight.otf');
+  font-family: "DIN Pro Extlight";
+  src: url("../../fonts/FontFont - DINPro-Extlight.otf");
 }
 @font-face{
-  font-family: 'DIN Pro Light';
-  src: url('../../fonts/FontFont - DINPro-Light.otf');
+  font-family: "DIN Pro Light";
+  src: url("../../fonts/FontFont - DINPro-Light.otf");
 }
 @font-face{
-  font-family: 'DIN Pro Light Italic';
-  src: url('../../fonts/FontFont - DINPro-LightItalic.otf');
+  font-family: "DIN Pro Light Italic";
+  src: url("../../fonts/FontFont - DINPro-LightItalic.otf");
 }
 @font-face{
-  font-family: 'DIN Pro Medium';
-  src: url('../../fonts/FontFont - DINPro-Medium.otf');
+  font-family: "DIN Pro Medium";
+  src: url("../../fonts/FontFont - DINPro-Medium.otf");
 }
 @font-face{
-  font-family: 'DIN Pro';
-  src: url('../../fonts/FontFont - DINPro.otf');
+  font-family: "DIN Pro";
+  src: url("../../fonts/FontFont - DINPro.otf");
 }
 
 
@@ -60,7 +60,7 @@
   margin: 50px 600px;
   padding: 10px;
   text-align: center;
-  font-family: 'DIN Pro'
+  font-family: "DIN Pro"
 }
 .Login-header {
   background-color: #0461f7;
@@ -71,5 +71,5 @@
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to { transform: rotate(360deg); -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); }
 }

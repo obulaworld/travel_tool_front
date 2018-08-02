@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Login page correctly 1`] = `
+<div
+  className="mdl-layout mdl-js-layout login-page"
+>
+  <div
+    className="mdl-layout__content"
+  >
+    <div
+      className="mdl-grid mdl-grid--no-spacing"
+    >
+      <div
+        className="mdl-cell mdl-cell--5-col"
+      >
+        <img
+          alt="Andela Logo"
+          className="login-page__andela-logo"
+          src="andela-logo.svg"
+        />
+        <p
+          className="login-page__travel-request-text"
+        >
+          Travel Requests Made Easier
+        </p>
+        <button
+          className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn"
+          type="button"
+        >
+          <img
+            alt="Google Symbol"
+            className="login-page__google-white"
+            src="Google-white.svg"
+          />
+          <span
+            className="login-page__login-to-get-started-text"
+          >
+            Login to Get Started
+          </span>
+        </button>
+        <p
+          className="login-page__how-to-book-a-trip-link"
+        >
+          <img
+            alt="Video Symbol"
+            src="video.svg"
+          />
+          <a
+            className="login-page__how-to-book-a-trip-text"
+            href="/"
+          >
+            How to book a trip
+          </a>
+        </p>
+        <p
+          className="login-page__andela-travel-policy-link"
+        >
+          <img
+            alt="File Symbol"
+            src="file.svg"
+          />
+          <a
+            className="login-page__andela-travel-policy"
+            href="/"
+          >
+            Andela travel policy
+          </a>
+        </p>
+      </div>
+      <div
+        className="mdl-cell mdl-cell--7-col"
+      >
+        <img
+          alt="Road map"
+          className="login-page__landing-page-map"
+          src="cover.svg"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
