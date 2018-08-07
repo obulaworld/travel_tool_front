@@ -1,0 +1,13 @@
+.nav-pane {
+  font-family: "DIN Pro";
+  height: 747px;
+  width: 361px;
+  border: 1px solid #E4E4E4;
+  display: flex;
+  flex-direction: column;
+
+  .scrollable-div {
+    overflow: scroll;
+    height: 100%;
+  }
+}
