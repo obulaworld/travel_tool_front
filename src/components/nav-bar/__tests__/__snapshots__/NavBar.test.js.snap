@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render NavBar component should match snapshot 1`] = `
+<header
+  className="mdl-layout__header"
+>
+  <div
+    className="mdl-layout__header-row"
+  >
+    <div
+      className="navbar__nav-size navbar__logo-icons"
+    >
+      <span
+        className="navbar__logo-icons"
+      >
+        <img
+          alt="Andela Logo"
+          src="travela.svg"
+        />
+      </span>
+    </div>
+    <div
+      className="mdl-layout-spacer"
+    />
+    <div
+      className="navbar__search-size"
+    >
+      <SearchBar />
+    </div>
+    <nav
+      className="mdl-navigation"
+    >
+      <div
+        className="navbar__nav-size"
+        id="notification"
+        onClick={[Function]}
+        role="presentation"
+      >
+        <span
+          className="material-icons mdl-badge"
+          data-badge="12"
+        >
+          <img
+            alt="Notification"
+            className="navbar__navbar-notification"
+            src="notification.svg"
+          />
+        </span>
+      </div>
+      <div
+        className="navbar__user-icon navbar__nav-size"
+      >
+        <div>
+          <span
+            className="navbar__mdl-icons"
+          >
+            <ImageLink
+              altText="Andela Logo"
+              imageClass="navbar__mdl-upic"
+              imageSrc="avatar"
+            />
+            <span
+              className="navbar__text-size"
+            >
+              Silm Momoh
+            </span>
+          </span>
+          <span>
+            <Button
+              altText="Dropdown Icon"
+              buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
+              buttonId="demo-menu-lower-right"
+              buttonType="button"
+              imageClass="navbar__mdl-Icon"
+              imageSrc="icon.svg"
+              onClick={null}
+              text="Login to Get Started"
+            />
+            <div
+              className="navbar__mdl-list"
+            >
+              <ul
+                className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                htmlFor="demo-menu-lower-right"
+              >
+                <li
+                  className="mdl-menu__item"
+                >
+                  Logout
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+`;

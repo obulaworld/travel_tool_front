@@ -1,0 +1,100 @@
+.mdl-layout__header {
+  height: 78px;
+  width: 1440px;
+  background-color: #ffffff;
+}
+
+.mdl-badge.mdl-badge:after {
+  box-sizing: border-box;
+  top: 15px;
+  right: -10px;
+  height: 17px;
+  width: 17px;
+  border: 1px solid #ffffff;
+  background-color: #0459e4;
+  color: #ffffff;
+  font-family: "DIN Pro";
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.13px;
+  line-height: 12px;
+  text-align: center;
+}
+
+.mdl-menu__item {
+  height: 21px;
+  width: 50px;
+  color: #3359db;
+  font-family: "DIN Pro";
+  font-size: 16px;
+  line-height: 21px;
+}
+.mdl-menu {
+  width: 50px;
+  height: 25px;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+.navbar {
+  &__logo-icons {
+    height: 40px;
+    width: 130px;
+    margin-top: 15px;
+  }
+
+  &__nav-size {
+    margin-right: 25px;
+  }
+  &__search-size {
+    margin-right: -40px;
+  }
+  &__navbar-notification {
+    height: 21.13px;
+    width: 16.25px;
+    margin-top: 15px;
+    color: gray;
+  }
+
+  &__user-icon {
+    height: 32px;
+    width: 161px;
+    margin: 15px 150px 0 0;
+  }
+
+  &__text-size {
+    margin: 7px;
+    color: #4f4f4f;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    height: 21px;
+    width: 90px;
+    line-height: 21px;
+  }
+
+  &__navbar-dropdown {
+    color: gray;
+  }
+
+  &__mdl-upic {
+    box-sizing: border-box;
+    height: 34px;
+    width: 34px;
+    border: 1px solid #ffffff;
+    margin-right: 2px;
+  }
+
+  &__mdl-Icons {
+    margin-bottom: 5px;
+  }
+  &__mdl-Icon {
+    height: 4.99px;
+    width: 8.99px;
+  }
+
+  &__mdl-list {
+    position: relative;
+    top: -55px;
+    left: 8px;
+    margin: 0 2px;
+  }
+}

@@ -8,6 +8,7 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={ConnectedLogin} />
     <Route path="/requests" exact component={RequireAuth(RequestsPage)} />
+    <Route path="/requests" exact component={RequestsPage} />
   </Switch>
 
 );
