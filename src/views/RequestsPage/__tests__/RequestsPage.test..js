@@ -42,7 +42,7 @@ const spy = sinon.spy(wrapper.instance(), 'onPageChange');
 describe('<RequestsPage>', () => {
   it('should render the Requests and Pagination components successfully', () => {
     expect(wrapper.find('Requests').length).toBe(1);
-    expect(wrapper.find('Requests').length).toBe(1);
+    expect(wrapper.find('Pagination').length).toBe(1);
   });
 
   it('calls the onPageChange method', () => {

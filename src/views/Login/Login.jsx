@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Cookies from 'cookies-js';
 import PropTypes from 'prop-types';
 import { setCurrentUser } from '../../redux/actionCreator';
-import andelaLogo from '../../images/andela-logo.svg';
+import travelaLogo from '../../images/travela-logo.svg';
 import cover from '../../images/cover.svg';
 import symbolG from '../../images/Google-white.svg';
 import videoSymbol from '../../images/video.svg';
@@ -12,18 +13,21 @@ import TextLink from '../../components/text-link/TextLink';
 import { authenticationMessage } from '../../helper/toast';
 
 export class Login extends Component {
-  componentDidMount() {
-    this.authenticated();
-  }
+    componentDidMount() {
+      this.authenticated();
+    }
 
-    authenticated = () => {
+    authenticated () {
       const { isAuthenticated, history, setCurrentUser } = this.props;
       if (isAuthenticated) {
+        if (!Cookies.get('login-status')) {
+          Cookies.set('login-status', 'true');
+          authenticationMessage();
+        }
         history.push('/requests');
-        authenticationMessage();
       }
       setCurrentUser();
-    };
+    }
 
     login() {
       const url = `${
@@ -31,7 +35,7 @@ export class Login extends Component {
       }/login?redirect_url=${process.env.REACT_APP_AUTH_REDIRECT_URL}`;
       window.location.replace(url);
     }
-
+    
     render() {
       return (
         <div className="mdl-layout mdl-js-layout login-page">
@@ -40,7 +44,7 @@ export class Login extends Component {
               {/* Add title and login button on the login page */}
               <div className="mdl-cell mdl-cell--5-col">
                 <img
-                  src={andelaLogo}
+                  src={travelaLogo}
                   alt="Andela Logo"
                   className="login-page__andela-logo"
                 />
