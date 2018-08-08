@@ -20,7 +20,7 @@ export default class NotificationItem extends PureComponent {
           src={messageOpened ? readMessageIcon : unreadMessageIcon}
           alt="message icon"
           className="msg-icon"
-        /> 
+        />
       </div>
     );
   };
@@ -40,7 +40,7 @@ export default class NotificationItem extends PureComponent {
               <span className="notification--item__info__top__name">
                 {`@${name} `}
               </span>
-              submmitted a travel request for your approval
+              submitted a travel request for your approval
             </div>
           </div>
           {this.renderNotificationItemMetaInfo()}
@@ -52,12 +52,12 @@ export default class NotificationItem extends PureComponent {
 
 NotificationItem.defaultProps = {
   isPending: false,
-  messageOpened: false,
+  messageOpened: false
 };
 
 NotificationItem.propTypes = {
   isPending: PropTypes.bool,
   name: PropTypes.string.isRequired,
   messageOpened: PropTypes.bool,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 };

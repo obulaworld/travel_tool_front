@@ -1,15 +1,16 @@
 import React from 'react';
-
 import { Route, Switch } from 'react-router-dom';
-
-import Login from '../views/Login/Login';
-import Requests from '../views/RequestsPage/index';
+import ConnectedLogin from '../views/Login/Login';
+import RequestsPage from '../views/RequestsPage/RequestsPage';
+import RequireAuth from '../hoc/authHoc';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={Login} />
-    <Route exact path="/requests" component={Requests} />
+    <Route path="/" exact component={ConnectedLogin} />
+    <Route path="/requests" exact component={RequireAuth(RequestsPage)} />
   </Switch>
+
 );
+
 export default Routes;
 

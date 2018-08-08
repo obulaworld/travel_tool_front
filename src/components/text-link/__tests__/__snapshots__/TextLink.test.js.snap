@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render the text-link component 1`] = `
+exports[`Test Link should render the text-link component 1`] = `
 <p
   className=""
 >

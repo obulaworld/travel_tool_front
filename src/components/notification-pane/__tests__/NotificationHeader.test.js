@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';// eslint-disable-line
 
-import NotificationHeader
-  from '../NotificationHeader';
-  import testImage from '../../../images/logo.svg';
+import NotificationHeader from '../NotificationHeader';
 
 
 describe('Notification Header Component', () => {

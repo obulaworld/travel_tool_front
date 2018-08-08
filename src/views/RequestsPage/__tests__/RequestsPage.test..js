@@ -1,6 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
-import RequestsPage from '../index';
+import RequestsPage from '../RequestsPage';
 
 const props = {
   requests: [

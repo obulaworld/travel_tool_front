@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
 import './_notificationContainer.scss';
 import image from '../../images/logo.svg';
 import NotificationItem from './NotificationItem';
@@ -25,8 +24,8 @@ export default class NotificationContainer extends PureComponent {
     const { title, pendingNotifications, generalNotifications } = this.props;
     const customClass = title === 'Pending Approvals' ? 'pending' : 'general';
     const number = title === 'Pending Approvals'
-    ? pendingNotifications.length
-    : generalNotifications.length;
+      ? pendingNotifications.length
+      : generalNotifications.length;
 
     return (
       <div className="notification-container">

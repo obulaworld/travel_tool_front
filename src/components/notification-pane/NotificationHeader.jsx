@@ -8,7 +8,7 @@ export default class NotificationHeader extends PureComponent {
     return (
       <div className="notifications-header">
         <div className="notifications-header__title">
-          Notifications
+            Notifications
         </div>
         <img
           src={closeBtn}

@@ -20,8 +20,8 @@ class Requests extends PureComponent {
             request.status === 'Open'
               ? 'request__status--open'
               : request.status === 'Rejected'
-              ? 'request__status--rejected'
-              : 'request__status--approved'
+                ? 'request__status--rejected'
+                : 'request__status--approved'
           }
         >
           {request.status}
@@ -84,17 +84,17 @@ class Requests extends PureComponent {
       <div className="table__container">
         {
           requests.length
-          ? (
-            <table className="mdl-data-table mdl-js-data-table table__requests">
-              <thead>
-                { this.renderTableHead() }
-              </thead>
-              <tbody className="table__body">
-                { requests.map(request => this.renderRequest(request)) }
-              </tbody>
-            </table>
+            ? (
+              <table className="mdl-data-table mdl-js-data-table table__requests">
+                <thead>
+                  { this.renderTableHead() }
+                </thead>
+                <tbody className="table__body">
+                  { requests.map(request => this.renderRequest(request)) }
+                </tbody>
+              </table>
             )
-          : this.renderNoRequests()
+            : this.renderNoRequests()
         }
       </div>
     );

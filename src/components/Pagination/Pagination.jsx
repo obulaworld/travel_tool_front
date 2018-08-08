@@ -45,14 +45,14 @@ class Pagination extends PureComponent {
       <div>
         {
           pageCount > 0
-          ? (
-            <div className="pagination">
-              { this.renderButton('previous-button', previousButtonDisabled, previousPage, 'Previous') }
-              { this.renderPage(currentPage, pageCount) }
-              { this.renderButton('next-button', nextButtonDisabled, nextPage, 'Next') }
-            </div>
-          )
-          : null
+            ? (
+              <div className="pagination">
+                { this.renderButton('previous-button', previousButtonDisabled, previousPage, 'Previous') }
+                { this.renderPage(currentPage, pageCount) }
+                { this.renderButton('next-button', nextButtonDisabled, nextPage, 'Next') }
+              </div>
+            )
+            : null
         }
       </div>
     );

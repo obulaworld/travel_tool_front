@@ -21,8 +21,14 @@ export default class NotificationPane extends PureComponent {
       <div className="nav-pane">
         <NotificationHeader />
         <div className="scrollable-div">
-          <NotificationContainer title="Pending Approvals" pendingNotifications={pendingNotifications} />
-          <NotificationContainer title="General Notifications" generalNotifications={generalNotifications} />
+          <NotificationContainer
+            title="Pending Approvals"
+            pendingNotifications={pendingNotifications}
+          />
+          <NotificationContainer
+            title="General Notifications"
+            generalNotifications={generalNotifications}
+          />
         </div>
       </div>
     );

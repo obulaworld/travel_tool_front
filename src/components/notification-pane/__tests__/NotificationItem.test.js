@@ -1,13 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';// eslint-disable-line
-
-import NotificationItem
-  from '../NotificationItem';
-  import testImage from '../../../images/logo.svg';
+import { shallow } from 'enzyme';
+import NotificationItem from '../NotificationItem';
+import testImage from '../../../images/logo.svg';
 
 
 describe('Notification Item Component', () => {
-
   const props = {
     isPending: true,
     name: 'Ademola Ariya',
