@@ -73,13 +73,6 @@ export class Login extends Component {
                   altText="Video Symbol"
                   text="How to book a trip"
                 />
-                <TextLink
-                  imageSrc={videoSymbol}
-                  textLinkClass="login-page__how-to-book-a-trip-link"
-                  textClass="login-page__how-to-book-a-trip-text"
-                  altText="Video Symbol"
-                  text="How to book a trip"
-                />
 
                 <TextLink
                   imageSrc={fileSymbol}
@@ -89,13 +82,6 @@ export class Login extends Component {
                   text="Andela travel policy"
                 />
 
-                <TextLink
-                  imageSrc={fileSymbol}
-                  textLinkClass="login-page__andela-travel-policy-link"
-                  textClass="login-page__andela-travel-policy"
-                  altText="File Symbol"
-                  text="Andela travel policy"
-                />
               </div>
 
               {/* Add a road map on the login page */}
