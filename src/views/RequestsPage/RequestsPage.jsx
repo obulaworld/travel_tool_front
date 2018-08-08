@@ -7,7 +7,7 @@ import NotificationPane from '../../components/notification-pane/NotificationPan
 
 class RequestsPage extends Component {
   // FIX: Remove console statement and replace with actual function
-  onPageChange(page){
+  onPageChange = (page) => {
     console.log('Page Change function', page); /*eslint-disable-line */
   }
 

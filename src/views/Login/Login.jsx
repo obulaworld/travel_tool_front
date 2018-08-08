@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setCurrentUser } from '../../redux/actionCreator';
-import andelaLogo from '../../images/andela-logo.svg';
+import travelaLogo from '../../images/travela-logo.svg';
 import cover from '../../images/cover.svg';
 import symbolG from '../../images/Google-white.svg';
 import videoSymbol from '../../images/video.svg';
@@ -40,7 +40,7 @@ export class Login extends Component {
               {/* Add title and login button on the login page */}
               <div className="mdl-cell mdl-cell--5-col">
                 <img
-                  src={andelaLogo}
+                  src={travelaLogo}
                   alt="Andela Logo"
                   className="login-page__andela-logo"
                 />

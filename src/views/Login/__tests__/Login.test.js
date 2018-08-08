@@ -1,5 +1,6 @@
 import React from 'react';
 import { Login } from '../Login';
+import TextLink from '../../../components/text-link/TextLink';
 
 const props = {
   setCurrentUser: () => {},
@@ -14,8 +15,11 @@ const wrapper = shallow(<Login {...props} />);
 
 describe('Login Component', () => {
   it('should render Login page correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
+    expect(wrapper.find(TextLink)).toHaveLength(2);
+    expect(wrapper.find('button')).toHaveLength(1);
+    expect(wrapper.find('img')).toHaveLength(3);
+    expect(wrapper.find('p')).toHaveLength(1);
+    });
 
   it('should be find the Login button', () => {
     expect(wrapper.find('button').exists).toBeTruthy();   
