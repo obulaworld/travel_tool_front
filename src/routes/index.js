@@ -3,12 +3,13 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Login from '../views/Login/Login';
-import RequestsPage from '../views/RequestsPage';
+import Requests from '../views/RequestsPage/index';
 
 const Routes = () => (
   <Switch>
-    <Route path="/" exact component={Login} />
-    <Route path="/requests" component={RequestsPage} />
+    <Route exact path="/" component={Login} />
+    <Route exact path="/requests" component={Requests} />
   </Switch>
 );
 export default Routes;
+

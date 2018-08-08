@@ -40,7 +40,7 @@ class Login extends Component {
                 altText="Video Symbol"
                 text="How to book a trip"
               />
-              
+
               <TextLink
                 imageSrc={fileSymbol}
                 textLinkClass="login-page__andela-travel-policy-link"

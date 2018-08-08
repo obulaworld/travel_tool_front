@@ -18,7 +18,7 @@
         }
       },
       "rules": {
-        "quotes": 2,
+        "quotes": ["error", "single"],
         "new-cap": 0,
         "no-console": 1,
         "no-debugger": 1,
@@ -83,6 +83,9 @@
         "mocha": true
       },
       "globals": {
-        "window": true
+        "window": true,
+        "shallow": true,
+        "mount": true,
+        "render": true
       }
 }

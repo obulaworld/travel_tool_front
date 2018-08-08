@@ -7,4 +7,4 @@ exclude_patterns:
 - "**/tests/"
 - "**/__tests__/"
 - "/config/"
-- "src/redux/store/__test__/" 
+- "src/redux/store/__test__/"
