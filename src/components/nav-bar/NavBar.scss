@@ -1,4 +1,16 @@
-.mdl-badge.navbar__badge:after {
+.mdl-layout__header {
+  height: 78px;
+  width: 1440px;
+  background-color: #ffffff;
+  box-shadow: none;
+  border-bottom: 1px solid #E9E9E9;
+}
+
+.mdl-layout__header-row {
+  padding: 0 40px 0 51px;
+}
+
+.mdl-badge.mdl-badge:after {
   box-sizing: border-box;
   top: 15px;
   right: -10px;

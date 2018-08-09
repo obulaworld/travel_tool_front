@@ -6,9 +6,7 @@ toast.options = {
   positionClass: 'toast-top-center',
 };
 
-export const  notAuthenticationMessage = () =>
-  toast.error('Login with your Andela email');
-
-
-export const  authenticationMessage = () =>
+const authenticationMessage = () =>
   toast.success('Login Successful');
+
+export default authenticationMessage;

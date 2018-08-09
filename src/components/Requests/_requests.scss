@@ -43,7 +43,7 @@ $font-normal: 'DIN Pro';
   }
 
   &__container {
-    margin: 25px 0 0 61px;
+// margin: 25px 0 0 61px;
     background-color: #F8F8F8;
   }
 
@@ -78,6 +78,7 @@ $font-normal: 'DIN Pro';
 
   &__requests {
     font-family: $font-normal;
+    // width: 91.35%; // changed this the width is constant, percentages makes it smaller when the notification pane is showing
     width: 1040px;
     text-align: center;
     color: $table-font-color;

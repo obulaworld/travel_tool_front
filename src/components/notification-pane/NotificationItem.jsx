@@ -17,6 +17,7 @@ export default class NotificationItem extends PureComponent {
           {isPending && 'View Details'}
         </span>
         <img
+          role="presentation"
           src={messageOpened ? readMessageIcon : unreadMessageIcon}
           alt="message icon"
           className="msg-icon"
@@ -26,11 +27,11 @@ export default class NotificationItem extends PureComponent {
   };
 
   render() {
-    const { isPending, name, image } = this.props;
-    const customClass = isPending ? 'general' : '';
+    const { name, image, messageOpened } = this.props;
+    const bgColorClass = messageOpened ? 'message-opened' : '';
 
     return (
-      <div className={`notification-item ${customClass}`}>
+      <div className={`notification-item ${bgColorClass}`}>
         <div className="notification-item__image__container">
           <img src={image} alt="" className="notification-item__image" />
         </div>

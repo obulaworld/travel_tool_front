@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import NotificationHeader from './NotificationHeader';
 import NotificationContainer from './NotificationContainer';
 
@@ -17,9 +19,10 @@ const pendingNotifications = notifications.filter(notification => {
 
 export default class NotificationPane extends PureComponent {
   render() {
+    const { onCloseNotificationPane } = this.props;
     return (
       <div className="nav-pane">
-        <NotificationHeader />
+        <NotificationHeader onCloseNotificationPane={onCloseNotificationPane} />
         <div className="scrollable-div">
           <NotificationContainer
             title="Pending Approvals"
@@ -34,3 +37,7 @@ export default class NotificationPane extends PureComponent {
     );
   }
 }
+
+NotificationPane.propTypes = {
+  onCloseNotificationPane: PropTypes.func.isRequired
+};

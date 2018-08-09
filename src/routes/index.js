@@ -12,7 +12,6 @@ const Routes = () => (
     {
       // FIX: The following routes to move to Requests once their components are developed
     }
-    <Route path="/requests/my-requests" exact component={RequireAuth(RequestsPage)} />
     <Route path="/requests/my-approvals" exact component={RequireAuth(RequestsPage)} />
   </Switch>
 

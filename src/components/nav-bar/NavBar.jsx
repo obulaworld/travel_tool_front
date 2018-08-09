@@ -20,6 +20,7 @@ import './NavBar.scss';
  */
 
 class NavBar extends PureComponent {
+
   renderLogo() {
     return (
       <span className="navbar__logo-icons">
@@ -73,6 +74,7 @@ class NavBar extends PureComponent {
       </div>
     );
   }
+
   render() {
     return (
       <header className="mdl-layout__header navbar__layout_header">

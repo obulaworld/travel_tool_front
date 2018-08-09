@@ -31,7 +31,7 @@ export class LeftSideNavItem extends PureComponent {
     super(props);
     this.dropdownHelper = new DropdownHelper();
     this.state = {
-      dropdownOpen: false,
+      dropdownOpen: true,
     };
   }
 
@@ -57,11 +57,16 @@ export class LeftSideNavItem extends PureComponent {
     return (activeNavItem === this) || match.path.startsWith(link_to);
   }
 
-  handleClicked = () => {
+  handleClicked = (event) => {
     const {setActiveNavItem} = this.context;
-    setActiveNavItem(this);
-    const {dropdownOpen} = this.state;
-    this.setState({dropdownOpen: !dropdownOpen});
+    const {isDropdown} = this.props;
+    if(isDropdown) {
+      setActiveNavItem(this);
+      const {dropdownOpen} = this.state;
+      this.setState({dropdownOpen: !dropdownOpen});
+    } else {
+      setActiveNavItem(this);
+    }
   }
 
   render() {

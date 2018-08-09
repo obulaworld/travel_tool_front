@@ -7,7 +7,7 @@ const DropdownItem = (props) => {
   const { children, link_to } = props;
 
   return (
-    <NavLink to={link_to} className="dropdown-item">
+    <NavLink exact to={link_to} className="dropdown-item">
       {children}
     </NavLink>
   );

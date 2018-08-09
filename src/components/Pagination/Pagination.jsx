@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import './_pagination.scss';
 import PropTypes from 'prop-types';
 
@@ -42,7 +42,7 @@ class Pagination extends PureComponent {
     const nextPage = currentPage + 1;
 
     return (
-      <div>
+      <Fragment>
         {
           pageCount > 0
             ? (
@@ -54,7 +54,7 @@ class Pagination extends PureComponent {
             )
             : null
         }
-      </div>
+      </Fragment>
     );
   }
 }

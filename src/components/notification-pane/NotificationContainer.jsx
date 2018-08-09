@@ -10,6 +10,7 @@ export default class NotificationContainer extends PureComponent {
     return notifications.map(
       notification => (
         <NotificationItem
+          id={notification.name}
           key={notification.name}
           isPending={notification.isPending}
           name={notification.name}
