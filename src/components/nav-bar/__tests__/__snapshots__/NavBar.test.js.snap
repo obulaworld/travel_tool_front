@@ -72,7 +72,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
               buttonId="demo-menu-lower-right"
               buttonType="button"
               imageClass="navbar__mdl-Icon"
-              imageSrc="icon.svg"
+              imageSrc="drop-down-icon.svg"
               onClick={null}
               text="Login to Get Started"
             />

@@ -1,0 +1,39 @@
+.new-requests {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 50px;
+    height: 36px;
+    margin-bottom: 46px;
+
+  .requests {
+        height: 23px;
+        width: 89px;
+        color: #4F4F4F;
+        font-family: "DIN Pro";
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 23px;
+    }
+
+  .btn-new-request{
+        height: 36px;
+        width: 124px;
+        border: 1px solid #3359DB;
+        border-radius: 1px;
+        background-color: #FFFFFF;
+    }
+
+  .new-request-button-text{
+        height: 18px;
+        width: 84px;
+        color: #3359DB;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+    }
+
+}

@@ -1,0 +1,27 @@
+.request-panel-header {
+    background-color: #F8F8F8;
+    height: 201.9px;
+    width: 1200px;
+    padding: 0 100px 0 60px;
+
+  .NewRequests {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        top: 50px;
+        height: 36px;
+        margin-bottom: 46px;
+    }
+
+  .open-requests{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        top: 50px;
+        height: 36px;
+    }
+
+}
+

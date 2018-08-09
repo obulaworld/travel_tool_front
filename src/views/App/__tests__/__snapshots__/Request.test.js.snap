@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render request header correctly 1`] = `
+<div
+  className="request-panel-header"
+>
+  <div
+    className="new-requests"
+  >
+    <div>
+      <span
+        className="requests"
+      >
+        REQUESTS
+      </span>
+    </div>
+    <div>
+      <button
+        className="btn-new-request"
+        type="button"
+      >
+        <span
+          className="new-request-button-text"
+        >
+          New Request
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="open-requests"
+  >
+    <div
+      className="button-group"
+    >
+      <button
+        className="bg-btn bg-btn--active"
+        type="button"
+      >
+        All
+      </button>
+      <button
+        className="bg-btn bg-btn--with-badge"
+        type="button"
+      >
+        <span
+          className="label"
+        >
+          Open Reqeusts
+        </span>
+        <span
+          className="badge"
+        >
+          3
+        </span>
+      </button>
+      <button
+        className="bg-btn"
+        type="button"
+      >
+        Past Requests
+      </button>
+    </div>
+    <div
+      className="cell-item-per-page"
+    >
+      <div
+        className="cell-items-per-page-text"
+      >
+        <span
+          className="items-per-page-text"
+        >
+          Items per page
+        </span>
+      </div>
+      <div
+        className="divider"
+      />
+      <div
+        className="items-per-page-paginator"
+      >
+        <div
+          className="paginator-counter"
+        >
+          <span
+            className="paginator-counter"
+          >
+            10
+          </span>
+        </div>
+        <div
+          className="paginator-counter"
+        >
+          <span>
+            <img
+              alt="Andela Logo"
+              src="drop-down-icon.svg"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -20,11 +20,11 @@ class TextLink extends PureComponent {
 }
 
 TextLink.propTypes = {
-    imageSrc: PropTypes.string.isRequired,
-    textLinkClass: PropTypes.string,
-    textClass: PropTypes.string,
-    altText: PropTypes.string,
-    text: PropTypes.string,
+  imageSrc: PropTypes.string.isRequired,
+  textLinkClass: PropTypes.string,
+  textClass: PropTypes.string,
+  altText: PropTypes.string,
+  text: PropTypes.string,
 };
 
 TextLink.defaultProps = {

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import travela from '../../images/travela.svg';
-import icon from '../../images/icon.svg';
+import icon from '../../images/drop-down-icon.svg';
 import notification from '../../images/notification.svg';
 import SearchBar from '../search-bar/SearchBar';
 import Button from '../buttons/Buttons';

@@ -6,6 +6,7 @@ import NavBar from '../../components/nav-bar/NavBar';
 import upic from '../../images/upic.svg';
 import './_index.scss';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
+import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
 
 class RequestsPage extends Component {
   // FIX: Remove console statement and replace with actual function
@@ -18,6 +19,7 @@ class RequestsPage extends Component {
     const { requests, pagination } = requestsData;
     return(
       <div>
+        <RequestPanelHeader />
         <NavBar avatar={upic} onNotificationToggle={onNotificationToggle} />
         <NotificationPane />
         <Requests requests={requests} />

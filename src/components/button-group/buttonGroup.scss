@@ -1,0 +1,61 @@
+.button-group{
+    width: auto;
+    display: flex;
+    height: 36px;
+    align-items: center;
+}
+
+.bg-btn {
+    height: 36px;
+    width: auto;
+    border: 1px solid #D4D4D4;
+    border-radius: 1px;
+    background-color: #F8F8F8;
+    color: #999999;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    margin-right: 10px;
+    padding: 9px 21px;
+
+  &.bg-btn--active {
+        border: 1px solid #3359DB;
+        border-radius: 1px;
+        background-color: #3359DB;
+        color: #FFFFFF;
+    }
+
+  &.bg-btn--with-badge {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+      span.bg-btn__label {
+            color: #999999;
+            font-family: "DIN Pro";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 14px;
+            text-align: right;
+        }
+
+      span.badge{
+            height: 15px;
+            width: 15px;
+            background-color: #3359DB;
+            border-radius: 50%;
+            color: #FFFFFF;
+            font-family: "DIN Pro";
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 15px;
+            text-align: center;
+            margin-left: 4px;
+        }
+
+    }
+
+}
+
+
