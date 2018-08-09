@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LeftSideNavItems /> renders correctly 1`] = `
+Array [
+  Array [
+    <a
+      aria-current={null}
+      className="left-side-nav-item"
+      href="/requests"
+      onClick={[Function]}
+>
+      <div
+            className="left-side-nav-item__left-icon"
+      >
+            <img
+                  alt="icon"
+                  src="test.svg"
+            />
+      </div>
+      <div
+            className="left-side-nav-item__nav-text"
+      >
+            Requests
+      </div>
+      <div
+            className="dropdown-icon inactive"
+      >
+            <img
+                  alt="dropdown"
+                  src="dropdown_inactive.svg"
+            />
+      </div>
+</a>,
+    <div
+      className="left-side-nav-item__dropdown-content inactive"
+>
+      <a
+            aria-current={null}
+            className="dropdown-item"
+            href="/requests/my-requests"
+            onClick={[Function]}
+      >
+            My Requests
+      </a>
+      <a
+            aria-current={null}
+            className="dropdown-item"
+            href="/requests/my-approvals"
+            onClick={[Function]}
+      >
+            My Approvals
+      </a>
+</div>,
+  ],
+  <a
+    aria-current={null}
+    className="left-side-nav-item"
+    href="/settings"
+    onClick={[Function]}
+>
+    <div
+        className="left-side-nav-item__left-icon"
+    >
+        <img
+            alt="icon"
+            src="test.svg"
+        />
+    </div>
+    <div
+        className="left-side-nav-item__nav-text"
+    >
+        Settings
+    </div>
+</a>,
+]
+`;

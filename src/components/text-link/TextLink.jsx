@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './TextLink.scss';
 
 class TextLink extends PureComponent {
- 
+
   render(){
     const { imageSrc, textLinkClass, textClass, altText, text } = this.props;
     return (
@@ -12,7 +12,7 @@ class TextLink extends PureComponent {
         <img src={imageSrc} alt={altText} />
         <a href="/" className={textClass}>
           {text}
-                 
+
         </a>
       </p>
     );
@@ -20,11 +20,11 @@ class TextLink extends PureComponent {
 }
 
 TextLink.propTypes = {
-    imageSrc: PropTypes.string.isRequired,
-    textLinkClass: PropTypes.string,
-    textClass: PropTypes.string,
-    altText: PropTypes.string,
-    text: PropTypes.string,
+  imageSrc: PropTypes.string.isRequired,
+  textLinkClass: PropTypes.string,
+  textClass: PropTypes.string,
+  altText: PropTypes.string,
+  text: PropTypes.string,
 };
 
 TextLink.defaultProps = {

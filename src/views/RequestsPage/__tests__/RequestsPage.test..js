@@ -5,7 +5,7 @@ import RequestsPage from '../RequestsPage';
 const props = {
   requests: [
     {
-      'id':1,
+      'id':'745923RTF',
       'destination':'Lagos',
       'origin':'Nairobi',
       'duration':'3 days',
@@ -13,7 +13,7 @@ const props = {
       'status':'Open'
     },
     {
-      'id':2,
+      'id':'745923RTF',
       'destination':'New York',
       'origin':'Nairobi',
       'duration':'3 days',
@@ -21,7 +21,7 @@ const props = {
       'status':'Rejected'
     },
     {
-      'id':3,
+      'id':'745923RTF',
       'destination':'Kampala',
       'origin':'Nairobi',
       'duration':'3 days',

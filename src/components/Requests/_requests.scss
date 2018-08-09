@@ -70,6 +70,10 @@ $font-normal: 'DIN Pro';
     color: $table-font-color;
     border-bottom: 1px solid #EBEBEB;
     padding: 13px 30px !important;
+
+    &--last {
+      padding-left: 0 !important;
+    }
   }
 
   &__requests {
@@ -89,20 +93,19 @@ $font-normal: 'DIN Pro';
 
     &__status {
       border-right: 1px solid $border-color;
+      padding: 0 !important;
     }
 
     &__destination {
       color: $primary-color;
       border-left: 1px solid $border-color;
-      width: 39%;
+      width: 23.2%;
     }
   }
 
   &__request-menu {
     @include fontStyle(16px, 18px, 400);
     color: #999;
-    font-size: 16px;
-    line-height: 18px;
     margin-left: 39px;
   }
 }

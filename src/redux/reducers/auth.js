@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import userDetails from '../../helper/userDetails';
+import { userDetails } from '../../helper/userDetails';
 
 const initialState = {
   isAuthenticated: userDetails().isAuthenticated,

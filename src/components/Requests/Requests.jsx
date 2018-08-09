@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import './_requests.scss';
 
 class Requests extends PureComponent {
@@ -37,6 +37,9 @@ class Requests extends PureComponent {
     return (
       <tr key={request.id} className="table__row">
         <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data">
+          {request.id}
+        </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
           {request.destination}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -60,6 +63,9 @@ class Requests extends PureComponent {
     return (
       <tr>
         <th className="mdl-data-table__cell--non-numeric table__head">
+          Request ID
+        </th>
+        <th className="mdl-data-table__cell--non-numeric table__head">
           Destination
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
@@ -71,7 +77,7 @@ class Requests extends PureComponent {
         <th className="mdl-data-table__cell--non-numeric table__head">
           Start Date
         </th>
-        <th className="mdl-data-table__cell--non-numeric table__head">
+        <th className="mdl-data-table__cell--non-numeric table__head table__head--last">
           Status
         </th>
       </tr>
@@ -102,7 +108,7 @@ class Requests extends PureComponent {
 }
 
 Requests.propTypes = {
-  requests: propTypes.array.isRequired
+  requests: PropTypes.array.isRequired
 };
 
 export default Requests;
