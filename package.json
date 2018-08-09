@@ -15,6 +15,7 @@
     "eslint-plugin-react": "^7.9.1",
     "jsdoc": "^3.5.5",
     "node-sass": "^4.9.2",
+    "nsp": "^3.2.1",
     "prettier-eslint": "^8.8.2",
     "sass-loader": "^7.0.3",
     "sinon": "^6.1.4",
@@ -83,8 +84,6 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/config/setupTests.js",
-    "testPathIgnorePatterns": ["<rootDir>/config/setupTests.js"],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}",
       "!src/index.js",
@@ -110,7 +109,8 @@
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/src/index.js"
+      "<rootDir>/src/index.js",
+      "<rootDir>/config/setupTests.js"
     ],
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"

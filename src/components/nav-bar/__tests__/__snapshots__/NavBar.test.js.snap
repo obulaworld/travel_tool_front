@@ -2,7 +2,7 @@
 
 exports[`Render NavBar component should match snapshot 1`] = `
 <header
-  className="mdl-layout__header"
+  className="mdl-layout__header navbar__layout_header"
 >
   <div
     className="mdl-layout__header-row"
@@ -37,7 +37,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
         role="presentation"
       >
         <span
-          className="material-icons mdl-badge"
+          className="material-icons mdl-badge navbar__badge"
           data-badge="12"
         >
           <img
@@ -80,11 +80,11 @@ exports[`Render NavBar component should match snapshot 1`] = `
               className="navbar__mdl-list"
             >
               <ul
-                className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu"
                 htmlFor="demo-menu-lower-right"
               >
                 <li
-                  className="mdl-menu__item"
+                  className="mdl-menu__item navbar__menu-item"
                 >
                   Logout
                 </li>

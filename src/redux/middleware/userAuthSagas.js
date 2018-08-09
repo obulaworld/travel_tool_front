@@ -1,5 +1,5 @@
 import { put, takeLatest, call  } from 'redux-saga/effects';
-import userDetails from '../../helper/userDetails';
+import { userDetails } from '../../helper/userDetails';
 import {setCurrentUser,
   setCurrentUserSuccess,
   setCurrentUserFailure} from '../actionCreator';

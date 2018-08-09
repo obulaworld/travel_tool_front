@@ -2,11 +2,11 @@
 
 exports[`Render SearchBar component should match snapshot 1`] = `
 <div
-  className="mdl-search"
+  className="mdl-search searchbar__search"
 >
   <img
     alt="Search Icon"
-    className="mdl-search-icon"
+    className="searchbar__search-icon"
     src="Loupe.svg"
   />
   <form

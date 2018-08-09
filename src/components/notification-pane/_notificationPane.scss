@@ -3,8 +3,10 @@
   height: 747px;
   width: 361px;
   border: 1px solid #E4E4E4;
+  border-top: none;
   display: flex;
   flex-direction: column;
+  background-color: #fff;
 
   .scrollable-div {
     overflow: scroll;

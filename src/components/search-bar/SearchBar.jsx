@@ -17,8 +17,8 @@ import './SearchBar.scss';
 class SearchBar extends PureComponent {
   render() {
     return (
-      <div className="mdl-search">
-        <img src={Loupe} alt="Search Icon" className="mdl-search-icon" />
+      <div className="mdl-search searchbar__search">
+        <img src={Loupe} alt="Search Icon" className="searchbar__search-icon" />
         <form action="#">
           <input
             className="input-format"

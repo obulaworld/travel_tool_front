@@ -1,8 +1,8 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { LeftSideNavItem } from '../../../LeftSideNavItems/LeftSideNavItem/LeftSideNavItem';
-import DropdownItem from '../../../LeftSideNavItems/DropdownItems/DropdownItem/DropdownItem';
+import { LeftSideNavItem } from '../LeftSideNavItem';
+import DropdownItem from '../../DropdownItems/DropdownItem/DropdownItem';
 
 describe('<LeftSideNavItem />', () => {
 
@@ -51,7 +51,7 @@ describe('<LeftSideNavItem />', () => {
     });
 
     it('toggles dropdown', () => {
-      const expectedStateOnClick = { dropdownOpen: true };
+      const expectedStateOnClick = { dropdownOpen: false };
 
       wrapper.find('a.left-side-nav-item').first().simulate('click');
       const stateOnClick = wrapper

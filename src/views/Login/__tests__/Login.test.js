@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookie from 'cookies-js';
 import { Login } from '../Login';
 import TextLink from '../../../components/text-link/TextLink';
 
@@ -19,7 +20,7 @@ describe('Login Component', () => {
     expect(wrapper.find('#login')).toHaveLength(1);
     expect(wrapper.find('img')).toHaveLength(2);
     expect(wrapper.find('p')).toHaveLength(1);
-    });
+  });
 
   it('should be find the Login button', () => {
     expect(wrapper.find('button').exists).toBeTruthy();   
@@ -31,4 +32,10 @@ describe('Login Component', () => {
     wrapper.find('#login').find('#login').simulate('click');
     expect(window.location.replace).toHaveBeenCalledWith(redirectUrl);
   });
+
+  it('should set user Login status to true if user is authenticated', () => {
+    const loginStatus = Cookie.get('login-status');
+    expect(loginStatus).toEqual('true');
+  });
 });
+

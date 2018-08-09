@@ -4,7 +4,7 @@ import Requests from '../Requests';
 const props = {
   requests: [
     {
-      'id':1,
+      'id':'745923RTF',
       'destination':'Lagos',
       'origin':'Nairobi',
       'duration':'3 days',
@@ -12,7 +12,7 @@ const props = {
       'status':'Open'
     },
     {
-      'id':2,
+      'id':'645923RTF',
       'destination':'New York',
       'origin':'Nairobi',
       'duration':'3 days',
@@ -20,7 +20,7 @@ const props = {
       'status':'Rejected'
     },
     {
-      'id':3,
+      'id':'545923RTF',
       'destination':'Kampala',
       'origin':'Nairobi',
       'duration':'3 days',
@@ -39,9 +39,9 @@ describe('<Requests />', () => {
   });
 
   it('adds the appropriate class based on the status of the request', () => {
-    expect(wrapper.find('#status-1').hasClass('request__status--open')).toEqual(true);
-    expect(wrapper.find('#status-2').hasClass('request__status--rejected')).toEqual(true);
-    expect(wrapper.find('#status-3').hasClass('request__status--approved')).toEqual(true);
+    expect(wrapper.find('#status-745923RTF').hasClass('request__status--open')).toEqual(true);
+    expect(wrapper.find('#status-645923RTF').hasClass('request__status--rejected')).toEqual(true);
+    expect(wrapper.find('#status-545923RTF').hasClass('request__status--approved')).toEqual(true);
   });
 
   it('should render a div when there are no requests', () => {

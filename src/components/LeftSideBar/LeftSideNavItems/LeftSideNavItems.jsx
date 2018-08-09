@@ -28,7 +28,7 @@ class LeftSideNavItems extends PureComponent {
   renderRequestsDropdownItems = () => {
     return (
       <Fragment>
-        <DropdownItem link_to="/requests/my-requests">
+        <DropdownItem link_to="/requests">
           My Requests
         </DropdownItem>
         <DropdownItem link_to="/requests/my-approvals">

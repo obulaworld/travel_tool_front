@@ -23,7 +23,7 @@ Array [
             Requests
       </div>
       <div
-            className="dropdown-icon inactive"
+            className="dropdown-icon active"
       >
             <img
                   alt="dropdown"
@@ -32,12 +32,12 @@ Array [
       </div>
 </a>,
     <div
-      className="left-side-nav-item__dropdown-content inactive"
+      className="left-side-nav-item__dropdown-content active"
 >
       <a
             aria-current={null}
             className="dropdown-item"
-            href="/requests/my-requests"
+            href="/requests"
             onClick={[Function]}
       >
             My Requests

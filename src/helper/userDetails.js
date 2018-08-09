@@ -1,7 +1,8 @@
 import Cookie from 'cookies-js';
 import jwtDecode from 'jwt-decode';
+import authenticationMessage from './toast';
 
-const userDetails = ()  => {
+export const userDetails = ()  => {
   const cookie = Cookie.get('jwt-token');
   const authChecker = cookie ? true : false;
   const decodeToken = cookie ? jwtDecode(Cookie.get('jwt-token')) : null;
@@ -12,4 +13,9 @@ const userDetails = ()  => {
   return data;
 };
 
-export default userDetails;
+export const loginStatus = () => {
+  if (!Cookie.get('login-status')) {
+    Cookie.set('login-status', 'true');
+    authenticationMessage();
+  }
+};

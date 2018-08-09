@@ -37,7 +37,7 @@ class NavBar extends PureComponent {
         className="navbar__nav-size"
         role="presentation"
       >
-        <span className="material-icons mdl-badge" data-badge="12">
+        <span className="material-icons mdl-badge navbar__badge" data-badge="12">
           <img
             src={notification}
             alt="Notification"
@@ -63,8 +63,8 @@ class NavBar extends PureComponent {
             imageSrc={icon} altText="Dropdown Icon" buttonId="demo-menu-lower-right" imageClass="navbar__mdl-Icon" buttonType="button" 
             buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons" />
           <div className="navbar__mdl-list">
-            <ul htmlFor="demo-menu-lower-right" className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect">
-              <li className="mdl-menu__item">
+            <ul htmlFor="demo-menu-lower-right" className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu">
+              <li className="mdl-menu__item navbar__menu-item">
                 Logout
               </li>
             </ul>
@@ -73,9 +73,10 @@ class NavBar extends PureComponent {
       </div>
     );
   }
+
   render() {
     return (
-      <header className="mdl-layout__header">
+      <header className="mdl-layout__header navbar__layout_header">
         <div className="mdl-layout__header-row">
           <div className="navbar__nav-size navbar__logo-icons">
             {this.renderLogo()}
