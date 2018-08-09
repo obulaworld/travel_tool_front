@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LeftSideBar /> renders correctly 1`] = `
+<div
+  className="left-sidebar"
+>
+  <div
+    className="left-sidebar__fixed_wrapper"
+  >
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "overflowY": "scroll",
+        }
+      }
+    >
+      <LeftSideNavItems
+        activeNavItem={Object {}}
+        navIconsSource={
+          Object {
+            "requestsIcon": Object {
+              "active": "bookmark_active.svg",
+              "inactive": "bookmark_inactive.svg",
+            },
+            "settingsIcon": Object {
+              "active": "settings_active.svg",
+              "inactive": "settings_inactive.svg",
+            },
+          }
+        }
+        setActiveNavItem={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,6 @@
 import React, { Component } from  'react';
 import Requests from '../../components/Requests/Requests';
+import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import Pagination from '../../components/Pagination/Pagination';
 import requestsData from '../../components/Requests/requestsData';
 import NavBar from '../../components/nav-bar/NavBar';
@@ -21,6 +22,7 @@ class RequestsPage extends Component {
       <div>
         <RequestPanelHeader />
         <NavBar avatar={upic} onNotificationToggle={onNotificationToggle} />
+        <LeftSideBar />
         <NotificationPane />
         <Requests requests={requests} />
         <Pagination
@@ -32,5 +34,6 @@ class RequestsPage extends Component {
     );
   }
 }
+
 
 export default RequestsPage;

@@ -11,8 +11,7 @@ class HeaderPagination extends PureComponent{
               Items per page
           </span>
         </div>
-        <div className="divider">
-        </div>
+        <div className="divider" />
         <div className="items-per-page-paginator">
           <div className="paginator-counter">
             <span className="paginator-counter">

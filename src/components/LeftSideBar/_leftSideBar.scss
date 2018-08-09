@@ -1,0 +1,15 @@
+.left-sidebar {
+  box-sizing: border-box;
+  margin: 0px;
+  width: 240px;
+  height: calc(100vh - 78px);
+  border-right: 1px solid #E4E4E4;
+  font-family: 'DIN Pro';
+
+  &__fixed_wrapper {
+    position: fixed;
+    top: 128px;
+    width: 240px;
+    height: calc(100vh - 128px);
+  }
+}

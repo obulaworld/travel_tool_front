@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LeftSideNavItem /> <LeftSideNavItem /> with dropdown renders as dropdown 1`] = `
+Array [
+  <a
+    aria-current={null}
+    className="left-side-nav-item"
+    href="/test-link"
+    onClick={[Function]}
+>
+    <div
+        className="left-side-nav-item__left-icon"
+    >
+        <img
+            alt="icon"
+            src="test.svg"
+        />
+    </div>
+    <div
+        className="left-side-nav-item__nav-text"
+    >
+        Test link
+    </div>
+    <div
+        className="dropdown-icon inactive"
+    >
+        <img
+            alt="dropdown"
+            src="dropdown_active.svg"
+        />
+    </div>
+</a>,
+  <div
+    className="left-side-nav-item__dropdown-content inactive"
+>
+    <a
+        aria-current={null}
+        className="dropdown-item"
+        href="/home"
+        onClick={[Function]}
+    >
+        us
+    </a>
+    <a
+        aria-current={null}
+        className="dropdown-item"
+        href="/home"
+        onClick={[Function]}
+    >
+        us
+    </a>
+</div>,
+]
+`;
+
+exports[`<LeftSideNavItem /> renders the LeftSideNavItem 1`] = `
+Array [
+  <a
+    aria-current={null}
+    className="left-side-nav-item"
+    href="/test-link"
+    onClick={[Function]}
+>
+    <div
+        className="left-side-nav-item__left-icon"
+    >
+        <img
+            alt="icon"
+            src="test.svg"
+        />
+    </div>
+    <div
+        className="left-side-nav-item__nav-text"
+    >
+        Test link
+    </div>
+    <div
+        className="dropdown-icon inactive"
+    >
+        <img
+            alt="dropdown"
+            src="dropdown_active.svg"
+        />
+    </div>
+</a>,
+  <div
+    className="left-side-nav-item__dropdown-content inactive"
+>
+    <a
+        aria-current={null}
+        className="dropdown-item"
+        href="/home"
+        onClick={[Function]}
+    >
+        us
+    </a>
+    <a
+        aria-current={null}
+        className="dropdown-item"
+        href="/home"
+        onClick={[Function]}
+    >
+        us
+    </a>
+</div>,
+]
+`;
