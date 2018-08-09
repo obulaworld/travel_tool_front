@@ -15,6 +15,7 @@
     "eslint-plugin-react": "^7.9.1",
     "jsdoc": "^3.5.5",
     "node-sass": "^4.9.2",
+    "nsp": "^3.2.1",
     "prettier-eslint": "^8.8.2",
     "sass-loader": "^7.0.3",
     "sinon": "^6.1.4",

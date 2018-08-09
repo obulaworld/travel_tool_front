@@ -1,4 +1,4 @@
-FROM node:10.7.0
+FROM node:carbon
 
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
@@ -7,7 +7,5 @@ WORKDIR /usr/src/app
 COPY build /usr/src/app
 
 # Install `serve` to run the application.
-RUN npm install -g serve
+RUN npm install -g serve@9.4.0
 
-# Set the command to start the node server.
-CMD serve -s
