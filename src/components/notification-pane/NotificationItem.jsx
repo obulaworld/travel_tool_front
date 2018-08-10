@@ -20,7 +20,7 @@ export default class NotificationItem extends PureComponent {
           role="presentation"
           src={messageOpened ? readMessageIcon : unreadMessageIcon}
           alt="message icon"
-          className="msg-icon"
+          className={messageOpened ? 'msg-icon msg-icon__opened' : 'msg-icon msg-icon__closed'}
         />
       </div>
     );
@@ -60,5 +60,5 @@ NotificationItem.propTypes = {
   isPending: PropTypes.bool,
   name: PropTypes.string.isRequired,
   messageOpened: PropTypes.bool,
-  image: PropTypes.string.isRequired
+  image: PropTypes.string.isRequired,
 };

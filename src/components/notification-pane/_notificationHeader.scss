@@ -13,10 +13,11 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 23px;
-    padding-top: 31px;
+    padding: 31px 0 15px 0;
   }
 
   &__close-btn{
-    padding: 30px 5px 0 0;
+    padding: 31px 6px 15px 0;
+    cursor: pointer;
   }
 }

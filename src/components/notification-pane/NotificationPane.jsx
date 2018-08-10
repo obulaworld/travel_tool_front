@@ -33,6 +33,7 @@ export default class NotificationPane extends PureComponent {
             generalNotifications={generalNotifications}
           />
         </div>
+        <div className="notification-item__last" />
       </div>
     );
   }
