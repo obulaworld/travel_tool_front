@@ -9,7 +9,7 @@ import symbolG from '../../images/Google-white.svg';
 import videoSymbol from '../../images/video.svg';
 import fileSymbol from '../../images/file.svg';
 import './Login.scss';
-import TextLink from '../../components/text-link/TextLink';
+import TextLink from '../../components/TextLink/TextLink';
 import { loginStatus } from '../../helper/userDetails';
 import Button from '../../components/buttons/Buttons';
 
@@ -53,17 +53,16 @@ export class Login extends Component {
               <Button
                 id="login"
                 onClick={this.login} 
+                textClass="login-page__login-to-get-started-text"
+                text="Login to Get Started"
                 imageSrc={symbolG} altText="Google Symbol" imageClass="login-page__google-white" buttonType="button"
-                buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn">
-                <span className="login-page__login-to-get-started-text">
-                    Login to Get Started
-                </span>
-              </Button>
+                buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn" />
 
               {/* Add text link on the login page */}
 
               <TextLink
                 imageSrc={videoSymbol}
+                symbolClass="login-symbol__video"
                 textLinkClass="login-page__how-to-book-a-trip-link"
                 textClass="login-page__how-to-book-a-trip-text"
                 altText="Video Symbol"
@@ -72,6 +71,7 @@ export class Login extends Component {
 
               <TextLink
                 imageSrc={fileSymbol}
+                symbolClass="login-symbol__file"
                 textLinkClass="login-page__andela-travel-policy-link"
                 textClass="login-page__andela-travel-policy"
                 altText="File Symbol"

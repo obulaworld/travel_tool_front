@@ -42,12 +42,14 @@
     font-family: "DIN Pro";
     font-size: 16px;
     line-height: 21px;
+
   }
   &__menu {
-    width: 50px;
-    height: 35px;
+    min-width: 105px;
+    height: auto;
     border-radius: 2px;
     background-color: #ffffff;
+    
   }
   &__logo-icons {
     height: 40px;
@@ -107,8 +109,8 @@
 
   &__mdl-list {
     position: relative;
-    top: -55px;
-    left: 8px;
-    margin: 0 2px;
+    top: -53px;
+    left: -11px;
+    margin: 0 1px;
   }
 }

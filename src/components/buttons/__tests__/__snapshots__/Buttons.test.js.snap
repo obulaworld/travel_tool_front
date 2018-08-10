@@ -12,5 +12,8 @@ exports[`Render SearchBar component should match snapshot 1`] = `
     className=""
     src="image"
   />
+  <span
+    className=""
+  />
 </button>
 `;
