@@ -9,7 +9,6 @@ describe('<LeftSideBar />', () => {
   });
 
   it('changes active navigation link', () => {
-    expect.assertions(2);
     const wrapper = mount(
       <MemoryRouter>
         <LeftSideBar />
@@ -22,7 +21,7 @@ describe('<LeftSideBar />', () => {
       .instance().state.activeNavItem
     ).toEqual(defaultActiveNavItem);
 
-    wrapper.find('a.left-side-nav-item').first().simulate('click');
+    wrapper.find('.nav-link').at(0).simulate('click');
     const newState = wrapper.find(LeftSideBar).instance().state;
     expect(newState.activeNavItem).not.toEqual(defaultActiveNavItem);
   });

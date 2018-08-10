@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import LeftSidebarNavItem from './LeftSideNavItem/LeftSideNavItem';
 import DropdownItem from './DropdownItems/DropdownItem/DropdownItem';
+import './_leftSideNavItems.scss';
 
 
 class LeftSideNavItems extends PureComponent {
@@ -42,12 +43,12 @@ class LeftSideNavItems extends PureComponent {
     const { navIconsSource } = this.props;
 
     return (
-      <Fragment>
+      <ul>
         <LeftSidebarNavItem isDropdown linkIcons={navIconsSource.requestsIcon} link_to="/requests" text="Requests">
           { this.renderRequestsDropdownItems() }
         </LeftSidebarNavItem>
         <LeftSidebarNavItem linkIcons={navIconsSource.settingsIcon} link_to="/settings" text="Settings" />
-      </Fragment>
+      </ul>
     );
   }
 }

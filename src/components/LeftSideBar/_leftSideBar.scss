@@ -1,13 +1,19 @@
+.sidebar {
+  position: relative;
+}
+
 .left-sidebar {
+  position: relative;
   box-sizing: border-box;
   margin: 0px;
-  width: 240px;
+  width: 100%;
   height: calc(100vh - 78px);
   font-family: 'DIN Pro';
 
   &__fixed_wrapper {
-    margin-top: 50px;
-    width: 240px;
+    position: absolute;
+    top: 40px;
+    width: 100%;
     height: calc(100vh - 128px);
   }
 }

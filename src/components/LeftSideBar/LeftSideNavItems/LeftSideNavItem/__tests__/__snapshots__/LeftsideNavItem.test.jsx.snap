@@ -2,34 +2,40 @@
 
 exports[`<LeftSideNavItem /> <LeftSideNavItem /> with dropdown renders as dropdown 1`] = `
 Array [
-  <a
-    aria-current={null}
-    className="left-side-nav-item"
-    href="/test-link"
-    onClick={[Function]}
+  <li
+    className="left-side-nav-item active"
 >
     <div
-        className="left-side-nav-item__left-icon"
+        className="nav-link"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="button"
+        tabIndex="0"
+        to="/test-link"
     >
-        <img
-            alt="icon"
-            src="test.svg"
-        />
+        <div
+            className="left-side-nav-item__left-icon"
+        >
+            <img
+                alt="icon"
+                src="test.svg"
+            />
+        </div>
+        <div
+            className="left-side-nav-item__nav-text"
+        >
+            Test link
+        </div>
+        <div
+            className="dropdown-icon active"
+        >
+            <img
+                alt="dropdown"
+                src="dropdown_active.svg"
+            />
+        </div>
     </div>
-    <div
-        className="left-side-nav-item__nav-text"
-    >
-        Test link
-    </div>
-    <div
-        className="dropdown-icon active"
-    >
-        <img
-            alt="dropdown"
-            src="dropdown_active.svg"
-        />
-    </div>
-</a>,
+</li>,
   <div
     className="left-side-nav-item__dropdown-content active"
 >
@@ -55,34 +61,40 @@ Array [
 
 exports[`<LeftSideNavItem /> renders the LeftSideNavItem 1`] = `
 Array [
-  <a
-    aria-current={null}
-    className="left-side-nav-item"
-    href="/test-link"
-    onClick={[Function]}
+  <li
+    className="left-side-nav-item active"
 >
     <div
-        className="left-side-nav-item__left-icon"
+        className="nav-link"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="button"
+        tabIndex="0"
+        to="/test-link"
     >
-        <img
-            alt="icon"
-            src="test.svg"
-        />
+        <div
+            className="left-side-nav-item__left-icon"
+        >
+            <img
+                alt="icon"
+                src="test.svg"
+            />
+        </div>
+        <div
+            className="left-side-nav-item__nav-text"
+        >
+            Test link
+        </div>
+        <div
+            className="dropdown-icon active"
+        >
+            <img
+                alt="dropdown"
+                src="dropdown_active.svg"
+            />
+        </div>
     </div>
-    <div
-        className="left-side-nav-item__nav-text"
-    >
-        Test link
-    </div>
-    <div
-        className="dropdown-icon active"
-    >
-        <img
-            alt="dropdown"
-            src="dropdown_active.svg"
-        />
-    </div>
-</a>,
+</li>,
   <div
     className="left-side-nav-item__dropdown-content active"
 >

@@ -53,7 +53,7 @@ describe('<LeftSideNavItem />', () => {
     it('toggles dropdown', () => {
       const expectedStateOnClick = { dropdownOpen: false };
 
-      wrapper.find('a.left-side-nav-item').first().simulate('click');
+      wrapper.find('.nav-link').first().simulate('click');
       const stateOnClick = wrapper
         .find(LeftSideNavItem)
         .instance()

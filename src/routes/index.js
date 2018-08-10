@@ -8,7 +8,7 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={ConnectedLogin} />
     <Route path="/requests" exact component={RequireAuth(RequestsPage)} />
-    <Route path="/settings" component={RequireAuth(RequestsPage)} />
+    <Route path="/settings" render={() => ('Settings')} />
     {
       // FIX: The following routes to move to Requests once their components are developed
     }

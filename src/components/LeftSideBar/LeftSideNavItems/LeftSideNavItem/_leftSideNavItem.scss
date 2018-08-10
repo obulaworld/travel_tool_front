@@ -10,14 +10,22 @@
   font-weight: 500;
   color: #999999;
 
+  a {
+    color: #999999;
+  }
+
   &__nav-text {
+    display: flex;
+    align-items: center;
     position: absolute;
     left: 85px;
+    height: 48px;
   }
 
   &__left-icon {
     position: absolute;
     top: 13px;
+    left: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,4 +43,8 @@
   border-color: #3359DB;
   background-color: #EEF0F6;
   border-right: 1px solid #E4E4E4;
+
+  a {
+    color: #3359DB;
+  }
 }

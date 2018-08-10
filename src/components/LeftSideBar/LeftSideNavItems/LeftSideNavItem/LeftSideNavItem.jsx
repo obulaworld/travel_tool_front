@@ -42,6 +42,11 @@ export class LeftSideNavItem extends PureComponent {
       this.setState({dropdownOpen: false});
   }
 
+  getType = () => {
+    const { isDropdown } = this.props;
+    return isDropdown? DropdownNavLink: NavLink;
+  }
+
   getDropdownElements = () => {
     const { dropdownOpen } = this.state;
     const  linkIsActive = this.isActive();
@@ -57,37 +62,50 @@ export class LeftSideNavItem extends PureComponent {
     return (activeNavItem === this) || match.path.startsWith(link_to);
   }
 
-  handleClicked = (event) => {
+  handleClicked = () => {
     const {setActiveNavItem} = this.context;
-    const {isDropdown} = this.props;
-    if(isDropdown) {
-      setActiveNavItem(this);
-      const {dropdownOpen} = this.state;
-      this.setState({dropdownOpen: !dropdownOpen});
-    } else {
-      setActiveNavItem(this);
-    }
+    setActiveNavItem(this);
+    const {dropdownOpen} = this.state;
+    this.setState({dropdownOpen: !dropdownOpen});
   }
 
   render() {
     const {text, link_to, linkIcons, isDropdown } = this.props;
     const dropdownElements = isDropdown? this.getDropdownElements(): null;
+    const status = this.isActive()? 'active': 'inactive';
+    // switch between rendering a NavLink and a DropdownNavLink
+    const NavLinkItem = this.getType();
 
     return (
       <Fragment>
-        <NavLink onClick={this.handleClicked} to={link_to} className="left-side-nav-item">
-          <div className="left-side-nav-item__left-icon">
-            <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
-          </div>
-          <div className="left-side-nav-item__nav-text">
-            {text}
-          </div>
-          { isDropdown? dropdownElements.icon: null }
-        </NavLink>
+        <li className={`left-side-nav-item ${status}`}>
+          <NavLinkItem className="nav-link" role="button" onClick={this.handleClicked} to={link_to} onKeyPress={() => {}} tabIndex="0">
+            <div className="left-side-nav-item__left-icon">
+              <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
+            </div>
+            <div className="left-side-nav-item__nav-text">
+              {text}
+            </div>
+            { isDropdown? dropdownElements.icon: null }
+          </NavLinkItem>
+        </li>
         { isDropdown? dropdownElements.items: null }
       </Fragment>
     );
   }
 }
+
+const DropdownNavLink = (props) => {
+  const { children } = props;
+  return (
+    <div {...props}>
+      {children}
+    </div>
+  );
+};
+
+DropdownNavLink.propTypes = {
+  children: PropTypes.array.isRequired,
+};
 
 export default withRouter(LeftSideNavItem);
