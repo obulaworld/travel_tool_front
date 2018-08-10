@@ -11,5 +11,4 @@ exclude_patterns:
 - "**/tests/"
 - "/config/"
 - "src/redux/store/__test__/" 
-
-
+- "scripts/"

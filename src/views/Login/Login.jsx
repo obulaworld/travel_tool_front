@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Cookies from 'cookies-js';
 import PropTypes from 'prop-types';
@@ -33,22 +33,52 @@ export class Login extends Component {
     }/login?redirect_url=${process.env.REACT_APP_AUTH_REDIRECT_URL}`;
     window.location.replace(url);
   }
+
+  renderLandPageImage() {
+    return(
+      <div className="mdl-cell mdl-cell--7-col">
+        <img
+          src={cover}
+          alt="Road map"
+          className="login-page__landing-page-map"
+        />
+      </div>
+    );
+  }
+
+  renderLinks() {
+    return (
+      <Fragment>
+        <TextLink
+          imageSrc={videoSymbol}
+          symbolClass="login-symbol__video"
+          textLinkClass="login-page__how-to-book-a-trip-link"
+          textClass="login-page__how-to-book-a-trip-text"
+          altText="Video Symbol"
+          text="How to book a trip"
+        />
+
+        <TextLink
+          imageSrc={fileSymbol}
+          symbolClass="login-symbol__file"
+          textLinkClass="login-page__andela-travel-policy-link"
+          textClass="login-page__andela-travel-policy"
+          altText="File Symbol"
+          text="Andela travel policy"
+        />
+      </Fragment>
+    );
+  }
     
   render() {
     return (
       <div className="mdl-layout mdl-js-layout login-page">
         <div className="mdl-layout__content">
           <div className="mdl-grid mdl-grid--no-spacing">
-            {/* Add title and login button on the login page */}
             <div className="mdl-cell mdl-cell--5-col">
-              <img
-                src={travelaLogo}
-                alt="Andela Logo"
-                className="login-page__andela-logo"
-              />
-
+              <img src={travelaLogo} alt="Andela Logo" className="login-page__andela-logo" />
               <p className="login-page__travel-request-text">
-                    Travel Requests Made Easier
+                Travel Requests Made Easier
               </p>
               <Button
                 id="login"
@@ -57,37 +87,9 @@ export class Login extends Component {
                 text="Login to Get Started"
                 imageSrc={symbolG} altText="Google Symbol" imageClass="login-page__google-white" buttonType="button"
                 buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn" />
-
-              {/* Add text link on the login page */}
-
-              <TextLink
-                imageSrc={videoSymbol}
-                symbolClass="login-symbol__video"
-                textLinkClass="login-page__how-to-book-a-trip-link"
-                textClass="login-page__how-to-book-a-trip-text"
-                altText="Video Symbol"
-                text="How to book a trip"
-              />
-
-              <TextLink
-                imageSrc={fileSymbol}
-                symbolClass="login-symbol__file"
-                textLinkClass="login-page__andela-travel-policy-link"
-                textClass="login-page__andela-travel-policy"
-                altText="File Symbol"
-                text="Andela travel policy"
-              />
-
+              {this.renderLinks()}
             </div>
-
-            {/* Add a road map on the login page */}
-            <div className="mdl-cell mdl-cell--7-col">
-              <img
-                src={cover}
-                alt="Road map"
-                className="login-page__landing-page-map"
-              />
-            </div>
+            {this.renderLandPageImage()}
           </div>
         </div>
       </div>

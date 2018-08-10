@@ -18,9 +18,7 @@ const auth = (state = initialState, action) => {
     };
   case types.SET_CURRENT_USER_FAILURE:
     return {
-      ...state, 
-      isAuthenticated: action.response.isAuthenticated,
-      user: action.response.user,
+      ...state,
       error: true
     };
   default: return state;

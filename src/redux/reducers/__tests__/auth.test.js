@@ -14,8 +14,6 @@ const res = {
 
 
 const error = {
-  isAuthenticated: false,
-  user: {},
   error: true
 };
 
