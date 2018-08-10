@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookie from 'cookies-js';
 import { Login } from '../Login';
-import TextLink from '../../../components/text-link/TextLink';
+import TextLink from '../../../components/TextLink/TextLink';
 
 const props = {
   setCurrentUser: () => {},

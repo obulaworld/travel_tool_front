@@ -75,6 +75,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
               imageSrc="drop-down-icon.svg"
               onClick={null}
               text="Login to Get Started"
+              textClass=""
             />
             <div
               className="navbar__mdl-list"

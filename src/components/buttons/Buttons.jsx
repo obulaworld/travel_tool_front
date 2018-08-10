@@ -19,12 +19,15 @@ class Button extends PureComponent {
       altText,
       imageClass,
       text,
+      textClass,
       onClick
     } = this.props;
     return (
       <button type="button" className={buttonClass} onClick={onClick} id={buttonId}>
         <img src={imageSrc} alt={altText} className={imageClass} />
-        {text}
+        <span className={textClass}>
+          {text}           
+        </span>
       </button>
     );
   }
@@ -37,6 +40,7 @@ Button.propTypes = {
   altText: PropTypes.string,
   imageClass: PropTypes.string,
   text: PropTypes.string,
+  textClass: PropTypes.string,
   onClick: PropTypes.func
 };
 
@@ -46,6 +50,7 @@ Button.defaultProps = {
   altText: 'Dropdown Icon',
   buttonId: 'demo-menu',
   text:'Login to Get Started',
+  textClass: '',
   onClick: null
 
 };

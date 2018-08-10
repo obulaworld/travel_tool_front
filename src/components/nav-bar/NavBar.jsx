@@ -20,7 +20,6 @@ import './NavBar.scss';
  */
 
 class NavBar extends PureComponent {
-
   renderLogo() {
     return (
       <span className="navbar__logo-icons">
