@@ -18,6 +18,8 @@
     line-height: 14px;
     margin-right: 10px;
     padding: 9px 21px;
+    cursor: pointer;
+    outline:none !important;
 
   &.bg-btn--active {
         border: 1px solid #3359DB;
@@ -57,7 +59,5 @@
     }
 
 }
-button:focus {
-    outline:0 !important;
-}
+
 
