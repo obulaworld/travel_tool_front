@@ -83,7 +83,7 @@ jobs:
       - *install_npm_packages
       - run:
           name: Generate .env file
-          commad: |
+          command: |
             chmod +x .circleci/load_env_variables.sh
             .circleci/load_env_variables.sh
       - run:
