@@ -36,7 +36,7 @@ export class Login extends Component {
 
   renderLandPageImage() {
     return(
-      <div className="mdl-cell mdl-cell--7-col">
+      <div className="mdl-cell mdl-cell--7-col mdl-cell--hide-tablet mdl-cell--hide-phone">
         <img
           src={cover}
           alt="Road map"
@@ -75,7 +75,7 @@ export class Login extends Component {
       <div className="mdl-layout mdl-js-layout login-page">
         <div className="mdl-layout__content">
           <div className="mdl-grid mdl-grid--no-spacing">
-            <div className="mdl-cell mdl-cell--5-col">
+            <div className="mdl-cell mdl-cell--5-col mdl-cell--5-col-tablet">
               <img src={travelaLogo} alt="Andela Logo" className="login-page__andela-logo" />
               <p className="login-page__travel-request-text">
                 Travel Requests Made Easier

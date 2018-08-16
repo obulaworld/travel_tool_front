@@ -9,6 +9,7 @@
 # production
 /build
 
+.env
 
 
 # misc
