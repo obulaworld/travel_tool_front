@@ -36,7 +36,16 @@ start:
 	@ ${INFO} "Build Completed successfully"
 	@ echo " "
 	@ ${INFO} "Starting local development server"
-	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) up
+	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) up web
+
+## Launch the storybook environment for component builds
+components:
+	@ ${INFO} "Building required docker images"
+	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) build storybook
+	@ ${INFO} "Build Completed successfully"
+	@ echo " "
+	@ ${INFO} "Starting storybook environment"
+	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) up -d storybook
 
 ## Stop local development server containers
 stop:

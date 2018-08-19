@@ -14,6 +14,7 @@
   - [Dependencies](#dependencies)
   - [Getting Started](#getting-started)
 - [Testing](#testing)
+- [To use Storybook](#to-use-storybook)
 - [Contribute](#contribute)
 - [Deployment](#deployment)
 
@@ -41,6 +42,12 @@ List of libraries, tools, etc needed (e.g. yarn, node.js, python, etc)
 ## Testing
 
 - Run `make test` on the terminal to run test inside containers
+
+## To use Storybook
+
+- Ensure docker is installed, to install docker click [here](https://www.docker.com/products/docker-desktop)
+- Run `make components` docker build command on the terminal to run storybook in the docker development environment server
+- On the web browser, type `http://localhost:9001` to access storybook.
 
 ## Contribute
 
