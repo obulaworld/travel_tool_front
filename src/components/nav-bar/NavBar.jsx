@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-
 import PropTypes from 'prop-types';
-
 import travela from '../../images/travela.svg';
 import icon from '../../images/drop-down-icon.svg';
 import notification from '../../images/notification.svg';

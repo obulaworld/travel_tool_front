@@ -36,7 +36,7 @@
     width: 252px;
     border-radius: 4px;
     background-color: #3359db !important;
-    margin-left: 80px;
+    margin: 0px 0px 250px 80px;
     text-transform: none;
   }
 
@@ -50,7 +50,11 @@
     line-height: 40px;
   }
 
-  &__how-to-book-a-trip-text {
+  &__link {
+    margin: 0px 0px 10px 80px;
+  }
+
+  &__link-text {
     height: 21px;
     width: 129px;
     color: #828282;
@@ -61,48 +65,8 @@
     text-decoration: underline;
   }
 
-  &__andela-travel-policy {
-    height: 21px;
-    width: 139px;
-    color: #828282;
-    font-family: "DIN Pro";
-    font-size: 16px;
-    line-height: 21px;
-    margin-left: 25.12px;
-    text-decoration: underline;
-  }
-
-  &__how-to-book-a-trip-link {
-    margin: 215px 0px 10px 80px;
-  }
-
-  &__andela-travel-policy-link {
-    margin: 0px 90px 0px 80px;
-  }
-
   &__google-white {
     margin: -7px 19px 0px 0px;
-  }
-
-  @media screen and (min-width: 1500px) {
-    &__landing-page-map {
-      width: 108%;
-      height: 100%;
-    }
-  }
-
-  @media screen and (max-width: 826px) {
-    &__how-to-book-a-trip-text {
-      font-size: 25px;
-    }
-
-    &__andela-travel-policy {
-      font-size: 25px;
-    }
-
-    &__how-to-book-a-trip-link {
-      margin-bottom: 40px;
-    }
   }
 
   @media screen and (max-width: 450px) {
@@ -111,34 +75,117 @@
     }
 
     &__travel-request-text {
-      padding: 100px 30px 70px;
+      padding: 100px 30px 0px;
       font-size: 35px;
     }
 
     &__login-btn {
       width: 200px;
-      margin-left: 30px;
-      margin-bottom: 20px;
+      margin: 0px 0px 20px 30px;
     }
 
     &__login-to-get-started-text {
-      font-size: 13px;
+      font-size: 15px;
+    }
+
+    &__link-text {
+      font-size: 15px;
+      padding: 0px 0px 100px 0px;
+    }
+
+    &__link {
+      margin: 20px 0px 15px 30px;
+    }
+
+    .login-symbol__video {
+      width: 5%;
+      margin: 8px 10px 0px -2px;
+    }
+
+    .login-symbol__file {
+      width: 4%;
+      margin: 2px 0px 0px -2px;
+    }
+
+    &__google-white {
+      margin: -2px 19px 0px 0px;
+    }
+  }
+
+  @media screen and (max-width: 1024px) and (min-width: 600px) {
+    &__link-text {
+      font-size: 20px;
+      padding-left: 20px;
     }
 
     &__andela-travel-policy {
-      font-size: 18px;
+      font-size: 25px;
     }
 
-    &__how-to-book-a-trip-text {
-      font-size: 18px;
+    &__link {
+      margin-bottom: 40px;
     }
 
-    &__how-to-book-a-trip-link {
-      margin: 40px 0px 15px 30px;
+    .login-symbol__video {
+      width: 3%;
+      margin: 2px 10px 0px -2px;
     }
 
-    &__andela-travel-policy-link {
-      margin: 0px 0px 1px 30px;
+    .login-symbol__file {
+      width: 2.8%;
+      margin: -2px 0px 0px -2px;
+    }
+  }
+
+  @media screen and (min-width: 1550px) {
+    &__landing-page-map {
+      width: 108%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (min-width: 2560px) {
+    &__andela-logo {
+      width: 25%;
+    }
+
+    &__travel-request-text {
+      font-size: 60px;
+      width: 500px;
+      line-height: 75px;
+      padding-bottom: 200px;
+    }
+
+    &__login-btn {
+      height: 70px;
+      width: 400px;
+    }
+
+    &__login-to-get-started-text {
+      height: 41px;
+      width: 162px;
+      font-size: 30px;
+      line-height: 50px;
+    }
+
+    &__google-white {
+      margin: -7px 19px 0px 0px;
+      width: 30px;
+    }
+
+    .login-symbol__video {
+      width: 1%;
+      margin: 2px 10px 0px -2px;
+    }
+
+    .login-symbol__file {
+      width: 0.9%;
+      margin: -2px 0px 0px -2px;
+    }
+
+    &__link-text {
+      font-size: 25px;
+      padding-left: 20px;
     }
   }
 }
