@@ -1,3 +1,5 @@
+@import 'approvals';
+
 $white-color : #FFF ;
 $primary-color: #3359DB;
 $border-color: #E4E4E4;
@@ -52,10 +54,16 @@ $font-normal: 'DIN Pro';
     border-color: #E4E4E4 !important;
   }
 
+  &__user_image_row {
+    padding: 13px 30px !important;
+    border-color: #E4E4E4 !important;
+  }
+
   &__row {
     border-radius: 2px;
     background-color: $white-color;
     text-align: center;
+    height: 46px;
 
     &:hover {
       box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Requests from '../Requests';
+import Table from '../index';
 
 const props = {
   requests: [
@@ -30,7 +30,7 @@ const props = {
   ]
 };
 
-const wrapper = shallow(<Requests {...props} />);
+const wrapper = shallow(<Table {...props} />);
 
 describe('<Requests />', () => {
   it('should render the requests table when there are requests', () => {
@@ -52,4 +52,5 @@ describe('<Requests />', () => {
       .toEqual('You have no requests at the moment');
   });
 });
+
 

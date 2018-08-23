@@ -1,4 +1,4 @@
-.new-requests {
+.PageHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,7 +7,7 @@
     height: 36px;
     margin-bottom: 46px;
 
-  .requests {
+    .title {
         height: 23px;
         width: 89px;
         color: #4F4F4F;
@@ -17,7 +17,7 @@
         line-height: 23px;
     }
 
-  .btn-new-request{
+    .action-btn {
         height: 36px;
         width: 124px;
         border: 1px solid #3359DB;
@@ -25,11 +25,7 @@
         background-color: #FFFFFF;
         cursor: pointer;
         outline:none !important;
-    }
-
-  .new-request-button-text{
-        height: 18px;
-        width: 84px;
+        // Text styles
         color: #3359DB;
         font-family: "DIN Pro";
         font-size: 14px;
@@ -37,5 +33,4 @@
         line-height: 18px;
         text-align: center;
     }
-
 }

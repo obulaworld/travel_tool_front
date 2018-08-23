@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {PropTypes} from 'prop-types';
-import Header from '../header/Header';
+import PageHeader from '../PageHeader';
 import ButtonGroup from '../button-group/ButtonGroup';
 import HeaderPagination from '../Pagination/HeaderPagination';
 import './Request.scss';
@@ -10,9 +10,9 @@ class RequestPanelHeader extends PureComponent {
     const {toggleNewRequestModal} = this.props;
     return (
       <div className="request-panel-header">
-        <Header toggleNewRequestModal={toggleNewRequestModal} />
+        <PageHeader title="REQUESTS" actionBtn="New Request" toggleNewRequestModal={toggleNewRequestModal} />
         <div className="open-requests">
-          <ButtonGroup />
+          <ButtonGroup buttonsType="requests" />
           <HeaderPagination />
         </div>
       </div>

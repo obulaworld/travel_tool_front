@@ -1,8 +1,46 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './_requests.scss';
+import './Table.scss';
 
-class Requests extends PureComponent {
+class Table extends PureComponent {
+  constructor (props) {
+    super(props);
+  }
+
+  renderUserImage(approval){
+    const image = approval.image;
+    if (image === 'none'){
+      return(
+        <div className="approvals__table__first__cell">
+          <p className="approvals__table__text">
+            HM
+          </p>
+        </div>
+      );
+    }
+    else if (image === 'null'){
+      return(
+        <div className="approvals__table__second__cell">
+          <p className="approvals__table__text">
+            JK
+          </p>
+        </div>
+      );
+    }
+    else{
+      return( <img src={approval.image} alt="user" className="approvals__table__image" />
+    );
+    }
+  }
+
+  renderTootTip(approval){
+    return(
+      <div className="tool__tip">
+        {approval.name}
+      </div>
+    );
+  }
+
   renderNoRequests() {
     return (
       <div className="table__requests--empty">
@@ -33,12 +71,47 @@ class Requests extends PureComponent {
     );
   }
 
-  renderRequest(request) {
-    return (
-      <tr key={request.id} className="table__row">
+  renderUserAvatar(request, avatar){
+    if (avatar){
+      return (
+        <td className="mdl-data-table__cell--non-numeric table__image">
+          {this.renderUserImage(request)}
+          {this.renderTootTip(request)}
+        </td>
+      );
+    }
+  }
+
+  renderApprovalsIdCell(request, avatar){
+    if (avatar){
+      return(
+        <td className="mdl-data-table__cell--non-numeric table__data table__id">
+          {request.id}
+        </td>
+      );
+    }
+    else{
+      return(
         <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data">
           {request.id}
         </td>
+      );
+    }
+  }
+
+  renderEmptyCell(avatar){
+    if(avatar){
+      return(
+        <th className="mdl-data-table__cell--non-numeric table__head" />
+      );
+    }
+  }
+
+  renderRequest(request, avatar) {
+    return (
+      <tr key={request.id} className="table__row">
+        {this.renderUserAvatar(request,avatar)}
+        {this.renderApprovalsIdCell(request, avatar)}
         <td className="mdl-data-table__cell--non-numeric table__data">
           {request.destination}
         </td>
@@ -58,10 +131,10 @@ class Requests extends PureComponent {
     );
   }
 
-
-  renderTableHead() {
+  renderTableHead(avatar) {
     return (
       <tr>
+        {this.renderEmptyCell(avatar)}
         <th className="mdl-data-table__cell--non-numeric table__head">
           Request ID
         </th>
@@ -85,7 +158,7 @@ class Requests extends PureComponent {
   }
 
   render() {
-    const { requests } = this.props;
+    const { requests, avatar } = this.props;
     return (
       <div className="table__container">
         {
@@ -93,10 +166,10 @@ class Requests extends PureComponent {
             ? (
               <table className="mdl-data-table mdl-js-data-table table__requests">
                 <thead>
-                  { this.renderTableHead() }
+                  { this.renderTableHead(avatar) }
                 </thead>
                 <tbody className="table__body">
-                  { requests.map(request => this.renderRequest(request)) }
+                  { requests.map(request => this.renderRequest(request, avatar)) }
                 </tbody>
               </table>
             )
@@ -107,8 +180,13 @@ class Requests extends PureComponent {
   }
 }
 
-Requests.propTypes = {
-  requests: PropTypes.array.isRequired
+Table.propTypes = {
+  requests: PropTypes.array.isRequired,
+  avatar: PropTypes.string
 };
 
-export default Requests;
+Table.defaultProps = {
+  avatar: ''
+};
+
+export default Table;

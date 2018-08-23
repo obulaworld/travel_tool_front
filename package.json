@@ -114,7 +114,8 @@
     },
     "testPathIgnorePatterns": [
       "<rootDir>/src/index.js",
-      "<rootDir>/config/setupTests.js"
+      "<rootDir>/config/setupTests.js",
+      ".storybook*"
     ],
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"

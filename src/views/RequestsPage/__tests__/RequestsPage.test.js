@@ -75,7 +75,7 @@ describe('<RequestsPage>', () => {
     const wrapper = shallow(<RequestsPage {...props} />);
     expect(wrapper.find('NavBar').length).toBe(1);
     expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
-    expect(wrapper.find('Requests').length).toBe(1);
+    expect(wrapper.find('Table').length).toBe(1);
     expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
     // Since the element is always on the DOM, the page length will always be one
     // so I'm chcking if the 'hide' class exists
@@ -99,7 +99,7 @@ describe('<RequestsPage>', () => {
     expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
     expect(wrapper.find('.sidebar .hide').exists()).toBeTruthy();
     expect(wrapper.find('.sidebar .hide').length).toBe(1);
-    expect(wrapper.find('Requests').exists()).toBeTruthy();
+    expect(wrapper.find('Table').exists()).toBeTruthy();
     expect(wrapper.find('NavBar').exists()).toBeTruthy();
     wrapper.unmount();
   });
@@ -115,7 +115,7 @@ describe('<RequestsPage>', () => {
     expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
     expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
     expect(wrapper.find('.sidebar .hide').length).toBe(0);
-    expect(wrapper.find('Requests').exists()).toBeTruthy();
+    expect(wrapper.find('Table').exists()).toBeTruthy();
     expect(wrapper.find('NavBar').exists()).toBeTruthy();
     wrapper.unmount();
   });

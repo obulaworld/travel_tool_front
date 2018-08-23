@@ -1,20 +1,16 @@
-import React, { Component } from  'react';
+import React from  'react';
 import {PropTypes} from 'prop-types';
-
 import './_index.scss';
-import upic from '../../images/upic.svg';
-
-import Requests from '../../components/Requests/Requests';
-import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
-import Pagination from '../../components/Pagination/Pagination';
-import requestsData from '../../components/Requests/requestsData';
-import NavBar from '../../components/nav-bar/NavBar';
-import NotificationPane from '../../components/notification-pane/NotificationPane';
+import Table from '../../components/Table';
+import requestsData from '../../mockData/requestsMockData';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
 import Modal from '../../components/modal/Modal';
 import { NewRequestForm } from '../../components/Forms';
 
-class RequestsPage extends Component {
+import Base from '../Base';
+
+class RequestsPage extends Base {
+
   state = {
     hideNotificationPane: true,
     hideSideBar: false,
@@ -40,9 +36,9 @@ class RequestsPage extends Component {
     });
   }
 
+
   toggleNewRequestModal = (e) => {
     const { hideNewRequestModal } = this.state;
-
     this.setState(prevState => {
       return {
         ...prevState,
@@ -51,25 +47,7 @@ class RequestsPage extends Component {
     });
   }
 
-  renderNavBar = () => {
-    return (
-      <NavBar
-        className=""
-        avatar={upic}
-        onNotificationToggle={this.onNotificationToggle}
-      />
-    );
-  }
-
-  renderLeftSideBar = (hideClass2) => {
-    return (
-      <div className={`sidebar ${hideClass2}`}>
-        <LeftSideBar />
-      </div>
-    );
-  }
-
-  renderRequestPanelHeader = () => {
+  renderRequestPanelHeader(){
     return(
       <div className="rp-requests__header">
         <RequestPanelHeader toggleNewRequestModal={this.toggleNewRequestModal} />
@@ -77,37 +55,15 @@ class RequestsPage extends Component {
     );
   }
 
-  renderRequests = (requests) => {
+  renderRequests(requests) {
     return(
       <div className="rp-table">
-        <Requests requests={requests} />
+        <Table requests={requests} />
       </div>
     );
   }
 
-  renderPagination = (pagination) => {
-    return(
-      <div className="rp-pagination">
-        <Pagination
-          currentPage={pagination.currentPage}
-          pageCount={pagination.pageCount}
-          onPageChange={this.onPageChange}
-        />
-      </div>
-    );
-  }
-
-  renderNotificationPane = (hideClass) => {
-    return(
-      <div className={`notification ${hideClass}`}>
-        <NotificationPane
-          onCloseNotificationPane={this.onCloseNotificationPane}
-        />
-      </div>
-    );
-  }
-
-  renderNewRequestForm = (hideNewRequestModal) => {
+  renderNewRequestForm(hideNewRequestModal){
     const {user} = this.props;
     return (
       <Modal

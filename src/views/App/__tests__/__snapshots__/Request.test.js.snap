@@ -5,26 +5,22 @@ exports[`should render request header correctly 1`] = `
   className="request-panel-header"
 >
   <div
-    className="new-requests"
+    className="PageHeader"
   >
     <div>
       <span
-        className="requests"
+        className="title"
       >
         REQUESTS
       </span>
     </div>
     <div>
       <button
-        className="btn-new-request"
+        className="action-btn btn-new-request"
         onClick={[Function]}
         type="button"
       >
-        <span
-          className="new-request-button-text"
-        >
-          New Request
-        </span>
+        New Request
       </button>
     </div>
   </div>
@@ -47,7 +43,7 @@ exports[`should render request header correctly 1`] = `
         <span
           className="label"
         >
-          Open Reqeusts
+          Pending Requests
         </span>
         <span
           className="badge"

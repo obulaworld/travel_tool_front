@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render approvals header correctly 1`] = `
+<div
+  className="request-panel-header"
+>
+  <PageHeader
+    actionBtn=""
+    title="APPROVALS"
+    toggleNewRequestModal={[Function]}
+  />
+  <div
+    className="open-requests"
+  >
+    <ButtonGroup
+      buttonsType="approvals"
+    />
+    <HeaderPagination />
+  </div>
+</div>
+`;
