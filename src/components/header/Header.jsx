@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import {PropTypes} from 'prop-types';
 import './_header.scss';
 
 class Header extends PureComponent{
   render(){
+    const { toggleNewRequestModal } = this.props;
     return(
       <div className="new-requests">
         <div>
@@ -12,7 +14,7 @@ class Header extends PureComponent{
         </div>
 
         <div>
-          <button type="button" className="btn-new-request">
+          <button onClick={toggleNewRequestModal} type="button" className="btn-new-request">
             <span className="new-request-button-text">
                 New Request
             </span>
@@ -22,5 +24,9 @@ class Header extends PureComponent{
     );
   }
 }
+
+Header.propTypes = {
+  toggleNewRequestModal: PropTypes.func.isRequired,
+};
 
 export default Header;

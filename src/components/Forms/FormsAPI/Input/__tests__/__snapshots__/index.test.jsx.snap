@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> renders as expected 1`] = `
+<div
+  className="form-input error"
+>
+  <label
+    htmlFor="fullname"
+  >
+    Test label
+  </label>
+  <input
+    className=""
+    error=""
+    label="Test label"
+    name="fullname"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="text"
+  />
+  <span
+    className="error"
+  >
+    This field is required
+  </span>
+</div>
+`;

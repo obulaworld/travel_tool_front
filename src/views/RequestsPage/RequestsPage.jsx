@@ -1,4 +1,5 @@
 import React, { Component } from  'react';
+import {PropTypes} from 'prop-types';
 
 import './_index.scss';
 import upic from '../../images/upic.svg';
@@ -10,11 +11,14 @@ import requestsData from '../../components/Requests/requestsData';
 import NavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
+import Modal from '../../components/modal/Modal';
+import { NewRequestForm } from '../../components/Forms';
 
 class RequestsPage extends Component {
   state = {
     hideNotificationPane: true,
-    hideSideBar: false
+    hideSideBar: false,
+    hideNewRequestModal: true
   }
   // FIX: Remove console statement and replace with actual function
   onPageChange (page) {
@@ -33,6 +37,17 @@ class RequestsPage extends Component {
     this.setState({
       hideNotificationPane: true,
       hideSideBar: false
+    });
+  }
+
+  toggleNewRequestModal = (e) => {
+    const { hideNewRequestModal } = this.state;
+
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        hideNewRequestModal: !hideNewRequestModal
+      };
     });
   }
 
@@ -57,7 +72,7 @@ class RequestsPage extends Component {
   renderRequestPanelHeader = () => {
     return(
       <div className="rp-requests__header">
-        <RequestPanelHeader />
+        <RequestPanelHeader toggleNewRequestModal={this.toggleNewRequestModal} />
       </div>
     );
   }
@@ -92,21 +107,30 @@ class RequestsPage extends Component {
     );
   }
 
+  renderNewRequestForm = (hideNewRequestModal) => {
+    const {user} = this.props;
+    return (
+      <Modal
+        toggleModal={this.toggleNewRequestModal}
+        visibility={hideNewRequestModal? 'invisible': 'visible'}
+        title="New Travel Request"
+      >
+        <NewRequestForm user={user} handleCreateRequest={(formData)=>{}} />
+      </Modal>
+    );
+  }
+
   render() {
-    const { hideNotificationPane, hideSideBar } = this.state;
-    let hideClass, leftPaddingClass;
-    if(hideNotificationPane) {
-      hideClass = 'hide';
-      leftPaddingClass = '';
-    } else {
-      hideClass = '';
-      leftPaddingClass = 'pd-left';
-    }
+    const { hideNotificationPane, hideSideBar, hideNewRequestModal } = this.state;
+    let [hideClass, leftPaddingClass] = hideNotificationPane? ['hide', '']: ['', 'pd-left'];
+
     const hideClass2 = hideSideBar ? 'hide' : '';
     const { requests, pagination } = requestsData;
+
     return(
       <div className="requests-page">
         {this.renderNavBar()}
+        {this.renderNewRequestForm(hideNewRequestModal)}
         <section className="main-section">
           {this.renderLeftSideBar(hideClass2)}
           <div className={`rp-requests ${leftPaddingClass}`}>
@@ -121,5 +145,8 @@ class RequestsPage extends Component {
   }
 }
 
+RequestsPage.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default RequestsPage;

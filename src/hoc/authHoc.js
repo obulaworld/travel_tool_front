@@ -21,16 +21,14 @@ export default function (ComposedComponent) {
 
   Authenticate.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
     history: PropTypes.shape({}).isRequired,
   };
-  
+
   const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
   });
 
   return withRouter(connect(mapStateToProps)(Authenticate));
 }
-
-
-
-

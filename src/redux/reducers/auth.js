@@ -6,7 +6,7 @@ const initialState = {
   user: userDetails().user,
   error: false
 };
-  
+
 const auth = (state = initialState, action) => {
   switch (action.type) {
   case types.SET_CURRENT_USER_SUCCESS:

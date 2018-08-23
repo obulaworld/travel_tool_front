@@ -33,6 +33,11 @@ const props = {
     currentPage: 2,
     pageCount: 4,
     onPageChange: sinon.spy(),
+  },
+  user: {
+    UserInfo: {
+      name: 'John Doe'
+    }
   }
 };
 

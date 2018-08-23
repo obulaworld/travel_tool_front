@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import RequestPanelHeader from '../../../components/RequestPanelHeader/RequestPanelHeader';
 
 it('should render request header correctly', () => {
-    const tree = renderer.create(<RequestPanelHeader />).toJSON();
+    const tree = renderer.create(
+      <RequestPanelHeader toggleNewRequestModal={()=>{}} />
+    ).toJSON();
     expect(tree).toMatchSnapshot();
 });

@@ -26,7 +26,7 @@ class Button extends PureComponent {
       <button type="button" className={buttonClass} onClick={onClick} id={buttonId}>
         <img src={imageSrc} alt={altText} className={imageClass} />
         <span className={textClass}>
-          {text}           
+          {text}
         </span>
       </button>
     );

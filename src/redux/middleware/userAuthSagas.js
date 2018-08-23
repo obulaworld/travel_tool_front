@@ -12,7 +12,7 @@ export function* setUser() {
   try {
     const response = yield call(userDetails);
     yield put(setCurrentUserSuccess(response));
-    
+
   } catch (error) {
     yield put(setCurrentUserFailure(error));
   }

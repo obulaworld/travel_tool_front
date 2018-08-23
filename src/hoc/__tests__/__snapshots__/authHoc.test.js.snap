@@ -14,5 +14,12 @@ exports[`Component: isAuthenticated User Protected Routes test suite Redirects u
     }
   }
   isAuthenticated={false}
+  user={
+    Object {
+      "UserInfo": Object {
+        "name": "John Doe",
+      },
+    }
+  }
 />
 `;

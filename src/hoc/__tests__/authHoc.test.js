@@ -27,6 +27,11 @@ describe('Component: isAuthenticated User', () => {
       },
       history: {
         push: jest.fn()
+      },
+      user: {
+        UserInfo: {
+          name: 'John Doe'
+        }
       }
     };
     mountedComponent = undefined;
@@ -39,4 +44,3 @@ describe('Component: isAuthenticated User', () => {
     });
   });
 });
-

@@ -4,8 +4,47 @@ a {
 }
 
 body {
+  background-color: #F8F8F8;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  background-color: #F8F8F8;
+}
+
+@mixin flexDisplay($flexDirection, $justifyContent, $alignItems) {
+  display: flex;
+  flex-direction: $flexDirection;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}
+
+.main-section {
+  @include flexDisplay(row, flex-start, flex-start);
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  max-width: 1440px;
+
+  .sidebar {
+    height: 100vh;
+    width: 16.667%;
+    border-right: 1px solid #E9E9E9;
+  };
+
+  .rp-requests {
+    height: 100vh;
+    flex-grow: 1;
+    padding-left: 61px;
+
+    .rp-requests__header {
+      margin-bottom: 15.1px;
+      height: 164px;
+    }
+  };
+}
+
+.hide {
+  display: none;
+}
+
+.pd-left {
+  padding-left: 10px !important;
 }

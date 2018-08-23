@@ -1,0 +1,715 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewRequestForm /> renders correctly 1`] = `
+<form
+  className="new-request"
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="personal-details"
+  >
+    <legend>
+      Personal Details
+    </legend>
+    <div
+      className="input-group"
+    >
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="fullname"
+        >
+          Your name
+          <span>
+             
+            (As it appears on your passport)
+          </span>
+        </label>
+        <input
+          className=""
+          error=""
+          label="Your name"
+          name="fullname"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value="John Doe"
+        />
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="gender"
+        >
+          Gender
+        </label>
+        <div
+          className="input "
+        >
+          <button
+            className="bg-btn bg-btn--inactive"
+            data-value="Female"
+            key="Female"
+            name="gender"
+            onClick={[Function]}
+            type="button"
+          >
+            Female
+          </button>
+          <button
+            className="bg-btn bg-btn--inactive"
+            data-value="Male"
+            key="Male"
+            name="gender"
+            onClick={[Function]}
+            type="button"
+          >
+            Male
+          </button>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="department"
+        >
+          Your department
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Talent & Development",
+                "Success",
+                "IT",
+                "Operations",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Your department"
+            name="department"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Talent & Development"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Talent & Development
+                </div>
+              </li>
+              <li
+                key="Success"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Success
+                </div>
+              </li>
+              <li
+                key="IT"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  IT
+                </div>
+              </li>
+              <li
+                key="Operations"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Operations
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="role"
+        >
+          Your role
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Software Developer",
+                "Technical Team Lead",
+                "Product Engineer",
+                "Product Coordinator",
+                "Travel Coordinator",
+                "Country Director",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Your role"
+            name="role"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Software Developer"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Software Developer
+                </div>
+              </li>
+              <li
+                key="Technical Team Lead"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Technical Team Lead
+                </div>
+              </li>
+              <li
+                key="Product Engineer"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Product Engineer
+                </div>
+              </li>
+              <li
+                key="Product Coordinator"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Product Coordinator
+                </div>
+              </li>
+              <li
+                key="Travel Coordinator"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Travel Coordinator
+                </div>
+              </li>
+              <li
+                key="Country Director"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Country Director
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="manager"
+        >
+          Your Direct Report
+          <span>
+             
+            (Manager)
+          </span>
+        </label>
+        <input
+          className=""
+          error=""
+          label="Your Direct Report"
+          name="manager"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+    </div>
+  </fieldset>
+  <fieldset
+    className="travel-details"
+  >
+    <legend>
+      Travel Details
+    </legend>
+    <div
+      className="input-group"
+    >
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="origin"
+        >
+          Which center are you based out of?
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Kampala",
+                "Lagos",
+                "Nairobi",
+                "New York",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Which center are you based out of?"
+            name="origin"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Kampala"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Kampala
+                </div>
+              </li>
+              <li
+                key="Lagos"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Lagos
+                </div>
+              </li>
+              <li
+                key="Nairobi"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Nairobi
+                </div>
+              </li>
+              <li
+                key="New York"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  New York
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="destination"
+        >
+          Which center do you intend to travel to?
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Kampala",
+                "Lagos",
+                "Nairobi",
+                "New York",
+                "Other",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Which center do you intend to travel to?"
+            name="destination"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Kampala"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Kampala
+                </div>
+              </li>
+              <li
+                key="Lagos"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Lagos
+                </div>
+              </li>
+              <li
+                key="Nairobi"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Nairobi
+                </div>
+              </li>
+              <li
+                key="New York"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  New York
+                </div>
+              </li>
+              <li
+                key="Other"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Other
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input full-width other-dest--hidden"
+      >
+        <label
+          htmlFor="otherDestination"
+        >
+          Specify travel destination
+        </label>
+        <input
+          className=""
+          error=""
+          label="Specify travel destination"
+          name="otherDestination"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="departureDate"
+        >
+          Target departure date
+        </label>
+        <div
+          className="date-wrapper "
+        >
+          <div>
+            <div
+              className="react-datepicker-wrapper"
+            >
+              <div
+                className="react-datepicker__input-container"
+              >
+                <input
+                  className=""
+                  disabled={false}
+                  name="departureDate"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder=""
+                  readOnly={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <img
+            alt="cal"
+            className="calendar-icon"
+            src="calendar_icon.svg"
+          />
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="returnDate"
+        >
+          Target return date
+        </label>
+        <div
+          className="date-wrapper "
+        >
+          <div>
+            <div
+              className="react-datepicker-wrapper"
+            >
+              <div
+                className="react-datepicker__input-container"
+              >
+                <input
+                  className=""
+                  disabled={false}
+                  name="returnDate"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder=""
+                  readOnly={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <img
+            alt="cal"
+            className="calendar-icon"
+            src="calendar_icon.svg"
+          />
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+    </div>
+  </fieldset>
+  <hr />
+  <fieldset>
+    <div
+      className="submit-area"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        type="submit"
+      >
+        Send Request
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;

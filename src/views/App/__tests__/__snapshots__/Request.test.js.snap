@@ -17,6 +17,7 @@ exports[`should render request header correctly 1`] = `
     <div>
       <button
         className="btn-new-request"
+        onClick={[Function]}
         type="button"
       >
         <span
