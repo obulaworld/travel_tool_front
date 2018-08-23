@@ -14,7 +14,7 @@ class NewRequestForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        fullname: user.UserInfo.name,
+        fullname: user ? user.UserInfo.name : '', // FIX: need to be refactor later
         gender: '',
         department: '',
         role: '',

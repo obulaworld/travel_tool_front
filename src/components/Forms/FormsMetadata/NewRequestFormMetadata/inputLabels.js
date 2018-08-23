@@ -13,7 +13,7 @@ const inputLabels = {
   },
 
   role: {
-      label: 'Your role'
+    label: 'Your role'
   },
 
   manager: {

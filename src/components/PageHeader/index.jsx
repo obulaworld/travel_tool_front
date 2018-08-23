@@ -14,13 +14,13 @@ class PageHeader extends PureComponent{
           </span>
         </div>
         {
-            actionBtn ? (
-              <div>
-                <button onClick={toggleNewRequestModal} type="button" className="action-btn btn-new-request">
-                  {actionBtn}
-                </button>
-              </div>
-            ) :
+          actionBtn ? (
+            <div>
+              <button onClick={toggleNewRequestModal} type="button" className="action-btn btn-new-request">
+                {actionBtn}
+              </button>
+            </div>
+          ) :
             ''
         }
       </div>

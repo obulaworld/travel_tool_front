@@ -29,7 +29,7 @@ class Table extends PureComponent {
     }
     else{
       return( <img src={approval.image} alt="user" className="approvals__table__image" />
-    );
+      );
     }
   }
 

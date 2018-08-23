@@ -13,9 +13,9 @@ import { loginStatus } from '../../helper/userDetails';
 import Button from '../../components/buttons/Buttons';
 
 export class Login extends Component {
-    componentDidMount() {
-      this.authenticated();
-    }
+  componentDidMount() {
+    this.authenticated();
+  }
 
   authenticated () {
     const { isAuthenticated, history, setCurrentUser } = this.props;

@@ -35,28 +35,28 @@ class Input extends PureComponent {
 
   switchInputWithProps = (type, eventHandlers) => {
     switch (type) {
-      case 'button-toggler':
+    case 'button-toggler':
       // switches mutually exclusive options like a fancy set of radio buttons
-        this.props = {
-          ...this.props,
-          onChange: eventHandlers.handleSelectTogglerOpt
-        };
-        return ButtonToggler;
+      this.props = {
+        ...this.props,
+        onChange: eventHandlers.handleSelectTogglerOpt
+      };
+      return ButtonToggler;
 
-      case 'date':
-        this.props = { // save props for date type for use in render InputElement
-          ...this.props,
-          onChange: eventHandlers.handleSelectDate,
-          onBlur: eventHandlers.handleInputBlur
-        };
-        return DateInput; // pick date Input
+    case 'date':
+      this.props = { // save props for date type for use in render InputElement
+        ...this.props,
+        onChange: eventHandlers.handleSelectDate,
+        onBlur: eventHandlers.handleInputBlur
+      };
+      return DateInput; // pick date Input
 
-      case 'dropdown-select':
-        this.props = {
-          ...this.props,
-          onChange: eventHandlers.handleSelectDropdown
-        };
-        return DropdownSelect;
+    case 'dropdown-select':
+      this.props = {
+        ...this.props,
+        onChange: eventHandlers.handleSelectDropdown
+      };
+      return DropdownSelect;
     }
   }
 

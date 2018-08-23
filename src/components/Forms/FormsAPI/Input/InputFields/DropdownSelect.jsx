@@ -37,11 +37,11 @@ export default class DropdownSelect extends Component {
         </li>
       ));
 
-      return (
-        <ul className={`select-menu select-menu--${this.getDropdownStatus()}`}>
-          {choiceItems}
-        </ul>
-      );
+    return (
+      <ul className={`select-menu select-menu--${this.getDropdownStatus()}`}>
+        {choiceItems}
+      </ul>
+    );
   }
 
   getDropdownStatus = () => {

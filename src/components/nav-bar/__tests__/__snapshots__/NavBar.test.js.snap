@@ -61,9 +61,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
             />
             <span
               className="navbar__text-size"
-            >
-              Silm Momoh
-            </span>
+            />
           </span>
           <span>
             <Button
@@ -87,7 +85,13 @@ exports[`Render NavBar component should match snapshot 1`] = `
                 <li
                   className="mdl-menu__item navbar__menu-item"
                 >
-                  Logout
+                  <div
+                    id="logout"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    Logout
+                  </div>
                 </li>
               </ul>
             </div>

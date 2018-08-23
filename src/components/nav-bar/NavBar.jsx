@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import travela from '../../images/travela.svg';
 import icon from '../../images/drop-down-icon.svg';
 import notification from '../../images/notification.svg';
 import SearchBar from '../search-bar/SearchBar';
 import Button from '../buttons/Buttons';
 import ImageLink from '../image-link/ImageLink';
+import { logoutUser } from '../../helper/userDetails';
 import './NavBar.scss';
 
 /**
@@ -17,11 +20,30 @@ import './NavBar.scss';
  *
  */
 
-class NavBar extends PureComponent {
-  renderLogo() {
+export class NavBar extends PureComponent {
+  logout = () => {
+    const { history } = this.props;
+    logoutUser(history);
+  };
+
+  logoutLink() {
     return (
-      <span className="navbar__logo-icons">
-        <img src={travela} alt="Andela Logo" />
+      <span>
+        <Button 
+          imageSrc={icon} altText="Dropdown Icon" buttonId="demo-menu-lower-right" imageClass="navbar__mdl-Icon" buttonType="button" 
+          buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons" />
+        <div className="navbar__mdl-list">
+          <ul htmlFor="demo-menu-lower-right" className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu">
+            <li className="mdl-menu__item navbar__menu-item">
+              <div
+                onClick={this.logout} 
+                id="logout"
+                role="presentation">
+              Logout
+              </div>
+            </li>
+          </ul>
+        </div>
       </span>
     );
   }
@@ -46,28 +68,25 @@ class NavBar extends PureComponent {
     );
   }
 
+  renderLogo() {
+    return (
+      <span className="navbar__logo-icons">
+        <img src={travela} alt="Andela Logo" />
+      </span>
+    );
+  }
+
   renderUserIcons() {
-    const { avatar } = this.props;
+    const { avatar, user } = this.props;
     return (
       <div>
         <span className="navbar__mdl-icons">
-          <ImageLink imageSrc={avatar} altText="Andela Logo" imageClass="navbar__mdl-upic" />
+          <ImageLink imageSrc={user ? user.UserInfo.picture : avatar} altText="Andela Logo" imageClass="navbar__mdl-upic" />
           <span className="navbar__text-size">
-            Silm Momoh
+            {user ? user.UserInfo.name : ''}
           </span>
         </span>
-        <span>
-          <Button 
-            imageSrc={icon} altText="Dropdown Icon" buttonId="demo-menu-lower-right" imageClass="navbar__mdl-Icon" buttonType="button" 
-            buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons" />
-          <div className="navbar__mdl-list">
-            <ul htmlFor="demo-menu-lower-right" className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu">
-              <li className="mdl-menu__item navbar__menu-item">
-                Logout
-              </li>
-            </ul>
-          </div>
-        </span>
+        {this.logoutLink()}
       </div>
     );
   }
@@ -95,9 +114,19 @@ class NavBar extends PureComponent {
   }
 }
 
+
+
 NavBar.propTypes = {
+  onNotificationToggle: PropTypes.func.isRequired,
+  history: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}).isRequired,
   avatar: PropTypes.string.isRequired,
-  onNotificationToggle: PropTypes.func.isRequired
 };
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(NavBar));

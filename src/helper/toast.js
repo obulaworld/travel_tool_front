@@ -6,7 +6,6 @@ toast.options = {
   positionClass: 'toast-top-center',
 };
 
-const authenticationMessage = () =>
-  toast.success('Login Successful');
+const successMessage = message =>  toast.success(message);
 
-export default authenticationMessage;
+export default successMessage;

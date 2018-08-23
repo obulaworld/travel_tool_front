@@ -1,6 +1,5 @@
 import React from  'react';
 import {PropTypes} from 'prop-types';
-import './_index.scss';
 import Table from '../../components/Table';
 import requestsData from '../../mockData/requestsMockData';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';

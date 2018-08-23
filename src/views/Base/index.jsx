@@ -1,7 +1,7 @@
 import React, { Component } from  'react';
 import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import Pagination from '../../components/Pagination/Pagination';
-import NavBar from '../../components/nav-bar/NavBar';
+import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
 
@@ -9,7 +9,7 @@ class Base extends Component {
 
   renderNavBar = () => {
     return (
-      <NavBar
+      <ConnectedNavBar
         className=""
         avatar={upic}
         onNotificationToggle={this.onNotificationToggle}
@@ -34,7 +34,7 @@ class Base extends Component {
           onPageChange={this.onPageChange}
         />
       </div>
-        );
+    );
   }
 
   renderNotificationPane = (hideClass) => {
@@ -44,7 +44,7 @@ class Base extends Component {
           onCloseNotificationPane={this.onCloseNotificationPane}
         />
       </div>
-        );
+    );
   }
 }
 

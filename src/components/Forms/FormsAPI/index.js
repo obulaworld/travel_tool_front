@@ -11,17 +11,17 @@ class InputRenderer {
 
   switchProps(name, type, values, inputProps) {
     switch (type) {
-      case 'dropdown-select':
-        inputProps.choices = this.formMetadata.dropdownSelectOptions[name];
-        return inputProps;
-      case 'button-toggler':
-        inputProps.choices = this.formMetadata.buttonToggleOptions[name];
-        return inputProps;
-      case 'date':
-        inputProps.selectedDate = values[name];
-        return inputProps;
-      default:
-        return inputProps;
+    case 'dropdown-select':
+      inputProps.choices = this.formMetadata.dropdownSelectOptions[name];
+      return inputProps;
+    case 'button-toggler':
+      inputProps.choices = this.formMetadata.buttonToggleOptions[name];
+      return inputProps;
+    case 'date':
+      inputProps.selectedDate = values[name];
+      return inputProps;
+    default:
+      return inputProps;
     }
   }
 
