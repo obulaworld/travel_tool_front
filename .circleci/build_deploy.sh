@@ -7,7 +7,7 @@ checkoutDeployScriptRepo(){
     require DEPLOY_SCRIPTS_REPO $DEPLOY_SCRIPTS_REPO
     info "Cloning $DEPLOY_SCRIPTS_REPO"
     git clone -b $CLONE_BRANCH $DEPLOY_SCRIPTS_REPO $HOME/travella-deploy
-    mv $HOME/travella-deploy/frontend/deploy $ROOT_DIR/deploy
+    mv $HOME/travella-deploy/deploy $ROOT_DIR/deploy
     source $ROOT_DIR/deploy/template.sh
     rm -rf $HOME/travella-deploy
 }
@@ -47,11 +47,11 @@ buildLintAndDeployK8sConfiguration(){
     findAndReplaceVariables
 
     info "Linting generated configuration files"
-    k8s-lint
+    k8s-lint -f deploy/travella-frontend.config
     is_success "Completed linting successfully"
 
     info "Initiating deployment for image $TAGGED_IMAGE to $ENVIRONMENT environment"
-    k8s-deploy-and-verify
+    k8s-deploy-and-verify -f deploy/travella-frontend.config
     is_success "$TAGGED_IMAGE successfully deployed"
 }
 
@@ -68,4 +68,3 @@ main() {
 }
 
 $@
-
