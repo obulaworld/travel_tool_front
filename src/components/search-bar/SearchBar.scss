@@ -3,10 +3,6 @@
     margin: 0 100px;
     align-items: center;
     justify-content: center;
-    @media (max-width: 479px){
-      margin: 0;
-     width: 100%;
-    }
   }
 
   &__search input,
@@ -18,14 +14,10 @@
 
   &__search form {
     height: 36px;
-    // width: 360px;
+    width: 360px;
     border-radius: 18px;
     background-color: #f8f8f8;
     margin-top: 15px;
-    @media (max-width: 479px) {
-      margin-top: 0px;
-      margin-left: -14px;
-    }
   }
 
   &__search,
@@ -55,9 +47,6 @@
     height: 15.99px;
     width: 16.05px;
     margin-top: 15px;
-    @media (max-width: 479px){
-    margin-top: 0px;
-    }
   }
 
   &__search input {
@@ -72,9 +61,6 @@
     font-size: 14px;
     height: 36px;
     width: 360px;
-    @media (max-width: 470px){
-      width: 0%;
-    }
   }
 
   &__search input::placeholder {

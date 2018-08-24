@@ -19,13 +19,10 @@ $font-medium: 'DIN Pro Medium';
 .pagination {
   @include flexDisplay(row, flex-end, center);
   margin-top:13px;
-  width: 96%;
+  width: 1040px;
   height: 40px;
   font-family: $font-normal;
   background-color: $background-color;
-  @media (max-width: 839px) and (min-width: 480px){
-    width: 96%;
-  }
 
   &__items {
     @include flexDisplay(row, center, center);

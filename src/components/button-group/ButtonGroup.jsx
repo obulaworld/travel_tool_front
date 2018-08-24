@@ -25,18 +25,12 @@ class ButtonGroup extends PureComponent {
           <span className="label">
             {`Pending ${buttonText}`}
           </span>
-          <span className="mdl-cell--hide-desktop mdl-cell--hide-tablet">
-            Open
-          </span>
           <span className={badgeClass}>
             3
           </span>
         </button>
-        <button type="button" className="bg-btn label">
+        <button type="button" className="bg-btn">
           {`Past ${buttonText}`}
-        </button>
-        <button type="button" className="bg-btn mdl-cell--hide-desktop mdl-cell--hide-tablet">
-          Past
         </button>
       </div>
     );

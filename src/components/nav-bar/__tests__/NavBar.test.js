@@ -10,11 +10,6 @@ describe('Render NavBar component', () => {
     avatar: 'avatar',
     history: {
       push: jest.fn()
-    },
-    openSearch: true,
-    handleHideSearchBar: jest.fn(),
-    history: {
-      push: jest.fn()
     }
   };
   // make our assertions and what we expect to happen
@@ -39,19 +34,6 @@ describe('Render NavBar component', () => {
       .first()
       .simulate('click');
     expect(NotificationToggleSpy).toHaveBeenCalled();
-  });
-
-  it('should log user out when the logout link is clicked', () => {
-    const wrapper = shallow(<NavBar {...props} />);
-    wrapper.find('#logout').simulate('click');
-    const token = Cookie.get('login-status');
-    const loginStatus = Cookie.get('jwt-token');
-    expect(token).toEqual(undefined);
-    expect(loginStatus).toEqual(undefined);
-  })
-  it('should should be search bar for phone view toggle display', () => {
-    const wrapper = shallow(<NavBar {...props} />);
-    expect(wrapper.length).toBe(1);
   });
 
   it('should log user out when the logout link is clicked', () => {

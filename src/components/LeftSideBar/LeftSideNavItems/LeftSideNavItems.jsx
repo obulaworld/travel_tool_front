@@ -26,22 +26,6 @@ class LeftSideNavItems extends PureComponent {
     };
   }
 
-  renderLogout = () => {
-    return(
-      <Fragment>
-        
-        <a href="/" className="side-drawer__logout-text">
-          <i className="material-icons logout-sym">
-        power_settings_new
-          </i>
-          <span>
-            Logout
-
-          </span>
-        </a>
-      </Fragment>
-    );
-  }
   renderRequestsDropdownItems = () => {
     return (
       <Fragment>
@@ -64,7 +48,6 @@ class LeftSideNavItems extends PureComponent {
           { this.renderRequestsDropdownItems() }
         </LeftSidebarNavItem>
         <LeftSidebarNavItem linkIcons={navIconsSource.settingsIcon} link_to="/settings" text="Settings" />
-        {this.renderLogout()}
       </ul>
     );
   }

@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import RequestsPage from '../RequestsPage';
-import RequestPanelHeader from '../../../components/RequestPanelHeader/RequestPanelHeader';
 
 const props = {
   requests: [
@@ -49,8 +48,6 @@ const props = {
   }
 };
 
-
-
 const initialState = {
   auth: {
     isAuthenticated: true,
@@ -62,10 +59,10 @@ const initialState = {
     }
   }
 };
-
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
 const store = mockStore(initialState);
+
 
 describe('<RequestsPage>', () => {
   beforeEach(() => {
@@ -97,7 +94,6 @@ describe('<RequestsPage>', () => {
     const wrapper = shallow(<RequestsPage {...props} />);
     expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
     expect(wrapper.find('Table').length).toBe(1);
-    expect(wrapper.find('RequestPanelHeader').length).toBe(1);
     expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
     expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
     expect(wrapper.find('Pagination').length).toBe(1);
@@ -147,51 +143,6 @@ describe('<RequestsPage>', () => {
     wrapper.find('#logout').simulate('click');
     expect(spy.calledOnce).toEqual(true);
     expect(history.push).toHaveBeenCalledWith('/');
-  });
-
-  it('toggles modal state when close modal button is clicked', (done) => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RequestsPage {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    wrapper
-      .find('.btn-new-request')
-      .simulate('click');
-    const newState = wrapper
-      .find(RequestsPage)
-      .instance()
-      .state;
-    process.nextTick(() => {
-      expect(newState.hideNewRequestModal).toBe(false);
-      done();
-    });
-  });
-
-  it('should call handleHideSearchBar method', () =>{
-    const wrapper = shallow(<RequestsPage />);
-    wrapper.instance().handleHideSearchBar();
-    expect(wrapper.state('openSearch')).toBeTruthy;
-  });
-
-  it('should call handleClose method', () =>{
-    const wrapper = shallow(<RequestsPage />);
-    wrapper.instance().handleClose();
-    expect(wrapper.state('closeDrawerClass')).toBe('mdl-cell--hide-tablet');
-  });
-
-  it('should call renderRequestPanelHeader method', () =>{
-    const wrapper = shallow(<RequestsPage {...props} />);
-    const instance = wrapper.instance();
-    const spyon = jest.spyOn(instance, 'renderRequestPanelHeader');
-    expect(spyon).toHaveBeenCalledTimes(0);
-  });
-
-  it('renders as expected', () => {
-    const wrapper = shallow(<RequestsPage {...props} />);
-    expect(wrapper).toMatchSnapshot();
   });
 
   it('toggles modal state when close modal button is clicked', (done) => {

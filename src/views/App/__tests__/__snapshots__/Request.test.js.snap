@@ -46,27 +46,16 @@ exports[`should render request header correctly 1`] = `
           Pending Requests
         </span>
         <span
-          className="mdl-cell--hide-desktop mdl-cell--hide-tablet"
-        >
-          Open
-        </span>
-        <span
           className="badge"
         >
           3
         </span>
       </button>
       <button
-        className="bg-btn label"
+        className="bg-btn"
         type="button"
       >
         Past Requests
-      </button>
-      <button
-        className="bg-btn mdl-cell--hide-desktop mdl-cell--hide-tablet"
-        type="button"
-      >
-        Past
       </button>
     </div>
     <div

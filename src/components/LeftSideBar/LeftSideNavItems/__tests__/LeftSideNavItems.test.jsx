@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import LeftSideNavItems from '../LeftSideNavItems';
+import LeftSideNavItems from '../../LeftSideNavItems/LeftSideNavItems';
 
 describe('<LeftSideNavItems />', () => {
   let wrapper;

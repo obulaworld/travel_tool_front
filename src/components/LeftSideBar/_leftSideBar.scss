@@ -1,31 +1,7 @@
 .sidebar {
   position: relative;
-  border-right: 1px solid;
-  margin-right: 10%;
-  border-color: #E4E4E4;
 }
 
-.side-drawer {
-  
-  &__logout-text {
-    display: none;
-    color:  #999999;;
-    margin: 10px 0px 0px 90px;
-    font-family: 'DIN Pro';
-    font-size: 18px;
-    height: 21px;
-    width: 90px;
-    line-height: 21px;
-    @media (max-width: 1024px){
-      display: block;
-    }
-  }
-}
-
-.logout-sym {
-  position: absolute;
-  left: 22px;
-}
 .left-sidebar {
   position: relative;
   box-sizing: border-box;
@@ -33,10 +9,6 @@
   width: 100%;
   height: calc(100vh - 78px);
   font-family: 'DIN Pro';
-
-  ul {
-    margin: 0px 0px 0px -34px;
-  }
 
   &__fixed_wrapper {
     position: absolute;

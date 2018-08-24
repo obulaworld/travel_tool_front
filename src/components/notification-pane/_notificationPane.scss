@@ -1,13 +1,12 @@
 .nav-pane {
   font-family: "DIN Pro";
   height: 100vh;
-  width: 100%;
+  width: 361px;
   border: 1px solid #E4E4E4;
   border-top: none;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  // margin-left: -123px;
 
   .scrollable-div {
     overflow: scroll;
@@ -18,20 +17,4 @@
 .notification-item__last {
   min-height: 61px;
   background: #FFF;
-}
-
-.notification {
-  position: absolute;
-  width: 24%;
-  right: 0;
-  @media (max-width: 839px) and (min-width: 480px){   
-    width: 50%;
-  }
-  @media (max-width: 479px){
-    position: absolute;
-    right: 0;
-    width: 80%;
-    z-index: 5000;
-    top: 0;
-  }
 }
