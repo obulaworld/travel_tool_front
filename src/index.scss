@@ -29,17 +29,30 @@ body {
     border-right: 1px solid #E9E9E9;
   };
 
+}
   .rp-requests {
     height: 100vh;
     flex-grow: 1;
     padding-left: 61px;
 
+    @media (max-width: 839px) and (min-width: 480px){
+     width: 98%;
+     padding-left: 21px;
+    }
+
+    @media (max-width: 479px) {
+      padding-left: 15px;
+    }
+
     .rp-requests__header {
       margin-bottom: 15.1px;
       height: 164px;
+
+      @media (max-width: 479px){
+        height: 113px;
+      }
     }
   };
-}
 
 .hide {
   display: none;

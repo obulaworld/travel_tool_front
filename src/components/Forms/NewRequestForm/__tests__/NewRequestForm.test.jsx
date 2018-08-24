@@ -4,6 +4,30 @@ import NewRequestForm from '../NewRequestForm';
 
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
+  const props = {
+    user: {
+      UserInfo: {
+        name: ''
+      }
+    }
+  };
+  const {user} = props;
+  const defaultState = {
+    values: {
+      fullname: user ? user.UserInfo.name : '', // FIX: need to be refactor later
+      gender: '',
+      department: '',
+      role: '',
+      manager: '',
+      origin: '',
+      destination: '',
+      otherDestination: '',
+      departureDate: null,
+      returnDate: null
+    },
+    errors: {},
+    hasBlankFields: true
+  };
 
   beforeEach(() => {
     onSubmit = jest.fn();
@@ -142,5 +166,11 @@ describe('<NewRequestForm />', () => {
     const form = wrapper.find('form');
     form.simulate('submit');
     expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call handleCancel', ()=> {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().handleCancel();
+    expect(wrapper.state()).toMatchObject(defaultState)
   });
 });

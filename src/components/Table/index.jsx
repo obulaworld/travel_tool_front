@@ -92,8 +92,9 @@ class Table extends PureComponent {
     }
     else{
       return(
-        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data">
+        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
           {request.id}
+          
         </td>
       );
     }
@@ -102,7 +103,7 @@ class Table extends PureComponent {
   renderEmptyCell(avatar){
     if(avatar){
       return(
-        <th className="mdl-data-table__cell--non-numeric table__head" />
+        <th className="mdl-data-table__cell--non-numeric table__head freeze" />
       );
     }
   }
@@ -135,7 +136,7 @@ class Table extends PureComponent {
     return (
       <tr>
         {this.renderEmptyCell(avatar)}
-        <th className="mdl-data-table__cell--non-numeric table__head">
+        <th className="mdl-data-table__cell--non-numeric table__head freeze">
           Request ID
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">

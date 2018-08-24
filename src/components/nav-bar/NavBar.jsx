@@ -47,7 +47,6 @@ export class NavBar extends PureComponent {
       </span>
     );
   }
-
   renderNotification() {
     const { onNotificationToggle } = this.props;
     return (
@@ -57,7 +56,10 @@ export class NavBar extends PureComponent {
         className="navbar__nav-size"
         role="presentation"
       >
-        <span className="material-icons mdl-badge navbar__badge" data-badge="12">
+        <span
+          className="material-icons mdl-badge navbar__badge"
+          data-badge="12"
+        >
           <img
             src={notification}
             alt="Notification"
@@ -91,23 +93,42 @@ export class NavBar extends PureComponent {
     );
   }
 
+  renderHeader(){
+    return(
+      <div className="mdl-layout__header-row">
+        <div className="navbar__nav-size navbar__logo-icons">
+          {this.renderLogo()}
+        </div>
+        <div className="mdl-layout-spacer" />
+        <div className="navbar__search-size mdl-cell--hide-phone">
+          <SearchBar />
+        </div>
+        <nav className="mdl-navigation">
+          {this.renderNotification()}
+          <div className="navbar__user-icon navbar__nav-size mdl-cell--hide-tablet mdl-cell--hide-phone">
+            {this.renderUserIcons()}
+          </div>
+        </nav>
+      </div>
+    );
+  }
+
   render() {
+    const {handleHideSearchBar, openSearch } = this.props;
+    let showSearch='none';
+    if(openSearch){
+      showSearch='block';
+    }
     return (
       <header className="mdl-layout__header navbar__layout_header">
-        <div className="mdl-layout__header-row">
-          <div className="navbar__nav-size navbar__logo-icons">
-            {this.renderLogo()}
-          </div>
-          <div className="mdl-layout-spacer" />
-          <div className="navbar__search-size">
-            <SearchBar />
-          </div>
-          <nav className="mdl-navigation">
-            {this.renderNotification()}
-            <div className="navbar__user-icon navbar__nav-size">
-              {this.renderUserIcons()}
-            </div>
-          </nav>
+        {this.renderHeader()}
+        <button type="button" className="navbar__search-icon--btn" onClick={handleHideSearchBar}>
+          <i className="material-icons navbar__search-icon">
+          search
+          </i>
+        </button>
+        <div className="navbar__search-size mdl-cell--hide-desktop mdl-cell--hide-tablet" style={{display: `${showSearch}`}}>
+          <SearchBar />
         </div>
       </header>
     );
@@ -121,6 +142,12 @@ NavBar.propTypes = {
   history: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   avatar: PropTypes.string.isRequired,
+  handleHideSearchBar: PropTypes.func.isRequired,
+  openSearch: PropTypes.bool,
+};
+
+NavBar.defaultProps = {
+  openSearch: false
 };
 
 const mapStateToProps = state => {

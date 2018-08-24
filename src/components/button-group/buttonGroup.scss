@@ -4,7 +4,18 @@
     height: 36px;
     align-items: center;
 }
+.show-phone-mode{
+    display: none;
+    @media (max-width: 479px){
+        display: block;
+    }
+}
 
+.label{
+    @media (max-width: 479px){
+        display: none;
+    }
+}
 .bg-btn {
     height: 36px;
     width: auto;

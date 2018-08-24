@@ -30,5 +30,18 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
       </div>
     </a>
   </li>
+  <a
+    className="side-drawer__logout-text"
+    href="/"
+  >
+    <i
+      className="material-icons logout-sym"
+    >
+      power_settings_new
+    </i>
+    <span>
+      Logout
+    </span>
+  </a>
 </ul>
 `;
