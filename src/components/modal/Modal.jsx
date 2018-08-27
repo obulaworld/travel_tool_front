@@ -2,59 +2,92 @@ import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import Overlay from './overlay/Overlay';
 import closeButton from '../../images/icons/close.svg';
+import TravelLink from '../RequestsModal/_RequestTravel';
 import './_modal.scss';
 
 class Modal extends PureComponent {
   static propTypes = {
     visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
-    title: PropTypes.string.isRequired,
     toggleModal: PropTypes.func.isRequired,
+    symbol: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    modalBar: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.arrayOf(PropTypes.object)
-    ]).isRequired
-  }
+    ]).isRequired,
+    divClass: PropTypes.string,
+    innerClass: PropTypes.string,
+    dynamicText: PropTypes.string,
+    nextClass: PropTypes.string,
+    dynamicDate:PropTypes.string
+  };
 
   renderModalHeader = () => {
-    const {title, toggleModal} = this.props;
+    const { title, toggleModal, symbol, description, modalBar, 
+      divClass, innerClass, dynamicText,  nextClass, dynamicDate } = this.props;
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
-          {title}
+          <div>
+            {symbol}
+          </div>
+          <div>
+            {title}
+          </div>
+          <div className="modal-title-id">
+            {description}
+          </div>
+          <div className="lable-text modal-bar">
+            {modalBar}
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={toggleModal}
-          className="modal-close"
-        >
+        <button type="button" onClick={toggleModal} className="modal-close">
           <img alt="close" src={closeButton} />
         </button>
       </div>
     );
-  }
+  };
 
   render() {
-    const {children, visibility, toggleModal, title} = this.props;
-
+    const { children, visibility, toggleModal, title } = this.props;
     return (
       <Fragment>
         <Overlay click={toggleModal} className={visibility}>
           <div
             className={`modal ${visibility}`}
-            onClick={(e)=>{e.stopPropagation();}}
-            onKeyPress={()=>{}}
+            onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
             tabIndex="0"
-            role="button"
-          >
+            role="button">
             {this.renderModalHeader()}
             <div className="modal-content">
-              { children }
+              {children}
             </div>
           </div>
         </Overlay>
+        <TravelLink 
+          divClass={this.divClass}
+          innerClass={this.innerClass}
+          dynamicText={this.dynamicText}
+          nextClass={this.nextClass}
+          dynamicDate={this.dynamicDate}
+        />
       </Fragment>
     );
   }
 }
+
+Modal.defaultProps = {
+  symbol: '',
+  title: '',
+  description: '',
+  modalBar: '',
+  divClass: '',
+  innerClass: '',
+  dynamicText: '',
+  nextClass: '',
+  dynamicDate: ''
+};
 
 export default Modal;

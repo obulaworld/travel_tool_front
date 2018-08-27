@@ -1,40 +1,58 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../modal/Modal';
+import RequestDetailsModal from '../RequestsModal/RequestsModal';
 import './Table.scss';
 
 class Table extends PureComponent {
-  constructor (props) {
-    super(props);
-  }
+  state = {
+    clickedRequestId: null,
+    hideRequestDetailModal: true
+  };
 
-  renderUserImage(approval){
+  onCloseRequestDetailsModal = () => {
+    this.setState({
+      hideRequestDetailModal: true
+    });
+  };
+
+  handleClickRequest = requestId => {
+    this.setState({
+      clickedRequestId: requestId,
+      hideRequestDetailModal: false
+    });
+  };
+
+  renderUserImage(approval) {
     const image = approval.image;
-    if (image === 'none'){
-      return(
+    if (image === 'none') {
+      return (
         <div className="approvals__table__first__cell">
           <p className="approvals__table__text">
             HM
           </p>
         </div>
       );
-    }
-    else if (image === 'null'){
-      return(
+    } else if (image === 'null') {
+      return (
         <div className="approvals__table__second__cell">
           <p className="approvals__table__text">
             JK
           </p>
         </div>
       );
-    }
-    else{
-      return( <img src={approval.image} alt="user" className="approvals__table__image" />
+    } else {
+      return (
+        <img
+          src={approval.image}
+          alt="user" className="approvals__table__image"
+        />
       );
     }
   }
 
-  renderTootTip(approval){
-    return(
+  renderTootTip(approval) {
+    return (
       <div className="tool__tip">
         {approval.name}
       </div>
@@ -71,8 +89,8 @@ class Table extends PureComponent {
     );
   }
 
-  renderUserAvatar(request, avatar){
-    if (avatar){
+  renderUserAvatar(request, avatar) {
+    if (avatar) {
       return (
         <td className="mdl-data-table__cell--non-numeric table__image">
           {this.renderUserImage(request)}
@@ -82,35 +100,40 @@ class Table extends PureComponent {
     }
   }
 
-  renderApprovalsIdCell(request, avatar){
-    if (avatar){
-      return(
+  renderApprovalsIdCell(request, avatar) {
+    if (avatar) {
+      return (
         <td className="mdl-data-table__cell--non-numeric table__data table__id">
           {request.id}
         </td>
       );
-    }
-    else{
-      return(
+    } else {
+      return (
         <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data">
-          {request.id}
+          <div
+            onKeyPress={() => {}}
+            onClick={() => this.handleClickRequest(request.id)}
+            role="button"
+            tabIndex="0"
+            className="button-outline"
+          >
+            {request.id}
+          </div>
         </td>
       );
     }
   }
 
-  renderEmptyCell(avatar){
-    if(avatar){
-      return(
-        <th className="mdl-data-table__cell--non-numeric table__head" />
-      );
+  renderEmptyCell(avatar) {
+    if (avatar) {
+      return <th className="mdl-data-table__cell--non-numeric table__head" />;
     }
   }
 
   renderRequest(request, avatar) {
     return (
       <tr key={request.id} className="table__row">
-        {this.renderUserAvatar(request,avatar)}
+        {this.renderUserAvatar(request, avatar)}
         {this.renderApprovalsIdCell(request, avatar)}
         <td className="mdl-data-table__cell--non-numeric table__data">
           {request.destination}
@@ -125,7 +148,7 @@ class Table extends PureComponent {
           {request.startDate}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
-          { this.renderRequestStatus(request) }
+          {this.renderRequestStatus(request)}
         </td>
       </tr>
     );
@@ -156,26 +179,47 @@ class Table extends PureComponent {
       </tr>
     );
   }
+  
+  renderDetailsModal() {
+    const { hideRequestDetailModal, clickedRequestId } = this.state;
+    return (
+      <Modal
+        toggleModal={this.onCloseRequestDetailsModal}
+        visibility={hideRequestDetailModal ? 'invisible' : 'visible'}
+        title={clickedRequestId}
+        symbol="#"
+        description="Request Details"
+        modalBar={(
+          <div className="table__modal-bar-text">
+            Manager stage
+          </div>
+        )}
+      >
+        <RequestDetailsModal handleCreateComment={() => {}} />
+      </Modal>
+
+    );}
 
   render() {
     const { requests, avatar } = this.props;
     return (
-      <div className="table__container">
-        {
-          requests.length
-            ? (
-              <table className="mdl-data-table mdl-js-data-table table__requests">
-                <thead>
-                  { this.renderTableHead(avatar) }
-                </thead>
-                <tbody className="table__body">
-                  { requests.map(request => this.renderRequest(request, avatar)) }
-                </tbody>
-              </table>
-            )
-            : this.renderNoRequests()
-        }
-      </div>
+      <Fragment>
+        <div className="table__container">
+          {requests.length ? (
+            <table className="mdl-data-table mdl-js-data-table table__requests">
+              <thead>
+                {this.renderTableHead(avatar)}
+              </thead>
+              <tbody className="table__body">
+                {requests.map(request => this.renderRequest(request, avatar))}
+              </tbody>
+            </table>
+          ) : (
+            this.renderNoRequests()
+          )}
+          {this.renderDetailsModal()}
+        </div>
+      </Fragment>
     );
   }
 }

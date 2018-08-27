@@ -5,6 +5,8 @@ import RequestsPage from '../views/RequestsPage/RequestsPage';
 import RequireAuth from '../hoc/authHoc';
 import Approvals from '../views/ApprovalsPage';
 
+
+
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={ConnectedLogin} />

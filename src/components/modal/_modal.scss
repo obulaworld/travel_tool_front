@@ -39,6 +39,7 @@
       outline: none;
       border-style: none;
       background: none;
+      margin-left: 10%;
     }
   }
 
@@ -47,8 +48,29 @@
     padding: 0 30px;
     box-sizing: border-box;
   }
-}
+  .modal-title-id {
+    margin: 5px 15px 5px 5px;
+  }
+  .modal-title-text{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
+ .modal-bar { 
+    position: relative;
+    top: 3px;
+    border: 1px solid #e4e4e4;
+    border-radius: 18px;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 360px) {
+  .modal-bar{
+    margin-left: 0;
+  }
+}
 @media (min-width: 640px) {
   .modal {
     top: 50px;

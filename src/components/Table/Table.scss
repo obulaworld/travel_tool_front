@@ -1,9 +1,9 @@
 @import 'approvals';
 
-$white-color : #FFF ;
-$primary-color: #3359DB;
-$border-color: #E4E4E4;
-$table-font-color: #4F4F4F !important;
+$white-color: #fff;
+$primary-color: #3359db;
+$border-color: #e4e4e4;
+$table-font-color: #4f4f4f !important;
 $font-medium: 'DIN Pro Medium';
 $font-normal: 'DIN Pro';
 
@@ -30,33 +30,38 @@ $font-normal: 'DIN Pro';
     @include request__status($primary-color);
   }
   &--rejected {
-    @include request__status(#FF5359);
+    @include request__status(#ff5359);
   }
   &--approved {
-    @include request__status(#49AAAF);
+    @include request__status(#49aaaf);
   }
+}
+
+.button-outline {
+  outline: none;
 }
 
 .table {
   &__body:before {
-    content: "";
+    content: '';
     display: block;
     height: 3px;
   }
 
   &__container {
-// margin: 25px 0 0 61px;
-    background-color: #F8F8F8;
+    // margin: 25px 0 0 61px;
+    background-color: #f8f8f8;
   }
 
   &__data {
     padding: 13px 30px !important;
-    border-color: #E4E4E4 !important;
+    border-color: #e4e4e4 !important;
+    cursor: pointer;
   }
 
   &__user_image_row {
     padding: 13px 30px !important;
-    border-color: #E4E4E4 !important;
+    border-color: #e4e4e4 !important;
   }
 
   &__row {
@@ -66,7 +71,7 @@ $font-normal: 'DIN Pro';
     height: 46px;
 
     &:hover {
-      box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
       background-color: $white-color !important;
     }
   }
@@ -76,7 +81,7 @@ $font-normal: 'DIN Pro';
     font-family: $font-medium;
     width: 72px !important;
     color: $table-font-color;
-    border-bottom: 1px solid #EBEBEB;
+    border-bottom: 1px solid #ebebeb;
     padding: 13px 30px !important;
 
     &--last {
@@ -93,7 +98,7 @@ $font-normal: 'DIN Pro';
     border-style: none;
     border-collapse: separate;
     border-spacing: 0 6px;
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
 
     &--empty {
       @extend .table__requests;
@@ -117,6 +122,16 @@ $font-normal: 'DIN Pro';
     color: #999;
     margin-left: 39px;
   }
-}
 
+  &__modal-bar-text {
+    position: relative;
+    top: 0;
+    color: #4f4f4f;
+    font-family: 'DIN Pro';
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px 20px 5px 20px;
+  }
+}
 

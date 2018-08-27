@@ -1,0 +1,90 @@
+.mce-notification.mce-in {
+  display: none;
+}
+.mce-edit-focus:focus {
+  color: red;
+  outline: #4caf50 solid 10px;
+}
+
+.mce-btn.mce-active,
+.mce-btn.mce-active:hover,
+.mce-btn.mce-active:focus,
+.mce-btn.mce-active:active {
+  background-color: #e4e4e4 !important;
+}
+
+#mce-last:active {
+  background-color: #e4e4e4 !important;
+}
+.mce-tinymce:hover {
+  border: 1px solid rgba(51, 89, 219, 0.7) !important;
+}
+
+.mce-tinymce:focus {
+  border: 2px solid rgba(51, 89, 219, 0.9) !important;
+}
+#mceu_0 {
+  margin-left: 10px;
+}
+#mceu_2-button {
+  margin-right: 15px;
+  color: #999999;
+}
+
+#mceu_4 {
+  margin-right: 15px;
+}
+#mceu_7 {
+  border-color: #e4e4e4;
+  border-width: 0;
+  border-radius: 2px;
+  box-shadow: inset 0 -1px 0 0 #f8f8f8;
+}
+#mceu_12 {
+  border-color: #e4e4e4;
+  border-width: 50px;
+}
+.mce-panel {
+  border: 0;
+  border-width: 0;
+}
+.mce-ico::before {
+  height: 16px;
+  width: 16px;
+  color: #999999;
+}
+.editor {
+  &__editor-form {
+    height: 125px;
+    width: 80%;
+    margin: 0 0 100px 0;
+  }
+  &__btn-wrap {
+    margin: 5px 0 10px 0;
+  }
+  &__btn-size {
+    margin: 0 10px 20px 0px;
+  }
+  &__post-btn {
+    box-sizing: border-box;
+    height: 29px;
+    width: 70px;
+    border: 1px solid #d4d4d4;
+    border-radius: 1px;
+    background-color: #ffffff;
+    color: #999999;
+    font-family: 'DIN Pro';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    margin: 20px 0 20px 0;
+    cursor: pointer;
+
+    &--active {
+      border: none;
+      background-color: #3359db;
+      color: white;
+    }
+  }
+}

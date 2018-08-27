@@ -29,17 +29,22 @@ export class NavBar extends PureComponent {
   logoutLink() {
     return (
       <span>
-        <Button 
-          imageSrc={icon} altText="Dropdown Icon" buttonId="demo-menu-lower-right" imageClass="navbar__mdl-Icon" buttonType="button" 
-          buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons" />
+        <Button
+          imageSrc={icon}
+          altText="Dropdown Icon"
+          buttonId="demo-menu-lower-right"
+          imageClass="navbar__mdl-Icon"
+          buttonType="button"
+          buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
+        />
         <div className="navbar__mdl-list">
-          <ul htmlFor="demo-menu-lower-right" className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu">
+          <ul
+            htmlFor="demo-menu-lower-right"
+            className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu"
+          >
             <li className="mdl-menu__item navbar__menu-item">
-              <div
-                onClick={this.logout} 
-                id="logout"
-                role="presentation">
-              Logout
+              <div onClick={this.logout} id="logout" role="presentation">
+                Logout
               </div>
             </li>
           </ul>
@@ -57,7 +62,10 @@ export class NavBar extends PureComponent {
         className="navbar__nav-size"
         role="presentation"
       >
-        <span className="material-icons mdl-badge navbar__badge" data-badge="12">
+        <span
+          className="material-icons mdl-badge navbar__badge"
+          data-badge="12"
+        >
           <img
             src={notification}
             alt="Notification"
@@ -81,7 +89,11 @@ export class NavBar extends PureComponent {
     return (
       <div>
         <span className="navbar__mdl-icons">
-          <ImageLink imageSrc={user ? user.UserInfo.picture : avatar} altText="Andela Logo" imageClass="navbar__mdl-upic" />
+          <ImageLink
+            imageSrc={user ? user.UserInfo.picture : avatar}
+            altText="Andela Logo"
+            imageClass="navbar__mdl-upic"
+          />
           <span className="navbar__text-size">
             {user ? user.UserInfo.name : ''}
           </span>
@@ -114,13 +126,11 @@ export class NavBar extends PureComponent {
   }
 }
 
-
-
 NavBar.propTypes = {
   onNotificationToggle: PropTypes.func.isRequired,
   history: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
-  avatar: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => {

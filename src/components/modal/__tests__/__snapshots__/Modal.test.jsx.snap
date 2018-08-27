@@ -19,7 +19,16 @@ exports[`<Modal /> renders correctly 1`] = `
         <div
           className="modal-title-text"
         >
-          test modal
+          <div />
+          <div>
+            test modal
+          </div>
+          <div
+            className="modal-title-id"
+          />
+          <div
+            className="lable-text modal-bar"
+          />
         </div>
         <button
           className="modal-close"
@@ -41,5 +50,12 @@ exports[`<Modal /> renders correctly 1`] = `
       </div>
     </div>
   </Overlay>
+  <TravelLink
+    divClass=""
+    dynamicDate=""
+    dynamicText=""
+    innerClass=""
+    nextClass=""
+  />
 </Fragment>
 `;
