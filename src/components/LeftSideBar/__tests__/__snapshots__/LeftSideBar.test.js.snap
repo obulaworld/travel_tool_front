@@ -29,6 +29,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             },
           }
         }
+        selectedLink=""
         setActiveNavItem={[Function]}
       />
     </div>

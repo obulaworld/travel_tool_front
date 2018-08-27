@@ -79,7 +79,7 @@ export class LeftSideNavItem extends PureComponent {
     return (
       <Fragment>
         <li className={`left-side-nav-item ${status}`}>
-          <NavLinkItem className="nav-link" role="button" onClick={this.handleClicked} to={link_to} onKeyPress={() => {}} tabIndex="0">
+          <a className="nav-link" role="button" onClick={this.handleClicked} href={link_to} onKeyPress={() => {}} tabIndex="0">
             <div className="left-side-nav-item__left-icon">
               <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
             </div>
@@ -87,7 +87,7 @@ export class LeftSideNavItem extends PureComponent {
               {text}
             </div>
             { isDropdown? dropdownElements.icon: null }
-          </NavLinkItem>
+          </a>
         </li>
         { isDropdown? dropdownElements.items: null }
       </Fragment>
@@ -95,7 +95,7 @@ export class LeftSideNavItem extends PureComponent {
   }
 }
 
-const DropdownNavLink = (props) => {
+export const DropdownNavLink = (props) => {
   const { children } = props;
   return (
     <div {...props}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import HtmlInput from '../HtmlInput';
+import { DateInput } from '..';
 
 describe('<HtmlInput />', () => {
 

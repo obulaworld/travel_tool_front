@@ -16,7 +16,6 @@ const Routes = () => (
       // FIX: The following routes to move to Requests once their components are developed
     }
   </Switch>
-
 );
 
 export default Routes;

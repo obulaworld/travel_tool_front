@@ -62,7 +62,11 @@ class CommentBox extends Component {
 }
 
 CommentBox.propTypes = {
-  handleCreateComment: PropTypes.func.isRequired
+  handleCreateComment: PropTypes.func
+};
+
+CommentBox.defaultProps = {
+  handleCreateComment: () => {}
 };
 
 export default CommentBox;

@@ -28,7 +28,9 @@ exports[`<Modal /> renders correctly 1`] = `
           />
           <div
             className="lable-text modal-bar"
-          />
+          >
+            <div />
+          </div>
         </div>
         <button
           className="modal-close"

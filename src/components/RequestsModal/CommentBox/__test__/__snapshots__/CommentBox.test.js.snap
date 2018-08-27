@@ -17,7 +17,6 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
         "toolbar": "bold italic underline   numlist bullist   outdent indent",
       }
     }
-    initialValue="<p style='color:#999999; font-size: 15px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin:20px 8px;'>Write a comment</p>"
     onBlur={[Function]}
     onChange={[Function]}
     onFocus={[Function]}
@@ -46,7 +45,7 @@ exports[`Render RequestsModal component should render the onSubmit button works 
   onSubmit={[Function]}
 >
   <textarea
-    id="tiny-react_26779684041535220753879"
+    id="tiny-react_73232948541535374720000"
     style={
       Object {
         "visibility": "hidden",

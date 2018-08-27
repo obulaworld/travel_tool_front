@@ -1,22 +1,25 @@
+
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import Table from '../../components/Table';
 import requestsData from '../../mockData/requestsMockData';
+import Base from '../Base';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
 import Modal from '../../components/modal/Modal';
 import { NewRequestForm } from '../../components/Forms';
-
-import Base from '../Base';
 
 class RequestsPage extends Base {
   state = {
     hideNotificationPane: true,
     hideSideBar: false,
-    hideNewRequestModal: true
+    openSearch: false,
+    hideNewRequestModal: true,
+    selectedLink: 'request page'
   };
-  // FIX: Remove console statement and replace with actual function
-  onPageChange(page) {
-    console.log('Page Change function', page); /*eslint-disable-line */
+
+  //FIX: Remove console statement and replace with actual function
+  onPageChange() {
+    true;
   }
 
   // FIX: Change the function name and dont make the state toggle
@@ -25,8 +28,9 @@ class RequestsPage extends Base {
       hideNotificationPane: false,
       hideSideBar: true
     });
-  };
+  }
 
+  
   onCloseNotificationPane = () => {
     this.setState({
       hideNotificationPane: true,
@@ -34,7 +38,7 @@ class RequestsPage extends Base {
     });
   };
 
-  toggleNewRequestModal = e => {
+  toggleNewRequestModal = () => {
     const { hideNewRequestModal } = this.state;
     this.setState(prevState => {
       return {
@@ -44,7 +48,7 @@ class RequestsPage extends Base {
     });
   };
 
-  renderRequestPanelHeader() {
+  renderRequestPanelHeader () {
     return (
       <div className="rp-requests__header">
         <RequestPanelHeader
@@ -54,7 +58,7 @@ class RequestsPage extends Base {
     );
   }
 
-  renderRequests(requests) {
+  renderRequests (requests) {
     return (
       <div className="rp-table">
         <Table requests={requests} />
@@ -75,39 +79,54 @@ class RequestsPage extends Base {
     );
   }
 
-  render() {
-    const {
-      hideNotificationPane,
-      hideSideBar,
-      hideNewRequestModal
-    } = this.state;
-    let [hideClass, leftPaddingClass] = hideNotificationPane
-      ? ['hide', '']
-      : ['', 'pd-left'];
 
-    const hideClass2 = hideSideBar ? 'hide' : '';
-    const { requests, pagination } = requestsData;
-
+  renderRequestPage (hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink ) {
     return (
-      <div className="requests-page">
-        {this.renderNavBar()}
-        {this.renderNewRequestForm(hideNewRequestModal)}
-        <section className="main-section">
-          {this.renderLeftSideBar(hideClass2)}
-          <div className={`rp-requests ${leftPaddingClass}`}>
-            {this.renderRequestPanelHeader()}
-            {this.renderRequests(requests)}
-            {this.renderPagination(pagination)}
+      <div className="mdl-layout__content full-height">
+        <div className="mdl-grid mdl-grid--no-spacing full-height">
+          <div className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
+            {this.renderLeftSideBar(hideClass2, selectedLink)}       
           </div>
-          {this.renderNotificationPane(hideClass)}
-        </section>
+          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div className={`rp-requests ${leftPaddingClass}`}>
+              {this.renderRequestPanelHeader()}
+              {this.renderRequests(requests)}
+              {this.renderPagination(pagination)}
+            </div>
+          </div>
+          <div className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}>
+            {this.renderNotificationPane(hideClass)}
+          </div>
+        </div>
       </div>
     );
   }
+  
+  
+
+  render() {
+    const { hideNotificationPane, hideSideBar, hideNewRequestModal, openSearch, selectedLink } = this.state;
+    let [hideClass, leftPaddingClass] = hideNotificationPane? ['hide', '']: ['', 'pd-left'];
+    const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
+    const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
+    const { requests, pagination } = requestsData;
+    return (
+      <div>
+        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
+          {this.renderSideDrawer(selectedLink)} 
+          {this.renderNavBar(openSearch)}
+          {this.renderNewRequestForm(hideNewRequestModal)}
+          {this.renderRequestPage(hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
+        </div>
+      </div>
+    );
+  }
+
 }
 
 RequestsPage.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  history: PropTypes.shape({}).isRequired
 };
 
 export default RequestsPage;

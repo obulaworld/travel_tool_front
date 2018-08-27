@@ -89,10 +89,10 @@ class Table extends PureComponent {
     );
   }
 
-  renderUserAvatar(request, avatar) {
-    if (avatar) {
+  renderUserAvatar(request, avatar){
+    if (avatar){
       return (
-        <td className="mdl-data-table__cell--non-numeric table__image">
+        <td className="mdl-data-table__cell--non-numeric mdl-cell--hide-phone mdl-cell--hide-tablet table__image">
           {this.renderUserImage(request)}
           {this.renderTootTip(request)}
         </td>
@@ -103,13 +103,13 @@ class Table extends PureComponent {
   renderApprovalsIdCell(request, avatar) {
     if (avatar) {
       return (
-        <td className="mdl-data-table__cell--non-numeric table__data table__id">
+        <td className="mdl-data-table__cell--non-numeric table__data table__id freeze">
           {request.id}
         </td>
       );
     } else {
       return (
-        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data">
+        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
           <div
             onKeyPress={() => {}}
             onClick={() => this.handleClickRequest(request.id)}
@@ -124,9 +124,11 @@ class Table extends PureComponent {
     }
   }
 
-  renderEmptyCell(avatar) {
-    if (avatar) {
-      return <th className="mdl-data-table__cell--non-numeric table__head" />;
+  renderEmptyCell(avatar){
+    if(avatar){
+      return(
+        <th className="mdl-data-table__cell--non-numeric mdl-cell--hide-tablet table__head freeze" />
+      );
     }
   }
 
@@ -158,7 +160,7 @@ class Table extends PureComponent {
     return (
       <tr>
         {this.renderEmptyCell(avatar)}
-        <th className="mdl-data-table__cell--non-numeric table__head">
+        <th className="mdl-data-table__cell--non-numeric table__head freeze">
           Request ID
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">

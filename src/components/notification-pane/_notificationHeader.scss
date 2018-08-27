@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 0 20px 0 41px;
+  
 
   &__title {
     display: flex;
@@ -19,5 +20,7 @@
   &__close-btn{
     padding: 31px 6px 15px 0;
     cursor: pointer;
+    height: 10px;
+    width: 10px;
   }
 }

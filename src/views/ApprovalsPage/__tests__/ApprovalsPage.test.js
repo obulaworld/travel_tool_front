@@ -78,6 +78,12 @@ describe('<ApprovalsPage>', () => {
     wrapper.unmount();
   });
 
+  it('should call handleHideSearchBar method', () =>{
+    const wrapper = shallow(<Approvals />);
+    wrapper.instance().handleHideSearchBar();
+    expect(wrapper.state('openSearch')).toBeTruthy;
+  });
+
   it('calls the onPageChange method', () => {
     const spy = sinon.spy(Approvals.prototype, 'onPageChange');
     const wrapper = mount(

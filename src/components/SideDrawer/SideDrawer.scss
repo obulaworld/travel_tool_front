@@ -1,0 +1,15 @@
+.side-drawer {
+    &__user-details {
+        margin: 42px 0px -21px 22px;
+    }
+    &__user-name {
+        margin-top: 14px;
+        font-family: 'DIN Pro';
+        color: #4f4f4f;
+    }
+    &__divider {
+      margin-top: 41px;
+      margin-bottom: -57px;
+      border-top: 1px solid lightgrey;
+    }
+}

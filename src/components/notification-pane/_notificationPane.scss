@@ -1,7 +1,7 @@
 .nav-pane {
   font-family: "DIN Pro";
   height: 100vh;
-  width: 361px;
+  width: 100%;
   border: 1px solid #E4E4E4;
   border-top: none;
   display: flex;
@@ -17,4 +17,21 @@
 .notification-item__last {
   min-height: 61px;
   background: #FFF;
+}
+
+.notification {
+  position: absolute;
+  width: 24%;
+  right: 0;
+  @media (max-width: 839px) and (min-width: 480px){   
+    width: 50%;
+    top: 0px;
+  }
+  @media (max-width: 479px){
+    position: absolute;
+    right: 0;
+    width: 80%;
+    z-index: 5000;
+    top: 0;
+  }
 }

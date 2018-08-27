@@ -1,4 +1,4 @@
-.cell-item-per-page{
+.cell-item-per-page {
     box-sizing: border-box;
     height: 36px;
     width: 174px;
@@ -7,8 +7,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-  .cell-items-per-page-text{
+    .cell-items-per-page-text {
         box-sizing: border-box;
         width: 116px;
         height: 36px;
@@ -19,9 +18,11 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+        @media (max-width: 479px){
+            display: none;
+        }
     }
-
-  .items-per-page-text{
+    .items-per-page-text {
         height: 18px;
         width: 96px;
         color: #999999;
@@ -30,16 +31,15 @@
         font-weight: 500;
         line-height: 14px;
         text-align: right;
+       
     }
-
-  .divider{
+    .divider {
         box-sizing: border-box;
         height: 36px;
         width: 0px;
         border: 0px solid #D4D4D4;
     }
-
-  .items-per-page-paginator{
+    .items-per-page-paginator {
         box-sizing: border-box;
         height: 34px;
         width: 55px;
@@ -48,8 +48,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-      .paginator-counter{
+        @media (max-width: 479px) {
+            width: 100%;
+        }
+        .paginator-counter {
             height: 20px;
             width: 16px;
             color: #3359DB;
@@ -60,13 +62,10 @@
             text-align: center;
             margin-left: 3px;
         }
-
-      .paginator-counter{
+        .paginator-counter {
             height: 24px;
             width: 24px;
             background-color: #FFFFFF;
         }
-
     }
-
- }
+}

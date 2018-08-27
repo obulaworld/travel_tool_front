@@ -138,7 +138,9 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       Add a comment
     </span>
   </div>
-  <CommentBox />
+  <CommentBox
+    handleCreateComment={[Function]}
+  />
   <div
     className="modal__modal1"
   >

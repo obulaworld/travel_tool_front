@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { LeftSideNavItem } from '../LeftSideNavItem';
+import { LeftSideNavItem, DropdownNavLink } from '../LeftSideNavItem';
 import DropdownItem from '../../DropdownItems/DropdownItem/DropdownItem';
 
 describe('<LeftSideNavItem />', () => {
@@ -40,6 +40,11 @@ describe('<LeftSideNavItem />', () => {
     );});
 
   it('renders the LeftSideNavItem', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render DropdownNavLink', ()=> {
+    const wrapper = shallow(<DropdownNavLink />);
     expect(wrapper).toMatchSnapshot();
   });
 

@@ -12,7 +12,7 @@ class Modal extends PureComponent {
     symbol: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    modalBar: PropTypes.string,
+    modalBar: PropTypes.object,
     children: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.arrayOf(PropTypes.object)
@@ -25,8 +25,7 @@ class Modal extends PureComponent {
   };
 
   renderModalHeader = () => {
-    const { title, toggleModal, symbol, description, modalBar, 
-      divClass, innerClass, dynamicText,  nextClass, dynamicDate } = this.props;
+    const { title, toggleModal, symbol, description, modalBar, divClass, dynamicText } = this.props;
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
@@ -51,7 +50,8 @@ class Modal extends PureComponent {
   };
 
   render() {
-    const { children, visibility, toggleModal, title } = this.props;
+    const {children, visibility, toggleModal, divClass, innerClass, dynamicText,
+      nextClass, dynamicDate, title  } = this.props;
     return (
       <Fragment>
         <Overlay click={toggleModal} className={visibility}>
@@ -67,22 +67,23 @@ class Modal extends PureComponent {
           </div>
         </Overlay>
         <TravelLink 
-          divClass={this.divClass}
-          innerClass={this.innerClass}
-          dynamicText={this.dynamicText}
-          nextClass={this.nextClass}
-          dynamicDate={this.dynamicDate}
+          divClass={divClass}
+          innerClass={innerClass}
+          dynamicText={dynamicText}
+          nextClass={nextClass}
+          dynamicDate={dynamicDate}
         />
       </Fragment>
     );
   }
 }
 
+
 Modal.defaultProps = {
   symbol: '',
   title: '',
   description: '',
-  modalBar: '',
+  modalBar: <div />,
   divClass: '',
   innerClass: '',
   dynamicText: '',

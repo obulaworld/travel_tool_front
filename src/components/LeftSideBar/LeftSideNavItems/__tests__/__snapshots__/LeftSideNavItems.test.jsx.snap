@@ -7,7 +7,6 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
     className="left-side-nav-item inactive"
   >
     <a
-      aria-current={null}
       className="nav-link"
       href="/settings"
       onClick={[Function]}
@@ -30,5 +29,20 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
       </div>
     </a>
   </li>
+  <a
+    className="side-drawer__logout-text"
+    href="/"
+    id="signoutLink"
+    onClick={[Function]}
+  >
+    <i
+      className="material-icons logout-sym"
+    >
+      power_settings_new
+    </i>
+    <span>
+      Logout
+    </span>
+  </a>
 </ul>
 `;

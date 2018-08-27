@@ -2,7 +2,11 @@
     box-sizing: border-box;
     background-color: #F8F8F8;
     height: 201.9px;
-    width: 1040px;
+    width: 96.3%;
+    @media (max-width: 479px){
+        height: 150.9px;
+        width: 94%;
+    }
 
   .NewRequests {
         display: flex;

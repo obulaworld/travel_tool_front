@@ -5,13 +5,13 @@ Array [
   <li
     className="left-side-nav-item active"
 >
-    <div
+    <a
         className="nav-link"
+        href="/test-link"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
         tabIndex="0"
-        to="/test-link"
     >
         <div
             className="left-side-nav-item__left-icon"
@@ -34,7 +34,7 @@ Array [
                 src="dropdown_active.svg"
             />
         </div>
-    </div>
+    </a>
 </li>,
   <div
     className="left-side-nav-item__dropdown-content active"
@@ -59,18 +59,20 @@ Array [
 ]
 `;
 
+exports[`<LeftSideNavItem /> render DropdownNavLink 1`] = `<div />`;
+
 exports[`<LeftSideNavItem /> renders the LeftSideNavItem 1`] = `
 Array [
   <li
     className="left-side-nav-item active"
 >
-    <div
+    <a
         className="nav-link"
+        href="/test-link"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
         tabIndex="0"
-        to="/test-link"
     >
         <div
             className="left-side-nav-item__left-icon"
@@ -93,7 +95,7 @@ Array [
                 src="dropdown_active.svg"
             />
         </div>
-    </div>
+    </a>
 </li>,
   <div
     className="left-side-nav-item__dropdown-content active"

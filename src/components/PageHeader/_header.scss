@@ -7,6 +7,11 @@
     height: 36px;
     margin-bottom: 46px;
 
+    @media (max-width: 479px) {
+      top: 19px;
+      margin-bottom: 0px;
+    }
+
     .title {
         height: 23px;
         width: 89px;
