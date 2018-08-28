@@ -6,9 +6,8 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
   <li
     className="left-side-nav-item inactive"
   >
-    <a
+    <div
       className="nav-link"
-      href="/settings"
       onClick={[Function]}
       onKeyPress={[Function]}
       role="button"
@@ -27,7 +26,7 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
       >
         Settings
       </div>
-    </a>
+    </div>
   </li>
   <a
     className="side-drawer__logout-text"

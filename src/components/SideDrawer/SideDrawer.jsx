@@ -13,7 +13,7 @@ class SideDrawer extends PureComponent {
         <div className="side-drawer__user-details">
           <img src={upic} alt="User Profile Pix" />
           <div className="side-drawer__user-name">
-          Silm Momoh
+         Silm Momoh
           </div>
         </div>
         <hr className="side-drawer__divider" />

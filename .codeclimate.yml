@@ -1,14 +1,16 @@
 version: "2"
 eslint:
   enabled: true
-file-lines:
-  config:
-    threshold: 50
+checks:
+  method-lines:
+    config:
+      threshold: 35
 exclude_patterns:
 - "**/node_modules/"
 - "**/test/"
 - "**/__tests__/"
 - "**/tests/"
 - "/config/"
-- "src/redux/store/__test__/" 
+- "src/redux/store/__test__/"
+- "src/**/__mocks__/"
 - "scripts/"

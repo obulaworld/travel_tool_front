@@ -79,7 +79,7 @@ export class LeftSideNavItem extends PureComponent {
     return (
       <Fragment>
         <li className={`left-side-nav-item ${status}`}>
-          <a className="nav-link" role="button" onClick={this.handleClicked} href={link_to} onKeyPress={() => {}} tabIndex="0">
+          <div className="nav-link" role="button" onClick={this.handleClicked} onKeyPress={() => {}} tabIndex="0">
             <div className="left-side-nav-item__left-icon">
               <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
             </div>
@@ -87,7 +87,7 @@ export class LeftSideNavItem extends PureComponent {
               {text}
             </div>
             { isDropdown? dropdownElements.icon: null }
-          </a>
+          </div>
         </li>
         { isDropdown? dropdownElements.items: null }
       </Fragment>

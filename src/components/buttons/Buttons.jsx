@@ -11,6 +11,13 @@ import PropTypes from 'prop-types';
  *
  */
 class Button extends PureComponent {
+  renderButtonBadge(badge, badgeClass) {
+    return (
+      <span className={badgeClass}>
+        { badge }
+      </span>
+    );
+  }
   render() {
     const {
       imageSrc,
@@ -19,40 +26,59 @@ class Button extends PureComponent {
       altText,
       imageClass,
       text,
+      responsiveText,
       textClass,
-      onClick
+      onClick,
+      disabled,
+      badge,
+      showBadge,
+      badgeClass,
     } = this.props;
     return (
-      <button type="button" className={buttonClass} onClick={onClick} id={buttonId}>
-        <img src={imageSrc} alt={altText} className={imageClass} />
-        <span className={textClass}>
+      <button type="button" disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
+        { imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
+        <span className={`${textClass} label`}>
           {text}
         </span>
+        <span className={`${textClass} mdl-cell--hide-desktop mdl-cell--hide-tablet`}>
+          {responsiveText || text}
+        </span>
+        { badge && showBadge && this.renderButtonBadge(badge, badgeClass)}
       </button>
     );
   }
 }
 
 Button.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
   buttonClass: PropTypes.string,
   buttonId: PropTypes.string,
   altText: PropTypes.string,
   imageClass: PropTypes.string,
   text: PropTypes.string,
+  responsiveText: PropTypes.string,
   textClass: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled:PropTypes.bool,
+  badge: PropTypes.number,
+  showBadge: PropTypes.bool,
+  badgeClass:PropTypes.string,
 };
 
 Button.defaultProps = {
+  imageSrc: '',
   buttonClass: 'mdl-button',
   imageClass: 'mdl-Icon',
   altText: 'Dropdown Icon',
   buttonId: 'demo-menu',
-  text:'Login to Get Started',
+  text:'',
+  responsiveText: '',
   textClass: '',
-  onClick: null
-
+  onClick: null,
+  disabled: false,
+  badge: null,
+  showBadge: false,
+  badgeClass:'',
 };
 
 export default Button;

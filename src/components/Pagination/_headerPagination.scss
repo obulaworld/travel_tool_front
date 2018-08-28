@@ -1,71 +1,51 @@
-.cell-item-per-page {
+$primary-color: #3359db;
+$border-color: #d4d4d4;
+$white-color: #fff;
+$background-color: #f8f8f8;
+
+.cell-items-per-page {
+  box-sizing: border-box;
+  height: 36px;
+  width: 174px;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 479px) {
+    width: auto;
+  }
+
+  &-text {
     box-sizing: border-box;
+    width: 116px;
     height: 36px;
-    width: 174px;
-    border: 1px solid #D4D4D4;
+    background-color: $background-color;
+    border: 1px solid $border-color;
+    border-right: none;
     border-radius: 1px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    .cell-items-per-page-text {
-        box-sizing: border-box;
-        width: 116px;
-        height: 36px;
-        background-color: #F8F8F8;
-        border: 1px solid #D4D4D4;
-        border-left: none;
-        border-radius: 1px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        @media (max-width: 479px){
-            display: none;
-        }
-    }
-    .items-per-page-text {
-        height: 18px;
-        width: 96px;
-        color: #999999;
-        font-family: "DIN Pro";
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 14px;
-        text-align: right;
-       
-    }
-    .divider {
-        box-sizing: border-box;
-        height: 36px;
-        width: 0px;
-        border: 0px solid #D4D4D4;
-    }
-    .items-per-page-paginator {
-        box-sizing: border-box;
-        height: 34px;
-        width: 55px;
-        border-radius: 0 2px 2px 0;
-        background-color: #FFFFFF;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        @media (max-width: 479px) {
-            width: 100%;
-        }
-        .paginator-counter {
-            height: 20px;
-            width: 16px;
-            color: #3359DB;
-            font-family: "DIN Pro";
-            font-size: 15px;
-            font-weight: 500;
-            line-height: 20px;
-            text-align: center;
-            margin-left: 3px;
-        }
-        .paginator-counter {
-            height: 24px;
-            width: 24px;
-            background-color: #FFFFFF;
-        }
-    }
+    @media (max-width: 479px){
+      display: none;
+  }
+  }
+}
+
+.items-per-page {
+  &-text {
+    height: 18px;
+    width: 96px;
+    color: #999;
+    font-family: 'DIN Pro';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    text-align: right;
+  }
+  &-paginator {
+    box-sizing: border-box;
+    height: 36px;
+    width: 57px;
+  }
 }

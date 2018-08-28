@@ -35,7 +35,6 @@ class LeftSideNavItems extends PureComponent {
   renderLogout = () => {
     return(
       <Fragment>
-        
         <a href="/" id="signoutLink" className="side-drawer__logout-text" onClick={this.signout}>
           <i className="material-icons logout-sym">
         power_settings_new

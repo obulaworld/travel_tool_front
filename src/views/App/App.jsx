@@ -6,8 +6,8 @@ import store from '../../redux/store/store';
 import './App.scss';
 import Routes from '../../routes/index';
 import '../../../node_modules/material-design-lite/material';
-import '../../../node_modules/toastr/build/toastr.min.css';
 import '../../../node_modules/material-design-icons';
+import '../../../node_modules/toastr/build/toastr.min.css';
 
 // Calender settings
 moment.updateLocale('en', {

@@ -4,41 +4,64 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import RequestsPage from '../RequestsPage';
-import RequestPanelHeader from '../../../components/RequestPanelHeader/RequestPanelHeader';
+import {RequestsPage} from '../RequestsPage';
 
 const props = {
   requests: [
     {
-      'id':1,
-      'destination':'Lagos',
-      'origin':'Nairobi',
-      'duration':'3 days',
-      'startDate':'12 Oct 2018',
-      'status':'Open'
+      id: 'xDh20btGz',
+      name: 'Amarachukwu Agbo',
+      origin: 'Lagos',
+      destination: 'Nairobi',
+      manager: 'Samuel Kubai',
+      gender: 'Female',
+      department: 'TDD',
+      role: 'Software Developer',
+      status: 'Open',
+      userId: 'pommyLHJmKrx76A8Slm',
+      departureDate: '2018-12-09',
+      arrivalDate: '2018-12-11',
     },
     {
-      'id':2,
-      'destination':'New York',
-      'origin':'Nairobi',
-      'duration':'3 days',
-      'startDate':'12 Oct 2018',
-      'status':'Rejected'
+      id: 'xDh20btGy',
+      name: 'Amarachukwu Agbo',
+      origin: 'Lagos',
+      destination: 'Nairobi',
+      manager: 'Samuel Kubai',
+      gender: 'Female',
+      department: 'TDD',
+      role: 'Software Developer',
+      status: 'Rejected',
+      userId: 'pommyLHJmKrx76A8Slm',
+      departureDate: '2018-12-09',
+      arrivalDate: '2018-12-11',
     },
     {
-      'id':3,
-      'destination':'Kampala',
-      'origin':'Nairobi',
-      'duration':'3 days',
-      'startDate':'12 Oct 2018',
-      'status':'Approved'
-    }
+      id: 'xDh20btGx',
+      name: 'Amarachukwu Agbo',
+      origin: 'Lagos',
+      destination: 'Nairobi',
+      manager: 'Samuel Kubai',
+      gender: 'Female',
+      department: 'TDD',
+      role: 'Software Developer',
+      status: 'Approved',
+      userId: 'pommyLHJmKrx76A8Slm',
+      departureDate: '2018-12-09',
+      arrivalDate: '2018-12-11',
+    },
   ],
   pagination: {
     currentPage: 2,
     pageCount: 4,
     onPageChange: sinon.spy(),
   },
+  fetchUserRequests: sinon.spy(() => Promise.resolve()),
+  fetchUserRequestsError: null,
+  openRequestsCount: 1,
+  pastRequestsCount: 1,
+  url: '?page=1',
+  isLoading: false,
   history: {
     push: jest.fn()
   },
@@ -48,8 +71,6 @@ const props = {
     }
   }
 };
-
-
 
 const initialState = {
   auth: {
@@ -62,23 +83,43 @@ const initialState = {
     }
   }
 };
-
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
 const store = mockStore(initialState);
 
-describe('<RequestsPage>', () => {
-  beforeEach(() => {
-  });
 
+describe('<RequestsPage>', () => {
   it('should render the RequestsPage without crashing', () => {
-    const wrapper = shallow(<RequestsPage {...props} />);
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
   });
 
-  it('calls the onPageChange method', () => {
-    const spy = sinon.spy(RequestsPage.prototype, 'onPageChange');
+  it('calls the componentDidMount method', () => {
+    const spy = sinon.spy(RequestsPage.prototype, 'componentDidMount');
+    const { fetchUserRequests } = props;
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(spy.called).toEqual(true);
+    expect(fetchUserRequests.called).toEqual(true);
+    expect(fetchUserRequests.calledWith('?page=1')).toEqual(true);
+    wrapper.unmount();
+  });
+
+  it(`calls the onPageChange method and the fetchUserRequests method
+    when pagination button is clicked`, () => {
+    const { fetchUserRequests } = props;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -87,18 +128,49 @@ describe('<RequestsPage>', () => {
       </Provider>
     );
     wrapper.find('#next-button').simulate('click');
-    expect(spy.calledOnce).toEqual(true);
+    expect(fetchUserRequests.called).toEqual(true);
     wrapper.find('#previous-button').simulate('click');
-    expect(spy.calledWith(2)).toEqual(true);
+    expect(fetchUserRequests.called).toEqual(true);
+    wrapper.unmount();
+  });
+
+  it(`calls the getRequestsWithLimit method and the fetchUserRequests method
+    when pagination button is clicked`, () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    wrapper.find('.dropdown__list__item').first().simulate('click');
+    const { fetchUserRequests } = props;
+    const stateOnClick = wrapper
+      .find(RequestsPage)
+      .instance()
+      .state;
+    expect(stateOnClick).toEqual({
+      hideNotificationPane: true,
+      hideSideBar: false,
+      limit: 10,
+      hideNewRequestModal: true,
+      openSearch: false,
+      selectedLink: 'request page',
+    });
+    expect(fetchUserRequests.called).toEqual(true);
     wrapper.unmount();
   });
 
   it('should render all the components except the notification pane', () => {
     const wrapper = shallow(<RequestsPage {...props} />);
-    expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
-    expect(wrapper.find('Table').length).toBe(1);
+    // expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
     expect(wrapper.find('RequestPanelHeader').length).toBe(1);
+    expect(wrapper.find('WithLoading').length).toBe(1); //WithLoading HOC containing Requests
     expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
+    // Since the element is always on the DOM, the page length will always be one
+    // so I'm checking if the 'hide' class exists
+    // the presence of the 'hide' class means that the element has been hidden
+    // the absence means the element is visible
     expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
     expect(wrapper.find('Pagination').length).toBe(1);
     wrapper.unmount();
@@ -171,11 +243,10 @@ describe('<RequestsPage>', () => {
   });
 
   it('should call handleHideSearchBar method', () =>{
-    const wrapper = shallow(<RequestsPage />);
+    const wrapper = shallow(<RequestsPage {...props} />);
     wrapper.instance().handleHideSearchBar();
     expect(wrapper.state('openSearch')).toBeTruthy;
   });
-
 
   it('should call renderRequestPanelHeader method', () =>{
     const wrapper = shallow(<RequestsPage {...props} />);

@@ -57,22 +57,29 @@ exports[`Render NavBar component should match snapshot 1`] = `
             <ImageLink
               altText="Andela Logo"
               imageClass="navbar__mdl-upic"
-              imageSrc="avatar"
+              imageSrc="http://picture.com/gif"
             />
             <span
               className="navbar__text-size"
-            />
+            >
+              Tomato Jos
+            </span>
           </span>
           <span>
             <Button
               altText="Dropdown Icon"
+              badge={null}
+              badgeClass=""
               buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
               buttonId="demo-menu-lower-right"
               buttonType="button"
+              disabled={false}
               imageClass="navbar__mdl-Icon"
               imageSrc="drop-down-icon.svg"
               onClick={null}
-              text="Login to Get Started"
+              responsiveText=""
+              showBadge={false}
+              text=""
               textClass=""
             />
             <div

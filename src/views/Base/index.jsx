@@ -1,10 +1,10 @@
 import React, { Component } from  'react';
 import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import Pagination from '../../components/Pagination/Pagination';
+import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
-import ConnectedNavBar from '../../components/nav-bar/NavBar';
 
 class Base extends Component {
   handleHideSearchBar = () => {
@@ -12,7 +12,7 @@ class Base extends Component {
       this.setState({openSearch: !prevState.openSearch});
     });
   }
-  
+
   renderNavBar = (openSearch) => {
     return (
       <ConnectedNavBar
@@ -24,8 +24,6 @@ class Base extends Component {
       />
     );
   }
-
- 
 
   renderLeftSideBar = (hideClass2, selectedLink) => {
     return (
@@ -61,9 +59,5 @@ class Base extends Component {
     return (<SideDrawer selectedLink={selectedLink} />);
   }
 }
-
-
-
-
 
 export default Base;

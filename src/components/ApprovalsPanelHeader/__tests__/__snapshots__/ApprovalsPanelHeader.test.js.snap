@@ -14,8 +14,14 @@ exports[`should render approvals header correctly 1`] = `
   >
     <ButtonGroup
       buttonsType="approvals"
+      fetchUserRequests={null}
+      limit={10}
+      openRequestsCount={null}
+      pastRequestsCount={null}
     />
-    <HeaderPagination />
+    <HeaderPagination
+      getRequestsWithLimit={null}
+    />
   </div>
 </div>
 `;

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RequestPanelHeader /> should render correctly 1`] = `
+<div
+  className="request-panel-header"
+>
+  <PageHeader
+    actionBtn="New Request"
+    title="REQUESTS"
+    toggleNewRequestModal={[Function]}
+  />
+  <div
+    className="open-requests"
+  >
+    <ButtonGroup
+      buttonsType="requests"
+      fetchUserRequests={[Function]}
+      limit={10}
+      openRequestsCount={1}
+      pastRequestsCount={0}
+    />
+    <HeaderPagination
+      getRequestsWithLimit={[Function]}
+    />
+  </div>
+</div>
+`;

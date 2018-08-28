@@ -1,10 +1,12 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Modal from '../modal/Modal';
 import RequestDetailsModal from '../RequestsModal/RequestsModal';
 import './Table.scss';
+import withLoading from '../Hoc/withLoading';
 
-class Table extends PureComponent {
+export class Table extends Component {
   state = {
     clickedRequestId: null,
     hideRequestDetailModal: true
@@ -51,8 +53,8 @@ class Table extends PureComponent {
     }
   }
 
-  renderTootTip(approval) {
-    return (
+  renderToolTip(approval){
+    return(
       <div className="tool__tip">
         {approval.name}
       </div>
@@ -63,6 +65,14 @@ class Table extends PureComponent {
     return (
       <div className="table__requests--empty">
         You have no requests at the moment
+      </div>
+    );
+  }
+
+  renderError(error) {
+    return (
+      <div className="table__requests--error">
+        {error}
       </div>
     );
   }
@@ -94,7 +104,7 @@ class Table extends PureComponent {
       return (
         <td className="mdl-data-table__cell--non-numeric mdl-cell--hide-phone mdl-cell--hide-tablet table__image">
           {this.renderUserImage(request)}
-          {this.renderTootTip(request)}
+          {this.renderToolTip(request)}
         </td>
       );
     }
@@ -133,6 +143,8 @@ class Table extends PureComponent {
   }
 
   renderRequest(request, avatar) {
+    const { arrivalDate, departureDate } = request;
+    const travelDuration = Math.abs(moment(arrivalDate).diff(moment(departureDate), 'days'));
     return (
       <tr key={request.id} className="table__row">
         {this.renderUserAvatar(request, avatar)}
@@ -144,10 +156,10 @@ class Table extends PureComponent {
           {request.origin}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {request.duration}
+          {`${travelDuration} days`}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {request.startDate}
+          { moment(request.departureDate).format('DD MMM YYYY')}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
           {this.renderRequestStatus(request)}
@@ -181,7 +193,7 @@ class Table extends PureComponent {
       </tr>
     );
   }
-  
+
   renderDetailsModal() {
     const { hideRequestDetailModal, clickedRequestId } = this.state;
     return (
@@ -203,22 +215,25 @@ class Table extends PureComponent {
     );}
 
   render() {
-    const { requests, avatar } = this.props;
+    const { requests, avatar, fetchRequestsError } = this.props;
     return (
       <Fragment>
         <div className="table__container">
-          {requests.length ? (
-            <table className="mdl-data-table mdl-js-data-table table__requests">
-              <thead>
-                {this.renderTableHead(avatar)}
-              </thead>
-              <tbody className="table__body">
-                {requests.map(request => this.renderRequest(request, avatar))}
-              </tbody>
-            </table>
-          ) : (
-            this.renderNoRequests()
-          )}
+          { fetchRequestsError && this.renderError(fetchRequestsError) }
+          {
+            requests && requests.length > 0 &&
+              (
+                <table className="mdl-data-table mdl-js-data-table table__requests">
+                  <thead>
+                    { this.renderTableHead(avatar) }
+                  </thead>
+                  <tbody className="table__body">
+                    { requests.map(request => this.renderRequest(request, avatar)) }
+                  </tbody>
+                </table>
+              )
+          }
+          { !fetchRequestsError && !requests.length && this.renderNoRequests() }
           {this.renderDetailsModal()}
         </div>
       </Fragment>
@@ -227,12 +242,15 @@ class Table extends PureComponent {
 }
 
 Table.propTypes = {
-  requests: PropTypes.array.isRequired,
-  avatar: PropTypes.string
+  requests: PropTypes.array,
+  avatar: PropTypes.string,
+  fetchRequestsError: PropTypes.string,
 };
 
 Table.defaultProps = {
-  avatar: ''
+  avatar: '',
+  fetchRequestsError: null,
+  requests: [],
 };
 
-export default Table;
+export default withLoading(Table);

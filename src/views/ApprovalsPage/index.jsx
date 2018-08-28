@@ -1,7 +1,7 @@
 import React, {Fragment}  from  'react';
 import ApprovalsPanelHeader from '../../components/ApprovalsPanelHeader';
 import requestsData from '../../mockData/requestsMockData';
-import Table from '../../components/Table';
+import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 
 class Approvals extends Base {
@@ -34,7 +34,7 @@ class Approvals extends Base {
 
   renderApprovalsTable(){
     return(
-      <Table requests={requestsData.requests} avatar="image" />
+      <WithLoadingTable requests={requestsData.requests} avatar="image" />
     );
   }
 
@@ -51,7 +51,7 @@ class Approvals extends Base {
       <div className="mdl-layout__content full-height">
         <div className="mdl-grid mdl-grid--no-spacing full-height">
           <div className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
-            {this.renderLeftSideBar(hideClass2, selectedLink)}       
+            {this.renderLeftSideBar(hideClass2, selectedLink)}
           </div>
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>

@@ -1,14 +1,18 @@
-.button-group{
-    width: auto;
-    display: flex;
-    height: 36px;
-    align-items: center;
-}
-.show-phone-mode{
-    display: none;
-    @media (max-width: 479px){
-        display: block;
-    }
+$primary-color: #3359DB;
+$white-color: #FFF;
+
+@mixin badge($color, $backgroundColor) {
+    height: 15px;
+    width: 15px;
+    background-color: $backgroundColor;
+    border-radius: 50%;
+    color: $color;
+    font-family: "DIN Pro";
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+    text-align: center;
+    margin-left: 4px;
 }
 
 .label{
@@ -16,6 +20,14 @@
         display: none;
     }
 }
+
+.button-group {
+    width: auto;
+    display: flex;
+    height: 36px;
+    align-items: center;
+}
+
 .bg-btn {
     height: 36px;
     width: auto;
@@ -32,54 +44,37 @@
     cursor: pointer;
     outline:none !important;
 
-  &.bg-btn--active {
-        border: 1px solid #3359DB;
-        border-radius: 1px;
-        background-color: #3359DB;
-        color: #FFFFFF;
+    &:hover {
+        border-color: $primary-color;
     }
 
-  &.bg-btn--with-badge {
+    &:disabled {
+        cursor: auto;
+        &:hover {
+            border-color: #D4D4D4;
+        }
+    }
+
+  &--active {
+        border: 1px solid $primary-color;
+        border-radius: 1px;
+        background-color: $primary-color;
+        color: $white-color;
+    }
+
+  &--with-badge {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
-      span.bg-btn__label {
-            color: #999999;
-            font-family: "DIN Pro";
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 14px;
-            text-align: right;
+      &__approvals--inactive {
+          @include badge($white-color, #49AAAF);
+      }
+      &--inactive {
+        @include badge($white-color, $primary-color);
         }
-
-      span.badge{
-            height: 15px;
-            width: 15px;
-            background-color: #3359DB;
-            border-radius: 50%;
-            color: #FFFFFF;
-            font-family: "DIN Pro";
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 15px;
-            text-align: center;
-            margin-left: 4px;
-        }
-
-        span.badge--approvals{
-            height: 15px;
-            width: 15px;
-            background-color: #49AAAF;
-            border-radius: 50%;
-            color: #FFFFFF;
-            font-family: "DIN Pro";
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 15px;
-            text-align: center;
-            margin-left: 4px;
-        }
+      &--active {
+          @include badge($primary-color, $white-color);
+      }
 
     }
 

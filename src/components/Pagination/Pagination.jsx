@@ -42,7 +42,7 @@ class Pagination extends PureComponent {
     const nextPage = currentPage + 1;
 
     return (
-      <Fragment>
+      <div>
         {
           pageCount > 0
             ? (
@@ -54,15 +54,20 @@ class Pagination extends PureComponent {
             )
             : null
         }
-      </Fragment>
+      </div>
     );
   }
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  pageCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number,
+  pageCount: PropTypes.number,
   onPageChange: PropTypes.func.isRequired,
+};
+
+Pagination.defaultProps = {
+  currentPage: 1,
+  pageCount: 0,
 };
 
 export default Pagination;

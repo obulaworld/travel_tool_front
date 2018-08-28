@@ -52,6 +52,7 @@ export class NavBar extends PureComponent {
       </span>
     );
   }
+
   renderNotification() {
     const { onNotificationToggle } = this.props;
     return (
@@ -61,10 +62,7 @@ export class NavBar extends PureComponent {
         className="navbar__nav-size"
         role="presentation"
       >
-        <span
-          className="material-icons mdl-badge navbar__badge"
-          data-badge="12"
-        >
+        <span className="material-icons mdl-badge navbar__badge" data-badge="12">
           <img
             src={notification}
             alt="Notification"
@@ -125,7 +123,7 @@ export class NavBar extends PureComponent {
   render() {
     const {handleHideSearchBar, openSearch } = this.props;
     let showSearch='none';
-    if(openSearch){
+    if(openSearch) {
       showSearch='block';
     }
     return (

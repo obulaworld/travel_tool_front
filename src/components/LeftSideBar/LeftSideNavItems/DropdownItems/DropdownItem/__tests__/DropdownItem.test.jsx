@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import DropdownItem from '../DropdownItem';
+import DropdownItem from '../../../../LeftSideNavItems/DropdownItems/DropdownItem/DropdownItem';
 
 describe('<DropdownItem />', () => {
   it('renders correctly', () => {

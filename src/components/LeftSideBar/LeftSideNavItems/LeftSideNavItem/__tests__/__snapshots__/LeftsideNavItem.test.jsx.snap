@@ -5,9 +5,8 @@ Array [
   <li
     className="left-side-nav-item active"
 >
-    <a
+    <div
         className="nav-link"
-        href="/test-link"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
@@ -34,7 +33,7 @@ Array [
                 src="dropdown_active.svg"
             />
         </div>
-    </a>
+    </div>
 </li>,
   <div
     className="left-side-nav-item__dropdown-content active"
@@ -66,9 +65,8 @@ Array [
   <li
     className="left-side-nav-item active"
 >
-    <a
+    <div
         className="nav-link"
-        href="/test-link"
         onClick={[Function]}
         onKeyPress={[Function]}
         role="button"
@@ -95,7 +93,7 @@ Array [
                 src="dropdown_active.svg"
             />
         </div>
-    </a>
+    </div>
 </li>,
   <div
     className="left-side-nav-item__dropdown-content active"
