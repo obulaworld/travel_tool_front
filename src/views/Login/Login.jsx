@@ -56,6 +56,7 @@ export class Login extends Component {
           textClass="login-page__link-text"
           altText="Video Symbol"
           text="How to book a trip"
+          link="#"
         />
 
         <TextLink
@@ -65,6 +66,7 @@ export class Login extends Component {
           textClass="login-page__link-text"
           altText="File Symbol"
           text="Andela travel policy"
+          link="https://docs.google.com/document/d/1ZqJ3OAF-7NfJAgkzMBdiMoTrsftTWJp9tNhV8eOe1d8/edit"
         />
       </Fragment>
     );
