@@ -1,10 +1,17 @@
 version: "2"
-eslint:
-  enabled: true
+plugins:
+  eslint:
+    enabled: true
 checks:
   method-lines:
     config:
       threshold: 35
+  similar-code:
+    config:
+      threshold: 70
+  identical-code:
+    config:
+      threshold: 70
 exclude_patterns:
 - "**/node_modules/"
 - "**/test/"
