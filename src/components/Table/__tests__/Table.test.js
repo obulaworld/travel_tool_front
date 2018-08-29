@@ -91,11 +91,4 @@ describe('<Requests />', () => {
     requestId.simulate('click');
     expect(wrapper.state().clickedRequestId).toBe('xDh20btGz');
   });
-
-  it('should render close modal when button is clicked', () => {
-    const wrapper = mount(<Table {...props} />);
-    let closeModalButton = wrapper.find('.modal-close');
-    closeModalButton.simulate('click');
-    expect(wrapper.state().hideRequestDetailModal).toBe(true);
-  });
 });

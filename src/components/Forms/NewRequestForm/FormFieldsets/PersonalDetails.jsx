@@ -14,7 +14,7 @@ class PersonalDetailsFiedset extends Component {
           Personal Details
         </legend>
         <div className="input-group">
-          {renderInput('fullname', 'text')}
+          {renderInput('name', 'text')}
           {renderInput('gender', 'button-toggler')}
           {renderInput('department', 'dropdown-select')}
           {renderInput('role', 'dropdown-select')}

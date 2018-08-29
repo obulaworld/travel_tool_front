@@ -7,7 +7,7 @@ describe('<Input />', () => {
   beforeEach(() => {
     const contextObject = {
       context: {
-        errors: {fullname: 'This field is required'},
+        errors: {name: 'This field is required'},
         targetForm: {
           validate: ()=>{}
         }
@@ -16,7 +16,7 @@ describe('<Input />', () => {
 
     wrapper = mount(
       <Input
-        name="fullname"
+        name="name"
         type="text"
         onChange={()=>{}}
         label="Test label"

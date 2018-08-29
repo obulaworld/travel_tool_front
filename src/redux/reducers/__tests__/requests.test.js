@@ -1,56 +1,127 @@
-import requestsReducer from '../requests';
+import requests from '../requests';
 import {
   FETCH_USER_REQUESTS,
   FETCH_USER_REQUESTS_SUCCESS,
   FETCH_USER_REQUESTS_FAILURE,
 } from '../../constants/actionTypes';
-import response from '../../__mocks__/mocks';
+import { fetchRequestsResponse, createRequestMock } from '../../__mocks__/mocks';
 
-const initialState = {};
 
-const error = 'Error fetching requests, network error'
 
 describe('Requests Reducer', () => {
-  it('returns the correct initial state', (done) => {
-    expect(requestsReducer(undefined, {})).toEqual({});
-    done();
-  });
-
-  it('returns the correct state for FETCH_USER_REQUESTS action', (done) => {
-    const action = {
-      type: FETCH_USER_REQUESTS
-    };
-    expect(requestsReducer(initialState, action)).toEqual({
-      isLoading: true,
+  describe('Fetch Requests Reducer', () => {
+    const initialState = {};
+    const error = 'Error fetching requests, network error';
+    it('returns the correct initial state', () => {
+      expect(requests(undefined, {})).toEqual({});
     });
-    done();
-  });
-
-  it('returns the correct state for FETCH_USER_REQUESTS_SUCCESS action', (done) => {
-    const action = {
-      type: FETCH_USER_REQUESTS_SUCCESS,
-      response,
-    };
-    expect(requestsReducer(initialState, action)).toEqual({
-      isLoading: false,
-      requests: response.requests,
-      openRequestsCount: response.openRequestsCount,
-      pastRequestsCount: response.pastRequestsCount,
-      pagination: response.pagination,
-      url: response.url,
+  
+    it('returns the correct state for FETCH_USER_REQUESTS action', () => {
+      const action = {
+        type: FETCH_USER_REQUESTS
+      };
+      expect(requests(initialState, action)).toEqual({
+        isLoading: true,
+      });
     });
-    done();
-  });
-
-  it('returns the correct state for FETCH_USER_REQUESTS_FAILURE action', (done) => {
-    const action = {
-      type: FETCH_USER_REQUESTS_FAILURE,
-      error: 'Possible network error, please reload the page',
-    };
-    expect(requestsReducer(initialState, action)).toEqual({
-      isLoading: false,
-      fetchRequestsError: 'Possible network error, please reload the page',
+  
+    it('returns the correct state for FETCH_USER_REQUESTS_SUCCESS action', () => {
+      const action = {
+        type: FETCH_USER_REQUESTS_SUCCESS,
+        response: fetchRequestsResponse,
+      };
+      expect(requests(initialState, action)).toEqual({
+        isLoading: false,
+        requests: fetchRequestsResponse.requests,
+        openRequestsCount: fetchRequestsResponse.openRequestsCount,
+        pastRequestsCount: fetchRequestsResponse.pastRequestsCount,
+        pagination: fetchRequestsResponse.pagination,
+        url: fetchRequestsResponse.url,
+      });
     });
-    done();
+  
+    it('returns the correct state for FETCH_USER_REQUESTS_FAILURE action', () => {
+      const action = {
+        type: FETCH_USER_REQUESTS_FAILURE,
+        error: 'Possible network error, please reload the page',
+      };
+      expect(requests(initialState, action)).toEqual({
+        isLoading: false,
+        fetchRequestsError: 'Possible network error, please reload the page',
+      });
+    });
+  });
+  
+  describe('Create Requests reducer', () => {
+    let initialState = {};
+  
+    let action, newState, receivedState, error;
+  
+    const requestObj = { ...createRequestMock.requestObj };
+  
+    it('should return initial state', () => {
+      expect(requests(undefined, {})).toEqual(initialState);
+    });
+  
+    it('should handle CREATE_NEW_REQUEST', () => {
+      action = {
+        type: 'CREATE_NEW_REQUEST',
+        requestData: { ...requestObj }
+      };
+  
+      newState = requests(initialState, action);
+      receivedState = {
+        creatingRequest: true,
+      };
+  
+      expect(newState).toEqual(receivedState);
+    });
+  
+    it('should handle CREATE_NEW_REQUEST_SUCCESS', () => {
+      initialState = {
+        requests: []
+      }
+      action = {
+        type: 'CREATE_NEW_REQUEST_SUCCESS',
+        newRequest: { ...requestObj }
+      };
+  
+      newState = requests(initialState, action);
+      receivedState = {
+        creatingRequest: false,
+        request: {
+          name: 'Ademola Ariya',
+          origin: 'Lagos',
+          destination: 'New York',
+          manager: 'Samuel Kubai'
+        },
+        requests: [{
+          name: 'Ademola Ariya',
+          origin: 'Lagos',
+          destination: 'New York',
+          manager: 'Samuel Kubai'
+        }],
+        errors: []
+      };
+  
+      expect(newState).toEqual(receivedState);
+      expect(requests(newState, action).requests).toHaveLength(2);
+    });
+  
+    it('should handle CREATE_NEW_REQUEST_FAILURE', () => {
+      error = ['failed to add new request'];
+      action = {
+        type: 'CREATE_NEW_REQUEST_FAILURE',
+        error
+      };
+      
+      newState = requests(initialState, action);
+      receivedState = {
+        creatingRequest: false,
+        requests: [],
+        errors: ['failed to add new request']
+      };
+      expect(newState).toEqual(receivedState);
+    });
   });
 });

@@ -7,9 +7,9 @@ describe('<Modal />', () => {
   beforeEach(() => {
     click = jest.fn();
     props = {
-      toggleModal: click,
       title: 'test modal',
-      visibility: 'visible'
+      visibility: 'invisible',
+      closeModal: jest.fn()
     };
   });
 
@@ -22,20 +22,5 @@ describe('<Modal />', () => {
       </Modal>
     );
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('closes when close button is clicked', () => {
-    const handleClose = jest.fn();
-    const wrapper = mount(
-      <Modal {...props} toggleModal={handleClose}>
-        <div>
-          Test content
-        </div>
-      </Modal>
-    );
-    wrapper
-      .find('button.modal-close')
-      .simulate('click');
-    expect(handleClose).toHaveBeenCalledTimes(1);
   });
 });

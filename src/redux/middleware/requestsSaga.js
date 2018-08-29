@@ -1,11 +1,16 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
+import toast from 'toastr';
+
+import { FETCH_USER_REQUESTS, CREATE_NEW_REQUEST } from '../constants/actionTypes';
 import RequestAPI from '../../services/RequestAPI';
+import apiErrorHandler from '../../services/apiErrorHandler';
 import {
   fetchUserRequestsSuccess,
   fetchUserRequestsFailure,
+  createNewRequestSuccess,
+  createNewRequestFailure
 } from '../actionCreator/requestActions';
-import { FETCH_USER_REQUESTS } from '../constants/actionTypes';
-import apiErrorHandler from '../../services/apiErrorHandler';
+import { closeModal } from '../actionCreator/modalActions';
 
 export function* fetchUserRequestsSaga(action) {
   try {
@@ -20,4 +25,27 @@ export function* fetchUserRequestsSaga(action) {
 
 export function* watchFetchRequests() {
   yield takeLatest(FETCH_USER_REQUESTS, fetchUserRequestsSaga);
+}
+
+// worker saga responsible for make api request
+export function* createNewRequestSagaAsync(action) {
+  try {
+    const response = yield call(
+      RequestAPI.postNewRequest, action.requestData
+    );
+    toast.success('Request created');
+
+    yield put(createNewRequestSuccess(response.data.request));
+    yield put(closeModal());
+
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(createNewRequestFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+// watcher saga listens for CREATE_NEW_REQUEST action type
+export function* watchCreateNewRequestAsync() {
+  yield takeLatest(CREATE_NEW_REQUEST, createNewRequestSagaAsync);
 }

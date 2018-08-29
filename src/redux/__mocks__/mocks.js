@@ -1,4 +1,4 @@
-const response = {
+export const fetchRequestsResponse = {
   requests: [
     {
       id: 'xDh20btGz',
@@ -25,4 +25,11 @@ const response = {
   url: '/requests?page=1'
 };
 
-export default response;
+export const createRequestMock = {
+  requestObj: {
+    name: 'Ademola Ariya',
+    origin: 'Lagos',
+    destination: 'New York',
+    manager: 'Samuel Kubai'
+  }
+};

@@ -23,7 +23,7 @@ class TravelDetailsFiedset extends Component {
           {renderInput('destination', 'dropdown-select')}
           {renderInput('otherDestination', 'text', otherDestCustomClass)}
           {renderInput('departureDate', 'date')}
-          {renderInput('returnDate', 'date')}
+          {renderInput('arrivalDate', 'date')}
         </div>
       </fieldset>
     );

@@ -1,4 +1,4 @@
-import React, { Component } from  'react';
+import React, { Component } from 'react';
 import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import Pagination from '../../components/Pagination/Pagination';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
@@ -7,13 +7,17 @@ import upic from '../../images/upic.svg';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
 class Base extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
   handleHideSearchBar = () => {
     this.setState((prevState) => {
       this.setState({openSearch: !prevState.openSearch});
     });
   }
-
-  renderNavBar = (openSearch) => {
+  
+  renderNavBar = openSearch => {
     return (
       <ConnectedNavBar
         className=""
@@ -23,7 +27,7 @@ class Base extends Component {
         openSearch={openSearch}
       />
     );
-  }
+  };
 
   renderLeftSideBar = (hideClass2, selectedLink) => {
     return (
@@ -31,10 +35,10 @@ class Base extends Component {
         <LeftSideBar selectedLink={selectedLink} />
       </div>
     );
-  }
+  };
 
-  renderPagination = (pagination) => {
-    return(
+  renderPagination = pagination => {
+    return (
       <div className="rp-pagination">
         <Pagination
           currentPage={pagination.currentPage}
@@ -43,17 +47,17 @@ class Base extends Component {
         />
       </div>
     );
-  }
+  };
 
-  renderNotificationPane = (hideClass) => {
-    return(
+  renderNotificationPane = hideClass => {
+    return (
       <div className={`notification ${hideClass}`}>
         <NotificationPane
           onCloseNotificationPane={this.onCloseNotificationPane}
         />
       </div>
     );
-  }
+  };
 
   renderSideDrawer = (selectedLink) => {
     return (<SideDrawer selectedLink={selectedLink} />);

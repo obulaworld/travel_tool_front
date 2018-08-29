@@ -14,7 +14,7 @@ class NewRequestForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        fullname: user ? user.UserInfo.name : '', // FIX: need to be refactor later
+        name: user ? user.UserInfo.name : '', // FIX: need to be refactor later
         gender: '',
         department: '',
         role: '',
@@ -23,7 +23,7 @@ class NewRequestForm extends PureComponent {
         destination: '',
         otherDestination: '',
         departureDate: null,
-        returnDate: null
+        arrivalDate: null
       },
       errors: {},
       hasBlankFields: true
@@ -32,25 +32,30 @@ class NewRequestForm extends PureComponent {
     this.state = { ...this.defaultState };
   }
 
+
+  componentWillUnmount() {
+    this.handleClearForm();
+  }
   // an onChange handler will be created by the Input component when it's rendered
 
   handleSubmit = event => {
     event.preventDefault();
     const { handleCreateRequest } = this.props;
     const { values } = this.state;
-
+    
     if (this.validate()) {
       // call create the request
-      let data = { ...values };
-      if (data.destination === 'Other')
+      let data = values;
+      
+      if (data.destination === 'Other') {
         data.destination = data.otherDestination;
-
+      }
       delete data.otherDestination;
       handleCreateRequest(data);
     }
   };
 
-  handleCancel = () => {
+  handleClearForm = () => {
     this.setState({ ...this.defaultState });
   };
 
@@ -79,16 +84,22 @@ class NewRequestForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const {user} = this.props;
+    const { user, creatingRequest } = this.props;
 
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
+
+        {creatingRequest && (
+          <h5 style={{display: 'flex', justifyContent: 'center', fontFamily: 'DIN Pro'}}>
+          Creating request...
+          </h5>
+        )}
         <form onSubmit={this.handleSubmit} className="new-request">
           <PersonalDetailsFiedset values={values} />
           <TravelDetailsFiedset values={values} />
           <hr />
           <SubmitArea
-            onCancel={this.handleCancel}
+            onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
           />
         </form>
@@ -99,7 +110,13 @@ class NewRequestForm extends PureComponent {
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object,
+  creatingRequest: PropTypes.bool,
+};
+
+NewRequestForm.defaultProps = {
+  creatingRequest: false,
+  user: {}
 };
 
 export default NewRequestForm;

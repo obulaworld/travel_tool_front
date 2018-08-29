@@ -1,5 +1,5 @@
 const inputLabels = {
-  fullname: {
+  name: {
     label: 'Your name',
     note: '(As it appears on your passport)'
   },
@@ -37,7 +37,7 @@ const inputLabels = {
     label: 'Target departure date'
   },
 
-  returnDate: {
+  arrivalDate: {
     label: 'Target return date'
   }
 };

@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './_header.scss';
 
-class PageHeader extends PureComponent{
+class PageHeader extends PureComponent {
   render(){
-    const {title, actionBtn, toggleNewRequestModal} = this.props;
+    const {title, actionBtn, openModal} = this.props;
 
     return(
       <div className="PageHeader">
@@ -16,7 +16,7 @@ class PageHeader extends PureComponent{
         {
           actionBtn ? (
             <div>
-              <button onClick={toggleNewRequestModal} type="button" className="action-btn btn-new-request">
+              <button onClick={() => openModal(true, 'new request')} type="button" className="action-btn btn-new-request">
                 {actionBtn}
               </button>
             </div>
@@ -33,11 +33,10 @@ export default PageHeader;
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   actionBtn: PropTypes.string,
-  toggleNewRequestModal: PropTypes.func
+  openModal: PropTypes.func
 };
 
 PageHeader.defaultProps = {
   actionBtn: '',
-  toggleNewRequestModal: ()=>{}
+  openModal: () => {}
 };
-

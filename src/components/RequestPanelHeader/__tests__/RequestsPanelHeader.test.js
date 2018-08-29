@@ -9,7 +9,6 @@ const props = {
   limit: 10,
   getRequestsWithLimit: sinon.spy(() => Promise.resolve()),
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
-  toggleNewRequestModal: sinon.spy(),
   requests: [
     {
       id: 'xDh20btGz',

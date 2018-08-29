@@ -28,7 +28,7 @@ class FormContext extends Component {
 const  errors = PropTypes.object;
 const  targetForm = PropTypes.object;
 const validatorName = PropTypes.string;
-const  children = PropTypes.object;
+const  children = PropTypes.array;
 
 
 FormContext.propTypes = {

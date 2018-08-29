@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WithLoadingTable from '../../components/Table';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
-import { fetchUserRequests } from '../../redux/actionCreator/requestActions';
 import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
-import { NewRequestForm } from '../../components/Forms';
 import Base from '../Base';
+import { NewRequestForm } from '../../components/Forms';
+import { fetchUserRequests, createNewRequest } from '../../redux/actionCreator/requestActions';
+import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 
 export class RequestsPage extends Base {
   state = {
@@ -24,14 +25,12 @@ export class RequestsPage extends Base {
     fetchUserRequests('?page=1');
   }
 
-
   onPageChange = (page) => {
     const { fetchUserRequests, url } = this.props;
     const query = Utils.addOrReplaceQuery(url, 'page', page);
     fetchUserRequests(query);
   }
 
-  // FIX: Change the function name and dont make the state toggle
   onNotificationToggle = () => {
     this.setState({
       hideNotificationPane: false,
@@ -46,18 +45,8 @@ export class RequestsPage extends Base {
     });
   };
 
-  toggleNewRequestModal = () => {
-    const { hideNewRequestModal } = this.state;
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        hideNewRequestModal: !hideNewRequestModal
-      };
-    });
-  };
-
   renderRequestPanelHeader() {
-    const { openRequestsCount, fetchUserRequests, requests, pastRequestsCount } = this.props;
+    const { openRequestsCount, fetchUserRequests, requests, pastRequestsCount, openModal, shouldOpen, modalType } = this.props;
     const { limit } = this.state;
 
     return (
@@ -69,19 +58,28 @@ export class RequestsPage extends Base {
           pastRequestsCount={pastRequestsCount}
           getRequestsWithLimit={this.getRequestsWithLimit}
           limit={limit}
-          toggleNewRequestModal={this.toggleNewRequestModal}
+          openModal={openModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
         />
       </div>
     );
   }
 
   renderRequests(requests, isLoading, error) {
+    const { openModal, closeModal, shouldOpen, modalType } = this.props;
+
     return(
       <div className="rp-table">
         <WithLoadingTable
           requests={requests}
           isLoading={isLoading}
-          fetchRequestsError={error} />
+          fetchRequestsError={error}
+          closeModal={closeModal}
+          openModal={openModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
+        />
       </div>
     );
   }
@@ -95,15 +93,21 @@ export class RequestsPage extends Base {
     fetchUserRequests(query);
   }
 
-  renderNewRequestForm (hideNewRequestModal){
-    const {user} = this.props;
+  renderNewRequestForm(shouldOpen, modalType) {
+    const { user, createNewRequest, loading, errors, closeModal } = this.props;
     return (
       <Modal
-        toggleModal={this.toggleNewRequestModal}
-        visibility={hideNewRequestModal? 'invisible': 'visible'}
+        closeModal={closeModal}
+        visibility={shouldOpen && (modalType === 'new request') ? 'visible' : 'invisible'}
         title="New Travel Request"
       >
-        <NewRequestForm user={user} handleCreateRequest={(formData)=>{}} />
+        <NewRequestForm
+          user={user}
+          handleCreateRequest={createNewRequest}
+          loading={loading}
+          errors={errors}
+          closeModal={closeModal}
+        />
       </Modal>
     );
   }
@@ -132,9 +136,9 @@ export class RequestsPage extends Base {
   }
 
   render() {
-    const { hideNotificationPane, hideSideBar, hideNewRequestModal, selectedLink, openSearch } = this.state;
-    let [hideClass, leftPaddingClass] = hideNotificationPane ?
-      ['hide', '']: ['', 'pd-left'];
+    const { hideNotificationPane, hideSideBar, selectedLink, openSearch } = this.state;
+    const { shouldOpen, modalType } = this.props;
+    let [hideClass, leftPaddingClass] = hideNotificationPane ? ['hide', '']: ['', 'pd-left'];
     const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
     return(
@@ -142,7 +146,7 @@ export class RequestsPage extends Base {
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
           {this.renderSideDrawer(selectedLink)}
           {this.renderNavBar(openSearch)}
-          {this.renderNewRequestForm(hideNewRequestModal)}
+          {this.renderNewRequestForm(shouldOpen, modalType)}
           {this.renderRequestPage(hideClass2,leftPaddingClass, hideClass, hideClass3, selectedLink )}
         </div>
       </div>
@@ -150,16 +154,8 @@ export class RequestsPage extends Base {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state.requests,
-});
-
-const actionCreators = {
-  fetchUserRequests,
-};
-
 RequestsPage.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchRequestsError: PropTypes.string,
   requests: PropTypes.array,
@@ -168,7 +164,13 @@ RequestsPage.propTypes = {
   pastRequestsCount: PropTypes.number,
   isLoading: PropTypes.bool,
   url: PropTypes.string,
-  history: PropTypes.shape({}).isRequired
+  history: PropTypes.shape({}).isRequired,
+  createNewRequest: PropTypes.func.isRequired,
+  creatingRequest: PropTypes.bool,
+  errors: PropTypes.array,
+  shouldOpen: PropTypes.bool.isRequired,
+  modalType: PropTypes.string,
+  openModal: PropTypes.func.isRequired,
 };
 
 RequestsPage.defaultProps = {
@@ -177,9 +179,24 @@ RequestsPage.defaultProps = {
   requests: [],
   pagination: {},
   isLoading: false,
+  creatingRequest: false,
   openRequestsCount: null,
   pastRequestsCount: null,
+  errors: [],
+  modalType: '',
+  user: {}
 };
 
+export const mapStateToProps = ({ requests, modal }) => ({
+  ...requests,
+  ...modal.modal,
+});
+
+const actionCreators = {
+  fetchUserRequests,
+  createNewRequest,
+  openModal,
+  closeModal
+};
 
 export default connect(mapStateToProps, actionCreators)(RequestsPage);

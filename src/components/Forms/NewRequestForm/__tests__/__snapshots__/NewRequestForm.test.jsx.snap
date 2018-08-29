@@ -18,7 +18,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         className="form-input "
       >
         <label
-          htmlFor="fullname"
+          htmlFor="name"
         >
           Your name
           <span>
@@ -30,7 +30,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           className=""
           error=""
           label="Your name"
-          name="fullname"
+          name="name"
           onBlur={[Function]}
           onChange={[Function]}
           type="text"
@@ -647,7 +647,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         className="form-input "
       >
         <label
-          htmlFor="returnDate"
+          htmlFor="arrivalDate"
         >
           Target return date
         </label>
@@ -664,7 +664,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                 <input
                   className=""
                   disabled={false}
-                  name="returnDate"
+                  name="arrivalDate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onClick={[Function]}

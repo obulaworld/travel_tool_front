@@ -8,7 +8,7 @@ import './_modal.scss';
 class Modal extends PureComponent {
   static propTypes = {
     visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
-    toggleModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
     symbol: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
@@ -25,7 +25,7 @@ class Modal extends PureComponent {
   };
 
   renderModalHeader = () => {
-    const { title, toggleModal, symbol, description, modalBar, divClass, dynamicText } = this.props;
+    const { title, closeModal, symbol, description, modalBar, divClass, dynamicText } = this.props;
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
@@ -42,7 +42,7 @@ class Modal extends PureComponent {
             {modalBar}
           </div>
         </div>
-        <button type="button" onClick={toggleModal} className="modal-close">
+        <button type="button" onClick={closeModal} className="modal-close">
           <img alt="close" src={closeButton} />
         </button>
       </div>
@@ -50,30 +50,32 @@ class Modal extends PureComponent {
   };
 
   render() {
-    const {children, visibility, toggleModal, divClass, innerClass, dynamicText,
+    const {children, visibility, closeModal, divClass, innerClass, dynamicText,
       nextClass, dynamicDate, title  } = this.props;
     return (
-      <Fragment>
-        <Overlay click={toggleModal} className={visibility}>
-          <div
-            className={`modal ${visibility}`}
-            onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
-            tabIndex="0"
-            role="button">
-            {this.renderModalHeader()}
-            <div className="modal-content">
-              {children}
+      visibility === 'visible' ? (
+        <Fragment>
+          <Overlay click={closeModal} className={visibility}>
+            <div
+              className={`modal ${visibility}`}
+              onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
+              tabIndex="0"
+              role="button">
+              {this.renderModalHeader()}
+              <div className="modal-content">
+                {children}
+              </div>
             </div>
-          </div>
-        </Overlay>
-        <TravelLink 
-          divClass={divClass}
-          innerClass={innerClass}
-          dynamicText={dynamicText}
-          nextClass={nextClass}
-          dynamicDate={dynamicDate}
-        />
-      </Fragment>
+          </Overlay>
+          <TravelLink 
+            divClass={divClass}
+            innerClass={innerClass}
+            dynamicText={dynamicText}
+            nextClass={nextClass}
+            dynamicDate={dynamicDate}
+          />
+        </Fragment>
+      ) : null
     );
   }
 }

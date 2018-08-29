@@ -25,17 +25,15 @@ class RequestPanelHeader extends PureComponent {
   };
 
   render() {
-    const { requests, getRequestsWithLimit, toggleNewRequestModal } = this.props;
+    const { requests, getRequestsWithLimit, openModal } = this.props;
     return (
       <div className="request-panel-header">
-        <PageHeader title="REQUESTS" actionBtn="New Request" toggleNewRequestModal={toggleNewRequestModal} />
+        <PageHeader title="REQUESTS" actionBtn="New Request" openModal={openModal} />
         {requests &&
           requests.length > 0 && (
           <div className="open-requests">
             {this.renderButtonGroup()}
-            <HeaderPagination
-              getRequestsWithLimit={getRequestsWithLimit}
-            />
+            <HeaderPagination getRequestsWithLimit={getRequestsWithLimit} />
           </div>
         )}
       </div>
@@ -50,7 +48,7 @@ RequestPanelHeader.propTypes = {
   getRequestsWithLimit: PropTypes.func.isRequired,
   fetchUserRequests: PropTypes.func.isRequired,
   requests: PropTypes.array,
-  toggleNewRequestModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 RequestPanelHeader.defaultProps = {

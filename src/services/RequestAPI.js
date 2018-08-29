@@ -8,6 +8,10 @@ class RequestAPI {
     const query = url && url.split('?')[1] || '';
     return axios.get(`${baseUrl}/requests?${query}`);
   }
+
+  static postNewRequest(requestData) {
+    return axios.post(`${baseUrl}/requests`, requestData);
+  }
 }
 
 export default RequestAPI;

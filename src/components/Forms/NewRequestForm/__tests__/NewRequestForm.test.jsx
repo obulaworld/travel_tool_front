@@ -4,15 +4,40 @@ import NewRequestForm from '../NewRequestForm';
 
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
-
-  beforeEach(() => {
-    onSubmit = jest.fn();
-    const user = {
+  onSubmit = jest.fn();
+  
+  const props = {
+    user: {
       UserInfo: {
         name: 'John Doe'
-      }
-    };
-    wrapper = mount(<NewRequestForm user={user} handleCreateRequest={onSubmit} />);
+      },
+    },
+    loading: false,
+    errors: [],
+    handleCreateRequest: jest.fn(() => {}),
+  };
+
+  const {user} = props;
+  const defaultState = {
+    values: {
+      name: user ? user.UserInfo.name : '', // FIX: need to be refactor later
+      gender: '',
+      department: '',
+      role: '',
+      manager: '',
+      origin: '',
+      destination: '',
+      otherDestination: '',
+      departureDate: null,
+      arrivalDate: null
+    },
+    errors: {},
+    hasBlankFields: true
+  };
+
+
+  beforeEach(() => {
+    wrapper = mount(<NewRequestForm {...props} />);
   });
 
   it('renders correctly', () => {
@@ -40,13 +65,13 @@ describe('<NewRequestForm />', () => {
   });
 
   it('picks input values', () => {
-    wrapper.find('input[name="fullname"]').simulate('change', {
+    wrapper.find('input[name="name"]').simulate('change', {
       target: {
-        name: 'fullname',
+        name: 'name',
         value: 'John Mutuma'
       }
     });
-    expect(wrapper.state().values.fullname).toBe('John Mutuma');
+    expect(wrapper.state().values.name).toBe('John Mutuma');
   });
 
   it('validates input on blur', () => {
@@ -123,10 +148,10 @@ describe('<NewRequestForm />', () => {
     expect(otherDestinationInput.prop('className')).not.toContain('hidden');
   });
 
-  it('calls on submit', () => {
+  it('calls on submit when `destination` is `Other`', () => {
     wrapper.setState({
       values: {
-        fullname: 'test',
+        name: 'test',
         gender: 'test',
         department: 'test',
         role: 'test',
@@ -135,12 +160,81 @@ describe('<NewRequestForm />', () => {
         destination: 'Other',
         otherDestination: 'Miami',
         departureDate: moment(),
-        returnDate: moment()
+        arrivalDate: moment()
       }
     });
 
-    const form = wrapper.find('form');
-    form.simulate('submit');
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.instance().forceUpdate();
+    wrapper.find('form').simulate('submit');
+    expect(spy).toHaveBeenCalledTimes(1);
+    wrapper.state().values.destination = 'Miami';
+    delete wrapper.state().values.otherDestination;
+    expect(props.handleCreateRequest).toHaveBeenCalledWith(wrapper.state().values);//eslint-disable-line
+    expect(props.handleCreateRequest).toHaveBeenCalledTimes(1);//eslint-disable-line
+  });
+
+  it('calls on submit when `destination` is not`Other`', () => {
+    wrapper.setState({
+      values: {
+        name: 'test',
+        gender: 'test',
+        department: 'test',
+        role: 'test',
+        manager: 'test',
+        origin: 'test',
+        destination: 'Nairobi',
+        departureDate: moment(),
+        arrivalDate: moment()
+      }
+    });
+
+    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.instance().forceUpdate();
+    wrapper.find('form').simulate('submit');
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(props.handleCreateRequest).toHaveBeenCalledWith(wrapper.state().values);//eslint-disable-line
+    expect(props.handleCreateRequest).toHaveBeenCalledTimes(2);//eslint-disable-line
+  });
+
+  it('should not toggle the modal if request submission failed', () => {
+    wrapper.setState({
+      values: {
+        name: 'test',
+        gender: 'test',
+        department: 'test',
+        role: 'test',
+        manager: 'test',
+        origin: 'test',
+        destination: 'Nairobi',
+        departureDate: moment(),
+        arrivalDate: moment()
+      }
+    });
+    wrapper.setProps({
+      errors: ['error while creating a new request']
+    });
+
+    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.instance().forceUpdate();
+    wrapper.find('form').simulate('submit');
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should clear the form when the component unmounts', () => {
+    const componentWillUnmount = jest.spyOn(wrapper.instance(), 'componentWillUnmount');
+    wrapper.unmount();
+    expect(componentWillUnmount).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call handleClearForm', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().handleClearForm();
+    expect(wrapper.state()).toMatchObject(defaultState);
+  });
+
+  it('should render a loading indicator while creating a new request', () => {
+    wrapper.setProps({ creatingRequest: true });
+    expect(wrapper.find('h5').text()).toEqual('Creating request...');
   });
 });

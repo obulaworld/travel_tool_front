@@ -25,11 +25,13 @@ exports[`<RequestsPage> renders as expected 1`] = `
       nextClass=""
       symbol=""
       title="New Travel Request"
-      toggleModal={[Function]}
       visibility="invisible"
     >
       <NewRequestForm
+        creatingRequest={false}
+        errors={Array []}
         handleCreateRequest={[Function]}
+        loading={false}
         user={
           Object {
             "UserInfo": Object {
@@ -69,6 +71,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
                 fetchUserRequests={[Function]}
                 getRequestsWithLimit={[Function]}
                 limit={10}
+                modalType={null}
                 openRequestsCount={1}
                 pastRequestsCount={1}
                 requests={
@@ -117,7 +120,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
                     },
                   ]
                 }
-                toggleNewRequestModal={[Function]}
+                shouldOpen={false}
               />
             </div>
             <div
@@ -126,6 +129,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
               <WithLoading
                 fetchRequestsError={null}
                 isLoading={false}
+                modalType={null}
                 requests={
                   Array [
                     Object {
@@ -172,6 +176,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
                     },
                   ]
                 }
+                shouldOpen={false}
               />
             </div>
             <div

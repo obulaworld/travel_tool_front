@@ -6,8 +6,8 @@ exports[`should render approvals header correctly 1`] = `
 >
   <PageHeader
     actionBtn=""
+    openModal={[Function]}
     title="APPROVALS"
-    toggleNewRequestModal={[Function]}
   />
   <div
     className="open-requests"

@@ -65,5 +65,5 @@ describe('Render NavBar component', () => {
     const loginStatus = Cookie.get('jwt-token');
     expect(token).toEqual(undefined);
     expect(loginStatus).toEqual(undefined);
-  })
+  });
 });

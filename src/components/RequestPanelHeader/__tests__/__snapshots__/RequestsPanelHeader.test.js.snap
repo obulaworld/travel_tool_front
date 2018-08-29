@@ -6,8 +6,8 @@ exports[`<RequestPanelHeader /> should render correctly 1`] = `
 >
   <PageHeader
     actionBtn="New Request"
+    openModal={[Function]}
     title="REQUESTS"
-    toggleNewRequestModal={[Function]}
   />
   <div
     className="open-requests"

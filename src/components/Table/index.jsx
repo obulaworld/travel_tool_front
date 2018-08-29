@@ -9,20 +9,14 @@ import withLoading from '../Hoc/withLoading';
 export class Table extends Component {
   state = {
     clickedRequestId: null,
-    hideRequestDetailModal: true
-  };
-
-  onCloseRequestDetailsModal = () => {
-    this.setState({
-      hideRequestDetailModal: true
-    });
   };
 
   handleClickRequest = requestId => {
+    const { openModal } = this.props;
     this.setState({
       clickedRequestId: requestId,
-      hideRequestDetailModal: false
     });
+    openModal(true, 'request details');
   };
 
   renderUserImage(approval) {
@@ -195,11 +189,12 @@ export class Table extends Component {
   }
 
   renderDetailsModal() {
-    const { hideRequestDetailModal, clickedRequestId } = this.state;
+    const { clickedRequestId } = this.state;
+    const { closeModal, shouldOpen, modalType } = this.props;
     return (
       <Modal
-        toggleModal={this.onCloseRequestDetailsModal}
-        visibility={hideRequestDetailModal ? 'invisible' : 'visible'}
+        closeModal={closeModal}
+        visibility={(shouldOpen && modalType === 'request details') ? 'visible' : 'invisible'}
         title={clickedRequestId}
         symbol="#"
         description="Request Details"
@@ -209,7 +204,7 @@ export class Table extends Component {
           </div>
         )}
       >
-        <RequestDetailsModal handleCreateComment={() => {}} />
+        <RequestDetailsModal handleCreateComment={() => {}} closeModal={closeModal} />
       </Modal>
 
     );}
@@ -245,12 +240,20 @@ Table.propTypes = {
   requests: PropTypes.array,
   avatar: PropTypes.string,
   fetchRequestsError: PropTypes.string,
+  closeModal: PropTypes.func,
+  openModal: PropTypes.func,
+  shouldOpen: PropTypes.bool,
+  modalType: PropTypes.string,
 };
 
 Table.defaultProps = {
   avatar: '',
   fetchRequestsError: null,
   requests: [],
+  closeModal: () => {},
+  openModal: () => {},
+  shouldOpen: false,
+  modalType: null
 };
 
 export default withLoading(Table);

@@ -27,7 +27,11 @@ export default function (ComposedComponent) {
   Authenticate.propTypes = {
     history: history.isRequired,
     isAuthenticated: isAuthenticated.isRequired,
-    user: user.isRequired
+    user: user
+  };
+
+  Authenticate.defaultProps = {
+    user: null
   };
 
   const mapStateToProps = state => ({

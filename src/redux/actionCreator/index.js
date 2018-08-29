@@ -1,5 +1,5 @@
 export {
   setCurrentUser,
   setCurrentUserSuccess,
-  setCurrentUserFailure
+  setCurrentUserFailure,
 } from './actionCreators';

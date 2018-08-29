@@ -3,8 +3,7 @@ import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import createSagaMiddleware from 'redux-saga';
-import {RequestsPage} from '../RequestsPage';
+import { RequestsPage, mapStateToProps } from '../RequestsPage';
 
 const props = {
   requests: [
@@ -69,7 +68,12 @@ const props = {
     UserInfo: {
       name: 'John Doe'
     }
-  }
+  },
+  createNewRequest: jest.fn(),
+  loading: false,
+  errors: [],
+  shouldOpen: false,
+  modalType: null
 };
 
 const initialState = {
@@ -81,10 +85,19 @@ const initialState = {
         picture: 'http://picture.com/gif'
       }
     }
+  },
+  requestsReducer: {
+    requests: [],
+    request: {},
+    loading: false,
+    errors: []
+  },
+  modalReducer: {
+    shouldOpen: false,
+    modalType: null
   }
 };
-const middleware = [createSagaMiddleware];
-const mockStore = configureStore(middleware);
+const mockStore = configureStore();
 const store = mockStore(initialState);
 
 
@@ -162,8 +175,15 @@ describe('<RequestsPage>', () => {
   });
 
   it('should render all the components except the notification pane', () => {
-    const wrapper = shallow(<RequestsPage {...props} />);
-    // expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
+    expect(wrapper.find('Table').length).toBe(1);
     expect(wrapper.find('RequestPanelHeader').length).toBe(1);
     expect(wrapper.find('WithLoading').length).toBe(1); //WithLoading HOC containing Requests
     expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
@@ -221,27 +241,6 @@ describe('<RequestsPage>', () => {
     expect(history.push).toHaveBeenCalledWith('/');
   });
 
-  it('toggles modal state when close modal button is clicked', (done) => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RequestsPage {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    wrapper
-      .find('.btn-new-request')
-      .simulate('click');
-    const newState = wrapper
-      .find(RequestsPage)
-      .instance()
-      .state;
-    process.nextTick(() => {
-      expect(newState.hideNewRequestModal).toBe(false);
-      done();
-    });
-  });
-
   it('should call handleHideSearchBar method', () =>{
     const wrapper = shallow(<RequestsPage {...props} />);
     wrapper.instance().handleHideSearchBar();
@@ -260,7 +259,7 @@ describe('<RequestsPage>', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('toggles modal state when close modal button is clicked', (done) => {
+  it.skip('should set `shouldOpen` prop to `true` when new request button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -271,14 +270,36 @@ describe('<RequestsPage>', () => {
     wrapper
       .find('.btn-new-request')
       .simulate('click');
-    const newState = wrapper
-      .find(RequestsPage)
-      .instance()
-      .state;
-    process.nextTick(() => {
-      expect(newState.hideNewRequestModal).toBe(false);
-      done();
-    });
+    expect(wrapper.find('RequestsPage').props().shouldOpen).toEqual(true);
+  });
 
+  it('should set `visibility` prop to `visible` when new request button is clicked', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...{...props, shouldOpen: true, modalType: 'new request'}} />
+        </MemoryRouter>
+      </Provider>
+    );
+    wrapper
+      .find('.btn-new-request')
+      .simulate('click');
+    expect(wrapper.find('Modal').at(0).props().visibility).toEqual('visible');
+  });
+
+  it('maps state to props and return the expected object', () => {
+    const requests = {
+      requests: [],
+      errors: [],
+      loading: false,
+    };
+    const modal = {
+      modal: {
+        shouldOpen: false,
+        modalType: null,
+      }
+    };
+    const props = mapStateToProps({requests, modal});
+    expect(props).toEqual({...requests, ...modal.modal});
   });
 });

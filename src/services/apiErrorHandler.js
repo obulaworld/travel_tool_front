@@ -12,9 +12,7 @@ export default function apiErrorHandler(error) {
       errorMessage = 'Server error, try again';
       break;
     default:
-      // FIX: change errors to message? - some err responses
-      // wont return an array of errors
-      errorMessage = error.response.data.errors;
+      errorMessage = error.response.data.errors || error.response.data.error;
     }
   } else {
     // if server is down, client won't get a response
