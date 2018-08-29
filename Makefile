@@ -26,6 +26,8 @@ help:
 	@echo ''
 
 background:
+	@ ${INFO} "Building required docker images"
+	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) build web
 	@ ${INFO} "Starting background local development server"
 	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) up -d
 
