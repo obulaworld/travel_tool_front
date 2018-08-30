@@ -1,19 +1,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-import upic from '../../images/upic.svg';
+import { connect } from 'react-redux';
 import './SideDrawer.scss';
 import LeftSideBar from '../LeftSideBar/LeftSideBar';
+import ImageLink from '../image-link/ImageLink';
 
-class SideDrawer extends PureComponent {
+export class SideDrawer extends PureComponent {
   render() {
-    const {selectedLink} = this.props;
+    const { selectedLink, user } = this.props;
     return (
       <div className="mdl-layout__drawer">
         <div className="side-drawer__user-details">
-          <img src={upic} alt="User Profile Pix" />
+          <ImageLink
+            altText="User profile picture"
+            imageClass="navbar__mdl-upic"
+            imageSrc={user ? user.UserInfo.picture : ''}
+          />
           <div className="side-drawer__user-name">
-         Silm Momoh
+            {user ? user.UserInfo.name : ''}
           </div>
         </div>
         <hr className="side-drawer__divider" />
@@ -25,10 +29,17 @@ class SideDrawer extends PureComponent {
   }
 }
 SideDrawer.propTypes = {
-  selectedLink: PropTypes.string
+  selectedLink: PropTypes.string,
+  user: PropTypes.object.isRequired
 };
 SideDrawer.defaultProps = {
   selectedLink: ''
 };
 
-export default SideDrawer;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+
+export default connect(mapStateToProps)(SideDrawer);

@@ -4,15 +4,15 @@ import Pagination from '../../components/Pagination/Pagination';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
-import SideDrawer from '../../components/SideDrawer/SideDrawer';
+import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 
 class Base extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   /**
-   * the notification pane and the left sidebar dont 
+   * the notification pane and the left sidebar dont
    */
   onNotificationToggle = () => {
     this.setState((prevState => {
@@ -29,7 +29,7 @@ class Base extends Component {
       return {
         hideNotificationPane: true,
         hideSideBar: false
-      }
+      };
     });
   }
 
@@ -82,7 +82,7 @@ class Base extends Component {
   };
 
   renderSideDrawer = (selectedLink) => {
-    return (<SideDrawer selectedLink={selectedLink} />);
+    return (<ConnectedSideDrawer selectedLink={selectedLink} />);
   }
 }
 

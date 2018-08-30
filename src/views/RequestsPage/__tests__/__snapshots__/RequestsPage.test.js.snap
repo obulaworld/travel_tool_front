@@ -5,7 +5,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
   <div
     className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
   >
-    <SideDrawer
+    <Connect(SideDrawer)
       selectedLink="request page"
     />
     <withRouter(Connect(NavBar))
