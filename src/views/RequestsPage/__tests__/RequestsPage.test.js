@@ -215,6 +215,25 @@ describe('<RequestsPage>', () => {
     wrapper.unmount();
   });
 
+  it('should close the notification pane on the second click of the notification icon', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    const notificationIcon = wrapper.find('.navbar__navbar-notification');
+    /**
+     * we're simulating the click function twice because the first click opens the notification pane
+     * and the second call closes the notification pane
+     **/
+    notificationIcon.simulate('click');
+    notificationIcon.simulate('click');
+    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
+    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
+  });
+
   it('should close the notification pane when the close icon is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>

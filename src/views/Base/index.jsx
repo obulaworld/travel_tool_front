@@ -11,6 +11,28 @@ class Base extends Component {
     super(props);
   }
   
+  /**
+   * the notification pane and the left sidebar dont 
+   */
+  onNotificationToggle = () => {
+    this.setState((prevState => {
+      return {
+        ...prevState,
+        hideNotificationPane: !prevState.hideNotificationPane,
+        hideSideBar: !prevState.hideSideBar,
+      };
+    }));
+  };
+
+  onCloseNotificationPane = () => {
+    this.setState(prevState => {
+      return {
+        hideNotificationPane: true,
+        hideSideBar: false
+      }
+    });
+  }
+
   handleHideSearchBar = () => {
     this.setState((prevState) => {
       this.setState({openSearch: !prevState.openSearch});

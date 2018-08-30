@@ -31,20 +31,6 @@ export class RequestsPage extends Base {
     fetchUserRequests(query);
   }
 
-  onNotificationToggle = () => {
-    this.setState({
-      hideNotificationPane: false,
-      hideSideBar: true,
-    });
-  };
-
-  onCloseNotificationPane = () => {
-    this.setState({
-      hideNotificationPane: true,
-      hideSideBar: false
-    });
-  };
-
   renderRequestPanelHeader() {
     const { openRequestsCount, fetchUserRequests, requests, pastRequestsCount, openModal, shouldOpen, modalType } = this.props;
     const { limit } = this.state;

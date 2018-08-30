@@ -17,21 +17,6 @@ class Approvals extends Base {
     console.log('Page Change function', page); /*eslint-disable-line */
   }
 
-  // FIX: Change the function name and dont make the state toggle
-  onNotificationToggle = () => {
-    this.setState({
-      hideNotificationPane: false,
-      hideSideBar: true,
-    });
-  };
-
-  onCloseNotificationPane = () => {
-    this.setState({
-      hideNotificationPane: true,
-      hideSideBar: false
-    });
-  }
-
   renderApprovalsTable(){
     return(
       <WithLoadingTable requests={requestsData.requests} avatar="image" />
@@ -88,6 +73,3 @@ class Approvals extends Base {
 
 
 export default Approvals;
-
-
-
