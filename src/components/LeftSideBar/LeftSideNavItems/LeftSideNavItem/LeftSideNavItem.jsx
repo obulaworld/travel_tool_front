@@ -109,3 +109,4 @@ DropdownNavLink.propTypes = {
 };
 
 export default withRouter(LeftSideNavItem);
+
