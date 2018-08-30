@@ -19,42 +19,6 @@ export class Table extends Component {
     openModal(true, 'request details');
   };
 
-  renderUserImage(approval) {
-    const image = approval.image;
-    if (image === 'none') {
-      return (
-        <div className="approvals__table__first__cell">
-          <p className="approvals__table__text">
-            HM
-          </p>
-        </div>
-      );
-    } else if (image === 'null') {
-      return (
-        <div className="approvals__table__second__cell">
-          <p className="approvals__table__text">
-            JK
-          </p>
-        </div>
-      );
-    } else {
-      return (
-        <img
-          src={approval.image}
-          alt="user" className="approvals__table__image"
-        />
-      );
-    }
-  }
-
-  renderToolTip(approval){
-    return(
-      <div className="tool__tip">
-        {approval.name}
-      </div>
-    );
-  }
-
   renderNoRequests() {
     return (
       <div className="table__requests--empty">
@@ -93,56 +57,31 @@ export class Table extends Component {
     );
   }
 
-  renderUserAvatar(request, avatar){
-    if (avatar){
-      return (
-        <td className="mdl-data-table__cell--non-numeric mdl-cell--hide-phone mdl-cell--hide-tablet table__image">
-          {this.renderUserImage(request)}
-          {this.renderToolTip(request)}
-        </td>
-      );
-    }
-  }
-
-  renderApprovalsIdCell(request, avatar) {
-    if (avatar) {
-      return (
-        <td className="mdl-data-table__cell--non-numeric table__data table__id freeze">
+  renderApprovalsIdCell(request) {
+    return (
+      <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
+        <div
+          onKeyPress={() => { }}
+          onClick={() => this.handleClickRequest(request.id)}
+          role="button"
+          tabIndex="0"
+          className="button-outline"
+        >
           {request.id}
-        </td>
-      );
-    } else {
-      return (
-        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
-          <div
-            onKeyPress={() => {}}
-            onClick={() => this.handleClickRequest(request.id)}
-            role="button"
-            tabIndex="0"
-            className="button-outline"
-          >
-            {request.id}
-          </div>
-        </td>
-      );
-    }
+        </div>
+      </td>
+    );
   }
 
-  renderEmptyCell(avatar){
-    if(avatar){
-      return(
-        <th className="mdl-data-table__cell--non-numeric mdl-cell--hide-tablet table__head freeze" />
-      );
-    }
-  }
-
-  renderRequest(request, avatar) {
+  renderRequest(request) {
     const { arrivalDate, departureDate } = request;
     const travelDuration = Math.abs(moment(arrivalDate).diff(moment(departureDate), 'days'));
     return (
       <tr key={request.id} className="table__row">
-        {this.renderUserAvatar(request, avatar)}
-        {this.renderApprovalsIdCell(request, avatar)}
+        {this.renderApprovalsIdCell(request)}
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          {request.name}
+        </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           {request.destination}
         </td>
@@ -165,9 +104,11 @@ export class Table extends Component {
   renderTableHead(avatar) {
     return (
       <tr>
-        {this.renderEmptyCell(avatar)}
         <th className="mdl-data-table__cell--non-numeric table__head freeze">
           Request ID
+        </th>
+        <th className="mdl-data-table__cell--non-numeric table__head freeze">
+          Owner
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
           Destination
