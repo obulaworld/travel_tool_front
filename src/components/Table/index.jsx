@@ -79,7 +79,7 @@ export class Table extends Component {
     return (
       <tr key={request.id} className="table__row">
         {this.renderApprovalsIdCell(request)}
-        <td className="mdl-data-table__cell--non-numeric table__data">
+        <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
           {request.name}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -104,10 +104,10 @@ export class Table extends Component {
   renderTableHead(avatar) {
     return (
       <tr>
-        <th className="mdl-data-table__cell--non-numeric table__head freeze">
+        <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze">
           Request ID
         </th>
-        <th className="mdl-data-table__cell--non-numeric table__head freeze">
+        <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100">
           Owner
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">

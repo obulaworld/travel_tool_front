@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import travela from '../../images/travela.svg';
+import mobileTravel from '../../images/travela-mobile.svg';
 import icon from '../../images/drop-down-icon.svg';
 import notification from '../../images/notification.svg';
 import SearchBar from '../search-bar/SearchBar';
@@ -76,7 +77,8 @@ export class NavBar extends PureComponent {
   renderLogo() {
     return (
       <span className="navbar__logo-icons">
-        <img src={travela} alt="Andela Logo" />
+        <img src={travela} alt="Andela Logo" className="mdl-cell--hide-phone" />
+        <img src={mobileTravel} alt="Travela Logo" className="mdl-cell--hide-desktop mdl-cell--hide-tablet navbar__travela-logo" />
       </span>
     );
   }

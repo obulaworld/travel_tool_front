@@ -5,6 +5,7 @@ import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
 import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
+import '../RequestsPage/RequestsPage.scss';
 
 class Base extends Component {
   constructor(props) {

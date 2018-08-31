@@ -36,12 +36,12 @@ body {
     width: 100%;
 
     @media (max-width: 839px) and (min-width: 480px){
-     width: 98%;
-     padding-left: 21px;
+     width: 100%;
+     padding-left: 0;
     }
 
     @media (max-width: 479px) {
-      padding-left: 15px;
+      padding: 0px;
     }
 
     .rp-requests__header {

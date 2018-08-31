@@ -1,163 +1,188 @@
 @import 'approvals';
-
 $white-color: #fff;
 $primary-color: #3359db;
 $border-color: #e4e4e4;
 $table-font-color: #4f4f4f !important;
 $font-medium: 'DIN Pro Medium';
 $font-normal: 'DIN Pro';
-
 @mixin fontStyle($fontSize, $fontWeight) {
   font-size: $fontSize !important;
   font-weight: $fontWeight !important;
 }
 
 @mixin request__status($backgroundColor) {
-    @include fontStyle(11px, 500);
-    box-sizing: border-box;
-    border-radius: 14px;
-    color: $white-color;
-    display: inline-block;
-    height: 22px;
-    width: 62px;
-    text-align: center;
-    background-color: $backgroundColor;
+  @include fontStyle(11px, 500);
+  box-sizing: border-box;
+  border-radius: 14px;
+  color: $white-color;
+  display: inline-block;
+  height: 22px;
+  width: 62px;
+  text-align: center;
+  background-color: $backgroundColor;
 }
 
 .button-outline {
-    outline: none;
-  }
-
-.request__status {
-    &--open {
-        @include request__status($primary-color);
-    }
-    &--rejected {
-        @include request__status(#FF5359);
-    }
-    &--approved {
-        @include request__status(#49AAAF);
-    }
+  outline: none;
 }
 
+.request__status {
+  &--open {
+    @include request__status($primary-color);
+  }
+  &--rejected {
+    @include request__status(#ff5359);
+  }
+  &--approved {
+    @include request__status(#49aaaf);
+  }
+}
 .freeze {
-    @media (max-width: 479px) {
-        position: absolute !important;
-        left: 0px;
-        margin-left: 3px;
-        background-color: #ffffff;
-        width: 23% !important;
-        z-index: 99;
-        border-right: 1px solid #E4E4E4;
-    }
+  @media (max-width: 839px) {
+    position: absolute !important;
+    background-color: #ffffff;
+    width: 27vw !important;
+    z-index: 99;
+    border-right: 1px solid #e4e4e4;
+  }
+  @media (min-width: 480px) and (max-width: 839px) {
+    width: 16vw !important;
+  }
+  @media (max-width: 320px) {
+    width: 29vw !important;
+  }
+}
+
+th.bb-md-0 {
+    @media (min-width: 480px) and (max-width: 839px) {
+        border-bottom: 0;
+      }
+ 
+}
+
+th.pl-sm-100,
+td.pl-sm-100 {
+  @media (max-width: 479px) {
+    padding-left: 125px !important;
+  }
+  @media (min-width: 480px) and (max-width: 839px) {
+    padding-left: 137px !important;
+  }
 }
 
 .table {
-    &__body:before {
-        content: "";
-        display: block;
-        height: 3px;
+  &__body:before {
+    content: '';
+    display: block;
+    height: 3px;
+  }
+  &__container {
+    background-color: #f8f8f8;
+    width: 96.3%;
+    position: relative;
+    overflow: scroll;
+    @media (max-width: 479px) {
+      overflow: scroll;
+      width: 100%;
+      position: initial;
     }
-    &__container {
-        background-color: #F8F8F8;
-        width: 96.3%;
-        position: relative;
-        @media (max-width: 479px) {
-            overflow: scroll;
-            margin-left: 19%;
-            position: initial;
-        }
+    @media (max-width: 839px) {
+      width: 100%;
+      overflow: scroll;
+      position: initial;
     }
-    &__data {
-        padding: 13px 30px !important;
-        border-color: #E4E4E4 !important;
-        cursor: pointer;
-        @media (max-width: 479px) {
-            padding: 13px 6px !important;
-            border-color: #E4E4E4 !important;
-        }
+  }
+  &__data {
+    padding: 13px 30px !important;
+    border-color: #e4e4e4 !important;
+    cursor: pointer;
+    @media (max-width: 479px) {
+      // padding: 13px 6px !important;
+      padding-left: 14px !important;
+      border-color: #e4e4e4 !important;
     }
-    &__row {
-        border-radius: 2px;
-        background-color: $white-color;
-        text-align: center;
-        height: 46px;
-        &:hover {
-            box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-            background-color: $white-color !important;
-        }
+  }
+  &__row {
+    border-radius: 2px;
+    background-color: $white-color;
+    text-align: center;
+    height: 46px;
+    &:hover {
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+      background-color: $white-color !important;
     }
-    &__head {
-        @include fontStyle(14px, 500);
-        font-family: $font-medium;
-        color: $table-font-color;
-        border-bottom: 1px solid #EBEBEB;
-        padding: 13px 30px !important;
-        @media (max-width: 479px) {
-            padding: 11px 8px !important;
-            background-color: #F8F8F8;
-        }
-        &--last {
-            padding-left: 0 !important;
-        }
-    }
-    &__requests {
-        font-family: $font-normal;
-        width: 100%;
-        text-align: center;
-        color: $table-font-color;
-        border-style: none;
-        border-collapse: separate;
-        border-spacing: 0 6px;
-        background-color: #F8F8F8;
-        @media (max-width: 479px) {
-            position: inherit;
-        }
-        &--empty {
-            display: flex;
-            justify-content: center;
-            font-family: $font-normal;
-            margin-left: -62px;
-            color: #999;
-            font-size: 18px;
-            @media (max-width: 479px) {
-               position: fixed;
-               left: 15%;
-            }
-            @media (max-width: 768px) {
-                margin-left: 0;
-             }
-        }
-        &--error {
-            @extend .table__requests--empty;
-            color: #FF5359;
-        }
-        &__status {
-            border-right: 1px solid $border-color;
-            padding: 0 !important;
-        }
-        &__destination {
-            color: $primary-color;
-            border-left: 1px solid $border-color;
-            @media (max-width: 479px) {
-                width: 23.2%;
-            }
-        }
-    }
-    &__request-menu {
-        @include fontStyle(16px, 400);
-        color: #999;
-        margin-left: 39px;
+  }
+  &__head {
+    @include fontStyle(14px, 500);
+    font-family: $font-medium;
+    color: $table-font-color;
+    border-bottom: 1px solid #ebebeb;
+    padding: 13px 30px !important;
+    @media (max-width: 479px) {
+      padding: 11px 14px !important;
+      background-color: #f8f8f8;
     }
 
-    &__modal-bar-text {
-        position: relative;
-        top: 0;
-        color: #4f4f4f;
-        font-family: 'DIN Pro';
-        font-size: 13px;
-        font-weight: 500;
-        text-align: center;
-        padding: 5px 20px 5px 20px;
+    &--last {
+      padding-left: 0 !important;
+    }
+  }
+  &__requests {
+    font-family: $font-normal;
+    width: 100%;
+    text-align: center;
+    color: $table-font-color;
+    border-style: none;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    background-color: #f8f8f8;
+    @media (max-width: 839px) {
+      position: inherit;
+    }
+    &--empty {
+      display: flex;
+      justify-content: center;
+      font-family: $font-normal;
+      margin-left: -62px;
+      color: #999;
+      font-size: 18px;
+      @media (max-width: 479px) {
+        position: fixed;
+        left: 15%;
       }
+      @media (max-width: 839px) {
+        margin-left: 0;
+      }
+    }
+    &--error {
+      @extend .table__requests--empty;
+      color: #ff5359;
+    }
+    &__status {
+      border-right: 1px solid $border-color;
+      padding: 0 !important;
+    }
+    &__destination {
+      color: $primary-color;
+      border-left: 1px solid $border-color;
+      @media (max-width: 839px) {
+        width: 23.2%;
+      }
+    }
+  }
+  &__request-menu {
+    @include fontStyle(16px, 400);
+    color: #999;
+    margin-left: 39px;
+  }
+  &__modal-bar-text {
+    position: relative;
+    top: 0;
+    color: #4f4f4f;
+    font-family: 'DIN Pro';
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px 20px 5px 20px;
+  }
 }

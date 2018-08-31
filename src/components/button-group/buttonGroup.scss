@@ -44,6 +44,10 @@ $white-color: #FFF;
     cursor: pointer;
     outline:none !important;
 
+    @media (max-width: 320px){
+        margin-right: 4px;
+    }
+
     &:hover {
         border-color: $primary-color;
     }
@@ -79,5 +83,3 @@ $white-color: #FFF;
     }
 
 }
-
-

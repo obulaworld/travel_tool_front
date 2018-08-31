@@ -21,6 +21,13 @@
     border-radius: 18px;
     background-color: #f8f8f8;
     margin-top: 15px;
+    @media (max-width: 479px){
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+
+      margin: 5px 0 10px !important;
+    }
   }
 
   &__search,
@@ -50,6 +57,11 @@
     height: 15.99px;
     width: 16.05px;
     margin-top: 15px;
+    @media (max-width: 320px){
+      position: absolute;
+     margin-left: -55px;
+     margin-top: 0px;
+    }
   }
 
   &__search input {
@@ -64,6 +76,14 @@
     font-size: 14px;
     height: 36px;
     width: 360px;
+    @media (max-width: 479px) {
+      width: auto !important;
+    }
+    
+    @media (max-width: 320px){
+      width: 95%;
+      margin: initial;
+    }
   }
 
   &__search input::placeholder {

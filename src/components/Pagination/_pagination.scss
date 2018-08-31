@@ -24,7 +24,11 @@ $font-medium: 'DIN Pro Medium';
   font-family: $font-normal;
   background-color: $background-color;
   @media (max-width: 839px) and (min-width: 480px){
-    width: 96%;
+    width: 100%;
+  }
+  @media (max-width: 479px){
+    width: 100%;
+    margin-top: 0px;
   }
 
   &__items {
@@ -61,6 +65,9 @@ $font-medium: 'DIN Pro Medium';
     font-family: $font-medium;
     margin: 0 45px 0 10px;
     color: $primary-color;
+    @media (max-width: 320px){
+      margin: 0 9px 0 10px;
+    }
   }
 
   &__button {
