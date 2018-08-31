@@ -62,8 +62,13 @@ cat <<EOF
 {
     "channel":"${NOTIFICATION_CHANNEL}",
     "username": "DeployNotification",
-    "text": "${SLACK_TEXT}",
-    "icon_emoji": ":rocket:"
+    "text": ":rocket: Travela Frontend has been successfully deployed to ${ENVIRONMENT} environment :rocket:",
+    "attachments": [
+      {
+        "title": "Travela Deployment",
+        "title_link": "${CIRCLE_BUILD_URL}"
+      }
+    ]
 }
 EOF
 }
@@ -71,7 +76,7 @@ EOF
 sendSlackDeployNotification() {
     require SLACK_CHANNEL_HOOK $SLACK_CHANNEL_HOOK
     info "Sending success message to slack"
-    curl -X POST --data-urlencode "payload=$(slackPayLoad)" "${SLACK_CHANNEL_HOOK}"
+    curl -X POST -H 'Content-type: application/json' --data "$(slackPayLoad)" "${SLACK_CHANNEL_HOOK}"
     is_success "Slack notification has been successfully sent"
 }
 
