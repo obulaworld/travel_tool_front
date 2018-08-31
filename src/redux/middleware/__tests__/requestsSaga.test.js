@@ -1,32 +1,14 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import RequestAPI from '../../../services/RequestAPI';
 import { watchFetchRequests, watchCreateNewRequestAsync } from '../requestsSaga';
+import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
 const url = '/requests?page=2';
 const response = {
   data: {
-    requests: {
-      id: 'xDh20btGz',
-      name: 'Amarachukwu Agbo',
-      origin: 'Lagos',
-      destination: 'Nairobi',
-      manager: 'Samuel Kubai',
-      gender: 'Female',
-      department: 'TDD',
-      role: 'Software Developer',
-      status: 'Open',
-      userId: 'pommyLHJmKrx76A8Slm',
-      departureDate: '2018-12-09',
-      arrivalDate: '2018-12-11',
-    },
-    pagination: {
-      pageCount: 2,
-      currentPage: 1,
-      dataCount: 3
-    },
-    url: '/requests?page=1'
+    ...fetchRequestsResponse
   }
 };
 const error = 'Possible network error, please reload the page';
@@ -40,7 +22,9 @@ describe('Requests Saga', () => {
         ])
         .put({
           type: 'FETCH_USER_REQUESTS_SUCCESS',
-          response: response.data
+          requests: response.data.requests,
+          meta: response.data.meta,
+          message: response.data.message,
         })
         .dispatch({
           type: 'FETCH_USER_REQUESTS',
@@ -48,7 +32,7 @@ describe('Requests Saga', () => {
         })
         .run();
     });
-  
+
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchFetchRequests, RequestAPI)
         .provide([
@@ -64,9 +48,9 @@ describe('Requests Saga', () => {
         })
         .run();
     });
-    
+
   });
-  
+
   describe('Create New Request Saga', () => {
     const action = {
       requestData: {
@@ -75,20 +59,20 @@ describe('Requests Saga', () => {
         destination: 'Nairobi'
       }
     };
-  
+
     const response = {
       data: { request: { name: 'Incredible Hulk', status: 'Open' } }
     };
-  
+
     const error = {
       response: {
-        status: 0,
+        status: 422,
         data: {
-          errors: ['name is required', 'destination is required']
+          errors: [{msg: 'name is required'}, {msg: 'destination is required'}]
         }
       }
     };
-  
+
     it('Posts a new request successfully', () => {
       return expectSaga(watchCreateNewRequestAsync)
         .provide([
@@ -104,7 +88,7 @@ describe('Requests Saga', () => {
         })
         .run();
     });
-  
+
     it('throws error while creating a new request', () => {
       return expectSaga(watchCreateNewRequestAsync)
         .provide([
@@ -112,7 +96,7 @@ describe('Requests Saga', () => {
         ])
         .put({
           type: 'CREATE_NEW_REQUEST_FAILURE',
-          error: ['name is required', 'destination is required']
+          error: 'Bad request. name is required, destination is required'
         })
         .dispatch({
           type: 'CREATE_NEW_REQUEST',

@@ -6,7 +6,7 @@ import {
   createNewRequestSuccess,
   createNewRequestFailure
 } from '../requestActions';
-import response from '../../__mocks__/mocks';
+import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
 describe('Requests Actions', () => {
   describe('Fetch Requests Actions', () => {
@@ -19,16 +19,18 @@ describe('Requests Actions', () => {
       const createdAction = fetchUserRequests(url);
       expect(createdAction).toEqual(expectedAction);
     });
-  
+
     it('should return action type FETCH_USER_REQUESTS_SUCCESS', () => {
       const expectedAction = {
         type: 'FETCH_USER_REQUESTS_SUCCESS',
-        response
+        requests: fetchRequestsResponse.requests,
+        meta: fetchRequestsResponse.meta,
+        message: fetchRequestsResponse.message,
       };
-      const createdAction = fetchUserRequestsSuccess(response);
+      const createdAction = fetchUserRequestsSuccess(fetchRequestsResponse);
       expect(createdAction).toEqual(expectedAction);
     });
-  
+
     it('should return action type FETCH_USER_REQUESTS_ERROR', () => {
       const error = 'Error fetching requests, network error';
       const expectedAction = {
@@ -39,7 +41,7 @@ describe('Requests Actions', () => {
       expect(createdAction).toEqual(expectedAction);
     });
   });
-  
+
   describe('Create Request Actions', () => {
     it('should return action of type CREATE_NEW_REQUEST', () => {
       const requestData = {
@@ -48,7 +50,7 @@ describe('Requests Actions', () => {
         destination: 'Nairobi',
         manager: 'Samuel Kubai',
       };
-  
+
       const receivedAction = {
         type: 'CREATE_NEW_REQUEST',
         requestData: {
@@ -62,7 +64,7 @@ describe('Requests Actions', () => {
       const newAction = createNewRequest(requestData);
       expect(newAction).toEqual(receivedAction);
     });
-  
+
     it('should return action of type CREATE_NEW_REQUEST_SUCCESS', () => {
       const newRequest = {
         name: 'Ademola Ariya',
@@ -70,7 +72,7 @@ describe('Requests Actions', () => {
         destination: 'Nairobi',
         manager: 'Samuel Kubai',
       };
-  
+
       const receivedAction = {
         type: 'CREATE_NEW_REQUEST_SUCCESS',
         newRequest: {
@@ -83,7 +85,7 @@ describe('Requests Actions', () => {
       const newAction = createNewRequestSuccess(newRequest);
       expect(newAction).toEqual(receivedAction);
     });
-  
+
     it('should return action of type CREATE_NEW_REQUEST_FAILURE', () => {
       const error = 'Could not create a new request';
       const receivedAction = {

@@ -8,7 +8,7 @@ import './_modal.scss';
 class Modal extends PureComponent {
   static propTypes = {
     visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
-    closeModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func,
     symbol: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
@@ -90,7 +90,8 @@ Modal.defaultProps = {
   innerClass: '',
   dynamicText: '',
   nextClass: '',
-  dynamicDate: ''
+  dynamicDate: '',
+  closeModal: null,
 };
 
 export default Modal;

@@ -19,11 +19,11 @@ const requests = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      requests: action.response.requests,
-      openRequestsCount: action.response.openRequestsCount,
-      pastRequestsCount: action.response.pastRequestsCount,
-      pagination: action.response.pagination,
-      url: action.response.url,
+      message: action.message,
+      requests: action.requests,
+      openRequestsCount: action.meta.count.open,
+      pastRequestsCount: action.meta.count.past,
+      pagination: action.meta.pagination,
     };
   case FETCH_USER_REQUESTS_FAILURE:
     return {
@@ -42,6 +42,7 @@ const requests = (state = initialState, action) => {
       creatingRequest: false,
       request: action.newRequest,
       requests: [action.newRequest, ...state.requests],
+      openRequestsCount: state.openRequestsCount + 1,
       errors: []
     };
   case CREATE_NEW_REQUEST_FAILURE:

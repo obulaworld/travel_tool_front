@@ -1,25 +1,16 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Utils from '../../helper/Utils';
 import Button from '../buttons/Buttons';
 import './buttonGroup.scss';
 
 class ButtonGroup extends PureComponent {
-  defaultState = {
-    allActive: false,
-    openActive: false,
-    pastActive: false,
-  }
-
-  state = {
-    ...this.defaultState,
-    allActive: true,
-  };
-
-  fetchRequests = (query, active) => {
-    const { fetchUserRequests, limit } = this.props;
-    const queryString = `/?page=1&limit=${limit}`;
-    this.setState(active);
-    fetchUserRequests(`${queryString}${query}`);
+  filterRequests = (query) => {
+    const { fetchRequests, url } = this.props;
+    const limit = Utils.getCurrentLimit(url);
+    const queryString = limit === '' ?
+      '?page=1' : `?page=1&limit=${limit}`;
+    fetchRequests(`${queryString}${query}`);
   }
 
   renderApprovalsButton () {
@@ -47,33 +38,33 @@ class ButtonGroup extends PureComponent {
   }
 
   renderRequestsButton (openRequestsCount, pastRequestsCount) {
-    const { pastActive, openActive, allActive } = this.state;
+    const { activeStatus } = this.props;
     return (
       <Fragment>
         <Button
-          buttonClass={`bg-btn ${allActive ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn ${activeStatus === 'all' ? 'bg-btn--active' : ''}`}
           text="All"
           buttonId="all-button"
-          onClick={() => this.fetchRequests('', {...this.defaultState, allActive: true })}
+          onClick={() => this.filterRequests('')}
         />
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${ openActive ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 'bg-btn--active' : ''}`}
           text="Open Requests"
           responsiveText="Open"
           buttonId="open-button"
           disabled={openRequestsCount === 0}
           badge={openRequestsCount}
           showBadge={openRequestsCount > 0}
-          badgeClass={openActive ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
-          onClick={() => this.fetchRequests('&status=open', {...this.defaultState, openActive: true })}
+          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
+          onClick={() => this.filterRequests('&status=open')}
         />
         <Button
-          buttonClass={`bg-btn ${pastActive ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn ${activeStatus === 'past' ? 'bg-btn--active' : ''}`}
           disabled={pastRequestsCount === 0}
           text="Past Requests"
           responsiveText="Past"
           buttonId="past-button"
-          onClick={() => this.fetchRequests('&status=past', {...this.defaultState, pastActive: true})}
+          onClick={() => this.filterRequests('&status=past')}
         />
       </Fragment>
     );
@@ -94,16 +85,18 @@ class ButtonGroup extends PureComponent {
 ButtonGroup.propTypes = {
   openRequestsCount: PropTypes.number,
   pastRequestsCount: PropTypes.number,
-  fetchUserRequests: PropTypes.func,
-  limit: PropTypes.number,
+  fetchRequests: PropTypes.func,
+  url: PropTypes.string,
   buttonsType: PropTypes.string.isRequired,
+  activeStatus: PropTypes.string,
 };
 
 ButtonGroup.defaultProps = {
-  limit: 10,
   openRequestsCount: null,
   pastRequestsCount: null,
-  fetchUserRequests: null,
+  fetchRequests: null,
+  url: '',
+  activeStatus: 'all'
 };
 
 

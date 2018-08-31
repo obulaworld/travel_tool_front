@@ -1,5 +1,6 @@
 export default function apiErrorHandler(error) {
   let errorMessage;
+  let validationErrors;
   // if server gets an error response, handle it
   if (error.response) {
     /**
@@ -11,8 +12,13 @@ export default function apiErrorHandler(error) {
     case 500:
       errorMessage = 'Server error, try again';
       break;
+    case 422:
+      errorMessage = 'Bad request';
+      validationErrors = error.response.data.errors.map(error => error.msg).join(', ');
+      errorMessage = `${errorMessage}. ${validationErrors}`;
+      break;
     default:
-      errorMessage = error.response.data.errors || error.response.data.error;
+      errorMessage = error.response.data.error;
     }
   } else {
     // if server is down, client won't get a response

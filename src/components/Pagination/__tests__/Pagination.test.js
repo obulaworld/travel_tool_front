@@ -53,9 +53,4 @@ describe('<Pagination />', () => {
     expect(onPageChange.calledOnce).toEqual(true);
     expect(onPageChange.calledWith(4)).toEqual(true);
   });
-
-  it('should not render when there are no pages', () => {
-    wrapper.setProps({pageCount: 0});
-    expect(wrapper.find('.pagination').length).toBe(0);
-  });
 });

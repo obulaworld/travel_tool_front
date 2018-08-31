@@ -12,9 +12,11 @@ export const fetchUserRequests = url => ({
   url
 });
 
-export const fetchUserRequestsSuccess = response => ({
+export const fetchUserRequestsSuccess = ({requests, meta, message}) => ({
   type: FETCH_USER_REQUESTS_SUCCESS,
-  response
+  requests,
+  meta,
+  message,
 });
 
 export const fetchUserRequestsFailure = error => ({

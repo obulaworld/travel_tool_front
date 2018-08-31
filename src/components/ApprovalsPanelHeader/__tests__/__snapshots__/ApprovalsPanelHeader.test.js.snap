@@ -13,14 +13,16 @@ exports[`should render approvals header correctly 1`] = `
     className="open-requests"
   >
     <ButtonGroup
+      activeStatus="all"
       buttonsType="approvals"
-      fetchUserRequests={null}
-      limit={10}
+      fetchRequests={null}
       openRequestsCount={null}
       pastRequestsCount={null}
+      url=""
     />
     <HeaderPagination
       getRequestsWithLimit={null}
+      url=""
     />
   </div>
 </div>

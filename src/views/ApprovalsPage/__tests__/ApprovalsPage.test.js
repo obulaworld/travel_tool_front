@@ -10,7 +10,8 @@ const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
 
 const props = {
-  actionBtn:'New Request'
+  actionBtn:'New Request',
+  onClickItem: jest.fn()
 };
 
 const initialState = {

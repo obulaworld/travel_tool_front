@@ -15,14 +15,18 @@ export const fetchRequestsResponse = {
       arrivalDate: '2018-12-11',
     },
   ],
-  openRequestsCount: 0,
-  pastRequestsCount: 0,
-  pagination: {
-    currentPage: 1,
-    pageCount: 1,
-    dataCount: 1,
+  meta: {
+    count: {
+      open: 1,
+      past: 2,
+    },
+    pagination: {
+      currentPage: 1,
+      pageCount: 1,
+      dataCount: 1,
+    },
   },
-  url: '/requests?page=1'
+  message: 'Requests retrieved successfully'
 };
 
 export const createRequestMock = {

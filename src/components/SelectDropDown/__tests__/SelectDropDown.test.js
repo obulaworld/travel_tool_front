@@ -6,15 +6,15 @@ import SelectDropDown from '../SelectDropDown';
 const props = {
   dropDownItems: [
     {
-      name: 1,
+      name: '1',
       value: 1,
     },
     {
-      name: 2,
+      name: '2',
       value: 2,
     },
     {
-      name: 3,
+      name: '3',
       value: 3,
     }
   ],
@@ -29,7 +29,7 @@ describe('<SelectDropDown>', () => {
     expect(wrapper.instance().state).toEqual({
       isDropdownOpen: false,
       selectedItem: {
-        name: 2,
+        name: '2',
         value: 2
       }
     });
@@ -47,7 +47,7 @@ describe('<SelectDropDown>', () => {
     expect(wrapper.instance().state).toEqual({
       isDropdownOpen: true,
       selectedItem: {
-        name: 1,
+        name: '1',
         value: 1,
       }
     });

@@ -19,10 +19,10 @@ export class Table extends Component {
     openModal(true, 'request details');
   };
 
-  renderNoRequests() {
+  renderNoRequests(message) {
     return (
       <div className="table__requests--empty">
-        You have no requests at the moment
+        {message}
       </div>
     );
   }
@@ -151,7 +151,7 @@ export class Table extends Component {
     );}
 
   render() {
-    const { requests, avatar, fetchRequestsError } = this.props;
+    const { requests, avatar, fetchRequestsError, message } = this.props;
     return (
       <Fragment>
         <div className="table__container">
@@ -169,7 +169,7 @@ export class Table extends Component {
                 </table>
               )
           }
-          { !fetchRequestsError && !requests.length && this.renderNoRequests() }
+          { !fetchRequestsError && !requests.length && this.renderNoRequests(message) }
           {this.renderDetailsModal()}
         </div>
       </Fragment>
@@ -185,6 +185,7 @@ Table.propTypes = {
   openModal: PropTypes.func,
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
+  message: PropTypes.string
 };
 
 Table.defaultProps = {
@@ -194,7 +195,8 @@ Table.defaultProps = {
   closeModal: () => {},
   openModal: () => {},
   shouldOpen: false,
-  modalType: null
+  modalType: null,
+  message: ''
 };
 
 export default withLoading(Table);

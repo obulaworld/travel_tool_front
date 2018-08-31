@@ -47,7 +47,8 @@ const props = {
       arrivalDate: '2018-12-11',
     },
   ],
-  fetchRequestsError: null
+  fetchRequestsError: null,
+  message: 'Requests retrieved successfully'
 };
 
 const wrapper = shallow(<Table {...props} />);
@@ -65,7 +66,7 @@ describe('<Requests />', () => {
   });
 
   it('should render a div when there are no requests', () => {
-    wrapper.setProps({ requests: [] });
+    wrapper.setProps({ requests: [], message: 'You have no requests at the moment' });
     expect(wrapper.find('table.mdl-data-table').length).toBe(0);
     expect(wrapper.find('div.table__requests--empty').length).toBe(1);
     expect(wrapper.find('div.table__requests--empty').text()).toEqual(

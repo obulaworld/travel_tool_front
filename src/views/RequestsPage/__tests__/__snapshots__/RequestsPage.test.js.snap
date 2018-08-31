@@ -16,6 +16,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
       openSearch={false}
     />
     <Modal
+      closeModal={null}
       description=""
       divClass=""
       dynamicDate=""
@@ -68,59 +69,16 @@ exports[`<RequestsPage> renders as expected 1`] = `
               className="rp-requests__header"
             >
               <RequestPanelHeader
-                fetchUserRequests={[Function]}
+                activeStatus="all"
+                fetchRequests={[Function]}
                 getRequestsWithLimit={[Function]}
-                limit={10}
                 modalType={null}
+                openModal={[Function]}
                 openRequestsCount={1}
                 pastRequestsCount={1}
-                requests={
-                  Array [
-                    Object {
-                      "arrivalDate": "2018-12-11",
-                      "department": "TDD",
-                      "departureDate": "2018-12-09",
-                      "destination": "Nairobi",
-                      "gender": "Female",
-                      "id": "xDh20btGz",
-                      "manager": "Samuel Kubai",
-                      "name": "Amarachukwu Agbo",
-                      "origin": "Lagos",
-                      "role": "Software Developer",
-                      "status": "Open",
-                      "userId": "pommyLHJmKrx76A8Slm",
-                    },
-                    Object {
-                      "arrivalDate": "2018-12-11",
-                      "department": "TDD",
-                      "departureDate": "2018-12-09",
-                      "destination": "Nairobi",
-                      "gender": "Female",
-                      "id": "xDh20btGy",
-                      "manager": "Samuel Kubai",
-                      "name": "Amarachukwu Agbo",
-                      "origin": "Lagos",
-                      "role": "Software Developer",
-                      "status": "Rejected",
-                      "userId": "pommyLHJmKrx76A8Slm",
-                    },
-                    Object {
-                      "arrivalDate": "2018-12-11",
-                      "department": "TDD",
-                      "departureDate": "2018-12-09",
-                      "destination": "Nairobi",
-                      "gender": "Female",
-                      "id": "xDh20btGx",
-                      "manager": "Samuel Kubai",
-                      "name": "Amarachukwu Agbo",
-                      "origin": "Lagos",
-                      "role": "Software Developer",
-                      "status": "Approved",
-                      "userId": "pommyLHJmKrx76A8Slm",
-                    },
-                  ]
-                }
+                requestsLength={3}
                 shouldOpen={false}
+                url="?page=1"
               />
             </div>
             <div
@@ -130,6 +88,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
                 fetchRequestsError={null}
                 isLoading={false}
                 modalType={null}
+                openModal={[Function]}
                 requests={
                   Array [
                     Object {
@@ -183,7 +142,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
               className="rp-pagination"
             >
               <Pagination
-                currentPage={2}
+                currentPage={1}
                 onPageChange={[Function]}
                 pageCount={4}
               />

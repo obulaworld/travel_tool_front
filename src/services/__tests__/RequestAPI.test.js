@@ -26,18 +26,6 @@ describe('RequestAPI', () => {
     expect(response.data).toEqual(expectedResponse);
   });
 
-  it('should sends a GET request to get user\'s requests without a query', async () => {
-    moxios.stubRequest(`${baseUrl}/requests?`, {
-      status: 200,
-      response: {...expectedResponse, url: '/requests?'}
-    });
-    const response = await RequestAPI.getUserRequests();
-    const request = (moxios.requests.mostRecent());
-    expect(request.url).toEqual(`${baseUrl}/requests?`);
-    expect(request.config.method).toEqual('get');
-    expect(response.data).toEqual({...expectedResponse, url: '/requests?'});
-  });
-
   it('should send a POST request to create a new travel-request', async () => {
     const requestData = {
       name: 'Tester Ademola',

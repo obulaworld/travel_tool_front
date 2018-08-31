@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import Utils from '../../helper/Utils';
 import './_headerPagination.scss';
 import SelectDropDown from '../SelectDropDown/SelectDropDown';
 
@@ -19,7 +20,8 @@ const numberLimits = [
 ];
 class HeaderPagination extends PureComponent {
   render() {
-    const { getRequestsWithLimit } = this.props;
+    const { getRequestsWithLimit, url } = this.props;
+    const limit = Utils.getCurrentLimit(url);
     return (
       <div className="cell-items-per-page">
         <div className="cell-items-per-page-text">
@@ -31,6 +33,7 @@ class HeaderPagination extends PureComponent {
           <SelectDropDown
             onClickItem={getRequestsWithLimit}
             dropDownItems={numberLimits}
+            defaultSelected={limit}
           />
         </div>
       </div>
@@ -40,9 +43,11 @@ class HeaderPagination extends PureComponent {
 
 HeaderPagination.propTypes = {
   getRequestsWithLimit: PropTypes.func,
+  url: PropTypes.string,
 };
 HeaderPagination.defaultProps = {
   getRequestsWithLimit: null,
+  url: ''
 };
 
 export default HeaderPagination;

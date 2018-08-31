@@ -12,15 +12,21 @@ const expectedResponse = {
       status: 'Open',
       userId: 'pommyLHJmKrx76A8Slm',
       departureDate: '2018-12-09',
-      arrivalDate: '2018-12-11'
-    }
+      arrivalDate: '2018-12-11',
+    },
   ],
-  pagination: {
-    pageCount: 2,
-    currentPage: 1,
-    dataCount: 3
+  meta: {
+    count: {
+      open: 1,
+      past: 2,
+    },
+    pagination: {
+      currentPage: 1,
+      pageCount: 1,
+      dataCount: 1,
+    },
   },
-  url: '/requests?page=2'
+  message: 'Requests retrieved successfully'
 };
 
 export default expectedResponse;

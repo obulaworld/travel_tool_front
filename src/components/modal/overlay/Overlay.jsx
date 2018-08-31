@@ -19,10 +19,14 @@ const Overlay = (props) => {
 
 Overlay.propTypes = {
   className: PropTypes.string.isRequired,
-  click: PropTypes.func.isRequired,
+  click: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.object, PropTypes.array
   ]).isRequired
+};
+
+Overlay.defaultProps = {
+  click: null,
 };
 
 export default Overlay;

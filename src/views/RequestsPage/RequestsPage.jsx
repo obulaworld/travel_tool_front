@@ -17,33 +17,60 @@ export class RequestsPage extends Base {
     openSearch: false,
     hideNewRequestModal: true,
     selectedLink: 'request page',
-    limit: 10,
+    activeStatus: Utils.getActiveStatus(this.props.location.search),
+    url: this.props.location.search,
   };
 
   componentDidMount() {
     const { fetchUserRequests } = this.props;
-    fetchUserRequests('?page=1');
+    const { url } = this.state;
+    fetchUserRequests(url);
+  }
+
+  fetchRequests = (query) => {
+    const { history } = this.props;
+    history.push(`/requests${query}`);
   }
 
   onPageChange = (page) => {
-    const { fetchUserRequests, url } = this.props;
-    const query = Utils.addOrReplaceQuery(url, 'page', page);
-    fetchUserRequests(query);
+    const { url } = this.state;
+    const query = Utils.buildQuery(url, 'page', page);
+    this.fetchRequests(query);
+  }
+
+  getRequestsWithLimit = (limit) => {
+    const { url } = this.state;
+    let query;
+    const pages = Math.ceil(this.props.pagination.dataCount/limit);
+    if (pages < this.props.pagination.currentPage) {
+      const newUrl = Utils.buildQuery(url, 'page', pages);
+      query = Utils.buildQuery(newUrl, 'limit', limit);
+    } else {
+      query = Utils.buildQuery(url, 'limit', limit);
+    }
+    this.fetchRequests(query);
   }
 
   renderRequestPanelHeader() {
-    const { openRequestsCount, fetchUserRequests, requests, pastRequestsCount, openModal, shouldOpen, modalType } = this.props;
-    const { limit } = this.state;
+    const { openRequestsCount,
+      requests,
+      pastRequestsCount,
+      openModal,
+      shouldOpen,
+      modalType,
+    } = this.props;
+    const { url, activeStatus } = this.state;
 
     return (
       <div className="rp-requests__header">
         <RequestPanelHeader
           openRequestsCount={openRequestsCount}
-          fetchUserRequests={fetchUserRequests}
-          requests={requests}
+          fetchRequests={this.fetchRequests}
+          requestsLength={requests.length}
           pastRequestsCount={pastRequestsCount}
           getRequestsWithLimit={this.getRequestsWithLimit}
-          limit={limit}
+          url={url}
+          activeStatus={activeStatus}
           openModal={openModal}
           shouldOpen={shouldOpen}
           modalType={modalType}
@@ -52,9 +79,8 @@ export class RequestsPage extends Base {
     );
   }
 
-  renderRequests(requests, isLoading, error) {
+  renderRequests(requests, isLoading, error, message) {
     const { openModal, closeModal, shouldOpen, modalType } = this.props;
-
     return(
       <div className="rp-table">
         <WithLoadingTable
@@ -65,18 +91,10 @@ export class RequestsPage extends Base {
           openModal={openModal}
           shouldOpen={shouldOpen}
           modalType={modalType}
+          message={message}
         />
       </div>
     );
-  }
-
-  getRequestsWithLimit = (limit) => {
-    this.setState({
-      limit
-    });
-    const { fetchUserRequests, url } = this.props;
-    const query = Utils.addOrReplaceQuery(url, 'limit', limit);
-    fetchUserRequests(query);
   }
 
   renderNewRequestForm(shouldOpen, modalType) {
@@ -99,7 +117,7 @@ export class RequestsPage extends Base {
   }
 
   renderRequestPage(hideClass2,leftPaddingClass, hideClass, hideClass3, selectedLink ){
-    const { isLoading, requests, pagination, fetchRequestsError } = this.props;
+    const { isLoading, requests, pagination, fetchRequestsError, message } = this.props;
     return(
       <div className="mdl-layout__content full-height">
         <div className="mdl-grid mdl-grid--no-spacing full-height">
@@ -109,8 +127,8 @@ export class RequestsPage extends Base {
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
               {this.renderRequestPanelHeader()}
-              {requests && this.renderRequests(requests, isLoading, fetchRequestsError)}
-              {!isLoading && pagination && this.renderPagination(pagination)}
+              {requests && this.renderRequests(requests, isLoading, fetchRequestsError, message)}
+              {!isLoading && requests.length > 0 && this.renderPagination(pagination)}
             </div>
           </div>
           <div className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}>

@@ -26,6 +26,18 @@ describe('Api Error Handler', () => {
     expect(apiErrorHandler(error)).toEqual('Server error, try again');
   });
 
+  it('should handle errors from the server other than 500 and 422 errors', () => {
+    error = { ...error,
+      response: {
+        status: 401,
+        data:{
+          error: 'Token is Invalid'
+        }
+      }
+    };
+    expect(apiErrorHandler(error)).toEqual('Token is Invalid');
+  });
+
   it('should handle a case when the server returns validation errors', () => {
     error = {
       ...error,
@@ -33,15 +45,12 @@ describe('Api Error Handler', () => {
         status: 422,
         data: {
           'errors': [
-            { 'name': 'name', 'message': 'name is required' },
-            { 'name': 'destination', 'message': 'destination is required' },
+            { 'name': 'name', 'msg': 'name is required' },
+            { 'name': 'destination', 'msg': 'destination is required' },
           ]
         }
       }
     };
-    expect(apiErrorHandler(error)).toEqual([
-      { 'name': 'name', 'message': 'name is required' },
-      { 'name': 'destination', 'message': 'destination is required' },
-    ]);
+    expect(apiErrorHandler(error)).toEqual('Bad request. name is required, destination is required');
   });
 });

@@ -15,7 +15,7 @@ describe('Requests Reducer', () => {
     it('returns the correct initial state', () => {
       expect(requests(undefined, {})).toEqual({});
     });
-  
+
     it('returns the correct state for FETCH_USER_REQUESTS action', () => {
       const action = {
         type: FETCH_USER_REQUESTS
@@ -24,22 +24,24 @@ describe('Requests Reducer', () => {
         isLoading: true,
       });
     });
-  
+
     it('returns the correct state for FETCH_USER_REQUESTS_SUCCESS action', () => {
       const action = {
         type: FETCH_USER_REQUESTS_SUCCESS,
-        response: fetchRequestsResponse,
+        requests: fetchRequestsResponse.requests,
+        meta: fetchRequestsResponse.meta,
+        message: fetchRequestsResponse.message,
       };
       expect(requests(initialState, action)).toEqual({
         isLoading: false,
         requests: fetchRequestsResponse.requests,
-        openRequestsCount: fetchRequestsResponse.openRequestsCount,
-        pastRequestsCount: fetchRequestsResponse.pastRequestsCount,
-        pagination: fetchRequestsResponse.pagination,
-        url: fetchRequestsResponse.url,
+        openRequestsCount: fetchRequestsResponse.meta.count.open,
+        pastRequestsCount: fetchRequestsResponse.meta.count.past,
+        pagination: fetchRequestsResponse.meta.pagination,
+        message: fetchRequestsResponse.message,
       });
     });
-  
+
     it('returns the correct state for FETCH_USER_REQUESTS_FAILURE action', () => {
       const action = {
         type: FETCH_USER_REQUESTS_FAILURE,
@@ -51,41 +53,57 @@ describe('Requests Reducer', () => {
       });
     });
   });
-  
+
   describe('Create Requests reducer', () => {
     let initialState = {};
-  
+
     let action, newState, receivedState, error;
-  
+
     const requestObj = { ...createRequestMock.requestObj };
-  
+
     it('should return initial state', () => {
       expect(requests(undefined, {})).toEqual(initialState);
     });
-  
+
     it('should handle CREATE_NEW_REQUEST', () => {
       action = {
         type: 'CREATE_NEW_REQUEST',
         requestData: { ...requestObj }
       };
-  
+
       newState = requests(initialState, action);
       receivedState = {
         creatingRequest: true,
       };
-  
+
       expect(newState).toEqual(receivedState);
     });
-  
+
+    it('should handle CREATE_NEW_REQUEST_FAILURE', () => {
+      error = ['failed to add new request'];
+      action = {
+        type: 'CREATE_NEW_REQUEST_FAILURE',
+        error
+      };
+
+      newState = requests(initialState, action);
+      receivedState = {
+        creatingRequest: false,
+        errors: ['failed to add new request']
+      };
+      expect(newState).toEqual(receivedState);
+    });
+
     it('should handle CREATE_NEW_REQUEST_SUCCESS', () => {
       initialState = {
-        requests: []
-      }
+        requests: [],
+        openRequestsCount: 0,
+      };
       action = {
         type: 'CREATE_NEW_REQUEST_SUCCESS',
         newRequest: { ...requestObj }
       };
-  
+
       newState = requests(initialState, action);
       receivedState = {
         creatingRequest: false,
@@ -101,27 +119,12 @@ describe('Requests Reducer', () => {
           destination: 'New York',
           manager: 'Samuel Kubai'
         }],
+        openRequestsCount: 1,
         errors: []
       };
-  
+
       expect(newState).toEqual(receivedState);
       expect(requests(newState, action).requests).toHaveLength(2);
-    });
-  
-    it('should handle CREATE_NEW_REQUEST_FAILURE', () => {
-      error = ['failed to add new request'];
-      action = {
-        type: 'CREATE_NEW_REQUEST_FAILURE',
-        error
-      };
-      
-      newState = requests(initialState, action);
-      receivedState = {
-        creatingRequest: false,
-        requests: [],
-        errors: ['failed to add new request']
-      };
-      expect(newState).toEqual(receivedState);
     });
   });
 });

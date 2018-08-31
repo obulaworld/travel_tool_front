@@ -9,33 +9,35 @@ class RequestPanelHeader extends PureComponent {
   renderButtonGroup = () => {
     const {
       openRequestsCount,
-      fetchUserRequests,
+      fetchRequests,
       pastRequestsCount,
-      limit
+      url,
+      activeStatus,
     } = this.props;
     return (
       <ButtonGroup
         openRequestsCount={openRequestsCount}
-        fetchUserRequests={fetchUserRequests}
+        fetchRequests={fetchRequests}
         pastRequestsCount={pastRequestsCount}
-        limit={limit}
+        url={url}
+        activeStatus={activeStatus}
         buttonsType="requests"
       />
     );
   };
 
   render() {
-    const { requests, getRequestsWithLimit, openModal } = this.props;
+    const { requestsLength, getRequestsWithLimit, openModal, url } = this.props;
     return (
       <div className="request-panel-header">
         <PageHeader title="REQUESTS" actionBtn="New Request" openModal={openModal} />
-        {requests &&
-          requests.length > 0 && (
-          <div className="open-requests">
-            {this.renderButtonGroup()}
-            <HeaderPagination getRequestsWithLimit={getRequestsWithLimit} />
-          </div>
-        )}
+        {
+          requestsLength > 0 && (
+            <div className="open-requests">
+              {this.renderButtonGroup()}
+              <HeaderPagination getRequestsWithLimit={getRequestsWithLimit} url={url} />
+            </div>
+          )}
       </div>
     );
   }
@@ -44,17 +46,20 @@ class RequestPanelHeader extends PureComponent {
 RequestPanelHeader.propTypes = {
   openRequestsCount: PropTypes.number,
   pastRequestsCount: PropTypes.number,
-  limit: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
+  activeStatus: PropTypes.string,
   getRequestsWithLimit: PropTypes.func.isRequired,
-  fetchUserRequests: PropTypes.func.isRequired,
-  requests: PropTypes.array,
-  openModal: PropTypes.func.isRequired,
+  fetchRequests: PropTypes.func.isRequired,
+  requestsLength: PropTypes.number,
+  openModal: PropTypes.func,
 };
 
 RequestPanelHeader.defaultProps = {
   openRequestsCount: null,
   pastRequestsCount: null,
-  requests: null,
+  requestsLength: null,
+  activeStatus: 'all',
+  openModal: null,
 };
 
 export default RequestPanelHeader;

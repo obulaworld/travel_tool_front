@@ -51,18 +51,21 @@ const props = {
     },
   ],
   pagination: {
-    currentPage: 2,
+    currentPage: 1,
     pageCount: 4,
+    dataCount: 10,
     onPageChange: sinon.spy(),
   },
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,
-  url: '?page=1',
   isLoading: false,
   history: {
     push: jest.fn()
+  },
+  location: {
+    search: '?page=1'
   },
   user: {
     UserInfo: {
@@ -73,7 +76,8 @@ const props = {
   loading: false,
   errors: [],
   shouldOpen: false,
-  modalType: null
+  modalType: null,
+  openModal: jest.fn()
 };
 
 const initialState = {
@@ -140,10 +144,30 @@ describe('<RequestsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
+    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
     wrapper.find('#next-button').simulate('click');
+    expect(spy.calledOnce).toEqual(true);
     expect(fetchUserRequests.called).toEqual(true);
-    wrapper.find('#previous-button').simulate('click');
-    expect(fetchUserRequests.called).toEqual(true);
+    wrapper.unmount();
+  });
+
+  it('calls the onPageChange method with the correct query', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...{
+            ...props,
+            location:{
+              search: ''
+            }
+          }} />
+        </MemoryRouter>
+      </Provider>
+    );
+    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    wrapper.find('#next-button').simulate('click');
+    expect(spy.called).toEqual(true);
+    expect(spy.calledWith('?page=2')).toEqual(true);
     wrapper.unmount();
   });
 
@@ -156,21 +180,39 @@ describe('<RequestsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
+    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
     wrapper.find('.dropdown__list__item').first().simulate('click');
-    const { fetchUserRequests } = props;
     const stateOnClick = wrapper
       .find(RequestsPage)
       .instance()
       .state;
-    expect(stateOnClick).toEqual({
-      hideNotificationPane: true,
-      hideSideBar: false,
-      limit: 10,
-      hideNewRequestModal: true,
-      openSearch: false,
+    expect(stateOnClick).toMatchObject({
+      activeStatus: 'all',
+      url: '?page=1',
       selectedLink: 'request page',
     });
-    expect(fetchUserRequests.called).toEqual(true);
+    expect(spy.calledOnce).toEqual(true);
+    wrapper.unmount();
+  });
+
+  it(`calls the getRequestsWithLimit method with the last possible page
+  when a limit and a page above the available pages is entered in the url`, () => {
+    const { pagination } = props;
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <RequestsPage {...{
+            ...props,
+            pagination: {...pagination, currentPage: 4},
+            location: { search: '?page=4&status=open'}
+          }} />
+        </MemoryRouter>
+      </Provider>
+    );
+    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    wrapper.find('.dropdown__list__item').first().simulate('click');
+    expect(spy.calledOnce).toEqual(true);
+    expect(spy.calledWith('?page=1&status=open&limit=10')).toEqual(true);
     wrapper.unmount();
   });
 

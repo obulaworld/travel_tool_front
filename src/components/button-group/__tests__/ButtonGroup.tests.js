@@ -7,16 +7,13 @@ import ButtonGroup from '../ButtonGroup';
 const props = {
   openRequestsCount: 1,
   pastRequestsCount: 1,
-  limit: 10,
-  fetchUserRequests: sinon.spy(() => Promise.resolve()),
-  buttonsType: 'requests'
+  url: '?page=2',
+  fetchRequests: sinon.spy(() => Promise.resolve()),
+  buttonsType: 'requests',
+  activeStatus: 'all',
 };
 
-const defaultState = {
-  allActive: false,
-  openActive: false,
-  pastActive: false,
-}
+let spy;
 
 describe('<ButtonGroup />', () => {
   it('should render successfully', () => {
@@ -24,45 +21,62 @@ describe('<ButtonGroup />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls the fetchRequests method when the `all` button is clicked', () => {
+  it('calls the fetchUserRequests method when the `all` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    const spy = sinon.spy(wrapper.instance(), 'fetchRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterRequests');
     const allButton = wrapper.find('#all-button');
-    const newState = {
-      ...defaultState,
-      allActive: true
-    };
     allButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('', newState));
-    expect(wrapper.state()).toEqual(newState)
+    expect(spy.calledWith('')).toBe(true);
+    spy.resetHistory();
   });
 
-  it('calls the fetchRequests method when the `open requests` button is clicked', () => {
+  it('calls the fetchUserRequests method when the `open requests` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    const spy = sinon.spy(wrapper.instance(), 'fetchRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterRequests');
     const openButton = wrapper.find('#open-button');
-    const newState = {
-      ...defaultState,
-      openActive: true
-    };
     openButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('', newState));
-    expect(wrapper.state()).toEqual(newState);
+    expect(spy.calledWith('&status=open')).toBe(true);
+    spy.resetHistory();
   });
 
-  it('calls the fetchRequests method when the `past requests` button is clicked', () => {
+  it('calls the fetchUserRequests method when the `past requests` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    const spy = sinon.spy(wrapper.instance(), 'fetchRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterRequests');
     const pastButton = wrapper.find('#past-button');
-    const newState = {
-      ...defaultState,
-      pastActive: true
-    };
     pastButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('', newState));
-    expect(wrapper.state()).toEqual(newState);
+    expect(spy.calledWith('&status=past')).toBe(true);
   });
-})
+
+  it('calls the fetchRequests props method with the correct query', () => {
+    const wrapper = mount(<ButtonGroup {...{...props, url: '?page=2&limit=3'}} />);
+    spy = sinon.spy(wrapper.instance(), 'filterRequests');
+    const pastButton = wrapper.find('#past-button');
+    const { fetchRequests } = props;
+    pastButton.simulate('click');
+    expect(spy.calledOnce).toEqual(true);
+    expect(spy.calledWith('&status=past')).toBe(true);
+    expect(fetchRequests.called).toEqual(true);
+    expect(fetchRequests.calledWith('?page=1&limit=3&status=past')).toBe(true);
+  });
+
+  it('sets the correct active button based on the activeStatus props', () => {
+    const wrapper = mount(<ButtonGroup {...{...props, activeStatus: 'all' }} />);
+    const allButton = wrapper.find('#all-button');
+    expect(allButton.hasClass('bg-btn--active')).toEqual(true);
+  });
+
+  it('sets the correct active button based on the activeStatus props', () => {
+    const wrapper = mount(<ButtonGroup {...{...props, activeStatus: 'open' }} />);
+    const openButton = wrapper.find('#open-button');
+    expect(openButton.hasClass('bg-btn--active')).toEqual(true);
+  });
+
+  it('sets the correct active button based on the activeStatus props', () => {
+    const wrapper = mount(<ButtonGroup {...{...props, activeStatus: 'past' }} />);
+    const pastButton = wrapper.find('#past-button');
+    expect(pastButton.hasClass('bg-btn--active')).toEqual(true);
+  });
+});
