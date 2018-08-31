@@ -1,43 +1,60 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from '@tinymce/tinymce-react';
 import './_CommentBox.scss';
 
 class CommentBox extends Component {
+  placeholder = '<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>'
   state = {
-    dataInput: '',
+    dataInput: this.placeholder,
     submitReady: false
   };
 
-  handleEditorChange = event => {
-    event.preventDefault();
-    this.setState({
-      dataInput: event.target.getContent({ format: 'text' }).trim(),
-      submitReady: true
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { handleCreateComment } = this.props;
-    const { dataInput } = this.state;
-    handleCreateComment(dataInput);
-  };
+  handleKeyUp = event => {
+    if (event.target.innerText.trim().length >= 1) {
+      this.setState({
+        dataInput: event.target.innerHtml,
+        submitReady: true
+      });
+    }
+    else {
+      this.setState({
+        submitReady: false,
+        dataInput: ''
+      });
+    }
+    
+  }
 
   handleFocus = event => {
     event.target.editorContainer.style.border = '1px solid blue';
+    const { dataInput } = this.state;
+    if (dataInput == this.placeholder) {
+      this.setState({
+        dataInput: ''
+      });
+    }  
   };
 
   handleBlur = event => {
     event.target.editorContainer.style.border = '1px solid #E4E4E4';
+    const { dataInput } = this.state;
+    if (dataInput == '') {
+      this.setState({
+        dataInput: this.placeholder,
+        submitReady: false
+      });
+    }  
+
   };
  
 
   render() {
     const { dataInput, submitReady } = this.state;
-    let status = submitReady && dataInput ? '--active' : '';
+    let status = submitReady ? '--active' : '';
     return (
-      <form onSubmit={this.handleSubmit} className="editor__editor-form" id="form-id">
+      <form className="editor__editor-form" id="form-id">
         <Editor
           init={{
             statusbar: false,
@@ -45,8 +62,8 @@ class CommentBox extends Component {
             skin: 'lightgray',
             menubar: false, branding: false,
             toolbar: 'bold italic underline   numlist bullist   outdent indent' }}
-          onChange={this.handleEditorChange}
-          value={this.dataInput}
+          onKeyUp={this.handleKeyUp}
+          value={dataInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur} />
         <div className="editor__btn-size">
@@ -60,13 +77,5 @@ class CommentBox extends Component {
     );
   }
 }
-
-CommentBox.propTypes = {
-  handleCreateComment: PropTypes.func
-};
-
-CommentBox.defaultProps = {
-  handleCreateComment: () => {}
-};
 
 export default CommentBox;

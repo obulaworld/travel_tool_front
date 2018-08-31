@@ -18,8 +18,9 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       }
     }
     onBlur={[Function]}
-    onChange={[Function]}
     onFocus={[Function]}
+    onKeyUp={[Function]}
+    value="<p style=\\"color:#999999; font-size: 15px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 0;\\">Write a comment</p>"
   />
   <div
     className="editor__btn-size"

@@ -66,11 +66,20 @@
     box-sizing: border-box;
   }
 }
-@media (max-width: 360px) {
+@media (max-width: 640px) {
   .modal-bar{
-    margin-left: 0;
+    
+    margin: 0 0 10px 5px;
+  }
+  .modal-title-text {
+    font-size: 15px;
+    margin: 0 0 0 20px;
+  }
+  .modal-title-id {
+    margin: 0 0 0 20px;
   }
 }
+
 @media (min-width: 640px) {
   .modal {
     top: 50px;

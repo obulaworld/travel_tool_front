@@ -46,19 +46,25 @@ describe('Render RequestsModal component', () => {
   });
 
   it('it should return comment box content as expected', () => {
-    const e = {
-      preventDefault: ()=>{},
+    const event = {
       target: {
-        getContent: () => 'We are travelling'
+        innerText: 'We are travelling',
+        innerHtml: 'We are travelling'
       }
     };
     const wrapper = mount(<CommentBox {...props} />);
     let { dataInput } = wrapper.instance().state;
-    expect(dataInput).toEqual('');
-    wrapper.instance().handleEditorChange(e);
+    expect(dataInput).toEqual('<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>');
+    wrapper.instance().handleKeyUp(event);
 
     dataInput = wrapper.instance().state.dataInput;
     expect(dataInput).toEqual('We are travelling');
+
+    event.target.innerText = '';
+    wrapper.instance().handleKeyUp(event);
+    dataInput = wrapper.instance().state.dataInput;
+    expect(dataInput).toEqual('');
+
   });
   
   it('it should handle onfocus as expected', () => {
