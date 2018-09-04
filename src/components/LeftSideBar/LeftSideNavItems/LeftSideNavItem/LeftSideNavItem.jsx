@@ -39,7 +39,7 @@ export class LeftSideNavItem extends PureComponent {
     // clicking on the navigation items will cause the items to receive new context and
     // this will be is fired to determine
     if(nextContext.activeNavItem !== this)
-      this.setState({dropdownOpen: false});
+      this.setState({dropdownOpen: true});
   }
 
   getType = () => {
@@ -79,7 +79,7 @@ export class LeftSideNavItem extends PureComponent {
     return (
       <Fragment>
         <li className={`left-side-nav-item ${status}`}>
-          <div className="nav-link" role="button" onClick={this.handleClicked} onKeyPress={() => {}} tabIndex="0">
+          <NavLinkItem className="nav-link" role="button" onClick={this.handleClicked} to={link_to} onKeyPress={() => {}} tabIndex="0">
             <div className="left-side-nav-item__left-icon">
               <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
             </div>
@@ -87,7 +87,7 @@ export class LeftSideNavItem extends PureComponent {
               {text}
             </div>
             { isDropdown? dropdownElements.icon: null }
-          </div>
+          </NavLinkItem>
         </li>
         { isDropdown? dropdownElements.items: null }
       </Fragment>
@@ -109,4 +109,3 @@ DropdownNavLink.propTypes = {
 };
 
 export default withRouter(LeftSideNavItem);
-

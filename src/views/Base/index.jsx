@@ -4,7 +4,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
-import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
+import ConnectedSideDrawer, { SideDrawer } from '../../components/SideDrawer/SideDrawer';
 import '../RequestsPage/RequestsPage.scss';
 
 class Base extends Component {
@@ -39,8 +39,17 @@ class Base extends Component {
       this.setState({openSearch: !prevState.openSearch});
     });
   }
-  
+
+  handleOverlay = () => {
+    this.setState({ hideOverlay: false,  });
+  }
+
+  handleShowDrawer = () => {
+    this.setState({ hideOverlay: true });
+  }
+
   renderNavBar = openSearch => {
+    const{clickPage} = this.state;
     return (
       <ConnectedNavBar
         className=""
@@ -48,9 +57,11 @@ class Base extends Component {
         onNotificationToggle={this.onNotificationToggle}
         handleHideSearchBar={this.handleHideSearchBar}
         openSearch={openSearch}
+        handleShowDrawer={this.handleShowDrawer}
       />
     );
   };
+
 
   renderLeftSideBar = (hideClass2, selectedLink) => {
     return (
@@ -82,8 +93,8 @@ class Base extends Component {
     );
   };
 
-  renderSideDrawer = (selectedLink) => {
-    return (<ConnectedSideDrawer selectedLink={selectedLink} />);
+  renderSideDrawer = (selectedLink, showDrawer) => {
+    return (<ConnectedSideDrawer selectedLink={selectedLink} showDrawer={showDrawer} />);
   }
 }
 

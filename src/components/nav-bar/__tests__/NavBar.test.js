@@ -1,6 +1,8 @@
 import React from 'react';
 import Cookie from 'cookies-js';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
+import { MemoryRouter } from 'react-router-dom';
 import { NavBar } from '../NavBar';
 
 // describe what we are testing
@@ -66,4 +68,18 @@ describe('Render NavBar component', () => {
     expect(token).toEqual(undefined);
     expect(loginStatus).toEqual(undefined);
   });
+
+  it('should render dropdown items contain logout link when button is clicked', ()=>{
+    const wrapper = mount(<NavBar {...props} />);
+    expect(wrapper.state('hideLogoutDropdown')).toBe(true);
+    wrapper.find('#demo-menu-lower-right').simulate('click');
+    expect(wrapper.state('hideLogoutDropdown')).toBe(false);
+  });
+
+  it('should hide  logout Dropdown when dropdown button is clicked twice', ()=>{
+    const wrapper = mount(<NavBar {...props} />);
+    wrapper.instance().hideDropdown();
+    expect(wrapper.state('hideLogoutDropdown')).toBe(true);
+  });
+
 });

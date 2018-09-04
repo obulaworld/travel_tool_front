@@ -101,4 +101,15 @@ describe('<ApprovalsPage>', () => {
     wrapper.unmount();
   });
 
+  it('should handle handleOverlay method', ()=> {
+    const wrapper = shallow(<Approvals {...props} />)
+    wrapper.instance().handleOverlay();
+    expect(wrapper.state('hideOverlay')).toBe(false);
+  });
+  it('should handle handleShowDrawer method', ()=> {
+    const wrapper = shallow(<Approvals {...props} />)
+    wrapper.instance().handleShowDrawer();
+    expect(wrapper.state('hideOverlay')).toBe(true);
+  });
+
 });

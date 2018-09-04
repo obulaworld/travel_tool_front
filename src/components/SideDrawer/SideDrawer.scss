@@ -1,4 +1,31 @@
 .side-drawer {
+    display: none;
+    @media (max-width: 838px) {
+        display: block;
+        height: 100%;
+        position: absolute;
+        z-index: 100;
+        width: 30%;
+        background-color: white;
+        padding: 7px;
+        border-right: 2px solid #e0e0e0;
+    }
+    @media (max-width: 479px) {
+        width: 63%;
+        display: block;
+    }
+    &__slide-in {
+        transform: translateX(-100%);
+        transition: transform 0.5s ease-out;
+}
+    &__slide-out {
+        transform: translateX(0);
+        transition: transform 0.1s linear;
+        -webkit-transition: transform 0.1s linear;
+        -moz-transition: transform 0.1s linear;
+        -ms-transition: transform 0.1s linear;
+        -o-transition: transform 0.1s linear;
+}
     &__user-details {
         margin: 42px 0px -21px 22px;
     }
@@ -8,8 +35,8 @@
         color: #4f4f4f;
     }
     &__divider {
-      margin-top: 41px;
-      margin-bottom: -57px;
-      border-top: 1px solid lightgrey;
+        margin-top: 41px;
+        margin-bottom: -57px;
+        border-top: 1px solid lightgrey;
     }
 }

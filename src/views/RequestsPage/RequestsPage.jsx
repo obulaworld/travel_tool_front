@@ -19,6 +19,7 @@ export class RequestsPage extends Base {
     selectedLink: 'request page',
     activeStatus: Utils.getActiveStatus(this.props.location.search),
     url: this.props.location.search,
+    hideOverlay: false,
   };
 
   componentDidMount() {
@@ -140,15 +141,17 @@ export class RequestsPage extends Base {
   }
 
   render() {
-    const { hideNotificationPane, hideSideBar, selectedLink, openSearch } = this.state;
+    const { hideNotificationPane, hideSideBar, selectedLink, openSearch, hideOverlay } = this.state;
     const { shouldOpen, modalType } = this.props;
     let [hideClass, leftPaddingClass] = hideNotificationPane ? ['hide', '']: ['', 'pd-left'];
     const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
+    const overlayClass = hideOverlay ? 'block': 'none';
     return(
       <div>
+        <div className="side_overlay" style={{display: `${overlayClass}`}} role="button" onClick={this.handleOverlay} onKeyPress={() => {}} tabIndex="0" />
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
-          {this.renderSideDrawer(selectedLink)}
+          {this.renderSideDrawer(selectedLink, overlayClass)}
           {this.renderNavBar(openSearch)}
           {this.renderNewRequestForm(shouldOpen, modalType)}
           {this.renderRequestPage(hideClass2,leftPaddingClass, hideClass, hideClass3, selectedLink )}

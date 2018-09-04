@@ -7,9 +7,10 @@ import ImageLink from '../image-link/ImageLink';
 
 export class SideDrawer extends PureComponent {
   render() {
-    const { selectedLink, user } = this.props;
+    const { selectedLink, user, showDrawer } = this.props;
+    const showDrawerTransition = showDrawer === 'none'? 'side-drawer__slide-in' : 'side-drawer__slide-out';
     return (
-      <div className="mdl-layout__drawer">
+      <div className={`side-drawer ${showDrawerTransition}`}>
         <div className="side-drawer__user-details">
           <ImageLink
             altText="User profile picture"
@@ -30,10 +31,12 @@ export class SideDrawer extends PureComponent {
 }
 SideDrawer.propTypes = {
   selectedLink: PropTypes.string,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  showDrawer: PropTypes.string
 };
 SideDrawer.defaultProps = {
-  selectedLink: ''
+  selectedLink: '',
+  showDrawer: 'block'
 };
 
 const mapStateToProps = state => {

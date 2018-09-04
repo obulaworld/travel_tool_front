@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import LeftSidebarNavItem from './LeftSideNavItem/LeftSideNavItem';
 import './_leftSideNavItems.scss';
+import DropdownItem from './DropdownItems/DropdownItem/DropdownItem';
 import { logoutUser } from '../../../helper/userDetails';
 
 
@@ -54,12 +55,12 @@ class LeftSideNavItems extends PureComponent {
     [requestActive, approvalActive] = selectedLink === 'request page'? ['active', ''] : ['', 'active'];
     return (
       <Fragment>
-        <a href="/requests" className={`left-sidebar__dropdown-links ${requestActive}`} onClick={this.handleClick}>
-            My Requests
-        </a>
-        <a href="/requests/my-approvals" className={`left-sidebar__dropdown-links ${approvalActive}`}>
+        <DropdownItem link_to="/requests">
+          My Requests
+        </DropdownItem>
+        <DropdownItem link_to="/requests/my-approvals">
           My Approvals
-        </a>
+        </DropdownItem>
       </Fragment>
     );
   }

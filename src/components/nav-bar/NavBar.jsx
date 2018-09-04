@@ -22,15 +22,35 @@ import './NavBar.scss';
  */
 
 export class NavBar extends PureComponent {
+  
+    state = {
+      hideLogoutDropdown: true,
+    };
+
+
   logout = () => {
     const { history } = this.props;
     logoutUser(history);
   };
 
+  handleClick = () => {
+    const {hideLogoutDropdown} = this.state;
+    this.setState({ hideLogoutDropdown: !hideLogoutDropdown});
+    document.addEventListener('click', this.hideDropdown);
+  }
+
+  hideDropdown = () => {
+    this.setState({hideLogoutDropdown: true});
+    document.removeEventListener('click', this.hideDropdown);
+  }
+
   logoutLink() {
+    const {hideLogoutDropdown} = this.state;
+    const logoutDropdownStyle = hideLogoutDropdown ? 'none' : 'block'; 
     return (
       <span>
         <Button
+          onClick={this.handleClick}
           imageSrc={icon}
           altText="Dropdown Icon"
           buttonId="demo-menu-lower-right"
@@ -38,17 +58,10 @@ export class NavBar extends PureComponent {
           buttonType="button"
           buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
         />
-        <div className="navbar__mdl-list">
-          <ul
-            htmlFor="demo-menu-lower-right"
-            className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu"
-          >
-            <li className="mdl-menu__item navbar__menu-item">
-              <div onClick={this.logout} id="logout" role="presentation">
+        <div className="navbar__mdl-list" style={{display: `${logoutDropdownStyle}`}}>
+          <div onClick={this.logout} id="logout" role="presentation">
                 Logout
-              </div>
-            </li>
-          </ul>
+          </div>
         </div>
       </span>
     );
@@ -102,10 +115,14 @@ export class NavBar extends PureComponent {
     );
   }
 
-  renderHeader(){
+  renderHeader(handleShowDrawer){
+    
     return(
       <div className="mdl-layout__header-row">
         <div className="navbar__nav-size navbar__logo-icons">
+          <button type="button" className="material-icons hamburger" onClick={handleShowDrawer}>
+            menu
+          </button>
           {this.renderLogo()}
         </div>
         <div className="mdl-layout-spacer" />
@@ -123,14 +140,14 @@ export class NavBar extends PureComponent {
   }
 
   render() {
-    const {handleHideSearchBar, openSearch } = this.props;
+    const {handleHideSearchBar, handleShowDrawer, openSearch, clickPage } = this.props;
     let showSearch='none';
     if(openSearch) {
       showSearch='block';
     }
     return (
       <header className="mdl-layout__header navbar__layout_header">
-        {this.renderHeader()}
+        {this.renderHeader(handleShowDrawer)}
         <button type="button" className="navbar__search-icon--btn" onClick={handleHideSearchBar}>
           <div>
             <i className="material-icons navbar__search-icon">
@@ -153,10 +170,13 @@ NavBar.propTypes = {
   avatar: PropTypes.string.isRequired,
   handleHideSearchBar: PropTypes.func.isRequired,
   openSearch: PropTypes.bool,
+  handleShowDrawer: PropTypes.func.isRequired,
+  clickPage: PropTypes.bool
 };
 
 NavBar.defaultProps = {
-  openSearch: false
+  openSearch: false,
+  clickPage: true,
 };
 
 const mapStateToProps = state => {

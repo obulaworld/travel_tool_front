@@ -11,6 +11,7 @@ Array [
         onKeyPress={[Function]}
         role="button"
         tabIndex="0"
+        to="/test-link"
     >
         <div
             className="left-side-nav-item__left-icon"
@@ -71,6 +72,7 @@ Array [
         onKeyPress={[Function]}
         role="button"
         tabIndex="0"
+        to="/test-link"
     >
         <div
             className="left-side-nav-item__left-icon"

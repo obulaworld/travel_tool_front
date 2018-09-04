@@ -67,7 +67,7 @@ describe('<LeftSideNavItem />', () => {
     });
 
     it('closes dropdown its when it is not the active item', () => {
-      const expectedStateOnClick = { dropdownOpen: false };
+      const expectedStateOnClick = { dropdownOpen: true };
       wrapper.setContext({activeNavItem: {}});
       const stateOnNewProps = wrapper
         .find(LeftSideNavItem)

@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookie from 'cookies-js';
 import { MemoryRouter } from 'react-router-dom';
-import LeftSideNavItems from '../../LeftSideNavItems/LeftSideNavItems';
+import LeftSideNavItems from '../LeftSideNavItems';
 
 describe('<LeftSideNavItems />', () => {
   let wrapper;
@@ -42,7 +42,7 @@ describe('<LeftSideNavItems />', () => {
 
   it('it renders two dropdown items', () => {
     const dropDownItems = wrapper.find('DropdownItem');
-    expect(dropDownItems).toHaveLength(0);
+    expect(dropDownItems).toHaveLength(2);
   });
 
   it('should log user out when the logout link is clicked', () => {

@@ -10,7 +10,9 @@ class Approvals extends Base {
     hideNotificationPane: true,
     hideSideBar: false,
     openSearch: false,
-    selectedLink: 'approval page'
+    selectedLink: 'approval page',
+    hideOverlay: false,
+    clickPage: true,
   }
   // FIX: Remove console statement and replace with actual function
   onPageChange (page) {
@@ -34,7 +36,9 @@ class Approvals extends Base {
   renderApprovalPage (hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink ) {
     return (
       <div className="mdl-layout__content full-height">
-        <div className="mdl-grid mdl-grid--no-spacing full-height">
+        <div
+          className="mdl-grid mdl-grid--no-spacing full-height"
+          onClick={this.handleHideLogoutDropdown} id="logout" role="presentation">
           <div className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
             {this.renderLeftSideBar(hideClass2, selectedLink)}
           </div>
@@ -54,15 +58,21 @@ class Approvals extends Base {
   }
 
   render() {
-    const { hideNotificationPane, hideSideBar, openSearch, selectedLink } = this.state;
+    const { hideNotificationPane, hideSideBar, openSearch, selectedLink, hideOverlay } = this.state;
     let [hideClass, leftPaddingClass] = hideNotificationPane? ['hide', '']: ['', 'pd-left'];
     const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
     const { requests, pagination } = requestsData;
+    const overlayClass = hideOverlay ? 'block': 'none';
     return(
       <div>
+        <div
+          className="side_overlay"
+          style={{display: `${overlayClass}`}} role="button"
+          onClick={this.handleOverlay}
+          onKeyPress={() => {}} tabIndex="0" />
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
-          {this.renderSideDrawer()} 
+          {this.renderSideDrawer(selectedLink, overlayClass)} 
           {this.renderNavBar(openSearch)}
           {this.renderApprovalPage(hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
         </div>

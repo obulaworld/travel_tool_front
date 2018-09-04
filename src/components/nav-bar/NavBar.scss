@@ -15,7 +15,23 @@
         padding: 0 40px 0px 51px;
     }
 }
-
+.hamburger {
+    display: none;
+    cursor: pointer;
+    @media (max-width: 836px){
+        display: block;
+        font-size: 39px;
+        color: black;
+        position: absolute;
+        left: 12px;
+        top: 6px;
+    }
+    @media (max-width: 479px){
+        font-size: 36px;
+        left: 2px;
+        top: 1.6%;
+    }
+}
 .mdl-badge.mdl-badge:after {
     box-sizing: border-box;
     top: 15px;
@@ -46,8 +62,7 @@
         background-color: #ffffff;
         box-shadow: none;
         border-bottom: 1px solid #e9e9e9;
-        z-index: 0;
-
+        z-index: inherit;
         @media (max-width: 1024px) {
             height: 5.5%;
         }
@@ -60,9 +75,14 @@
             box-shadow: 0px 1px 5px 0px rgba(94,94,94,0.25);
         }
     }
+    &__badge {
+        @media (min-width: 480px) and (max-width: 836px){
+            margin-top: -11%;
+        }
+    }
     &__travela-logo {
         @media (max-width: 479px) {
-            top: 2.1%;
+            top: 1.5%;
             position: absolute;
             height: 36px;
             width: 36px;
@@ -173,8 +193,19 @@
     }
     &__mdl-list {
         position: relative;
-        top: -53px;
-        left: -11px;
-        margin: 0 1px;
+        top: -5px;
+        left: 66px;
+        background-color: #ffffff;
+        width: 105px;
+        padding: 10px;
+        color: #0459e4;
+        border-radius: 3px;
+        height: auto;
+        box-shadow: 2px 2px #80808070;
+        font-size: 16px;
+        line-height: 21px;
+        font-family: DIN Pro;
+        cursor: pointer;
+        z-index: 2;
     }
 }

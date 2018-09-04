@@ -10,6 +10,12 @@ exports[`Render NavBar component should match snapshot 1`] = `
     <div
       className="navbar__nav-size navbar__logo-icons"
     >
+      <button
+        className="material-icons hamburger"
+        type="button"
+      >
+        menu
+      </button>
       <span
         className="navbar__logo-icons"
       >
@@ -82,7 +88,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
               disabled={false}
               imageClass="navbar__mdl-Icon"
               imageSrc="drop-down-icon.svg"
-              onClick={null}
+              onClick={[Function]}
               responsiveText=""
               showBadge={false}
               text=""
@@ -90,23 +96,19 @@ exports[`Render NavBar component should match snapshot 1`] = `
             />
             <div
               className="navbar__mdl-list"
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
             >
-              <ul
-                className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect navbar__menu"
-                htmlFor="demo-menu-lower-right"
+              <div
+                id="logout"
+                onClick={[Function]}
+                role="presentation"
               >
-                <li
-                  className="mdl-menu__item navbar__menu-item"
-                >
-                  <div
-                    id="logout"
-                    onClick={[Function]}
-                    role="presentation"
-                  >
-                    Logout
-                  </div>
-                </li>
-              </ul>
+                Logout
+              </div>
             </div>
           </span>
         </div>
