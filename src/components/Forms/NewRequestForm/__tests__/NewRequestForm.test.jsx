@@ -184,6 +184,7 @@ describe('<NewRequestForm />', () => {
         manager: 'test',
         origin: 'test',
         destination: 'Nairobi',
+        otherDestination: '',
         departureDate: moment(),
         arrivalDate: moment()
       }
@@ -193,6 +194,7 @@ describe('<NewRequestForm />', () => {
     wrapper.instance().forceUpdate();
     wrapper.find('form').simulate('submit');
     expect(spy).toHaveBeenCalledTimes(1);
+    delete wrapper.state().values.otherDestination;
     expect(props.handleCreateRequest).toHaveBeenCalledWith(wrapper.state().values);//eslint-disable-line
     expect(props.handleCreateRequest).toHaveBeenCalledTimes(2);//eslint-disable-line
   });
@@ -207,6 +209,7 @@ describe('<NewRequestForm />', () => {
         manager: 'test',
         origin: 'test',
         destination: 'Nairobi',
+        otherDestination: '',
         departureDate: moment(),
         arrivalDate: moment()
       }

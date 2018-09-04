@@ -45,7 +45,7 @@ class NewRequestForm extends PureComponent {
     
     if (this.validate()) {
       // call create the request
-      let data = values;
+      let data = { ...values };
       
       if (data.destination === 'Other') {
         data.destination = data.otherDestination;

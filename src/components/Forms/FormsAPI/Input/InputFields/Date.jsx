@@ -29,7 +29,7 @@ const DateInput = (props) => {
 DateInput.propTypes = {
   error: PropTypes.string,
   className: PropTypes.string,
-  selectedDate: PropTypes.string
+  selectedDate: PropTypes.object
 };
 
 DateInput.defaultProps = {

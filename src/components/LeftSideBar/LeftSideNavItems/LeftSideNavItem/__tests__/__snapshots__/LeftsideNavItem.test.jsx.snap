@@ -59,7 +59,16 @@ Array [
 ]
 `;
 
-exports[`<LeftSideNavItem /> render DropdownNavLink 1`] = `<div />`;
+exports[`<LeftSideNavItem /> render DropdownNavLink 1`] = `
+<div>
+  <p>
+    some text
+  </p>
+  <p>
+    lorem ipsum
+  </p>
+</div>
+`;
 
 exports[`<LeftSideNavItem /> renders the LeftSideNavItem 1`] = `
 Array [

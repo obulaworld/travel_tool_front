@@ -44,7 +44,15 @@ describe('<LeftSideNavItem />', () => {
   });
 
   it('render DropdownNavLink', ()=> {
-    const wrapper = shallow(<DropdownNavLink />);
+    const wrapper = shallow(
+      <DropdownNavLink>
+        <p>
+some text
+        </p>
+        <p>
+lorem ipsum
+        </p>
+      </DropdownNavLink>);
     expect(wrapper).toMatchSnapshot();
   });
 

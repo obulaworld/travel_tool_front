@@ -30,7 +30,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
       openSearch={false}
     />
     <Modal
-      closeModal={null}
+      closeModal={[Function]}
       description=""
       divClass=""
       dynamicDate=""
@@ -43,6 +43,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
       visibility="invisible"
     >
       <NewRequestForm
+        closeModal={[Function]}
         creatingRequest={false}
         errors={Array []}
         handleCreateRequest={[Function]}
@@ -99,6 +100,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
               className="rp-table"
             >
               <WithLoading
+                closeModal={[Function]}
                 fetchRequestsError={null}
                 isLoading={false}
                 modalType={null}

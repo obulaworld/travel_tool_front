@@ -77,7 +77,8 @@ const props = {
   errors: [],
   shouldOpen: false,
   modalType: null,
-  openModal: jest.fn()
+  openModal: jest.fn(),
+  closeModal: jest.fn()
 };
 
 const initialState = {
