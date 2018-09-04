@@ -4,9 +4,11 @@
 
 .mdl-layout__drawer-button {
   padding-top: 4px;
+  z-index: 0 !important;
   @media (min-width: 840px) {
     display: none;
   }
+  
 }
 
 .request-page__table-view {

@@ -69,17 +69,31 @@
 @media (max-width: 640px) {
   .modal-bar{
     
-    margin: 0 0 10px 5px;
+    margin: 0 0 10px 25px;
   }
   .modal-title-text {
     font-size: 15px;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
+  }
+  .modal-title-id {
+    margin: 0 0 0 10px;
+  }
+  
+}
+
+@media (max-width: 568px) {
+  .modal-bar{
+    
+    margin: 0 0 0 30px;
+  }
+  .modal-title-text {
+    font-size: 14px;
+    margin: 0 0 10px 20px;
   }
   .modal-title-id {
     margin: 0 0 0 20px;
   }
 }
-
 @media (min-width: 640px) {
   .modal {
     top: 50px;

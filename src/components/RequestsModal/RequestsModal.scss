@@ -157,7 +157,7 @@
     text-align: center;
     border-radius: 1px;
   }
-  
+
   button:focus {
     outline: none;
   }
@@ -183,7 +183,7 @@
     margin-right: 5px;
   }
   &__hours-status {
-    color:#bcbcbc;
+    color: #bcbcbc;
     font-family: 'DIN Pro';
     font-size: 15px;
     line-height: 20px;
@@ -224,4 +224,10 @@
     border-bottom: none;
     box-sizing: border-box;
   }
+  @media (max-width: 568px) {
+    &__travel-date {
+      margin: 10px 25px 20px 5px;
+    }
+  }
 }
+
