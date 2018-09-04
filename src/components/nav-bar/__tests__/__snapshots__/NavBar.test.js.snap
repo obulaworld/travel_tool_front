@@ -12,6 +12,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
     >
       <button
         className="material-icons hamburger"
+        onClick={[Function]}
         type="button"
       >
         menu

@@ -6,19 +6,24 @@ import PersonalDetailsFiedset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFiedset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import './NewRequestForm.scss';
+import Checkbox from '../../CheckBox/index';
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
-    const user = props.user;
+    const user = localStorage.getItem('name');
+    const gender = localStorage.getItem('gender');
+    const department = localStorage.getItem('department');
+    const role = localStorage.getItem('role');
+    const manager = localStorage.getItem('manager');
 
     this.defaultState = {
       values: {
-        name: user ? user.UserInfo.name : '', // FIX: need to be refactor later
-        gender: '',
-        department: '',
-        role: '',
-        manager: '',
+        name: user ? user : '', // FIX: need to be refactor later
+        gender: gender ? gender: '',
+        department: department ? department: '',
+        role: role ? role :'',
+        manager: manager ? manager : '',
         origin: '',
         destination: '',
         otherDestination: '',
@@ -32,21 +37,25 @@ class NewRequestForm extends PureComponent {
     this.state = { ...this.defaultState };
   }
 
-
   componentWillUnmount() {
     this.handleClearForm();
   }
-  // an onChange handler will be created by the Input component when it's rendered
 
+  // an onChange handler will be created by the Input component when it's rendered
   handleSubmit = event => {
     event.preventDefault();
+
     const { handleCreateRequest } = this.props;
     const { values } = this.state;
-    
+    const checkBoxState = localStorage.getItem('state');
+    if (checkBoxState === 'clicked'){
+      const [name, gender, department, role, manager] = [values.name, values.gender, values.department, values.role, values.manager];
+      this.savePersonalDetails(name,gender,department,role,manager);
+    }
     if (this.validate()) {
       // call create the request
+
       let data = { ...values };
-      
       if (data.destination === 'Other') {
         data.destination = data.otherDestination;
       }
@@ -82,9 +91,18 @@ class NewRequestForm extends PureComponent {
     return !hasBlankFields;
   };
 
+  savePersonalDetails(name, gender, department, role, manager){
+    // save to localstorage
+    localStorage.setItem('name', name);
+    localStorage.setItem('gender', gender);
+    localStorage.setItem('department', department);
+    localStorage.setItem('role', role);
+    localStorage.setItem('manager', manager);
+  }
+
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { user, creatingRequest } = this.props;
+    const { creatingRequest } = this.props;
 
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
@@ -96,6 +114,7 @@ class NewRequestForm extends PureComponent {
         )}
         <form onSubmit={this.handleSubmit} className="new-request">
           <PersonalDetailsFiedset values={values} />
+          <Checkbox />
           <TravelDetailsFiedset values={values} />
           <hr />
           <SubmitArea
@@ -110,13 +129,11 @@ class NewRequestForm extends PureComponent {
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
-  user: PropTypes.object,
   creatingRequest: PropTypes.bool,
 };
 
 NewRequestForm.defaultProps = {
   creatingRequest: false,
-  user: {}
 };
 
 export default NewRequestForm;

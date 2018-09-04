@@ -22,7 +22,7 @@ import './NavBar.scss';
  */
 
 export class NavBar extends PureComponent {
-  
+
     state = {
       hideLogoutDropdown: true,
     };
@@ -46,7 +46,7 @@ export class NavBar extends PureComponent {
 
   logoutLink() {
     const {hideLogoutDropdown} = this.state;
-    const logoutDropdownStyle = hideLogoutDropdown ? 'none' : 'block'; 
+    const logoutDropdownStyle = hideLogoutDropdown ? 'none' : 'block';
     return (
       <span>
         <Button
@@ -116,7 +116,7 @@ export class NavBar extends PureComponent {
   }
 
   renderHeader(handleShowDrawer){
-    
+
     return(
       <div className="mdl-layout__header-row">
         <div className="navbar__nav-size navbar__logo-icons">
@@ -170,13 +170,14 @@ NavBar.propTypes = {
   avatar: PropTypes.string.isRequired,
   handleHideSearchBar: PropTypes.func.isRequired,
   openSearch: PropTypes.bool,
-  handleShowDrawer: PropTypes.func.isRequired,
+  handleShowDrawer: PropTypes.func,
   clickPage: PropTypes.bool
 };
 
 NavBar.defaultProps = {
   openSearch: false,
   clickPage: true,
+  handleShowDrawer:()=>{}
 };
 
 const mapStateToProps = state => {

@@ -5,7 +5,7 @@ import NewRequestForm from '../NewRequestForm';
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
   onSubmit = jest.fn();
-  
+
   const props = {
     user: {
       UserInfo: {
@@ -20,7 +20,7 @@ describe('<NewRequestForm />', () => {
   const {user} = props;
   const defaultState = {
     values: {
-      name: user ? user.UserInfo.name : '', // FIX: need to be refactor later
+      name: '', // FIX: need to be refactor later
       gender: '',
       department: '',
       role: '',
@@ -240,4 +240,33 @@ describe('<NewRequestForm />', () => {
     wrapper.setProps({ creatingRequest: true });
     expect(wrapper.find('h5').text()).toEqual('Creating request...');
   });
+
+  it('should call savePersonalDetails method when checkbox state is changed to clicked', ()=>{
+    const NewRequest = shallow(<NewRequestForm {...props} />);
+    const checkbox = NewRequest.find('Checkbox').dive();
+    expect(checkbox.exists()).toBe(true);
+    checkbox.setState({checkBox:'clicked'});
+    expect(checkbox.state().checkBox).toBe('clicked');
+
+    NewRequest.setState({
+      values: {
+        name: 'test',
+        gender: 'test',
+        department: 'test',
+        role: 'test',
+        manager: 'test',
+        origin: 'test',
+        destination: 'Nairobi',
+        departureDate: moment(),
+        arrivalDate: moment()
+      }
+    });
+    const spy = jest.spyOn( NewRequest.instance(), 'handleSubmit');
+    NewRequest.instance().forceUpdate();
+    NewRequest.find('form').simulate('submit', {
+      preventDefault: ()=>{}
+    });
+  });
+
+
 });

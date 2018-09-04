@@ -34,7 +34,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           type="text"
-          value="John Doe"
+          value=""
         />
         <span
           className="error"
@@ -342,6 +342,27 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    className="container"
+  >
+    <div
+      className="checkbox default"
+      id="checkBox"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex="0"
+    >
+      <img
+        alt="clicked"
+        className="ticksvg"
+        src="tick.svg"
+      />
+    </div>
+    <p>
+      Remember these details
+    </p>
+  </div>
   <fieldset
     className="travel-details"
   >

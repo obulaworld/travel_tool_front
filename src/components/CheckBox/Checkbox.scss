@@ -1,0 +1,41 @@
+@mixin checkboxStyle(){
+  height: 24px !important;
+  width: 24px !important;
+  border:1px solid #999999 ;
+  border-radius: 2px !important;
+  outline:none !important;
+  margin-right: 6px !important;
+}
+
+.container{
+  display: flex;
+  height: auto !important;
+  width: auto !important;
+  color: #4F4F4F;
+  font-family: "DIN Pro";
+  font-size: 18px;
+  letter-spacing: -0.23px;
+  line-height: 23px;
+}
+
+.checkbox{
+  @include checkboxStyle();
+  &.default {
+    background-color: #FFFFFF;
+  }
+  &:hover {
+    border: 1px solid #3359DB;
+    cursor: pointer;
+  }
+  &.clicked {
+    background-color: #3359DB;
+  }
+}
+
+.ticksvg{
+  height: 14px;
+  width: 13px;
+  margin-left: 5px;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
