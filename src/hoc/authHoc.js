@@ -2,42 +2,40 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getUserData } from '../redux/actionCreator/userActions';
 
 const history = PropTypes.shape({});
 const user = PropTypes.object;
 const isAuthenticated = PropTypes.bool;
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   class Authenticate extends Component {
-    componentWillMount(){
-      const { isAuthenticated, history } = this.props;
-      if(!isAuthenticated){
-        history.push('/');
-      }
+    componentDidMount() {
+      const { isAuthenticated, history, getUserData, user } = this.props;
+      isAuthenticated ? getUserData(user.UserInfo.id) : null;
+      !isAuthenticated ? history.push('/') : null;
     }
 
     render() {
-      return (
-        <ComposedComponent {...this.props} />
-      );
+      return <ComposedComponent {...this.props} />;
     }
   }
-
 
   Authenticate.propTypes = {
     history: history.isRequired,
     isAuthenticated: isAuthenticated.isRequired,
-    user: user
+    user: user.isRequired,
+    getUserData: PropTypes.func.isRequired
   };
 
-  Authenticate.defaultProps = {
-    user: null
-  };
-
-  const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+  const mapStateToProps = ({ auth }) => ({
+    ...auth
   });
 
-  return withRouter(connect(mapStateToProps)(Authenticate));
+  return withRouter(
+    connect(
+      mapStateToProps,
+      { getUserData }
+    )(Authenticate)
+  );
 }

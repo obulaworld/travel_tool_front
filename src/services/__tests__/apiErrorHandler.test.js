@@ -8,7 +8,8 @@ describe('Api Error Handler', () => {
       response: {
         status: 0,
         data: {
-          errors: ['name is required', 'destination is required']
+          errors: ['name is required', 'destination is required'],
+          message: ['errors', 'fix it']
         }
       }
     };
@@ -24,6 +25,20 @@ describe('Api Error Handler', () => {
   it('should handle a case when the server returns 500', () => {
     error = { ...error, response: { status: 500 } };
     expect(apiErrorHandler(error)).toEqual('Server error, try again');
+  });
+
+
+  it('should handle a case when the server returns 400', () => {
+    error = {
+      ...error,
+      response: {
+        status: 400,
+        data: {
+          message: 'errors',
+        }
+      }
+    };
+    expect(apiErrorHandler(error)).toEqual('errors');
   });
 
   it('should handle errors from the server other than 500 and 422 errors', () => {

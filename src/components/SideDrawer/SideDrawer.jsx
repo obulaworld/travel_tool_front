@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './SideDrawer.scss';
-import LeftSideBar from '../LeftSideBar/LeftSideBar';
+import ConnectedLeftSideBar from '../LeftSideBar/LeftSideBar';
 import ImageLink from '../image-link/ImageLink';
 
 export class SideDrawer extends PureComponent {
@@ -23,7 +23,7 @@ export class SideDrawer extends PureComponent {
         </div>
         <hr className="side-drawer__divider" />
         <nav className="mdl-navigation">
-          <LeftSideBar selectedLink={selectedLink} />
+          <ConnectedLeftSideBar selectedLink={selectedLink} />
         </nav>
       </div>
     );

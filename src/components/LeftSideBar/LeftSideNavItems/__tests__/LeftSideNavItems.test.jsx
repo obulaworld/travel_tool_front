@@ -9,7 +9,9 @@ describe('<LeftSideNavItems />', () => {
   const props = {
     history: {
       push: jest.fn
-    }
+    },
+    getCurrentUserRole: 'tomato'
+
   };
 
   beforeEach(() => {

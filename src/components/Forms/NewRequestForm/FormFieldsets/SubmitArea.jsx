@@ -2,7 +2,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields, onCancel } = props;
+  const { hasBlankFields, onCancel, send } = props;
 
   return (
     <fieldset>
@@ -11,7 +11,7 @@ const SubmitArea = (props) => {
           Cancel
         </button>
         <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--active">
-          Send Request
+          { send }
         </button>
       </div>
     </fieldset>

@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewUserRoleForm /> renders correctly 1`] = `
+<form
+  className="new-request"
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="personal-details"
+  >
+    <div
+      className="input-group"
+    >
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="email"
+        >
+          Andela Email Address
+        </label>
+        <input
+          className=""
+          error=""
+          label="Andela Email Address"
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input "
+      >
+        <label
+          htmlFor="roleName"
+        >
+          Role
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Super Administrator",
+                "Travel Administrator",
+                "Travel Team Member",
+                "Requester",
+                "Manager",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Role"
+            name="roleName"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Super Administrator"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Super Administrator
+                </div>
+              </li>
+              <li
+                key="Travel Administrator"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Travel Administrator
+                </div>
+              </li>
+              <li
+                key="Travel Team Member"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Travel Team Member
+                </div>
+              </li>
+              <li
+                key="Requester"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Requester
+                </div>
+              </li>
+              <li
+                key="Manager"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Manager
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+    </div>
+  </fieldset>
+  <hr />
+  <fieldset>
+    <div
+      className="submit-area"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        type="submit"
+      >
+        Send Request
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;

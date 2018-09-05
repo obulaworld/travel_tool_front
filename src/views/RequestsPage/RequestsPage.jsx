@@ -1,4 +1,4 @@
-import React from  'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WithLoadingTable from '../../components/Table';
@@ -7,7 +7,10 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
-import { fetchUserRequests, createNewRequest } from '../../redux/actionCreator/requestActions';
+import {
+  fetchUserRequests,
+  createNewRequest
+} from '../../redux/actionCreator/requestActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 
@@ -20,7 +23,7 @@ export class RequestsPage extends Base {
     selectedLink: 'request page',
     activeStatus: Utils.getActiveStatus(this.props.location.search),
     url: this.props.location.search,
-    hideOverlay: false,
+    hideOverlay: false
   };
 
   componentDidMount() {
@@ -31,21 +34,21 @@ export class RequestsPage extends Base {
     fetchRoleUsers(53019);
   }
 
-  fetchRequests = (query) => {
+  fetchRequests = query => {
     const { history } = this.props;
     history.push(`/requests${query}`);
-  }
+  };
 
-  onPageChange = (page) => {
+  onPageChange = page => {
     const { url } = this.state;
     const query = Utils.buildQuery(url, 'page', page);
     this.fetchRequests(query);
-  }
+  };
 
-  getRequestsWithLimit = (limit) => {
+  getRequestsWithLimit = limit => {
     const { url } = this.state;
     let query;
-    const pages = Math.ceil(this.props.pagination.dataCount/limit);
+    const pages = Math.ceil(this.props.pagination.dataCount / limit);
     if (pages < this.props.pagination.currentPage) {
       const newUrl = Utils.buildQuery(url, 'page', pages);
       query = Utils.buildQuery(newUrl, 'limit', limit);
@@ -53,15 +56,16 @@ export class RequestsPage extends Base {
       query = Utils.buildQuery(url, 'limit', limit);
     }
     this.fetchRequests(query);
-  }
+  };
 
   renderRequestPanelHeader() {
-    const { openRequestsCount,
+    const {
+      openRequestsCount,
       requests,
       pastRequestsCount,
       openModal,
       shouldOpen,
-      modalType,
+      modalType
     } = this.props;
     const { url, activeStatus } = this.state;
 
@@ -85,7 +89,7 @@ export class RequestsPage extends Base {
 
   renderRequests(requests, isLoading, error, message) {
     const { openModal, closeModal, shouldOpen, modalType } = this.props;
-    return(
+    return (
       <div className="rp-table">
         <WithLoadingTable
           requests={requests}
@@ -106,7 +110,9 @@ export class RequestsPage extends Base {
     return (
       <Modal
         closeModal={closeModal}
-        visibility={shouldOpen && (modalType === 'new request') ? 'visible' : 'invisible'}
+        visibility={
+          shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
+        }
         title="New Travel Request"
       >
         <NewRequestForm
@@ -121,44 +127,73 @@ export class RequestsPage extends Base {
     );
   }
 
-  renderRequestPage(hideClass2,leftPaddingClass, hideClass, hideClass3, selectedLink ){
-    const { isLoading, requests, pagination, fetchRequestsError, message } = this.props;
-    return(
+  renderRequestPage(
+    leftPaddingClass,
+    hideClass,
+    hideClass3,
+    selectedLink,
+    hideSideBar
+  ) {
+    const {
+      isLoading,
+      requests,
+      pagination,
+      fetchRequestsError,
+      message
+    } = this.props;
+    return (
       <div className="mdl-layout__content full-height">
         <div className="mdl-grid mdl-grid--no-spacing full-height">
-          <div className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
-            {this.renderLeftSideBar(hideClass2, selectedLink)}
-          </div>
+          {this.renderLeftSideBar(hideSideBar, selectedLink)}
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
               {this.renderRequestPanelHeader()}
-              {requests && this.renderRequests(requests, isLoading, fetchRequestsError, message)}
-              {!isLoading && requests.length > 0 && this.renderPagination(pagination)}
+              {requests &&
+                this.renderRequests(
+                  requests,
+                  isLoading,
+                  fetchRequestsError,
+                  message
+                )}
+              {!isLoading &&
+                requests.length > 0 &&
+                this.renderPagination(pagination)}
             </div>
           </div>
-          <div className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}>
-            {this.renderNotificationPane(hideClass)}
-          </div>
+          {this.renderNotificationPane(hideClass, hideSideBar)}
         </div>
       </div>
     );
   }
 
   render() {
-    const { hideNotificationPane, hideSideBar, selectedLink, openSearch, hideOverlay } = this.state;
+    const {
+      hideNotificationPane,
+      hideSideBar,
+      selectedLink,
+      openSearch,
+      hideOverlay,
+    } = this.state;
     const { shouldOpen, modalType } = this.props;
-    let [hideClass, leftPaddingClass] = hideNotificationPane ? ['hide', '']: ['', 'pd-left'];
-    const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
+    let [hideClass, leftPaddingClass] = hideNotificationPane
+      ? ['hide', '']
+      : ['', 'pd-left'];
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
-    const overlayClass = hideOverlay ? 'block': 'none';
-    return(
+    const overlayClass = hideOverlay ? 'block' : 'none';
+    return (
       <div>
-        <div className="side_overlay" style={{display: `${overlayClass}`}} role="button" onClick={this.handleOverlay} onKeyPress={() => {}} tabIndex="0" />
+        {this.renderOverlay(overlayClass)}
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
           {this.renderSideDrawer(selectedLink, overlayClass)}
           {this.renderNavBar(openSearch)}
           {this.renderNewRequestForm(shouldOpen, modalType)}
-          {this.renderRequestPage(hideClass2,leftPaddingClass, hideClass, hideClass3, selectedLink )}
+          {this.renderRequestPage(
+            leftPaddingClass,
+            hideClass,
+            hideClass3,
+            selectedLink,
+            hideSideBar
+          )}
         </div>
       </div>
     );
@@ -182,7 +217,7 @@ RequestsPage.propTypes = {
   errors: PropTypes.array,
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
-  openModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 RequestsPage.defaultProps = {
@@ -213,4 +248,7 @@ const actionCreators = {
   closeModal
 };
 
-export default connect(mapStateToProps, actionCreators)(RequestsPage);
+export default connect(
+  mapStateToProps,
+  actionCreators
+)(RequestsPage);
