@@ -110,6 +110,10 @@ jobs:
       - run:
           name: Build and Deploy Application
           command: .circleci/build_deploy.sh main
+      - run:
+          name: Upload Failed Tests
+          command: .circleci/build_deploy.sh main fail
+          when: on_fail
 workflows:
   version: 2
   test-build-deploy:
