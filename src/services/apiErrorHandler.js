@@ -14,8 +14,14 @@ export default function apiErrorHandler(error) {
       break;
     case 422:
       errorMessage = 'Bad request';
-      validationErrors = error.response.data.errors.map(error => error.msg).join(', ');
+      validationErrors = error.response.data.errors 
+        .map(error => error.msg)
+        .join(', ');
       errorMessage = `${errorMessage}. ${validationErrors}`;
+      break;
+    case 400:
+      errorMessage = error.response.data.message;
+      validationErrors = error.response.data.message;
       break;
     default:
       errorMessage = error.response.data.error;
