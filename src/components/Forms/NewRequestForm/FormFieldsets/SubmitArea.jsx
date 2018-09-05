@@ -21,6 +21,7 @@ const SubmitArea = (props) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   hasBlankFields: PropTypes.bool.isRequired,
+  send: PropTypes.string.isRequired
 };
 
 export default SubmitArea;

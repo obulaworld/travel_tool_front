@@ -79,11 +79,11 @@ class NewUserRoleForm extends PureComponent {
 NewUserRoleForm.propTypes = {
   handleUpdateRole: PropTypes.func.isRequired,
   updatingRole: PropTypes.bool,
-  getRoleData: PropTypes.func.isRequired
+  getRoleData: PropTypes.func.isRequired,
 };
 
 NewUserRoleForm.defaultProps = {
-  updatingRole: false
+  updatingRole: false,
 };
 
 export default NewUserRoleForm;

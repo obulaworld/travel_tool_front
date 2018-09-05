@@ -113,12 +113,16 @@ export class Login extends Component {
   }
 }
 
-Login.isAuthenticated = {
+Login.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   history: PropTypes.shape({}).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
   postUserData: PropTypes.func.isRequired,
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}),
+};
+
+Login.defaultProps = {
+  user: []
 };
 
 export const mapStateToProps = ({ auth }) => ({
