@@ -15,6 +15,12 @@ describe('<NewRequestForm />', () => {
     loading: false,
     errors: [],
     handleCreateRequest: jest.fn(() => {}),
+    managers: [
+      {
+        fullName: 'Test User',
+        email: 'test.user@andela.com'
+      }
+    ]
   };
 
   const {user} = props;
@@ -75,9 +81,9 @@ describe('<NewRequestForm />', () => {
   });
 
   it('validates input on blur', () => {
-    wrapper.find('input[name="manager"]').simulate('blur');
+    wrapper.find('input[name="departureDate"]').simulate('blur');
     wrapper.update();
-    expect(wrapper.state().errors.manager).toBe('This field is required');
+    expect(wrapper.state().errors.departureDate).toBe('This field is required');
   });
 
   it('validates form before sending data', () => {

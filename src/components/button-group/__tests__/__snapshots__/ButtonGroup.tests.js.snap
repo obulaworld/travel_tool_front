@@ -5,7 +5,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
   className="button-group"
 >
   <Button
-    altText="Dropdown Icon"
+    altText=""
     badge={null}
     badgeClass=""
     buttonClass="bg-btn bg-btn--active"
@@ -20,7 +20,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
     textClass=""
   />
   <Button
-    altText="Dropdown Icon"
+    altText=""
     badge={1}
     badgeClass="bg-btn--with-badge--inactive"
     buttonClass="bg-btn bg-btn--with-badge "
@@ -35,7 +35,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
     textClass=""
   />
   <Button
-    altText="Dropdown Icon"
+    altText=""
     badge={null}
     badgeClass=""
     buttonClass="bg-btn "

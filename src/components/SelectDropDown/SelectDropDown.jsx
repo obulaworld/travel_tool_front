@@ -49,7 +49,7 @@ class SelectDropDown extends PureComponent {
     return isSelected;
   }
 
-  renderDropDownItems(dropDownItems, selectedItem) {
+  renderDropDownItems(dropDownItems) {
     return (
       <ul className="dropdown__list__items">
         {dropDownItems.map(item => (

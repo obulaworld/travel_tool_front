@@ -48,6 +48,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
         errors={Array []}
         handleCreateRequest={[Function]}
         loading={false}
+        managers={Array []}
         user={
           Object {
             "UserInfo": Object {

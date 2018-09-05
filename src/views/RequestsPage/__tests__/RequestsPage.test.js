@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { RequestsPage, mapStateToProps } from '../RequestsPage';
+import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 
 const props = {
   requests: [
@@ -57,6 +58,7 @@ const props = {
     onPageChange: sinon.spy(),
   },
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
+  fetchRoleUsers: sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,
@@ -121,7 +123,7 @@ describe('<RequestsPage>', () => {
 
   it('calls the componentDidMount method', () => {
     const spy = sinon.spy(RequestsPage.prototype, 'componentDidMount');
-    const { fetchUserRequests } = props;
+    const { fetchUserRequests, fetchRoleUsers } = props;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -132,11 +134,13 @@ describe('<RequestsPage>', () => {
     expect(spy.called).toEqual(true);
     expect(fetchUserRequests.called).toEqual(true);
     expect(fetchUserRequests.calledWith('?page=1')).toEqual(true);
+    expect(fetchRoleUsers.called).toEqual(true);
+    expect(fetchRoleUsers.calledWith(53019)).toEqual(true);
     wrapper.unmount();
   });
 
-  it(`calls the onPageChange method and the fetchUserRequests method
-    when pagination button is clicked`, () => {
+  it(`calls the fetchRequests method
+    when the next pagination button is clicked`, () => {
     const { fetchUserRequests } = props;
     const wrapper = mount(
       <Provider store={store}>
@@ -152,7 +156,8 @@ describe('<RequestsPage>', () => {
     wrapper.unmount();
   });
 
-  it('calls the onPageChange method with the correct query', () => {
+  it(`calls the fetchRequests method with the correct query
+    when the next pagination button is clicked`, () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -172,8 +177,8 @@ describe('<RequestsPage>', () => {
     wrapper.unmount();
   });
 
-  it(`calls the getRequestsWithLimit method and the fetchUserRequests method
-    when pagination button is clicked`, () => {
+  it(`calls the fetchRequests method
+    with the selected limit when a limit is selected`, () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -183,21 +188,13 @@ describe('<RequestsPage>', () => {
     );
     const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
     wrapper.find('.dropdown__list__item').first().simulate('click');
-    const stateOnClick = wrapper
-      .find(RequestsPage)
-      .instance()
-      .state;
-    expect(stateOnClick).toMatchObject({
-      activeStatus: 'all',
-      url: '?page=1',
-      selectedLink: 'request page',
-    });
     expect(spy.calledOnce).toEqual(true);
+    expect(spy.calledWith('?page=1&limit=10')).toEqual(true)
     wrapper.unmount();
   });
 
-  it(`calls the getRequestsWithLimit method with the last possible page
-  when a limit and a page above the available pages is entered in the url`, () => {
+  it(`calls the fetchRequests method with the last possible page
+  when a limit and a page above the available pages is selected`, () => {
     const { pagination } = props;
     const wrapper = mount(
       <Provider store={store}>
@@ -211,9 +208,9 @@ describe('<RequestsPage>', () => {
       </Provider>
     );
     const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
-    wrapper.find('.dropdown__list__item').first().simulate('click');
+    wrapper.find('.dropdown__list__item').last().simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('?page=1&status=open&limit=10')).toEqual(true);
+    expect(spy.calledWith('?page=1&status=open&limit=30')).toEqual(true);
     wrapper.unmount();
   });
 

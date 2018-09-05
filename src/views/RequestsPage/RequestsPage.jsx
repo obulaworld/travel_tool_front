@@ -9,6 +9,7 @@ import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
 import { fetchUserRequests, createNewRequest } from '../../redux/actionCreator/requestActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
+import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 
 export class RequestsPage extends Base {
   state = {
@@ -23,9 +24,11 @@ export class RequestsPage extends Base {
   };
 
   componentDidMount() {
-    const { fetchUserRequests } = this.props;
+    const { fetchUserRequests, fetchRoleUsers } = this.props;
     const { url } = this.state;
     fetchUserRequests(url);
+    // Fetch managers
+    fetchRoleUsers(53019);
   }
 
   fetchRequests = (query) => {
@@ -99,7 +102,7 @@ export class RequestsPage extends Base {
   }
 
   renderNewRequestForm(shouldOpen, modalType) {
-    const { user, createNewRequest, loading, errors, closeModal } = this.props;
+    const { user, createNewRequest, loading, errors, closeModal, manager } = this.props;
     return (
       <Modal
         closeModal={closeModal}
@@ -112,6 +115,7 @@ export class RequestsPage extends Base {
           loading={loading}
           errors={errors}
           closeModal={closeModal}
+          managers={manager}
         />
       </Modal>
     );
@@ -164,6 +168,7 @@ export class RequestsPage extends Base {
 RequestsPage.propTypes = {
   user: PropTypes.object,
   fetchUserRequests: PropTypes.func.isRequired,
+  fetchRoleUsers: PropTypes.func.isRequired,
   fetchRequestsError: PropTypes.string,
   requests: PropTypes.array,
   pagination: PropTypes.object,
@@ -194,14 +199,16 @@ RequestsPage.defaultProps = {
   user: {}
 };
 
-export const mapStateToProps = ({ requests, modal }) => ({
+export const mapStateToProps = ({ requests, modal, role }) => ({
   ...requests,
   ...modal.modal,
+  ...role
 });
 
 const actionCreators = {
   fetchUserRequests,
   createNewRequest,
+  fetchRoleUsers,
   openModal,
   closeModal
 };

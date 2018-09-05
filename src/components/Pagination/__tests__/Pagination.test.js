@@ -8,7 +8,7 @@ const props = {
   onPageChange: sinon.spy(),
 };
 
-const wrapper = shallow(<Pagination {...props} />);
+const wrapper = mount(<Pagination {...props} />);
 const { onPageChange } = props;
 
 describe('<Pagination />', () => {

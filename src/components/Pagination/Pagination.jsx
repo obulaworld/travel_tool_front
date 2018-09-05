@@ -1,19 +1,19 @@
-import React, { PureComponent, Fragment } from 'react';
-import './_pagination.scss';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import Button from '../buttons/Buttons';
+import './_pagination.scss';
+
 
 class Pagination extends PureComponent {
-  renderButton(id, disabled, page, direction) {
+  renderPaginationButton(id, disabled, page, direction) {
     const { onPageChange } = this.props;
     return (
-      <button
-        id={id}
-        className="pagination__button"
-        type="button"
+      <Button
+        buttonId={id}
+        buttonClass="pagination__button"
         disabled={disabled}
-        onClick={() => onPageChange(page)}>
-        { direction }
-      </button>
+        text={direction}
+        onClick={() => onPageChange(page)} />
     );
   }
 
@@ -44,9 +44,17 @@ class Pagination extends PureComponent {
     return (
       <div>
         <div className="pagination">
-          { this.renderButton('previous-button', previousButtonDisabled, previousPage, 'Previous') }
+          { this.renderPaginationButton(
+            'previous-button',
+            previousButtonDisabled,
+            previousPage,
+            'Previous') }
           { this.renderPage(currentPage, pageCount) }
-          { this.renderButton('next-button', nextButtonDisabled, nextPage, 'Next') }
+          { this.renderPaginationButton(
+            'next-button',
+            nextButtonDisabled,
+            nextPage,
+            'Next') }
         </div>
       </div>
     );

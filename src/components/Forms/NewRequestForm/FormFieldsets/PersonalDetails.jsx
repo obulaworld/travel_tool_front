@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 
-class PersonalDetailsFiedset extends Component {
+class PersonalDetailsFieldset extends Component {
 
   render() {
+    const { managers } = this.props;
+    const managerNames = managers.map(manager => manager.fullName);
+    formMetadata.dropdownSelectOptions.manager = managerNames;
+
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
     const { renderInput } = this.inputRenderer;
 
@@ -18,11 +23,19 @@ class PersonalDetailsFiedset extends Component {
           {renderInput('gender', 'button-toggler')}
           {renderInput('department', 'dropdown-select')}
           {renderInput('role', 'dropdown-select')}
-          {renderInput('manager', 'text')}
+          {renderInput('manager', 'dropdown-select')}
         </div>
       </fieldset>
     );
   }
 }
 
-export default PersonalDetailsFiedset;
+PersonalDetailsFieldset.propTypes = {
+  managers: PropTypes.array
+};
+
+PersonalDetailsFieldset.defaultProps = {
+  managers: []
+};
+
+export default PersonalDetailsFieldset;

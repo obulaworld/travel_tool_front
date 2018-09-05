@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import moment from 'moment';
 import { FormContext } from '../FormsAPI';
-import PersonalDetailsFiedset from './FormFieldsets/PersonalDetails';
-import TravelDetailsFiedset from './FormFieldsets/TravelDetails';
+import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
+import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import './NewRequestForm.scss';
 import Checkbox from '../../CheckBox/index';
@@ -102,7 +101,7 @@ class NewRequestForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { creatingRequest } = this.props;
+    const { managers, creatingRequest } = this.props;
 
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
@@ -113,9 +112,9 @@ class NewRequestForm extends PureComponent {
           </h5>
         )}
         <form onSubmit={this.handleSubmit} className="new-request">
-          <PersonalDetailsFiedset values={values} />
+          <PersonalDetailsFieldset values={values} managers={managers} />
           <Checkbox />
-          <TravelDetailsFiedset values={values} />
+          <TravelDetailsFieldset values={values} />
           <hr />
           <SubmitArea
             onCancel={this.handleClearForm}
@@ -129,11 +128,13 @@ class NewRequestForm extends PureComponent {
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
+  managers: PropTypes.array,
   creatingRequest: PropTypes.bool,
 };
 
 NewRequestForm.defaultProps = {
   creatingRequest: false,
+  managers: []
 };
 
 export default NewRequestForm;

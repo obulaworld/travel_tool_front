@@ -5,8 +5,6 @@ const baseUrl = ['test', 'development'].includes(process.env.NODE_ENV) ? testUrl
 
 class RequestAPI {
   static getUserRequests(query) {
-    // const query = url && url.split('?')[1] || '';
-    //console.log('Service query', query);
     return axios.get(`${baseUrl}/requests${query}`);
   }
 

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 
-class TravelDetailsFiedset extends Component {
+class TravelDetailsFieldset extends Component {
 
   render() {
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
@@ -30,8 +30,8 @@ class TravelDetailsFiedset extends Component {
   }
 }
 
-TravelDetailsFiedset.propTypes = {
+TravelDetailsFieldset.propTypes = {
   values: PropTypes.object.isRequired,
 };
 
-export default TravelDetailsFiedset;
+export default TravelDetailsFieldset;

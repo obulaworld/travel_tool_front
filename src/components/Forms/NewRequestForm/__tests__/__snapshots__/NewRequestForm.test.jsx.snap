@@ -326,16 +326,61 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
             (Manager)
           </span>
         </label>
-        <input
-          className=""
-          error=""
-          label="Your Direct Report"
-          name="manager"
-          onBlur={[Function]}
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            choices={
+              Array [
+                "Test User",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Your Direct Report"
+            name="manager"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+            >
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                key="Test User"
+              >
+                <div
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Test User
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
         <span
           className="error"
         />

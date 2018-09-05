@@ -37,3 +37,17 @@ export const createRequestMock = {
     manager: 'Samuel Kubai'
   }
 };
+
+export const fetchRoleUsersResponse = {
+  id: 53019,
+  roleName: 'Manager',
+  description: 'Can request and approve travel request ',
+  createdAt: '2018-08-16T11:11:52.181Z',
+  updatedAt: '2018-08-16T11:11:52.181Z',
+  users: [
+    {
+      email: 'test.user@andela.com',
+      fullName: 'Test User'
+    }
+  ]
+};
