@@ -6,17 +6,9 @@ import TextLink from '../../../components/TextLink/TextLink';
 const props = {
   setCurrentUser: () => {},
   isAuthenticated: true,
-  user:{
-    UserInfo: {
-      fullName: 'Tomato Jos',
-      email: 'tomato@andela.com',
-      userId: '29492494'
-    }
-  },
   history: {
     push: jest.fn()
   },
-  postUserData: jest.fn()
 };
 
 const wrapper = shallow(<Login {...props} />);

@@ -8,7 +8,6 @@ exports[`Component: isAuthenticated User Protected Routes test suite Redirects u
       "user": null,
     }
   }
-  getUserData={[Function]}
   history={
     Object {
       "push": [Function],

@@ -17,7 +17,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
     >
       <LeftSideNavItems
         activeNavItem={Object {}}
-        isAdminCheck=""
         navIconsSource={
           Object {
             "requestsIcon": Object {

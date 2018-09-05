@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 import RequestAPI from '../RequestAPI';
-import { expectedResponse } from '../__mocks__/serviceMocks';
+import expectedResponse from '../__mocks__/mocks';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 

@@ -102,8 +102,7 @@ const initialState = {
   modalReducer: {
     shouldOpen: false,
     modalType: null
-  },
-  getCurrentUserRole: 'tomato'
+  }
 };
 const mockStore = configureStore();
 const store = mockStore(initialState);
@@ -337,7 +336,7 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...{...props, shouldOpen: true, modalType: 'new model'}} />
+          <RequestsPage {...{...props, shouldOpen: true, modalType: 'new request'}} />
         </MemoryRouter>
       </Provider>
     );

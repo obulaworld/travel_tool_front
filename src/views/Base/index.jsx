@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
+import LeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import Pagination from '../../components/Pagination/Pagination';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
-import ConnectedSideDrawer, {
-  SideDrawer
-} from '../../components/SideDrawer/SideDrawer';
+import ConnectedSideDrawer, { SideDrawer } from '../../components/SideDrawer/SideDrawer';
 import '../RequestsPage/RequestsPage.scss';
 
 class Base extends Component {
@@ -18,13 +16,13 @@ class Base extends Component {
    * the notification pane and the left sidebar dont
    */
   onNotificationToggle = () => {
-    this.setState(prevState => {
+    this.setState((prevState => {
       return {
         ...prevState,
         hideNotificationPane: !prevState.hideNotificationPane,
-        hideSideBar: !prevState.hideSideBar
+        hideSideBar: !prevState.hideSideBar,
       };
-    });
+    }));
   };
 
   onCloseNotificationPane = () => {
@@ -34,24 +32,24 @@ class Base extends Component {
         hideSideBar: false
       };
     });
-  };
+  }
 
   handleHideSearchBar = () => {
-    this.setState(prevState => {
-      this.setState({ openSearch: !prevState.openSearch });
+    this.setState((prevState) => {
+      this.setState({openSearch: !prevState.openSearch});
     });
-  };
+  }
 
   handleOverlay = () => {
-    this.setState({ hideOverlay: false });
-  };
+    this.setState({ hideOverlay: false,  });
+  }
 
   handleShowDrawer = () => {
     this.setState({ hideOverlay: true });
-  };
+  }
 
   renderNavBar = openSearch => {
-    const { clickPage } = this.state;
+    const{clickPage} = this.state;
     return (
       <ConnectedNavBar
         className=""
@@ -64,17 +62,11 @@ class Base extends Component {
     );
   };
 
-  renderLeftSideBar = (hideSideBar,  selectedLink) => {
-    const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
+
+  renderLeftSideBar = (hideClass2, selectedLink) => {
     return (
-      <div
-        className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
-          
-        <div className={`sidebar ${hideClass2}`}>
-          <ConnectedLeftSideBar selectedLink={selectedLink} />
-        </div>
-
-
+      <div className={`sidebar ${hideClass2}`}>
+        <LeftSideBar selectedLink={selectedLink} />
       </div>
     );
   };
@@ -91,43 +83,19 @@ class Base extends Component {
     );
   };
 
-  renderNotificationPane = (hideClass, hideSideBar) => {
-    
-    const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
+  renderNotificationPane = hideClass => {
     return (
-      <div
-        className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}
-      >
-        <div className={`notification ${hideClass}`}>
-          <NotificationPane
-            onCloseNotificationPane={this.onCloseNotificationPane}
-          />
-        </div>
+      <div className={`notification ${hideClass}`}>
+        <NotificationPane
+          onCloseNotificationPane={this.onCloseNotificationPane}
+        />
       </div>
     );
   };
 
   renderSideDrawer = (selectedLink, showDrawer) => {
-    return (
-      <ConnectedSideDrawer
-        selectedLink={selectedLink}
-        showDrawer={showDrawer}
-      />
-    );
-  };
-
-  renderOverlay = (overlayClass) => {
-    return (
-      <div
-        className="side_overlay"
-        style={{ display: `${overlayClass}` }}
-        role="button"
-        onClick={this.handleOverlay}
-        onKeyPress={() => {}}
-        tabIndex="0"
-      />
-    );
-  };
+    return (<ConnectedSideDrawer selectedLink={selectedLink} showDrawer={showDrawer} />);
+  }
 }
 
 export default Base;

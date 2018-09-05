@@ -119,7 +119,6 @@ class NewRequestForm extends PureComponent {
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
-            send="Send Request"
           />
         </form>
       </FormContext>

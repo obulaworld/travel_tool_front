@@ -33,15 +33,15 @@ class Approvals extends Base {
     );
   }
 
-  renderApprovalPage (hideSideBar,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink ) {
+  renderApprovalPage (hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink ) {
     return (
       <div className="mdl-layout__content full-height">
         <div
           className="mdl-grid mdl-grid--no-spacing full-height"
           onClick={this.handleHideLogoutDropdown} id="logout" role="presentation">
-    
-          {this.renderLeftSideBar(hideSideBar, selectedLink)}
-
+          <div className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
+            {this.renderLeftSideBar(hideClass2, selectedLink)}
+          </div>
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
               {this.renderApprovalsPanelHeader()}
@@ -49,7 +49,9 @@ class Approvals extends Base {
               {this.renderPagination(pagination)}
             </div>
           </div>
-          {this.renderNotificationPane(hideClass, hideSideBar)}
+          <div className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}>
+            {this.renderNotificationPane(hideClass)}
+          </div>
         </div>
       </div>
     );
@@ -58,6 +60,7 @@ class Approvals extends Base {
   render() {
     const { hideNotificationPane, hideSideBar, openSearch, selectedLink, hideOverlay } = this.state;
     let [hideClass, leftPaddingClass] = hideNotificationPane? ['hide', '']: ['', 'pd-left'];
+    const hideClass2 = hideSideBar ? 'hide mdl-cell--hide-desktop' : '';
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
     const { requests, pagination } = requestsData;
     const overlayClass = hideOverlay ? 'block': 'none';
@@ -71,7 +74,7 @@ class Approvals extends Base {
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
           {this.renderSideDrawer(selectedLink, overlayClass)} 
           {this.renderNavBar(openSearch)}
-          {this.renderApprovalPage(hideSideBar,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
+          {this.renderApprovalPage(hideClass2,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
         </div>
       </div>
     );

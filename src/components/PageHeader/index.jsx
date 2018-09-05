@@ -3,29 +3,26 @@ import PropTypes from 'prop-types';
 import './_header.scss';
 
 class PageHeader extends PureComponent {
-  render() {
-    const { title, actionBtn, openModal } = this.props;
+  render(){
+    const {title, actionBtn, openModal} = this.props;
 
-    return (
+    return(
       <div className="PageHeader">
         <div>
           <span className="title">
             {title}
           </span>
         </div>
-        {actionBtn ? (
-          <div>
-            <button
-              onClick={() => openModal(true, 'new model')}
-              type="button"
-              className="action-btn btn-new-request"
-            >
-              {actionBtn}
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
+        {
+          actionBtn ? (
+            <div>
+              <button onClick={() => openModal(true, 'new request')} type="button" className="action-btn btn-new-request">
+                {actionBtn}
+              </button>
+            </div>
+          ) :
+            ''
+        }
       </div>
     );
   }

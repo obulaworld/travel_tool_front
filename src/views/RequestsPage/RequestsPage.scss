@@ -3,10 +3,10 @@
 }
 
 .mdl-layout__drawer-button {
-  padding-top: 4px;
-  @media (min-width: 840px) {
-    display: none;
-  }
+    padding-top: 4px;
+    @media (min-width: 840px) {
+        display: none;
+    }
 }
 
 .side_overlay {
@@ -29,9 +29,6 @@
 }
 
 .request-page {
-  height: 100%;
-  overflow-x: auto;
-  .full-height {
     height: 100%;
     overflow-x: auto;
     .full-height {
@@ -58,7 +55,6 @@
             z-index: 200;
         }
     }
-  }
 }
 
 .side-drawer {
