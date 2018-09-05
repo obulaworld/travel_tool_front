@@ -9,7 +9,7 @@ class TextLink extends PureComponent {
     return (
       <p className={textLinkClass}>
         <img src={imageSrc} alt={altText} className={symbolClass} />
-        <a href={link} className={textClass}>
+        <a href={link} className={textClass} rel="noopener noreferrer" target="_blank">
           {text}
         </a>
       </p>
