@@ -80,7 +80,7 @@ const props = {
   shouldOpen: false,
   modalType: null,
   openModal: jest.fn(),
-  closeModal: jest.fn()
+  closeModal: jest.fn(),
 };
 
 const initialState = {

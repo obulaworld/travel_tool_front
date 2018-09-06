@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import CommentBox from '../CommentBox';
+import { CommentBox } from '../CommentBox';
 
 // describe what we are testing
 describe('Render RequestsModal component', () => {
   
 
   const props = {
-    handleCreateComment:()=>{},
-    handleSubmit:()=>{}
+    createComment: jest.fn(),
+    handleSubmit:()=>{},
   };
   const e = {
     target: {
@@ -79,10 +79,30 @@ describe('Render RequestsModal component', () => {
     exepectCall(spy, '1px solid #E4E4E4');
   });
 
-  it('should render the onSubmit button works as exepected', () => {
+  it('should not submit if state is empty', () => {
+    const event = {
+      preventDefault: () => jest.fn()
+    };
     const wrapper = mount(<CommentBox {...props} />);
     let form = wrapper.find('#form-id');
     form.simulate('submit');
-    expect(form).toMatchSnapshot();
+    expect(wrapper.props().createComment).toHaveBeenCalledTimes(0);
+  });
+
+  it('should submit comment', () => {
+    const event = {
+      preventDefault: () => jest.fn()
+    };
+    const wrapper = mount(<CommentBox {...props} />);
+    wrapper.state().dataInput = 'comment';
+    let form = wrapper.find('#form-id');
+    form.simulate('submit');
+    expect(wrapper.props().createComment).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle handleEditorChange', () => {
+    const spy = handles('handleEditorChange');
+    wrapperInstance.handleEditorChange('this is a test comment');
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

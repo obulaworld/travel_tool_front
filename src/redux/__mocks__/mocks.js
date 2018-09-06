@@ -51,6 +51,7 @@ export const fetchRoleUsersResponse = {
     }
   ]
 };
+
 export const fetchRequestsDetailsResponse = {
   requestData: {
     id: 'xDh20cuGx',
@@ -73,5 +74,4 @@ export const userImage = {
       picture: 'http://my-image'
     }
   }
-  
 };

@@ -12,8 +12,6 @@ import { fetchRequestsResponse,
   fetchRequestsDetailsResponse
 } from '../../__mocks__/mocks';
 
-
-
 describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {
     const initialState = {};

@@ -21,14 +21,32 @@ const props = {
     manager: 'Samuel Kubai',
     department: 'TDD',
     role: 'Software Developer',
-    status: 'Rejected',
+    status: 'Approved',
     userId: '-MUyHJmKrxA90lPNQ1FOLNm',
     departureDate: '2018-09-12',
     arrivalDate: '2018-11-12',
     createdAt: '2018-09-04T10:38:12.141Z',
+    comments: [
+      {
+        id: 1,
+        userName: 'Random User',
+        comment: 'This is a comment',
+        createdAt: '2018-09-04T10:38:12.141Z',
+        picture: 'http://my-image'
+      },
+      {
+        id: 2,
+        userName: 'Random User Two',
+        comment: 'This is another comment',
+        createdAt: '2018-10-04T10:38:12.141Z',
+        picture: 'http://my-image'
+      },
+    ]
   },
   fetchUserRequestDetails: sinon.spy(() => Promise.resolve())
 };
+const componentDidMountSpy = sinon.spy(RequestDetailsModal.prototype, 'componentDidMount');
+const formatDateSpy = sinon.spy(RequestDetailsModal.prototype, 'formatDate');
 // describe what we are testing
 describe('Render RequestsModal component', () => {
   beforeEach(() => {
@@ -36,26 +54,21 @@ describe('Render RequestsModal component', () => {
   });
   // make our assertions and what we expect to happen
   it('should match snapshot', () => {
-    
     expect(wrapper).toMatchSnapshot();
   });
 
   it('tests that the component successfully rendered', () => {
-    
-    expect(wrapper.find('div').length).toBe(12);
+    expect(wrapper.find('div').exists()).toBeTruthy();
   });
 
   it('should call componentDidMount()', () => {
     const {fetchUserRequestDetails, requestData} =  props;
-    const spy = sinon.spy(RequestDetailsModal.prototype, 'componentDidMount');
-    const wrapper = mount(<RequestDetailsModal {...props} />);
-    expect(spy.called).toBe(true);
+    expect(componentDidMountSpy.called).toBe(true);
     expect(fetchUserRequestDetails.called).toEqual(true);
     expect(fetchUserRequestDetails.calledWith(requestData.id)).toEqual(true); 
   });
 
   it('should render the RequestsModal as expected', () => {
-    
     expect(wrapper.length).toBe(1);
   });
 
@@ -86,6 +99,11 @@ describe('Render RequestsModal component', () => {
   const initialState = {};
   const mockStore = configureStore();
   const store = mockStore(initialState);
+
+  it('should call formatDate', () => {
+    expect(formatDateSpy.called).toBe(true);
+  });
+  
   describe('Connected RequestDetailsModal component', () => {
     it('tests that the component successfully rendered', () => {
       const store = mockStore({

@@ -11,7 +11,7 @@ const mockStore = configureStore(middleware);
 
 const props = {
   actionBtn:'New Request',
-  onClickItem: jest.fn()
+  onClickItem: jest.fn(),
 };
 
 const initialState = {

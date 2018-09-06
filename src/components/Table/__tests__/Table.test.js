@@ -48,7 +48,7 @@ const props = {
     },
   ],
   fetchRequestsError: null,
-  message: 'Requests retrieved successfully'
+  message: 'Requests retrieved successfully',
 };
 
 const wrapper = shallow(<Table {...props} />);

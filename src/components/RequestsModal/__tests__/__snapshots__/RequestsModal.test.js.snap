@@ -140,7 +140,9 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       Add a comment
     </span>
   </div>
-  <CommentBox />
+  <Connect(CommentBox)
+    requestId="xDh20cuGx"
+  />
   <div
     className="modal__modal1"
   >
@@ -170,44 +172,101 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
     </span>
   </div>
   <div
-    className="modal__modal1"
+    id="comments"
   >
-    <hr />
     <div
-      className="modal__mdl-icons"
+      className="modal__modal1"
+      key="2"
     >
-      <ImageLink
-        altText="avatar"
-        imageClass="modal__oval-copy"
-        imageSrc="Oval2.png"
-      />
-      <span
-        className="modal__user-name"
-      >
-        Jolomi Otumara.
-      </span>
-      <span
-        className="modal__hours-status"
-      >
-        5 hours ago
-      </span>
-      <span
-        className="modal__dialog"
-      >
-        <button
-          className="modal__delete-btn"
-          type="button"
-        >
-          Delete
-        </button>
-      </span>
+      <hr />
       <div
-        className="modal__modal2"
+        className="modal__mdl-icons"
       >
-        <div
-          className="modal__status-update"
+        <ImageLink
+          altText="avatar"
+          imageClass="modal__oval-copy"
+          imageSrc="http://my-image"
+        />
+        <span
+          className="modal__user-name"
         >
-          I thought we agreed you would be travelling Next Month?
+          Random User Two
+        </span>
+        <span
+          className="modal__hours-status"
+        >
+          in a month
+        </span>
+        <span
+          className="modal__dialog"
+        >
+          <button
+            className="modal__delete-btn"
+            type="button"
+          >
+            Delete
+          </button>
+        </span>
+        <div
+          className="modal__modal2"
+        >
+          <div
+            className="modal__status-update"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "This is another comment",
+              }
+            }
+          />
+           
+        </div>
+      </div>
+    </div>
+    <div
+      className="modal__modal1"
+      key="1"
+    >
+      <hr />
+      <div
+        className="modal__mdl-icons"
+      >
+        <ImageLink
+          altText="avatar"
+          imageClass="modal__oval-copy"
+          imageSrc="http://my-image"
+        />
+        <span
+          className="modal__user-name"
+        >
+          Random User
+        </span>
+        <span
+          className="modal__hours-status"
+        >
+          2 days ago
+        </span>
+        <span
+          className="modal__dialog"
+        >
+          <button
+            className="modal__delete-btn"
+            type="button"
+          >
+            Delete
+          </button>
+        </span>
+        <div
+          className="modal__modal2"
+        >
+          <div
+            className="modal__status-update"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "This is a comment",
+              }
+            }
+          />
+           
         </div>
       </div>
     </div>

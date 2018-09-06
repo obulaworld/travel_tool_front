@@ -45,6 +45,7 @@
     height: 30px;
     width: 30px;
     margin: 0 5px 0 0;
+    border-radius: 50%;
   }
   &__add-comment {
     height: 20px;
@@ -232,3 +233,7 @@
   }
 }
 
+#comments {
+  max-height: 300px;
+  overflow: auto;
+}

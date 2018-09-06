@@ -14,6 +14,7 @@ import {
   watchPutRoleDataSagaAsync
 } from './roleDataSaga';
 import { watchFetchRoleUsers } from './roleSaga';
+import { watchCreateComment } from './commentsSaga';
 
 function* rootSaga() {
   yield all([
@@ -25,7 +26,8 @@ function* rootSaga() {
     watchGetRoleDataSagaAsync(),
     watchPutRoleDataSagaAsync(),
     watchFetchRoleUsers(),
-    watchFetchUserRequestsDetails()
+    watchFetchUserRequestsDetails(),
+    watchCreateComment(),
   ]);
 }
 

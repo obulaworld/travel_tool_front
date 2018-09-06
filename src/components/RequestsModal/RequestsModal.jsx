@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import Oval2 from '../../images/Oval2.png';
-import CommentBox from './CommentBox/CommentBox';
+import ConnectedCommentBox from './CommentBox/CommentBox';
 import ImageLink from '../image-link/ImageLink';
 import TravelLink from './_RequestTravel';
 import { fetchUserRequestDetails } from '../../redux/actionCreator/requestActions';
@@ -21,6 +21,7 @@ export class RequestDetailsModal extends Component {
     const { fetchUserRequestDetails, requestId } = this.props;
     fetchUserRequestDetails(requestId);
   }
+
   handleApprove = () => {
     this.setState({
       approveColor: '#49AAAF',
@@ -67,6 +68,12 @@ export class RequestDetailsModal extends Component {
     const { requestData } = this.props;
     return requestData && moment(date).format('DD MMM YYYY');
   }
+
+  formatDate(date) {
+    const createdAt = moment(date).format('MM/DD/YYYY @ h:mm a');
+    return moment(createdAt).fromNow();
+  }
+
   
   renderUserInfo() {
     const { requestData, user } = this.props;
@@ -185,7 +192,7 @@ export class RequestDetailsModal extends Component {
             {requestData && requestData.manager}
           </span>
           <span className="modal__approval-status">
-            approved your travel request.
+          approved your travel request.
           </span>
           <span className="modal__hours-status">
            5 hours ago
@@ -196,32 +203,35 @@ export class RequestDetailsModal extends Component {
   }
 
   renderUserComments() {
-    return (
-      <div className="modal__modal1">
-        <hr />
-        <div className="modal__mdl-icons">
-          <ImageLink imageSrc={Oval2} altText="avatar" imageClass="modal__oval-copy" />
-          <span className="modal__user-name">
-          Jolomi Otumara.
-          </span>
-          <span className="modal__hours-status">
-          5 hours ago
-          </span>
-          <span className="modal__dialog">
-            <button type="button" className="modal__delete-btn">
-              Delete
-            </button>
-          </span>
-          <div className="modal__modal2">
-            <div className="modal__status-update">
-              I thought we agreed you would be travelling Next Month?
+    const { requestData: { comments } } = this.props;
+    return comments && comments.reverse().map((comment) => {
+      return (
+        <div className="modal__modal1" key={comment.id}>
+          <hr />
+          <div className="modal__mdl-icons">
+            <ImageLink imageSrc={comment.picture} altText="avatar" imageClass="modal__oval-copy" />
+            <span className="modal__user-name">
+              { comment.userName }
+            </span>
+            <span className="modal__hours-status">
+              {this.formatDate(comment.createdAt)}
+            </span>
+            <span className="modal__dialog">
+              <button type="button" className="modal__delete-btn">
+                Delete
+              </button>
+            </span>
+            <div className="modal__modal2">
+              <div className="modal__status-update" dangerouslySetInnerHTML={{ __html: comment.comment }} /> {/*eslint-disable-line*/}
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    });
   }
+
   render() {
+    const { requestId, requestData } = this.props;
     return (
       <Fragment>
         {this.renderUserInfo()}
@@ -229,9 +239,11 @@ export class RequestDetailsModal extends Component {
         {this.renderRequestInfo()}
         {this.renderButtons()}
         {this.renderAddComment()}
-        <CommentBox />
-        {this.renderRequestAprroval()}
-        {this.renderUserComments()}
+        <ConnectedCommentBox requestId={requestId} />
+        {(requestData && requestData.status) === 'Approved' && this.renderRequestAprroval()}
+        <div id="comments">
+          {this.renderUserComments()}
+        </div>
       </Fragment>
     );
   }
@@ -239,8 +251,8 @@ export class RequestDetailsModal extends Component {
 RequestDetailsModal.propTypes = {
   fetchUserRequestDetails: PropTypes.func,
   requestId: PropTypes.string,
-  requestData: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  requestData: PropTypes.object
 
 };
 

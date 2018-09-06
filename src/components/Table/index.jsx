@@ -147,8 +147,7 @@ export class Table extends Component {
       >
         <RequestsModal 
           requestId={clickedRequestId}
-          handleCreateComment={() => {}} 
-          closeModal={closeModal} />
+        />
       </Modal>
 
     );}
