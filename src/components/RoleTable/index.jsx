@@ -1,26 +1,26 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withLoading from '../Hoc/withLoading';
+import './RoleTable.scss';
 
 const testColor = {
   color: 'blue',
-  marginRight: '80%'
 };
 export class RoleTable extends PureComponent {
   renderRoles(role) {
     return (
       <tr key={role.id} className="table__row">
-        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
+        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze-role-table">
           {role.roleName}
         </td>
-        <td className="mdl-data-table__cell--non-numeric table__data">
+        <td className="mdl-data-table__cell--non-numeric table__data pl-sm-120">
           {role.description}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           {role.users.length}
         </td>
         <td
-          className="mdl-data-table__cell--non-numeric table__requests__status table__data"
+          className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
           style={testColor}
         >
           Edit &ensp; &ensp;  &ensp;  &ensp; &ensp;  Delete
@@ -32,10 +32,10 @@ export class RoleTable extends PureComponent {
   renderTableHead() {
     return (
       <tr>
-        <th className="mdl-data-table__cell--non-numeric table__head freeze">
+        <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze freeze-head ">
           Role Name
         </th>
-        <th className="mdl-data-table__cell--non-numeric table__head">
+        <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">
           Description
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
