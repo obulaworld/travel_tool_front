@@ -21,7 +21,7 @@ class Approvals extends Base {
 
   renderApprovalsTable(){
     return(
-      <WithLoadingTable requests={requestsData.requests} avatar="image" />
+      <WithLoadingTable requests={requestsData.requests} type="approvals" />
     );
   }
 
@@ -39,7 +39,7 @@ class Approvals extends Base {
         <div
           className="mdl-grid mdl-grid--no-spacing full-height"
           onClick={this.handleHideLogoutDropdown} id="logout" role="presentation">
-    
+
           {this.renderLeftSideBar(hideSideBar, selectedLink)}
 
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
@@ -69,7 +69,7 @@ class Approvals extends Base {
           onClick={this.handleOverlay}
           onKeyPress={() => {}} tabIndex="0" />
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
-          {this.renderSideDrawer(selectedLink, overlayClass)} 
+          {this.renderSideDrawer(selectedLink, overlayClass)}
           {this.renderNavBar(openSearch)}
           {this.renderApprovalPage(hideSideBar,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
         </div>

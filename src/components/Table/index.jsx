@@ -73,15 +73,17 @@ export class Table extends Component {
     );
   }
 
-  renderRequest(request) {
+  renderRequest(request, type) {
     const { arrivalDate, departureDate } = request;
     const travelDuration = Math.abs(moment(arrivalDate).diff(moment(departureDate), 'days'));
     return (
       <tr key={request.id} className="table__row">
         {this.renderApprovalsIdCell(request)}
-        <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
-          {request.name}
-        </td>
+        { type === 'approvals' && (
+          <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
+            {request.name}
+          </td>
+        )}
         <td className="mdl-data-table__cell--non-numeric table__data">
           {request.destination}
         </td>
@@ -101,15 +103,17 @@ export class Table extends Component {
     );
   }
 
-  renderTableHead(avatar) {
+  renderTableHead(type) {
     return (
       <tr>
         <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze">
           Request ID
         </th>
-        <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100">
+        { type === 'approvals' && (
+          <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100">
           Owner
-        </th>
+          </th>
+        )}
         <th className="mdl-data-table__cell--non-numeric table__head">
           Destination
         </th>
@@ -153,7 +157,7 @@ export class Table extends Component {
     );}
 
   render() {
-    const { requests, avatar, fetchRequestsError, message } = this.props;
+    const { requests, type, fetchRequestsError, message } = this.props;
     return (
       <Fragment>
         <div className="table__container">
@@ -163,10 +167,10 @@ export class Table extends Component {
               (
                 <table className="mdl-data-table mdl-js-data-table table__requests">
                   <thead>
-                    { this.renderTableHead(avatar) }
+                    { this.renderTableHead(type) }
                   </thead>
                   <tbody className="table__body">
-                    { requests.map(request => this.renderRequest(request, avatar)) }
+                    { requests.map(request => this.renderRequest(request, type)) }
                   </tbody>
                 </table>
               )
@@ -181,7 +185,7 @@ export class Table extends Component {
 
 Table.propTypes = {
   requests: PropTypes.array,
-  avatar: PropTypes.string,
+  type: PropTypes.string,
   fetchRequestsError: PropTypes.string,
   closeModal: PropTypes.func,
   openModal: PropTypes.func,
@@ -191,7 +195,7 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-  avatar: '',
+  type: 'requests',
   fetchRequestsError: null,
   requests: [],
   closeModal: () => {},

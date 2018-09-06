@@ -18,7 +18,7 @@ $font-medium: 'DIN Pro Medium';
 
 .pagination {
   @include flexDisplay(row, flex-end, center);
-  margin-top:13px;
+  margin: 13px 0 20px 0;
   width: 96%;
   height: 40px;
   font-family: $font-normal;

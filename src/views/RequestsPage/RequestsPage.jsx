@@ -92,6 +92,7 @@ export class RequestsPage extends Base {
     return (
       <div className="rp-table">
         <WithLoadingTable
+          type="requests"
           requests={requests}
           isLoading={isLoading}
           fetchRequestsError={error}

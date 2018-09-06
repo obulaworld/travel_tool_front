@@ -153,6 +153,7 @@ exports[`<RequestsPage> renders as expected 1`] = `
                   ]
                 }
                 shouldOpen={false}
+                type="requests"
               />
             </div>
             <div

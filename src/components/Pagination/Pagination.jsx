@@ -37,7 +37,7 @@ class Pagination extends PureComponent {
   render() {
     const { currentPage, pageCount } = this.props;
     const previousButtonDisabled = currentPage === 1 ? true: false;
-    const nextButtonDisabled = currentPage === pageCount ? true: false;
+    const nextButtonDisabled = currentPage >= pageCount ? true: false;
     const previousPage = currentPage - 1;
     const nextPage = currentPage + 1;
 
