@@ -1,14 +1,20 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
 
-import { FETCH_USER_REQUESTS, CREATE_NEW_REQUEST } from '../constants/actionTypes';
+import { 
+  FETCH_USER_REQUESTS,
+  CREATE_NEW_REQUEST,
+  FETCH_USER_REQUEST_DETAILS
+} from '../constants/actionTypes';
 import RequestAPI from '../../services/RequestAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
   fetchUserRequestsSuccess,
   fetchUserRequestsFailure,
   createNewRequestSuccess,
-  createNewRequestFailure
+  createNewRequestFailure,
+  fetchUserRequestDetailsSuccess,
+  fetchUserRequestDetailsFailure
 } from '../actionCreator/requestActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -48,4 +54,19 @@ export function* createNewRequestSagaAsync(action) {
 // watcher saga listens for CREATE_NEW_REQUEST action type
 export function* watchCreateNewRequestAsync() {
   yield takeLatest(CREATE_NEW_REQUEST, createNewRequestSagaAsync);
+}
+
+export function* fetchUserRequestsDetails(action) {
+  try {
+    const response = yield call(RequestAPI.getUserRequestDetails, action.requestId);
+    yield put(fetchUserRequestDetailsSuccess(response.data.requestData));
+
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(fetchUserRequestDetailsFailure(errorMessage));
+  }
+}
+
+export function* watchFetchUserRequestsDetails() {
+  yield takeLatest(FETCH_USER_REQUEST_DETAILS, fetchUserRequestsDetails);
 }

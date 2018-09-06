@@ -9,17 +9,19 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       <ImageLink
         altText="avatar"
         imageClass="modal__oval"
-        imageSrc="Oval.png"
+        imageSrc="http://my-image"
       />
       <span
         className="modal__text-size"
       >
-        Silm Momoh
+        Test user C
       </span>
       <div
         className="modal__modal3"
       >
-        Product Designer, Apprenticeship
+        Software Developer
+        ,
+        TDD
       </div>
     </div>
   </div>
@@ -52,22 +54,22 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
   >
     <TravelLink
       divClass="modal__travel-date"
-      dynamicDate="02 Aug 2018"
+      dynamicDate="04 Sep 2018"
       dynamicText="Date submitted"
       innerClass="modal__travel-dates"
       nextClass="modal__date-text"
     />
     <TravelLink
       divClass="modal__travel-date"
-      dynamicDate="02 Aug 2018"
-      dynamicText="Date submitted"
+      dynamicDate="12 Sep 2018"
+      dynamicText="Target depature date"
       innerClass="modal__travel-dates"
       nextClass="modal__date-text"
     />
     <TravelLink
       divClass="modal__travel-date"
-      dynamicDate="02 Aug 2018"
-      dynamicText="Date submitted"
+      dynamicDate="12 Nov 2018"
+      dynamicText="Target return date"
       innerClass="modal__travel-dates"
       nextClass="modal__date-text"
     />
@@ -153,7 +155,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       <span
         className="modal__user-name"
       >
-        Jolomi Otumara
+        Samuel Kubai
       </span>
       <span
         className="modal__approval-status"

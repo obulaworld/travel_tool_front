@@ -4,7 +4,10 @@ import {
   CREATE_NEW_REQUEST_FAILURE,
   FETCH_USER_REQUESTS,
   FETCH_USER_REQUESTS_SUCCESS,
-  FETCH_USER_REQUESTS_FAILURE
+  FETCH_USER_REQUESTS_FAILURE,
+  FETCH_USER_REQUEST_DETAILS,
+  FETCH_USER_REQUEST_DETAILS_SUCCESS,
+  FETCH_USER_REQUEST_DETAILS_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchUserRequests = url => ({
@@ -36,5 +39,20 @@ export const createNewRequestSuccess = (newRequest) => ({
 
 export const createNewRequestFailure = (error) => ({
   type: CREATE_NEW_REQUEST_FAILURE,
+  error,
+});
+
+export const fetchUserRequestDetails = (requestId) => ({
+  type: FETCH_USER_REQUEST_DETAILS,
+  requestId
+});
+
+export const fetchUserRequestDetailsSuccess = (requestData) => ({
+  type: FETCH_USER_REQUEST_DETAILS_SUCCESS,
+  requestData
+});
+
+export const fetchUserRequestDetailsFailure = (error) => ({
+  type: FETCH_USER_REQUEST_DETAILS_FAILURE,
   error,
 });

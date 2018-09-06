@@ -51,3 +51,27 @@ export const fetchRoleUsersResponse = {
     }
   ]
 };
+export const fetchRequestsDetailsResponse = {
+  requestData: {
+    id: 'xDh20cuGx',
+    name: 'Test user C',
+    origin: 'Lagos',
+    destination: 'Nairobi',
+    manager: 'Samuel Kubai',
+    department: 'TDD',
+    role: 'Software Developer',
+    departureDate: '2018-09-12',
+    arrivalDate: '2018-11-12',
+    createdAt: '2018-09-04T10:38:12.141Z',
+    updatedAt: '2018-09-04T10:38:12.141Z'
+  }
+};
+
+export const userImage = {
+  user: {
+    UserInfo:{
+      picture: 'http://my-image'
+    }
+  }
+  
+};

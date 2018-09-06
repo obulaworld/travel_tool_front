@@ -10,9 +10,10 @@ import {
 export function* watchFetchRoleUsers() {
   yield takeLatest(FETCH_ROLE_USERS, fetchRoleUsersSaga);
 }
+let response;
 export function* fetchRoleUsersSaga(action) {
   try {
-    const response = yield call(RoleAPI.getRoleUsers, action.roleId);
+    response = yield call(RoleAPI.getRoleUsers, action.roleId);
     yield put(fetchRoleUsersSuccess(response.data.result));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

@@ -145,7 +145,10 @@ export class Table extends Component {
           </div>
         )}
       >
-        <RequestDetailsModal handleCreateComment={() => {}} closeModal={closeModal} />
+        <RequestDetailsModal 
+          requestId={clickedRequestId}
+          handleCreateComment={() => {}} 
+          closeModal={closeModal} />
       </Modal>
 
     );}

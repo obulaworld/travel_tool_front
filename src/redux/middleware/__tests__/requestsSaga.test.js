@@ -2,10 +2,14 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import RequestAPI from '../../../services/RequestAPI';
-import { watchFetchRequests, watchCreateNewRequestAsync } from '../requestsSaga';
+import { watchFetchRequests,
+  watchCreateNewRequestAsync,
+  watchFetchUserRequestsDetails
+} from '../requestsSaga';
 import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
 const url = '/requests?page=2';
+const requestId = 'xDh20cuGx';
 const response = {
   data: {
     ...fetchRequestsResponse
@@ -101,6 +105,39 @@ describe('Requests Saga', () => {
         .dispatch({
           type: 'CREATE_NEW_REQUEST',
           requestData: action.requestData
+        })
+        .run();
+    });
+  });
+  describe('Fetch request details Saga', () => {
+    it('fetches request details', () => {
+      return expectSaga(watchFetchUserRequestsDetails, RequestAPI)
+        .provide([
+          [call(RequestAPI.getUserRequestDetails, requestId), response]
+        ])
+        .put({
+          type: 'FETCH_USER_REQUEST_DETAILS_SUCCESS',
+          requestData: response.data.requestData,
+        })
+        .dispatch({
+          type: 'FETCH_USER_REQUEST_DETAILS',
+          requestId
+        })
+        .run();
+    });
+
+    it('throws error if there is an error fetching a user\'s requests details', () => {
+      return expectSaga(watchFetchUserRequestsDetails, RequestAPI)
+        .provide([
+          [call(RequestAPI.getUserRequestDetails, error), throwError(error)]
+        ])
+        .put({
+          type: 'FETCH_USER_REQUEST_DETAILS_FAILURE',
+          error
+        })
+        .dispatch({
+          type: 'FETCH_USER_REQUEST_DETAILS',
+          requestId
         })
         .run();
     });

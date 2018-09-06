@@ -1,19 +1,26 @@
 import React, { Component, Fragment } from 'react';
-import Oval from '../../images/Oval.png';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { connect } from 'react-redux';
 import Oval2 from '../../images/Oval2.png';
 import CommentBox from './CommentBox/CommentBox';
 import ImageLink from '../image-link/ImageLink';
 import TravelLink from './_RequestTravel';
+import { fetchUserRequestDetails } from '../../redux/actionCreator/requestActions';
 import './RequestsModal.scss';
 
-class RequestDetailsModal extends Component {
+export class RequestDetailsModal extends Component {
   state = {
     approveColor: '',
     rejectColor: '',
     approveTextColor: '',
-    rejectTextColor: ''
+    rejectTextColor: '',
   };
 
+  componentDidMount() {
+    const { fetchUserRequestDetails, requestId } = this.props;
+    fetchUserRequestDetails(requestId);
+  }
   handleApprove = () => {
     this.setState({
       approveColor: '#49AAAF',
@@ -55,21 +62,29 @@ class RequestDetailsModal extends Component {
         }
       ]);
   }
+
+  generateDynamicDate = (date) => {
+    const { requestData } = this.props;
+    return requestData && moment(date).format('DD MMM YYYY');
+  }
   
   renderUserInfo() {
+    const { requestData, user } = this.props;
     return (
       <div>
         <div className="modal__user-info">
           <ImageLink
-            imageSrc={Oval}
+            imageSrc={user.picture}
             altText="avatar"
             imageClass="modal__oval"
           />
           <span className="modal__text-size">
-          Silm Momoh
+            {requestData && requestData.name}
           </span>
           <div className="modal__modal3">
-          Product Designer, Apprenticeship
+            {requestData && requestData.role}
+,
+            {requestData && requestData.department}
           </div>
         </div>
       </div>
@@ -77,18 +92,19 @@ class RequestDetailsModal extends Component {
   }
 
   renderTravelInfo() {
+    const { requestData } = this.props;
     return (
       <div className="modal__travel-place">
         <span className="modal__dialog1">
           Request to travel to:
           <span className="modal__city-name">
-          Nairobi
+            {requestData && requestData.destination}
           </span>
         </span>
         <span className="modal__dialog-from">
           From:
           <span className="modal__city-name">
-          Lagos
+            {requestData && requestData.origin}
           </span>
         </span>
       </div>
@@ -96,18 +112,20 @@ class RequestDetailsModal extends Component {
   }
 
   renderRequestInfo() {
+    const { requestData } = this.props;
+    const { generateDynamicDate } = this;
     return (
       <div className="modal__modal-date">
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate="02 Aug 2018" />
+          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.createdAt)} />
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate="02 Aug 2018" />
+          dynamicText="Target depature date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.departureDate)} />
 
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate="02 Aug 2018" />
+          dynamicText="Target return date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.arrivalDate)} />
       </div>
     );
   }
@@ -155,6 +173,7 @@ class RequestDetailsModal extends Component {
   }
 
   renderRequestAprroval() {
+    const { requestData } = this.props;
     return (
       <div className="modal__modal1">
         <span className="modal__mdl-icons">
@@ -163,7 +182,7 @@ class RequestDetailsModal extends Component {
             altText="avatar"
             imageClass="modal__oval-copy" />
           <span className="modal__user-name">
-          Jolomi Otumara
+            {requestData && requestData.manager}
           </span>
           <span className="modal__approval-status">
             approved your travel request.
@@ -217,5 +236,25 @@ class RequestDetailsModal extends Component {
     );
   }
 }
+RequestDetailsModal.propTypes = {
+  fetchUserRequestDetails: PropTypes.func,
+  requestId: PropTypes.string,
+  requestData: PropTypes.object,
+  user: PropTypes.object
 
-export default RequestDetailsModal;
+};
+
+RequestDetailsModal.defaultProps = {
+  fetchUserRequestDetails: () => {},
+  requestId: '',
+  requestData: {},
+  user: {}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    requestData: state.requests.requestData,
+    user: state.auth.user.UserInfo
+  };
+};
+export default connect(mapStateToProps, { fetchUserRequestDetails })(RequestDetailsModal);

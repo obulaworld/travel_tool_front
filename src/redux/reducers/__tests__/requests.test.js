@@ -3,8 +3,14 @@ import {
   FETCH_USER_REQUESTS,
   FETCH_USER_REQUESTS_SUCCESS,
   FETCH_USER_REQUESTS_FAILURE,
+  FETCH_USER_REQUEST_DETAILS,
+  FETCH_USER_REQUEST_DETAILS_SUCCESS,
+  FETCH_USER_REQUEST_DETAILS_FAILURE
 } from '../../constants/actionTypes';
-import { fetchRequestsResponse, createRequestMock } from '../../__mocks__/mocks';
+import { fetchRequestsResponse,
+  createRequestMock,
+  fetchRequestsDetailsResponse
+} from '../../__mocks__/mocks';
 
 
 
@@ -125,6 +131,42 @@ describe('Requests Reducer', () => {
 
       expect(newState).toEqual(receivedState);
       expect(requests(newState, action).requests).toHaveLength(2);
+    });
+  });
+
+  describe('Fetch Requests Details Reducer', () => {
+    const initialState = {};
+    it('returns the correct state for FETCH_USER_REQUEST_DETAILS', () => {
+      const action = {
+        type: FETCH_USER_REQUEST_DETAILS
+      };
+      expect(requests(initialState, action)).toEqual({
+        fetchingRequest: true,
+      });
+    });
+    it('returns the correct state for FETCH_USER_REQUEST_DETAILS_SUCCESS action', () => {
+      const initialState = {
+        requestData: {}
+      };
+      const action = {
+        type: FETCH_USER_REQUEST_DETAILS_SUCCESS,
+        requestData: fetchRequestsDetailsResponse.requestData,
+     
+      };
+      expect(requests(initialState, action)).toEqual({
+        fetchingRequest: false,
+        requestData: fetchRequestsDetailsResponse.requestData,
+      });
+    });
+    it('returns the correct state for FETCH_USER_REQUEST_DETAILS_FAILURE action', () => {
+      const action = {
+        type: FETCH_USER_REQUEST_DETAILS_FAILURE,
+        error: 'Possible network error, please reload the page',
+      };
+      expect(requests(initialState, action)).toEqual({
+        fetchingRequest: false,
+        errors: 'Possible network error, please reload the page',
+      });
     });
   });
 });

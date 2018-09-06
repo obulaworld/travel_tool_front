@@ -4,7 +4,10 @@ import {
   FETCH_USER_REQUESTS_FAILURE,
   CREATE_NEW_REQUEST,
   CREATE_NEW_REQUEST_SUCCESS,
-  CREATE_NEW_REQUEST_FAILURE
+  CREATE_NEW_REQUEST_FAILURE,
+  FETCH_USER_REQUEST_DETAILS,
+  FETCH_USER_REQUEST_DETAILS_SUCCESS,
+  FETCH_USER_REQUEST_DETAILS_FAILURE
 } from '../constants/actionTypes';
 
 const initialState = {};
@@ -50,6 +53,23 @@ const requests = (state = initialState, action) => {
       ...state,
       creatingRequest: false,
       errors: [...action.error]
+    };
+  case FETCH_USER_REQUEST_DETAILS:
+    return {
+      ...state,
+      fetchingRequest: true,
+    };
+  case FETCH_USER_REQUEST_DETAILS_SUCCESS:
+    return {
+      ...state,
+      fetchingRequest: false,
+      requestData: action.requestData
+    };
+  case   FETCH_USER_REQUEST_DETAILS_FAILURE:
+    return {
+      ...state,
+      fetchingRequest: false,
+      errors: action.error
     };
   default: return state;
   }
