@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import RequestsModal from '../RequestsModal/RequestsModal';
 import Modal from '../modal/Modal';
-import RequestDetailsModal from '../RequestsModal/RequestsModal';
 import './Table.scss';
 import withLoading from '../Hoc/withLoading';
 
@@ -145,7 +145,7 @@ export class Table extends Component {
           </div>
         )}
       >
-        <RequestDetailsModal 
+        <RequestsModal 
           requestId={clickedRequestId}
           handleCreateComment={() => {}} 
           closeModal={closeModal} />
