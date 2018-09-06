@@ -8,6 +8,15 @@ exports[`<Input /> renders as expected 1`] = `
     htmlFor="name"
   >
     Test label
+    <span
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+      *
+    </span>
   </label>
   <input
     className=""

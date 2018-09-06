@@ -4,9 +4,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import NotificationPane from '../../components/notification-pane/NotificationPane';
 import upic from '../../images/upic.svg';
-import ConnectedSideDrawer, {
-  SideDrawer
-} from '../../components/SideDrawer/SideDrawer';
+import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import '../RequestsPage/RequestsPage.scss';
 
 class Base extends Component {
@@ -28,7 +26,7 @@ class Base extends Component {
   };
 
   onCloseNotificationPane = () => {
-    this.setState(prevState => {
+    this.setState(() => {
       return {
         hideNotificationPane: true,
         hideSideBar: false
@@ -51,7 +49,6 @@ class Base extends Component {
   };
 
   renderNavBar = openSearch => {
-    const { clickPage } = this.state;
     return (
       <ConnectedNavBar
         className=""

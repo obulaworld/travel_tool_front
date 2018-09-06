@@ -82,6 +82,9 @@ class Input extends PureComponent {
       >
         <label htmlFor={name}>
           {label}
+          <span style={{color: 'red'}}>
+          *
+          </span>
           {this.labelNote(labelNote)}
         </label>
         <InputElement {...this.props} />

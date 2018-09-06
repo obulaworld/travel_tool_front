@@ -8,7 +8,7 @@ const SubmitArea = (props) => {
     <fieldset>
       <div className="submit-area">
         <button type="button" className="bg-btn bg-btn--inactive" onClick={onCancel}>
-          Cancel
+          Clear
         </button>
         <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--active">
           { send }

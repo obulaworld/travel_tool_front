@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
+import moment from 'moment';
 import Input from './Input';
 import FormContext from './FormContext/FormContext';
 
@@ -10,6 +11,7 @@ class InputRenderer {
   }
 
   switchProps(name, type, values, inputProps) {
+    
     switch (type) {
     case 'dropdown-select':
       inputProps.choices = this.formMetadata.dropdownSelectOptions[name];
@@ -25,7 +27,7 @@ class InputRenderer {
     }
   }
 
-  renderInput = (name, type, className) => {
+  renderInput = (name, type, options) => {
     const {values, onChange} = this.props;
 
     // common props
@@ -36,7 +38,7 @@ class InputRenderer {
       label: this.formMetadata.inputLabels[name].label,
       labelNote: this.formMetadata.inputLabels[name].note,
       onChange: onChange,
-      className: className || ''
+      ...options
     };
     // get input-type-unique props
     inputProps = this.switchProps(name, type, values, inputProps);

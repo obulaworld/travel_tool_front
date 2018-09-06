@@ -15,8 +15,11 @@ class PersonalDetailsFieldset extends Component {
 
     return (
       <fieldset className="personal-details">
-        <legend>
-          Personal Details
+        <legend style={{width: '100%'}}>
+          Personal Details 
+          <span className="required-field">
+          * Required Field
+          </span>
         </legend>
         <div className="input-group">
           {renderInput('name', 'text')}

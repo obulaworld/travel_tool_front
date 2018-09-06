@@ -1,22 +1,23 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {PropTypes} from 'prop-types';
+import { PropTypes } from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
 import calendarIcon from '../../../../../images/icons/calendar_icon.svg';
 
-const DateInput = (props) => {
-  const {error, className, selectedDate} = props;
-  let _selectedDate = selectedDate? moment(selectedDate, 'MM/DD/YYYY'): selectedDate;
+const DateInput = props => {
+  const { error, className, selectedDate } = props;
+  let _selectedDate = selectedDate
+    ? moment(selectedDate, 'MM/DD/YYYY')
+    : selectedDate;
 
   return (
     <div className={`date-wrapper ${className}`}>
       <DatePicker
         {...props}
-        placeholderText=""
-        className={`${error?'error':''}`}
+        className={`${error ? 'error' : ''}`}
         calendarClassName="calendar-body"
-        dayClassName={()=>'calendar-day'}
+        dayClassName={() => 'calendar-day'}
         selected={_selectedDate}
         fixedHeight
         value={null}

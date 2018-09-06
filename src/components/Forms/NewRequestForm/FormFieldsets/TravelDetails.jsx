@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import moment from 'moment';
 import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 
@@ -10,20 +11,31 @@ class TravelDetailsFieldset extends Component {
     const { renderInput } = this.inputRenderer;
 
     const { values } = this.props;
-    const otherDestStatus = values.destination==='Other' ? '' : 'hidden';
+    const otherDestStatus = values.destination === 'Other' ? '' : 'hidden';
     const otherDestCustomClass = `full-width other-dest--${otherDestStatus}`;
+
+    let customPropsForDepartureDate,
+      customPropsForArrivalDate,
+      customPropsOtherDest;
+    customPropsOtherDest = { className: otherDestCustomClass };
+    customPropsForDepartureDate = { minDate: moment() };
+    customPropsForArrivalDate = {
+      disabled: !values.departureDate,
+      minDate: moment(values.departureDate),
+      placeholderText: !values.departureDate? 'select departure date first' : 'select return date'
+    };
 
     return (
       <fieldset className="travel-details">
         <legend>
-          Travel Details
+Travel Details
         </legend>
         <div className="input-group">
           {renderInput('origin', 'dropdown-select')}
           {renderInput('destination', 'dropdown-select')}
-          {renderInput('otherDestination', 'text', otherDestCustomClass)}
-          {renderInput('departureDate', 'date')}
-          {renderInput('arrivalDate', 'date')}
+          {renderInput('otherDestination', 'text', customPropsOtherDest)}
+          {renderInput('departureDate', 'date', customPropsForDepartureDate)}
+          {renderInput('arrivalDate', 'date', customPropsForArrivalDate)}
         </div>
       </fieldset>
     );

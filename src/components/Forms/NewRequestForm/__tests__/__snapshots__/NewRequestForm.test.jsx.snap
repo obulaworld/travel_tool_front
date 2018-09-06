@@ -8,8 +8,19 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
   <fieldset
     className="personal-details"
   >
-    <legend>
+    <legend
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       Personal Details
+      <span
+        className="required-field"
+      >
+        * Required Field
+      </span>
     </legend>
     <div
       className="input-group"
@@ -21,6 +32,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="name"
         >
           Your name
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
           <span>
              
             (As it appears on your passport)
@@ -47,6 +67,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="gender"
         >
           Gender
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           className="input "
@@ -83,6 +112,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="department"
         >
           Your department
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           style={
@@ -189,6 +227,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="role"
         >
           Your role
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           style={
@@ -321,6 +368,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="manager"
         >
           Your Direct Report
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
           <span>
              
             (Manager)
@@ -424,6 +480,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="origin"
         >
           Which center are you based out of?
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           style={
@@ -530,6 +595,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="destination"
         >
           Which center do you intend to travel to?
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           style={
@@ -649,6 +723,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="otherDestination"
         >
           Specify travel destination
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <input
           className=""
@@ -671,6 +754,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="departureDate"
         >
           Target departure date
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           className="date-wrapper "
@@ -691,7 +783,6 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                   onClick={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
-                  placeholder=""
                   readOnly={false}
                   type="text"
                   value=""
@@ -716,6 +807,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           htmlFor="arrivalDate"
         >
           Target return date
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
         </label>
         <div
           className="date-wrapper "
@@ -729,14 +829,14 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               >
                 <input
                   className=""
-                  disabled={false}
+                  disabled={true}
                   name="arrivalDate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
-                  placeholder=""
+                  placeholder="select departure date first"
                   readOnly={false}
                   type="text"
                   value=""
@@ -766,7 +866,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         onClick={[Function]}
         type="button"
       >
-        Cancel
+        Clear
       </button>
       <button
         className="bg-btn bg-btn--active"
