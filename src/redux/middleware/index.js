@@ -1,11 +1,11 @@
 import { all } from 'redux-saga/effects';
 import { userAuth } from './userAuthSagas';
-import { 
+import {
   watchFetchRequests,
   watchCreateNewRequestAsync,
   watchFetchUserRequestsDetails
 } from './requestsSaga';
-import { 
+import {
   watchPostUserDataSagaAsync,
   watchGetUserDataSagaAsync
 } from './userDataSaga';
@@ -15,11 +15,13 @@ import {
 } from './roleDataSaga';
 import { watchFetchRoleUsers } from './roleSaga';
 import { watchCreateComment } from './commentsSaga';
+import { watchFetchApprovals } from './approvalsSaga';
 
 function* rootSaga() {
   yield all([
     userAuth(),
     watchFetchRequests(),
+    watchFetchApprovals(),
     watchCreateNewRequestAsync(),
     watchPostUserDataSagaAsync(),
     watchGetUserDataSagaAsync(),

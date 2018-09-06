@@ -1,22 +1,64 @@
 import React, { PureComponent } from 'react';
+import { PropTypes } from 'prop-types';
 import PageHeader from '../PageHeader';
-import ButtonsGroup from '../button-group/ButtonGroup';
+import ButtonGroup from '../button-group/ButtonGroup';
 import HeaderPagination from '../Pagination/HeaderPagination';
 import '../RequestPanelHeader/Request.scss';
 
 class ApprovalsPanelHeader extends PureComponent {
-  render() {
+  renderButtonGroup = () => {
+    const {
+      openApprovalsCount,
+      pastApprovalsCount,
+      fetchApprovals,
+      activeStatus,
+      approvalsLength,
+      url
+    } = this.props;
+    return (
+      <ButtonGroup
+        openApprovalsCount={openApprovalsCount}
+        fetchApprovals={fetchApprovals}
+        pastApprovalsCount={pastApprovalsCount}
+        url={url}
+        activeStatus={activeStatus}
+        buttonsType="approvals"
+      />
+    );
+  };
 
+  render() {
+    const { url, approvalsLength, getApprovalsWithLimit } = this.props;
     return (
       <div className="request-panel-header">
         <PageHeader title="APPROVALS" />
-        <div className="open-requests">
-          <ButtonsGroup buttonsType="approvals" />
-          <HeaderPagination />
-        </div>
+        {
+          approvalsLength > 0 && (
+            <div className="open-requests">
+              {this.renderButtonGroup()}
+              <HeaderPagination getRequestsWithLimit={getApprovalsWithLimit} url={url} />
+            </div>
+          )}
       </div>
     );
   }
 }
+
+ApprovalsPanelHeader.propTypes = {
+  openApprovalsCount: PropTypes.number,
+  pastApprovalsCount: PropTypes.number,
+  fetchApprovals: PropTypes.func.isRequired,
+  activeStatus: PropTypes.string,
+  approvalsLength: PropTypes.number,
+  url: PropTypes.string.isRequired,
+  getApprovalsWithLimit: PropTypes.func.isRequired
+};
+
+ApprovalsPanelHeader.defaultProps = {
+  activeStatus: 'all',
+  openApprovalsCount: null,
+  pastApprovalsCount: null,
+  approvalsLength: null
+};
 
 export default ApprovalsPanelHeader;

@@ -23,41 +23,41 @@ describe('<ButtonGroup />', () => {
 
   it('calls the fetchUserRequests method when the `all` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    spy = sinon.spy(wrapper.instance(), 'filterRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterEntries');
     const allButton = wrapper.find('#all-button');
     allButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('')).toBe(true);
+    expect(spy.calledWith('requests', '')).toBe(true);
     spy.resetHistory();
   });
 
   it('calls the fetchUserRequests method when the `open requests` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    spy = sinon.spy(wrapper.instance(), 'filterRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterEntries');
     const openButton = wrapper.find('#open-button');
     openButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('&status=open')).toBe(true);
+    expect(spy.calledWith('requests', '&status=open')).toBe(true);
     spy.resetHistory();
   });
 
   it('calls the fetchUserRequests method when the `past requests` button is clicked', () => {
     const wrapper = mount(<ButtonGroup {...props} />);
-    spy = sinon.spy(wrapper.instance(), 'filterRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterEntries');
     const pastButton = wrapper.find('#past-button');
     pastButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('&status=past')).toBe(true);
+    expect(spy.calledWith('requests', '&status=past')).toBe(true);
   });
 
   it('calls the fetchRequests props method with the correct query', () => {
     const wrapper = mount(<ButtonGroup {...{...props, url: '?page=2&limit=3'}} />);
-    spy = sinon.spy(wrapper.instance(), 'filterRequests');
+    spy = sinon.spy(wrapper.instance(), 'filterEntries');
     const pastButton = wrapper.find('#past-button');
     const { fetchRequests } = props;
     pastButton.simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('&status=past')).toBe(true);
+    expect(spy.calledWith('requests', '&status=past')).toBe(true);
     expect(fetchRequests.called).toEqual(true);
     expect(fetchRequests.calledWith('?page=1&limit=3&status=past')).toBe(true);
   });

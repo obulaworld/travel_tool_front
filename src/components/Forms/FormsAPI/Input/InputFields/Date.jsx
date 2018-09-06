@@ -14,13 +14,13 @@ const DateInput = props => {
   return (
     <div className={`date-wrapper ${className}`}>
       <DatePicker
-        {...props}
         className={`${error ? 'error' : ''}`}
         calendarClassName="calendar-body"
         dayClassName={() => 'calendar-day'}
         selected={_selectedDate}
         fixedHeight
         value={null}
+        {...props}
       />
       <img className="calendar-icon" src={calendarIcon} alt="cal" />
     </div>

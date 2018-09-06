@@ -1,6 +1,6 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
-import { 
+import {
   FETCH_USER_REQUESTS,
   CREATE_NEW_REQUEST,
   FETCH_USER_REQUEST_DETAILS

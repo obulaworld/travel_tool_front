@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 import moment from 'moment';
+import { PropTypes } from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 
@@ -9,17 +9,13 @@ class TravelDetailsFieldset extends Component {
   render() {
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
     const { renderInput } = this.inputRenderer;
-
     const { values } = this.props;
     const otherDestStatus = values.destination === 'Other' ? '' : 'hidden';
     const otherDestCustomClass = `full-width other-dest--${otherDestStatus}`;
 
-    let customPropsForDepartureDate,
-      customPropsForArrivalDate,
-      customPropsOtherDest;
-    customPropsOtherDest = { className: otherDestCustomClass };
-    customPropsForDepartureDate = { minDate: moment() };
-    customPropsForArrivalDate = {
+    const customPropsOtherDest = { className: otherDestCustomClass };
+    const customPropsForDepartureDate = { minDate: moment() };
+    const customPropsForArrivalDate = {
       disabled: !values.departureDate,
       minDate: moment(values.departureDate),
       placeholderText: !values.departureDate? 'select departure date first' : 'select return date'
@@ -28,7 +24,7 @@ class TravelDetailsFieldset extends Component {
     return (
       <fieldset className="travel-details">
         <legend>
-Travel Details
+          Travel Details
         </legend>
         <div className="input-group">
           {renderInput('origin', 'dropdown-select')}

@@ -6,6 +6,7 @@ import NotificationPane from '../../components/notification-pane/NotificationPan
 import upic from '../../images/upic.svg';
 import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import '../RequestsPage/RequestsPage.scss';
+import Utils from '../../helper/Utils';
 
 class Base extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Base extends Component {
   /**
    * the notification pane and the left sidebar dont
    */
+
   onNotificationToggle = () => {
     this.setState(prevState => {
       return {
@@ -33,6 +35,18 @@ class Base extends Component {
       };
     });
   };
+
+  getEntriesWithLimit = (limit, url, pagination, fetchEntries) => {
+    let query;
+    const pages = Math.ceil(pagination.dataCount/limit);
+    if (pages < pagination.currentPage) {
+      const newUrl = Utils.buildQuery(url, 'page', pages);
+      query = Utils.buildQuery(newUrl, 'limit', limit);
+    } else {
+      query = Utils.buildQuery(url, 'limit', limit);
+    }
+    fetchEntries(query);
+  }
 
   handleHideSearchBar = () => {
     this.setState(prevState => {

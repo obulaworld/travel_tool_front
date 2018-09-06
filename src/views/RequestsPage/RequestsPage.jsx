@@ -47,16 +47,9 @@ export class RequestsPage extends Base {
 
   getRequestsWithLimit = limit => {
     const { url } = this.state;
-    let query;
-    const pages = Math.ceil(this.props.pagination.dataCount / limit);
-    if (pages < this.props.pagination.currentPage) {
-      const newUrl = Utils.buildQuery(url, 'page', pages);
-      query = Utils.buildQuery(newUrl, 'limit', limit);
-    } else {
-      query = Utils.buildQuery(url, 'limit', limit);
-    }
-    this.fetchRequests(query);
-  };
+    const { pagination } = this.props;
+    this.getEntriesWithLimit(limit, url, pagination, this.fetchRequests);
+  }
 
   renderRequestPanelHeader() {
     const {

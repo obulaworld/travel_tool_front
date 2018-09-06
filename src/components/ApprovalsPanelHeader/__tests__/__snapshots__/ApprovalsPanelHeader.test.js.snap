@@ -9,21 +9,5 @@ exports[`should render approvals header correctly 1`] = `
     openModal={[Function]}
     title="APPROVALS"
   />
-  <div
-    className="open-requests"
-  >
-    <ButtonGroup
-      activeStatus="all"
-      buttonsType="approvals"
-      fetchRequests={null}
-      openRequestsCount={null}
-      pastRequestsCount={null}
-      url=""
-    />
-    <HeaderPagination
-      getRequestsWithLimit={null}
-      url=""
-    />
-  </div>
 </div>
 `;

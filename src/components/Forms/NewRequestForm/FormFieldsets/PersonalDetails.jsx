@@ -16,7 +16,7 @@ class PersonalDetailsFieldset extends Component {
     return (
       <fieldset className="personal-details">
         <legend style={{width: '100%'}}>
-          Personal Details 
+          Personal Details
           <span className="required-field">
           * Required Field
           </span>

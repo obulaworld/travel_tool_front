@@ -11,7 +11,7 @@ class InputRenderer {
   }
 
   switchProps(name, type, values, inputProps) {
-    
+
     switch (type) {
     case 'dropdown-select':
       inputProps.choices = this.formMetadata.dropdownSelectOptions[name];

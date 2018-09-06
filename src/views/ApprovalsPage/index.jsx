@@ -1,39 +1,95 @@
 import React, {Fragment}  from  'react';
+import {connect} from 'react-redux';
 import ApprovalsPanelHeader from '../../components/ApprovalsPanelHeader';
-import requestsData from '../../mockData/requestsMockData';
+import { fetchUserApprovals } from '../../redux/actionCreator/approvalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
+import Utils from '../../helper/Utils';
 
-class Approvals extends Base {
+export class Approvals extends Base {
 
   state = {
     hideNotificationPane: true,
     hideSideBar: false,
     openSearch: false,
-    selectedLink: 'approval page',
     hideOverlay: false,
     clickPage: true,
+    activeStatus: Utils.getActiveStatus(this.props.location.search),
+    selectedLink: 'approval page',
+    searchQuery:  this.props.location.search
   }
-  // FIX: Remove console statement and replace with actual function
-  onPageChange (page) {
-    console.log('Page Change function', page); /*eslint-disable-line */
+
+  componentDidMount () {
+    const {fetchUserApprovals} = this.props;
+    const { searchQuery } = this.state;
+    fetchUserApprovals(searchQuery);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const searchQuery = nextProps.location.search;
+    this.setState(prevState => ({
+      ...prevState,
+      searchQuery
+    }));
   }
 
   renderApprovalsTable(){
+    const {approvals} = this.props;
     return(
-      <WithLoadingTable requests={requestsData.requests} type="approvals" />
+      <WithLoadingTable
+        requests={approvals.approvals}
+        isLoading={approvals.isLoading}
+        fetchRequestsError={approvals.fetchApprovalsError}
+        message={approvals.message}
+        avatar="image"
+      />
     );
   }
 
+  fetchFilteredApprovals = (query) => {
+    const { history } = this.props;
+    history.push(`/requests/my-approvals${query}`);
+  }
+
+  onPageChange = (page) => {
+    const { searchQuery } = this.state;
+    const query = Utils.buildQuery(searchQuery, 'page', page);
+    this.fetchFilteredApprovals(query);
+  }
+
+  getApprovalsWithLimit = (limit) => {
+    const { searchQuery } = this.state;
+    const { approvals } = this.props;
+    this.getEntriesWithLimit(limit, searchQuery, approvals.pagination, this.fetchFilteredApprovals);
+  }
+
   renderApprovalsPanelHeader(){
+    const { activeStatus, searchQuery } = this.state;
+    const { approvals } = this.props;
+    const { openApprovalsCount, pastApprovalsCount } = approvals;
+
     return(
       <div className="rp-requests__header">
-        <ApprovalsPanelHeader />
+        <ApprovalsPanelHeader
+          url={searchQuery}
+          openApprovalsCount={openApprovalsCount}
+          pastApprovalsCount={pastApprovalsCount}
+          fetchApprovals={this.fetchFilteredApprovals}
+          getApprovalsWithLimit={this.getApprovalsWithLimit}
+          activeStatus={activeStatus}
+          approvalsLength={approvals.approvals.length}
+        />
       </div>
     );
   }
 
-  renderApprovalPage (hideSideBar,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink ) {
+  renderApprovalPage () {
+    const { hideNotificationPane, hideSideBar, selectedLink } = this.state;
+    let [hideClass, leftPaddingClass] = hideNotificationPane
+      ? ['hide', '']
+      : ['', 'pd-left'];
+    const {approvals} = this.props;
+
     return (
       <div className="mdl-layout__content full-height">
         <div
@@ -45,8 +101,8 @@ class Approvals extends Base {
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
               {this.renderApprovalsPanelHeader()}
-              {this.renderApprovalsTable()}
-              {this.renderPagination(pagination)}
+              {approvals.approvals && this.renderApprovalsTable()}
+              {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
             </div>
           </div>
           {this.renderNotificationPane(hideClass, hideSideBar)}
@@ -56,10 +112,7 @@ class Approvals extends Base {
   }
 
   render() {
-    const { hideNotificationPane, hideSideBar, openSearch, selectedLink, hideOverlay } = this.state;
-    let [hideClass, leftPaddingClass] = hideNotificationPane? ['hide', '']: ['', 'pd-left'];
-    const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
-    const { requests, pagination } = requestsData;
+    const { selectedLink, hideOverlay, openSearch } = this.state;
     const overlayClass = hideOverlay ? 'block': 'none';
     return(
       <div>
@@ -71,12 +124,20 @@ class Approvals extends Base {
         <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
           {this.renderSideDrawer(selectedLink, overlayClass)}
           {this.renderNavBar(openSearch)}
-          {this.renderApprovalPage(hideSideBar,leftPaddingClass, requests, pagination, hideClass, hideClass3, selectedLink )}
+          {this.renderApprovalPage()}
         </div>
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  approvals: state.approvals,
+});
 
-export default Approvals;
+
+const actionCreators = {
+  fetchUserApprovals,
+};
+
+export default connect(mapStateToProps, actionCreators)(Approvals);

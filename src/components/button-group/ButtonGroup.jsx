@@ -5,33 +5,47 @@ import Button from '../buttons/Buttons';
 import './buttonGroup.scss';
 
 class ButtonGroup extends PureComponent {
-  filterRequests = (query) => {
-    const { fetchRequests, url } = this.props;
+  filterEntries = (entriesType, statusQuery) => {
+    const { fetchRequests, fetchApprovals, url } = this.props;
     const limit = Utils.getCurrentLimit(url);
-    const queryString = limit === '' ?
+
+    const paginationQuery = limit === '' ?
       '?page=1' : `?page=1&limit=${limit}`;
-    fetchRequests(`${queryString}${query}`);
+
+    if(entriesType === 'requests')
+      fetchRequests(`${paginationQuery}${statusQuery}`);
+    else
+      fetchApprovals(`${paginationQuery}${statusQuery}`);
   }
 
   renderApprovalsButton () {
+    const { openApprovalsCount, pastApprovalsCount, activeStatus } = this.props;
     return (
       <Fragment>
         <Button
-          buttonClass="bg-btn bg-btn--active"
+          buttonClass={`bg-btn ${activeStatus === 'all' ? 'bg-btn--active' : ''}`}
           text="All"
+          buttonId="all-button"
+          onClick={() => this.filterEntries('approvals', '')}
         />
         <Button
-          buttonClass="bg-btn bg-btn--with-badge"
-          text="Pending Approvals"
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 'bg-btn--active' : ''}`}
           responsiveText="Open"
-          badge={3}
-          showBadge
-          badgeClass="bg-btn--with-badge__approvals--inactive"
+          disabled={openApprovalsCount === 0}
+          badge={openApprovalsCount}
+          showBadge={openApprovalsCount > 0}
+          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+          buttonId="open-button"
+          onClick={() => this.filterEntries('approvals', '&status=open')}
+          text="Pending Approvals"
         />
         <Button
-          buttonClass="bg-btn"
+          buttonClass={`bg-btn ${activeStatus === 'past' ? 'bg-btn--active' : ''}`}
           responsiveText="Past"
+          buttonId="past-button"
           text="Past Approvals"
+          disabled={pastApprovalsCount === 0}
+          onClick={() => this.filterEntries('approvals', '&status=past')}
         />
       </Fragment>
     );
@@ -45,7 +59,7 @@ class ButtonGroup extends PureComponent {
           buttonClass={`bg-btn ${activeStatus === 'all' ? 'bg-btn--active' : ''}`}
           text="All"
           buttonId="all-button"
-          onClick={() => this.filterRequests('')}
+          onClick={() => this.filterEntries('requests', '')}
         />
         <Button
           buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 'bg-btn--active' : ''}`}
@@ -56,7 +70,7 @@ class ButtonGroup extends PureComponent {
           badge={openRequestsCount}
           showBadge={openRequestsCount > 0}
           badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
-          onClick={() => this.filterRequests('&status=open')}
+          onClick={() => this.filterEntries('requests', '&status=open')}
         />
         <Button
           buttonClass={`bg-btn ${activeStatus === 'past' ? 'bg-btn--active' : ''}`}
@@ -64,7 +78,7 @@ class ButtonGroup extends PureComponent {
           text="Past Requests"
           responsiveText="Past"
           buttonId="past-button"
-          onClick={() => this.filterRequests('&status=past')}
+          onClick={() => this.filterEntries('requests', '&status=past')}
         />
       </Fragment>
     );
@@ -85,6 +99,9 @@ class ButtonGroup extends PureComponent {
 ButtonGroup.propTypes = {
   openRequestsCount: PropTypes.number,
   pastRequestsCount: PropTypes.number,
+  pastApprovalsCount: PropTypes.number,
+  openApprovalsCount: PropTypes.number,
+  fetchApprovals: PropTypes.func,
   fetchRequests: PropTypes.func,
   url: PropTypes.string,
   buttonsType: PropTypes.string.isRequired,
@@ -94,6 +111,9 @@ ButtonGroup.propTypes = {
 ButtonGroup.defaultProps = {
   openRequestsCount: null,
   pastRequestsCount: null,
+  pastApprovalsCount: null,
+  openApprovalsCount: null,
+  fetchApprovals: null,
   fetchRequests: null,
   url: '',
   activeStatus: 'all'
