@@ -34,7 +34,6 @@ class Button extends PureComponent {
       showBadge,
       badgeClass,
     } = this.props;
-    console.log('BADGE', showBadge);
     return (
       <button type="button" disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
         { imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }

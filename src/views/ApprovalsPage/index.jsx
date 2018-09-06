@@ -41,7 +41,7 @@ export class Approvals extends Base {
         isLoading={approvals.isLoading}
         fetchRequestsError={approvals.fetchApprovalsError}
         message={approvals.message}
-        avatar="image"
+        type="approvals"
       />
     );
   }
