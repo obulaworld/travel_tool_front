@@ -79,7 +79,7 @@ export class Role extends Base {
         <div className="mdl-grid mdl-grid--no-spacing full-height">
           {this.renderLeftSideBar( hideSideBar, selectedLink)}
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            <div className={`rp-role ${leftPaddingClass}`}>
+            <div className={`rp-requests ${leftPaddingClass}`}>
               {this.renderUserRolePanelHeader()}
               {this.renderRoles()}
             </div>

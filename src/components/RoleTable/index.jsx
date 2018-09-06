@@ -10,7 +10,7 @@ export class RoleTable extends PureComponent {
   renderRoles(role) {
     return (
       <tr key={role.id} className="table__row">
-        <td className="mdl-data-table__cell--non-numeric table__data">
+        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
           {role.roleName}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -20,7 +20,7 @@ export class RoleTable extends PureComponent {
           {role.users.length}
         </td>
         <td
-          className="mdl-data-table__cell--non-numeric table__data"
+          className="mdl-data-table__cell--non-numeric table__requests__status table__data"
           style={testColor}
         >
           Edit &ensp; &ensp;  &ensp;  &ensp; &ensp;  Delete
