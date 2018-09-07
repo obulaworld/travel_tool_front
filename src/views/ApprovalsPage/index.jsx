@@ -2,6 +2,7 @@ import React, {Fragment}  from  'react';
 import {connect} from 'react-redux';
 import ApprovalsPanelHeader from '../../components/ApprovalsPanelHeader';
 import { fetchUserApprovals } from '../../redux/actionCreator/approvalActions';
+import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
@@ -34,7 +35,8 @@ export class Approvals extends Base {
   }
 
   renderApprovalsTable(){
-    const {approvals} = this.props;
+    const { approvals, openModal, closeModal, shouldOpen, modalType } = this.props;
+    // console.log(openModal)
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -42,6 +44,10 @@ export class Approvals extends Base {
         fetchRequestsError={approvals.fetchApprovalsError}
         message={approvals.message}
         type="approvals"
+        closeModal={closeModal}
+        openModal={openModal}
+        shouldOpen={shouldOpen}
+        modalType={modalType}
       />
     );
   }
@@ -121,7 +127,8 @@ export class Approvals extends Base {
           style={{display: `${overlayClass}`}} role="button"
           onClick={this.handleOverlay}
           onKeyPress={() => {}} tabIndex="0" />
-        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
+        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
+        >
           {this.renderSideDrawer(selectedLink, overlayClass)}
           {this.renderNavBar(openSearch)}
           {this.renderApprovalPage()}
@@ -133,11 +140,13 @@ export class Approvals extends Base {
 
 const mapStateToProps = (state) => ({
   approvals: state.approvals,
+  ...state.modal.modal
 });
-
 
 const actionCreators = {
   fetchUserApprovals,
+  openModal,
+  closeModal
 };
 
 export default connect(mapStateToProps, actionCreators)(Approvals);

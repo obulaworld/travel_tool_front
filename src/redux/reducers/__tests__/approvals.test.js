@@ -2,7 +2,10 @@ import approvals from '../approvals';
 import {
   FETCH_USER_APPROVALS,
   FETCH_USER_APPROVALS_SUCCESS,
-  FETCH_USER_APPROVALS_FAILURE
+  FETCH_USER_APPROVALS_FAILURE,
+  UPDATE_REQUEST_STATUS,
+  UPDATE_REQUEST_STATUS_SUCCESS,
+  UPDATE_REQUEST_STATUS_FAILURE,
 } from '../../constants/actionTypes';
 
 const initState = {};
@@ -42,5 +45,84 @@ describe('Approvals Reducer', () => {
       }
     };
     expect(approvals(initState, action).approvals).toHaveLength(1);
+  });
+
+  describe('Update Requests Status reducer', () => {
+    const initialState = {
+      approvals: [],
+      isLoading: false,
+      message: '',
+      openApprovalsCount: '',
+      pastApprovalsCount: '',
+      pagination: '',
+      fetchApprovalError: ''
+    };
+
+    let action, newState, receivedState, error;
+
+    it('should return initial state', () => {
+      expect(approvals(undefined, {})).toEqual(initialState);
+    });
+
+    it('should handle UPDATE_REQUEST_STATUS', () => {
+      action = {
+        type: 'UPDATE_REQUEST_STATUS',
+        updatedRequest: {
+          status: 'Approved'
+        }
+      };
+
+      newState = approvals(initialState, action);
+      receivedState = {
+        ...initialState,
+        updatingStatus: true,
+        approval: action.updatedRequest,
+        error: ''
+      };
+
+      expect(newState).toEqual(receivedState);
+    });
+
+    it('should handle UPDATE_REQUEST_STATUS_SUCCESS', () => {
+      action = {
+        type: 'UPDATE_REQUEST_STATUS_SUCCESS',
+        updatedRequest: {
+          updatedRequest: {
+            id: 1,
+            status: 'Approved'
+          },
+          count: {
+            open: 1,
+          }
+        }
+      };
+
+      newState = approvals(initialState, action);
+      receivedState = {
+        ...initialState,
+        updatingStatus: false,
+        approvals: [],
+        openApprovalsCount: action.updatedRequest.count.open,
+        error: ''
+      };
+
+      expect(newState).toEqual(receivedState);
+    });
+
+    it('should handle UPDATE_REQUEST_STATUS_FAILURE', () => {
+      error = 'permission denied, you are not requesters manager';
+      action = {
+        type: 'UPDATE_REQUEST_STATUS_FAILURE',
+        error
+      };
+
+      newState = approvals(initialState, action);
+      receivedState = {
+        ...initialState,
+        updatingStatus: false,
+        error: 'permission denied, you are not requesters manager'
+      };
+      expect(newState).toEqual(receivedState);
+    });
   });
 });

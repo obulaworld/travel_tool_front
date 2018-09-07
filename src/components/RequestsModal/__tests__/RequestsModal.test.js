@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
+import createSagaMiddleware from 'redux-saga';
 import ConnectedRequestDetailsModal,
 { RequestDetailsModal } from '../RequestsModal';
 import { fetchRequestsDetailsResponse,
@@ -43,7 +44,15 @@ const props = {
       },
     ]
   },
-  fetchUserRequestDetails: sinon.spy(() => Promise.resolve())
+  fetchUserRequestDetails: sinon.spy(() => Promise.resolve()),
+  requests: {
+    requestData: {
+      id: '1',
+      name: 'Orion',
+      status: 'Approved'
+    }
+  },
+  updateRequestStatus: jest.fn(() => Promise.resolve()),
 };
 const componentDidMountSpy = sinon.spy(RequestDetailsModal.prototype, 'componentDidMount');
 const formatDateSpy = sinon.spy(RequestDetailsModal.prototype, 'formatDate');

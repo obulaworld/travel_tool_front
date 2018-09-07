@@ -1,13 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import Oval2 from '../../images/Oval2.png';
 import ConnectedCommentBox from './CommentBox/CommentBox';
 import ImageLink from '../image-link/ImageLink';
 import TravelLink from './_RequestTravel';
 import { fetchUserRequestDetails } from '../../redux/actionCreator/requestActions';
+import { updateRequestStatus } from '../../redux/actionCreator/approvalActions';
 import './RequestsModal.scss';
+import isCurrentPageMyApproval from '../../helper/isCurrentPageMyApproval';
+import generateDynamicDate from '../../helper/generateDynamicDate';
+import AddComment from './CommentBox/AddComment';
 
 export class RequestDetailsModal extends Component {
   state = {
@@ -22,40 +26,48 @@ export class RequestDetailsModal extends Component {
     fetchUserRequestDetails(requestId);
   }
 
-  handleApprove = () => {
+  updateRequestStatus = () => {
+    const { requestId, newStatus }= this.state;
+    const { updateRequestStatus } = this.props;
+    updateRequestStatus({requestId, newStatus});
+  }
+
+  handleButtonState = (approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
     this.setState({
-      approveColor: '#49AAAF',
-      rejectColor: '',
-      approveTextColor: 'white',
-      rejectTextColor: ''
-    });
+      approveColor,
+      rejectColor,
+      approveTextColor,
+      rejectTextColor,
+      newStatus,
+      requestId }, () => this.updateRequestStatus());
+  }
+
+  handleApprove = (requestId) => {
+    return () => {
+      this.handleButtonState('#49AAAF', '', 'white', '','Approved', requestId);
+    };
   };
 
-  handleReject = () => {
-    this.setState({
-      rejectColor: '#FF5359',
-      approveColor: '',
-      rejectTextColor: 'white',
-      approveTextColor: ''
-    });
+  handleReject = (requestId) => {
+    return () => {
+      this.handleButtonState('', '#FF5359', '', 'white', 'Rejected', requestId);
+    };
   };
 
-  showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor) => { 
-    
+  showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor, id) => { 
     return (
       [
         {
           id: 1,
-          onClick: this.handleApprove,
+          onClick: this.handleApprove(id),
           action: approveColor,
           actionText: approveTextColor,
           class: 'modal__button-submitted-text bg',
           text: 'Approve'
         },
-        
         {
           id: 2,
-          onClick: this.handleReject,
+          onClick: this.handleReject(id),
           action: rejectColor,
           actionText: rejectTextColor,
           class: 'modal__button-rejected-text',
@@ -64,17 +76,11 @@ export class RequestDetailsModal extends Component {
       ]);
   }
 
-  generateDynamicDate = (date) => {
-    const { requestData } = this.props;
-    return requestData && moment(date).format('DD MMM YYYY');
-  }
-
   formatDate(date) {
     const createdAt = moment(date).format('MM/DD/YYYY @ h:mm a');
     return moment(createdAt).fromNow();
   }
 
-  
   renderUserInfo() {
     const { requestData, user } = this.props;
     return (
@@ -120,61 +126,47 @@ export class RequestDetailsModal extends Component {
 
   renderRequestInfo() {
     const { requestData } = this.props;
-    const { generateDynamicDate } = this;
+    const { createdAt, departureDate, arrivalDate } = requestData;
     return (
       <div className="modal__modal-date">
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.createdAt)} />
+          dynamicText="Date submitted" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData, createdAt)} />
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Target depature date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.departureDate)} />
+          dynamicText="Target depature date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData, departureDate)} />
 
         <TravelLink 
           divClass="modal__travel-date" innerClass="modal__travel-dates" 
-          dynamicText="Target return date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData.arrivalDate)} />
+          dynamicText="Target return date" nextClass="modal__date-text" dynamicDate={generateDynamicDate(requestData, arrivalDate)} />
       </div>
     );
   }
 
   renderButtons() {
     const { approveColor, rejectColor, approveTextColor, rejectTextColor } = this.state;
-
-    let displayButtons = this.showButtons(approveColor, rejectColor, approveTextColor, rejectTextColor)
+    const { requestData } = this.props;
+    const { id } = requestData;
+    let displayButtons = this.showButtons(approveColor, rejectColor, approveTextColor, rejectTextColor, id)
       .map((button)=>{
         return (
           <span key={button.id}>
             <span className="modal__dialog-btn">
-              <button 
-                style={{backgroundColor: `${button.action}`, color: `${button.actionText}`}} 
-                onClick={button.onClick} className={button.class} id={'b'+button.id} type="button">
+              <button
+                style={{backgroundColor: `${button.action}`, color: `${button.actionText}`}}
+                onClick={button.onClick} className={button.class} id={'b'+button.id} type="button"
+                disabled={!isCurrentPageMyApproval()}
+              >
                 {button.text}
               </button>
             </span>
           </span>
         );
       });
+
     return (
       <div className="modal__button-below">
         {displayButtons}
-      </div>
-    );
-  }
-
-  renderAddComment() {
-    return (
-  
-      <div className="modal__modal1">
-        <span className="modal__oval-copy">
-          <ImageLink
-            imageSrc={Oval2}
-            altText="avatar"
-            imageClass="modal__oval-copy" />
-        </span>
-        <span className="modal__add-comment">
-            Add a comment
-        </span>
-
       </div>
     );
   }
@@ -238,7 +230,7 @@ export class RequestDetailsModal extends Component {
         {this.renderTravelInfo()}
         {this.renderRequestInfo()}
         {this.renderButtons()}
-        {this.renderAddComment()}
+        <AddComment />
         <ConnectedCommentBox requestId={requestId} />
         {(requestData && requestData.status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">
@@ -250,6 +242,7 @@ export class RequestDetailsModal extends Component {
 }
 RequestDetailsModal.propTypes = {
   fetchUserRequestDetails: PropTypes.func,
+  updateRequestStatus: PropTypes.func,
   requestId: PropTypes.string,
   user: PropTypes.object,
   requestData: PropTypes.object
@@ -258,6 +251,7 @@ RequestDetailsModal.propTypes = {
 
 RequestDetailsModal.defaultProps = {
   fetchUserRequestDetails: () => {},
+  updateRequestStatus: () => {},
   requestId: '',
   requestData: {},
   user: {}
@@ -269,4 +263,11 @@ const mapStateToProps = (state) => {
     user: state.auth.user.UserInfo
   };
 };
-export default connect(mapStateToProps, { fetchUserRequestDetails })(RequestDetailsModal);
+
+const actionCreators = {
+  fetchUserRequestDetails,
+  updateRequestStatus
+};
+
+export default connect(mapStateToProps, actionCreators)(RequestDetailsModal);
+

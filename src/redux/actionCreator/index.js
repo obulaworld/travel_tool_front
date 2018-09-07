@@ -6,7 +6,10 @@ import {
 import {
   fetchUserApprovals,
   fetchUserApprovalsSuccess,
-  fetchUserApprovalsFailure
+  fetchUserApprovalsFailure,
+  updateRequestStatus,
+  updateRequestStatusSuccess,
+  updateRequestStatusFailure
 } from './approvalActions';
 
 export {
@@ -16,5 +19,8 @@ export {
   // Approvals actions
   fetchUserApprovals,
   fetchUserApprovalsSuccess,
-  fetchUserApprovalsFailure
+  fetchUserApprovalsFailure,
+  updateRequestStatus,
+  updateRequestStatusSuccess,
+  updateRequestStatusFailure
 };

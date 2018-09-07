@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ConnectedLogin from '../views/Login/Login';
 import ConnectedRequestsPage from '../views/RequestsPage/RequestsPage';
 import RequireAuth from '../hoc/authHoc';
-import ApprovalsPage from '../views/ApprovalsPage';
+import ConnectedApprovalsPage from '../views/ApprovalsPage';
 import Checkbox from '../components/CheckBox';
 import ConnectedRole from '../views/Role';
 
@@ -23,7 +23,7 @@ const Routes = () => (
     <Route
       path="/requests/my-approvals"
       exact
-      component={RequireAuth(ApprovalsPage)}
+      component={RequireAuth(ConnectedApprovalsPage)}
     />
     <Route
       path="/settings/roles"

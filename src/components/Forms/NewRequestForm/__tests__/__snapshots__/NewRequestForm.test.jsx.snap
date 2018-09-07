@@ -829,14 +829,13 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               >
                 <input
                   className=""
-                  disabled={true}
+                  disabled={false}
                   name="arrivalDate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
-                  placeholder="select departure date first"
                   readOnly={false}
                   type="text"
                   value=""

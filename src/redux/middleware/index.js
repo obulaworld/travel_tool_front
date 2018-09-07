@@ -15,7 +15,10 @@ import {
 } from './roleDataSaga';
 import { watchFetchRoleUsers } from './roleSaga';
 import { watchCreateComment } from './commentsSaga';
-import { watchFetchApprovals } from './approvalsSaga';
+import {
+  watchFetchApprovals,
+  watchUpdateRequestStatus,
+} from './approvalsSaga';
 
 function* rootSaga() {
   yield all([
@@ -30,6 +33,7 @@ function* rootSaga() {
     watchFetchRoleUsers(),
     watchFetchUserRequestsDetails(),
     watchCreateComment(),
+    watchUpdateRequestStatus()
   ]);
 }
 

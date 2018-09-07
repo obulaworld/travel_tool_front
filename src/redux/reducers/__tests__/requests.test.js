@@ -14,10 +14,14 @@ import { fetchRequestsResponse,
 
 describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {
-    const initialState = {};
+    const initialState = {
+      requestData: {}
+    };
     const error = 'Error fetching requests, network error';
     it('returns the correct initial state', () => {
-      expect(requests(undefined, {})).toEqual({});
+      expect(requests(undefined, {})).toEqual({
+        ...initialState
+      });
     });
 
     it('returns the correct state for FETCH_USER_REQUESTS action', () => {
@@ -25,6 +29,7 @@ describe('Requests Reducer', () => {
         type: FETCH_USER_REQUESTS
       };
       expect(requests(initialState, action)).toEqual({
+        ...initialState,
         isLoading: true,
       });
     });
@@ -37,6 +42,7 @@ describe('Requests Reducer', () => {
         message: fetchRequestsResponse.message,
       };
       expect(requests(initialState, action)).toEqual({
+        ...initialState,
         isLoading: false,
         requests: fetchRequestsResponse.requests,
         openRequestsCount: fetchRequestsResponse.meta.count.open,
@@ -52,6 +58,7 @@ describe('Requests Reducer', () => {
         error: 'Possible network error, please reload the page',
       };
       expect(requests(initialState, action)).toEqual({
+        ...initialState,
         isLoading: false,
         fetchRequestsError: 'Possible network error, please reload the page',
       });
@@ -59,14 +66,18 @@ describe('Requests Reducer', () => {
   });
 
   describe('Create Requests reducer', () => {
-    let initialState = {};
+    let initialState = {
+      requestData: {}
+    };
 
     let action, newState, receivedState, error;
 
     const requestObj = { ...createRequestMock.requestObj };
 
     it('should return initial state', () => {
-      expect(requests(undefined, {})).toEqual(initialState);
+      expect(requests(initialState, {})).toEqual({
+        ...initialState
+      });
     });
 
     it('should handle CREATE_NEW_REQUEST', () => {
@@ -77,6 +88,7 @@ describe('Requests Reducer', () => {
 
       newState = requests(initialState, action);
       receivedState = {
+        ...initialState,
         creatingRequest: true,
       };
 
@@ -92,6 +104,7 @@ describe('Requests Reducer', () => {
 
       newState = requests(initialState, action);
       receivedState = {
+        ...initialState,
         creatingRequest: false,
         errors: ['failed to add new request']
       };

@@ -12,6 +12,9 @@ class TravelDetailsFieldset extends Component {
     const { values } = this.props;
     const otherDestStatus = values.destination === 'Other' ? '' : 'hidden';
     const otherDestCustomClass = `full-width other-dest--${otherDestStatus}`;
+    const otherDestOptions = {className: otherDestCustomClass};
+    const departureDateOptions = {minDate: moment()};
+    const arrivalDateOptions = {minDate: moment(values.departureDate)};
 
     const customPropsOtherDest = { className: otherDestCustomClass };
     const customPropsForDepartureDate = { minDate: moment() };
@@ -29,9 +32,9 @@ class TravelDetailsFieldset extends Component {
         <div className="input-group">
           {renderInput('origin', 'dropdown-select')}
           {renderInput('destination', 'dropdown-select')}
-          {renderInput('otherDestination', 'text', customPropsOtherDest)}
-          {renderInput('departureDate', 'date', customPropsForDepartureDate)}
-          {renderInput('arrivalDate', 'date', customPropsForArrivalDate)}
+          {renderInput('otherDestination', 'text', otherDestOptions)}
+          {renderInput('departureDate', 'date', departureDateOptions)}
+          {renderInput('arrivalDate', 'date', arrivalDateOptions)}
         </div>
       </fieldset>
     );

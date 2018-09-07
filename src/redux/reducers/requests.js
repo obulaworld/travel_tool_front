@@ -7,10 +7,12 @@ import {
   CREATE_NEW_REQUEST_FAILURE,
   FETCH_USER_REQUEST_DETAILS,
   FETCH_USER_REQUEST_DETAILS_SUCCESS,
-  FETCH_USER_REQUEST_DETAILS_FAILURE
+  FETCH_USER_REQUEST_DETAILS_FAILURE,
 } from '../constants/actionTypes';
 
-const initialState = {};
+const initialState = {
+  requestData: {}
+};
 const requests = (state = initialState, action) => {
   switch(action.type) {
   case FETCH_USER_REQUESTS:

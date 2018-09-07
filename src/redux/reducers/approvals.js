@@ -1,7 +1,10 @@
 import {
   FETCH_USER_APPROVALS,
   FETCH_USER_APPROVALS_SUCCESS,
-  FETCH_USER_APPROVALS_FAILURE
+  FETCH_USER_APPROVALS_FAILURE,
+  UPDATE_REQUEST_STATUS,
+  UPDATE_REQUEST_STATUS_SUCCESS,
+  UPDATE_REQUEST_STATUS_FAILURE
 } from '../constants/actionTypes';
 
 const initState = {
@@ -36,6 +39,34 @@ const approvals = (state = initState, action) => {
       ...state,
       isLoading: false,
       fetchApprovalsError: action.error,
+    };
+  case UPDATE_REQUEST_STATUS:
+    return {
+      ...state,
+      updatingStatus: true,
+      approval: action.updatedRequest,
+      error: ''
+    };
+  case UPDATE_REQUEST_STATUS_SUCCESS:
+    return {
+      ...state,
+      updatingStatus: false,
+      approvals: state.approvals.map((approval) => {
+        // Fix: refactor later to use better response data from the server
+        if (approval.id === action.updatedRequest.updatedRequest.id) {
+          approval.status = action.updatedRequest.updatedRequest.status;
+        }
+
+        return approval;
+      }),
+      openApprovalsCount: action.updatedRequest.count.open,
+      error: ''
+    };
+  case UPDATE_REQUEST_STATUS_FAILURE:
+    return {
+      ...state,
+      updatingStatus: false,
+      error: action.error
     };
   default:
     return state;
