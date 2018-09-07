@@ -32,9 +32,9 @@ class TravelDetailsFieldset extends Component {
         <div className="input-group">
           {renderInput('origin', 'dropdown-select')}
           {renderInput('destination', 'dropdown-select')}
-          {renderInput('otherDestination', 'text', otherDestOptions)}
-          {renderInput('departureDate', 'date', departureDateOptions)}
-          {renderInput('arrivalDate', 'date', arrivalDateOptions)}
+          {renderInput('otherDestination', 'text', customPropsOtherDest)}
+          {renderInput('departureDate', 'date', customPropsForDepartureDate)}
+          {renderInput('arrivalDate', 'date', customPropsForArrivalDate)}
         </div>
       </fieldset>
     );
