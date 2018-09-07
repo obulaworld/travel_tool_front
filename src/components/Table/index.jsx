@@ -84,7 +84,7 @@ export class Table extends Component {
             {request.name}
           </td>
         )}
-        <td className="mdl-data-table__cell--non-numeric table__data">
+        <td className={`mdl-data-table__cell--non-numeric table__data ${type ==='requests' ? 'pl-sm-100' : ''}`}>
           {request.destination}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -114,7 +114,7 @@ export class Table extends Component {
           Owner
           </th>
         )}
-        <th className="mdl-data-table__cell--non-numeric table__head">
+        <th className={`mdl-data-table__cell--non-numeric table__head ${type ==='requests' ? 'pl-sm-100' : ''}`}>
           Destination
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
