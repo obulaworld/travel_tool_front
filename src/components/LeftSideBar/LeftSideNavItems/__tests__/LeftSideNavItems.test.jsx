@@ -1,18 +1,10 @@
 import React from 'react';
-import Cookie from 'cookies-js';
 import { MemoryRouter } from 'react-router-dom';
 import LeftSideNavItems from '../LeftSideNavItems';
+import metadata from '../../Metadata';
 
 describe('<LeftSideNavItems />', () => {
   let wrapper;
-
-  const props = {
-    history: {
-      push: jest.fn
-    },
-    getCurrentUserRole: 'tomato'
-
-  };
 
   beforeEach(() => {
     const navIconsSource = {
@@ -30,28 +22,44 @@ describe('<LeftSideNavItems />', () => {
       <MemoryRouter>
         <LeftSideNavItems
           activeNavItem={{}}
-          navIconsSource={navIconsSource}
+          metadata={metadata}
           setActiveNavItem={jest.fn}
-          {...props}
         />
       </MemoryRouter>
     );
   });
-
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('it renders two dropdown items', () => {
-    const dropDownItems = wrapper.find('DropdownItem');
-    expect(dropDownItems).toHaveLength(2);
+  
+  it('it renders dropdown items', () => {
+    const dropDownItems = wrapper
+      .find('LeftSideNavItem');
+    expect(dropDownItems.length).toBeGreaterThan(0);
   });
 
-  it('should log user out when the logout link is clicked', () => {
-    wrapper.find('#signoutLink').simulate('click');
-    const token = Cookie.get('login-status');
-    const loginStatus = Cookie.get('jwt-token');
-    expect(token).toEqual(undefined);
-    expect(loginStatus).toEqual(undefined);
+  describe('None dropdown', () => {
+    let meta = [
+      {
+        text: 'Requests',
+        link_to: '/requests',
+        activateOnLogin: true,
+        isDropdown: false,
+        icons: {}
+      }
+    ];
+
+    it('renders none dropdwown items', () => {
+      wrapper = mount (
+        <MemoryRouter>
+          <LeftSideNavItems
+            activeNavItem={{}}
+            metadata={meta}
+            setActiveNavItem={jest.fn}
+          />
+        </MemoryRouter>
+      );
+    });
+    expect(wrapper).toMatchSnapshot();
   });
 });

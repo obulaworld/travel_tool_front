@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookie from 'cookies-js';
-import { Login } from '../Login';
+import { Login } from '..';
 import TextLink from '../../../components/TextLink/TextLink';
 
 const props = {
@@ -30,7 +30,7 @@ describe('Login Component', () => {
   });
 
   it('should find the Login button', () => {
-    expect(wrapper.find('button').exists).toBeTruthy();   
+    expect(wrapper.find('button').exists).toBeTruthy();
   });
 
   it('should redirect to andela micro service when login is Clicked', () => {
@@ -53,5 +53,3 @@ describe('Login Component', () => {
     expect(loginStatus).toEqual(undefined);
   });
 });
-
-

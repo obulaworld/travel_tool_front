@@ -23,7 +23,7 @@ export const loginStatus = () => {
 export const logoutUser = (history) => {
   Cookie.expire('login-status', { path: '/', domain: '.andela.com' });
   Cookie.expire('jwt-token', { path: '/', domain: '.andela.com' });
-  successMessage('Logout Successful');
+  setTimeout(window.location.reload.bind(window.location), 500);
   history.push('/');
+  successMessage('Logout Successful');
 };
-

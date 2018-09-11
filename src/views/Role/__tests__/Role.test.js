@@ -106,61 +106,6 @@ describe('<RolePage>', () => {
     wrapper.unmount();
   });
 
-  it('should display the notification pane when the notification icon gets clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Role {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const notificationIcon = wrapper.find('.navbar__navbar-notification');
-    notificationIcon.simulate('click');
-    expect(wrapper.find('.notification').exists()).toBeTruthy();
-    expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(1);
-    wrapper.unmount();
-  });
-
-  it('should close the notification pane on the second click of the notification icon', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Role {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const notificationIcon = wrapper.find('.navbar__navbar-notification');
-    notificationIcon.simulate('click');
-    notificationIcon.simulate('click');
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
-  });
-
-  it('should close the notification pane when the close icon is clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Role {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const closeIcon = wrapper.find('.notifications-header__close-btn');
-    closeIcon.simulate('click');
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(0);
-    expect(wrapper.find('NavBar').exists()).toBeTruthy();
-    wrapper.unmount();
-  });
-
-  it('should call handleHideSearchBar method', () => {
-    const wrapper = shallow(<Role {...props} />);
-    wrapper.instance().handleHideSearchBar();
-    expect(wrapper.state('openSearch')).toBeTruthy;
-  });
-
   it('should not redirect the user when the user is an the admin', () => {
     const { history } = props;
     const wrapper = mount(
@@ -215,15 +160,4 @@ describe('<RolePage>', () => {
         .props().visibility
     ).toEqual('visible');
   });
-
-  it('should handle handleOverlay method', () => {
-    const wrapper = shallow(<Role {...props} />);
-    wrapper.instance().handleOverlay();
-    expect(wrapper.state('hideOverlay')).toBe(false);
-  });
-  it('should handle handleShowDrawer method', () => {
-    const wrapper = shallow(<Role {...props} />);
-    wrapper.instance().handleShowDrawer();
-    expect(wrapper.state('hideOverlay')).toBe(true);
-  }); 
 });

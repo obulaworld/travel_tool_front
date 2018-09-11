@@ -165,8 +165,8 @@ describe('<NewRequestForm />', () => {
         origin: 'test',
         destination: 'Other',
         otherDestination: 'Miami',
-        departureDate: moment(),
-        arrivalDate: moment()
+        departureDate: '09/27/1988',
+        arrivalDate: '09/27/1988'
       }
     });
 
@@ -191,8 +191,8 @@ describe('<NewRequestForm />', () => {
         origin: 'test',
         destination: 'Nairobi',
         otherDestination: '',
-        departureDate: moment(),
-        arrivalDate: moment()
+        departureDate: '09/27/1988',
+        arrivalDate: '09/27/1988'
       }
     });
 
@@ -216,8 +216,8 @@ describe('<NewRequestForm />', () => {
         origin: 'test',
         destination: 'Nairobi',
         otherDestination: '',
-        departureDate: moment(),
-        arrivalDate: moment()
+        departureDate: '09/27/1988',
+        arrivalDate: '09/27/1988'
       }
     });
     wrapper.setProps({
@@ -263,8 +263,8 @@ describe('<NewRequestForm />', () => {
         manager: 'test',
         origin: 'test',
         destination: 'Nairobi',
-        departureDate: moment(),
-        arrivalDate: moment()
+        departureDate: '09/27/1988',
+        arrivalDate: '09/27/1988'
       }
     });
     const spy = jest.spyOn( NewRequest.instance(), 'handleSubmit');

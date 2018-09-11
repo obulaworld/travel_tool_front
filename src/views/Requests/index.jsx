@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WithLoadingTable from '../../components/Table';
@@ -14,16 +14,11 @@ import {
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 
-export class RequestsPage extends Base {
+export class Requests extends Base {
   state = {
-    hideNotificationPane: true,
-    hideSideBar: false,
-    openSearch: false,
     hideNewRequestModal: true,
-    selectedLink: 'request page',
     activeStatus: Utils.getActiveStatus(this.props.location.search),
-    url: this.props.location.search,
-    hideOverlay: false
+    url: this.props.location.search
   };
 
   componentDidMount() {
@@ -35,8 +30,14 @@ export class RequestsPage extends Base {
   }
 
   fetchRequests = query => {
-    const { history } = this.props;
+    const { history, fetchUserRequests } = this.props;
     history.push(`/requests${query}`);
+    fetchUserRequests(query);
+    this.setState(prevState => ({
+      ...prevState,
+      activeStatus: Utils.getActiveStatus(query),
+      searchQuery: query
+    }));
   };
 
   onPageChange = page => {
@@ -99,8 +100,18 @@ export class RequestsPage extends Base {
     );
   }
 
-  renderNewRequestForm(shouldOpen, modalType) {
-    const { user, createNewRequest, loading, errors, closeModal, manager } = this.props;
+  renderNewRequestForm() {
+    const {
+      user,
+      createNewRequest,
+      loading,
+      errors,
+      closeModal,
+      shouldOpen,
+      modalType,
+      manager
+    } = this.props;
+
     return (
       <Modal
         closeModal={closeModal}
@@ -121,80 +132,29 @@ export class RequestsPage extends Base {
     );
   }
 
-  renderRequestPage(
-    leftPaddingClass,
-    hideClass,
-    hideClass3,
-    selectedLink,
-    hideSideBar
-  ) {
-    const {
-      isLoading,
-      requests,
-      pagination,
-      fetchRequestsError,
-      message
-    } = this.props;
+  renderRequestPage() {
+    const {isLoading, requests, pagination, fetchRequestsError, message} = this.props;
     return (
-      <div className="mdl-layout__content full-height">
-        <div className="mdl-grid mdl-grid--no-spacing full-height">
-          {this.renderLeftSideBar(hideSideBar, selectedLink)}
-          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            <div className={`rp-requests ${leftPaddingClass}`}>
-              {this.renderRequestPanelHeader()}
-              {requests &&
-                this.renderRequests(
-                  requests,
-                  isLoading,
-                  fetchRequestsError,
-                  message
-                )}
-              {!isLoading &&
-                requests.length > 0 &&
-                this.renderPagination(pagination)}
-            </div>
-          </div>
-          {this.renderNotificationPane(hideClass, hideSideBar)}
-        </div>
-      </div>
+      <Fragment>
+        {this.renderRequestPanelHeader()}
+        {requests &&
+          this.renderRequests(requests, isLoading, fetchRequestsError, message)}
+        {!isLoading && requests.length > 0 && this.renderPagination(pagination)}
+      </Fragment>
     );
   }
 
   render() {
-    const {
-      hideNotificationPane,
-      hideSideBar,
-      selectedLink,
-      openSearch,
-      hideOverlay,
-    } = this.state;
-    const { shouldOpen, modalType } = this.props;
-    let [hideClass, leftPaddingClass] = hideNotificationPane
-      ? ['hide', '']
-      : ['', 'pd-left'];
-    const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
-    const overlayClass = hideOverlay ? 'block' : 'none';
     return (
-      <div>
-        {this.renderOverlay(overlayClass)}
-        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
-          {this.renderSideDrawer(selectedLink, overlayClass)}
-          {this.renderNavBar(openSearch)}
-          {this.renderNewRequestForm(shouldOpen, modalType)}
-          {this.renderRequestPage(
-            leftPaddingClass,
-            hideClass,
-            hideClass3,
-            selectedLink,
-            hideSideBar
-          )}
-        </div>
-      </div>
+      <Fragment>
+        {this.renderNewRequestForm()}
+        {this.renderRequestPage()}
+      </Fragment>
     );
   }
 }
 
-RequestsPage.propTypes = {
+Requests.propTypes = {
   user: PropTypes.object,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
@@ -214,7 +174,7 @@ RequestsPage.propTypes = {
   openModal: PropTypes.func.isRequired
 };
 
-RequestsPage.defaultProps = {
+Requests.defaultProps = {
   url: '',
   fetchRequestsError: null,
   requests: [],
@@ -245,4 +205,4 @@ const actionCreators = {
 export default connect(
   mapStateToProps,
   actionCreators
-)(RequestsPage);
+)(Requests);

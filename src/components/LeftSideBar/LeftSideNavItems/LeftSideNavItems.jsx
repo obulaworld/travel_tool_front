@@ -1,16 +1,21 @@
 import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import LeftSidebarNavItem from './LeftSideNavItem/LeftSideNavItem';
-import './_leftSideNavItems.scss';
-import DropdownItem from './DropdownItems/DropdownItem/DropdownItem';
+import {withRouter} from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import { logoutUser } from '../../../helper/userDetails';
+import LeftSidebarNavItem from './LeftSideNavItem/LeftSideNavItem';
+import DropdownItem from './DropdownItems/DropdownItem/DropdownItem';
+import logoutInactiveIcon from '../../../images/icons/logout_inactive.svg';
+import './_leftSideNavItems.scss';
+
 
 class LeftSideNavItems extends PureComponent {
+
   static propTypes = {
     setActiveNavItem: PropTypes.func.isRequired,
     activeNavItem: PropTypes.object.isRequired,
-    navIconsSource: PropTypes.object.isRequired,
-    history: PropTypes.shape({}).isRequired
+    userRole: PropTypes.string,
+    metadata: PropTypes.arrayOf(PropTypes.object).isRequired,
+    history: PropTypes.object
   };
 
   static childContextTypes = {
@@ -18,8 +23,13 @@ class LeftSideNavItems extends PureComponent {
     setActiveNavItem: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    userRole: '',
+    history: {}
+  };
+
   getChildContext() {
-    const { setActiveNavItem, activeNavItem } = this.props;
+    const {setActiveNavItem, activeNavItem} = this.props;
     return {
       activeNavItem,
       setActiveNavItem
@@ -31,93 +41,66 @@ class LeftSideNavItems extends PureComponent {
     logoutUser(history);
   };
 
-  renderLogout = () => {
-    return (
-      <Fragment>
-        <a
-          href="/"
-          id="signoutLink"
-          className="side-drawer__logout-text"
-          onClick={this.signout}
-        >
-          <i className="material-icons logout-sym">
-power_settings_new
-          </i>
-          <span>
-Logout
-          </span>
-        </a>
-      </Fragment>
-    );
-  };
+  isLinkVisible = (dropdownItem, userRole) => {
+    const {onlyVisibleTo} = dropdownItem;
+    const showItem = !onlyVisibleTo || onlyVisibleTo.includes(userRole);
+    return showItem;
+  }
 
-  renderRequestsDropdownItems = () => {
-    const { selectedLink } = this.props;
-    let requestActive, approvalActive;
-    [requestActive, approvalActive] =
-      selectedLink === 'request page' ? ['active', ''] : ['', 'active'];
-    return (
-      <Fragment>
-        <DropdownItem link_to="/requests">
-My Requests
-        </DropdownItem>
-        <DropdownItem link_to="/requests/my-approvals">
-          My Approvals
-        </DropdownItem>
-      </Fragment>
-    );
-  };
+  generateDropdownContents = (items) => {
+    const {userRole} = this.props;
+    const dropDownItems = items.map(dropdownItem => {
+      // show if item.onlyVisibleTo is not defined or if it is defined and it includes the current users role
+      const showItem = this.isLinkVisible(dropdownItem, userRole);
+      return showItem ? this.renderDropdownItem(dropdownItem): null;
+    });
+    return dropDownItems;
+  }
 
-  renderSettingsDropdownItems = () => {
-    const { selectedLink, isAdminCheck } = this.props;
-    let userRoles;
-    [userRoles] =
-      selectedLink === 'settings page' ? ['active', ''] : ['', 'active'];
+  generateNavItems(metadata, userRole) {
+    const navItems = metadata.map(navItem => {
+      // show if item.onlyVisibleTo is not defined or if it is defined and it includes the current users role
+      const showItem = this.isLinkVisible(navItem, userRole);
+      return showItem ? this.renderNavItem(navItem) : null;
+    });
+    return navItems;
+  }
+
+  renderDropdownItem = (dropdownItem) => {
     return (
-      <Fragment>
-        {isAdminCheck && isAdminCheck === 'Super Administrator' ? (
-          <DropdownItem link_to="/settings/roles">
-          User Roles
-          </DropdownItem>
-        ) : null}
-      </Fragment>
+      <DropdownItem key={dropdownItem.text} link_to={dropdownItem.link_to}>
+        {dropdownItem.text}
+      </DropdownItem>
     );
-  };
+  }
+
+  renderNavItem = (navItem) => {
+    const {isDropdown, dropdownItems} = navItem;
+    return (
+      <LeftSidebarNavItem
+        key={navItem.text}
+        isDropdown={navItem.isDropdown}
+        linkIcons={navItem.icons}
+        link_to={navItem.link_to}
+        activateOnLogin={navItem.activateOnLogin}
+        text={navItem.text}
+        onClick={this[navItem.onClick]}
+        className={navItem.variantClassName}
+      >
+        {isDropdown? this.generateDropdownContents(dropdownItems): null}
+      </LeftSidebarNavItem>
+    );
+  }
 
   render() {
-    const { navIconsSource } = this.props;
+    const {metadata, userRole} = this.props;
     return (
       <ul>
-        <LeftSidebarNavItem
-          isDropdown
-          linkIcons={navIconsSource.requestsIcon}
-          link_to="/requests"
-          text="Requests"
-        >
-          {this.renderRequestsDropdownItems()}
-        </LeftSidebarNavItem>
-        <LeftSidebarNavItem
-          isDropdown
-          linkIcons={navIconsSource.settingsIcon}
-          link_to="/settings"
-          text="Settings"
-        >
-          {this.renderSettingsDropdownItems()}
-        </LeftSidebarNavItem>
-        {this.renderLogout()}
+        {/* Use the Metadata module to add navigation items */}
+        { this.generateNavItems(metadata, userRole) }
       </ul>
     );
   }
 }
 
-LeftSideNavItems.propTypes = {
-  selectedLink: PropTypes.string,
-  isAdminCheck: PropTypes.string
-};
-
-LeftSideNavItems.defaultProps = {
-  selectedLink: '',
-  isAdminCheck: ''
-};
-
-export default LeftSideNavItems;
+export default withRouter(LeftSideNavItems);

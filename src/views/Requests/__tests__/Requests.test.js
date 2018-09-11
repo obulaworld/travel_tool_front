@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import { RequestsPage, mapStateToProps } from '../RequestsPage';
+import { Requests, mapStateToProps } from '..';
 import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 
 const props = {
@@ -109,12 +109,12 @@ const mockStore = configureStore();
 const store = mockStore(initialState);
 
 
-describe('<RequestsPage>', () => {
-  it('should render the RequestsPage without crashing', () => {
+describe('<Requests>', () => {
+  it('should render the Requests without crashing', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
@@ -123,12 +123,12 @@ describe('<RequestsPage>', () => {
   });
 
   it('calls the componentDidMount method', () => {
-    const spy = sinon.spy(RequestsPage.prototype, 'componentDidMount');
+    const spy = sinon.spy(Requests.prototype, 'componentDidMount');
     const { fetchUserRequests, fetchRoleUsers } = props;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
@@ -146,11 +146,11 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
     wrapper.find('#next-button').simulate('click');
     expect(spy.calledOnce).toEqual(true);
     expect(fetchUserRequests.called).toEqual(true);
@@ -162,7 +162,7 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...{
+          <Requests {...{
             ...props,
             location:{
               search: ''
@@ -171,7 +171,7 @@ describe('<RequestsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
     wrapper.find('#next-button').simulate('click');
     expect(spy.called).toEqual(true);
     expect(spy.calledWith('?page=2')).toEqual(true);
@@ -183,14 +183,14 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
     wrapper.find('.dropdown__list__item').first().simulate('click');
     expect(spy.calledOnce).toEqual(true);
-    expect(spy.calledWith('?page=1&limit=10')).toEqual(true)
+    expect(spy.calledWith('?page=1&limit=10')).toEqual(true);
     wrapper.unmount();
   });
 
@@ -200,7 +200,7 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...{
+          <Requests {...{
             ...props,
             pagination: {...pagination, currentPage: 4},
             location: { search: '?page=4&status=open'}
@@ -208,18 +208,18 @@ describe('<RequestsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(RequestsPage).instance(), 'fetchRequests');
+    const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
     wrapper.find('.dropdown__list__item').last().simulate('click');
     expect(spy.calledOnce).toEqual(true);
     expect(spy.calledWith('?page=1&status=open&limit=30')).toEqual(true);
     wrapper.unmount();
   });
 
-  it('should render all the components except the notification pane', () => {
+  it('should render the child components', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
@@ -227,95 +227,20 @@ describe('<RequestsPage>', () => {
     expect(wrapper.find('Table').length).toBe(1);
     expect(wrapper.find('RequestPanelHeader').length).toBe(1);
     expect(wrapper.find('WithLoading').length).toBe(1); //WithLoading HOC containing Requests
-    expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
     // Since the element is always on the DOM, the page length will always be one
-    // so I'm checking if the 'hide' class exists
-    // the presence of the 'hide' class means that the element has been hidden
-    // the absence means the element is visible
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
     expect(wrapper.find('Pagination').length).toBe(1);
     wrapper.unmount();
   });
 
-  it('should display the notification pane when the notification icon gets clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RequestsPage {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const notificationIcon = wrapper.find('.navbar__navbar-notification');
-    notificationIcon.simulate('click');
-    expect(wrapper.find('.notification').exists()).toBeTruthy();
-    expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(1);
-    expect(wrapper.find('Table').exists()).toBeTruthy();
-    expect(wrapper.find('NavBar').exists()).toBeTruthy();
-    wrapper.unmount();
-  });
-
-  it('should close the notification pane on the second click of the notification icon', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RequestsPage {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const notificationIcon = wrapper.find('.navbar__navbar-notification');
-    /**
-     * we're simulating the click function twice because the first click opens the notification pane
-     * and the second call closes the notification pane
-     **/
-    notificationIcon.simulate('click');
-    notificationIcon.simulate('click');
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
-  });
-
-  it('should close the notification pane when the close icon is clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RequestsPage {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const closeIcon = wrapper.find('.notifications-header__close-btn');
-    closeIcon.simulate('click');
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(0);
-    expect(wrapper.find('Table').exists()).toBeTruthy();
-    expect(wrapper.find('NavBar').exists()).toBeTruthy();
-    wrapper.unmount();
-  });
-
-  it.skip('should log the user out when the logout button is clicked', () => {
-    const wrapper = mount(<RequestsPage {...props} />);
-    const spy = sinon.spy(wrapper.instance(), 'logout');
-    wrapper.find('#logout').simulate('click');
-    expect(spy.calledOnce).toEqual(true);
-    expect(history.push).toHaveBeenCalledWith('/');
-  });
-
-  it('should call handleHideSearchBar method', () =>{
-    const wrapper = shallow(<RequestsPage {...props} />);
-    wrapper.instance().handleHideSearchBar();
-    expect(wrapper.state('openSearch')).toBeTruthy;
-  });
-
   it('should call renderRequestPanelHeader method', () =>{
-    const wrapper = shallow(<RequestsPage {...props} />);
+    const wrapper = shallow(<Requests {...props} />);
     const instance = wrapper.instance();
     const spyon = jest.spyOn(instance, 'renderRequestPanelHeader');
     expect(spyon).toHaveBeenCalledTimes(0);
   });
 
   it('renders as expected', () => {
-    const wrapper = shallow(<RequestsPage {...props} />);
+    const wrapper = shallow(<Requests {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -323,21 +248,21 @@ describe('<RequestsPage>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...props} />
+          <Requests {...props} />
         </MemoryRouter>
       </Provider>
     );
     wrapper
       .find('.btn-new-request')
       .simulate('click');
-    expect(wrapper.find('RequestsPage').props().shouldOpen).toEqual(true);
+    expect(wrapper.find('Requests').props().shouldOpen).toEqual(true);
   });
 
   it('should set `visibility` prop to `visible` when new request button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <RequestsPage {...{...props, shouldOpen: true, modalType: 'new model'}} />
+          <Requests {...{...props, shouldOpen: true, modalType: 'new model'}} />
         </MemoryRouter>
       </Provider>
     );

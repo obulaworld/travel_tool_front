@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Requests> renders as expected 1`] = `
+<Fragment>
+  <Modal
+    closeModal={[Function]}
+    description=""
+    divClass=""
+    dynamicDate=""
+    dynamicText=""
+    innerClass=""
+    modalBar={<div />}
+    nextClass=""
+    symbol=""
+    title="New Travel Request"
+    visibility="invisible"
+  >
+    <NewRequestForm
+      closeModal={[Function]}
+      creatingRequest={false}
+      errors={Array []}
+      handleCreateRequest={[Function]}
+      loading={false}
+      managers={Array []}
+      user={
+        Object {
+          "UserInfo": Object {
+            "name": "John Doe",
+          },
+        }
+      }
+    />
+  </Modal>
+  <div
+    className="rp-requests__header"
+  >
+    <RequestPanelHeader
+      activeStatus="all"
+      fetchRequests={[Function]}
+      getRequestsWithLimit={[Function]}
+      modalType={null}
+      openModal={[Function]}
+      openRequestsCount={1}
+      pastRequestsCount={1}
+      requestsLength={3}
+      shouldOpen={false}
+      url="?page=1"
+    />
+  </div>
+  <div
+    className="rp-table"
+  >
+    <WithLoading
+      closeModal={[Function]}
+      fetchRequestsError={null}
+      isLoading={false}
+      modalType={null}
+      openModal={[Function]}
+      requests={
+        Array [
+          Object {
+            "arrivalDate": "2018-12-11",
+            "department": "TDD",
+            "departureDate": "2018-12-09",
+            "destination": "Nairobi",
+            "gender": "Female",
+            "id": "xDh20btGz",
+            "manager": "Samuel Kubai",
+            "name": "Amarachukwu Agbo",
+            "origin": "Lagos",
+            "role": "Software Developer",
+            "status": "Open",
+            "userId": "pommyLHJmKrx76A8Slm",
+          },
+          Object {
+            "arrivalDate": "2018-12-11",
+            "department": "TDD",
+            "departureDate": "2018-12-09",
+            "destination": "Nairobi",
+            "gender": "Female",
+            "id": "xDh20btGy",
+            "manager": "Samuel Kubai",
+            "name": "Amarachukwu Agbo",
+            "origin": "Lagos",
+            "role": "Software Developer",
+            "status": "Rejected",
+            "userId": "pommyLHJmKrx76A8Slm",
+          },
+          Object {
+            "arrivalDate": "2018-12-11",
+            "department": "TDD",
+            "departureDate": "2018-12-09",
+            "destination": "Nairobi",
+            "gender": "Female",
+            "id": "xDh20btGx",
+            "manager": "Samuel Kubai",
+            "name": "Amarachukwu Agbo",
+            "origin": "Lagos",
+            "role": "Software Developer",
+            "status": "Approved",
+            "userId": "pommyLHJmKrx76A8Slm",
+          },
+        ]
+      }
+      shouldOpen={false}
+      type="requests"
+    />
+  </div>
+  <div
+    className="rp-pagination"
+  >
+    <Pagination
+      currentPage={1}
+      onPageChange={[Function]}
+      pageCount={4}
+    />
+  </div>
+</Fragment>
+`;

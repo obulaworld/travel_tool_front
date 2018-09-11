@@ -12,9 +12,6 @@ class TravelDetailsFieldset extends Component {
     const { values } = this.props;
     const otherDestStatus = values.destination === 'Other' ? '' : 'hidden';
     const otherDestCustomClass = `full-width other-dest--${otherDestStatus}`;
-    const otherDestOptions = {className: otherDestCustomClass};
-    const departureDateOptions = {minDate: moment()};
-    const arrivalDateOptions = {minDate: moment(values.departureDate)};
 
     const customPropsOtherDest = { className: otherDestCustomClass };
     const customPropsForDepartureDate = { minDate: moment() };

@@ -8,30 +8,67 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
     className="left-sidebar__fixed_wrapper"
   >
     <div
-      style={
-        Object {
-          "height": "100%",
-          "overflowY": "scroll",
-        }
-      }
+      className="left-sidebar__scrollable_wrapper"
     >
-      <LeftSideNavItems
+      <withRouter(LeftSideNavItems)
         activeNavItem={Object {}}
-        isAdminCheck=""
-        navIconsSource={
-          Object {
-            "requestsIcon": Object {
-              "active": "bookmark_active.svg",
-              "inactive": "bookmark_inactive.svg",
+        metadata={
+          Array [
+            Object {
+              "activateOnLogin": true,
+              "dropdownItems": Array [
+                Object {
+                  "exact": true,
+                  "link_to": "/requests",
+                  "text": "My Requests",
+                },
+                Object {
+                  "link_to": "/requests/my-approvals",
+                  "text": "My Approvals",
+                },
+              ],
+              "icons": Object {
+                "active": "bookmark_active.svg",
+                "inactive": "bookmark_inactive.svg",
+              },
+              "isDropdown": true,
+              "link_to": "/requests",
+              "text": "Requests",
             },
-            "settingsIcon": Object {
-              "active": "settings_active.svg",
-              "inactive": "settings_inactive.svg",
+            Object {
+              "activateOnLogin": false,
+              "dropdownItems": Array [
+                Object {
+                  "link_to": "/settings/roles",
+                  "onlyVisibleTo": Array [
+                    "Super Administrator",
+                  ],
+                  "text": "User Roles",
+                },
+              ],
+              "icons": Object {
+                "active": "settings_active.svg",
+                "inactive": "settings_inactive.svg",
+              },
+              "isDropdown": true,
+              "link_to": "/settings",
+              "text": "Settings",
             },
-          }
+            Object {
+              "activateOnLogin": false,
+              "icons": Object {
+                "inactive": "logout_inactive.svg",
+              },
+              "isDropdown": false,
+              "link_to": "/logout",
+              "onClick": "signout",
+              "text": "Logout",
+              "variantClassName": "logout-button",
+            },
+          ]
         }
-        selectedLink=""
         setActiveNavItem={[Function]}
+        userRole=""
       />
     </div>
   </div>

@@ -2,7 +2,6 @@
 
 exports[`<HtmlInput /> renders as expected 1`] = `
 <input
-  className=""
-  error=""
+  className=" undefined"
 />
 `;

@@ -26,7 +26,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
       className="input-group"
     >
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="name"
@@ -47,8 +47,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           </span>
         </label>
         <input
-          className=""
-          error=""
+          className=" "
           label="Your name"
           name="name"
           onBlur={[Function]}
@@ -61,7 +60,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="gender"
@@ -106,7 +105,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="department"
@@ -221,7 +220,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="role"
@@ -362,7 +361,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="manager"
@@ -474,7 +473,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
       className="input-group"
     >
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="origin"
@@ -589,7 +588,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="destination"
@@ -717,7 +716,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input full-width other-dest--hidden"
+        className="form-input full-width other-dest--hidden "
       >
         <label
           htmlFor="otherDestination"
@@ -734,8 +733,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           </span>
         </label>
         <input
-          className=""
-          error=""
+          className=" full-width other-dest--hidden"
           label="Specify travel destination"
           name="otherDestination"
           onBlur={[Function]}
@@ -748,7 +746,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="departureDate"
@@ -801,7 +799,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="arrivalDate"
@@ -829,13 +827,14 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               >
                 <input
                   className=""
-                  disabled={false}
+                  disabled={true}
                   name="arrivalDate"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  placeholder="select departure date first"
                   readOnly={false}
                   type="text"
                   value=""

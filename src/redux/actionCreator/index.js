@@ -1,8 +1,9 @@
 import {
   setCurrentUser,
   setCurrentUserSuccess,
-  setCurrentUserFailure,
+  setCurrentUserFailure
 } from './actionCreators';
+
 import {
   fetchUserApprovals,
   fetchUserApprovalsSuccess,

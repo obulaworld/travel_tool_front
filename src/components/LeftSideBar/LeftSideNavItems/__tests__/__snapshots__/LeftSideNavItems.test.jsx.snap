@@ -1,23 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `undefined`;
+
 exports[`<LeftSideNavItems /> renders correctly 1`] = `
 <ul>
   <undefined />
   <undefined />
-  <a
-    className="side-drawer__logout-text"
-    href="/"
-    id="signoutLink"
-    onClick={[Function]}
+  <li
+    className="left-side-nav-item logout-button inactive"
   >
-    <i
-      className="material-icons logout-sym"
+    <a
+      aria-current={null}
+      className="nav-link"
+      href="/logout"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="button"
+      tabIndex="0"
     >
-      power_settings_new
-    </i>
-    <span>
-      Logout
-    </span>
-  </a>
+      <div
+        className="left-side-nav-item__left-icon"
+      >
+        <img
+          alt="icon"
+          src="logout_inactive.svg"
+        />
+      </div>
+      <div
+        className="left-side-nav-item__nav-text"
+      >
+        Logout
+      </div>
+    </a>
+  </li>
 </ul>
 `;

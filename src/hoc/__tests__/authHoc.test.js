@@ -1,8 +1,8 @@
 import React from 'react';
 import Authenticate from '../authHoc';
-import RequestsPage from '../../views/RequestsPage/RequestsPage';
+import Requests from '../../views/Requests';
 
-const components = Authenticate(RequestsPage);
+const components = Authenticate(Requests);
 
 const { WrappedComponent } = components;
 

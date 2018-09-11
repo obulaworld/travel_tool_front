@@ -1,46 +1,43 @@
 .sidebar {
   position: relative;
-  border-right: 1px solid;
-  margin-right: 10%;
-  border-color: #E4E4E4;
+  height: 100vh;
 }
 
-.side-drawer {
-  &__logout-text {
-    display: none;
-    color:  #999999;;
-    margin: 10px 0px 0px 90px;
-    font-family: 'DIN Pro';
-    font-size: 18px;
-    height: 21px;
-    width: 90px;
-    line-height: 21px;
-    @media (max-width: 1024px){
-      display: block;
-    }
+.side-drawer .left-sidebar {
+
+  &__fixed_wrapper {
+    top: 65px;
+    width: 100%;
   }
 }
 
-.logout-sym {
-  position: absolute;
-  left: 22px;
-}
 .left-sidebar {
   position: relative;
+  top: 0px;
   box-sizing: border-box;
   margin: 0px;
   width: 100%;
-  height: calc(100vh - 78px);
+  height: 100vh;
   font-family: 'DIN Pro';
-
-  ul {
-    margin: 0px 0px 0px -34px;
-  }
+  border-right: 1px solid #E4E4E4;
 
   &__fixed_wrapper {
-    position: absolute;
-    top: 40px;
-    width: 100%;
-    height: calc(100vh - 128px);
+    position: fixed;
+    top: 0px;
+    width: 16.666667%;
+    height: 100vh;
+  }
+
+  &__scrollable_wrapper {
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+    top: 108px;
+  }
+
+  .logout-button {
+    @media(min-width: 838px) {
+      display: none;
+    }
   }
 }

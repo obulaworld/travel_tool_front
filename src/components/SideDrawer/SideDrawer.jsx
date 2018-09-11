@@ -7,9 +7,9 @@ import ImageLink from '../image-link/ImageLink';
 
 export class SideDrawer extends PureComponent {
   render() {
-    const { selectedLink, user, showDrawer } = this.props;
+    const { selectedLink, user, handleShowDrawer, showDrawer, location } = this.props;
     const showDrawerTransition = showDrawer === 'none'? 'side-drawer__slide-in' : 'side-drawer__slide-out';
-    return (
+    return ( // eslint-disable-line
       <div className={`side-drawer ${showDrawerTransition}`}>
         <div className="side-drawer__user-details">
           <ImageLink
@@ -22,8 +22,8 @@ export class SideDrawer extends PureComponent {
           </div>
         </div>
         <hr className="side-drawer__divider" />
-        <nav className="mdl-navigation">
-          <ConnectedLeftSideBar selectedLink={selectedLink} />
+        <nav role="presentation" onClick={handleShowDrawer} className="mdl-navigation">
+          <ConnectedLeftSideBar location={location} />
         </nav>
       </div>
     );
@@ -32,11 +32,14 @@ export class SideDrawer extends PureComponent {
 SideDrawer.propTypes = {
   selectedLink: PropTypes.string,
   user: PropTypes.object.isRequired,
-  showDrawer: PropTypes.string
+  showDrawer: PropTypes.string,
+  location: PropTypes.object,
+  handleShowDrawer: PropTypes.func.isRequired
 };
 SideDrawer.defaultProps = {
   selectedLink: '',
-  showDrawer: 'block'
+  showDrawer: 'block',
+  location: {}
 };
 
 const mapStateToProps = state => {

@@ -8,7 +8,7 @@ import calendarIcon from '../../../../../images/icons/calendar_icon.svg';
 const DateInput = props => {
   const { error, className, selectedDate } = props;
   let _selectedDate = selectedDate
-    ? moment(selectedDate, 'MM/DD/YYYY')
+    ? moment(selectedDate, 'MM-DD-YYYY')
     : selectedDate;
 
   return (
@@ -19,7 +19,6 @@ const DateInput = props => {
         dayClassName={() => 'calendar-day'}
         selected={_selectedDate}
         fixedHeight
-        value={null}
         {...props}
       />
       <img className="calendar-icon" src={calendarIcon} alt="cal" />
@@ -30,7 +29,10 @@ const DateInput = props => {
 DateInput.propTypes = {
   error: PropTypes.string,
   className: PropTypes.string,
-  selectedDate: PropTypes.object
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 DateInput.defaultProps = {

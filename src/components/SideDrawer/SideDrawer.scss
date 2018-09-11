@@ -1,13 +1,14 @@
 .side-drawer {
     display: none;
+
     @media (max-width: 838px) {
         display: block;
         height: 100%;
-        position: absolute;
+        position: fixed;
         z-index: 100;
         width: 30%;
         background-color: white;
-        padding: 7px;
+        padding: 7px 0;
         border-right: 2px solid #e0e0e0;
     }
     @media (max-width: 479px) {

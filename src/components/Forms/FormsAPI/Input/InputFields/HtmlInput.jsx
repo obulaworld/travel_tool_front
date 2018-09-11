@@ -8,10 +8,15 @@ const HtmlInput = (props) => {
   let { error } = props;
   let className = error? 'error': '';
 
-  ['labelNote', 'toggleOptions', 'activeOption', 'selectedDate']
+  ['labelNote', 'toggleOptions', 'activeOption', 'selectedDate', 'error']
     .map(i => delete htmlProps[i]); // onChange has been included in htmlProps
 
-  return <input {...htmlProps} className={className} />;
+  return (
+    <input
+      {...htmlProps}
+      className={`${className} ${htmlProps.className}`}
+    />
+  );
 };
 
 HtmlInput.propTypes = {

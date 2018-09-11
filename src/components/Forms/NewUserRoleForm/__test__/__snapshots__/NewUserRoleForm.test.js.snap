@@ -12,7 +12,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
       className="input-group"
     >
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="email"
@@ -29,8 +29,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
           </span>
         </label>
         <input
-          className=""
-          error=""
+          className=" "
           label="Andela Email Address"
           name="email"
           onBlur={[Function]}
@@ -43,7 +42,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input "
+        className="form-input  "
       >
         <label
           htmlFor="roleName"

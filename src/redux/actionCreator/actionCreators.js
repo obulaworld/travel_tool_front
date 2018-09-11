@@ -4,7 +4,7 @@ export const setCurrentUser = () => {
   return {
     type: types.SET_CURRENT_USER
   };
-} ;
+};
 
 export const setCurrentUserSuccess = (response) => {
   return {

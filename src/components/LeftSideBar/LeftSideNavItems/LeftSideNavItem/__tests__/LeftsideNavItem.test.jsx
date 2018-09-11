@@ -1,15 +1,16 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { LeftSideNavItem, DropdownNavLink } from '../LeftSideNavItem';
+import { LeftSideNavItem } from '../LeftSideNavItem';
 import DropdownItem from '../../DropdownItems/DropdownItem/DropdownItem';
 
 describe('<LeftSideNavItem />', () => {
 
-  let match, wrapper;
+  let location, wrapper, onClick;
 
   beforeEach(() => {
-    match = {path: '/test-link'};
+    location = {pathname: '/test-link'};
+    onClick = jest.fn();
 
     const full_context = {
       context: {
@@ -19,7 +20,8 @@ describe('<LeftSideNavItem />', () => {
       childContextTypes: {
         setActiveNavItem: PropTypes.func.isRequired,
         activeNavItem: PropTypes.object.isRequired
-      }};
+      }
+    };
 
     wrapper = mount(
       <MemoryRouter>
@@ -27,8 +29,10 @@ describe('<LeftSideNavItem />', () => {
           text="Test link"
           isDropdown
           linkIcons={{active: 'test.svg', inactive: 'test.svg'}}
-          match={match}
-          link_to="/test-link">
+          location={location}
+          link_to="/test-link"
+          onClick={onClick}
+        >
           <DropdownItem link_to="/home">
             us
           </DropdownItem>
@@ -36,23 +40,12 @@ describe('<LeftSideNavItem />', () => {
             us
           </DropdownItem>
         </LeftSideNavItem>
-      </MemoryRouter>, full_context
-    );});
-
-  it('renders the LeftSideNavItem', () => {
-    expect(wrapper).toMatchSnapshot();
+      </MemoryRouter>,
+      full_context
+    );
   });
 
-  it('render DropdownNavLink', ()=> {
-    const wrapper = shallow(
-      <DropdownNavLink>
-        <p>
-some text
-        </p>
-        <p>
-lorem ipsum
-        </p>
-      </DropdownNavLink>);
+  it('renders the LeftSideNavItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -75,8 +68,9 @@ lorem ipsum
     });
 
     it('closes dropdown its when it is not the active item', () => {
-      const expectedStateOnClick = { dropdownOpen: true };
-      wrapper.setContext({activeNavItem: {}});
+      const expectedStateOnClick = { dropdownOpen: false };
+      wrapper
+        .setContext({activeNavItem: {}});
       const stateOnNewProps = wrapper
         .find(LeftSideNavItem)
         .instance()

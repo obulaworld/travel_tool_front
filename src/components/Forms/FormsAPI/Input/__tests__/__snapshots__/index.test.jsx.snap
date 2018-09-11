@@ -2,7 +2,7 @@
 
 exports[`<Input /> renders as expected 1`] = `
 <div
-  className="form-input error"
+  className="form-input  error"
 >
   <label
     htmlFor="name"
@@ -19,8 +19,7 @@ exports[`<Input /> renders as expected 1`] = `
     </span>
   </label>
   <input
-    className=""
-    error=""
+    className="error "
     label="Test label"
     name="name"
     onBlur={[Function]}

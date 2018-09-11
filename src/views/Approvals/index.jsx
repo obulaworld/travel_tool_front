@@ -10,13 +10,8 @@ import Utils from '../../helper/Utils';
 export class Approvals extends Base {
 
   state = {
-    hideNotificationPane: true,
-    hideSideBar: false,
-    openSearch: false,
-    hideOverlay: false,
     clickPage: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
-    selectedLink: 'approval page',
     searchQuery:  this.props.location.search
   }
 
@@ -26,17 +21,8 @@ export class Approvals extends Base {
     fetchUserApprovals(searchQuery);
   }
 
-  componentWillReceiveProps (nextProps) {
-    const searchQuery = nextProps.location.search;
-    this.setState(prevState => ({
-      ...prevState,
-      searchQuery
-    }));
-  }
-
   renderApprovalsTable(){
     const { approvals, openModal, closeModal, shouldOpen, modalType } = this.props;
-    // console.log(openModal)
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -53,8 +39,14 @@ export class Approvals extends Base {
   }
 
   fetchFilteredApprovals = (query) => {
-    const { history } = this.props;
+    const { history, location, fetchUserApprovals } = this.props;
     history.push(`/requests/my-approvals${query}`);
+    fetchUserApprovals(query);
+    this.setState(prevState => ({
+      ...prevState,
+      activeStatus: Utils.getActiveStatus(query),
+      searchQuery: query
+    }));
   }
 
   onPageChange = (page) => {
@@ -89,51 +81,14 @@ export class Approvals extends Base {
     );
   }
 
-  renderApprovalPage () {
-    const { hideNotificationPane, hideSideBar, selectedLink } = this.state;
-    let [hideClass, leftPaddingClass] = hideNotificationPane
-      ? ['hide', '']
-      : ['', 'pd-left'];
-    const {approvals} = this.props;
-
-    return (
-      <div className="mdl-layout__content full-height">
-        <div
-          className="mdl-grid mdl-grid--no-spacing full-height"
-          onClick={this.handleHideLogoutDropdown} id="logout" role="presentation">
-
-          {this.renderLeftSideBar(hideSideBar, selectedLink)}
-
-          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-            <div className={`rp-requests ${leftPaddingClass}`}>
-              {this.renderApprovalsPanelHeader()}
-              {approvals.approvals && this.renderApprovalsTable()}
-              {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
-            </div>
-          </div>
-          {this.renderNotificationPane(hideClass, hideSideBar)}
-        </div>
-      </div>
-    );
-  }
-
   render() {
-    const { selectedLink, hideOverlay, openSearch } = this.state;
-    const overlayClass = hideOverlay ? 'block': 'none';
-    return(
-      <div>
-        <div
-          className="side_overlay"
-          style={{display: `${overlayClass}`}} role="button"
-          onClick={this.handleOverlay}
-          onKeyPress={() => {}} tabIndex="0" />
-        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
-        >
-          {this.renderSideDrawer(selectedLink, overlayClass)}
-          {this.renderNavBar(openSearch)}
-          {this.renderApprovalPage()}
-        </div>
-      </div>
+    const {approvals} = this.props;
+    return (
+      <Fragment>
+        {this.renderApprovalsPanelHeader()}
+        {approvals.approvals && this.renderApprovalsTable()}
+        {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
+      </Fragment>
     );
   }
 }

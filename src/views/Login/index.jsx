@@ -131,5 +131,5 @@ export const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { setCurrentUser, postUserData }
+  { setCurrentUser, postUserData }, null, {pure: false}
 )(Login);

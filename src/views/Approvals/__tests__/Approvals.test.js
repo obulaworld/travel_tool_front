@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import { Approvals } from '../index';
+import { Approvals } from '..';
 import mockAxios from '../../../redux/__mocks__/mockAxios';
 
 const middleware = [createSagaMiddleware];
@@ -65,62 +65,6 @@ describe('<ApprovalsPage>', () => {
     wrapper.unmount();
   });
 
-  it('should render all the components except the notification pane', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Approvals {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find('.rp-requests__header').length).toBe(1);
-    expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('Pagination').length).toBe(1);
-    wrapper.unmount();
-  });
-
-  it('should display the notification pane when the notification icon gets clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Approvals {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const notificationIcon = wrapper.find('.navbar__navbar-notification');
-    notificationIcon.simulate('click');
-    expect(wrapper.find('.notification').exists()).toBeTruthy();
-    expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(1);
-    expect(wrapper.find('NavBar').exists()).toBeTruthy();
-    wrapper.unmount();
-  });
-
-  it('should close the notification pane when the close icon is clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Approvals {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    const closeIcon = wrapper.find('.notifications-header__close-btn');
-    closeIcon.simulate('click');
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(0);
-    expect(wrapper.find('NavBar').exists()).toBeTruthy();
-    wrapper.unmount();
-  });
-
-  it('should call handleHideSearchBar method', () =>{
-    const wrapper = shallow(<Approvals {...props} />);
-    wrapper.instance().handleHideSearchBar();
-    expect(wrapper.state('openSearch')).toBeTruthy;
-  });
-
   it('calls the onPageChange method', () => {
     const wrapper = mount(
       <Provider store={store}>
@@ -134,17 +78,6 @@ describe('<ApprovalsPage>', () => {
     expect(spy.calledOnce).toEqual(true);
     wrapper.find('#previous-button').simulate('click');
     wrapper.unmount();
-  });
-
-  it('should handle handleOverlay method', ()=> {
-    const wrapper = shallow(<Approvals {...props} />);
-    wrapper.instance().handleOverlay();
-    expect(wrapper.state('hideOverlay')).toBe(false);
-  });
-  it('should handle handleShowDrawer method', ()=> {
-    const wrapper = shallow(<Approvals {...props} />);
-    wrapper.instance().handleShowDrawer();
-    expect(wrapper.state('hideOverlay')).toBe(true);
   });
 
   it('calls get entries with limit on select items per page', () => {
@@ -203,7 +136,7 @@ describe('<ApprovalsPage>', () => {
     it('updates searchQuery on receiving receiving location props', () => {
       const approvals = wrapper.find(Approvals);
       approvals.instance()
-        .componentWillReceiveProps({location: {search: '?status=open'}});
+        .fetchFilteredApprovals('?status=open');
       expect(approvals.instance().state.searchQuery).toEqual('?status=open');
     });
   });

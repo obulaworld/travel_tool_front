@@ -18,6 +18,7 @@ DropdownItems.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
     PropTypes.object.isRequired,
+    PropTypes.array.isRequired
   ]),
   dropdownStatus: PropTypes.string.isRequired
 };

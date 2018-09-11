@@ -3,13 +3,13 @@
 exports[`<LeftSideNavItem /> <LeftSideNavItem /> with dropdown renders as dropdown 1`] = `
 Array [
   <li
-    className="left-side-nav-item active"
+    className="left-side-nav-item  active"
 >
     <div
         className="nav-link"
         onClick={[Function]}
         onKeyPress={[Function]}
-        role="button"
+        role="presentation"
         tabIndex="0"
         to="/test-link"
     >
@@ -59,27 +59,16 @@ Array [
 ]
 `;
 
-exports[`<LeftSideNavItem /> render DropdownNavLink 1`] = `
-<div>
-  <p>
-    some text
-  </p>
-  <p>
-    lorem ipsum
-  </p>
-</div>
-`;
-
 exports[`<LeftSideNavItem /> renders the LeftSideNavItem 1`] = `
 Array [
   <li
-    className="left-side-nav-item active"
+    className="left-side-nav-item  active"
 >
     <div
         className="nav-link"
         onClick={[Function]}
         onKeyPress={[Function]}
-        role="button"
+        role="presentation"
         tabIndex="0"
         to="/test-link"
     >

@@ -27,12 +27,12 @@ class NewRequestForm extends PureComponent {
         destination: '',
         otherDestination: '',
         departureDate: null,
-        arrivalDate: null
+        arrivalDate: null,
       },
       errors: {},
-      hasBlankFields: true
+      hasBlankFields: true,
+      checkBox: 'notClicked'
     };
-
     this.state = { ...this.defaultState };
   }
 
@@ -53,7 +53,6 @@ class NewRequestForm extends PureComponent {
     }
     if (this.validate()) {
       // call create the request
-
       let data = { ...values };
       if (data.destination === 'Other') {
         data.destination = data.otherDestination;
@@ -98,11 +97,11 @@ class NewRequestForm extends PureComponent {
     localStorage.setItem('role', role);
     localStorage.setItem('manager', manager);
   }
+  
 
   render() {
-    const { values, errors, hasBlankFields } = this.state;
+    const { values, errors, hasBlankFields , } = this.state;
     const { managers, creatingRequest } = this.props;
-
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
 

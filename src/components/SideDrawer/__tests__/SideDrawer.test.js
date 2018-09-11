@@ -12,7 +12,8 @@ const props = {
       name: 'Icon Max',
       picture: 'http://picture.com/gif'
     }
-  }
+  },
+  handleShowDrawer: jest.fn()
 };
 
 const initialState = {
@@ -37,7 +38,11 @@ describe('<SideDrawer>', () => {
   });
 
   it('should render all the components except the notification pane', () => {
-    const wrapper = shallow(<ConnectedSideDrawer store={store} />);
+    const wrapper = shallow(
+      <ConnectedSideDrawer
+        handleShowDrawer={jest.fn()}
+        store={store} 
+      />);
     expect(wrapper.length).toBe(1);
   });
 });

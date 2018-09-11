@@ -1,4 +1,4 @@
-import bugsnag from 'bugsnag-js'
+import bugsnag from 'bugsnag-js';
 import React, { Component, Fragment } from 'react';
 import createPlugin from 'bugsnag-react';
 import { BrowserRouter } from 'react-router-dom';
@@ -17,8 +17,8 @@ import '../../../node_modules/toastr/build/toastr.min.css';
 let Wrapper = Fragment;
 
 if (process.env.REACT_APP_BUGSNAG_API_KEY) {
-  const bugsnagClient = bugsnag(process.env.REACT_APP_BUGSNAG_API_KEY)
-  let Wrapper = bugsnagClient.use(createPlugin(React))
+  const bugsnagClient = bugsnag(process.env.REACT_APP_BUGSNAG_API_KEY);
+  let Wrapper = bugsnagClient.use(createPlugin(React));
 }
 
 // Calender settings

@@ -5,4 +5,12 @@
   font-weight: 500;
   color: #4F4F4F;
   margin-bottom: 25px;
+
+  &.active {
+    color: #3359DB;
+  }
+
+  &:not([class~="active"]):hover {
+    color: #000000;
+  }
 }

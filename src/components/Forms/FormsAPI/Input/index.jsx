@@ -78,7 +78,7 @@ class Input extends PureComponent {
 
     return (
       <div
-        className={`form-input ${customClass}${errors[name] ? 'error' : ''}`}
+        className={`form-input ${customClass} ${errors[name] ? 'error' : ''}`}
       >
         <label htmlFor={name}>
           {label}
@@ -87,7 +87,7 @@ class Input extends PureComponent {
           </span>
           {this.labelNote(labelNote)}
         </label>
-        <InputElement {...this.props} />
+        <InputElement error={errors[name]} {...this.props} />
         <span className="error">
           {errors[name]}
         </span>

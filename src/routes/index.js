@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ConnectedLogin from '../views/Login/Login';
-import ConnectedRequestsPage from '../views/RequestsPage/RequestsPage';
+import ConnectedLogin from '../views/Login';
+import ConnectedRequests from '../views/Requests';
 import RequireAuth from '../hoc/authHoc';
-import ConnectedApprovalsPage from '../views/ApprovalsPage';
+import ConnectedApprovals from '../views/Approvals';
 import Checkbox from '../components/CheckBox';
 import ConnectedRole from '../views/Role';
+import NavigationLayout from '../hoc/Layout';
 
 
 const Routes = () => (
@@ -15,26 +16,27 @@ const Routes = () => (
       exact
       component={ConnectedLogin}
     />
-    <Route
-      path="/requests"
-      exact
-      component={RequireAuth(ConnectedRequestsPage)}
-    />
-    <Route
-      path="/requests/my-approvals"
-      exact
-      component={RequireAuth(ConnectedApprovalsPage)}
-    />
-    <Route
-      path="/settings/roles"
-      exact
-      component={RequireAuth(ConnectedRole)}
-    />
-    <Route
-      path="/checkbox"
-      exact
-      component={Checkbox}
-    />
+    <Route>
+      <NavigationLayout>
+        <Switch>
+          <Route
+            path="/requests/my-approvals"
+            exact
+            component={RequireAuth(ConnectedApprovals)}
+          />
+          <Route
+            path="/requests"
+            exact
+            component={RequireAuth(ConnectedRequests)}
+          />
+          <Route
+            path="/settings/roles"
+            exact
+            component={RequireAuth(ConnectedRole)}
+          />
+        </Switch>
+      </NavigationLayout>
+    </Route>
   </Switch>
 );
 

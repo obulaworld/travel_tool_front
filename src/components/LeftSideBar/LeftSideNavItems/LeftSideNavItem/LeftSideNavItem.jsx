@@ -9,12 +9,16 @@ export class LeftSideNavItem extends PureComponent {
     text: PropTypes.string.isRequired,
     link_to: PropTypes.string.isRequired,
     linkIcons: PropTypes.object.isRequired,
+    activateOnLogin: PropTypes.bool,
     isDropdown: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.object.isRequired,
+      PropTypes.array.isRequired,
       PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
     ]),
-    match: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
+    className: PropTypes.string
   }
 
   static contextTypes = {
@@ -24,7 +28,10 @@ export class LeftSideNavItem extends PureComponent {
 
   static defaultProps = {
     children: {},
-    isDropdown: false
+    isDropdown: false,
+    activateOnLogin: false,
+    onClick: () => {},
+    className: ''
   }
 
   constructor(props) {
@@ -35,11 +42,18 @@ export class LeftSideNavItem extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    const {activateOnLogin} = this.props;
+    const {setActiveNavItem} = this.context;
+    if(activateOnLogin)
+      setActiveNavItem(this);
+  }
+
   componentWillReceiveProps(nextProps, nextContext) {
     // clicking on the navigation items will cause the items to receive new context and
     // this will be is fired to determine
     if(nextContext.activeNavItem !== this)
-      this.setState({dropdownOpen: true});
+      this.setState({dropdownOpen: false});
   }
 
   getType = () => {
@@ -57,28 +71,29 @@ export class LeftSideNavItem extends PureComponent {
   }
 
   isActive = () => {
-    const { match, link_to } = this.props;
+    const { location, link_to } = this.props;
     const { activeNavItem } = this.context;
-    return (activeNavItem === this) || match.path.startsWith(link_to);
+    return location.pathname.startsWith(link_to);
   }
 
   handleClicked = () => {
+    const {onClick, isDropdown} = this.props;
     const {setActiveNavItem} = this.context;
     setActiveNavItem(this);
     const {dropdownOpen} = this.state;
     this.setState({dropdownOpen: !dropdownOpen});
+    onClick ? onClick() : null;
   }
 
   render() {
-    const {text, link_to, linkIcons, isDropdown } = this.props;
-    const dropdownElements = isDropdown? this.getDropdownElements(): null;
+    const {text, link_to, linkIcons, isDropdown, className } = this.props;
     const status = this.isActive()? 'active': 'inactive';
     // switch between rendering a NavLink and a DropdownNavLink
     const NavLinkItem = this.getType();
 
     return (
       <Fragment>
-        <li className={`left-side-nav-item ${status}`}>
+        <li className={`left-side-nav-item ${className || ''} ${status}`}>
           <NavLinkItem className="nav-link" role="button" onClick={this.handleClicked} to={link_to} onKeyPress={() => {}} tabIndex="0">
             <div className="left-side-nav-item__left-icon">
               <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
@@ -86,19 +101,26 @@ export class LeftSideNavItem extends PureComponent {
             <div className="left-side-nav-item__nav-text">
               {text}
             </div>
-            { isDropdown? dropdownElements.icon: null }
+            { isDropdown? this.getDropdownElements().icon: null }
           </NavLinkItem>
         </li>
-        { isDropdown? dropdownElements.items: null }
+        { isDropdown? this.getDropdownElements().items: null }
       </Fragment>
     );
   }
 }
 
-export const DropdownNavLink = (props) => {
-  const { children } = props;
+const DropdownNavLink = (props) => {
+  const { children, onClick } = props;
   return (
-    <div {...props}>
+    <div
+      {...props}
+      role="presentation"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
       {children}
     </div>
   );
@@ -106,6 +128,7 @@ export const DropdownNavLink = (props) => {
 
 DropdownNavLink.propTypes = {
   children: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default withRouter(LeftSideNavItem);
