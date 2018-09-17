@@ -5,7 +5,7 @@ version: 2
 defaults: &defaults
   docker:
     - image: circleci/node:carbon
-  working_directory: ~/travella-frontend
+  working_directory: ~/travela-frontend
   environment:
     TERM: xterm-256color
 
@@ -16,7 +16,7 @@ install_npm_packages: &install_npm_packages
 
 attach_workspace: &attach_workspace
   attach_workspace:
-    at: ~/travella-frontend
+    at: ~/travela-frontend
 
 filters: &filters
   filters:
@@ -70,7 +70,7 @@ jobs:
             chmod +x ./cc-test-reporter
       - *install_npm_packages
       - run:
-          name: Run Travella Test Suites
+          name: Run travela Test Suites
           command: |
             ./cc-test-reporter before-build
             yarn test --coverage
