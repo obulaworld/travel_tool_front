@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserComments component should match snapshot 1`] = `
+<div
+  className="modal__modal-date"
+>
+  <TravelLink
+    divClass="modal__travel-date"
+    dynamicDate="04 Sep 2018"
+    dynamicText="Date submitted"
+    innerClass="modal__travel-dates"
+    nextClass="modal__date-text"
+  />
+  <TravelLink
+    divClass="modal__travel-date"
+    dynamicDate="12 Sep 2018"
+    dynamicText="Target depature date"
+    innerClass="modal__travel-dates"
+    nextClass="modal__date-text"
+  />
+  <TravelLink
+    divClass="modal__travel-date"
+    dynamicDate="12 Nov 2018"
+    dynamicText="Target return date"
+    innerClass="modal__travel-dates"
+    nextClass="modal__date-text"
+  />
+</div>
+`;

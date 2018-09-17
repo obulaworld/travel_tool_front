@@ -95,6 +95,7 @@ export class Requests extends Base {
           shouldOpen={shouldOpen}
           modalType={modalType}
           message={message}
+          page="Requests"
         />
       </div>
     );

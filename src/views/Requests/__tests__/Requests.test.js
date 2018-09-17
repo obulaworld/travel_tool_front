@@ -81,6 +81,7 @@ const props = {
   modalType: null,
   openModal: jest.fn(),
   closeModal: jest.fn(),
+  page: 'Requests'
 };
 
 const initialState = {

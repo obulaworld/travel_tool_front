@@ -34,6 +34,7 @@ export class Approvals extends Base {
         openModal={openModal}
         shouldOpen={shouldOpen}
         modalType={modalType}
+        page="Approvals"
       />
     );
   }

@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { CommentBox } from '../CommentBox';
 
-// describe what we are testing
 describe('Render RequestsModal component', () => {
   
 

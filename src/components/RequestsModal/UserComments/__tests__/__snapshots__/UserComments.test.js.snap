@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserComments component should match snapshot 1`] = `
+<div
+  className="modal__modal1"
+  key="1"
+>
+  <hr />
+  <div
+    className="modal__mdl-icons"
+  >
+    <ImageLink
+      altText="avatar"
+      imageClass="modal__oval-copy"
+      imageSrc="/path/to/image"
+    />
+    <span
+      className="modal__user-name"
+    >
+      Smith Allen
+    </span>
+    <span
+      className="modal__hours-status"
+    >
+      Invalid date
+    </span>
+    <span
+      className="modal__dialog"
+    >
+      <button
+        className="modal__delete-btn"
+        type="button"
+      >
+        Delete
+      </button>
+    </span>
+    <div
+      className="modal__modal2"
+    >
+      <div
+        className="modal__status-update"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Can you clarify why",
+          }
+        }
+      />
+       
+    </div>
+  </div>
+</div>
+`;

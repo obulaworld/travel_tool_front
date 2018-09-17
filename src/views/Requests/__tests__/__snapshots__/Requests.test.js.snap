@@ -56,6 +56,7 @@ exports[`<Requests> renders as expected 1`] = `
       isLoading={false}
       modalType={null}
       openModal={[Function]}
+      page="Requests"
       requests={
         Array [
           Object {

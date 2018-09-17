@@ -12,11 +12,11 @@ export class Table extends Component {
   };
 
   handleClickRequest = requestId => {
-    const { openModal } = this.props;
+    const { openModal, page } = this.props;
     this.setState({
       clickedRequestId: requestId,
     });
-    openModal(true, 'request details');
+    openModal(true, 'request details', page);
   };
 
   renderNoRequests(message) {
@@ -191,7 +191,8 @@ Table.propTypes = {
   openModal: PropTypes.func,
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
-  message: PropTypes.string
+  message: PropTypes.string,
+  page: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -202,7 +203,8 @@ Table.defaultProps = {
   openModal: () => {},
   shouldOpen: false,
   modalType: null,
-  message: ''
+  message: '',
+  page: ''
 };
 
 export default withLoading(Table);

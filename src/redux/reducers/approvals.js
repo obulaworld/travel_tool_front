@@ -52,14 +52,15 @@ const approvals = (state = initState, action) => {
       ...state,
       updatingStatus: false,
       approvals: state.approvals.map((approval) => {
-        // Fix: refactor later to use better response data from the server
-        if (approval.id === action.updatedRequest.updatedRequest.id) {
-          approval.status = action.updatedRequest.updatedRequest.status;
+        if (approval.id === action.updatedRequest.request.id) {
+          approval.status = action.updatedRequest.request.status;
         }
 
         return approval;
       }),
-      openApprovalsCount: action.updatedRequest.count.open,
+      openApprovalsCount: state.approvals.filter(
+        approval => approval.status === 'Open'
+      ).length,
       error: ''
     };
   case UPDATE_REQUEST_STATUS_FAILURE:

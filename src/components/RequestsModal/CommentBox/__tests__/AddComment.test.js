@@ -2,8 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import AddComment from '../AddComment';
 
-// describe what we are testing
-describe('Render AddComment component', () => {
+describe('AddComment component', () => {
   const wrapper = shallow(<AddComment />);
 
   it('should match snapshot', () => {

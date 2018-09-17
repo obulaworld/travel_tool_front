@@ -1,10 +1,11 @@
 const initialState = {
   modal: {
     shouldOpen: false,
-    modalType: null
+    modalType: null,
+    page: null,
   }
 };
-  
+
 const modal = (state = initialState, action) => {
   switch (action.type) {
   case 'OPEN_MODAL':
@@ -12,7 +13,8 @@ const modal = (state = initialState, action) => {
       ...state,
       modal: {
         shouldOpen: true,
-        modalType: action.modal.modalType
+        modalType: action.modal.modalType,
+        page: action.modal.page,
       },
     };
   case 'CLOSE_MODAL':

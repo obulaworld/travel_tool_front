@@ -4,7 +4,8 @@ describe('Requests reducer', () => {
   const initialState = {
     modal: {
       shouldOpen: false,
-      modalType: null
+      modalType: null,
+      page: null
     }
   };
 
@@ -19,7 +20,8 @@ describe('Requests reducer', () => {
       type: 'OPEN_MODAL',
       modal: {
         shouldOpen: true,
-        modalType: 'request details'
+        modalType: 'request details',
+        page: 'Requests'
       }
     };
 
@@ -27,7 +29,8 @@ describe('Requests reducer', () => {
     receivedState = {
       modal: {
         shouldOpen: true,
-        modalType: 'request details'
+        modalType: 'request details',
+        page: 'Requests'
       }
     };
 
@@ -43,7 +46,7 @@ describe('Requests reducer', () => {
     receivedState = {
       modal: {
         shouldOpen: false,
-        modalType: null
+        modalType: null,
       }
     };
 

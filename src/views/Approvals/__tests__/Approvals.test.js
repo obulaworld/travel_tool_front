@@ -37,7 +37,9 @@ const props = {
   history: [],
   location: {
     search: ''
-  }
+  },
+  fetchRequestsError: jest.fn(),
+  message: ''
 };
 
 const initialState = {

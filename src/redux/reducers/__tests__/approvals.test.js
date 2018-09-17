@@ -48,7 +48,7 @@ describe('Approvals Reducer', () => {
   });
 
   describe('Update Requests Status reducer', () => {
-    const initialState = {
+    let initialState = {
       approvals: [],
       isLoading: false,
       message: '',
@@ -66,11 +66,22 @@ describe('Approvals Reducer', () => {
 
     it('should handle UPDATE_REQUEST_STATUS', () => {
       action = {
-        type: 'UPDATE_REQUEST_STATUS',
+        type: UPDATE_REQUEST_STATUS,
         updatedRequest: {
           status: 'Approved'
         }
       };
+
+      initialState.approvals = [
+        {
+          id: 1,
+          status: 'Approved'
+        },
+        {
+          id: 2,
+          status: 'Open'
+        },
+      ];
 
       newState = approvals(initialState, action);
       receivedState = {
@@ -85,15 +96,12 @@ describe('Approvals Reducer', () => {
 
     it('should handle UPDATE_REQUEST_STATUS_SUCCESS', () => {
       action = {
-        type: 'UPDATE_REQUEST_STATUS_SUCCESS',
+        type: UPDATE_REQUEST_STATUS_SUCCESS,
         updatedRequest: {
-          updatedRequest: {
+          request: {
             id: 1,
             status: 'Approved'
           },
-          count: {
-            open: 1,
-          }
         }
       };
 
@@ -101,8 +109,17 @@ describe('Approvals Reducer', () => {
       receivedState = {
         ...initialState,
         updatingStatus: false,
-        approvals: [],
-        openApprovalsCount: action.updatedRequest.count.open,
+        approvals: [
+          {
+            id: 1,
+            status: 'Approved'
+          },
+          {
+            id: 2,
+            status: 'Open'
+          },
+        ],
+        openApprovalsCount: 1,
         error: ''
       };
 
@@ -112,7 +129,7 @@ describe('Approvals Reducer', () => {
     it('should handle UPDATE_REQUEST_STATUS_FAILURE', () => {
       error = 'permission denied, you are not requesters manager';
       action = {
-        type: 'UPDATE_REQUEST_STATUS_FAILURE',
+        type: UPDATE_REQUEST_STATUS_FAILURE,
         error
       };
 

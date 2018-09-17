@@ -2,29 +2,45 @@
 
 exports[`Render RequestsModal component should match snapshot 1`] = `
 <Fragment>
-  <div>
-    <div
-      className="modal__user-info"
-    >
-      <ImageLink
-        altText="avatar"
-        imageClass="modal__oval"
-        imageSrc="http://my-image"
-      />
-      <span
-        className="modal__text-size"
-      >
-        Test user C
-      </span>
-      <div
-        className="modal__modal3"
-      >
-        Software Developer
-        ,
-        TDD
-      </div>
-    </div>
-  </div>
+  <UserInfo
+    requestData={
+      Object {
+        "arrivalDate": "2018-11-12",
+        "comments": Array [
+          Object {
+            "comment": "This is a comment",
+            "createdAt": "2018-09-04T10:38:12.141Z",
+            "id": 1,
+            "picture": "http://my-image",
+            "userName": "Random User",
+          },
+          Object {
+            "comment": "This is another comment",
+            "createdAt": "2018-10-04T10:38:12.141Z",
+            "id": 2,
+            "picture": "http://my-image",
+            "userName": "Random User Two",
+          },
+        ],
+        "createdAt": "2018-09-04T10:38:12.141Z",
+        "department": "TDD",
+        "departureDate": "2018-09-12",
+        "destination": "Nairobi",
+        "id": "xDh20cuGx",
+        "manager": "Samuel Kubai",
+        "name": "Test user C",
+        "origin": "Lagos",
+        "role": "Software Developer",
+        "status": "Approved",
+        "userId": "-MUyHJmKrxA90lPNQ1FOLNm",
+      }
+    }
+    user={
+      Object {
+        "picture": "http://my-image",
+      }
+    }
+  />
   <div
     className="modal__travel-place"
   >
@@ -49,31 +65,40 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       </span>
     </span>
   </div>
-  <div
-    className="modal__modal-date"
-  >
-    <TravelLink
-      divClass="modal__travel-date"
-      dynamicDate="04 Sep 2018"
-      dynamicText="Date submitted"
-      innerClass="modal__travel-dates"
-      nextClass="modal__date-text"
-    />
-    <TravelLink
-      divClass="modal__travel-date"
-      dynamicDate="12 Sep 2018"
-      dynamicText="Target depature date"
-      innerClass="modal__travel-dates"
-      nextClass="modal__date-text"
-    />
-    <TravelLink
-      divClass="modal__travel-date"
-      dynamicDate="12 Nov 2018"
-      dynamicText="Target return date"
-      innerClass="modal__travel-dates"
-      nextClass="modal__date-text"
-    />
-  </div>
+  <RequestInfo
+    requestData={
+      Object {
+        "arrivalDate": "2018-11-12",
+        "comments": Array [
+          Object {
+            "comment": "This is a comment",
+            "createdAt": "2018-09-04T10:38:12.141Z",
+            "id": 1,
+            "picture": "http://my-image",
+            "userName": "Random User",
+          },
+          Object {
+            "comment": "This is another comment",
+            "createdAt": "2018-10-04T10:38:12.141Z",
+            "id": 2,
+            "picture": "http://my-image",
+            "userName": "Random User Two",
+          },
+        ],
+        "createdAt": "2018-09-04T10:38:12.141Z",
+        "department": "TDD",
+        "departureDate": "2018-09-12",
+        "destination": "Nairobi",
+        "id": "xDh20cuGx",
+        "manager": "Samuel Kubai",
+        "name": "Test user C",
+        "origin": "Lagos",
+        "role": "Software Developer",
+        "status": "Approved",
+        "userId": "-MUyHJmKrxA90lPNQ1FOLNm",
+      }
+    }
+  />
   <div
     className="modal__button-below"
   >
@@ -85,18 +110,19 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       >
         <button
           className="modal__button-submitted-text bg"
-          disabled={true}
+          disabled={false}
           id="b1"
           onClick={[Function]}
           style={
             Object {
-              "backgroundColor": "",
-              "color": "",
+              "backgroundColor": "#49AAAF",
+              "color": "white",
+              "cursor": "",
             }
           }
           type="button"
         >
-          Approve
+          Approved
         </button>
       </span>
     </span>
@@ -108,13 +134,14 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       >
         <button
           className="modal__button-rejected-text"
-          disabled={true}
+          disabled={false}
           id="b2"
           onClick={[Function]}
           style={
             Object {
-              "backgroundColor": "",
-              "color": "",
+              "backgroundColor": "white",
+              "color": "black",
+              "cursor": "",
             }
           }
           type="button"
@@ -159,102 +186,26 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
   <div
     id="comments"
   >
-    <div
-      className="modal__modal1"
-      key="2"
-    >
-      <hr />
-      <div
-        className="modal__mdl-icons"
-      >
-        <ImageLink
-          altText="avatar"
-          imageClass="modal__oval-copy"
-          imageSrc="http://my-image"
-        />
-        <span
-          className="modal__user-name"
-        >
-          Random User Two
-        </span>
-        <span
-          className="modal__hours-status"
-        >
-          in 23 days
-        </span>
-        <span
-          className="modal__dialog"
-        >
-          <button
-            className="modal__delete-btn"
-            type="button"
-          >
-            Delete
-          </button>
-        </span>
-        <div
-          className="modal__modal2"
-        >
-          <div
-            className="modal__status-update"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "This is another comment",
-              }
-            }
-          />
-           
-        </div>
-      </div>
-    </div>
-    <div
-      className="modal__modal1"
-      key="1"
-    >
-      <hr />
-      <div
-        className="modal__mdl-icons"
-      >
-        <ImageLink
-          altText="avatar"
-          imageClass="modal__oval-copy"
-          imageSrc="http://my-image"
-        />
-        <span
-          className="modal__user-name"
-        >
-          Random User
-        </span>
-        <span
-          className="modal__hours-status"
-        >
-          7 days ago
-        </span>
-        <span
-          className="modal__dialog"
-        >
-          <button
-            className="modal__delete-btn"
-            type="button"
-          >
-            Delete
-          </button>
-        </span>
-        <div
-          className="modal__modal2"
-        >
-          <div
-            className="modal__status-update"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "This is a comment",
-              }
-            }
-          />
-           
-        </div>
-      </div>
-    </div>
+    <UserComments
+      comments={
+        Array [
+          Object {
+            "comment": "This is a comment",
+            "createdAt": "2018-09-04T10:38:12.141Z",
+            "id": 1,
+            "picture": "http://my-image",
+            "userName": "Random User",
+          },
+          Object {
+            "comment": "This is another comment",
+            "createdAt": "2018-10-04T10:38:12.141Z",
+            "id": 2,
+            "picture": "http://my-image",
+            "userName": "Random User Two",
+          },
+        ]
+      }
+    />
   </div>
 </Fragment>
 `;

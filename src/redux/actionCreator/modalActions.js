@@ -1,8 +1,9 @@
-export const openModal = (shouldOpen, modalType) => ({
+export const openModal = (shouldOpen, modalType, page) => ({
   type: 'OPEN_MODAL',
   modal: {
     shouldOpen,
-    modalType
+    modalType,
+    page
   }
 });
 
