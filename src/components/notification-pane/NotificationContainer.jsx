@@ -1,23 +1,28 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './_notificationContainer.scss';
-import image from '../../images/logo.svg';
 import NotificationItem from './NotificationItem';
 
 export default class NotificationContainer extends PureComponent {
 
   renderNotifications = (notifications) => {
-    return notifications.map(
-      notification => (
-        <NotificationItem
-          id={notification.name}
-          key={notification.name}
-          isPending={notification.isPending}
-          name={notification.name}
-          messageOpened={notification.messageOpened}
-          image={image}
-        />
-      )    
+    return notifications.length && notifications.map(
+      notification => {
+        let isPending = false;
+        if(notification.notificationType === 'pending'){
+          isPending = true;
+        }
+        return  (
+          <NotificationItem
+            id={notification.requestId}
+            key={notification.id}
+            isPending={isPending}
+            name={notification.senderName}
+            messageOpened={notification.notificationStatus}
+            image={notification.senderImage}
+          />
+        );
+      } 
     );
   };
 
@@ -41,18 +46,18 @@ export default class NotificationContainer extends PureComponent {
               mark all as read
           </div>
         </div>
-        {title === 'Pending Approvals' && this.renderNotifications(pendingNotifications)}
-        {title === 'General Notifications' && this.renderNotifications(generalNotifications)}
+        {title === 'Pending Approvals' && number !== 0 && this.renderNotifications(pendingNotifications)}
+        {title === 'General Notifications' && number !== 0 && this.renderNotifications(generalNotifications)}
       </div>
     );
   }
 }
 
 const NOTIFICATIONS_PROPTYPES = PropTypes.arrayOf(PropTypes.shape({
-  isPending: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  messageOpened: PropTypes.bool.isRequired,
-  image: PropTypes.string.isRequired,
+  isPending: PropTypes.bool,
+  name: PropTypes.string,
+  notificationStatus: PropTypes.string,
+  image: PropTypes.string,
 }));
 
 NotificationContainer.propTypes = {
@@ -63,5 +68,5 @@ NotificationContainer.propTypes = {
 
 NotificationContainer.defaultProps = {
   pendingNotifications: [],
-  generalNotifications: []
+  generalNotifications: [],
 };

@@ -9,27 +9,31 @@ describe('Notification Container Component', () => {
     pendingNotifications: [{
       isPending: true,
       name: 'Captain America',
-      messageOpened: false,
-      image: testImage
+      notificationStatus: 'unread',
+      image: testImage,
+      id: 'id1'
     },
     {
       isPending: true,
       name: 'The Wasp',
-      messageOpened: false,
-      image: testImage
+      notificationStatus: 'unread',
+      image: testImage,
+      id: 'id2'
     },
     {
       isPending: true,
       name: 'Thor Ragnarok',
-      messageOpened: false,
-      image: testImage
+      notificationStatus: 'unread',
+      image: testImage,
+      id: 'id3'
     },
     ],
     generalNotifications: [{
       isPending: false,
       name: 'Ademola Ariya',
-      messageOpened: false,
-      image: testImage
+      notificationStatus: 'unread',
+      image: testImage,
+      id: 'id11'
     }]
   };
 

@@ -8,7 +8,7 @@ describe('Notification Item Component', () => {
   const props = {
     isPending: true,
     name: 'Ademola Ariya',
-    messageOpened: false,
+    notificationStatus: 'unread',
     image: testImage
   };
 
@@ -44,7 +44,7 @@ describe('Notification Item Component', () => {
   });
 
   it('should render the read-message-icon if message has been read', () => {
-    const newProps = {...props, messageOpened: true};
+    const newProps = {...props, notificationStatus: 'read'};
     const wrapper = shallow(<NotificationItem {...newProps} />);
     expect(wrapper.find('img.msg-icon').prop('src'))
       .toBe('read-message.svg');

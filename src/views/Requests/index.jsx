@@ -14,7 +14,12 @@ import {
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 
+
 export class Requests extends Base {
+
+  constructor (props){
+    super(props);
+  }
   state = {
     hideNewRequestModal: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),

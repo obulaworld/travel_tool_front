@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';// eslint-disable-line
 
-import NotificationPane from '../NotificationPane';
+import {NotificationPane} from '../NotificationPane';
 
 const props = {
-  onCloseNotificationPane: jest.fn()
+  onCloseNotificationPane: jest.fn(),
+  fetchNotifications: jest.fn(),
 };
 
 describe('Notification Pane Component', () => {

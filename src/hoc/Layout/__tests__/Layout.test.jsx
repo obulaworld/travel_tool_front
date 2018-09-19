@@ -18,7 +18,11 @@ const initialState = {
         picture: 'http://picture.com/gif'
       }
     }
-  }
+  },
+  modal: {
+    modal: {}
+  },
+  notifications: [{}]
 };
 
 const store = mockStore(initialState);
@@ -39,10 +43,10 @@ describe('<Layout />', () => {
       </Provider>
     );
   });
-
+  
   it('should render all the components except the notification pane', () => {
     expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
-    expect(wrapper.find('.notification .hide').exists()).toBeTruthy();
+    expect(wrapper.find('.notification').hasClass('hide')).toEqual(true);
     wrapper.unmount();
   });
 
@@ -51,8 +55,7 @@ describe('<Layout />', () => {
     notificationIcon.simulate('click');
     expect(wrapper.find('.notification').exists()).toBeTruthy();
     expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
-    expect(wrapper.find('.sidebar .hide').exists()).toBeTruthy();
-    expect(wrapper.find('.sidebar .hide').length).toBe(1);
+    expect(wrapper.find('.sidebar').hasClass('hide')).toEqual(true);
     expect(wrapper.find('NavBar').exists()).toBeTruthy();
     wrapper.unmount();
   });

@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {PropTypes} from 'prop-types';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
-import NotificationPane from '../../components/notification-pane/NotificationPane';
+import ConnectedNotificationPane from '../../components/notification-pane/NotificationPane';
 import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import upic from '../../images/upic.svg';
 import RequireAuth from '../authHoc';
@@ -83,14 +83,13 @@ export class Layout extends Component {
   };
 
   renderNotificationPane = (hideClass, hideSideBar) => {
-
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
     return (
       <div
         className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}
       >
         <div className={`notification ${hideClass}`}>
-          <NotificationPane
+          <ConnectedNotificationPane
             onCloseNotificationPane={this.onNotificationToggle}
           />
         </div>

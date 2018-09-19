@@ -39,10 +39,8 @@ export function* createNewRequestSagaAsync(action) {
       RequestAPI.postNewRequest, action.requestData
     );
     toast.success('Request created');
-
     yield put(createNewRequestSuccess(response.data.request));
     yield put(closeModal());
-
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(createNewRequestFailure(errorMessage));

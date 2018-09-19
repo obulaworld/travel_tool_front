@@ -6,6 +6,7 @@ import modal from './modal';
 import user from './user';
 import role from './role';
 import comments from './comments';
+import notifications from './notifications';
 
 const rootReducer = combineReducers({
   auth,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   modal,
   user,
   role,
-  comments
+  comments,
+  notifications
 });
 
 export default rootReducer;
