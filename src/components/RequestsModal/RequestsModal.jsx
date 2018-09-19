@@ -10,7 +10,8 @@ import './RequestsModal.scss';
 import AddComment from './CommentBox/AddComment';
 import UserComments from './UserComments/UserComments';
 import UserInfo from './UserInfo/UserInfo';
-import RequestInfo from './RequestInfo/RequestInfo';
+import TripDetails from './TripDetails';
+import RequestDetailsHeader from './RequestDetailsHeader';
 
 export class RequestDetailsModal extends Component {
   state = {
@@ -25,10 +26,17 @@ export class RequestDetailsModal extends Component {
     fetchUserRequestDetails(requestId);
   }
 
-  updateRequestStatus = () => {
-    const { requestId, newStatus }= this.state;
-    const { updateRequestStatus } = this.props;
-    updateRequestStatus({requestId, newStatus});
+  getRequestTripsDetails = (requestData) => {
+    const {trips, tripType, createdAt} = requestData;
+    const requestTripsDetails = trips && trips.map(trip => {
+      const tripDetails = {
+        createdAt,
+        tripType,
+        ...trip,
+      };
+      return <TripDetails key={trip.arrivalDate} tripDetails={tripDetails} />;
+    });
+    return requestTripsDetails;
   }
 
   handleButtonState = (approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
@@ -92,13 +100,19 @@ export class RequestDetailsModal extends Component {
       ]);
   }
 
+  updateRequestStatus = () => {
+    const { requestId, newStatus }= this.state;
+    const { updateRequestStatus } = this.props;
+    updateRequestStatus({requestId, newStatus});
+  }
+
+
   disableButtons(status, page) {
     const { isStatusUpdating } = this.props;
     return page === 'Requests' ||
       page === 'Approvals' && (status && ['Approved', 'Rejected'].includes(status)) ||
       isStatusUpdating;
   }
-
   shouldButtonsRender(status) {
     const { page } = this.props;
     if (page === 'Requests' && status === 'Open') return this.renderStatusAsBadge(status);
@@ -120,27 +134,12 @@ export class RequestDetailsModal extends Component {
     );
   }
 
-  renderTravelInfo() {
-    const { requestData } = this.props;
-    return (
-      <div className="modal__travel-place">
-        <span className="modal__dialog1">
-          Request to travel to:
-          <span className="modal__city-name">
-            {requestData && requestData.destination}
-          </span>
-        </span>
-        <span className="modal__dialog-from">
-          From:
-          <span className="modal__city-name">
-            {requestData && requestData.origin}
-          </span>
-        </span>
-      </div>
-    );
+  renderRequestDetailsHeader = () => {
+    const {requestData} = this.props;
+    return <RequestDetailsHeader requestData={requestData} />;
   }
 
-  renderButtons() {
+  renderButtons = () => {
     const { approveColor, rejectColor, approveTextColor, rejectTextColor } = this.state;
     const { requestData: { id, status }, page } = this.props;
     let displayButtons = this.showButtons(approveColor, rejectColor, approveTextColor, rejectTextColor, id)
@@ -174,7 +173,7 @@ export class RequestDetailsModal extends Component {
     );
   }
 
-  renderRequestApproval() {
+  renderRequestAprroval = () => {
     const { requestData } = this.props;
     return (
       <div className="modal__modal1">
@@ -202,18 +201,20 @@ export class RequestDetailsModal extends Component {
     const { status, comments } = requestData;
     return (
       <Fragment>
-        <UserInfo
-          requestData={requestData}
-          user={user}
-        />
-        {this.renderTravelInfo()}
-        <RequestInfo
-          requestData={requestData}
-        />
-        {this.shouldButtonsRender(status)}
+        <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
+          <UserInfo
+            requestData={requestData}
+            user={user}
+          />
+          {this.shouldButtonsRender(status)}
+        </div>
+        <div className="request-details">
+          {this.renderRequestDetailsHeader(requestData)}
+          {this.getRequestTripsDetails(requestData)}
+        </div>
         <AddComment />
         <ConnectedCommentBox requestId={requestId} />
-        {(requestData && status) === 'Approved' && this.renderRequestApproval()}
+        {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">
           <UserComments comments={comments} />
         </div>
@@ -221,6 +222,7 @@ export class RequestDetailsModal extends Component {
     );
   }
 }
+
 RequestDetailsModal.propTypes = {
   fetchUserRequestDetails: PropTypes.func,
   updateRequestStatus: PropTypes.func,
@@ -256,4 +258,3 @@ const actionCreators = {
 };
 
 export default connect(mapStateToProps, actionCreators)(RequestDetailsModal);
-

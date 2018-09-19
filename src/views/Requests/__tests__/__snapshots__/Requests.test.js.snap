@@ -4,14 +4,9 @@ exports[`<Requests> renders as expected 1`] = `
 <Fragment>
   <Modal
     closeModal={[Function]}
-    description=""
-    divClass=""
-    dynamicDate=""
-    dynamicText=""
-    innerClass=""
     modalBar={<div />}
-    nextClass=""
-    symbol=""
+    modalContentId=""
+    modalId=""
     title="New Travel Request"
     visibility="invisible"
   >

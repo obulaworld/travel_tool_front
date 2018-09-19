@@ -1,25 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserComments component should match snapshot 1`] = `
-<div>
-  <div
-    className="modal__user-info"
-  >
-    <ImageLink
-      altText="avatar"
-      imageClass="modal__oval"
-      imageSrc="http://my-image"
-    />
-    <span
-      className="modal__text-size"
-    >
+<div
+  className="modal__user-info"
+>
+  <img
+    alt="avatar"
+    className="modal__oval"
+    src="http://my-image"
+  />
+  <div>
+    <div>
       Test user C
-    </span>
+    </div>
     <div
-      className="modal__modal3"
+      className="user-role"
     >
-      Software Developer
-      ,
+      Software Developer, 
       TDD
     </div>
   </div>

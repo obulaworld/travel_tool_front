@@ -2,41 +2,29 @@ import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import Overlay from './overlay/Overlay';
 import closeButton from '../../images/icons/close.svg';
-import TravelLink from '../RequestsModal/_RequestTravel';
 import './_modal.scss';
 
 class Modal extends PureComponent {
   static propTypes = {
     visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
     closeModal: PropTypes.func,
-    symbol: PropTypes.string,
     title: PropTypes.string,
-    description: PropTypes.string,
+    modalId: PropTypes.string,
+    modalContentId: PropTypes.string,
     modalBar: PropTypes.object,
     children: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.arrayOf(PropTypes.object)
-    ]).isRequired,
-    divClass: PropTypes.string,
-    innerClass: PropTypes.string,
-    dynamicText: PropTypes.string,
-    nextClass: PropTypes.string,
-    dynamicDate:PropTypes.string
+    ]).isRequired
   };
 
   renderModalHeader = () => {
-    const { title, closeModal, symbol, description, modalBar, divClass, dynamicText } = this.props;
+    const { title, closeModal, modalBar } = this.props;
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
           <div>
-            {symbol}
-          </div>
-          <div>
             {title}
-          </div>
-          <div className="modal-title-id">
-            {description}
           </div>
           <div className="lable-text modal-bar">
             {modalBar}
@@ -50,8 +38,14 @@ class Modal extends PureComponent {
   };
 
   render() {
-    const {children, visibility, closeModal, divClass, innerClass, dynamicText,
-      nextClass, dynamicDate, title  } = this.props;
+    const {
+      children,
+      visibility,
+      closeModal,
+      title,
+      modalId,
+      modalContentId
+    } = this.props;
     return (
       visibility === 'visible' ? (
         <Fragment>
@@ -59,21 +53,15 @@ class Modal extends PureComponent {
             <div
               className={`modal ${visibility}`}
               onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
+              id={modalId}
               tabIndex="0"
               role="button">
               {this.renderModalHeader()}
-              <div className="modal-content">
+              <div className="modal-content" id={modalContentId}>
                 {children}
               </div>
             </div>
           </Overlay>
-          <TravelLink 
-            divClass={divClass}
-            innerClass={innerClass}
-            dynamicText={dynamicText}
-            nextClass={nextClass}
-            dynamicDate={dynamicDate}
-          />
         </Fragment>
       ) : null
     );
@@ -82,15 +70,10 @@ class Modal extends PureComponent {
 
 
 Modal.defaultProps = {
-  symbol: '',
   title: '',
-  description: '',
+  modalId: '',
+  modalContentId: '',
   modalBar: <div />,
-  divClass: '',
-  innerClass: '',
-  dynamicText: '',
-  nextClass: '',
-  dynamicDate: '',
   closeModal: null,
 };
 

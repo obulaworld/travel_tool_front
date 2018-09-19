@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
@@ -118,26 +118,24 @@ export class Layout extends Component {
       : ['', 'pd-left'];
 
     return (
-      <Fragment>
-        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
-        >
-          {this.renderOverlay(overlayClass)}
-          {this.renderSideDrawer(overlayClass)}
-          {this.renderNavBar(openSearch)}
+      <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
+      >
+        {this.renderOverlay(overlayClass)}
+        {this.renderSideDrawer(overlayClass)}
+        {this.renderNavBar(openSearch)}
 
-          <div className="mdl-layout__content full-height">
-            <div className="mdl-grid mdl-grid--no-spacing full-height">
-              {this.renderLeftSideBar(hideSideBar)}
-              <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-                <div className={`rp-requests ${leftPaddingClass}`}>
-                  {children}
-                </div>
+        <div className="mdl-layout__content full-height">
+          <div className="mdl-grid mdl-grid--no-spacing full-height">
+            {this.renderLeftSideBar(hideSideBar)}
+            <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+              <div className={`rp-requests ${leftPaddingClass}`}>
+                {children}
               </div>
             </div>
-            {this.renderNotificationPane(hideClass, hideSideBar)}
           </div>
+          {this.renderNotificationPane(hideClass, hideSideBar)}
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

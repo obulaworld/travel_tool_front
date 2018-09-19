@@ -32,13 +32,13 @@ class InputRenderer {
 
     // common props
     let inputProps = {
-      ...customProps,
       value: values[name],
       name: name,
       type: type,
       label: this.formMetadata.inputLabels[name].label,
       labelNote: this.formMetadata.inputLabels[name].note,
-      onChange: onChange
+      onChange: onChange,
+      ...customProps
     };
     // get input-type-unique props
     inputProps = this.switchProps(name, type, values, inputProps);

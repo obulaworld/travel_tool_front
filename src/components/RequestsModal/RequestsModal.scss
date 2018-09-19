@@ -1,26 +1,78 @@
 .modal {
   &__user-info {
-    margin: 10px;
+    display: flex;
+    margin: 10px 0 0;
+
+    .user-role {
+      font-weight: 100;
+      color: #999999;
+    }
+  }
+  .request-details {
+    margin: 40px 0 45px 0;
+    .request-details--header {
+      margin-bottom: 15px;
+      .request-type {
+        margin-right: 62px;
+      }
+      .label {
+      	color: #999999;
+        font-family: "DIN Pro";
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 100;
+      }
+    }
   }
   &__modal1 {
     margin: 0 10px 20px 0px;
   }
-  &__modal-date {
+  &__modal-trip-details {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    padding-left: 22px;
+    padding-right: 105px;
+    border: 1px solid #E4E4E4;
+    border-radius: 3px;
+    background-color: #F8F8F8;
+    @media (max-width: 640px) {
+      padding-right: 50px;
+    }
+
+    &.multi {
+      border-left: 8px solid #FFAF30;;
+    }
+
+    #return-date {
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 2;
+      .modal__trip-detail {
+        flex-basis: auto;
+      }
+    }
   }
-  &__travel-date {
-    margin: 10px 55px 20px 5px;
-  }
-  &__travel-date:last-child {
-    margin-right: 5px !important;
+  &__trip-detail {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    flex-basis: 20%;
+    height: 63px;
+    min-width: 100px;
   }
   &__dialog {
     margin: 5px 0 10px 0;
   }
   &__dialog-btn {
-    margin: 5px 20px 10px 0;
+    button {
+      cursor: pointer;
+    }
+    #b1 {
+      margin-right: 20px;
+    }
   }
   &__dialog2 {
     margin: 40px;
@@ -36,9 +88,9 @@
     box-sizing: border-box;
   }
   &__oval {
+    margin-right: 20px;
     height: 50px;
     width: 50px;
-    margin: 15px 19px 0 0;
     border-radius: 50%
   }
   &__oval-copy {
@@ -72,6 +124,7 @@
     color: #999999;
     font-family: 'DIN Pro';
     font-size: 14px;
+    font-weight: 100;
     line-height: 18px;
     margin: -20px 0 0 70px;
   }
@@ -98,10 +151,11 @@
   &__travel-place {
     margin: 40px 5px 5px 5px;
   }
-  &__travel-dates {
+  &__trip-detail-label{
     color: #999999;
     font-family: 'DIN Pro';
     font-size: 14px;
+    font-weight: 100;
     line-height: 18px;
   }
   &__departure-date {
@@ -119,7 +173,7 @@
     font-weight: 1000;
   }
 
-  &__date-text {
+  &__trip-detail-text {
     color: #4f4f4f;
     font-family: 'DIN Pro';
     font-size: 15px;
@@ -164,7 +218,10 @@
     outline: none;
   }
   &__button-below {
-    margin: 19.5px 0 60px 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
   }
 
   &__target-return-date {

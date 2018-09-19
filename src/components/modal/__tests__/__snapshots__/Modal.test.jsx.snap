@@ -8,6 +8,7 @@ exports[`<Modal /> renders correctly 1`] = `
   >
     <div
       className="modal visible"
+      id=""
       onClick={[Function]}
       onKeyPress={[Function]}
       role="button"
@@ -19,13 +20,9 @@ exports[`<Modal /> renders correctly 1`] = `
         <div
           className="modal-title-text"
         >
-          <div />
           <div>
             test modal
           </div>
-          <div
-            className="modal-title-id"
-          />
           <div
             className="lable-text modal-bar"
           >
@@ -45,6 +42,7 @@ exports[`<Modal /> renders correctly 1`] = `
       </div>
       <div
         className="modal-content"
+        id=""
       >
         <div>
           Test content
@@ -52,12 +50,5 @@ exports[`<Modal /> renders correctly 1`] = `
       </div>
     </div>
   </Overlay>
-  <TravelLink
-    divClass=""
-    dynamicDate=""
-    dynamicText=""
-    innerClass=""
-    nextClass=""
-  />
 </Fragment>
 `;

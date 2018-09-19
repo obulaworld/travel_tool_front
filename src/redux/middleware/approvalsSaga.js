@@ -44,4 +44,3 @@ export function* updateRequestStatusSaga(action) {
 export function* watchUpdateRequestStatus() {
   yield takeLatest(updateRequestStatus().type, updateRequestStatusSaga);
 }
-

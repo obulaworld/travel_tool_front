@@ -11,7 +11,9 @@ import {
 } from '../constants/actionTypes';
 
 const initialState = {
-  requestData: {}
+  requestData: {
+    trips: []
+  }
 };
 const requests = (state = initialState, action) => {
   switch(action.type) {

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {resolveBaseUrl} from '.';
+import testResponse from './__mocks__/mockApprovals';
 
 const baseUrl = resolveBaseUrl();
 

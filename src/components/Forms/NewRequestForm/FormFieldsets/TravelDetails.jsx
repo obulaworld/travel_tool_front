@@ -14,11 +14,15 @@ class TravelDetailsFieldset extends Component {
     const otherDestCustomClass = `full-width other-dest--${otherDestStatus}`;
 
     const customPropsOtherDest = { className: otherDestCustomClass };
-    const customPropsForDepartureDate = { minDate: moment() };
+    const customPropsForDepartureDate = {
+      minDate: moment(),
+    };
     const customPropsForArrivalDate = {
       disabled: !values.departureDate,
       minDate: moment(values.departureDate),
-      placeholderText: !values.departureDate? 'select departure date first' : 'select return date'
+      placeholderText: !values.departureDate
+        ? 'select departure date first'
+        : 'select return date'
     };
 
     return (

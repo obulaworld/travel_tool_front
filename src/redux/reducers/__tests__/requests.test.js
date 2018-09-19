@@ -15,7 +15,9 @@ import { fetchRequestsResponse,
 describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {
     const initialState = {
-      requestData: {}
+      requestData: {
+        trips: []
+      }
     };
     const error = 'Error fetching requests, network error';
     it('returns the correct initial state', () => {
@@ -162,7 +164,7 @@ describe('Requests Reducer', () => {
       const action = {
         type: FETCH_USER_REQUEST_DETAILS_SUCCESS,
         requestData: fetchRequestsDetailsResponse.requestData,
-     
+
       };
       expect(requests(initialState, action)).toEqual({
         fetchingRequest: false,

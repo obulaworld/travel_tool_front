@@ -1,25 +1,24 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ImageLink from '../../image-link/ImageLink';
 
-class UserInfo extends Component {
+class UserInfo extends PureComponent {
   render() {
     const { requestData, user } = this.props;
     return (
-      <div>
-        <div className="modal__user-info">
-          <ImageLink
-            imageSrc={user.picture}
-            altText="avatar"
-            imageClass="modal__oval"
-          />
-          <span className="modal__text-size">
+      <div className="modal__user-info">
+        <ImageLink
+          imageSrc={user.picture}
+          altText="avatar"
+          imageClass="modal__oval"
+        />
+        <div>
+          <div>
             {requestData && requestData.name}
-          </span>
-          <div className="modal__modal3">
-            {requestData && requestData.role}
-,
+          </div>
+          <div className="user-role">
+            {requestData && `${requestData.role}${', '}`}
             {requestData && requestData.department}
           </div>
         </div>

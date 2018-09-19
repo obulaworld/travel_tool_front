@@ -6,7 +6,7 @@ import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
 import Checkbox from '../components/CheckBox';
 import ConnectedRole from '../views/Role';
-import NavigationLayout from '../hoc/Layout';
+import LayoutShell from '../hoc/Layout';
 
 
 const Routes = () => (
@@ -17,7 +17,7 @@ const Routes = () => (
       component={ConnectedLogin}
     />
     <Route>
-      <NavigationLayout>
+      <LayoutShell>
         <Switch>
           <Route
             path="/requests/my-approvals"
@@ -35,7 +35,7 @@ const Routes = () => (
             component={RequireAuth(ConnectedRole)}
           />
         </Switch>
-      </NavigationLayout>
+      </LayoutShell>
     </Route>
   </Switch>
 );

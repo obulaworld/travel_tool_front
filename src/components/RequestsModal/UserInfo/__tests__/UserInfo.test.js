@@ -11,16 +11,16 @@ const props = {
 };
 
 describe('UserComments component', () => {
-  const wrapper = shallow(<UserInfo {...props} />);
+  const wrapper = mount(<UserInfo {...props} />);
 
   it('should match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should render the UserComments component as expected', () => {
-    expect(wrapper.find('div').length).toBe(3);
-    expect(wrapper.find('span').length).toBe(1);
-    expect(wrapper.find('ImageLink').length).toBe(1);
+    expect(wrapper.find('.modal__user-info').length).toBe(1);
+    expect(wrapper.find('.user-role').length).toBe(1);
+    expect(wrapper.find('img').length).toBe(1);
     expect(wrapper.length).toBe(1);
   });
 });
