@@ -4,7 +4,7 @@ exports[`<Modal /> renders correctly 1`] = `
 <Fragment>
   <Overlay
     className="visible"
-    click={[Function]}
+    click={null}
   >
     <div
       className="modal visible"
@@ -34,16 +34,21 @@ exports[`<Modal /> renders correctly 1`] = `
             <div />
           </div>
         </div>
-        <button
-          className="modal-close"
-          onClick={[Function]}
-          type="button"
+        <Link
+          replace={false}
+          to="/"
         >
-          <img
-            alt="close"
-            src="close.svg"
-          />
-        </button>
+          <button
+            className="modal-close"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="close"
+              src="close.svg"
+            />
+          </button>
+        </Link>
       </div>
       <div
         className="modal-content"

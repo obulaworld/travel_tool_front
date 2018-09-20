@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
+import { Link } from 'react-router-dom';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import ConnectedNotificationPane from '../../components/notification-pane/NotificationPane';

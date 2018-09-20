@@ -1,14 +1,19 @@
 import socketIOClient from 'socket.io-client';
-import toast from 'toastr';
-import store from '../../redux/store/store';
 import { addNotification } from '../../redux/actionCreator/notificationsActions';
+import store from '../../redux/store/store';
+import { resolveBaseUrl } from '../../services';
 
-const io = socketIOClient('http://127.0.0.1:5000');
+const baseUrl = resolveBaseUrl();
 
-export default function handleNotification(userId) {
+const serverUrl = baseUrl.replace('/api/v1', '');
+
+const io = socketIOClient(serverUrl);
+
+export default function handleManagerNotification(userId) {
   io.on('notification', (data) => {
     if (data.recipientId === userId) {
       store.dispatch(addNotification(data));
     }
   });
 }
+

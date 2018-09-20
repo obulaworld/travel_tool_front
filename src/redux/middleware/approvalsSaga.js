@@ -32,7 +32,6 @@ export function* updateRequestStatusSaga(action) {
     );
     toast.success(response.data.message);
     yield put(updateRequestStatusSuccess(response.data.updatedRequest));
-    yield put(closeModal());
 
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

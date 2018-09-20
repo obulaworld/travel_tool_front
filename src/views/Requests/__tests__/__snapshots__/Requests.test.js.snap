@@ -7,6 +7,7 @@ exports[`<Requests> renders as expected 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
+    params=""
     title="New Travel Request"
     visibility="invisible"
     width="1000px"

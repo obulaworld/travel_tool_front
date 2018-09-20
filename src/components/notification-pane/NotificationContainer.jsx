@@ -12,9 +12,11 @@ export default class NotificationContainer extends PureComponent {
         if(notification.notificationType === 'pending'){
           isPending = true;
         }
+        const{ handleClick } = this.props;
         return  (
           <NotificationItem
-            id={notification.requestId}
+            handleClick={handleClick}
+            link={notification.notificationLink}
             key={notification.id}
             isPending={isPending}
             name={notification.senderName}
@@ -32,7 +34,6 @@ export default class NotificationContainer extends PureComponent {
     const number = title === 'Pending Approvals'
       ? pendingNotifications.length
       : generalNotifications.length;
-
     return (
       <div className="notification-container">
         <div className={`notification-container__header--${customClass}`}>
@@ -57,11 +58,13 @@ const NOTIFICATIONS_PROPTYPES = PropTypes.arrayOf(PropTypes.shape({
   isPending: PropTypes.bool,
   name: PropTypes.string,
   notificationStatus: PropTypes.string,
-  image: PropTypes.string,
+  requestId: PropTypes.string,
+  senderImage: PropTypes.string.isRequired,
 }));
 
 NotificationContainer.propTypes = {
   title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func,
   pendingNotifications: NOTIFICATIONS_PROPTYPES,
   generalNotifications: NOTIFICATIONS_PROPTYPES
 };
@@ -69,4 +72,8 @@ NotificationContainer.propTypes = {
 NotificationContainer.defaultProps = {
   pendingNotifications: [],
   generalNotifications: [],
+  handleClick: ()=>{}
 };
+
+
+

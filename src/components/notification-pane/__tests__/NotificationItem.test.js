@@ -9,7 +9,9 @@ describe('Notification Item Component', () => {
     isPending: true,
     name: 'Ademola Ariya',
     notificationStatus: 'unread',
-    image: testImage
+    image: testImage,
+    handleClick: ()=>{},
+    id: ''
   };
 
   it('should render successfully if notification is pending', () => {

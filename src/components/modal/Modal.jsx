@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
+import { Link } from 'react-router-dom';
 import Overlay from './overlay/Overlay';
 import closeButton from '../../images/icons/close.svg';
 import './_modal.scss';
@@ -20,7 +21,12 @@ class Modal extends PureComponent {
   };
 
   renderModalHeader = () => {
-    const { title, closeModal, modalBar } = this.props;
+    const { title, closeModal, modalBar, params } = this.props;
+    let url = location.pathname;
+    if(params){
+      let urlArr = params.split('/');
+      url = urlArr.slice(0, urlArr.length-1).join('/');
+    }
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
@@ -31,9 +37,12 @@ class Modal extends PureComponent {
             {modalBar}
           </div>
         </div>
-        <button type="button" onClick={closeModal} className="modal-close">
-          <img alt="close" src={closeButton} />
-        </button>
+        <Link to={url}>
+          <button type="button" onClick={closeModal} className="modal-close">
+            <img alt="close" src={closeButton} />
+          </button>
+
+        </Link>
       </div>
     );
   };
@@ -42,16 +51,15 @@ class Modal extends PureComponent {
     const {
       children,
       visibility,
-      closeModal,
-      title,
       width,
       modalId,
       modalContentId
     } = this.props;
+    
     return (
       visibility === 'visible' ? (
         <Fragment>
-          <Overlay click={closeModal} className={visibility}>
+          <Overlay className={visibility}>
             <div
               className={`modal ${visibility}`}
               onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
@@ -71,12 +79,17 @@ class Modal extends PureComponent {
   }
 }
 
+Modal.propTypes = {
+  params: PropTypes.string,
+};
+
 
 Modal.defaultProps = {
   title: '',
   modalId: '',
   width: '',
   modalContentId: '',
+  params: '',
   modalBar: <div />,
   closeModal: null,
 };

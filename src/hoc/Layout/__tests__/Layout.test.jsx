@@ -22,7 +22,7 @@ const initialState = {
   modal: {
     modal: {}
   },
-  notifications: [{}]
+  notifications: []
 };
 
 const store = mockStore(initialState);

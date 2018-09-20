@@ -5,7 +5,7 @@ import {NotificationPane} from '../NotificationPane';
 
 const props = {
   onCloseNotificationPane: jest.fn(),
-  fetchNotifications: jest.fn(),
+  fetchUsersNotification: jest.fn()
 };
 
 describe('Notification Pane Component', () => {

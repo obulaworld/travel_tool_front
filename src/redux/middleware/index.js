@@ -15,11 +15,11 @@ import {
 } from './roleDataSaga';
 import { watchFetchRoleUsers } from './roleSaga';
 import { watchCreateComment, watchEditComment } from './commentsSaga';
+import { watchFetchApprovals, watchUpdateRequestStatus } from './approvalsSaga';
 import {
-  watchFetchApprovals,
-  watchUpdateRequestStatus,
-} from './approvalsSaga';
-import { watchFetchNotifications, watchAddNotifications } from './notificationSaga';
+  watchFetchNotifications,
+  watchaddNotification
+} from './notificationsSaga';
 
 import { watchUpdateUserProfileAsync } from './UserProfileSaga';
 
@@ -39,12 +39,9 @@ function* rootSaga() {
     watchFetchUserRequestsDetails(),
     watchCreateComment(),
     watchUpdateRequestStatus(),
-    watchUpdateUserProfileAsync(),
-    watchFetchNotifications(),
-    watchAddNotifications(),
-    watchFetchNotifications(),
-    watchAddNotifications(),
     watchEditComment(),
+    watchFetchNotifications(),
+    watchaddNotification()
   ]);
 }
 

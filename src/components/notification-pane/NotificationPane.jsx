@@ -1,22 +1,20 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import NotificationHeader from './NotificationHeader';
 import NotificationContainer from './NotificationContainer';
-
-import './_notificationPane.scss';
-
-import handleNotification from '../../helper/socket/socket';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
-import { fetchNotifications } from '../../redux/actionCreator/notificationsActions';
-
+import './_notificationPane.scss';
+import handleManagerNotification from '../../helper/socket/socket';
+import {fetchUsersNotification} from '../../redux/actionCreator/notificationsActions';
 
 export class NotificationPane extends PureComponent {
+
   componentDidMount() {
-    const { user, fetchNotifications } = this.props;
-    handleNotification(user && user.UserInfo.id);
-    fetchNotifications();
+    const { user, fetchUsersNotification } = this.props;
+    fetchUsersNotification(); 
+    handleManagerNotification(user && user.UserInfo.id);
   }
 
   getNotifications() {
@@ -34,32 +32,35 @@ export class NotificationPane extends PureComponent {
   }
 
   render() {
+
     const { onCloseNotificationPane } = this.props;
     const notifications = this.getNotifications();
     return (
-      <div className="nav-pane">
-        <NotificationHeader onCloseNotificationPane={onCloseNotificationPane} />
-        <div className="scrollable-div">
-          <NotificationContainer
-            title="Pending Approvals"
-            pendingNotifications={notifications && notifications.pendingNotifications}
-          />
-          <NotificationContainer
-            title="General Notifications"
-            generalNotifications={notifications && notifications.generalNotifications}
-          />
+      <Fragment>
+        <div className="nav-pane">
+          <NotificationHeader onCloseNotificationPane={onCloseNotificationPane} />
+          <div className="scrollable-div">
+            <NotificationContainer
+              title="Pending Approvals"
+              pendingNotifications={notifications.pendingNotifications}
+            />
+            <NotificationContainer
+              title="General Notifications"
+              generalNotifications={notifications.generalNotifications}
+            />
+          </div>
+          <div className="notification-item__last" />
         </div>
-        <div className="notification-item__last" />
-      </div>
+      </Fragment>
     );
   }
 }
 
 NotificationPane.propTypes = {
   onCloseNotificationPane: PropTypes.func.isRequired,
-  notifications: PropTypes.array,
-  fetchNotifications: PropTypes.func.isRequired,
+  fetchUsersNotification: PropTypes.func.isRequired,
   user: PropTypes.object,
+  notifications: PropTypes.arrayOf(PropTypes.object)
 };
 
 NotificationPane.defaultProps = {
@@ -71,16 +72,17 @@ NotificationPane.defaultProps = {
   }
 };
 
-const mapStateToProps = ({ auth, notifications, modal }) => ({
+const mapStateToProps = ({auth, notifications, modal}) => ({
   user: auth.user,
   notifications,
   ...modal.modal
 });
 
-const actions = {
-  fetchNotifications,
+const mapDispatchToProps = {
+  fetchUsersNotification,
   openModal,
-  closeModal
+  closeModal,
 };
 
-export default connect(mapStateToProps, actions)(NotificationPane);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationPane);

@@ -5,8 +5,8 @@ import approvals from './approvals';
 import modal from './modal';
 import user from './user';
 import role from './role';
-import comments from './comments';
 import notifications from './notifications';
+import comments from './comments';
 
 const rootReducer = combineReducers({
   auth,
