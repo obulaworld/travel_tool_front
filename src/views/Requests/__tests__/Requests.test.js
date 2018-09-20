@@ -51,22 +51,6 @@ const props = {
       arrivalDate: '2018-12-11',
     },
   ],
-  getUserData:{
-    result:{
-      id: '2',
-      fullName:'Collins Muru',
-      email:'collins.muru@andela.com',
-      userId: '-LJNw1BsT0LP_E4l2peP',
-      passportName:'Collins Njau',
-      department:'Talent & Development',
-      occupation:'Software Developer',
-      manager: 'Collins',
-      gender: 'Male',
-      createdAt:'2018-09-14T12:48:11.266Z',
-      updatedAt:'2018-09-16T07:53:48.835Z',
-      roleId:401938,
-    }
-  },
   pagination: {
     currentPage: 1,
     pageCount: 4,
@@ -295,20 +279,13 @@ describe('<Requests>', () => {
       errors: [],
       loading: false,
     };
-
     const modal = {
       modal: {
         shouldOpen: false,
         modalType: null,
       }
     };
-
-    const user = {
-      getUserData:{
-
-      }
-    };
-    const props = mapStateToProps({requests, modal, user});
-    expect(props).toEqual({...requests, ...modal.modal, getUserData: user.getUserData});
+    const props = mapStateToProps({requests, modal});
+    expect(props).toEqual({...requests, ...modal.modal});
   });
 });

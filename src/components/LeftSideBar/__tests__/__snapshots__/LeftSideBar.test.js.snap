@@ -45,10 +45,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   ],
                   "text": "User Roles",
                 },
-                Object {
-                  "link_to": "/settings/profile",
-                  "text": "User Profile",
-                },
               ],
               "icons": Object {
                 "active": "settings_active.svg",

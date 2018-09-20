@@ -1,13 +1,11 @@
 import moxios from 'moxios';
 import UserAPI from '../UserAPI';
-import ProfileApi from '../ProfileApi';
 import { userResponse } from '../__mocks__/serviceMocks';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 const id = 'JFENDVNDK';
 
 describe('UserAPI', () => {
-
   beforeEach(() => {
     moxios.install();
   });
@@ -53,36 +51,4 @@ describe('UserAPI', () => {
       userId: '9i4hjref9'
     });
   });
-
-  it('should send a PUT request to update created user profile', async () =>{
-    const profileInfo = {
-      passportName:'Collins Merita',
-      department:'Talent development',
-      occupation:'software developer',
-      gender:'Male',
-      manager:'samuel'
-    };
-
-    moxios.stubRequest(`${baseUrl}/user/${id}/profile`, {
-      status: 201,
-      response:{
-        passportName:'Collins Merita',
-        department:'Talent development',
-        occupation:'software developer',
-        gender:'Male',
-        manager:'samuel'
-      }
-    });
-
-    const response = await ProfileApi.updateUserProfile(profileInfo, id);
-    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/user/${id}/profile`);
-    expect(response.data).toEqual({
-      passportName:'Collins Merita',
-      department:'Talent development',
-      occupation:'software developer',
-      gender:'Male',
-      manager:'samuel'
-    });
-  });
 });
-

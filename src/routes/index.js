@@ -6,7 +6,6 @@ import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
 import Checkbox from '../components/CheckBox';
 import ConnectedRole from '../views/Role';
-import ConnectedUserProfile from '../views/UserProfile';
 import LayoutShell from '../hoc/Layout';
 
 
@@ -34,11 +33,6 @@ const Routes = () => (
             path="/settings/roles"
             exact
             component={RequireAuth(ConnectedRole)}
-          />
-          <Route
-            path="/settings/profile"
-            exact
-            component={RequireAuth(ConnectedUserProfile)}
           />
         </Switch>
       </LayoutShell>

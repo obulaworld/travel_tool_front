@@ -11,7 +11,7 @@ import './NewRequestForm.scss';
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
-    const user = localStorage.getItem('passportName');
+    const user = localStorage.getItem('name');
     const gender = localStorage.getItem('gender');
     const department = localStorage.getItem('department');
     const role = localStorage.getItem('role');
@@ -19,17 +19,11 @@ class NewRequestForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        name: !(/^null$/).test(user) ? user : '', // FIX: need to be refactor later
-        gender: !(/^null$/).test(gender) ? gender: '',
-        department: !(/^null$/).test(department) ? department: '',
-        role: !(/^null$/).test(role) ? role :'',
-        manager: !(/^null$/).test(manager) ? manager : '',
-        origin: '',
-        destination: '',
-        otherDestination: '',
-        departureDate: null,
-        arrivalDate: null,
-
+        name: user ? user : '', // FIX: need to be refactor later
+        gender: gender ? gender : '',
+        department: department ? department : '',
+        role: role ? role : '',
+        manager: manager ? manager : ''
       },
       trips: [],
       errors: {},
@@ -61,7 +55,7 @@ class NewRequestForm extends PureComponent {
   handleScriptLoad = () => {
     this.setState({ scriptLoaded: true });
   }
-
+  
 
   onChangeDate = (date, event) => {
     const { values, trips } = this.state;
@@ -88,7 +82,7 @@ class NewRequestForm extends PureComponent {
     const name = event.target.name;
     const getId = event.target.dataset.parentid;
     !scriptError ?
-      this.citySuggestions(name, getId, event) :
+      this.citySuggestions(name, getId, event) : 
       toast.error('Network Error Please reload');
   };
 
@@ -136,22 +130,18 @@ class NewRequestForm extends PureComponent {
     }
   };
 
-
-
   handleSubmit = event => {
     event.preventDefault();
-    const { handleCreateRequest,  user, updateUserProfile } = this.props;
+    const { handleCreateRequest } = this.props;
     const { values, selection, trips } = this.state;
     const newData = {
       name: values.name,
-      passportName: values.name,
       tripType: selection,
       manager: values.manager,
       gender: values.gender,
       trips: trips,
       department: values.department,
-      role: values.role,
-      occupation:values.role
+      role: values.role
     };
 
     const checkBoxState = localStorage.getItem('state');
@@ -163,10 +153,7 @@ class NewRequestForm extends PureComponent {
         values.role,
         values.manager
       ];
-      const userId = user.UserInfo.id;
-      updateUserProfile(newData, userId);
-
-
+      this.savePersonalDetails(name, gender, department, role, manager);
     }
 
     if (this.validate()) {
@@ -202,7 +189,6 @@ class NewRequestForm extends PureComponent {
     return !hasBlankFields;
   };
 
-
   collapsible = () => {
     const { collapse } = this.state;
     if (!collapse) {
@@ -222,6 +208,13 @@ class NewRequestForm extends PureComponent {
     }
   };
 
+  savePersonalDetails(name, gender, department, role, manager) {
+    localStorage.setItem('name', name);
+    localStorage.setItem('gender', gender);
+    localStorage.setItem('department', department);
+    localStorage.setItem('role', role);
+    localStorage.setItem('manager', manager);
+  }
 
   renderForm = (managers, creatingRequest) => {
     const {  values, errors, hasBlankFields, selection, collapse, title, position, line } = this.state;
@@ -271,9 +264,7 @@ class NewRequestForm extends PureComponent {
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
   managers: PropTypes.array,
-  creatingRequest: PropTypes.bool,
-  user: PropTypes.string.isRequired,
-  updateUserProfile: PropTypes.func.isRequired,
+  creatingRequest: PropTypes.bool
 };
 
 NewRequestForm.defaultProps = {

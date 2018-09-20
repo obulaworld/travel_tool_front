@@ -14,13 +14,4 @@ describe('<Checkbox />', ()=> {
     wrapper.find('.checkbox').simulate('click');
     expect(wrapper.find('.clicked').exists()).toBe(true);
   });
-
-  it('should change state  when the checkbox is clicked twice', () =>{
-    const mockOnClick = jest.fn();
-    const wrapper = shallow(<Checkbox onClick={mockOnClick} />);
-    wrapper.find('.checkbox').simulate('click');
-    expect(wrapper.find('.clicked').exists()).toBe(true);
-    wrapper.find('.checkbox').simulate('click');
-    expect(wrapper.find('.clicked').exists()).toBe(false);
-  });
 });

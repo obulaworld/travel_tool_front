@@ -15,7 +15,6 @@ export const fetchUserRequests = url => ({
   url
 });
 
-
 export const fetchUserRequestsSuccess = ({requests, meta, message}) => ({
   type: FETCH_USER_REQUESTS_SUCCESS,
   requests,
