@@ -4,6 +4,7 @@ import comments from '../comments';
 describe('Comments Reducer', () => {
   let initialState = {
     creatingComment: false,
+    editingComment: false,
     comment: '',
     comments: [],
     error: ''
@@ -25,6 +26,7 @@ describe('Comments Reducer', () => {
     newState = comments(initialState, action);
     expectedState = {
       creatingComment: true,
+      editingComment: false,
       comment: 'test comment',
       comments: [],
       error: ''
@@ -43,6 +45,7 @@ describe('Comments Reducer', () => {
     newState = comments(initialState, action);
     expectedState = {
       creatingComment: false,
+      editingComment: false,
       comment: 'test comment',
       comments: ['test comment'],
       error: ''

@@ -14,7 +14,7 @@ import {
   watchPutRoleDataSagaAsync
 } from './roleDataSaga';
 import { watchFetchRoleUsers } from './roleSaga';
-import { watchCreateComment } from './commentsSaga';
+import { watchCreateComment, watchEditComment } from './commentsSaga';
 import {
   watchFetchApprovals,
   watchUpdateRequestStatus,
@@ -37,6 +37,7 @@ function* rootSaga() {
     watchUpdateRequestStatus(),
     watchFetchNotifications(),
     watchAddNotifications(),
+    watchEditComment(),
   ]);
 }
 

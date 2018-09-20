@@ -42,6 +42,7 @@ describe('Requests Reducer', () => {
         requests: fetchRequestsResponse.requests,
         meta: fetchRequestsResponse.meta,
         message: fetchRequestsResponse.message,
+        comments:fetchRequestsResponse.requests
       };
       expect(requests(initialState, action)).toEqual({
         ...initialState,
@@ -164,11 +165,13 @@ describe('Requests Reducer', () => {
       const action = {
         type: FETCH_USER_REQUEST_DETAILS_SUCCESS,
         requestData: fetchRequestsDetailsResponse.requestData,
-
+        comments: fetchRequestsDetailsResponse.requestData.comments
+     
       };
       expect(requests(initialState, action)).toEqual({
         fetchingRequest: false,
         requestData: fetchRequestsDetailsResponse.requestData,
+        comments: fetchRequestsDetailsResponse.requestData.comments
       });
     });
     it('returns the correct state for FETCH_USER_REQUEST_DETAILS_FAILURE action', () => {

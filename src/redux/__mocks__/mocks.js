@@ -52,6 +52,13 @@ export const fetchRoleUsersResponse = {
   ]
 };
 
+export const fetchRequestsCommentsResponse = {
+  id: 'xGh30atGz',
+  comment: 'See you next week',
+  createdAt: '2018-08-16T11:11:52.181Z',
+  updatedAt: '2018-08-16T11:11:52.181Z',
+};
+
 export const fetchRequestsDetailsResponse = {
   requestData: {
     id: 'xDh20cuGx',
@@ -65,7 +72,15 @@ export const fetchRequestsDetailsResponse = {
     arrivalDate: '2018-11-12',
     createdAt: '2018-09-04T10:38:12.141Z',
     updatedAt: '2018-09-04T10:38:12.141Z',
-    trips: []
+    trips: [],
+    comments: [
+      {
+        id: 'xGh30atGz',
+        comment: 'See you next week',
+        createdAt: '2018-08-16T11:11:52.181Z',
+        updatedAt: '2018-08-16T11:11:52.181Z',
+      }
+    ]
   }
 };
 

@@ -1,18 +1,25 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
 import sanitizeHtml from 'sanitize-html-react';
 import './_CommentBox.scss';
-import { createComment } from '../../../redux/actionCreator/commentsActions';
+import {
+  createComment,
+  editComment
+} from '../../../redux/actionCreator/commentsActions';
 
 export class CommentBox extends Component {
-  placeholder = '<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>'
-  state = {
-    dataInput: this.placeholder,
-    submitReady: false
-  };
+  placeholder =
+    '<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>';
+  constructor(props) {
+    super(props);
+    const { comment } = this.props;
+    this.state = {
+      dataInput: comment || this.placeholder,
+      submitReady: false
+    };
+  }
 
   handleKeyUp = event => {
     if (event.target.innerText.trim().length >= 1) {
@@ -20,14 +27,13 @@ export class CommentBox extends Component {
         dataInput: event.target.innerHtml,
         submitReady: true
       });
-    }
-    else {
+    } else {
       this.setState({
         submitReady: false,
         dataInput: ''
       });
     }
-  }
+  };
 
   handleFocus = event => {
     event.target.editorContainer.style.border = '1px solid blue';
@@ -36,7 +42,7 @@ export class CommentBox extends Component {
       this.setState({
         dataInput: ''
       });
-    }  
+    }
   };
 
   handleBlur = event => {
@@ -48,7 +54,6 @@ export class CommentBox extends Component {
         submitReady: false
       });
     }
-
   };
 
   handleEditorChange = dataInput => {
@@ -64,45 +69,60 @@ export class CommentBox extends Component {
     }
     this.setState({
       dataInput: '',
-      submitReady: false,
+      submitReady: false
     });
-  }
+  };
 
   // sanitize input data from comment box
-  sanitizeInputData = (dirtyHtml) => {
+  sanitizeInputData = dirtyHtml => {
     const cleanHtml = sanitizeHtml(dirtyHtml, {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'u' ]),
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['u']),
       allowedAttributes: {
         a: ['href', 'target']
       }
     });
     return cleanHtml;
-  }
+  };
+
+  handleEditComment = event => {
+    event.preventDefault();
+    const { dataInput } = this.state;
+    const { editComment, requestId, id, afterSubmit } = this.props;
+    editComment(requestId, dataInput, id);
+    afterSubmit();
+  };
 
   render() {
     const { dataInput, submitReady } = this.state;
+    const { comment } = this.props;
     let status = submitReady ? '--active' : '';
     return (
-      <form className="editor__editor-form" id="form-id" onSubmit={this.handleSubmit}>
+      <form className="editor__editor-form">
         <Editor
-          id="tinymce-editor"
           init={{
+            mode: 'textareas',
             statusbar: false,
             plugins: 'lists',
             skin: 'lightgray',
-            menubar: false, branding: false,
-            toolbar: 'bold italic underline   numlist bullist   outdent indent' }}
-          onKeyUp={this.handleKeyUp}
-          value={dataInput}
+            menubar: false,
+            branding: false,
+            toolbar: 'bold italic underline   numlist bullist   outdent indent'
+          }}
+          onKeyUp={this.handleKeyUp} value={dataInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          onEditorChange={this.handleEditorChange}
-        />
+          onEditorChange={this.handleEditorChange} />
         <div className="editor__btn-size">
           <span className="editor__btn-wrap">
-            <button className={`editor__post-btn editor__post-btn${status} post-btn-text`} type="submit">
-              Post
-            </button>
+            {comment ? (
+              <div>
+                <button type="submit" onClick={this.handleEditComment} className={`editor__post-btn editor__post-btn${status} post-btn-text edit-buttons`}>
+                  Save
+                </button>
+              </div>) : (
+              <button className={`editor__post-btn editor__post-btn${status} post-btn-text`} type="submit" id="post-submit" onClick={this.handleSubmit}> { /* eslint-disable-line */ }
+                Post
+              </button>)}
           </span>
         </div>
       </form>
@@ -112,11 +132,21 @@ export class CommentBox extends Component {
 
 CommentBox.propTypes = {
   createComment: PropTypes.func.isRequired,
-  requestId: PropTypes.string
+  editComment: PropTypes.func.isRequired,
+  requestId: PropTypes.string,
+  comment: PropTypes.string,
+  id: PropTypes.string,
+  afterSubmit: PropTypes.func
 };
 
 CommentBox.defaultProps = {
+  afterSubmit: ()=>{},
   requestId: '',
+  comment: '',
+  id: ''
 };
 
-export default connect(null, { createComment })(CommentBox);
+export default connect(
+  null,
+  { createComment, editComment }
+)(CommentBox);

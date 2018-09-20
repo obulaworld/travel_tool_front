@@ -1,17 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render RequestsModal component should match snapshot 1`] = `
+exports[`Render CommentBox component should match snapshot 1`] = `
 <form
   className="editor__editor-form"
-  id="form-id"
-  onSubmit={[Function]}
 >
   <Editor
-    id="tinymce-editor"
     init={
       Object {
         "branding": false,
         "menubar": false,
+        "mode": "textareas",
         "plugins": "lists",
         "skin": "lightgray",
         "statusbar": false,
@@ -32,8 +30,11 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
     >
       <button
         className="editor__post-btn editor__post-btn post-btn-text"
+        id="post-submit"
+        onClick={[Function]}
         type="submit"
       >
+         
         Post
       </button>
     </span>

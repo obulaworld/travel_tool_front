@@ -1,12 +1,14 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
 
-import { CREATE_COMMENT } from '../constants/actionTypes';
+import { CREATE_COMMENT, EDIT_COMMENT } from '../constants/actionTypes';
 import CommentsAPI from '../../services/CommentsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
   createCommentSuccess,
-  createCommentFailure
+  createCommentFailure,
+  editCommentSuccess,
+  editCommentFailure
 } from '../actionCreator/commentsActions';
 import { fetchUserRequestDetails } from '../actionCreator/requestActions';
 
@@ -25,4 +27,21 @@ export function* createCommentAsync(action) {
 
 export function* watchCreateComment() {
   yield takeLatest(CREATE_COMMENT, createCommentAsync);
+}
+
+export function* editCommentAsync(action) {
+  try {
+    const { requestId, comment, id } = action;
+    const response = yield call(CommentsAPI.editComment, {comment, requestId}, id);
+    yield put(editCommentSuccess(response.data));
+    yield put(fetchUserRequestDetails(requestId));
+  }
+  catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(editCommentFailure(errorMessage));
+  }
+}
+
+export function* watchEditComment() {
+  yield takeLatest(EDIT_COMMENT, editCommentAsync);
 }

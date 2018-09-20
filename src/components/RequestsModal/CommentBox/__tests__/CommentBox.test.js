@@ -2,9 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { CommentBox } from '../CommentBox';
 
-describe('Render RequestsModal component', () => {
+describe('Render CommentBox component', () => {
   
-
   const props = {
     createComment: jest.fn(),
     handleSubmit:()=>{},
@@ -83,8 +82,8 @@ describe('Render RequestsModal component', () => {
       preventDefault: () => jest.fn()
     };
     const wrapper = mount(<CommentBox {...props} />);
-    let form = wrapper.find('#form-id');
-    form.simulate('submit');
+    let button = wrapper.find('#post-submit').at(0);
+    button.simulate('click');
     expect(wrapper.props().createComment).toHaveBeenCalledTimes(0);
   });
 
@@ -94,8 +93,8 @@ describe('Render RequestsModal component', () => {
     };
     const wrapper = mount(<CommentBox {...props} />);
     wrapper.state().dataInput = 'comment';
-    let form = wrapper.find('#form-id');
-    form.simulate('submit');
+    let button = wrapper.find('#post-submit').at(0);
+    button.simulate('click');
     expect(wrapper.props().createComment).toHaveBeenCalledTimes(1);
   });
 

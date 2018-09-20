@@ -28,6 +28,17 @@ exports[`UserComments component should match snapshot 1`] = `
       className="modal__dialog"
     >
       <button
+        className="edit-button "
+        onClick={[Function]}
+        type="button"
+      >
+        Edit
+      </button>
+    </span>
+    <span
+      className="modal__dialog"
+    >
+      <button
         className="modal__delete-btn"
         type="button"
       >
@@ -41,7 +52,7 @@ exports[`UserComments component should match snapshot 1`] = `
         className="modal__status-update"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Can you clarify why",
+            "__html": "Can you clarify why ",
           }
         }
       />

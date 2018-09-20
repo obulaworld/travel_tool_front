@@ -7,7 +7,7 @@ import {
   CREATE_NEW_REQUEST_FAILURE,
   FETCH_USER_REQUEST_DETAILS,
   FETCH_USER_REQUEST_DETAILS_SUCCESS,
-  FETCH_USER_REQUEST_DETAILS_FAILURE,
+  FETCH_USER_REQUEST_DETAILS_FAILURE
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -16,11 +16,11 @@ const initialState = {
   }
 };
 const requests = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
   case FETCH_USER_REQUESTS:
     return {
       ...state,
-      isLoading: true,
+      isLoading: true
     };
   case FETCH_USER_REQUESTS_SUCCESS:
     return {
@@ -30,18 +30,18 @@ const requests = (state = initialState, action) => {
       requests: action.requests,
       openRequestsCount: action.meta.count.open,
       pastRequestsCount: action.meta.count.past,
-      pagination: action.meta.pagination,
+      pagination: action.meta.pagination
     };
   case FETCH_USER_REQUESTS_FAILURE:
     return {
       ...state,
       isLoading: false,
-      fetchRequestsError: action.error,
+      fetchRequestsError: action.error
     };
   case CREATE_NEW_REQUEST:
     return {
       ...state,
-      creatingRequest: true,
+      creatingRequest: true
     };
   case CREATE_NEW_REQUEST_SUCCESS:
     return {
@@ -61,21 +61,25 @@ const requests = (state = initialState, action) => {
   case FETCH_USER_REQUEST_DETAILS:
     return {
       ...state,
-      fetchingRequest: true,
+      fetchingRequest: true
     };
   case FETCH_USER_REQUEST_DETAILS_SUCCESS:
     return {
       ...state,
       fetchingRequest: false,
-      requestData: action.requestData
+      requestData: action.requestData,
+      comments: action.requestData.comments.sort(
+        (commentDate1, commentDate2) => commentDate1.createdAt < commentDate2.createdAt
+      )
     };
-  case   FETCH_USER_REQUEST_DETAILS_FAILURE:
+  case FETCH_USER_REQUEST_DETAILS_FAILURE:
     return {
       ...state,
       fetchingRequest: false,
       errors: action.error
     };
-  default: return state;
+  default:
+    return state;
   }
 };
 

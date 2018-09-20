@@ -273,6 +273,18 @@
     font-family: 'DIN Pro';
     font-size: 15px;
     line-height: 20px;
+
+    > p {
+      display: inline;
+    }
+
+    > span {
+      color: #bcbcbc;
+      font-family: 'DIN Pro';
+      font-size: 14px;
+      line-height: 15px;
+      font-weight: normal;
+    }
   }
   hr {
     position: absolute;
@@ -289,8 +301,35 @@
     }
   }
 }
+.comment-box {
+  margin: 20px 12px -70px 33px;
+}
 
-#comments {
-  max-height: 300px;
-  overflow: auto;
+.edit-button {
+  color: #999999;
+  margin-left: 40px;
+  height: 15px;
+  width: 35px;
+  font-family: 'DIN Pro';
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.edit-button:focus,
+.edit-button.active {
+  color: blue;
+  text-decoration: underline;
+}
+.edit-button:hover {
+  text-decoration: underline;
+}
+#cancel-button {
+  position: relative;
+  top: -88px;
+  right: -95px;
 }
