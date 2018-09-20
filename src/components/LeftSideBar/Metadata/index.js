@@ -39,6 +39,11 @@ const NavItemsMetadata = [
         text: 'User Roles',
         onlyVisibleTo: ['Super Administrator', ]
       },
+      {
+        link_to: '/settings/profile',
+        text: 'User Profile',
+      }
+
     ],
     icons: {
       active: activeSettingsIcon,

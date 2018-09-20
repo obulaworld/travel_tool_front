@@ -21,6 +21,10 @@ import {
 } from './approvalsSaga';
 import { watchFetchNotifications, watchAddNotifications } from './notificationSaga';
 
+import { watchUpdateUserProfileAsync } from './UserProfileSaga';
+
+
+
 function* rootSaga() {
   yield all([
     userAuth(),
@@ -35,6 +39,9 @@ function* rootSaga() {
     watchFetchUserRequestsDetails(),
     watchCreateComment(),
     watchUpdateRequestStatus(),
+    watchUpdateUserProfileAsync(),
+    watchFetchNotifications(),
+    watchAddNotifications(),
     watchFetchNotifications(),
     watchAddNotifications(),
     watchEditComment(),

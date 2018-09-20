@@ -11,6 +11,7 @@ import {
   fetchUserRequests,
   createNewRequest
 } from '../../redux/actionCreator/requestActions';
+import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 
@@ -27,11 +28,20 @@ export class Requests extends Base {
   };
 
   componentDidMount() {
-    const { fetchUserRequests, fetchRoleUsers } = this.props;
+    const { fetchUserRequests, fetchRoleUsers, user} = this.props;
     const { url } = this.state;
     fetchUserRequests(url);
-    // Fetch managers
     fetchRoleUsers(53019);
+  }
+
+  componentDidUpdate(){
+    const {getUserData, user}=this.props;
+    const data = getUserData.result;
+    localStorage.setItem('passportName', data && data.passportName);
+    localStorage.setItem('gender', data && data.gender);
+    localStorage.setItem('department', data && data.department);
+    localStorage.setItem('role', data && data.occupation);
+    localStorage.setItem('manager', data && data.manager);
   }
 
   fetchRequests = query => {
@@ -108,6 +118,7 @@ export class Requests extends Base {
 
   renderNewRequestForm() {
     const {
+      updateUserProfile,
       user,
       createNewRequest,
       loading,
@@ -115,7 +126,7 @@ export class Requests extends Base {
       closeModal,
       shouldOpen,
       modalType,
-      manager
+      manager,
     } = this.props;
 
     return (
@@ -128,6 +139,7 @@ export class Requests extends Base {
         title="New Travel Request"
       >
         <NewRequestForm
+          updateUserProfile={updateUserProfile}
           user={user}
           handleCreateRequest={createNewRequest}
           loading={loading}
@@ -195,10 +207,11 @@ Requests.defaultProps = {
   user: {}
 };
 
-export const mapStateToProps = ({ requests, modal, role }) => ({
+export const mapStateToProps = ({ requests, modal, role, user }) => ({
   ...requests,
   ...modal.modal,
-  ...role
+  ...role,
+  getUserData: user.getUserData
 });
 
 const actionCreators = {
@@ -206,7 +219,8 @@ const actionCreators = {
   createNewRequest,
   fetchRoleUsers,
   openModal,
-  closeModal
+  closeModal,
+  updateUserProfile,
 };
 
 export default connect(

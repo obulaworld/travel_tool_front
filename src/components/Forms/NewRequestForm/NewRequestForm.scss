@@ -65,3 +65,61 @@ form.new-request {
     }
   }
 }
+
+
+form.new-profile{
+  fieldset {
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    input{
+      height: 40px;
+      width: 300px;
+      border-radius: 2px;
+      background-color: #F8F8F8;
+    }
+    .input{
+      height: 40px;
+      width: 300px;
+      border-radius: 2px;
+      background-color: #F8F8F8;
+    }
+    .input button{
+      width: 150px;
+    }
+    label{
+      color: #4F4F4F;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+}
+
+
+h1{
+  height: 23px;
+  width: 72px;
+  color: #4F4F4F;
+  font-family: "DIN Pro";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 23px;
+  margin: 60px 0px 0px 0px;
+}
+.main{
+  height: 400px;
+  width: 1080px;
+  border: 1px solid #E4E4E4;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  margin: 10px 60px 0px 0px;
+}
+.main--user_profile{
+  width:550px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+

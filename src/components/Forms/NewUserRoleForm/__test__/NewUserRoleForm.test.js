@@ -57,7 +57,6 @@ describe('<NewUserRoleForm />', () => {
   });
 
 
-  
   it('validates input on blur', () => {
     wrapper.find('input[name="email"]').simulate('blur');
     wrapper.update();
