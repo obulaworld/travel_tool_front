@@ -21,7 +21,7 @@ export class NotificationPane extends PureComponent {
     const { notifications } = this.props;
     const generalNotifications = [];
     const pendingNotifications = [];
-    notifications.length && notifications.map(notification => {
+    notifications.map(notification => {
       if (notification.notificationType === 'general') {
         generalNotifications.push(notification);
       } else if(notification.notificationType === 'pending') {
@@ -34,24 +34,37 @@ export class NotificationPane extends PureComponent {
   render() {
 
     const { onCloseNotificationPane } = this.props;
-    const notifications = this.getNotifications();
+    const { generalNotifications, pendingNotifications } = this.getNotifications();
     return (
-      <Fragment>
-        <div className="nav-pane">
-          <NotificationHeader onCloseNotificationPane={onCloseNotificationPane} />
-          <div className="scrollable-div">
-            <NotificationContainer
-              title="Pending Approvals"
-              pendingNotifications={notifications.pendingNotifications}
-            />
-            <NotificationContainer
-              title="General Notifications"
-              generalNotifications={notifications.generalNotifications}
-            />
-          </div>
-          <div className="notification-item__last" />
-        </div>
-      </Fragment>
+      <div className="nav-pane">
+        <NotificationHeader onCloseNotificationPane={onCloseNotificationPane} />
+        {
+          (generalNotifications.length || pendingNotifications.length) ? (
+            <div className="scrollable-div">
+              {
+                (pendingNotifications.length > 0) && (
+                  <NotificationContainer
+                    title="Pending Approvals"
+                    pendingNotifications={pendingNotifications}
+                  />
+                )
+              }
+              {
+                (generalNotifications.length > 0) && (
+                  <NotificationContainer
+                    title="General Notifications"
+                    generalNotifications={generalNotifications}
+                  />)
+              }
+            </div>
+          ) : (
+            <div className="no-notification-msg">
+              No notifications
+            </div>
+          )}
+        <div className="notification-item__last" />
+      </div>
+
     );
   }
 }
@@ -74,7 +87,7 @@ NotificationPane.defaultProps = {
 
 const mapStateToProps = ({auth, notifications, modal}) => ({
   user: auth.user,
-  notifications,
+  notifications: notifications.notifications,
   ...modal.modal
 });
 

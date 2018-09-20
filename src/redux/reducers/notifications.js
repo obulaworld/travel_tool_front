@@ -5,22 +5,31 @@ import {
   ADD_NOTIFICATION_FAILURE
 } from '../constants/actionTypes';
 
-const notifications = (state = [], action) => {
-  switch (action.type) {
-  case ADD_NOTIFICATION_SUCCESS:
-    return [action.notification, ...state];
-  case ADD_NOTIFICATION_FAILURE:
+const initialState = {
+  isLoading: false,
+  notifications: [],
+  error: null
+};
+const notifications = (state = initialState, action) => {
+  switch(action.type) {
+  case 'FETCH_NOTIFICATIONS_SUCCESS':
+    return { ...state,
+      notifications: action.notifications,
+      isLoading: false,
+      error: null
+    };
+  case 'FETCH_NOTIFICATIONS_FAILURE':
     return {
       error: true
     };
-  case FETCH_NOTIFICATIONS_SUCCESS:
-    return action.notifications;
-  case FETCH_NOTIFICATIONS_FAILURE:
+  case 'ADD_NOTIFICATION_SUCCESS':
     return {
-      error: true
+      ...state,
+      notifications: [ action.notification, ...state.notifications ]
     };
-  default:
-    return state;
+  case 'ADD_NOTIFICATION_FAILURE':
+    return { ...state, error: action.error };
+  default: return state;
   }
 };
 export default notifications;

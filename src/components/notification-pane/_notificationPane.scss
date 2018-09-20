@@ -12,6 +12,14 @@
     overflow: scroll;
     height: 100%;
   }
+
+  .no-notification-msg {
+    font-family: DIN Pro;
+    margin-left: 41px;
+    color: #999;
+    font-size: 16px;
+    padding-top: 13px;
+  }
 }
 
 .notification-item__last {
@@ -21,11 +29,11 @@
 
 .notification {
   position: absolute;
-  width: 24%;
+  width: 359px;
   right: 0;
   top: 0;
   @media (max-width: 839px) and (min-width: 480px){
-    width: 50%;
+    width: 359px;
     top: 0px;
   }
   @media (max-width: 479px){
