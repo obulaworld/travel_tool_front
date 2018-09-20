@@ -1,5 +1,11 @@
 form.new-request {
   fieldset {
+    div{
+      div.disable-details {
+        pointer-events: none;
+        opacity: 0.4;
+      }
+    }
     .input-group {
       display: flex;
     }
@@ -64,6 +70,8 @@ form.new-request {
       margin-right: 20px;
     }
   }
+
+  
 }
 
 

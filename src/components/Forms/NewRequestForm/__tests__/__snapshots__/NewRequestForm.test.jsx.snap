@@ -7,12 +7,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
     onSubmit={[Function]}
   >
     <fieldset
-      className="personal-details"
+      className="personal-details null"
     >
       <legend
         style={
           Object {
-            "borderBottom": "1px solid #E4E4E4",
             "width": "100%",
           }
         }
@@ -50,7 +49,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
       <div>
         <div>
           <div
-            className="input-group"
+            className="input-group "
           >
             <div
               className="spaces"
@@ -263,7 +262,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="input-group"
+            className="input-group "
           >
             <div
               className="spaces"

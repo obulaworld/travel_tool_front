@@ -7,15 +7,23 @@ class Checkbox extends PureComponent{
   state = {
     checkBox: 'notClicked'
   }
+  
+  componentWillMount(){
+    const state = localStorage.getItem('state');
+    this.setState({checkBox:state});
+  }
 
   clickCheckbox=()=>{
-    const { checkBox } = this.state;
+    let { checkBox } = this.state;
     if(checkBox=== 'notClicked'){
       this.setState({checkBox:'clicked'});
+      checkBox = 'clicked';
     }
     else{
       this.setState({checkBox:'notClicked'});
+      checkBox = 'notClicked';
     }
+    this.renderCurrentState(checkBox);
   }
 
   renderCurrentState(state){
@@ -23,9 +31,12 @@ class Checkbox extends PureComponent{
   }
 
   renderCheckBox=()=>{
-    const { checkBox} = this.state;
+    const state = localStorage.getItem('state');
+    let { checkBox } = this.state;
     let className = 'default';
-
+    if(state==='clicked'){
+      checkBox = state;
+    }
     if (checkBox === 'clicked'){
       className = 'checkbox clicked';
     }
@@ -48,8 +59,6 @@ class Checkbox extends PureComponent{
   }
 
   render(){
-    const { checkBox } = this.state;
-    this.renderCurrentState(checkBox);
     return(
       <div className="container">
         {this.renderCheckBox()}
@@ -58,5 +67,6 @@ class Checkbox extends PureComponent{
     );
   }
 }
+
 
 export default Checkbox;

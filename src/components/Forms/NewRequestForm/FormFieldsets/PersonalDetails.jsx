@@ -9,12 +9,14 @@ import Checkbox from '../../../CheckBox/index';
 class PersonalDetailsFieldset extends Component {
   renderfields = (collapse) => {
     const { renderInput } = this.inputRenderer;
+    const { values } = this.props;
+    const disabled = values.state==='clicked'?'disable-details':'';
     return (
       <div>
         { !collapse ?
           ( 
             <div>
-              <div className="input-group">
+              <div className={`input-group ${disabled}`}>
                 <div className="spaces">
                   {renderInput('name', 'text')}
                 </div>
@@ -23,7 +25,7 @@ class PersonalDetailsFieldset extends Component {
                 </div>
                 {renderInput('department', 'dropdown-select')}
               </div>
-              <div className="input-group">
+              <div className={`input-group ${disabled}`}>
                 <div className="spaces">
                   {renderInput('role', 'dropdown-select')}
                 </div>
@@ -41,13 +43,16 @@ class PersonalDetailsFieldset extends Component {
 
  
   render() {
-    const { managers, collapsible, collapse, title, position, line } = this.props;
+    const { managers, collapsible, collapse, title, position, line, values } = this.props;
     const managerNames = managers.map(manager => manager.fullName);
     formMetadata.dropdownSelectOptions.manager = managerNames;
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
+    const { renderInput } = this.inputRenderer;
+
+    const disabledFields= values.state==='clicked'?'disable-details':null;
     return (
-      <fieldset className="personal-details">
-        <legend style={{ width: '100%' , borderBottom: line }}>
+      <fieldset className={`personal-details ${disabledFields}`}>
+        <legend style={{width: '100%'}}>
           Personal Details
           <span className="required-field">
           * Required Field
@@ -76,6 +81,7 @@ const collapse = PropTypes.bool;
 const title = PropTypes.string;
 const position = PropTypes.string;
 const line = PropTypes.string;
+const values = PropTypes.object;
 
 PersonalDetailsFieldset.propTypes = {
   managers: managers.isRequired,
@@ -84,9 +90,14 @@ PersonalDetailsFieldset.propTypes = {
   title:  title.isRequired,
   position: position.isRequired,
   line: position.isRequired,
+  values: values,
 
 
 
+};
+
+PersonalDetailsFieldset.defaultProps = {
+  values: {},
 };
 
 

@@ -16,20 +16,21 @@ class NewRequestForm extends PureComponent {
     const department = localStorage.getItem('department');
     const role = localStorage.getItem('role');
     const manager = localStorage.getItem('manager');
+    const state = localStorage.getItem('state');
 
     this.defaultState = {
       values: {
-        name: !(/^null$/).test(user) ? user : '', // FIX: need to be refactor later
-        gender: !(/^null$/).test(gender) ? gender: '',
-        department: !(/^null$/).test(department) ? department: '',
-        role: !(/^null$/).test(role) ? role :'',
-        manager: !(/^null$/).test(manager) ? manager : '',
+        name: user || '', // FIX: need to be refactor later
+        gender: gender || '',
+        department: department || '',
+        role: role || '',
+        manager: manager || '',
         origin: '',
         destination: '',
         otherDestination: '',
         departureDate: null,
         arrivalDate: null,
-
+        state: state || 'notClicked'
       },
       trips: [],
       errors: {},
