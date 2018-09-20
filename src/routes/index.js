@@ -36,12 +36,12 @@ const Routes = () => (
             exact
             component={RequireAuth(ConnectedRole)}
           />
-
           <Route
             path="/requests/:requestId"
             exact
             component={RequireAuth(ReactModal)}
           />
+
 
           <Route
             path="/settings/profile"
@@ -53,6 +53,7 @@ const Routes = () => (
             exact
             component={RequireAuth(ReactModal)}
           />
+
         </Switch>
       </LayoutShell>
     </Route>

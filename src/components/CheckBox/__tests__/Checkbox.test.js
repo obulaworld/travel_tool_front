@@ -45,4 +45,5 @@ describe('<Checkbox />', ()=> {
     wrapper.find('.checkbox').simulate('click');
     expect(wrapper.find('.notClicked').exists()).toBe(false);
   });
+
 });

@@ -19,11 +19,11 @@ class ProfileForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        name: !(/^null$/).test(user) ? user : '', // FIX: need to be refactor later
-        gender: !(/^null$/).test(gender) ? gender: '',
-        department: !(/^null$/).test(department) ? department: '',
-        role: !(/^null$/).test(role) ? role :'',
-        manager: !(/^null$/).test(manager) ? manager : '',
+        name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be refactor later
+        gender: !(/^null|undefined$/).test(gender) ? gender: '',
+        department: !(/^null|undefined$/).test(department) ? department: '',
+        role: !(/^null|undefined$/).test(role) ? role :'',
+        manager: !(/^null|undefined$/).test(manager) ? manager : '',
       },
       errors: {},
       hasBlankFields: true,
