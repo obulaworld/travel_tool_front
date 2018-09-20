@@ -20,11 +20,11 @@ class NewRequestForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        name:   user === null || undefined  ? '' : user, 
-        gender: gender === null || undefined  ? '' : gender,  
-        department: department === null || undefined  ? '' : department,
-        role:  role === null || undefined  ? '' : role,
-        manager: manager === null || undefined  ? '' : manager,
+        name: !(/^null$/).test(user) ? user : '', // FIX: need to be refactor later
+        gender: !(/^null$/).test(gender) ? gender: '',
+        department: !(/^null$/).test(department) ? department: '',
+        role: !(/^null$/).test(role) ? role :'',
+        manager: !(/^null$/).test(manager) ? manager : '',
       },
       trips: [],
       errors: {},

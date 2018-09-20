@@ -41,7 +41,8 @@ function* rootSaga() {
     watchUpdateRequestStatus(),
     watchEditComment(),
     watchFetchNotifications(),
-    watchaddNotification()
+    watchaddNotification(),
+    watchUpdateUserProfileAsync()
   ]);
 }
 
