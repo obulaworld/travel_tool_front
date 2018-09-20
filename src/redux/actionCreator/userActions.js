@@ -32,6 +32,7 @@ export const getUserDataSuccess = response => ({
   response
 });
 
+
 export const getUserDataFailure = error => ({
   type: GET_USER_DATA_FAILURE,
   error

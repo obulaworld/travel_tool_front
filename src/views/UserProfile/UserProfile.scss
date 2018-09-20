@@ -1,0 +1,55 @@
+form.new-profile {
+    fieldset {
+      .input-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+}
+
+h1{
+    height: 23px;
+    width: 72px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 23px;
+    margin-left: 0px;
+  }
+  .main{
+    height: 400px;
+    width: 1080px;
+    border: 1px solid #E4E4E4;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-right: 60px;
+    padding-bottom: 50px;
+  }
+  .main--user_profile{
+    width:550px;
+    padding: 0px 0px 10px 20px;
+  }
+.container--handleSubmit{
+    margin-right:320px;
+    height: 23px;
+    width: 72px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+}
+.profile-divider{
+    box-sizing: border-box;
+    height: 2px;
+    width: 980px;
+    border: 1px solid #E4E4E4;
+}
+.main--user_profile{
+    padding: 30px 0px 60px 50px;
+    height: 500px;
+}

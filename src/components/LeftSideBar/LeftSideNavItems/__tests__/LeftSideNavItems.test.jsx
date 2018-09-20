@@ -31,7 +31,7 @@ describe('<LeftSideNavItems />', () => {
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  
+
   it('it renders dropdown items', () => {
     const dropDownItems = wrapper
       .find('LeftSideNavItem');

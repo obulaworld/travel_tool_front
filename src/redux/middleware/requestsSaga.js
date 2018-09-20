@@ -28,6 +28,7 @@ export function* fetchUserRequestsSaga(action) {
   }
 }
 
+
 export function* watchFetchRequests() {
   yield takeLatest(FETCH_USER_REQUESTS, fetchUserRequestsSaga);
 }
@@ -47,6 +48,7 @@ export function* createNewRequestSagaAsync(action) {
     toast.error(errorMessage);
   }
 }
+
 
 // watcher saga listens for CREATE_NEW_REQUEST action type
 export function* watchCreateNewRequestAsync() {

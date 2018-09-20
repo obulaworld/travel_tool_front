@@ -50,6 +50,7 @@ describe('<NewRequestForm />', () => {
     loading: false,
     errors: [],
     handleCreateRequest: jest.fn(() => {}),
+    updateUserProfile: jest.fn(() => {}),
     managers: [
       {
         fullName: 'Test User',
@@ -383,19 +384,6 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.find('h5').text()).toEqual('Creating request...');
   });
 
-  it('should save savePersonalDetails personal details ', () => {
-    const shallowWrapper = shallow(<NewRequestForm {...props} />);
-    shallowWrapper.setState({
-      name: 'tomato', // FIX: need to be refactor later
-      gender: 'male',
-      department: 'fame',
-      role: 'job',
-      manager: 'mango',
-    })
-    sinon.spy(shallowWrapper.instance(), 'savePersonalDetails');
-    shallowWrapper.instance().savePersonalDetails(event);
-    expect(shallowWrapper.instance().savePersonalDetails.calledOnce).toEqual(true);
-  });
 
   it('should save submit personal details ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
