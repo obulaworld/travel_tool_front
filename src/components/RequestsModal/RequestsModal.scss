@@ -34,7 +34,7 @@
     justify-content: space-between;
     margin-bottom: 7px;
     padding-left: 22px;
-    padding-right: 105px;
+    padding-right: 40px;
     border: 1px solid #E4E4E4;
     border-radius: 3px;
     background-color: #F8F8F8;
@@ -50,6 +50,9 @@
       display: flex;
       justify-content: flex-end;
       flex-grow: 2;
+      @media(max-width: 685px) {
+        justify-content: flex-start;
+      }
       .modal__trip-detail {
         flex-basis: auto;
       }
@@ -59,9 +62,13 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    flex-basis: 20%;
-    height: 63px;
+    flex-basis: 26%;
+    min-height: 63px;
     min-width: 100px;
+    padding-right: 1px;
+    @media(max-width: 440px) {
+      flex-basis: 50%;
+    }
   }
   &__dialog {
     margin: 5px 0 10px 0;

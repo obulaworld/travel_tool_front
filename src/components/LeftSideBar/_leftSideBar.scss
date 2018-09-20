@@ -1,6 +1,7 @@
 .sidebar {
   position: relative;
   height: 100vh;
+  min-width: 200px;
 }
 
 .side-drawer .left-sidebar {
@@ -33,6 +34,7 @@
     height: 100%;
     position: relative;
     top: 108px;
+    min-width: 200px;
   }
 
   .logout-button {
