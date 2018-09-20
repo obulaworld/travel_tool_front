@@ -199,6 +199,7 @@ export class RequestDetailsModal extends Component {
   render() {
     const { requestId, requestData, user } = this.props;
     const { status, comments } = requestData;
+    const { picture } = user;
     return (
       <Fragment>
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
@@ -212,7 +213,9 @@ export class RequestDetailsModal extends Component {
           {this.renderRequestDetailsHeader(requestData)}
           {this.getRequestTripsDetails(requestData)}
         </div>
-        <AddComment />
+        <AddComment
+          image={picture}
+        />
         <ConnectedCommentBox requestId={requestId} />
         {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">

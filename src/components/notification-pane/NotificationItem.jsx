@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import './_notificationItem.scss';
 import readMessageIcon from '../../images/read-message.svg';
 import unreadMessageIcon from '../../images/unread-message.svg';
+import generateDynamicDate from '../../helper/generateDynamicDate';
 
 export default class NotificationItem extends PureComponent {
   renderNotificationItemMetaInfo = () => {
-    const { isPending, notificationStatus, handleClick, link } = this.props;
-    
+    const { isPending, notificationStatus, handleClick, link, timeStamp } = this.props;
     return (
       <div className="notification--item__info__bottom">
         <span className="t-hours-ago">
-          5 hours ago
+          {generateDynamicDate(true, timeStamp)}
         </span>
         <Link to={`${link}`}>
           <span className="view-details" onClick={handleClick} role="button" tabIndex="0" onKeyUp={()=>{}}>
@@ -30,7 +30,7 @@ export default class NotificationItem extends PureComponent {
   };
 
   render() {
-    const { name, image, notificationStatus } = this.props;
+    const { name, image, notificationStatus, message } = this.props;
     const bgColorClass = notificationStatus === 'read' ? 'message-opened' : '';
 
     return (
@@ -44,7 +44,7 @@ export default class NotificationItem extends PureComponent {
               <span className="notification--item__info__top__name">
                 {`@${name} `}
               </span>
-              submitted a travel request for your approval
+              {message}
             </div>
           </div>
           {this.renderNotificationItemMetaInfo()}
@@ -60,6 +60,7 @@ NotificationItem.defaultProps = {
   name: '',
   image: '',
   handleClick: ()=>{},
+  message: '',
 };
 
 NotificationItem.propTypes = {
@@ -69,4 +70,6 @@ NotificationItem.propTypes = {
   name: PropTypes.string,
   notificationStatus: PropTypes.string,
   image: PropTypes.string,
+  timeStamp: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };

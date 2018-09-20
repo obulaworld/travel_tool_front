@@ -22,6 +22,8 @@ export default class NotificationContainer extends PureComponent {
             name={notification.senderName}
             messageOpened={notification.notificationStatus}
             image={notification.senderImage}
+            timeStamp={notification.createdAt}
+            message={notification.message}
           />
         );
       } 
