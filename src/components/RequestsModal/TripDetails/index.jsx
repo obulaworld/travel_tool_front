@@ -30,9 +30,12 @@ export default class TripDetails extends PureComponent {
           label="Depature date"
           value={generateDynamicDate(tripDetails, departureDate)} />
         <div id="return-date">
-          <TripDetail
-            label="Return date"
-            value={generateDynamicDate(tripDetails, returnDate)} />
+          { tripType !== 'oneWay' ? 
+            (<TripDetail
+              label="Return date"
+              value={generateDynamicDate(tripDetails, returnDate)} />
+            )  : '' 
+          }
         </div>
       </div>
     );

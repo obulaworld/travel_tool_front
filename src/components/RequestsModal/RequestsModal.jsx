@@ -34,7 +34,7 @@ export class RequestDetailsModal extends Component {
         tripType,
         ...trip,
       };
-      return <TripDetails key={trip.arrivalDate} tripDetails={tripDetails} />;
+      return <TripDetails key={trip.returnDate} tripDetails={tripDetails} />;
     });
     return requestTripsDetails;
   }

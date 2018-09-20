@@ -8,6 +8,8 @@ export default class RequestDetailsHeader extends PureComponent {
     switch (tripType) {
     case 'multi':
       return 'Multi City';
+    case 'oneWay':
+      return 'One Way Trip';
     default: /* istanbul ignore next */
       return 'Return Trip';
     }

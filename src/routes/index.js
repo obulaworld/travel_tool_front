@@ -42,6 +42,12 @@ const Routes = () => (
             exact
             component={RequireAuth(ReactModal)}
           />
+
+          <Route
+            path="/settings/profile"
+            exact
+            component={RequireAuth(ConnectedUserProfile)}
+          />
           <Route
             path="/requests/my-approvals/:requestId"
             exact
