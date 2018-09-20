@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
+import Script from 'react-load-script';
+import toast from 'toastr';
 import { FormContext } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import './NewRequestForm.scss';
-import Checkbox from '../../CheckBox/index';
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
@@ -19,19 +20,22 @@ class NewRequestForm extends PureComponent {
     this.defaultState = {
       values: {
         name: user ? user : '', // FIX: need to be refactor later
-        gender: gender ? gender: '',
-        department: department ? department: '',
-        role: role ? role :'',
-        manager: manager ? manager : '',
-        origin: '',
-        destination: '',
-        otherDestination: '',
-        departureDate: null,
-        arrivalDate: null,
+        gender: gender ? gender : '',
+        department: department ? department : '',
+        role: role ? role : '',
+        manager: manager ? manager : ''
       },
+      trips: [],
       errors: {},
       hasBlankFields: true,
-      checkBox: 'notClicked'
+      checkBox: 'notClicked',
+      selection: 'return',
+      collapse: false,
+      title: 'Hide Details',
+      position: 'none',
+      line: '1px solid #E4E4E4',
+      scriptLoaded: false,
+      scriptError: false,
     };
     this.state = { ...this.defaultState };
   }
@@ -40,24 +44,120 @@ class NewRequestForm extends PureComponent {
     this.handleClearForm();
   }
 
-  // an onChange handler will be created by the Input component when it's rendered
+  handleScriptCreate = () => {
+    this.setState({ scriptLoaded: false });
+  }
+
+  handleScriptError = () =>  {
+    this.setState({ scriptError: true });
+  }
+
+  handleScriptLoad = () => {
+    this.setState({ scriptLoaded: true });
+  }
+  
+
+  onChangeDate = (date, event) => {
+    const { values, trips } = this.state;
+    const dateFormat = date.format('YYYY-MM-DD');
+    const dateWrapperId = event.nativeEvent.path[7].id;
+    const dateName = dateWrapperId.split('_')[0];
+    const id = dateName.split('-')[1];
+    if (trips[id]) {
+      if (dateName.startsWith('departure')) {
+        trips[id].departureDate = dateFormat;
+      } else if (dateName.startsWith('arrival')) {
+        trips[id].returnDate = dateFormat;
+      }
+    } else {
+      trips.push({ [dateName.split('-')[0]]: dateFormat });
+    }
+    this.setState({ values: { ...values, [dateName]: date }});
+    this.validate();
+  };
+
+  onChangeInput = event => {
+    const { scriptError  } = this.state;
+    event.preventDefault();
+    const name = event.target.name;
+    const getId = event.target.dataset.parentid;
+    !scriptError ?
+      this.citySuggestions(name, getId, event) : 
+      toast.error('Network Error Please reload');
+  };
+
+
+  citySuggestions = (name, getId, event) => {
+    const { trips, values } = this.state;
+    const options = {
+      types: ['(cities)']
+    };
+    const autocomplete = new google.maps.places.Autocomplete(
+      event.target,
+      options
+    );
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace().address_components;
+      const places = place[0].long_name + ' ' + place[2].long_name;
+      if (trips[getId]) {
+        const checkField = name.startsWith('destination');
+        if (checkField) {
+          trips[getId].destination = places;
+        } else if (name.startsWith('origin')) {
+          trips[getId].origin = places;
+        }
+      } else {
+        trips.push({
+          [name.split('-')[0]]: places
+        });
+      }
+      this.setState({ values: { ...values, [name]: places } });
+    });
+  }
+
+
+  handleRadioButton = event => {
+    const { collapse } = this.state;
+    this.setState({
+      selection: event.target.value
+    });
+    if (event.target.value === 'multi' && !collapse) {
+      this.collapsible();
+    } else if (!collapse) {
+      return;
+    } else {
+      this.collapsible();
+    }
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-
     const { handleCreateRequest } = this.props;
-    const { values } = this.state;
+    const { values, selection, trips } = this.state;
+    const newData = {
+      name: values.name,
+      tripType: selection,
+      manager: values.manager,
+      gender: values.gender,
+      trips: trips,
+      department: values.department,
+      role: values.role
+    };
+
     const checkBoxState = localStorage.getItem('state');
-    if (checkBoxState === 'clicked'){
-      const [name, gender, department, role, manager] = [values.name, values.gender, values.department, values.role, values.manager];
-      this.savePersonalDetails(name,gender,department,role,manager);
+    if (checkBoxState === 'clicked') {
+      const [name, gender, department, role, manager] = [
+        values.name,
+        values.gender,
+        values.department,
+        values.role,
+        values.manager
+      ];
+      this.savePersonalDetails(name, gender, department, role, manager);
     }
+
     if (this.validate()) {
-      // call create the request
-      let data = { ...values };
-      if (data.destination === 'Other') {
-        data.destination = data.otherDestination;
-      }
-      delete data.otherDestination;
+      let data = { ...newData };
       handleCreateRequest(data);
     }
   };
@@ -89,32 +189,62 @@ class NewRequestForm extends PureComponent {
     return !hasBlankFields;
   };
 
-  savePersonalDetails(name, gender, department, role, manager){
-    // save to localstorage
+  collapsible = () => {
+    const { collapse } = this.state;
+    if (!collapse) {
+      this.setState({
+        collapse: true,
+        title: 'Show Details',
+        position: 'rotate(266deg)',
+        line: 'none'
+      });
+    } else {
+      this.setState({
+        collapse: false,
+        title: 'Hide Details',
+        position: 'none',
+        line: '1px solid #E4E4E4'
+      });
+    }
+  };
+
+  savePersonalDetails(name, gender, department, role, manager) {
     localStorage.setItem('name', name);
     localStorage.setItem('gender', gender);
     localStorage.setItem('department', department);
     localStorage.setItem('role', role);
     localStorage.setItem('manager', manager);
   }
-  
 
-  render() {
-    const { values, errors, hasBlankFields , } = this.state;
-    const { managers, creatingRequest } = this.props;
+  renderForm = (managers, creatingRequest) => {
+    const {  values, errors, hasBlankFields, selection, collapse, title, position, line } = this.state;
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
-
-        {creatingRequest && (
-          <h5 style={{display: 'flex', justifyContent: 'center', fontFamily: 'DIN Pro'}}>
-          Creating request...
-          </h5>
-        )}
+        {creatingRequest && <h5 className="style-h5">Creating request...</h5>}
         <form onSubmit={this.handleSubmit} className="new-request">
-          <PersonalDetailsFieldset values={values} managers={managers} />
-          <Checkbox />
-          <TravelDetailsFieldset values={values} />
-          <hr />
+          <PersonalDetailsFieldset
+            values={values}
+            collapsible={this.collapsible}
+            collapse={collapse}
+            title={title}
+            position={position}
+            line={line}
+            managers={managers}
+            value="232px"
+          />
+          <TravelDetailsFieldset
+            values={values}
+            value="232px"
+            selection={selection}
+            handleDate={this.onChangeDate}
+            handleChange={this.handleRadioButton}
+            onChangeInput={this.onChangeInput}
+          />
+          <Script
+            url={process.env.REACT_APP_CITY}  
+            onCreate={this.handleScriptCreate}
+            onError={this.handleScriptError}
+            onLoad={this.handleScriptLoad} />
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
@@ -123,13 +253,18 @@ class NewRequestForm extends PureComponent {
         </form>
       </FormContext>
     );
+  };
+
+  render() {
+    const { managers, creatingRequest } = this.props;
+    return <div>{this.renderForm(managers, creatingRequest)}</div>;
   }
 }
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
   managers: PropTypes.array,
-  creatingRequest: PropTypes.bool,
+  creatingRequest: PropTypes.bool
 };
 
 NewRequestForm.defaultProps = {

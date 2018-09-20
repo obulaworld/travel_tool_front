@@ -1,17 +1,52 @@
 import React from 'react';
-import moment from 'moment';
+import sinon from 'sinon';
 import NewRequestForm from '../NewRequestForm';
+import PersonalDetailsFieldset from '../FormFieldsets/PersonalDetails';
 
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
   onSubmit = jest.fn();
 
+  window.google ={
+    maps:{
+      Marker:class{},
+      Map:class{ setTilt(){} fitBounds(){}},
+      LatLngBounds:class{},
+      places: {
+        Autocomplete: class {
+          addListener () {
+            return {
+              calledOnce: function () { 
+                jest.fn();
+              },
+            };
+          }
+          calledOnce () {
+            return {
+              calledOnce: function () { 
+                jest.fn();
+              },
+            };
+          }
+        }
+      },
+     
+      AutocompleteService:class{},
+    },
+    MarkerClusterer:class{},
+    Geocoder:class{},
+  };
+
+
   const props = {
+    url: 'http://www.home.com',
+    process: 'process.emv.REACT_APP_ANDELA_AUTH_HOST',
     user: {
       UserInfo: {
         name: 'John Doe'
       },
     },
+    google: {},
     loading: false,
     errors: [],
     handleCreateRequest: jest.fn(() => {}),
@@ -22,7 +57,23 @@ describe('<NewRequestForm />', () => {
       }
     ]
   };
-
+  const event = {
+    preventDefault: jest.fn(),
+    google: jest.fn(),
+    target: {
+      dataset: {  
+        parentid: 'destination-0'
+      },
+      name: 'destination-0'
+    },
+    nativeEvent: {
+      path: [0,1,2,3,4,5,6,{id: 'departure-0_date'}]
+    }
+  };
+  window.date = {
+    format: jest.fn(),
+  }
+  
   const {user} = props;
   const defaultState = {
     values: {
@@ -31,14 +82,13 @@ describe('<NewRequestForm />', () => {
       department: '',
       role: '',
       manager: '',
-      origin: '',
-      destination: '',
-      otherDestination: '',
-      departureDate: null,
-      arrivalDate: null
     },
+    trips: [],
     errors: {},
-    hasBlankFields: true
+    collapse: false,
+    hasBlankFields: true,
+    checkBox: 'notClicked',
+    selection: 'return'
   };
 
 
@@ -81,9 +131,9 @@ describe('<NewRequestForm />', () => {
   });
 
   it('validates input on blur', () => {
-    wrapper.find('input[name="departureDate"]').simulate('blur');
+    wrapper.find('input[name="name"]').simulate('blur');
     wrapper.update();
-    expect(wrapper.state().errors.departureDate).toBe('This field is required');
+    expect(wrapper.state().errors.name).toBe('This field is required');
   });
 
   it('validates form before sending data', () => {
@@ -91,6 +141,146 @@ describe('<NewRequestForm />', () => {
     form.simulate('submit');
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
+
+
+  it('set destination on onchange', () => {
+    let destination = wrapper.find('input[name="destination-0"]');
+    destination.simulate('change', {
+      target: {
+        name: 'lagos',
+        dataset: {
+          value: 'destination-0'
+        },
+        value: 'Lagos'
+      }
+    });
+    expect(wrapper.state().values.name).toBe('');
+  });
+
+  it('set date on onchange', () => {
+    let destination = wrapper.find('input[name="origin-0"]');
+    destination.simulate('change', {
+      target: {
+        name: 'lagos',
+        dataset: {
+          value: 'origin-0'
+        },
+        value: 'Lagos'
+      }
+    });
+    expect(wrapper.state().values.name).toBe('');
+  });
+
+  it('set date on onchange', () => {
+    let destination = wrapper.find('input[name="departureDate-0"]');
+    destination.simulate('change', {
+      target: {
+        name: 'lagos',
+        dataset: {
+          value: 'departureDate-0'
+        },
+        value: 'Lagos'
+      }
+    });
+    expect(wrapper.state().values.name).toBe('');
+  });
+
+  it('calls onChangeInput when input is changed in state', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    sinon.spy(shallowWrapper.instance(), 'onChangeInput');
+    shallowWrapper.instance().onChangeInput(event);
+    expect(shallowWrapper.instance().onChangeInput.calledOnce).toEqual(true);
+  });
+
+  it('call event when date is changed', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    sinon.spy(shallowWrapper.instance(), 'onChangeDate');
+    const date = {
+      format: () => '2018-11-11'
+    }
+    shallowWrapper.instance().onChangeDate(date, event);
+    expect(shallowWrapper.instance().onChangeDate.calledOnce).toEqual(true);
+  });
+
+  it('call event when date is changed', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        dataset: {  
+          parentid: 'destination-0'
+        }
+      },
+      nativeEvent: {
+        path: [0,1,2,3,4,5,6,{id: 'arrival-0_date'}]
+      }
+    };
+  
+    sinon.spy(shallowWrapper.instance(), 'onChangeDate');
+    const date = {
+      format: () => '2018-12-01'
+    }
+    shallowWrapper.instance().onChangeDate(date, event);
+    expect(shallowWrapper.instance().onChangeDate.calledOnce).toEqual(true);
+  });
+
+
+  it('should change the radio buttton on click to multi ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        value: 'multi'
+      },
+    };
+    sinon.spy(shallowWrapper.instance(), 'handleRadioButton');
+    shallowWrapper.instance().handleRadioButton(event);
+    expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
+  });
+
+  it('should change the radio button on click to return ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        value: 'return'
+      },
+    };
+    sinon.spy(shallowWrapper.instance(), 'handleRadioButton');
+    shallowWrapper.instance().handleRadioButton(event);
+    expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
+  });
+
+  it('should change the radio button on click to return ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      selection: 'return'
+    })
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        value: 'multi'
+      },
+    };
+    sinon.spy(shallowWrapper.instance(), 'handleRadioButton');
+    shallowWrapper.instance().handleRadioButton(event);
+    expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
+  });
+  
+  it('should close the personal field on button click ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      collapse: true,
+      title: 'Show Details',
+      position: 'rotate(266deg)',
+      line: 'none'
+    })
+    sinon.spy(shallowWrapper.instance(), 'collapsible');
+    shallowWrapper.instance().collapsible(event);
+    expect(shallowWrapper.instance().collapsible.calledOnce).toEqual(true);
+  });
+  
 
   it('selects female gender on button click', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
@@ -122,6 +312,22 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state('values').gender).toBe('Male');
   });
 
+  it('should change the radio button on click', () => {
+    let maleButton = wrapper.find('button[data-value="Male"]');
+    maleButton.simulate('click', {
+      target: {
+        name: 'gender',
+        getAttribute: () => {},
+        dataset: {
+          value: 'Male'
+        }
+      }
+    });
+    expect(wrapper.state('values').gender).toBe('Male');
+  });
+
+
+
   it('selects gender with browsers that do not support custom datasets', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
     femaleButton.simulate('click', {
@@ -132,77 +338,6 @@ describe('<NewRequestForm />', () => {
     });
 
     expect(wrapper.state('values').gender).toBe('Female');
-  });
-
-  it('hides other destination field by default', () => {
-    const otherDestination = wrapper.find('.form-input.other-dest--hidden');
-    expect(otherDestination).toHaveLength(1);
-  });
-
-  it('shows other destination field when destination is Other', () => {
-    wrapper
-      .find('.input[name="destination"]')
-      .find('li:last-child') // Other option
-      .find('div[role="button"]')
-      .simulate('click');
-    const otherDestinationInput = wrapper
-      .find('Input')
-      .filterWhere(input => {
-        return input.prop('name') === 'otherDestination';
-      })
-      .at(0);
-    expect(otherDestinationInput.prop('className')).not.toContain('hidden');
-  });
-
-  it('calls on submit when `destination` is `Other`', () => {
-    wrapper.setState({
-      values: {
-        name: 'test',
-        gender: 'test',
-        department: 'test',
-        role: 'test',
-        manager: 'test',
-        origin: 'test',
-        destination: 'Other',
-        otherDestination: 'Miami',
-        departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988'
-      }
-    });
-
-    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
-    wrapper.instance().forceUpdate();
-    wrapper.find('form').simulate('submit');
-    expect(spy).toHaveBeenCalledTimes(1);
-    wrapper.state().values.destination = 'Miami';
-    delete wrapper.state().values.otherDestination;
-    expect(props.handleCreateRequest).toHaveBeenCalledWith(wrapper.state().values);//eslint-disable-line
-    expect(props.handleCreateRequest).toHaveBeenCalledTimes(1);//eslint-disable-line
-  });
-
-  it('calls on submit when `destination` is not`Other`', () => {
-    wrapper.setState({
-      values: {
-        name: 'test',
-        gender: 'test',
-        department: 'test',
-        role: 'test',
-        manager: 'test',
-        origin: 'test',
-        destination: 'Nairobi',
-        otherDestination: '',
-        departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988'
-      }
-    });
-
-    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
-    wrapper.instance().forceUpdate();
-    wrapper.find('form').simulate('submit');
-    expect(spy).toHaveBeenCalledTimes(1);
-    delete wrapper.state().values.otherDestination;
-    expect(props.handleCreateRequest).toHaveBeenCalledWith(wrapper.state().values);//eslint-disable-line
-    expect(props.handleCreateRequest).toHaveBeenCalledTimes(2);//eslint-disable-line
   });
 
   it('should not toggle the modal if request submission failed', () => {
@@ -242,37 +377,42 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state()).toMatchObject(defaultState);
   });
 
+
   it('should render a loading indicator while creating a new request', () => {
     wrapper.setProps({ creatingRequest: true });
     expect(wrapper.find('h5').text()).toEqual('Creating request...');
   });
 
-  it('should call savePersonalDetails method when checkbox state is changed to clicked', ()=>{
-    const NewRequest = shallow(<NewRequestForm {...props} />);
-    const checkbox = NewRequest.find('Checkbox').dive();
-    expect(checkbox.exists()).toBe(true);
-    checkbox.setState({checkBox:'clicked'});
-    expect(checkbox.state().checkBox).toBe('clicked');
-
-    NewRequest.setState({
-      values: {
-        name: 'test',
-        gender: 'test',
-        department: 'test',
-        role: 'test',
-        manager: 'test',
-        origin: 'test',
-        destination: 'Nairobi',
-        departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988'
-      }
-    });
-    const spy = jest.spyOn( NewRequest.instance(), 'handleSubmit');
-    NewRequest.instance().forceUpdate();
-    NewRequest.find('form').simulate('submit', {
-      preventDefault: ()=>{}
-    });
+  it('should save savePersonalDetails personal details ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      name: 'tomato', // FIX: need to be refactor later
+      gender: 'male',
+      department: 'fame',
+      role: 'job',
+      manager: 'mango',
+    })
+    sinon.spy(shallowWrapper.instance(), 'savePersonalDetails');
+    shallowWrapper.instance().savePersonalDetails(event);
+    expect(shallowWrapper.instance().savePersonalDetails.calledOnce).toEqual(true);
   });
 
-
+  it('should save submit personal details ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      value: {
+        name: 'tomato', // FIX: need to be refactor later
+        gender: 'male',
+        department: 'fame',
+        role: 'job',
+        manager: 'mango',
+      },
+      trips: [
+        {}
+      ]
+    });
+    sinon.spy(shallowWrapper.instance(), 'handleSubmit');
+    shallowWrapper.instance().handleSubmit(event);
+    expect(shallowWrapper.instance().handleSubmit.calledOnce).toEqual(true);
+  });
 });

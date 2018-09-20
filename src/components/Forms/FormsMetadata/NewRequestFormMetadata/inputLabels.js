@@ -1,11 +1,11 @@
 const inputLabels = {
   name: {
-    label: 'Your name',
+    label: 'Your Name',
     note: '(As it appears on your passport)'
   },
 
   department: {
-    label: 'Your department'
+    label: 'Your Department'
   },
 
   gender: {
@@ -13,7 +13,7 @@ const inputLabels = {
   },
 
   role: {
-    label: 'Your role'
+    label: 'Your Role'
   },
 
   manager: {
@@ -22,11 +22,11 @@ const inputLabels = {
   },
 
   origin: {
-    label: 'Which center are you based out of?'
+    label: 'From'
   },
 
   destination: {
-    label: 'Which center do you intend to travel to?'
+    label: 'Travel to'
   },
 
   otherDestination: {
@@ -34,11 +34,11 @@ const inputLabels = {
   },
 
   departureDate: {
-    label: 'Target departure date'
+    label: 'Depart'
   },
 
   arrivalDate: {
-    label: 'Target return date'
+    label: 'Return'
   }
 };
 

@@ -10,7 +10,9 @@ class PersonalDetailsFiedset extends Component {
     return (
       <fieldset className="personal-details">
         <div className="input-group">
-          {renderInput('email', 'text')}
+          <div style={{ width: ' 232px', marginRight: '30px' }}>
+            {renderInput('email', 'text')}
+          </div>
           {renderInput('roleName', 'dropdown-select')}
         </div>
       </fieldset>

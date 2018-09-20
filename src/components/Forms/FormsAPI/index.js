@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
-import moment from 'moment';
 import Input from './Input';
 import FormContext from './FormContext/FormContext';
 
@@ -28,19 +26,20 @@ class InputRenderer {
   }
 
   renderInput = (name, type, customProps) => {
-    const {values, onChange} = this.props;
+    const { values, onChange, value} = this.props;
 
-    // common props
     let inputProps = {
       value: values[name],
       name: name,
       type: type,
-      label: this.formMetadata.inputLabels[name].label,
-      labelNote: this.formMetadata.inputLabels[name].note,
+      size: value,
+      label: this.formMetadata.inputLabels[name.split('-')[0]].label,
+      labelNote: this.formMetadata.inputLabels[name.split('-')[0]].note,
       onChange: onChange,
-      ...customProps
+      ...customProps,
     };
-    // get input-type-unique props
+
+    customProps ? inputProps['data-parentid'] = customProps.parentid : null;
     inputProps = this.switchProps(name, type, values, inputProps);
 
     return createInput(inputProps);

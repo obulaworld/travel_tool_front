@@ -63,7 +63,7 @@ class NewUserRoleForm extends PureComponent {
           </h5>
         )}
         <form onSubmit={this.handleSubmit} className="new-request">
-          <PersonalDetailsFieldset values={values} />
+          <PersonalDetailsFieldset values={values} value="232px" />
           <hr />
           <SubmitArea
             onCancel={this.handleCancel}

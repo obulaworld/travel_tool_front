@@ -12,34 +12,44 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
       className="input-group"
     >
       <div
-        className="form-input  "
+        style={
+          Object {
+            "marginRight": "30px",
+            "width": " 232px",
+          }
+        }
       >
-        <label
-          htmlFor="email"
+        <div
+          className="form-input  "
         >
-          Andela Email Address
-          <span
-            style={
-              Object {
-                "color": "red",
-              }
-            }
+          <label
+            htmlFor="email"
           >
-            *
-          </span>
-        </label>
-        <input
-          className=" "
-          label="Andela Email Address"
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
-        <span
-          className="error"
-        />
+            Andela Email Address
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+              *
+            </span>
+          </label>
+          <input
+            className=" "
+            label="Andela Email Address"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            size="232px"
+            type="text"
+            value=""
+          />
+          <span
+            className="error"
+          />
+        </div>
       </div>
       <div
         className="form-input  "
@@ -83,12 +93,18 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
+            size="232px"
             tabIndex="0"
             type="dropdown-select"
             value=""
           >
             <div
               className="value"
+              style={
+                Object {
+                  "width": "232px",
+                }
+              }
             >
               <div
                 className="select-dropdown inactive"

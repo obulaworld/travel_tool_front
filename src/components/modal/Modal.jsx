@@ -11,6 +11,7 @@ class Modal extends PureComponent {
     title: PropTypes.string,
     modalId: PropTypes.string,
     modalContentId: PropTypes.string,
+    width:  PropTypes.string,
     modalBar: PropTypes.object,
     children: PropTypes.oneOfType([
       PropTypes.object,
@@ -43,6 +44,7 @@ class Modal extends PureComponent {
       visibility,
       closeModal,
       title,
+      width,
       modalId,
       modalContentId
     } = this.props;
@@ -54,6 +56,7 @@ class Modal extends PureComponent {
               className={`modal ${visibility}`}
               onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
               id={modalId}
+              style={{maxWidth: width}}
               tabIndex="0"
               role="button">
               {this.renderModalHeader()}
@@ -72,6 +75,7 @@ class Modal extends PureComponent {
 Modal.defaultProps = {
   title: '',
   modalId: '',
+  width: '',
   modalContentId: '',
   modalBar: <div />,
   closeModal: null,

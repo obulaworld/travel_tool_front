@@ -2,43 +2,92 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
+import expand from '../../../../images/expand_more_24px.svg';
+import Checkbox from '../../../CheckBox/index';
 
 class PersonalDetailsFieldset extends Component {
+  renderfields = (collapse) => {
+    const { renderInput } = this.inputRenderer;
+    return (
+      <div>
+        { !collapse ?
+          ( 
+            <div>
+              <div className="input-group">
+                <div className="spaces">
+                  {renderInput('name', 'text')}
+                </div>
+                <div className="spaces">
+                  {renderInput('gender', 'button-toggler')}
+                </div>
+                {renderInput('department', 'dropdown-select')}
+              </div>
+              <div className="input-group">
+                <div className="spaces">
+                  {renderInput('role', 'dropdown-select')}
+                </div>
+                {renderInput('manager', 'dropdown-select')}
+              </div>
+              <div className="input-group">
+                <Checkbox />
+              </div>
+            </div>
+          )  : null
+        }
+      </div>
+    );
+  }
 
+ 
   render() {
-    const { managers } = this.props;
+    const { managers, collapsible, collapse, title, position, line } = this.props;
     const managerNames = managers.map(manager => manager.fullName);
     formMetadata.dropdownSelectOptions.manager = managerNames;
-
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
-    const { renderInput } = this.inputRenderer;
-
     return (
       <fieldset className="personal-details">
-        <legend style={{width: '100%'}}>
+        <legend style={{ width: '100%' , borderBottom: line }}>
           Personal Details
           <span className="required-field">
           * Required Field
           </span>
+          <span
+            className="hide-details" 
+            onClick={collapsible} 
+            onKeyPress={this.handleKeyDown} 
+            role="button" 
+            tabIndex={0}
+            style={{outline: 'none'}}
+          >
+            <img src={expand} alt="clicked" className="expand" style={{transform: position }} />
+            { !title ? 'Hide Details' : title }
+          </span>
         </legend>
-        <div className="input-group">
-          {renderInput('name', 'text')}
-          {renderInput('gender', 'button-toggler')}
-          {renderInput('department', 'dropdown-select')}
-          {renderInput('role', 'dropdown-select')}
-          {renderInput('manager', 'dropdown-select')}
-        </div>
+        {this.renderfields(collapse)}
       </fieldset>
     );
   }
 }
 
+const managers = PropTypes.array;
+const collapsible = PropTypes.func;
+const collapse = PropTypes.bool;
+const title = PropTypes.string;
+const position = PropTypes.string;
+const line = PropTypes.string;
+
 PersonalDetailsFieldset.propTypes = {
-  managers: PropTypes.array
+  managers: managers.isRequired,
+  collapsible: collapsible.isRequired,
+  collapse: collapse.isRequired,
+  title:  title.isRequired,
+  position: position.isRequired,
+  line: position.isRequired,
+
+
+
 };
 
-PersonalDetailsFieldset.defaultProps = {
-  managers: []
-};
+
 
 export default PersonalDetailsFieldset;

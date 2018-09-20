@@ -5,7 +5,7 @@ function updateFormValues(value, targetField, validate) {
     [targetField]: value
   };
 
-  validate = validate? validate: ()=>{};
+  validate = validate ? validate : () => {};
 
   this.setState({ values }, () => validate(targetField));
 }
@@ -17,13 +17,18 @@ export function getInputChangeHandler(validate, targetField) {
   };
 }
 
-
 export function getTogglerHandler(validate, targetField) {
   return opt => updateFormValues.call(this, opt, targetField, validate);
 }
 
 export function getDateHandler(validate, targetField) {
-  return date => updateFormValues.call(this, date.format('MM/DD/YYYY'), targetField, validate);
+  return date =>
+    updateFormValues.call(
+      this,
+      date.format('MM/DD/YYYY'),
+      targetField,
+      validate
+    );
 }
 
 export function getDropdownHandler(validate, targetField) {

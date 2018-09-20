@@ -121,6 +121,7 @@ export class Requests extends Base {
     return (
       <Modal
         closeModal={closeModal}
+        width="1000px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
         }

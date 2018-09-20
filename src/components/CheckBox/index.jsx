@@ -42,7 +42,7 @@ class Checkbox extends PureComponent{
   renderText=()=>{
     return(
       <p>
-        Remember these details
+        Remember my personal details
       </p>
     );
   }

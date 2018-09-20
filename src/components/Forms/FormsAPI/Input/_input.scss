@@ -1,7 +1,6 @@
 form .form-input {
     display: flex;
     flex-flow: column;
-    width: 100%;
     height: 64px;
     margin: 0 0 20px 0;
     transition: height .5s ease-out;
@@ -42,7 +41,6 @@ form .form-input {
     .input {
         box-sizing: border-box;
         width: 100%;
-        min-width: 260px;
         height: 36px;
         border-radius: 2px;
         outline: none;
@@ -57,7 +55,7 @@ form .form-input {
             cursor: text;
         }
         button {
-            width: 130px;
+            width: 128px;
             margin: 0;
             &.bg-btn {
                 &--inactive {
@@ -80,8 +78,10 @@ form .form-input {
     .input.select {
         border: 1px solid #D4D4D4;
         box-sizing: border-box;
+        background: white;
         padding-left: 15px;
         position: relative;
+       
         &::placeholder {
             color: #999999;
         }
@@ -146,16 +146,16 @@ form .form-input {
         display: flex;
         position: relative;
         input {
-            background: transparent;
+            background: white;
             color: transparent;
             text-shadow: 0 0 0 #999999;
+            width: 190px;
             cursor: context-menu;
         }
         .calendar-icon {
             position: absolute;
             right: 15px;
             top: 20px;
-            z-index: -1;
         }
     }
     input:disabled {
@@ -282,11 +282,7 @@ form .form-input {
     }
 }
 
-@media (min-width: 640px) {
-    form .form-input {
-        width: 260px;
-    }
-}
+
 
 .required-field {
     margin-left: 61%;

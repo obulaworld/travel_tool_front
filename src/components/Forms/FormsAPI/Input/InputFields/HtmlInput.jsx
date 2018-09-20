@@ -14,7 +14,7 @@ const HtmlInput = (props) => {
   return (
     <input
       {...htmlProps}
-      className={`${className} ${htmlProps.className}`}
+      className={`${className} ${htmlProps.className}`} 
     />
   );
 };

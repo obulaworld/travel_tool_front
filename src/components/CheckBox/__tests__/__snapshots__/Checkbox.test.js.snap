@@ -19,7 +19,7 @@ exports[`<Checkbox /> should render correctly 1`] = `
     />
   </div>
   <p>
-    Remember these details
+    Remember my personal details
   </p>
 </div>
 `;

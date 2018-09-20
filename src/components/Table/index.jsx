@@ -139,6 +139,7 @@ export class Table extends Component {
     return (
       <Modal
         closeModal={closeModal}
+        width="600px"
         modalId="request-details-modal"
         modalContentId="request-details-modal-content"
         visibility={(shouldOpen && modalType === 'request details') ? 'visible' : 'invisible'}

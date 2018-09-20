@@ -2,7 +2,6 @@ import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import WithLoadingRoleTable from '../../components/RoleTable';
-import Base from '../Base';
 import RolePanelHeader from '../../components/RolePanelHeader';
 import Modal from '../../components/modal/Modal';
 import { NewUserRoleForm } from '../../components/Forms';
@@ -46,6 +45,7 @@ export class Role extends Component {
     return (
       <Modal
         closeModal={closeModal}
+        width="600px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
         }
