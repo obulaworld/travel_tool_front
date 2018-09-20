@@ -81,7 +81,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       className="modal__button-below"
     >
       <span
-        key="1"
+        key="Approve"
       >
         <span
           className="modal__dialog-btn"
@@ -105,7 +105,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
         </span>
       </span>
       <span
-        key="2"
+        key="Reject"
       >
         <span
           className="modal__dialog-btn"
@@ -243,7 +243,9 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       }
     />
   </div>
-  <AddComment />
+  <AddComment
+    image="http://my-image"
+  />
   <Connect(CommentBox)
     requestId="xDh20cuGx"
   />

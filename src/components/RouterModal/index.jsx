@@ -6,7 +6,7 @@ import RequestsModal from '../RequestsModal/RequestsModal';
 import Modal from '../modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 
-class RouterModal extends Component {
+export class RouterModal extends Component {
     state = {
       viewRequestDetails: ''
     }
@@ -25,6 +25,7 @@ class RouterModal extends Component {
       const { closeModal, shouldOpen, modalType, match:{url} } = this.props;
       return (
         <Modal
+          width="1000px"
           params={url}
           closeModal={closeModal}
           visibility={(shouldOpen && modalType === 'notification detail') ? 'visible' : 'invisible'}

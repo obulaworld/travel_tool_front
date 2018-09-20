@@ -19,6 +19,7 @@ export class RequestDetailsModal extends Component {
     rejectColor: '',
     approveTextColor: '',
     rejectTextColor: '',
+    buttonSelected: false,
   };
 
   componentDidMount() {
@@ -34,29 +35,34 @@ export class RequestDetailsModal extends Component {
         tripType,
         ...trip,
       };
-      return <TripDetails key={trip.returnDate} tripDetails={tripDetails} />;
+      return <TripDetails key={trip.id} tripDetails={tripDetails} />;
     });
     return requestTripsDetails;
   }
 
-  handleButtonState = (approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
+  handleButtonState = (buttonSelected, approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
     this.setState({
       approveColor,
       rejectColor,
       approveTextColor,
       rejectTextColor,
+      buttonSelected,
       newStatus,
       requestId }, () => this.updateRequestStatus());
   }
 
   changeButtonColor = (button, status) => {
+    const { approveTextColor, rejectTextColor } = this.state;
     const style = {
       color: 'white'
     };
-    if (status === 'Approved' && button.id === 1) {
+    const approvedCondition = approveTextColor && button.id === 1 && !rejectTextColor;
+    const rejectCondition = rejectTextColor && button.id === 2 && !approveTextColor;
+
+    if ((status === 'Approved' && button.id === 1) || approvedCondition) {
       style.backgroundColor = '#49AAAF';
       return style;
-    } else if (status === 'Rejected' && button.id === 2) {
+    } else if ((status === 'Rejected' && button.id === 2) || rejectCondition) {
       style.backgroundColor = '#FF5359';
       return style;
     } else {
@@ -67,14 +73,17 @@ export class RequestDetailsModal extends Component {
   }
 
   handleApprove = (requestId) => {
+    // this.setState({approveTextColor: '#49AAAF'});
     return () => {
-      this.handleButtonState('#49AAAF', '', 'white', '','Approved', requestId);
+      this.handleButtonState(true,'#49AAAF', '', 'white', '','Approved', requestId);
     };
   };
 
   handleReject = (requestId) => {
+    // this.setState({rejectTextColor: '#FF5359'});
+
     return () => {
-      this.handleButtonState('', '#FF5359', '', 'white', 'Rejected', requestId);
+      this.handleButtonState(true, '', '#FF5359', '', 'white', 'Rejected', requestId);
     };
   };
 
@@ -108,10 +117,11 @@ export class RequestDetailsModal extends Component {
 
 
   disableButtons(status, page) {
+    const { buttonSelected } = this.state;
     const { isStatusUpdating } = this.props;
     return page === 'Requests' ||
       page === 'Approvals' && (status && ['Approved', 'Rejected'].includes(status)) ||
-      isStatusUpdating;
+      isStatusUpdating || buttonSelected;
   }
   shouldButtonsRender(status) {
     const { page } = this.props;
@@ -146,7 +156,7 @@ export class RequestDetailsModal extends Component {
       .map((button)=>{
         const buttonStyle = this.changeButtonColor(button, status);
         return (
-          <span key={button.id}>
+          <span key={button.text}>
             <span className="modal__dialog-btn">
               <button
                 style={{

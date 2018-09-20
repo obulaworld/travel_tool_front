@@ -10,7 +10,7 @@ exports[`AddComment component should match snapshot 1`] = `
     <ImageLink
       altText="avatar"
       imageClass="modal__oval-copy"
-      imageSrc="Oval2.png"
+      imageSrc=""
     />
   </span>
   <span
