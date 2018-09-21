@@ -7,7 +7,7 @@ import moxios from 'moxios';
 import ConnectedRequestDetailsModal,
 { RequestDetailsModal } from '../RequestsModal';
 import { fetchRequestsDetailsResponse,
-  userImage } from '../../../redux/__mocks__/mocks';
+  userImage, userEmail } from '../../../redux/__mocks__/mocks';
 import requestData from '../__mocks__/requestData';
 import testRequestDetailsResp from '../../../services/__mocks__/mockApprovals';
 import rootSaga from '../../../redux/middleware';
@@ -20,7 +20,8 @@ const store = mockStore({
   requests: {requestData: {tripType: 'multi', trips:[]}},
   approvals: [],
   modal: {modal: {}},
-  auth: { ...userImage }
+  auth: { ...userImage },
+  user: { ...userEmail }
 });
 
 store.runSagas = sagaMiddleware.run;
@@ -30,6 +31,9 @@ const props = {
   requestId: 'xDh20cuGx',
   user: {
     picture: 'http://my-image'
+  },
+  result: {
+    email: 'hari2@gmail.com'
   },
   requestData: {
     id: 'xDh20cuGx',

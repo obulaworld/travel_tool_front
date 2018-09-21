@@ -88,6 +88,14 @@ export const userImage = {
   user: {
     UserInfo:{
       picture: 'http://my-image'
+    },
+  }
+};
+
+export const userEmail = {
+  getUserData: {
+    result:{
+      email: 'hari2@gmail.com'
     }
   }
 };

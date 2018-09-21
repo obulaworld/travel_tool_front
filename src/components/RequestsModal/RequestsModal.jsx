@@ -207,7 +207,7 @@ export class RequestDetailsModal extends Component {
   }
 
   render() {
-    const { requestId, requestData, user } = this.props;
+    const { requestId, requestData, user, email } = this.props;
     const { status, comments } = requestData;
     const { picture } = user;
     return (
@@ -229,7 +229,7 @@ export class RequestDetailsModal extends Component {
         <ConnectedCommentBox requestId={requestId} />
         {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">
-          <UserComments comments={comments} />
+          <UserComments comments={comments} email={email} />
         </div>
       </Fragment>
     );
@@ -243,13 +243,15 @@ RequestDetailsModal.propTypes = {
   user: PropTypes.object,
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
-  page: PropTypes.string
+  page: PropTypes.string,
+  email:PropTypes.string
 };
 
 RequestDetailsModal.defaultProps = {
   fetchUserRequestDetails: () => {},
   updateRequestStatus: () => {},
   requestId: '',
+  email: '',
   requestData: {},
   user: {},
   isStatusUpdating: false,
@@ -261,6 +263,7 @@ const mapStateToProps = (state) => {
     requestData: state.requests.requestData,
     user: state.auth.user.UserInfo,
     isStatusUpdating: state.approvals.updatingStatus,
+    email: state.user.getUserData.result.email,
     ...state.modal.modal
   };
 };

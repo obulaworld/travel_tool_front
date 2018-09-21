@@ -68,9 +68,7 @@ const requests = (state = initialState, action) => {
       ...state,
       fetchingRequest: false,
       requestData: action.requestData,
-      comments: action.requestData.comments.sort(
-        (commentDate1, commentDate2) => commentDate1.createdAt < commentDate2.createdAt
-      )
+      comments: action.requestData.comments
     };
   case FETCH_USER_REQUEST_DETAILS_FAILURE:
     return {

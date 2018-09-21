@@ -24,27 +24,6 @@ exports[`UserComments component should match snapshot 1`] = `
     >
       Invalid date
     </span>
-    <span
-      className="modal__dialog"
-    >
-      <button
-        className="edit-button "
-        onClick={[Function]}
-        type="button"
-      >
-        Edit
-      </button>
-    </span>
-    <span
-      className="modal__dialog"
-    >
-      <button
-        className="modal__delete-btn"
-        type="button"
-      >
-        Delete
-      </button>
-    </span>
     <div
       className="modal__modal2"
     >

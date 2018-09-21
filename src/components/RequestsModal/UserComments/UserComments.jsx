@@ -34,7 +34,7 @@ class UserComments extends Component {
     const createdAt = moment(date).format('MM/DD/YYYY @ h:mm a');
     return moment(createdAt).fromNow();
   }
- 
+
   renderDeleteButton () {
     return (
       <span className="modal__dialog">
@@ -43,7 +43,6 @@ class UserComments extends Component {
         </button>
       </span>
     );
-    
   }
 
   renderCancelButton () {
@@ -54,12 +53,11 @@ class UserComments extends Component {
           Cancel
       </button>
     );
-
   }
 
   render() {
     const { commentToEdit, activeCommentId } = this.state;
-    const { comments } = this.props;
+    const { comments, email } = this.props;
     return comments && comments.map((comment) => {
       const editedLabel = comment.isEdited  ? '<span>(edited)</span>' : '';
       return (
@@ -73,14 +71,14 @@ class UserComments extends Component {
             <span className="modal__hours-status">
               {this.formatDate(comment.createdAt)}
             </span>
-            <span className="modal__dialog">
-              <button 
-                type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} 
-                onClick={() => this.editComment(comment)}>
+            {email === comment.userEmail ? (
+              <span className="modal__dialog">
+                <button 
+                  type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} onClick={() => this.editComment(comment)}>
                 Edit
-              </button>
-            </span>
-            {this.renderDeleteButton()}
+                </button>
+                {this.renderDeleteButton()}
+              </span>) : null }
             {commentToEdit == comment.comment ? (
               <div className="comment-box">
                 <ConnectedCommentBox afterSubmit={this.resetEditing} editComment={this.editComment} comment={commentToEdit} requestId={comment.requestId} id={comment.id} />
@@ -98,11 +96,13 @@ class UserComments extends Component {
 }
 
 UserComments.propTypes = {
-  comments: PropTypes.array
+  comments: PropTypes.array,
+  email:PropTypes.string
 };
 
 UserComments.defaultProps = {
-  comments: []
+  comments: [],
+  email: ''
 };
 
 export default UserComments;

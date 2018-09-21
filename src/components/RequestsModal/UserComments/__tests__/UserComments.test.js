@@ -29,9 +29,9 @@ describe('UserComments component', () => {
 
   it('should render the UserComments component as expected', () => {
     expect(wrapper.find('div').length).toBe(4);
-    expect(wrapper.find('span').length).toBe(4);
+    expect(wrapper.find('span').length).toBe(2);
     expect(wrapper.find('ImageLink').length).toBe(1);
-    expect(wrapper.find('button').length).toBe(2);
+    expect(wrapper.find('button').length).toBe(0);
     expect(wrapper.length).toBe(1);
   });
 });
