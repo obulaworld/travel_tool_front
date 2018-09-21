@@ -155,7 +155,8 @@ export class Table extends Component {
         />
       </Modal>
 
-    );}
+    );
+  }
 
   render() {
     const { requests, type, fetchRequestsError, message } = this.props;
@@ -184,6 +185,7 @@ export class Table extends Component {
   }
 }
 
+const editRequest = PropTypes.func;
 Table.propTypes = {
   requests: PropTypes.array,
   type: PropTypes.string,

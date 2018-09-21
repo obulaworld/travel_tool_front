@@ -3,7 +3,7 @@ import toast from 'toastr';
 import {
   FETCH_USER_REQUESTS,
   CREATE_NEW_REQUEST,
-  FETCH_USER_REQUEST_DETAILS
+  FETCH_USER_REQUEST_DETAILS,
 } from '../constants/actionTypes';
 import RequestAPI from '../../services/RequestAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -13,7 +13,7 @@ import {
   createNewRequestSuccess,
   createNewRequestFailure,
   fetchUserRequestDetailsSuccess,
-  fetchUserRequestDetailsFailure
+  fetchUserRequestDetailsFailure,
 } from '../actionCreator/requestActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -69,3 +69,4 @@ export function* fetchUserRequestsDetails(action) {
 export function* watchFetchUserRequestsDetails() {
   yield takeLatest(FETCH_USER_REQUEST_DETAILS, fetchUserRequestsDetails);
 }
+

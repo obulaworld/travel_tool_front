@@ -5,7 +5,6 @@ import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 import expand from '../../../../images/expand_more_24px.svg';
 import Checkbox from '../../../CheckBox/index';
 
-
 class PersonalDetailsFieldset extends Component {
   renderfields = (collapse) => {
     const { renderInput } = this.inputRenderer;
@@ -91,15 +90,11 @@ PersonalDetailsFieldset.propTypes = {
   position: position.isRequired,
   line: position.isRequired,
   values: values,
-
-
-
 };
 
 PersonalDetailsFieldset.defaultProps = {
   values: {},
 };
-
 
 
 export default PersonalDetailsFieldset;

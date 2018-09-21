@@ -632,109 +632,171 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
         key="0"
       >
         <div
-          className="input-group"
+          className="travel-input-area"
         >
           <div
-            className="rectangle"
+            className="input-group"
+            id="trip0"
           >
             <div
-              className="style-details"
+              className=""
+            />
+            <div
+              className="rectangle"
             >
               <div
-                className="travel-to"
-                onChange={[Function]}
+                className="style-details"
               >
                 <div
-                  className="form-input  "
+                  className="travel-to"
+                  onChange={[Function]}
                 >
-                  <label
-                    htmlFor="destination-0"
+                  <div
+                    className="form-input  "
                   >
-                    Travel to
-                    <span
-                      style={
-                        Object {
-                          "color": "red",
-                        }
-                      }
+                    <label
+                      htmlFor="destination-0"
                     >
-                      *
-                    </span>
-                  </label>
-                  <input
-                    className=" "
-                    data-parentid={0}
-                    label="Travel to"
-                    name="destination-0"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    parentid={0}
-                    size="232px"
-                    type="text"
-                  />
-                  <span
-                    className="error"
+                      Travel to
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <input
+                      className=" "
+                      data-parentid={0}
+                      label="Travel to"
+                      name="destination-0"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      parentid={0}
+                      size="232px"
+                      type="text"
+                    />
+                    <span
+                      className="error"
+                    />
+                  </div>
+                  <img
+                    alt="icn"
+                    className="location-icon"
+                    src="location.svg"
                   />
                 </div>
-                <img
-                  alt="icn"
-                  className="location-icon"
-                  src="location.svg"
-                />
-              </div>
-              <div
-                className="travel-to"
-                onChange={[Function]}
-              >
                 <div
-                  className="form-input  "
+                  className="travel-to"
+                  onChange={[Function]}
                 >
-                  <label
-                    htmlFor="origin-0"
+                  <div
+                    className="form-input  "
                   >
-                    From
-                    <span
-                      style={
-                        Object {
-                          "color": "red",
-                        }
-                      }
+                    <label
+                      htmlFor="origin-0"
                     >
-                      *
-                    </span>
-                  </label>
-                  <input
-                    className=" "
-                    data-parentid={0}
-                    label="From"
-                    name="origin-0"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    parentid={0}
-                    size="232px"
-                    type="text"
-                  />
-                  <span
-                    className="error"
+                      From
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <input
+                      className=" "
+                      data-parentid={0}
+                      label="From"
+                      name="origin-0"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      parentid={0}
+                      size="232px"
+                      type="text"
+                    />
+                    <span
+                      className="error"
+                    />
+                  </div>
+                  <img
+                    alt="icn"
+                    className="location-icon"
+                    src="location.svg"
                   />
                 </div>
-                <img
-                  alt="icn"
-                  className="location-icon"
-                  src="location.svg"
-                />
-              </div>
-              <div
-                className="others-width"
-                role="presentation"
-              >
+                <div
+                  className="others-width"
+                  role="presentation"
+                >
+                  <div
+                    className="form-input  "
+                  >
+                    <label
+                      htmlFor="departureDate-0"
+                    >
+                      Depart
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      className="date-wrapper "
+                      id="departureDate-0_date"
+                    >
+                      <div>
+                        <div
+                          className="react-datepicker-wrapper"
+                        >
+                          <div
+                            className="react-datepicker__input-container"
+                          >
+                            <input
+                              className=""
+                              disabled={false}
+                              name="departureDate-0"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              readOnly={false}
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        alt="cal"
+                        className="calendar-icon"
+                        src="calendar_icon.svg"
+                      />
+                    </div>
+                    <span
+                      className="error"
+                    />
+                  </div>
+                </div>
                 <div
                   className="form-input  "
                 >
                   <label
-                    htmlFor="departureDate-0"
+                    htmlFor="arrivalDate-0"
                   >
-                    Depart
+                    Return
                     <span
                       style={
                         Object {
@@ -747,7 +809,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                   </label>
                   <div
                     className="date-wrapper "
-                    id="departureDate-0_date"
+                    id="arrivalDate-0_date"
                   >
                     <div>
                       <div
@@ -758,13 +820,14 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                         >
                           <input
                             className=""
-                            disabled={false}
-                            name="departureDate-0"
+                            disabled={true}
+                            name="arrivalDate-0"
                             onBlur={[Function]}
                             onChange={[Function]}
                             onClick={[Function]}
                             onFocus={[Function]}
                             onKeyDown={[Function]}
+                            placeholder="select depart date first"
                             readOnly={false}
                             type="text"
                             value=""
@@ -782,61 +845,6 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                     className="error"
                   />
                 </div>
-              </div>
-              <div
-                className="form-input  "
-              >
-                <label
-                  htmlFor="arrivalDate-0"
-                >
-                  Return
-                  <span
-                    style={
-                      Object {
-                        "color": "red",
-                      }
-                    }
-                  >
-                    *
-                  </span>
-                </label>
-                <div
-                  className="date-wrapper "
-                  id="arrivalDate-0_date"
-                >
-                  <div>
-                    <div
-                      className="react-datepicker-wrapper"
-                    >
-                      <div
-                        className="react-datepicker__input-container"
-                      >
-                        <input
-                          className=""
-                          disabled={true}
-                          name="arrivalDate-0"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          placeholder="select depart date first"
-                          readOnly={false}
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <img
-                    alt="cal"
-                    className="calendar-icon"
-                    src="calendar_icon.svg"
-                  />
-                </div>
-                <span
-                  className="error"
-                />
               </div>
             </div>
           </div>

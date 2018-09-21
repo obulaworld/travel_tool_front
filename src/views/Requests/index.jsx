@@ -115,7 +115,6 @@ export class Requests extends Base {
       </div>
     );
   }
-
   renderNewRequestForm() {
     const {
       updateUserProfile,

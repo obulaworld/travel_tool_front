@@ -5,6 +5,7 @@ import Overlay from './overlay/Overlay';
 import closeButton from '../../images/icons/close.svg';
 import './_modal.scss';
 
+
 class Modal extends PureComponent {
   static propTypes = {
     visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
@@ -62,9 +63,9 @@ class Modal extends PureComponent {
           <Overlay className={visibility}>
             <div
               className={`modal ${visibility}`}
+              style={{maxWidth: width}}
               onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
               id={modalId}
-              style={{maxWidth: width}}
               tabIndex="0"
               role="button">
               {this.renderModalHeader()}
