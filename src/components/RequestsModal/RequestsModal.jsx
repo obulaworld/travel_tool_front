@@ -20,6 +20,8 @@ export class RequestDetailsModal extends Component {
     approveTextColor: '',
     rejectTextColor: '',
     buttonSelected: false,
+    approvalText: 'Approve',
+    rejectText: 'Reject'
   };
 
   componentDidMount() {
@@ -30,18 +32,16 @@ export class RequestDetailsModal extends Component {
   getRequestTripsDetails = (requestData) => {
     const {trips, tripType, createdAt} = requestData;
     const requestTripsDetails = trips && trips.map(trip => {
-      const tripDetails = {
-        createdAt,
-        tripType,
-        ...trip,
-      };
+      const tripDetails = { createdAt, tripType, ...trip, };
       return <TripDetails key={trip.id} tripDetails={tripDetails} />;
     });
     return requestTripsDetails;
   }
 
-  handleButtonState = (buttonSelected, approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
+  handleButtonState = (approvalText, rejectText, buttonSelected, approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
     this.setState({
+      approvalText,
+      rejectText,
       approveColor,
       rejectColor,
       approveTextColor,
@@ -73,21 +73,19 @@ export class RequestDetailsModal extends Component {
   }
 
   handleApprove = (requestId) => {
-    // this.setState({approveTextColor: '#49AAAF'});
     return () => {
-      this.handleButtonState(true,'#49AAAF', '', 'white', '','Approved', requestId);
+      this.handleButtonState('Approved','Reject',true,'#49AAAF', '', 'white', '','Approved', requestId);
     };
   };
 
   handleReject = (requestId) => {
-    // this.setState({rejectTextColor: '#FF5359'});
-
     return () => {
-      this.handleButtonState(true, '', '#FF5359', '', 'white', 'Rejected', requestId);
+      this.handleButtonState('Approve', 'Rejected', true, '', '#FF5359', '', 'white', 'Rejected', requestId);
     };
   };
 
   showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor, id) => {
+    const { approvalText, rejectText } =  this.state;
     return (
       [
         {
@@ -96,7 +94,7 @@ export class RequestDetailsModal extends Component {
           action: approveColor,
           actionText: approveTextColor,
           class: 'modal__button-submitted-text bg',
-          text: 'Approve'
+          text: approvalText
         },
         {
           id: 2,
@@ -104,7 +102,7 @@ export class RequestDetailsModal extends Component {
           action: rejectColor,
           actionText: rejectTextColor,
           class: 'modal__button-rejected-text',
-          text: 'Reject'
+          text: rejectText
         }
       ]);
   }
@@ -207,7 +205,7 @@ export class RequestDetailsModal extends Component {
   }
 
   render() {
-    const { requestId, requestData, user, email } = this.props;
+    const { requestId, requestData, user } = this.props;
     const { status, comments } = requestData;
     const { picture } = user;
     return (
@@ -229,7 +227,7 @@ export class RequestDetailsModal extends Component {
         <ConnectedCommentBox requestId={requestId} />
         {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">
-          <UserComments comments={comments} email={email} />
+          <UserComments comments={comments} />
         </div>
       </Fragment>
     );
@@ -243,15 +241,13 @@ RequestDetailsModal.propTypes = {
   user: PropTypes.object,
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
-  page: PropTypes.string,
-  email:PropTypes.string
+  page: PropTypes.string
 };
 
 RequestDetailsModal.defaultProps = {
   fetchUserRequestDetails: () => {},
   updateRequestStatus: () => {},
   requestId: '',
-  email: '',
   requestData: {},
   user: {},
   isStatusUpdating: false,
@@ -263,7 +259,6 @@ const mapStateToProps = (state) => {
     requestData: state.requests.requestData,
     user: state.auth.user.UserInfo,
     isStatusUpdating: state.approvals.updatingStatus,
-    email: state.user.getUserData.result.email,
     ...state.modal.modal
   };
 };
