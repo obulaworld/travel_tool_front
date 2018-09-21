@@ -10,46 +10,52 @@ const props = {
   requests: [
     {
       id: 'xDh20btGz',
-      name: 'Amarachukwu Agbo',
-      origin: 'Lagos',
-      destination: 'Nairobi',
-      manager: 'Samuel Kubai',
+      name: 'Amarachukwo Agbo',
+      tripType: 'oneWay',
+      manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      trips: [
+        {
+          departureDate: '2018-09-20',
+          origin: 'Lagos',
+          destination: 'Angola'
+        }
+      ],
       department: 'TDD',
-      role: 'Software Developer',
-      status: 'Open',
-      userId: 'pommyLHJmKrx76A8Slm',
-      departureDate: '2018-12-09',
-      arrivalDate: '2018-12-11',
+      role: 'Learning Facilitator'
     },
     {
       id: 'xDh20btGy',
-      name: 'Amarachukwu Agbo',
-      origin: 'Lagos',
-      destination: 'Nairobi',
-      manager: 'Samuel Kubai',
+      name: 'Amarachukwo Agbo',
+      tripType: 'oneWay',
+      manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      trips: [
+        {
+          departureDate: '2018-09-20',
+          origin: 'Lagos',
+          destination: 'Angola'
+        }
+      ],
       department: 'TDD',
-      role: 'Software Developer',
-      status: 'Rejected',
-      userId: 'pommyLHJmKrx76A8Slm',
-      departureDate: '2018-12-09',
-      arrivalDate: '2018-12-11',
+      role: 'Learning Facilitator'
     },
     {
       id: 'xDh20btGx',
-      name: 'Amarachukwu Agbo',
-      origin: 'Lagos',
-      destination: 'Nairobi',
-      manager: 'Samuel Kubai',
+      name: 'Amarachukwo Agbo',
+      tripType: 'oneWay',
+      manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      trips: [
+        {
+          departureDate: '2018-09-20',
+          origin: 'Lagos',
+          destination: 'Angola'
+        }
+      ],
       department: 'TDD',
-      role: 'Software Developer',
-      status: 'Approved',
-      userId: 'pommyLHJmKrx76A8Slm',
-      departureDate: '2018-12-09',
-      arrivalDate: '2018-12-11',
-    },
+      role: 'Learning Facilitator'
+    }
   ],
   getUserData:{
     result:{
@@ -71,7 +77,7 @@ const props = {
     currentPage: 1,
     pageCount: 4,
     dataCount: 10,
-    onPageChange: sinon.spy(),
+    onPageChange: sinon.spy()
   },
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
   fetchRoleUsers: sinon.spy(() => Promise.resolve()),
@@ -124,7 +130,6 @@ const initialState = {
 };
 const mockStore = configureStore();
 const store = mockStore(initialState);
-
 
 describe('<Requests>', () => {
   it('should render the Requests without crashing', () => {
@@ -179,12 +184,14 @@ describe('<Requests>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <Requests {...{
-            ...props,
-            location:{
-              search: ''
-            }
-          }} />
+          <Requests
+            {...{
+              ...props,
+              location: {
+                search: ''
+              }
+            }}
+          />
         </MemoryRouter>
       </Provider>
     );
@@ -205,7 +212,10 @@ describe('<Requests>', () => {
       </Provider>
     );
     const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
-    wrapper.find('.dropdown__list__item').first().simulate('click');
+    wrapper
+      .find('.dropdown__list__item')
+      .first()
+      .simulate('click');
     expect(spy.calledOnce).toEqual(true);
     expect(spy.calledWith('?page=1&limit=10')).toEqual(true);
     wrapper.unmount();
@@ -217,16 +227,21 @@ describe('<Requests>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <Requests {...{
-            ...props,
-            pagination: {...pagination, currentPage: 4},
-            location: { search: '?page=4&status=open'}
-          }} />
+          <Requests
+            {...{
+              ...props,
+              pagination: { ...pagination, currentPage: 4 },
+              location: { search: '?page=4&status=open' }
+            }}
+          />
         </MemoryRouter>
       </Provider>
     );
     const spy = sinon.spy(wrapper.find(Requests).instance(), 'fetchRequests');
-    wrapper.find('.dropdown__list__item').last().simulate('click');
+    wrapper
+      .find('.dropdown__list__item')
+      .last()
+      .simulate('click');
     expect(spy.calledOnce).toEqual(true);
     expect(spy.calledWith('?page=1&status=open&limit=30')).toEqual(true);
     wrapper.unmount();
@@ -240,7 +255,7 @@ describe('<Requests>', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find('.rp-requests__header').length).toBe(1);// RequestsPanelHeader
+    expect(wrapper.find('.rp-requests__header').length).toBe(1); // RequestsPanelHeader
     expect(wrapper.find('Table').length).toBe(1);
     expect(wrapper.find('RequestPanelHeader').length).toBe(1);
     expect(wrapper.find('WithLoading').length).toBe(1); //WithLoading HOC containing Requests
@@ -249,7 +264,7 @@ describe('<Requests>', () => {
     wrapper.unmount();
   });
 
-  it('should call renderRequestPanelHeader method', () =>{
+  it('should call renderRequestPanelHeader method', () => {
     const wrapper = shallow(<Requests {...props} />);
     const instance = wrapper.instance();
     const spyon = jest.spyOn(instance, 'renderRequestPanelHeader');
@@ -269,9 +284,7 @@ describe('<Requests>', () => {
         </MemoryRouter>
       </Provider>
     );
-    wrapper
-      .find('.btn-new-request')
-      .simulate('click');
+    wrapper.find('.btn-new-request').simulate('click');
     expect(wrapper.find('Requests').props().shouldOpen).toEqual(true);
   });
 
@@ -279,30 +292,34 @@ describe('<Requests>', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <Requests {...{...props, shouldOpen: true, modalType: 'new model'}} />
+          <Requests
+            {...{ ...props, shouldOpen: true, modalType: 'new model' }}
+          />
         </MemoryRouter>
       </Provider>
     );
-    wrapper
-      .find('.btn-new-request')
-      .simulate('click');
-    expect(wrapper.find('Modal').at(0).props().visibility).toEqual('visible');
+    wrapper.find('.btn-new-request').simulate('click');
+    expect(
+      wrapper
+        .find('Modal')
+        .at(0)
+        .props().visibility
+    ).toEqual('visible');
   });
 
   it('maps state to props and return the expected object', () => {
     const requests = {
       requests: [],
       errors: [],
-      loading: false,
+      loading: false
     };
 
     const modal = {
       modal: {
         shouldOpen: false,
-        modalType: null,
+        modalType: null
       }
     };
-
     const user = {
       getUserData:{
 

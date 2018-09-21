@@ -8,31 +8,33 @@ import withLoading from '../Hoc/withLoading';
 
 export class Table extends Component {
   state = {
-    clickedRequestId: null,
+    clickedRequestId: null
   };
+  getDuration(trips) {
+    const returnDates = trips.map(trip => new Date(trip.returnDate));
+    const departureDates = trips.map(trip => new Date(trip.departureDate));
+    const minDeparture = Math.min.apply(null, departureDates);
+    const maxReturn = Math.max.apply(null, returnDates);
+    const duration = Math.abs(
+      moment(maxReturn).diff(moment(minDeparture), 'days')
+    );
+    return `${duration + 1} days`;
+  }
 
   handleClickRequest = requestId => {
     const { openModal, page } = this.props;
     this.setState({
-      clickedRequestId: requestId,
+      clickedRequestId: requestId
     });
     openModal(true, 'request details', page);
   };
 
   renderNoRequests(message) {
-    return (
-      <div className="table__requests--empty">
-        {message}
-      </div>
-    );
+    return <div className="table__requests--empty">{message}</div>;
   }
 
   renderError(error) {
-    return (
-      <div className="table__requests--error">
-        {error}
-      </div>
-    );
+    return <div className="table__requests--error">{error}</div>;
   }
 
   renderRequestStatus(request) {
@@ -61,7 +63,7 @@ export class Table extends Component {
     return (
       <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
         <div
-          onKeyPress={() => { }}
+          onKeyPress={() => {}}
           onClick={() => this.handleClickRequest(request.id)}
           role="button"
           tabIndex="0"
@@ -74,27 +76,34 @@ export class Table extends Component {
   }
 
   renderRequest(request, type) {
-    const { arrivalDate, departureDate } = request;
-    const travelDuration = Math.abs(moment(arrivalDate).diff(moment(departureDate), 'days'));
+    const { trips } = request;
+    const travelDuration =
+      request.tripType !== 'oneWay'
+        ? this.getDuration(trips)
+        : 'Not applicable';
     return (
       <tr key={request.id} className="table__row">
         {this.renderApprovalsIdCell(request)}
-        { type === 'approvals' && (
+        {type === 'approvals' && (
           <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
             {request.name}
           </td>
         )}
-        <td className={`mdl-data-table__cell--non-numeric table__data ${type ==='requests' ? 'pl-sm-100' : ''}`}>
-          {request.destination}
+        <td
+          className={`mdl-data-table__cell--non-numeric table__data ${
+            type === 'requests' ? 'pl-sm-100' : ''
+          }`}
+        >
+          {request.tripType}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {request.origin}
+          {trips[0].origin}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {`${travelDuration} days`}
+          {travelDuration}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          { moment(request.departureDate).format('DD MMM YYYY')}
+          {moment(request.departureDate).format('DD MMM YYYY')}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
           {this.renderRequestStatus(request)}
@@ -109,13 +118,17 @@ export class Table extends Component {
         <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze">
           Request ID
         </th>
-        { type === 'approvals' && (
+        {type === 'approvals' && (
           <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100">
-          Owner
+            Owner
           </th>
         )}
-        <th className={`mdl-data-table__cell--non-numeric table__head ${type ==='requests' ? 'pl-sm-100' : ''}`}>
-          Destination
+        <th
+          className={`mdl-data-table__cell--non-numeric table__head ${
+            type === 'requests' ? 'pl-sm-100' : ''
+          }`}
+        >
+          Trip Type
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
           Origin
@@ -142,19 +155,16 @@ export class Table extends Component {
         width="900px"
         modalId="request-details-modal"
         modalContentId="request-details-modal-content"
-        visibility={(shouldOpen && modalType === 'request details') ? 'visible' : 'invisible'}
+        visibility={
+          shouldOpen && modalType === 'request details'
+            ? 'visible'
+            : 'invisible'
+        }
         title={`#${clickedRequestId} Request Details`}
-        modalBar={(
-          <div className="table__modal-bar-text">
-            Manager stage
-          </div>
-        )}
+        modalBar={<div className="table__modal-bar-text">Manager stage</div>}
       >
-        <RequestsModal
-          requestId={clickedRequestId}
-        />
+        <RequestsModal requestId={clickedRequestId} />
       </Modal>
-
     );
   }
 
@@ -163,21 +173,19 @@ export class Table extends Component {
     return (
       <Fragment>
         <div className="table__container">
-          { fetchRequestsError && this.renderError(fetchRequestsError) }
-          {
-            requests && requests.length > 0 &&
-              (
-                <table className="mdl-data-table mdl-js-data-table table__requests">
-                  <thead>
-                    { this.renderTableHead(type) }
-                  </thead>
-                  <tbody className="table__body">
-                    { requests.map(request => this.renderRequest(request, type)) }
-                  </tbody>
-                </table>
-              )
-          }
-          { !fetchRequestsError && !requests.length && this.renderNoRequests(message) }
+          {fetchRequestsError && this.renderError(fetchRequestsError)}
+          {requests &&
+            requests.length > 0 && (
+            <table className="mdl-data-table mdl-js-data-table table__requests">
+              <thead>{this.renderTableHead(type)}</thead>
+              <tbody className="table__body">
+                {requests.map(request => this.renderRequest(request, type))}
+              </tbody>
+            </table>
+          )}
+          {!fetchRequestsError &&
+            !requests.length &&
+            this.renderNoRequests(message)}
           {this.renderDetailsModal()}
         </div>
       </Fragment>
@@ -195,7 +203,7 @@ Table.propTypes = {
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
   message: PropTypes.string,
-  page: PropTypes.string,
+  page: PropTypes.string
 };
 
 Table.defaultProps = {

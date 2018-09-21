@@ -18,12 +18,16 @@ const props = {
     approvals: [
       {
         'id':'245923RTF',
-        'destination':'Lagos',
-        'origin':'Nairobi',
         'duration':'3 days',
-        'startDate':'12 Oct 2018',
         'status':'Approved',
         'name':'Jomo Kenyatta',
+        'trips': [
+          {
+            'departureDate': '2018-09-20',
+            'origin': 'Lagos',
+            'destination': 'Angola'
+          }
+        ],
       }
     ],
     pagination: {

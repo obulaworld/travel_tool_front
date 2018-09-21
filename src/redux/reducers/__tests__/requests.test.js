@@ -166,7 +166,6 @@ describe('Requests Reducer', () => {
         type: FETCH_USER_REQUEST_DETAILS_SUCCESS,
         requestData: fetchRequestsDetailsResponse.requestData,
         comments: fetchRequestsDetailsResponse.requestData.comments
-     
       };
       expect(requests(initialState, action)).toEqual({
         fetchingRequest: false,

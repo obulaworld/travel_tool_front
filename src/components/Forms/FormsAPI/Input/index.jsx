@@ -7,7 +7,7 @@ import './_input.scss';
 class Input extends PureComponent {
 
   getInputType() {
-    let { name, type } = this.props;
+    let { name, type, onChange } = this.props;
     const { errors, targetForm, validatorName } = this.context;
 
     // get event handlers for the form in this context, for its input named 'name'
@@ -17,7 +17,7 @@ class Input extends PureComponent {
       this.props = {
         ...this.props,
         onBlur: eventHandlers.handleInputBlur,
-        onChange: eventHandlers.handleInputChange
+        onChange: onChange ||  eventHandlers.handleInputChange
       };
       return HtmlInput;
     } else { // explore other input options
@@ -32,7 +32,7 @@ class Input extends PureComponent {
       // switches mutually exclusive options like a fancy set of radio buttons
       this.props = {
         ...this.props,
-        onChange: eventHandlers.handleSelectTogglerOpt
+        onChange: onChange ||  eventHandlers.handleSelectTogglerOpt
       };
       return ButtonToggler;
 
@@ -47,7 +47,7 @@ class Input extends PureComponent {
     case 'dropdown-select':
       this.props = {
         ...this.props,
-        onChange: eventHandlers.handleSelectDropdown
+        onChange: onChange ||  eventHandlers.handleSelectDropdown
       };
       return DropdownSelect;
     }
@@ -99,13 +99,16 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  onChange: PropTypes.oneOfType([
+    PropTypes.func, PropTypes.object
+  ]).isRequired,
   labelNote: PropTypes.string,
   className: PropTypes.string,
 };
 
 Input.defaultProps = {
   labelNote: '',
-  className: '',
+  className: ''
 };
 
 export default Input;

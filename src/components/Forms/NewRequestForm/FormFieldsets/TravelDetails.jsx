@@ -71,7 +71,6 @@ class TravelDetailsFieldset extends Component {
     const { values, handleDate, removeTrip, parentIds } = this.props;
     const { renderInput } = this.inputRenderer;
     const customPropsForDepartureDate = { minDate: moment() };
-
     return (
       <Fragment>
         <div className="travel-input-area">
