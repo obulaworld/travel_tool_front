@@ -123,7 +123,7 @@ export class RequestDetailsModal extends Component {
   }
   shouldButtonsRender(status) {
     const { page } = this.props;
-    if (page === 'Requests' && status === 'Open') return this.renderStatusAsBadge(status);
+    if (page === 'Requests' && (status === 'Open' ||'Approved' || 'Rejected')) return this.renderStatusAsBadge(status);
     else return this.renderButtons();
   }
 
