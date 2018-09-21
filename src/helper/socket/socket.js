@@ -7,7 +7,7 @@ const baseUrl = resolveBaseUrl();
 
 const serverUrl = baseUrl.replace('/api/v1', '');
 
-const io = socketIOClient(serverUrl);
+const io = socketIOClient(serverUrl, {transports: ['websocket', 'polling']});
 
 export default function handleManagerNotification(userId) {
   io.on('notification', (data) => {

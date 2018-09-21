@@ -20,6 +20,7 @@ const notifications = (state = initialState, action) => {
     };
   case 'FETCH_NOTIFICATIONS_FAILURE':
     return {
+      ...state,
       error: true
     };
   case 'ADD_NOTIFICATION_SUCCESS':
