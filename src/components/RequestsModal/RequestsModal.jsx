@@ -241,7 +241,8 @@ RequestDetailsModal.propTypes = {
   user: PropTypes.object,
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
-  page: PropTypes.string
+  page: PropTypes.string,
+  email:PropTypes.string
 };
 
 RequestDetailsModal.defaultProps = {
@@ -252,6 +253,7 @@ RequestDetailsModal.defaultProps = {
   user: {},
   isStatusUpdating: false,
   page: '',
+  email: ''
 };
 
 const mapStateToProps = (state) => {
