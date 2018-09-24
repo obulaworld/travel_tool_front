@@ -678,6 +678,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       parentid={0}
                       size="232px"
                       type="text"
+                      value=""
                     />
                     <span
                       className="error"
@@ -720,6 +721,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       parentid={0}
                       size="232px"
                       type="text"
+                      value=""
                     />
                     <span
                       className="error"

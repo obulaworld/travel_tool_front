@@ -54,13 +54,14 @@ class Modal extends PureComponent {
       visibility,
       width,
       modalId,
-      modalContentId
+      modalContentId,
+      closeModal
     } = this.props;
-    
+
     return (
       visibility === 'visible' ? (
         <Fragment>
-          <Overlay className={visibility}>
+          <Overlay click={closeModal} className={visibility}>
             <div
               className={`modal ${visibility}`}
               style={{maxWidth: width}}

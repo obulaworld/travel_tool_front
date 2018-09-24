@@ -23,31 +23,33 @@ class TravelDetailsFieldset extends Component {
     }
   }
 
-  customPropsForArrival = (values, name) => {
-    return {
-      disabled: !values[name],
-      minDate: moment(values[name]),
-      placeholderText: !values[name]
-        ? 'select depart date first'
-        : 'select return date'
-    };
-  }
+  customPropsForArrival = (values, name) => ({
+    disabled: !values[name],
+    minDate: moment(values[name]),
+    placeholderText: !values[name]
+      ? 'select depart date first'
+      : 'select return date'
+  })
+
+  customPropsForDeparture = (values, name) => ({
+    minDate: moment()
+  })
 
   renderRadioButton = (handleChange) => {
     return (
       <div className="trip-align" onChange={handleChange}>
-        <RadioButton 
+        <RadioButton
           name="One Way Trip"
           value="oneWay"
           id="oneWay"
         />
-        <RadioButton 
+        <RadioButton
           name="Return Trip"
           value="return"
           id="return"
           defaultChecked="defaultChecked"
         />
-        <RadioButton 
+        <RadioButton
           name="Multi City Trip"
           value="multi"
           id="multi"
@@ -55,7 +57,7 @@ class TravelDetailsFieldset extends Component {
       </div>
     );
   }
-  
+
   renderAddAnotherBtn = () => {
     const { addNewTrip } = this.props;
     return (
@@ -70,7 +72,6 @@ class TravelDetailsFieldset extends Component {
   renderTravelDetails = (i, selection, onChangeInput) => {
     const { values, handleDate, removeTrip, parentIds } = this.props;
     const { renderInput } = this.inputRenderer;
-    const customPropsForDepartureDate = { minDate: moment() };
     return (
       <Fragment>
         <div className="travel-input-area">
@@ -91,14 +92,13 @@ class TravelDetailsFieldset extends Component {
                 <div className="others-width" role="presentation">
                   {renderInput(
                     `departureDate-${i}`,
-                    'date',
-                    {...customPropsForDepartureDate, parentid: i, handleDate, onChange: handleDate}
+                    'date', {...this.customPropsForDeparture(values, `arrivalDate-${i}`), parentid: i, handleDate, onChange: handleDate}
                   )}
                 </div>
                 { selection !== 'oneWay' ? renderInput(`arrivalDate-${i}`, 'date', {...this.customPropsForArrival(values, `departureDate-${i}`), parentid: i, handleDate, onChange: handleDate}) : null}
               </div>
             </div>
-            {selection === 'multi' && i >= 2 && 
+            {selection === 'multi' && i >= 2 &&
                 (
                   <button type="button" className="delete-icon" onClick={() => removeTrip(i)}>
                     <img src={deleteBtnRed} alt="clicked" className="addsvg" />
@@ -107,7 +107,7 @@ class TravelDetailsFieldset extends Component {
           </div>
         </div>
       </Fragment>
-      
+
     );
   }
 
@@ -127,12 +127,12 @@ class TravelDetailsFieldset extends Component {
   render() {
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
     const { handleChange, selection, onChangeInput} = this.props;
-  
+
     const { parentIds } = this.props;
     return (
       <fieldset className="travel-details">
         <legend
-          className="line" 
+          className="line"
           style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4' }}>
         Travel Details
         </legend>

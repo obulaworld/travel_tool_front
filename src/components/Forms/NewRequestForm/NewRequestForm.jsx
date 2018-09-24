@@ -15,6 +15,7 @@ class NewRequestForm extends PureComponent {
     const department = localStorage.getItem('department');
     const role = localStorage.getItem('role');
     const manager = localStorage.getItem('manager');
+    const firstTripStateValues = this.getDefaultTripStateValues(0);
     this.defaultState = {
       values: {
         name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be refactor later
@@ -22,8 +23,9 @@ class NewRequestForm extends PureComponent {
         department: !(/^null|undefined$/).test(department) ? department: '',
         role: !(/^null|undefined$/).test(role) ? role :'',
         manager: !(/^null|undefined$/).test(manager) ? manager : '',
+        ...firstTripStateValues
       },
-      trips: [],
+      trips: [{}],
       errors: {},
       hasBlankFields: true,
       checkBox: 'notClicked',
@@ -40,13 +42,14 @@ class NewRequestForm extends PureComponent {
     this.handleClearForm();
   }
   onChangeDate = (date, event) => {
-    const { values, trips } = this.state;
+    const { trips, selection } = this.state;
     const dateFormat = date.format('YYYY-MM-DD');
     const dateWrapperId = event.nativeEvent.path[7].id;
     const dateName = dateWrapperId.split('_')[0];
     const getId = dateName.split('-')[1];
+    const dateStartsWithDeparture = dateName.startsWith('departure');
     if (trips[getId]){
-      if (dateName.startsWith('departure')) {
+      if (dateStartsWithDeparture) {
         trips[getId].departureDate = dateFormat;
       } else if (dateName.startsWith('arrival')) {
         trips[getId].returnDate = dateFormat;
@@ -56,13 +59,28 @@ class NewRequestForm extends PureComponent {
         [dateName.split('-')[0]]: dateFormat
       });
     }
-    this.setState({
+
+    const onPickDate = (dateStartsWithDeparture && selection !== 'oneWay')
+      ? () => this.resetTripArrivalDate(getId)
+      : () => this.validate(dateName);
+
+    this.setState(prevState => ({
       values: {
-        ...values,
+        ...prevState.values,
         [dateName]: date
       }
-    });
+    }), onPickDate);
   }
+
+  resetTripArrivalDate = (id) => {
+    this.setState((prevState) => ({
+      values: {
+        ...prevState.values,
+        [`arrivalDate-${id}`]: null
+      }
+    }), this.validate);
+  }
+
   onChangeInput = (event) => {
     const name = event.target.name;
     const getId = event.target.dataset.parentid;
@@ -85,28 +103,63 @@ class NewRequestForm extends PureComponent {
           [name.split('-')[0]]: places
         });
       }
-      this.setState({
+      this.setState(prevState => ({
         values: {
-          ...values,
+          ...prevState.values,
           [name] :  places
         }
-      });
+      }), this.validate);
     });
   }
   handleRadioButton = (event) => {
     const { selection, collapse } = this.state;
+    const tripType = event.target.value;
     this.setState({
-      selection: event.target.value,
-    });
-    if (event.target.value === 'multi' && !collapse) {
+      selection: tripType,
+    }, this.validate);
+    if (tripType === 'multi' && !collapse) {
       this.collapsible();
-      this.setState({ parentIds : 2 });
+      const secondTripStateValues = this.getDefaultTripStateValues(1);
+      this.setState(prevState => ({
+        parentIds : 2,
+        trips: [].concat([prevState.trips[0] || {}, {}]),
+        values: { ...prevState.values, ...secondTripStateValues }
+      }));
     }else if (!collapse) {
-      return;
+      this.setState(prevState => {
+        const newValues = this.refreshValues(prevState, tripType);
+        return {
+          parentIds : 1,
+          values: newValues,
+          trips: [prevState.trips[0] || {}]
+        };
+      });
     }else{
-      this.setState({ parentIds : 1 });
+      this.setState(prevState => {
+        const newValues = this.refreshValues(prevState, tripType);
+        return {
+          parentIds : 1,
+          values: newValues,
+          trips: [prevState.trips[0] || {}]
+        };
+      });
       this.collapsible();
     }
+  }
+  getDefaultTripStateValues = (index) => ({
+    [`origin-${index}`]: '',
+    [`destination-${index}`]: '',
+    [`arrivalDate-${index}`]: null,
+    [`departureDate-${index}`]: null
+  })
+  refreshValues = (prevState, tripType) => {
+    // squash state.values to the shape defaultState keeping the values from state
+    const {values} = prevState;
+    const newValues = {...this.defaultState.values};
+    Object.keys(newValues)
+      .map(inputName => (newValues[inputName] = values[inputName]));
+    tripType === 'oneWay' && delete newValues['arrivalDate-0'];
+    return newValues;
   }
   handleSubmit = event => {
     event.preventDefault();
@@ -139,14 +192,35 @@ class NewRequestForm extends PureComponent {
     }
   };
   addNewTrip = () => {
-    let { parentIds } = this.state;
-    return this.setState({ parentIds: parentIds + 1 });
+    return this.setState(prevState => {
+      const { parentIds, values, trips } = prevState;
+      const addedTripStateValues = this.getDefaultTripStateValues(parentIds);
+      return {
+        parentIds: parentIds + 1,
+        trips: trips.concat([{}]),
+        values: { ...values, ...addedTripStateValues }
+      };
+    }, this.validate);
   }
   removeTrip = (i) => {
-    let { parentIds, id, trips } = this.state;
-    document.getElementById(`trip${i}`).style.display = 'none';
-    trips.splice(i, 1);
-    this.setState({ trips: [...trips] });
+    const tripProps = ['origin', 'destination', 'arrivalDate', 'departureDate'];
+    this.setState((prevState) => {
+      let { parentIds, trips, values, errors } = prevState;
+      trips.splice(i, 1);
+      parentIds--;
+      tripProps.map(prop => {
+        // shift trips state values up a level from deleted index
+        let start = i;
+        while (start < parentIds) {
+          values[`${prop}-${start}`] = values[`${prop}-${start+1}`];
+          start++;
+        }
+        // remove other redundant things from state
+        delete values[`${prop}-${parentIds}`];
+        delete errors[`${prop}-${i}`];
+      });
+      return { trips, values, parentIds, errors };
+    }, this.validate);
   }
   handleClearForm = () => {
     this.setState({ ...this.defaultState });
@@ -162,27 +236,29 @@ class NewRequestForm extends PureComponent {
     let { values, errors, trips } = this.state;
     [errors, values, trips] = [{ ...errors }, { ...values }, [...trips]];
     let hasBlankFields = false;
+    hasBlankFields = Object.keys(values).some(key => !values[key]);
+    if (!field){
+      this.setState({hasBlankFields});
+      return !hasBlankFields;
+    }
 
     !values[field]
       ? (errors[field] = 'This field is required')
       : (errors[field] = '');
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
-    this.setState(prevState => {
-      return { ...prevState, errors, hasBlankFields };
-    });
+    this.setState(prevState => ({ ...prevState, errors, hasBlankFields}));
     return !hasBlankFields;
   };
   collapsible =  () => {
     const { collapse } = this.state;
     if(!collapse) {
-      this.setState({ 
+      this.setState({
         collapse: true,
         title: 'Show Details',
         position: 'rotate(266deg)',
         line: 'none'
       });
     }else{
-      this.setState({ 
+      this.setState({
         collapse: false,
         title: 'Hide Details',
         position: 'none',
@@ -220,9 +296,9 @@ class NewRequestForm extends PureComponent {
             managers={managers}
             value="232px"
           />
-          <TravelDetailsFieldset 
-            values={values} 
-            value="232px" 
+          <TravelDetailsFieldset
+            values={values}
+            value="232px"
             selection={selection}
             handleDate={this.onChangeDate}
             handleChange={this.handleRadioButton}
@@ -245,7 +321,7 @@ class NewRequestForm extends PureComponent {
       </FormContext>
     );
   }
-  
+
   render() {
     const { managers, creatingRequest } = this.props;
     return (

@@ -16,21 +16,21 @@ describe('<NewRequestForm />', () => {
         Autocomplete: class {
           addListener () {
             return {
-              calledOnce: function () { 
+              calledOnce: function () {
                 jest.fn();
               },
             };
           }
           calledOnce () {
             return {
-              calledOnce: function () { 
+              calledOnce: function () {
                 jest.fn();
               },
             };
           }
         }
       },
-     
+
       AutocompleteService:class{},
     },
     MarkerClusterer:class{},
@@ -62,7 +62,7 @@ describe('<NewRequestForm />', () => {
     preventDefault: jest.fn(),
     google: jest.fn(),
     target: {
-      dataset: {  
+      dataset: {
         parentid: 'destination-0'
       },
       name: 'destination-0'
@@ -74,7 +74,7 @@ describe('<NewRequestForm />', () => {
   window.date = {
     format: jest.fn(),
   }
-  
+
   const {user} = props;
   const defaultState = {
     values: {
@@ -84,7 +84,7 @@ describe('<NewRequestForm />', () => {
       role: '',
       manager: '',
     },
-    trips: [],
+    trips: [{}],
     errors: {},
     collapse: false,
     hasBlankFields: true,
@@ -193,14 +193,16 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().onChangeInput.calledOnce).toEqual(true);
   });
 
-  it('call event when date is changed', () => {
+  it('call event and resets return date when departure date is changed', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     sinon.spy(shallowWrapper.instance(), 'onChangeDate');
+    const spy = jest.spyOn(shallowWrapper.instance(), 'resetTripArrivalDate')
     const date = {
       format: () => '2018-11-11'
     }
     shallowWrapper.instance().onChangeDate(date, event);
     expect(shallowWrapper.instance().onChangeDate.calledOnce).toEqual(true);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('call event when date is changed', () => {
@@ -208,7 +210,7 @@ describe('<NewRequestForm />', () => {
     const event = {
       preventDefault: jest.fn(),
       target: {
-        dataset: {  
+        dataset: {
           parentid: 'destination-0'
         }
       },
@@ -216,7 +218,7 @@ describe('<NewRequestForm />', () => {
         path: [0,1,2,3,4,5,6,{id: 'arrival-0_date'}]
       }
     };
-  
+
     sinon.spy(shallowWrapper.instance(), 'onChangeDate');
     const date = {
       format: () => '2018-12-01'
@@ -268,7 +270,23 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.instance().handleRadioButton(event);
     expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
   });
-  
+
+  it('should update state when a trip is added and when it\'s removed', () => {
+    expect.assertions(7);
+    wrapper.instance().addNewTrip();
+    wrapper.instance().addNewTrip();
+    expect(wrapper.instance().state.values[`origin-1`]).toBe('');
+    expect(wrapper.instance().state.values[`origin-2`]).toBe('');
+    expect(wrapper.instance().state.parentIds).toBe(3);
+    wrapper.instance().removeTrip(1);
+    expect(wrapper.instance().state.parentIds).toBe(2);
+    // still have one trip, origin-1 should now be what was at origin-2 and so forth
+    expect(wrapper.instance().state.values[`origin-1`]).toBe('');
+    // after shifting state values, origin-{parentIds} in state should be undefined
+    expect(wrapper.instance().state.values[`origin-2`]).toBe(undefined);
+    expect(wrapper.instance().state.trips).toHaveLength(2);
+  });
+
   it('should close the personal field on button click ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     shallowWrapper.setState({
@@ -281,7 +299,7 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.instance().collapsible(event);
     expect(shallowWrapper.instance().collapsible.calledOnce).toEqual(true);
   });
-  
+
 
   it('selects female gender on button click', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
