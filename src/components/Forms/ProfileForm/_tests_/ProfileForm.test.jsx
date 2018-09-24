@@ -21,6 +21,8 @@ describe ('<ProfileForm />', () =>{
     shouldOpen: false,
     onNotificationToggle: jest.fn(),
     updateUserProfile: jest.fn(() => {}),
+    onChange: jest.fn(() => {}),
+    size:10,
     managers: [
       {
         fullName: 'Test User',
@@ -38,6 +40,7 @@ describe ('<ProfileForm />', () =>{
     expect(wrapper).toMatchSnapshot();
   });
 
+
   it('submits calls on submit if all details are available',() =>{
     const form = wrapper.find('.new-profile');
     form.simulate('submit');
@@ -50,7 +53,8 @@ describe ('<ProfileForm />', () =>{
     wrapper.update();
     const onSubmit = jest.fn();
     expect(onSubmit).toHaveBeenCalledTimes(0);
-  })
+  });
+
 
   it('sets default state when clear button is clicked',() =>{
     wrapper.setState({hasBlankFields: false});

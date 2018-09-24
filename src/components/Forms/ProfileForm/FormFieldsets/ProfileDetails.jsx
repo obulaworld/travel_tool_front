@@ -40,7 +40,7 @@ ProfileDetailsFieldSets.propTypes = {
   hasBlankFields: PropTypes.bool.isRequired,
 };
 ProfileDetailsFieldSets.defaultProps = {
-  managers: []
+  managers: [],
 };
 
 export default ProfileDetailsFieldSets;

@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import InputRenderer, { FormContext } from '../FormsAPI';
 import ProfileDetails from './FormFieldsets/ProfileDetails';
 import './ProfileForm.scss';
+import Validator from '../../../validator';
 
 // TODO: Create your own meta data.
 import * as formMetadata from '../FormsMetadata/NewProfileMetadata/index';
@@ -19,11 +20,11 @@ class ProfileForm extends PureComponent {
 
     this.defaultState = {
       values: {
-        name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be refactor later
-        gender: !(/^null|undefined$/).test(gender) ? gender: '',
-        department: !(/^null|undefined$/).test(department) ? department: '',
-        role: !(/^null|undefined$/).test(role) ? role :'',
-        manager: !(/^null|undefined$/).test(manager) ? manager : '',
+        name: Validator.databaseValueValidator(user), // FIX: need to be refactor later
+        gender: Validator.databaseValueValidator(gender),
+        department: Validator.databaseValueValidator(department),
+        role: Validator.databaseValueValidator(role),
+        manager: Validator.databaseValueValidator(manager),
       },
       errors: {},
       hasBlankFields: true,
@@ -43,10 +44,9 @@ class ProfileForm extends PureComponent {
     const { values } = this.state;
     if (this.validate) {
       let data = { ...values };
-
       data.passportName = data.name;
       data.occupation = data.role;
-      updateUserProfile(data, userId);
+      updateUserProfile(data, userId, true);
     }
   };
 
@@ -108,10 +108,10 @@ class ProfileForm extends PureComponent {
 ProfileForm.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   managers: PropTypes.array,
-  user: PropTypes.string.isRequired
+  user: PropTypes.object.isRequired,
 };
 ProfileForm.defaultProps = {
-  managers: []
+  managers: [],
 };
 
 export default ProfileForm;

@@ -44,6 +44,7 @@ export class Requests extends Base {
     localStorage.setItem('manager', data && data.manager);
   }
 
+
   fetchRequests = query => {
     const { history, fetchUserRequests } = this.props;
     history.push(`/requests${query}`);

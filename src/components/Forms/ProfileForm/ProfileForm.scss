@@ -33,3 +33,33 @@ form{
       }
     }
   }
+
+form.new-profile{
+    fieldset {
+      .input-group {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      input{
+        height: 40px;
+        width: 300px;
+        border-radius: 2px;
+        background-color: #F8F8F8;
+      }
+      .input{
+        height: 40px;
+        width: 300px;
+        border-radius: 2px;
+        background-color: #F8F8F8;
+      }
+      .input button{
+        width: 150px;
+      }
+      label{
+        color: #4F4F4F;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+      }
+    }
+}

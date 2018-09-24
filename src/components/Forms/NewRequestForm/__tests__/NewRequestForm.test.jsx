@@ -30,7 +30,6 @@ describe('<NewRequestForm />', () => {
           }
         }
       },
-
       AutocompleteService:class{},
     },
     MarkerClusterer:class{},
@@ -421,4 +420,30 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.instance().handleSubmit(event);
     expect(shallowWrapper.instance().handleSubmit.calledOnce).toEqual(true);
   });
+
+  it('should have the checkbox rendered', ()=>{
+    const NewRequestFormWrapper = mount(<NewRequestForm {...props} />);
+    const personalDetails = NewRequestFormWrapper.find('PersonalDetailsFieldset');
+    const checkBox = personalDetails.find('Checkbox');
+    expect(checkBox).toHaveLength(1);
+  });
+
+  it('should add profile details to the database', () => {
+    wrapper.setState({
+      values: {
+        name: 'tomato', // FIX: need to be refactor later
+        gender: 'male',
+        department: 'fame',
+        role: 'job',
+        manager: 'mango',
+      },
+      trips: [
+        {}
+      ]
+    });
+    localStorage.setItem('state', 'clicked');
+    wrapper.instance().handleSubmit(event);
+    expect(wrapper.prop('updateUserProfile')).toHaveBeenCalledTimes(1);
+  });
+
 });

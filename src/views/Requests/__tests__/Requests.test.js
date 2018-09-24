@@ -81,6 +81,7 @@ const props = {
   },
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
   fetchRoleUsers: sinon.spy(() => Promise.resolve()),
+  updateUserProfile:sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,

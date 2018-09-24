@@ -7,7 +7,7 @@ class Checkbox extends PureComponent{
   state = {
     checkBox: 'notClicked'
   }
-  
+
   componentWillMount(){
     const state = localStorage.getItem('state');
     this.setState({checkBox:state});

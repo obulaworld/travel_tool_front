@@ -101,6 +101,4 @@ describe('<NewUserRoleForm />', () => {
     expect(componentWillUnmount).toHaveBeenCalledTimes(1);
   });
 
-  
-  
 });

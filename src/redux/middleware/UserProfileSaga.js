@@ -11,12 +11,16 @@ export function* postUserProfileDataSagaAsync(action) {
       action.userProfileData,
       action.userId
     );
-    toast.success('Profile updated successfully');
-  } catch (error) {
+    if (action.showToast){
+      toast.success('Profile updated successfully');
+    }
+  } catch (error) { /* istanbul ignore next */
     const errorMessage = apiErrorHandler(error);
+    /* istanbul ignore next */
     toast.error(errorMessage);
   }
 }
+
 
 export function* watchUpdateUserProfileAsync() {
   yield takeLatest(UPDATE_USER_PROFILE, postUserProfileDataSagaAsync);

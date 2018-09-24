@@ -10,12 +10,16 @@ import './NewRequestForm.scss';
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
-    const user = localStorage.getItem('name');
+    const user = localStorage.getItem('passportName');
     const gender = localStorage.getItem('gender');
     const department = localStorage.getItem('department');
     const role = localStorage.getItem('role');
     const manager = localStorage.getItem('manager');
+
+    const checkBoxState = localStorage.getItem('state');
+
     const firstTripStateValues = this.getDefaultTripStateValues(0);
+
     this.defaultState = {
       values: {
         name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be refactor later
@@ -38,6 +42,7 @@ class NewRequestForm extends PureComponent {
     };
     this.state = { ...this.defaultState };
   }
+
   componentWillUnmount() {
     this.handleClearForm();
   }
@@ -163,7 +168,7 @@ class NewRequestForm extends PureComponent {
   }
   handleSubmit = event => {
     event.preventDefault();
-    const { handleCreateRequest } = this.props;
+    const { handleCreateRequest, updateUserProfile, user } = this.props;
     const { values, selection, trips } = this.state;
     const newData = {
       name: values.name,
@@ -174,23 +179,22 @@ class NewRequestForm extends PureComponent {
       department: values.department,
       role: values.role
     };
-
     const checkBoxState = localStorage.getItem('state');
     if (checkBoxState === 'clicked') {
-      const [name, gender, department, role, manager] = [
-        values.name,
-        values.gender,
-        values.department,
-        values.role,
-        values.manager
-      ];
-      this.savePersonalDetails(name, gender, department, role, manager);
+      values.passportName = values.name;
+      values.occupation = values.role;
+      const userId = user.UserInfo.id;
+      // this adds user profile to the database *do not remove
+      updateUserProfile(values, userId);
+      this.savePersonalDetails(values.passportName, values.gender, values.department, values.occupation, values.manager);
     }
     if (this.validate()) {
       let data = { ...newData };
       handleCreateRequest(data);
     }
   };
+ 
+
   addNewTrip = () => {
     return this.setState(prevState => {
       const { parentIds, values, trips } = prevState;
@@ -269,12 +273,13 @@ class NewRequestForm extends PureComponent {
 
   savePersonalDetails(name, gender, department, role, manager) {
     // save to localstorage
-    localStorage.setItem('name', name);
+    localStorage.setItem('passportName', name);
     localStorage.setItem('gender', gender);
     localStorage.setItem('department', department);
     localStorage.setItem('role', role);
     localStorage.setItem('manager', manager);
   }
+
 
   renderForm = (managers, creatingRequest) => {
     const { values, errors, hasBlankFields, selection,  collapse, title, position, line, parentIds } = this.state;
@@ -334,8 +339,10 @@ class NewRequestForm extends PureComponent {
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
+  updateUserProfile:PropTypes.func.isRequired,
   managers: PropTypes.array,
-  creatingRequest: PropTypes.bool
+  creatingRequest: PropTypes.bool,
+  user:PropTypes.object.isRequired,
 };
 
 NewRequestForm.defaultProps = {
