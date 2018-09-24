@@ -74,7 +74,7 @@ class UserComments extends Component {
             {email === comment.userEmail ? (
               <span className="modal__dialog">
                 <button 
-                  type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} onClick={() => this.editComment(comment)}>
+                  type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} onClick={() => this.editComment(comment)} id="edited">
                 Edit
                 </button>
                 {this.renderDeleteButton()}

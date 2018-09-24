@@ -24,6 +24,28 @@ exports[`UserComments component should match snapshot 1`] = `
     >
       Invalid date
     </span>
+    <span
+      className="modal__dialog"
+    >
+      <button
+        className="edit-button "
+        id="edited"
+        onClick={[Function]}
+        type="button"
+      >
+        Edit
+      </button>
+      <span
+        className="modal__dialog"
+      >
+        <button
+          className="modal__delete-btn"
+          type="button"
+        >
+          Delete
+        </button>
+      </span>
+    </span>
     <div
       className="modal__modal2"
     >
@@ -31,7 +53,7 @@ exports[`UserComments component should match snapshot 1`] = `
         className="modal__status-update"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Can you clarify why ",
+            "__html": "Can you clarify why <span>(edited)</span>",
           }
         }
       />

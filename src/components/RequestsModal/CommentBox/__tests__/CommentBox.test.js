@@ -6,9 +6,11 @@ describe('Render CommentBox component', () => {
   
   const props = {
     createComment: jest.fn(),
+    handleEditComment: jest.fn(),
+    editComment:  jest.fn(),
     handleSubmit:()=>{},
   };
-  const e = {
+  const event = {
     target: {
       editorContainer: {
         style: {
@@ -27,7 +29,7 @@ describe('Render CommentBox component', () => {
   };
   
   const exepectCall =(spy, border) =>{
-    expect(e.target.editorContainer.style.border).toBe(border);
+    expect(event.target.editorContainer.style.border).toBe(border);
     expect(spy).toHaveBeenCalledTimes(1);
   };
   
@@ -67,13 +69,13 @@ describe('Render CommentBox component', () => {
   
   it('it should handle onfocus as expected', () => {
     const spy = handles('handleFocus');
-    wrapperInstance.handleFocus(e);
+    wrapperInstance.handleFocus(event);
     exepectCall(spy, '1px solid blue');
   });
 
   it('it should handle onblur as expected', () => {
     const spy = handles('handleBlur');
-    wrapperInstance.handleBlur(e);
+    wrapperInstance.handleBlur(event);
     exepectCall(spy, '1px solid #E4E4E4');
   });
 
@@ -82,7 +84,7 @@ describe('Render CommentBox component', () => {
       preventDefault: () => jest.fn()
     };
     const wrapper = mount(<CommentBox {...props} />);
-    let button = wrapper.find('#post-submit').at(0);
+    const button = wrapper.find('#post-submit').at(0);
     button.simulate('click');
     expect(wrapper.props().createComment).toHaveBeenCalledTimes(0);
   });
@@ -93,7 +95,7 @@ describe('Render CommentBox component', () => {
     };
     const wrapper = mount(<CommentBox {...props} />);
     wrapper.state().dataInput = 'comment';
-    let button = wrapper.find('#post-submit').at(0);
+    const button = wrapper.find('#post-submit').at(0);
     button.simulate('click');
     expect(wrapper.props().createComment).toHaveBeenCalledTimes(1);
   });
@@ -102,5 +104,18 @@ describe('Render CommentBox component', () => {
     const spy = handles('handleEditorChange');
     wrapperInstance.handleEditorChange('this is a test comment');
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should submit edited comment', () => {
+    const event = {
+      preventDefault: () => jest.fn()
+    };
+    const wrapper = mount(<CommentBox {...props} />);
+    wrapper.setProps({
+      comment: 'Can you clarify why'
+    });
+    const button = wrapper.find('.edit-buttons').at(0);
+    button.simulate('click');
+    expect(wrapper.props().editComment).toHaveBeenCalledTimes(1);
   });
 });

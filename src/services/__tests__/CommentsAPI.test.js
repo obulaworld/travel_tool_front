@@ -15,13 +15,13 @@ describe('CommentsAPI', () => {
   it('should send a POST request to create a new comment', async () => {
     const commentData = {
       requestId: 'bcjkwdbjk',
-      comment: 'Your request has been approved',
+      comment: 'Your comment has been created successfully',
     };
 
     moxios.stubRequest(`${baseUrl}/comments`, {
       status: 201,
       response: {
-        comment: 'Your request has been approved'
+        comment: 'Your comment has been created successfully'
       }
     });
 
@@ -29,7 +29,29 @@ describe('CommentsAPI', () => {
 
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/comments`);
     expect(response.data).toEqual({
-      comment: 'Your request has been approved',
+      comment: 'Your comment has been created successfully',
+    });
+  });
+
+  it('should send a PUT request to update created comment', async () =>{
+    const commentData = {
+      requestId: 'bcjkwdbjk',
+      comment: 'Your comment has been updated successfully',
+    };
+    const id = 'Er4HTD2xz';
+
+    moxios.stubRequest(`${baseUrl}/comments/${id}`, {
+      status: 200,
+      response: {
+        comment: 'Your comment has been updated successfully',
+      }
+    });
+
+    const response = await CommentsAPI.editComment(commentData, id);
+    
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/comments/${id}`);
+    expect(response.data).toEqual({
+      comment: 'Your comment has been updated successfully',
     });
   });
 });

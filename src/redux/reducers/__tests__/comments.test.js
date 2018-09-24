@@ -1,5 +1,4 @@
 import comments from '../comments';
-// import 
 
 describe('Comments Reducer', () => {
   let initialState = {
@@ -54,7 +53,7 @@ describe('Comments Reducer', () => {
   });
 
   it('should handle CREATE_COMMENT_FAILURE', () => {
-    error = 'failed to add new request';
+    error = 'failed to add new comment';
     action = {
       type: 'CREATE_COMMENT_FAILURE',
       error
@@ -63,7 +62,59 @@ describe('Comments Reducer', () => {
     newState = comments(initialState, action);
     expectedState = {
       creatingComment: false,
-      error: 'failed to add new request'
+      error: 'failed to add new comment'
+    };
+    expect(newState).toMatchObject(expectedState);
+  });
+
+  it('should handle EDIT_COMMENT', () => {
+    action = {
+      type: 'EDIT_COMMENT',
+      requetsId: 'zcis7csUe',
+      comment: 'test edit comment'
+    };
+
+    newState = comments(initialState, action);
+    expectedState = {
+      creatingComment: false,
+      editingComment: true,
+      comment: 'test edit comment',
+      comments: [],
+      error: ''
+    };
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle EDIT_COMMENT_SUCCESS', () => {
+    action = {
+      type: 'EDIT_COMMENT_SUCCESS',
+      comment: 'test edit comment',
+      comments: []
+    };
+
+    newState = comments(initialState, action);
+    expectedState = {
+      creatingComment: false,
+      editingComment: false,
+      comment: 'test edit comment',
+      comments: ['test edit comment'],
+      error: ''
+    };
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle EDIT_COMMENT_FAILURE', () => {
+    error = 'failed to edit comment';
+    action = {
+      type: 'EDIT_COMMENT_FAILURE',
+      error
+    };
+
+    newState = comments(initialState, action);
+    expectedState = {
+      editingComment: false,
+      error: 'failed to edit comment'
     };
     expect(newState).toMatchObject(expectedState);
   });
