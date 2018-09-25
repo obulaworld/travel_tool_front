@@ -194,7 +194,6 @@ class NewRequestForm extends PureComponent {
     }
   };
  
-
   addNewTrip = () => {
     return this.setState(prevState => {
       const { parentIds, values, trips } = prevState;
@@ -313,10 +312,7 @@ class NewRequestForm extends PureComponent {
             removeTrip={this.removeTrip}
           />
           <Script
-            url={process.env.REACT_APP_CITY}
-            onCreate={this.handleScriptCreate}
-            onError={this.handleScriptError}
-            onLoad={this.handleScriptLoad} />
+            url={process.env.REACT_APP_CITY} />
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}

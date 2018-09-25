@@ -51,7 +51,7 @@ class PersonalDetailsFieldset extends Component {
     const disabledFields= values.state==='clicked'?'disable-details':null;
     return (
       <fieldset className={`personal-details ${disabledFields}`}>
-        <legend style={{width: '100%'}}>
+        <legend style={{ width: '100%' , borderBottom: line }}>
           Personal Details
           <span className="required-field">
           * Required Field

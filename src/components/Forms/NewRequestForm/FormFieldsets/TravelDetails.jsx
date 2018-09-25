@@ -9,13 +9,10 @@ import addMultipleCityBtn from '../../../../images/add.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
 
 class TravelDetailsFieldset extends Component {
-
-
   componentDidMount = () => {
     this.get_details();
   }
-
-
+  
   get_details = () => {
     const { parentIds } = this.props;
     for (let i = 0; i < parentIds; i += 1) {
@@ -70,7 +67,7 @@ class TravelDetailsFieldset extends Component {
     );
   }
   renderTravelDetails = (i, selection, onChangeInput) => {
-    const { values, handleDate, removeTrip, parentIds } = this.props;
+    const { values, handleDate, removeTrip } = this.props;
     const { renderInput } = this.inputRenderer;
     return (
       <Fragment>
