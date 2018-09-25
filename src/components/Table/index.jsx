@@ -20,7 +20,15 @@ export class Table extends Component {
     );
     return `${duration + 1} days`;
   }
-
+  formatTripType = tripType => {
+    if (tripType === 'oneWay') {
+      return 'One-way';
+    }
+    return tripType
+      .charAt(0)
+      .toUpperCase()
+      .concat(tripType.toLowerCase().slice(1));
+  };
   handleClickRequest = requestId => {
     const { openModal, page } = this.props;
     this.setState({
@@ -28,7 +36,6 @@ export class Table extends Component {
     });
     openModal(true, 'request details', page);
   };
-
   renderNoRequests(message) {
     return <div className="table__requests--empty">{message}</div>;
   }
@@ -77,6 +84,7 @@ export class Table extends Component {
 
   renderRequest(request, type) {
     const { trips } = request;
+    const tripTypeFormatted = this.formatTripType(request.tripType);
     const travelDuration =
       request.tripType !== 'oneWay'
         ? this.getDuration(trips)
@@ -94,7 +102,7 @@ export class Table extends Component {
             type === 'requests' ? 'pl-sm-100' : ''
           }`}
         >
-          {request.tripType}
+          {tripTypeFormatted}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           {trips[0].origin}

@@ -7,15 +7,22 @@ const props = {
     {
       id: 'xDh20btGz',
       name: 'Amarachukwo Agbo',
-      tripType: 'oneWay',
+      tripType: 'multi',
       status: 'Open',
       manager: 'Ezrqn Kiptanui',
       gender: 'Female',
       trips: [
         {
-          departureDate: '2018-09-20',
+          returnDate: '2018-10-21',
+          departureDate: '2018-10-20',
           origin: 'Lagos',
           destination: 'Angola'
+        },
+        {
+          returnDate: '2018-10-22',
+          departureDate: '2018-10-21',
+          origin: 'Angola',
+          destination: 'Nairobi'
         }
       ],
       department: 'TDD',
@@ -30,7 +37,7 @@ const props = {
       gender: 'Female',
       trips: [
         {
-          departureDate: '2018-09-20',
+          departureDate: '2018-10-20',
           origin: 'Lagos',
           destination: 'Angola'
         }
@@ -47,7 +54,7 @@ const props = {
       gender: 'Female',
       trips: [
         {
-          departureDate: '2018-09-20',
+          departureDate: '2018-10-20',
           origin: 'Lagos',
           destination: 'Angola'
         }

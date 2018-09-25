@@ -11,32 +11,33 @@ const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
 
 const props = {
-  actionBtn:'New Request',
+  actionBtn: 'New Request',
   onClickItem: jest.fn(),
   fetchUserApprovals: jest.fn(),
   approvals: {
     approvals: [
       {
-        'id':'245923RTF',
-        'duration':'3 days',
-        'status':'Approved',
-        'name':'Jomo Kenyatta',
-        'trips': [
+        id: '245923RTF',
+        duration: '3 days',
+        status: 'Approved',
+        name: 'Jomo Kenyatta',
+        tripType: 'oneWay',
+        trips: [
           {
-            'departureDate': '2018-09-20',
-            'origin': 'Lagos',
-            'destination': 'Angola'
+            departureDate: '2018-09-20',
+            origin: 'Lagos',
+            destination: 'Angola'
           }
-        ],
+        ]
       }
     ],
     pagination: {
       currentPage: 1,
       pageCount: 4,
       dataCount: 10,
-      onPageChange: jest.fn(),
+      onPageChange: jest.fn()
     },
-    isLoading: false,
+    isLoading: false
   },
   history: [],
   location: {
@@ -79,7 +80,10 @@ describe('<ApprovalsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(Approvals).instance(), 'fetchFilteredApprovals');
+    const spy = sinon.spy(
+      wrapper.find(Approvals).instance(),
+      'fetchFilteredApprovals'
+    );
     wrapper.find('#next-button').simulate('click');
     expect(spy.calledOnce).toEqual(true);
     wrapper.find('#previous-button').simulate('click');
@@ -94,8 +98,14 @@ describe('<ApprovalsPage>', () => {
         </MemoryRouter>
       </Provider>
     );
-    const spy = sinon.spy(wrapper.find(Approvals).instance(), 'getEntriesWithLimit');
-    wrapper.find('.dropdown__list__item').first().simulate('click');
+    const spy = sinon.spy(
+      wrapper.find(Approvals).instance(),
+      'getEntriesWithLimit'
+    );
+    wrapper
+      .find('.dropdown__list__item')
+      .first()
+      .simulate('click');
     expect(spy.calledOnce).toEqual(true);
     wrapper.unmount();
   });
@@ -116,7 +126,6 @@ describe('<ApprovalsPage>', () => {
     afterEach(() => {
       wrapper.unmount();
     });
-
 
     it('it filters approvals by status=open', () => {
       const openButton = wrapper.find('#open-button');
@@ -141,8 +150,7 @@ describe('<ApprovalsPage>', () => {
 
     it('updates searchQuery on receiving receiving location props', () => {
       const approvals = wrapper.find(Approvals);
-      approvals.instance()
-        .fetchFilteredApprovals('?status=open');
+      approvals.instance().fetchFilteredApprovals('?status=open');
       expect(approvals.instance().state.searchQuery).toEqual('?status=open');
     });
   });
