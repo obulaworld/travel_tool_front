@@ -266,6 +266,20 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
   });
 
+  it('should change the radio buttton on click to single and collapse true', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.instance().state.collapse=true;
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        value: 'single'
+      },
+    };
+    sinon.spy(shallowWrapper.instance(), 'handleRadioButton');
+    shallowWrapper.instance().handleRadioButton(event);
+    expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
+  });
+
   it('should change the radio button on click to return ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     const event = {
@@ -498,5 +512,11 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().hasBlankTrips.calledOnce).toEqual(true);
   });
 
-  
+  it('check hasBlankTrips works', ()=>{
+    const wrapper = shallow(<NewRequestForm {...props}/>)
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.state.trips = ['Nigeria', 'Ghana']
+    expect(wrapperInstance.hasBlankTrips()).toEqual([false, false]);
+  });
+
 });

@@ -4,17 +4,26 @@ import sinon from 'sinon';
 import Checkbox from '../index';
 
 describe('<Checkbox />', ()=> {
+  let createWrapper = (status, localstorage) =>{
+    const handleDisableInputs = jest.fn();
+    const state = {
+      checkBox:status
+    }
+    const localStorage = {
+      getItem: (value)=>{return localstorage;},
+      setItem: jest.fn()
+    }
+    global.localStorage = localStorage;
+    return shallow(<Checkbox state={state} handleDisableInputs={handleDisableInputs}/>);
+  }
   it('should render correctly', () =>{
-    const wrapper = shallow(<Checkbox />);
+    const handleDisableInputs=jest.fn()
+    const wrapper = shallow(<Checkbox handleDisableInputs={handleDisableInputs}/>);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should change class when the checkbox is unclicked', () =>{
-    const mockOnClick = jest.fn();
-    const state = {
-      checkBox: 'clicked'
-    };
-    const wrapper = shallow(<Checkbox onClick={mockOnClick} state={state} />);
+    const wrapper = createWrapper('clicked', 'notClicked')
     const spy = sinon.spy(wrapper.instance(), 'clickCheckbox');
     wrapper.find('.checkbox').simulate('click');
     expect(spy.calledOnce).toBe(true);
@@ -22,24 +31,19 @@ describe('<Checkbox />', ()=> {
   });
 
   it('should change class when the checkbox is clicked', () =>{
-    const mockOnClick = jest.fn();
-    const state = {
-      checkBox: 'notClicked'
-    };
-    const wrapper = shallow(<Checkbox onClick={mockOnClick} state={state} />);
+    const wrapper = createWrapper('notClicked', 'clicked');
     wrapper.find('.checkbox').simulate('click');
     expect(wrapper.find('.clicked').exists()).toBe(true);
 
   });
 
   it('should assign cached checkbox state to checkbox', () =>{
-    const wrapper = shallow(<Checkbox />);
+    const wrapper = createWrapper('clicked', 'clicked');
     expect(wrapper.find('.clicked').exists()).toBe(true);
   });
 
   it('should change state  when the checkbox is clicked twice', () =>{
-    const mockOnClick = jest.fn();
-    const wrapper = shallow(<Checkbox onClick={mockOnClick} />);
+    const wrapper = createWrapper('clicked', 'clicked');
     wrapper.find('.checkbox').simulate('click');
     expect(wrapper.find('.clicked').exists()).toBe(true);
     wrapper.find('.checkbox').simulate('click');

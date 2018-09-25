@@ -3,63 +3,70 @@ import PropTypes from 'prop-types';
 import './Checkbox.scss';
 import tick from '../../images/Tick/tick.svg';
 
-class Checkbox extends PureComponent{
+class Checkbox extends PureComponent {
   state = {
-    checkBox: 'notClicked'
-  }
+    checkBox: localStorage.getItem('checkBox')
+  };
 
-  componentWillMount(){
-    const state = localStorage.getItem('state');
-    this.setState({checkBox:state});
-  }
-
-  clickCheckbox=()=>{
-    let { checkBox } = this.state;
-    if(checkBox=== 'notClicked'){
-      this.setState({checkBox:'clicked'});
+  clickCheckbox = checkBox => {
+    const { handleDisableInputs } = this.props;
+    if (checkBox === 'notClicked') {
+      this.setState({ checkBox: 'clicked' });
       checkBox = 'clicked';
-    }
-    else{
-      this.setState({checkBox:'notClicked'});
+    } else {
+      this.setState({ checkBox: 'notClicked' });
       checkBox = 'notClicked';
     }
+    handleDisableInputs(checkBox);
     this.renderCurrentState(checkBox);
+  };
+
+  renderCurrentState(state) {
+    localStorage.setItem('checkBox', state);
   }
 
-  renderCurrentState(state){
-    localStorage.setItem('state', state);
-  }
-
-  renderCheckBox=()=>{
-    const state = localStorage.getItem('state');
+  renderCheckBox = () => {
+    const state = localStorage.getItem('checkBox');
+    const { handleDisableInputs } = this.props;
     let { checkBox } = this.state;
     let className = 'default';
-    if(state==='clicked'){
+    if (state === 'notClicked') {
+      checkBox = state;
+      className = 'checkbox clicked';
+    } else if (state === 'clicked') {
       checkBox = state;
     }
-    if (checkBox === 'clicked'){
+    if (checkBox === 'clicked') {
       className = 'checkbox clicked';
-    }
-    else{
+      handleDisableInputs('clicked');
+    } else {
       className = 'checkbox default';
+      handleDisableInputs('notClicked');
     }
-    return(
-      <div className={className} onClick={()=>{this.clickCheckbox();}} role="button" tabIndex="0" onKeyDown={()=>{this.clickCheckbox();}} id="checkBox">
+    return (
+      <div
+        className={className}
+        onClick={() => {
+          this.clickCheckbox(checkBox);
+        }}
+        role="button"
+        tabIndex="0"
+        onKeyDown={() => {
+          this.clickCheckbox(checkBox);
+        }}
+        id="checkBox"
+      >
         <img src={tick} alt="clicked" className="ticksvg" />
       </div>
     );
-  }
+  };
 
-  renderText=()=>{
-    return(
-      <p>
-        Remember my personal details
-      </p>
-    );
-  }
+  renderText = () => {
+    return <p>Remember my personal details</p>;
+  };
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="container">
         {this.renderCheckBox()}
         {this.renderText()}
@@ -67,6 +74,5 @@ class Checkbox extends PureComponent{
     );
   }
 }
-
 
 export default Checkbox;
