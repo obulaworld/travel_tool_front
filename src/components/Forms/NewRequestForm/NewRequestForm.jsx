@@ -193,7 +193,6 @@ class NewRequestForm extends PureComponent {
       handleCreateRequest(data);
     }
   };
- 
   addNewTrip = () => {
     return this.setState(prevState => {
       const { parentIds, values, trips } = prevState;

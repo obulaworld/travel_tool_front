@@ -1,12 +1,15 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import {
   FETCH_NOTIFICATIONS,
-  ADD_NOTIFICATION
+  ADD_NOTIFICATION,
+  UPDATE_ALL_NOTIFICATIONS_STATUS
 } from '../constants/actionTypes';
 import {
   fetchUsersNotificationSuccess,
   fetchUsersNotificationFailure,
-  addNotificationSuccess
+  addNotificationSuccess,
+  updateAllNotificationStatusFailure,
+  updateAllNotificationStatusSuccess
 } from '../actionCreator/notificationsActions';
 import NotificationAPI from '../../services/NotificationsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -29,6 +32,26 @@ export function* addNotificationSync(action) {
   yield put(addNotificationSuccess(action.notification));
 }
 
-export function* watchaddNotification() {
+export function* watchAddNotification() {
   yield takeLatest(ADD_NOTIFICATION, addNotificationSync);
+}
+
+export function* watchUpdateAllNotificationStatus() {
+  yield takeLatest(
+    UPDATE_ALL_NOTIFICATIONS_STATUS,
+    updateAllNotificationStatusSync
+  );
+}
+
+export function* updateAllNotificationStatusSync(action) {
+  try {
+    const { updateNotification } = NotificationAPI;
+    const { statusUpdateData } = action;
+    const serverResponse = yield call(updateNotification, statusUpdateData);
+    yield put(updateAllNotificationStatusSuccess(serverResponse.data));
+
+  } catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(updateAllNotificationStatusFailure(errorMessage));
+  }
 }

@@ -7,6 +7,10 @@ class NotificationsAPI {
   static getNotifications() {
     return axios.get(`${baseUrl}/notifications`);
   }
+
+  static updateNotification(updateData) {
+    return axios.put(`${baseUrl}/notifications`, updateData);
+  }
 }
 
 export default NotificationsAPI;

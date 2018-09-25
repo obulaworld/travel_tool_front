@@ -143,7 +143,7 @@ export class Layout extends Component {
 
 Layout.propTypes = {
   location: PropTypes.object.isRequired,
-  children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
 };
 
 export default RequireAuth(Layout);

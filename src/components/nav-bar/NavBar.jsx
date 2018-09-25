@@ -12,26 +12,21 @@ import ImageLink from '../image-link/ImageLink';
 import { logoutUser } from '../../helper/userDetails';
 import './NavBar.scss';
 
-/**
- * @description - Contains SearhBar componentents, Logo, user avatar and logout
- *
- * @class NavBar
- *
- * @extends {PureComponent}
- *
- */
-
 export class NavBar extends PureComponent {
 
     state = {
       hideLogoutDropdown: true,
     };
 
+  getUnreadNotificationsCount = () => {
+    const { notifications } = this.props;
+    let count = 0;
+    notifications.map(notification => {
+      if (notification.notificationStatus === 'unread') return count += 1;
+    });
 
-  logout = () => {
-    const { history } = this.props;
-    logoutUser(history);
-  };
+    return count;
+  }
 
   handleClick = () => {
     const {hideLogoutDropdown} = this.state;
@@ -43,6 +38,11 @@ export class NavBar extends PureComponent {
     this.setState({hideLogoutDropdown: true});
     document.removeEventListener('click', this.hideDropdown);
   }
+
+  logout = () => {
+    const { history } = this.props;
+    logoutUser(history);
+  };
 
   logoutLink() {
     const {hideLogoutDropdown} = this.state;
@@ -69,6 +69,10 @@ export class NavBar extends PureComponent {
 
   renderNotification() {
     const { onNotificationToggle } = this.props;
+    const unreadNotificationsCount = this.getUnreadNotificationsCount();
+    const notificationClassName = (unreadNotificationsCount)
+      ? 'material-icons mdl-badge navbar__badge'
+      : 'material-icons navbar__badge';
     return (
       <div
         id="notification"
@@ -76,7 +80,10 @@ export class NavBar extends PureComponent {
         className="navbar__nav-size"
         role="presentation"
       >
-        <span className="material-icons mdl-badge navbar__badge" data-badge="12">
+        <span
+          className={notificationClassName}
+          data-badge={unreadNotificationsCount}
+        >
           <img
             src={notification}
             alt="Notification"
@@ -171,7 +178,8 @@ NavBar.propTypes = {
   handleHideSearchBar: PropTypes.func.isRequired,
   openSearch: PropTypes.bool,
   handleShowDrawer: PropTypes.func,
-  clickPage: PropTypes.bool
+  clickPage: PropTypes.bool,
+  notifications: PropTypes.array.isRequired
 };
 
 NavBar.defaultProps = {
@@ -180,10 +188,9 @@ NavBar.defaultProps = {
   handleShowDrawer:()=>{}
 };
 
-const mapStateToProps = state => {
-  return {
-    user: state.auth.user
-  };
-};
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  ...state.notifications
+});
 
 export default withRouter(connect(mapStateToProps)(NavBar));

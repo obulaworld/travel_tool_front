@@ -59,7 +59,6 @@ export default class NotificationItem extends PureComponent {
 NotificationItem.defaultProps = {
   isPending: false,
   general: false,
-  notificationStatus: 'unread',
   name: '',
   image: '',
   handleClick: ()=>{},
@@ -72,7 +71,7 @@ NotificationItem.propTypes = {
   link: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
   name: PropTypes.string,
-  notificationStatus: PropTypes.string,
+  notificationStatus: PropTypes.string.isRequired,
   image: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,
   message: PropTypes.string,

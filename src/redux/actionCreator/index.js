@@ -13,6 +13,12 @@ import {
   updateRequestStatusFailure
 } from './approvalActions';
 
+import {
+  updateAllNotificationStatus,
+  updateAllNotificationStatusFailure,
+  updateAllNotificationStatusSuccess
+} from './notificationsActions';
+
 export {
   setCurrentUser,
   setCurrentUserSuccess,
@@ -23,5 +29,8 @@ export {
   fetchUserApprovalsFailure,
   updateRequestStatus,
   updateRequestStatusSuccess,
-  updateRequestStatusFailure
+  updateRequestStatusFailure,
+  updateAllNotificationStatus,
+  updateAllNotificationStatusFailure,
+  updateAllNotificationStatusSuccess
 };

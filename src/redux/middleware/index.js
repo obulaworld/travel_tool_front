@@ -18,7 +18,8 @@ import { watchCreateComment, watchEditComment } from './commentsSaga';
 import { watchFetchApprovals, watchUpdateRequestStatus } from './approvalsSaga';
 import {
   watchFetchNotifications,
-  watchaddNotification
+  watchAddNotification,
+  watchUpdateAllNotificationStatus,
 } from './notificationsSaga';
 
 import { watchUpdateUserProfileAsync } from './UserProfileSaga';
@@ -41,8 +42,9 @@ function* rootSaga() {
     watchUpdateRequestStatus(),
     watchEditComment(),
     watchFetchNotifications(),
-    watchaddNotification(),
-    watchUpdateUserProfileAsync()
+    watchAddNotification(),
+    watchUpdateUserProfileAsync(),
+    watchUpdateAllNotificationStatus()
   ]);
 }
 

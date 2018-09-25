@@ -4,37 +4,42 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { MemoryRouter } from 'react-router-dom';
 import { NavBar } from '../NavBar';
+import notificatonsMockData from '../__mocks__/notificationMockData';
+
+const props = {
+  onNotificationToggle: jest.fn(),
+  avatar: 'avatar',
+  history: {
+    push: jest.fn()
+  },
+  openSearch: true,
+  handleHideSearchBar: jest.fn(),
+  notifications: [...notificatonsMockData],
+  user: {
+    UserInfo: {
+      name: 'Tomato Jos',
+      picture: 'http://picture.com/gif'
+    }
+  },
+};
+
+const setup = () => shallow(<NavBar {...props} />);
 
 // describe what we are testing
 describe('Render NavBar component', () => {
-  const props = {
-    onNotificationToggle: jest.fn(),
-    avatar: 'avatar',
-    history: {
-      push: jest.fn()
-    },
-    openSearch: true,
-    handleHideSearchBar: jest.fn(),
-    user: {
-      UserInfo: {
-        name: 'Tomato Jos',
-        picture: 'http://picture.com/gif'
-      }
-    },
-  };
   // make our assertions and what we expect to happen
   it('should match snapshot', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should render the navbar as expected', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     expect(wrapper.length).toBe(1);
   });
 
   it('should render the OnNotification click as exepected', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     let NotificationToggleSpy = jest.spyOn(
       wrapper.instance().props,
       'onNotificationToggle'
@@ -47,7 +52,7 @@ describe('Render NavBar component', () => {
   });
 
   it('should log user out when the logout link is clicked', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     wrapper.find('#logout').simulate('click');
     const token = Cookie.get('login-status');
     const loginStatus = Cookie.get('jwt-token');
@@ -56,12 +61,12 @@ describe('Render NavBar component', () => {
   });
 
   it('should should be search bar for phone view toggle display', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     expect(wrapper.length).toBe(1);
   });
 
   it('should log user out when the logout link is clicked', () => {
-    const wrapper = shallow(<NavBar {...props} />);
+    const wrapper = setup();
     wrapper.find('#logout').simulate('click');
     const token = Cookie.get('login-status');
     const loginStatus = Cookie.get('jwt-token');
@@ -80,6 +85,18 @@ describe('Render NavBar component', () => {
     const wrapper = mount(<NavBar {...props} />);
     wrapper.instance().hideDropdown();
     expect(wrapper.state('hideLogoutDropdown')).toBe(true);
+  });
+
+  it('should call `getUnreadNotifictionsCount` on component render',
+  (done) => {
+    const wrapper = setup();
+
+    const getUnreadNotificationsCountSpy =
+      jest.spyOn(wrapper.instance(), 'getUnreadNotificationsCount');
+    wrapper.instance().getUnreadNotificationsCount();
+    expect(getUnreadNotificationsCountSpy).toHaveBeenCalled();
+
+    done();
   });
 
 });

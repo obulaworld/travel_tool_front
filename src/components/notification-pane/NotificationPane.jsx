@@ -7,13 +7,16 @@ import NotificationContainer from './NotificationContainer';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import './_notificationPane.scss';
 import handleManagerNotification from '../../helper/socket/socket';
-import {fetchUsersNotification} from '../../redux/actionCreator/notificationsActions';
+import {
+  fetchUsersNotification,
+  updateAllNotificationStatus
+} from '../../redux/actionCreator/notificationsActions';
 
 export class NotificationPane extends PureComponent {
 
   componentDidMount() {
     const { user, fetchUsersNotification } = this.props;
-    fetchUsersNotification(); 
+    fetchUsersNotification();
     handleManagerNotification(user && user.UserInfo.id);
   }
 
@@ -33,7 +36,7 @@ export class NotificationPane extends PureComponent {
 
   render() {
 
-    const { onCloseNotificationPane } = this.props;
+    const { onCloseNotificationPane, updateAllNotificationStatus } = this.props;
     const { generalNotifications, pendingNotifications } = this.getNotifications();
     return (
       <div className="nav-pane">
@@ -46,6 +49,7 @@ export class NotificationPane extends PureComponent {
                   <NotificationContainer
                     title="Pending Approvals"
                     pendingNotifications={pendingNotifications}
+                    updateAllNotificationStatus={updateAllNotificationStatus}
                   />
                 )
               }
@@ -54,6 +58,7 @@ export class NotificationPane extends PureComponent {
                   <NotificationContainer
                     title="General Notifications"
                     generalNotifications={generalNotifications}
+                    updateAllNotificationStatus={updateAllNotificationStatus}
                   />)
               }
             </div>
@@ -72,6 +77,7 @@ export class NotificationPane extends PureComponent {
 NotificationPane.propTypes = {
   onCloseNotificationPane: PropTypes.func.isRequired,
   fetchUsersNotification: PropTypes.func.isRequired,
+  updateAllNotificationStatus: PropTypes.func.isRequired,
   user: PropTypes.object,
   notifications: PropTypes.arrayOf(PropTypes.object)
 };
@@ -93,6 +99,7 @@ const mapStateToProps = ({auth, notifications, modal}) => ({
 
 const mapDispatchToProps = {
   fetchUsersNotification,
+  updateAllNotificationStatus,
   openModal,
   closeModal,
 };

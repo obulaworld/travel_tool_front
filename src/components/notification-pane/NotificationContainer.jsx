@@ -4,6 +4,41 @@ import './_notificationContainer.scss';
 import NotificationItem from './NotificationItem';
 
 export default class NotificationContainer extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleMarkAllAsRead = this.handleMarkAllAsRead.bind(this);
+    this.getUnreadNotificationsCount = this.getUnreadNotificationsCount.bind(this);
+  }
+
+  getUnreadNotificationsCount() {
+    const { title, generalNotifications, pendingNotifications } = this.props;
+    const notificationStatus =
+      (title === 'Pending Approvals')
+        ? pendingNotifications
+          .map(notification => notification.notificationStatus)
+        : generalNotifications
+          .map(notification => notification.notificationStatus);
+    const unreadNotifications =
+      notificationStatus.filter(status => status === 'unread');
+    const notificationsCount = unreadNotifications.length;
+    return notificationsCount;
+  }
+
+  handleMarkAllAsRead() {
+    const { title, updateAllNotificationStatus } = this.props;
+    const currentStatus = 'unread';
+    const newStatus = 'read';
+    const notificationType = (title === 'Pending Approvals')
+      ? 'pending'
+      : 'general';
+
+    return updateAllNotificationStatus(
+      currentStatus,
+      newStatus,
+      notificationType
+    );
+  }
 
   renderNotifications = (notifications) => {
     return notifications.length && notifications.map(
@@ -25,13 +60,13 @@ export default class NotificationContainer extends PureComponent {
             isPending={isPending}
             general={general}
             name={notification.senderName}
-            messageOpened={notification.notificationStatus}
+            notificationStatus={notification.notificationStatus}
             image={notification.senderImage}
             timeStamp={notification.createdAt}
             message={notification.message}
           />
         );
-      } 
+      }
     );
   };
 
@@ -41,16 +76,23 @@ export default class NotificationContainer extends PureComponent {
     const number = title === 'Pending Approvals'
       ? pendingNotifications.length
       : generalNotifications.length;
+
     return (
       <div className="notification-container">
         <div className={`notification-container__header--${customClass}`}>
           <div className="notification-container__header__title">
             {title}
             <div className={`notification-container__header__title__number--${customClass}`}>
-              {number}
+              {this.getUnreadNotificationsCount()}
             </div>
           </div>
-          <div className="notification-container__header__action">
+          <div
+            role="button"
+            className="notification-container__header__action"
+            onClick={this.handleMarkAllAsRead}
+            onKeyUp={this.handleMarkAllAsRead}
+            tabIndex={0}
+          >
               mark all as read
           </div>
         </div>
@@ -72,6 +114,7 @@ const NOTIFICATIONS_PROPTYPES = PropTypes.arrayOf(PropTypes.shape({
 NotificationContainer.propTypes = {
   title: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
+  updateAllNotificationStatus: PropTypes.func.isRequired,
   pendingNotifications: NOTIFICATIONS_PROPTYPES,
   generalNotifications: NOTIFICATIONS_PROPTYPES
 };

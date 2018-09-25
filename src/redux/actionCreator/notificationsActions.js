@@ -4,7 +4,10 @@ import {
   FETCH_NOTIFICATIONS_FAILURE,
   ADD_NOTIFICATION,
   ADD_NOTIFICATION_SUCCESS,
-  ADD_NOTIFICATION_FAILURE
+  ADD_NOTIFICATION_FAILURE,
+  UPDATE_ALL_NOTIFICATIONS_STATUS,
+  UPDATE_ALL_NOTIFICATIONS_STATUS_FAILURE,
+  UPDATE_ALL_NOTIFICATIONS_STATUS_SUCCESS
 } from '../constants/actionTypes';
 
 export const fetchUsersNotification = () => ({
@@ -29,5 +32,24 @@ export const addNotificationSuccess = notification => ({
 });
 export const addNotificationFailure = error => ({
   type: ADD_NOTIFICATION_FAILURE,
+  error
+});
+
+export const updateAllNotificationStatus = (
+  currentStatus,
+  newStatus,
+  notificationType
+) => ({
+  type: UPDATE_ALL_NOTIFICATIONS_STATUS,
+  statusUpdateData: { currentStatus, newStatus, notificationType }
+});
+
+export const updateAllNotificationStatusSuccess = (response) => ({
+  type: UPDATE_ALL_NOTIFICATIONS_STATUS_SUCCESS,
+  message: response.message
+});
+
+export const updateAllNotificationStatusFailure = (error) => ({
+  type: UPDATE_ALL_NOTIFICATIONS_STATUS_FAILURE,
   error
 });
