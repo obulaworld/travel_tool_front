@@ -9,8 +9,12 @@ export default class NotificationContainer extends PureComponent {
     return notifications.length && notifications.map(
       notification => {
         let isPending = false;
+        let general = false;
         if(notification.notificationType === 'pending'){
           isPending = true;
+        }
+        if(notification.message === 'approved your request'){
+          general = true;
         }
         const{ handleClick } = this.props;
         return  (
@@ -19,6 +23,7 @@ export default class NotificationContainer extends PureComponent {
             link={notification.notificationLink}
             key={notification.id}
             isPending={isPending}
+            general={general}
             name={notification.senderName}
             messageOpened={notification.notificationStatus}
             image={notification.senderImage}

@@ -8,7 +8,7 @@ import generateDynamicDate from '../../helper/generateDynamicDate';
 
 export default class NotificationItem extends PureComponent {
   renderNotificationItemMetaInfo = () => {
-    const { isPending, notificationStatus, handleClick, link, timeStamp } = this.props;
+    const { isPending, notificationStatus, handleClick, link, timeStamp, general } = this.props;
     return (
       <div className="notification--item__info__bottom">
         <span className="t-hours-ago">
@@ -17,6 +17,8 @@ export default class NotificationItem extends PureComponent {
         <Link to={`${link}`}>
           <span className="view-details" onClick={handleClick} role="button" tabIndex="0" onKeyUp={()=>{}}>
             {isPending && 'View Details'}
+            {' '}
+            {general && 'View Details'}
           </span>
         </Link>
         <img
@@ -56,6 +58,7 @@ export default class NotificationItem extends PureComponent {
 
 NotificationItem.defaultProps = {
   isPending: false,
+  general: false,
   notificationStatus: 'unread',
   name: '',
   image: '',
@@ -65,6 +68,7 @@ NotificationItem.defaultProps = {
 
 NotificationItem.propTypes = {
   isPending: PropTypes.bool,
+  general: PropTypes.bool,
   link: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
   name: PropTypes.string,

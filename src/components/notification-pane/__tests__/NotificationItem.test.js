@@ -7,6 +7,7 @@ import testImage from '../../../images/logo.svg';
 describe('Notification Item Component', () => {
   const props = {
     isPending: true,
+    general: true,
     name: 'Ademola Ariya',
     notificationStatus: 'unread',
     image: testImage,
