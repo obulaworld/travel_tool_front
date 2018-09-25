@@ -6,20 +6,10 @@ import expand from '../../../../images/expand_more_24px.svg';
 import Checkbox from '../../../CheckBox/index';
 
 class PersonalDetailsFieldset extends Component {
-  state = {
-    disableInputs:''
-  }
-  handleDisableInputs = (value) => {
-    const { disableInputs } = this.state;
-    const newState = value==='clicked'?'disable-details':'';
-    this.setState({
-      disableInputs: newState
-    });
-  };
   renderfields = (collapse) => {
-    const { disableInputs } = this.state;
     const { renderInput } = this.inputRenderer;
-    const disabled = disableInputs;
+    const { values } = this.props;
+    const disabled = values.state==='clicked'?'disable-details':'';
     return (
       <div>
         { !collapse ?
@@ -41,7 +31,7 @@ class PersonalDetailsFieldset extends Component {
                 {renderInput('manager', 'dropdown-select')}
               </div>
               <div className="input-group">
-                <Checkbox handleDisableInputs={this.handleDisableInputs} />
+                <Checkbox />
               </div>
             </div>
           )  : null
