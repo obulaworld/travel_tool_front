@@ -21,20 +21,20 @@ export default class TripDetails extends PureComponent {
     return (
       <div className={`modal__modal-trip-details ${tripType}`}>
         <TripDetail
-          label="Travel to"
-          value={destination} />
-        <TripDetail
           label="From"
           value={origin} />
+        <TripDetail
+          label="Travel to"
+          value={destination} />
         <TripDetail
           label="Depature date"
           value={generateDynamicDate(tripDetails, departureDate)} />
         <div id="return-date">
-          { tripType !== 'oneWay' ? 
+          { tripType !== 'oneWay' ?
             (<TripDetail
               label="Return date"
               value={generateDynamicDate(tripDetails, returnDate)} />
-            )  : '' 
+            )  : ''
           }
         </div>
       </div>

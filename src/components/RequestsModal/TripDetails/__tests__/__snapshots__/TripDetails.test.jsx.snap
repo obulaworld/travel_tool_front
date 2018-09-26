@@ -10,12 +10,12 @@ exports[`<TripDetails /> should render correctly 1`] = `
     <div
       className="modal__trip-detail-label"
     >
-      Travel to
+      From
     </div>
     <div
       className="modal__trip-detail-text"
     >
-      Nairobi
+      Lagos
     </div>
   </div>
   <div
@@ -24,12 +24,12 @@ exports[`<TripDetails /> should render correctly 1`] = `
     <div
       className="modal__trip-detail-label"
     >
-      From
+      Travel to
     </div>
     <div
       className="modal__trip-detail-text"
     >
-      Lagos
+      Nairobi
     </div>
   </div>
   <div

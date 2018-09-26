@@ -12,7 +12,7 @@ class TravelDetailsFieldset extends Component {
   componentDidMount = () => {
     this.get_details();
   }
-  
+
   get_details = () => {
     const { parentIds } = this.props;
     for (let i = 0; i < parentIds; i += 1) {
@@ -76,14 +76,15 @@ class TravelDetailsFieldset extends Component {
             <div className={selection === 'multi' ? 'rec-div': ''} />
             <div className="rectangle">
               <div className="style-details">
-                <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`destination-${i}`, 'text', {parentid: i})}
-                  <img src={location} alt="icn" className="location-icon"  />
-                </div>
 
                 <div className="travel-to" onChange={onChangeInput}>
                   {renderInput(`origin-${i}`, 'text', {parentid: i})}
                   <img src={location} alt="icn" className="location-icon" />
+                </div>
+
+                <div className="travel-to" onChange={onChangeInput}>
+                  {renderInput(`destination-${i}`, 'text', {parentid: i})}
+                  <img src={location} alt="icn" className="location-icon"  />
                 </div>
 
                 <div className="others-width" role="presentation">
