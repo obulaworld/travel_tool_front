@@ -64,7 +64,13 @@ const props = {
     }
   ],
   fetchRequestsError: null,
-  message: 'Requests retrieved successfully'
+  message: 'Requests retrieved successfully',
+  location: {
+    pathname: ''
+  },
+  history: {
+    push: jest.fn()
+  },
 };
 
 const wrapper = shallow(<Table {...props} />);
@@ -116,6 +122,6 @@ describe('<Requests />', () => {
       .find('div')
       .at(0);
     requestId.simulate('click');
-    expect(wrapper.state().clickedRequestId).toBe('xDh20btGz');
+    expect(wrapper.find('Modal').length).toEqual(1);
   });
 });

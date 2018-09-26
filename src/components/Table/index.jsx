@@ -7,9 +7,7 @@ import './Table.scss';
 import withLoading from '../Hoc/withLoading';
 
 export class Table extends Component {
-  state = {
-    clickedRequestId: null
-  };
+
   getDuration(trips) {
     const returnDates = trips.map(trip => new Date(trip.returnDate));
     const departureDates = trips.map(trip => new Date(trip.departureDate));
@@ -30,11 +28,8 @@ export class Table extends Component {
       .concat(tripType.toLowerCase().slice(1));
   };
   handleClickRequest = requestId => {
-    const { openModal, page } = this.props;
-    this.setState({
-      clickedRequestId: requestId
-    });
-    openModal(true, 'request details', page);
+    const {history, location: {pathname} } = this.props;
+    history.push(`${pathname}/${requestId}`);
   };
   renderNoRequests(message) {
     return <div className="table__requests--empty">{message}</div>;
@@ -155,12 +150,12 @@ export class Table extends Component {
   }
 
   renderDetailsModal() {
-    const { clickedRequestId } = this.state;
-    const { closeModal, shouldOpen, modalType } = this.props;
+    const { closeModal, shouldOpen, modalType, requestId, page } = this.props;
     return (
       <Modal
+        requestId={requestId}
         closeModal={closeModal}
-        width="710px"
+        width="900px"
         modalId="request-details-modal"
         modalContentId="request-details-modal-content"
         visibility={
@@ -168,10 +163,10 @@ export class Table extends Component {
             ? 'visible'
             : 'invisible'
         }
-        title={`#${clickedRequestId} Request Details`}
+        title={`#${requestId} Request Details`}
         modalBar={<div className="table__modal-bar-text">Manager stage</div>}
       >
-        <RequestsModal requestId={clickedRequestId} />
+        <RequestsModal navigatedPage={page} requestId={requestId} />
       </Modal>
     );
   }
@@ -201,16 +196,17 @@ export class Table extends Component {
   }
 }
 
-const editRequest = PropTypes.func;
 Table.propTypes = {
   requests: PropTypes.array,
   type: PropTypes.string,
   fetchRequestsError: PropTypes.string,
   closeModal: PropTypes.func,
-  openModal: PropTypes.func,
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
+  requestId: PropTypes.string,
   message: PropTypes.string,
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   page: PropTypes.string
 };
 
@@ -219,11 +215,11 @@ Table.defaultProps = {
   fetchRequestsError: null,
   requests: [],
   closeModal: () => {},
-  openModal: () => {},
   shouldOpen: false,
   modalType: null,
   message: '',
-  page: ''
+  page:'',
+  requestId: '',
 };
 
 export default withLoading(Table);

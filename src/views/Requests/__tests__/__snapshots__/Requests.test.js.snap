@@ -8,6 +8,7 @@ exports[`<Requests> renders as expected 1`] = `
     modalContentId=""
     modalId=""
     params=""
+    requestId=""
     title="New Travel Request"
     visibility="invisible"
     width="1000px"
@@ -51,10 +52,22 @@ exports[`<Requests> renders as expected 1`] = `
     <WithLoading
       closeModal={[Function]}
       fetchRequestsError={null}
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
       isLoading={false}
+      location={
+        Object {
+          "pathname": "/requests",
+          "search": "?page=1",
+        }
+      }
       modalType={null}
       openModal={[Function]}
       page="Requests"
+      requestId="sgjdgljgd"
       requests={
         Array [
           Object {

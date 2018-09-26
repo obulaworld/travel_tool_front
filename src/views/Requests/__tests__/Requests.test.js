@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import { Requests, mapStateToProps } from '..';
 import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 
-const props = {
+const props ={ 
   requests: [
     {
       id: 'xDh20btGz',
@@ -90,7 +90,8 @@ const props = {
     push: jest.fn()
   },
   location: {
-    search: '?page=1'
+    search: '?page=1',
+    pathname: '/requests'
   },
   user: {
     UserInfo: {
@@ -102,9 +103,12 @@ const props = {
   errors: [],
   shouldOpen: false,
   modalType: null,
-  openModal: jest.fn(),
+  openModal: sinon.spy(() => Promise.resolve()),
   closeModal: jest.fn(),
-  page: 'Requests'
+  page: 'Requests',
+  match: {
+    params: { requestId: 'sgjdgljgd' }
+  },
 };
 
 const initialState = {
@@ -147,7 +151,7 @@ describe('<Requests>', () => {
 
   it('calls the componentDidMount method', () => {
     const spy = sinon.spy(Requests.prototype, 'componentDidMount');
-    const { fetchUserRequests, fetchRoleUsers } = props;
+    const { fetchUserRequests, fetchRoleUsers, requestId, openModal } = props;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -159,6 +163,7 @@ describe('<Requests>', () => {
     expect(fetchUserRequests.called).toEqual(true);
     expect(fetchUserRequests.calledWith('?page=1')).toEqual(true);
     expect(fetchRoleUsers.called).toEqual(true);
+    expect(openModal.called).toEqual(true);
     expect(fetchRoleUsers.calledWith(53019)).toEqual(true);
     wrapper.unmount();
   });

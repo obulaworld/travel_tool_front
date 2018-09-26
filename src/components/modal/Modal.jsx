@@ -22,10 +22,10 @@ class Modal extends PureComponent {
   };
 
   renderModalHeader = () => {
-    const { title, closeModal, modalBar, params } = this.props;
+    const { title, closeModal, modalBar, params, requestId } = this.props;
     let url = location.pathname;
-    if(params){
-      let urlArr = params.split('/');
+    if(requestId){
+      let urlArr = url.split('/');
       url = urlArr.slice(0, urlArr.length-1).join('/');
     }
     return (
@@ -54,14 +54,12 @@ class Modal extends PureComponent {
       visibility,
       width,
       modalId,
-      modalContentId,
-      closeModal
+      modalContentId
     } = this.props;
-
     return (
       visibility === 'visible' ? (
         <Fragment>
-          <Overlay click={closeModal} className={visibility}>
+          <Overlay className={visibility}>
             <div
               className={`modal ${visibility}`}
               style={{maxWidth: width}}
@@ -83,12 +81,14 @@ class Modal extends PureComponent {
 
 Modal.propTypes = {
   params: PropTypes.string,
+  requestId: PropTypes.string,
 };
 
 
 Modal.defaultProps = {
   title: '',
   modalId: '',
+  requestId: '',
   width: '',
   modalContentId: '',
   params: '',

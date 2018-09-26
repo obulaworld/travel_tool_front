@@ -122,8 +122,8 @@ export class RequestDetailsModal extends Component {
       isStatusUpdating || buttonSelected;
   }
   shouldButtonsRender(status) {
-    const { page } = this.props;
-    if (page === 'Requests' && (status === 'Open' ||'Approved' || 'Rejected')) return this.renderStatusAsBadge(status);
+    const { navigatedPage } = this.props;
+    if (navigatedPage === 'Requests' && (status === 'Open' ||'Approved' || 'Rejected')) return this.renderStatusAsBadge(status);
     else return this.renderButtons();
   }
 
@@ -149,7 +149,7 @@ export class RequestDetailsModal extends Component {
 
   renderButtons = () => {
     const { approveColor, rejectColor, approveTextColor, rejectTextColor } = this.state;
-    const { requestData: { id, status }, page } = this.props;
+    const { requestData: { id, status }, navigatedPage } = this.props;
     let displayButtons = this.showButtons(approveColor, rejectColor, approveTextColor, rejectTextColor, id)
       .map((button)=>{
         const buttonStyle = this.changeButtonColor(button, status);
@@ -163,9 +163,9 @@ export class RequestDetailsModal extends Component {
                 }}
                 onClick={button.onClick}
                 className={button.class}
-                id={'b'+button.id}
+                id={`b${button.id}`}
                 type="button"
-                disabled={this.disableButtons(status, page, button.text)}
+                disabled={this.disableButtons(status, navigatedPage)}
               >
                 {this.renderButtonText(status, button.text)}
               </button>
@@ -241,7 +241,7 @@ RequestDetailsModal.propTypes = {
   user: PropTypes.object,
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
-  page: PropTypes.string,
+  navigatedPage: PropTypes.string,
   email:PropTypes.string
 };
 
@@ -252,7 +252,7 @@ RequestDetailsModal.defaultProps = {
   requestData: {},
   user: {},
   isStatusUpdating: false,
-  page: '',
+  navigatedPage: '',
   email: ''
 };
 

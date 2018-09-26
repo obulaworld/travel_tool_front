@@ -12,24 +12,37 @@ export class Approvals extends Base {
   state = {
     clickPage: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
-    searchQuery:  this.props.location.search
+    searchQuery:  this.props.location.search,
+    requestId: ''
   }
 
   componentDidMount () {
-    const {fetchUserApprovals} = this.props;
+    const { fetchUserApprovals, match: {params: {requestId}}, openModal, page} = this.props;
     const { searchQuery } = this.state;
     fetchUserApprovals(searchQuery);
+    if(requestId){  
+      openModal(true, 'request details', page);
+      this.storeRequestIdApproval(requestId);
+    }
+  }
+
+  storeRequestIdApproval = (requestId)=> {
+    this.setState({requestId: requestId});
   }
 
   renderApprovalsTable(){
-    const { approvals, openModal, closeModal, shouldOpen, modalType } = this.props;
+    const { approvals, history, location, openModal, closeModal, shouldOpen, modalType } = this.props;
+    const {requestId} = this.state;
     return(
       <WithLoadingTable
         requests={approvals.approvals}
+        location={location}
+        history={history}
         isLoading={approvals.isLoading}
         fetchRequestsError={approvals.fetchApprovalsError}
         message={approvals.message}
         type="approvals"
+        requestId={requestId}
         closeModal={closeModal}
         openModal={openModal}
         shouldOpen={shouldOpen}
@@ -40,12 +53,13 @@ export class Approvals extends Base {
   }
 
   fetchFilteredApprovals = (query) => {
-    const { history, location, fetchUserApprovals } = this.props;
+    const { history, fetchUserApprovals } = this.props;
+    const { getActiveStatus } = Utils;
     history.push(`/requests/my-approvals${query}`);
     fetchUserApprovals(query);
     this.setState(prevState => ({
       ...prevState,
-      activeStatus: Utils.getActiveStatus(query),
+      activeStatus: getActiveStatus(query),
       searchQuery: query
     }));
   }

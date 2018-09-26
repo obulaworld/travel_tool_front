@@ -24,18 +24,24 @@ export class Requests extends Base {
   state = {
     hideNewRequestModal: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
-    url: this.props.location.search
+    url: this.props.location.search,
+    requestId: ''
   };
 
   componentDidMount() {
-    const { fetchUserRequests, fetchRoleUsers, user} = this.props;
+    const { openModal, fetchUserRequests, fetchRoleUsers, page, match: { params: { requestId} } } = this.props;
     const { url } = this.state;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
+
+    if(requestId){  
+      openModal(true, 'request details', page);
+      this.storeRequestIdRequest(requestId);
+    }
   }
 
   componentDidUpdate(){
-    const {getUserData, user}=this.props;
+    const {getUserData}=this.props;
     const data = getUserData.result;
     localStorage.setItem('passportName', data && data.passportName);
     localStorage.setItem('gender', data && data.gender);
@@ -43,7 +49,6 @@ export class Requests extends Base {
     localStorage.setItem('role', data && data.occupation);
     localStorage.setItem('manager', data && data.manager);
   }
-
 
   fetchRequests = query => {
     const { history, fetchUserRequests } = this.props;
@@ -66,6 +71,10 @@ export class Requests extends Base {
     const { url } = this.state;
     const { pagination } = this.props;
     this.getEntriesWithLimit(limit, url, pagination, this.fetchRequests);
+  }
+
+  storeRequestIdRequest = (requestId)=> {
+    this.setState({requestId: requestId});
   }
 
   renderRequestPanelHeader() {
@@ -98,11 +107,15 @@ export class Requests extends Base {
   }
 
   renderRequests(requests, isLoading, error, message) {
-    const { openModal, closeModal, shouldOpen, modalType } = this.props;
+    const { history, location, openModal, closeModal, shouldOpen, modalType } = this.props;
+    const {requestId} = this.state;
     return (
       <div className="rp-table">
         <WithLoadingTable
           type="requests"
+          location={location}
+          history={history}
+          requestId={requestId}
           requests={requests}
           isLoading={isLoading}
           fetchRequestsError={error}

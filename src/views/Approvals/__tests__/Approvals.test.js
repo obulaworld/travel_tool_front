@@ -14,6 +14,7 @@ const props = {
   actionBtn: 'New Request',
   onClickItem: jest.fn(),
   fetchUserApprovals: jest.fn(),
+  openModal: jest.fn(),
   approvals: {
     approvals: [
       {
@@ -44,7 +45,12 @@ const props = {
     search: ''
   },
   fetchRequestsError: jest.fn(),
-  message: ''
+  message: '',
+  match: {
+    params: {
+      requestId: 'sgdgdg'
+    }
+  }
 };
 
 const initialState = {
@@ -70,7 +76,7 @@ describe('<ApprovalsPage>', () => {
     );
     expect(wrapper.find('Approvals').length).toBe(1);
     wrapper.unmount();
-  });
+  }); 
 
   it('calls the onPageChange method', () => {
     const wrapper = mount(

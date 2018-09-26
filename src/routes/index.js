@@ -4,7 +4,6 @@ import ConnectedLogin from '../views/Login';
 import ConnectedRequests from '../views/Requests';
 import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
-import ReactModal from '../components/RouterModal';
 import Checkbox from '../components/CheckBox';
 import ConnectedRole from '../views/Role';
 import ConnectedUserProfile from '../views/UserProfile';
@@ -39,7 +38,7 @@ const Routes = () => (
           <Route
             path="/requests/:requestId"
             exact
-            component={RequireAuth(ReactModal)}
+            component={RequireAuth(ConnectedRequests)}
           />
 
 
@@ -51,7 +50,7 @@ const Routes = () => (
           <Route
             path="/requests/my-approvals/:requestId"
             exact
-            component={RequireAuth(ReactModal)}
+            component={RequireAuth(ConnectedApprovals)}
           />
 
         </Switch>
