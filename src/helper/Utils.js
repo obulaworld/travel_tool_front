@@ -1,26 +1,37 @@
 class Utils {
-  /**
-   *
-   * @param {string} queryString - initial query
-   * @param {string} query - query to be included
-   * @param {number} queryValue - query value
-   *
-   * @returns {string} - the new composed query
-   */
-  static buildQuery(queryString, query, queryValue) {
-    let newQueryString;
-    const regex = new RegExp(`${query}=[0-9]+`);
 
-    switch(queryString.length) {
-    case (0):
-      newQueryString = `?${query}=${queryValue}`;
-      break;
-    default:
-      newQueryString = queryString.search(regex) === -1 ?
-        `${queryString}&${query}=${queryValue}` :
-        queryString.replace(regex, `${query}=${queryValue}`);
-      break;
+  static getRegex(query) {
+    let regex = new RegExp(`${query}=[0-9]+`);
+    if (query === 'search') {
+      regex = new RegExp(`${query}=([^&]*)`);
     }
+    return regex;
+  }
+
+  static removeQueryParam(queryString, query) {
+    const regex = new RegExp(`([&]*)${query}=([^&]*)`);
+    let newQueryString = queryString.replace(regex, '');
+    newQueryString = newQueryString.replace(/(.+)(&)$/, '$1');
+    return newQueryString;
+  }
+
+  static createQuery(queryString, queryparams, regex) {
+    let newQueryString = `?${queryparams}`;
+    if (queryString.length && queryString.search(regex) === -1) {
+      newQueryString = `${queryString}&${queryparams}`;
+    } else if (queryString.length && queryString.search(regex) > -1) {
+      newQueryString = queryString.replace(regex, queryparams);
+    }
+    return newQueryString;
+  }
+
+  static buildQuery(queryString, query, queryValue) {
+    const regex = Utils.getRegex(query);
+    const queryparams = (queryValue) ? `${query}=${queryValue}` : '';
+    let newQueryString = Utils.createQuery(queryString, queryparams, regex);
+    newQueryString = (query === 'search')
+      ? Utils.removeQueryParam(newQueryString, 'page') : newQueryString;
+    newQueryString = newQueryString.replace(/(.+)(&)$/, '$1');
     return newQueryString;
   }
 
@@ -41,6 +52,13 @@ class Utils {
     const limit = regex.exec(query) === null ? ''
       : regex.exec(query)[0].split('=')[1];
     return limit;
+  }
+
+  static getQueryValue(queryString, key) {
+    const regex = Utils.getRegex(key);
+    const value = regex.exec(queryString) === null ? ''
+      : regex.exec(queryString)[0].split('=')[1];
+    return value;
   }
 }
 

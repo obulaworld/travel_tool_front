@@ -38,7 +38,10 @@ exports[`Render NavBar component should match snapshot 1`] = `
     <div
       className="navbar__search-size mdl-cell--hide-phone"
     >
-      <SearchBar />
+      <SearchBar
+        onChange={[Function]}
+        onSubmit={[Function]}
+      />
     </div>
     <nav
       className="mdl-navigation"
@@ -137,7 +140,10 @@ exports[`Render NavBar component should match snapshot 1`] = `
       }
     }
   >
-    <SearchBar />
+    <SearchBar
+      onChange={[Function]}
+      onSubmit={[Function]}
+    />
   </div>
 </header>
 `;

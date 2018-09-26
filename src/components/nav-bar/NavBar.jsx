@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 import travela from '../../images/travela.svg';
 import mobileTravel from '../../images/travela-mobile.svg';
 import icon from '../../images/drop-down-icon.svg';
@@ -10,13 +11,23 @@ import SearchBar from '../search-bar/SearchBar';
 import Button from '../buttons/Buttons';
 import ImageLink from '../image-link/ImageLink';
 import { logoutUser } from '../../helper/userDetails';
+import Utils from '../../helper/Utils';
 import './NavBar.scss';
 
 export class NavBar extends PureComponent {
 
     state = {
       hideLogoutDropdown: true,
+      keyword: ''
     };
+
+  
+  debouncer = debounce(
+    (history, pathName, queryString) =>
+      (history.push(`${pathName}${queryString}`)),
+    2000,
+    { trailing: true }
+  );
 
   getUnreadNotificationsCount = () => {
     const { notifications } = this.props;
@@ -24,9 +35,27 @@ export class NavBar extends PureComponent {
     notifications.map(notification => {
       if (notification.notificationStatus === 'unread') return count += 1;
     });
-
     return count;
   }
+
+  onChange = (event) => {
+    const { history, location } = this.props;
+    this.setState({keyword: event.target.value}, () => {
+      const {keyword} = this.state;
+      const queryString = Utils.buildQuery(location.search, 'search', keyword);
+      this.debouncer.cancel();
+      this.debouncer(history, location.pathname, queryString);
+    });
+  }
+
+  onSubmit = () => {
+    this.debouncer.cancel();
+    const { history, location } = this.props;
+    const { keyword } = this.state;
+    const queryString = Utils.buildQuery(location.search, 'search', keyword);
+    history.push(`${location.pathname}${queryString}`);
+  }
+
 
   handleClick = () => {
     const {hideLogoutDropdown} = this.state;
@@ -134,7 +163,7 @@ export class NavBar extends PureComponent {
         </div>
         <div className="mdl-layout-spacer" />
         <div className="navbar__search-size mdl-cell--hide-phone">
-          <SearchBar />
+          <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
         </div>
         <nav className="mdl-navigation">
           {this.renderNotification()}
@@ -163,7 +192,7 @@ export class NavBar extends PureComponent {
           </div>
         </button>
         <div className="navbar__search-size mdl-cell--hide-desktop mdl-cell--hide-tablet" style={{display: `${showSearch}`}}>
-          <SearchBar />
+          <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
         </div>
       </header>
     );
@@ -173,6 +202,7 @@ export class NavBar extends PureComponent {
 NavBar.propTypes = {
   onNotificationToggle: PropTypes.func.isRequired,
   history: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   avatar: PropTypes.string.isRequired,
   handleHideSearchBar: PropTypes.func.isRequired,

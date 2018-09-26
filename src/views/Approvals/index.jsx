@@ -53,13 +53,12 @@ export class Approvals extends Base {
   }
 
   fetchFilteredApprovals = (query) => {
-    const { history, fetchUserApprovals } = this.props;
-    const { getActiveStatus } = Utils;
+    const { history, location, fetchUserApprovals } = this.props;
     history.push(`/requests/my-approvals${query}`);
     fetchUserApprovals(query);
     this.setState(prevState => ({
       ...prevState,
-      activeStatus: getActiveStatus(query),
+      activeStatus: Utils.getActiveStatus(query),
       searchQuery: query
     }));
   }

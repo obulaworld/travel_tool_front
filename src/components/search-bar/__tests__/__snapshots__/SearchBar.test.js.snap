@@ -11,9 +11,13 @@ exports[`Render SearchBar component should match snapshot 1`] = `
   />
   <form
     action="#"
+    id="searchForm"
+    onSubmit={[Function]}
   >
     <input
       className="input-format"
+      id="search"
+      onChange={[Function]}
       placeholder="Search requests, team members, etc"
       size="1"
       type="text"

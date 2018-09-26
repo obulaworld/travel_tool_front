@@ -8,14 +8,16 @@ class ButtonGroup extends PureComponent {
   filterEntries = (entriesType, statusQuery) => {
     const { fetchRequests, fetchApprovals, url } = this.props;
     const limit = Utils.getCurrentLimit(url);
-
+    const search = Utils.getQueryValue(url, 'search');
     const paginationQuery = limit === '' ?
       '?page=1' : `?page=1&limit=${limit}`;
 
+    const searchQuery = (search) ? `&search=${search}` : '';
+
     if(entriesType === 'requests')
-      fetchRequests(`${paginationQuery}${statusQuery}`);
+      fetchRequests(`${paginationQuery}${statusQuery}${searchQuery}`);
     else
-      fetchApprovals(`${paginationQuery}${statusQuery}`);
+      fetchApprovals(`${paginationQuery}${statusQuery}${searchQuery}`);
   }
 
   renderApprovalsButton () {

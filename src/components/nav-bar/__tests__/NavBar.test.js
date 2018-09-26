@@ -21,6 +21,10 @@ const props = {
       picture: 'http://picture.com/gif'
     }
   },
+  location: {
+    search: 'search=gjg',
+    pathname: 'requests'
+  }
 };
 
 const setup = () => shallow(<NavBar {...props} />);
@@ -97,6 +101,24 @@ describe('Render NavBar component', () => {
     expect(getUnreadNotificationsCountSpy).toHaveBeenCalled();
 
     done();
+  });
+
+  it('should update state when onChange function is triggered', () => {
+    const wrapper = mount(<NavBar {...props} />);
+    const event = {
+      target: {
+        value: 'kampala'
+      }
+    };
+    wrapper.instance().onChange(event);
+    expect(wrapper.state('keyword')).toBe(event.target.value);
+  });
+
+  it('should call history push function when onSubmit is triggered', () => {
+    const wrapper = mount(<NavBar {...props} />);
+    wrapper.setState({ keyword: 'Kampala' });
+    wrapper.instance().onSubmit();
+    expect(props.history.push).toHaveBeenCalled();
   });
 
 });

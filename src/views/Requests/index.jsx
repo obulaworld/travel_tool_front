@@ -51,13 +51,14 @@ export class Requests extends Base {
   }
 
   fetchRequests = query => {
-    const { history, fetchUserRequests } = this.props;
+    const { history, fetchUserRequests, location } = this.props;
     history.push(`/requests${query}`);
     fetchUserRequests(query);
     this.setState(prevState => ({
       ...prevState,
       activeStatus: Utils.getActiveStatus(query),
-      searchQuery: query
+      searchQuery: query,
+      url: query
     }));
   };
 

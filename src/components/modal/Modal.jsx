@@ -23,7 +23,7 @@ class Modal extends PureComponent {
 
   renderModalHeader = () => {
     const { title, closeModal, modalBar, params, requestId } = this.props;
-    let url = location.pathname;
+    let url = `${location.pathname}${location.search}`;
     if(requestId){
       let urlArr = url.split('/');
       url = urlArr.slice(0, urlArr.length-1).join('/');
