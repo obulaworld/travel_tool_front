@@ -52,5 +52,4 @@ const notifications = [
     updatedAt: new Date()
   }
 ];
-
 export default notifications;

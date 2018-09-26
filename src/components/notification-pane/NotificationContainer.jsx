@@ -48,7 +48,7 @@ export default class NotificationContainer extends PureComponent {
         if(notification.notificationType === 'pending'){
           isPending = true;
         }
-        if(notification.message === 'approved your request'){
+        if(notification.message === 'approved your request' || notification.message === 'posted a comment'){
           general = true;
         }
         const{ handleClick } = this.props;
@@ -116,7 +116,7 @@ NotificationContainer.propTypes = {
   handleClick: PropTypes.func,
   updateAllNotificationStatus: PropTypes.func.isRequired,
   pendingNotifications: NOTIFICATIONS_PROPTYPES,
-  generalNotifications: NOTIFICATIONS_PROPTYPES
+  generalNotifications: NOTIFICATIONS_PROPTYPES,
 };
 
 NotificationContainer.defaultProps = {

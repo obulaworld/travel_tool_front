@@ -8,14 +8,16 @@ describe('Notification Container Component', () => {
     title: 'Pending Approvals',
     pendingNotifications: [{
       isPending: true,
+      general: false,
       name: 'Captain America',
-      notificationStatus: 'unread',
       notificationType: 'pending',
+      notificationStatus: 'unread',
       image: testImage,
       id: 'id1'
     },
     {
       isPending: true,
+      general: false,
       name: 'The Wasp',
       notificationStatus: 'unread',
       notificationType: 'pending',
@@ -24,6 +26,7 @@ describe('Notification Container Component', () => {
     },
     {
       isPending: true,
+      general: false,
       name: 'Thor Ragnarok',
       notificationStatus: 'unread',
       notificationType: 'pending',
@@ -33,7 +36,9 @@ describe('Notification Container Component', () => {
     ],
     generalNotifications: [{
       isPending: false,
+      general: true,
       name: 'Ademola Ariya',
+      message: 'posted a comment',
       notificationStatus: 'unread',
       notificationType: 'general',
       image: testImage,
@@ -72,26 +77,26 @@ describe('Notification Container Component', () => {
 
   it(`should call 'handleMarkAllAsRead'
     if 'mark all as read' button is clicked`, (done) => {
-      const wrapper = setup();
+    const wrapper = setup();
 
-      const handleMarkAllAsReadSpy =
+    const handleMarkAllAsReadSpy =
         jest.spyOn(wrapper.instance(), 'handleMarkAllAsRead');
-      wrapper.instance().handleMarkAllAsRead();
-      expect(handleMarkAllAsReadSpy).toHaveBeenCalled();
+    wrapper.instance().handleMarkAllAsRead();
+    expect(handleMarkAllAsReadSpy).toHaveBeenCalled();
 
-      done();
-    });
+    done();
+  });
 
   it(`should call 'handleMarkAllAsRead'
     if 'mark all as read' button is clicked`, (done) => {
-      const wrapper =
+    const wrapper =
         setup({ ...customProps, title: 'General Notifications' });
 
-      const handleMarkAllAsReadSpy =
+    const handleMarkAllAsReadSpy =
         jest.spyOn(wrapper.instance(), 'handleMarkAllAsRead');
-      wrapper.instance().handleMarkAllAsRead();
-      expect(handleMarkAllAsReadSpy).toHaveBeenCalled();
+    wrapper.instance().handleMarkAllAsRead();
+    expect(handleMarkAllAsReadSpy).toHaveBeenCalled();
 
-      done();
-    });
+    done();
+  });
 });

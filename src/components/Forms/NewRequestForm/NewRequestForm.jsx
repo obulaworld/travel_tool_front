@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
+import PropTypes from 'prop-types';
 import { FormContext } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
@@ -342,7 +342,6 @@ NewRequestForm.propTypes = {
 
 NewRequestForm.defaultProps = {
   creatingRequest: false,
-  managers: []
+  managers: [],
 };
-
 export default NewRequestForm;
