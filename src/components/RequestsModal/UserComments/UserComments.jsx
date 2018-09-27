@@ -8,14 +8,18 @@ import ConnectedCommentBox from '../CommentBox/CommentBox';
 class UserComments extends Component {
   state = {
     commentToEdit: '',
-    activeCommentId: '' 
+    activeCommentId: '',
+    editReady: false 
+ 
   };
 
   editComment = (comment) => {
     const {id}  = comment;
+    localStorage.setItem('comment', comment.comment);
     this.setState ({
       activeCommentId: id,
       commentToEdit: comment.comment,
+      editReady: true,
     });
   }
 
@@ -27,6 +31,10 @@ class UserComments extends Component {
 
   handleCancelClick = (e) => {
     e.preventDefault();
+    this.editComment('');
+  }
+
+  handleNoEdit = () => {
     this.editComment('');
   }
 
@@ -56,7 +64,7 @@ class UserComments extends Component {
   }
 
   render() {
-    const { commentToEdit, activeCommentId } = this.state;
+    const { commentToEdit, activeCommentId, editReady } = this.state;
     const { comments, email } = this.props;
     return comments && comments.map((comment) => {
       const editedLabel = comment.isEdited  ? '<span>(edited)</span>' : '';
@@ -81,7 +89,7 @@ class UserComments extends Component {
               </span>) : null }
             {commentToEdit == comment.comment ? (
               <div className="comment-box">
-                <ConnectedCommentBox afterSubmit={this.resetEditing} editComment={this.editComment} comment={commentToEdit} requestId={comment.requestId} id={comment.id} />
+                <ConnectedCommentBox startSubmitReady={true} handleNoEdit={this.handleNoEdit} afterSubmit={this.resetEditing} editReady={editReady} editComment={this.editComment} comment={commentToEdit} requestId={comment.requestId} id={comment.id} />  {/* eslint-disable-line */}
                 {this.renderCancelButton()}
               </div>
             ) :  (

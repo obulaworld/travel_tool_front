@@ -14,10 +14,10 @@ export class CommentBox extends Component {
     '<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>';
   constructor(props) {
     super(props);
-    const { comment } = this.props;
+    const { comment, startSubmitReady } = this.props;
     this.state = {
       dataInput: comment || this.placeholder,
-      submitReady: false
+      submitReady: startSubmitReady || false
     };
   }
 
@@ -30,7 +30,7 @@ export class CommentBox extends Component {
     } else {
       this.setState({
         submitReady: false,
-        dataInput: ''
+        dataInput: '',
       });
     }
   };
@@ -69,7 +69,7 @@ export class CommentBox extends Component {
     }
     this.setState({
       dataInput: '',
-      submitReady: false
+      submitReady: false,
     });
   };
 
@@ -87,14 +87,19 @@ export class CommentBox extends Component {
   handleEditComment = event => {
     event.preventDefault();
     const { dataInput } = this.state;
-    const { editComment, requestId, id, afterSubmit } = this.props;
-    editComment(requestId, dataInput, id);
+    const cachedComment = localStorage.getItem('comment');
+    const { editComment, requestId, id, afterSubmit, handleNoEdit } = this.props;
+    if (dataInput !== cachedComment) {
+      editComment(requestId, dataInput, id);
+    }else {
+      handleNoEdit();
+    }
     afterSubmit();
   };
 
   render() {
     const { dataInput, submitReady } = this.state;
-    const { comment } = this.props;
+    const { comment, editReady } = this.props;
     let status = submitReady ? '--active' : '';
     return (
       <form className="editor__editor-form">
@@ -116,7 +121,7 @@ export class CommentBox extends Component {
           <span className="editor__btn-wrap">
             {comment ? (
               <div>
-                <button type="submit" onClick={this.handleEditComment} className={`editor__post-btn editor__post-btn${status} post-btn-text edit-buttons`}>
+                <button disabled={!submitReady || !editReady} type="submit" onClick={this.handleEditComment} className={`editor__post-btn editor__post-btn${status} --active post-btn-text edit-buttons`}>
                   Save
                 </button>
               </div>) : (
@@ -136,14 +141,20 @@ CommentBox.propTypes = {
   requestId: PropTypes.string,
   comment: PropTypes.string,
   id: PropTypes.string,
-  afterSubmit: PropTypes.func
+  afterSubmit: PropTypes.func,
+  handleNoEdit: PropTypes.func,
+  editReady: PropTypes.func,
+  startSubmitReady: PropTypes.bool,
 };
 
 CommentBox.defaultProps = {
   afterSubmit: ()=>{},
   requestId: '',
   comment: '',
-  id: ''
+  id: '',
+  handleNoEdit: () => {},
+  editReady: () => {},
+  startSubmitReady: false,
 };
 
 export default connect(

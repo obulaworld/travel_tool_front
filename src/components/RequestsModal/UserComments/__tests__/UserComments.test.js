@@ -57,7 +57,14 @@ describe('UserComments component', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should submit edited comment', () => {
+  it('should handleNoEdit', () => {
+    const wrapper = shallow(<UserComments {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'handleNoEdit');
+    wrapper.instance().handleNoEdit();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should open commentbox on click', () => {
     const wrapper = shallow(<UserComments {...props} />);
     const spy = jest.spyOn(wrapper.instance(), 'editComment');
     wrapper.state().dataInput = 'comment';

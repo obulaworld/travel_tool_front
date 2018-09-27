@@ -8,6 +8,7 @@ describe('Render CommentBox component', () => {
     createComment: jest.fn(),
     handleEditComment: jest.fn(),
     editComment:  jest.fn(),
+    handleNoEdit:  jest.fn(),
     handleSubmit:()=>{},
   };
   const event = {
@@ -114,8 +115,25 @@ describe('Render CommentBox component', () => {
     wrapper.setProps({
       comment: 'Can you clarify why'
     });
-    const button = wrapper.find('.edit-buttons').at(0);
+    wrapper.setState({submitReady: true})
+    const button = wrapper.find('.edit-buttons');
     button.simulate('click');
     expect(wrapper.props().editComment).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle submit when comment has not been edited', () => {
+    localStorage.setItem('comment', 'Can you clarify why');
+    const event = {
+      preventDefault: () => jest.fn()
+    };
+    const wrapper = mount(<CommentBox {...props} />);
+    wrapper.setProps({
+      comment: 'Can you clarify why'
+    });
+    wrapper.setState({submitReady: true, dataInput: 'Can you clarify why'});
+    const button = wrapper.find('.edit-buttons');
+    button.simulate('click');
+    expect(wrapper.props().handleNoEdit).toHaveBeenCalledTimes(1);
+    localStorage.removeItem('comment');
   });
 });
