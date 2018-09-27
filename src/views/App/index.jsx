@@ -10,6 +10,7 @@ import Routes from '../../routes/index';
 import '../../../node_modules/material-design-lite/material';
 import '../../../node_modules/material-design-icons';
 import '../../../node_modules/toastr/build/toastr.min.css';
+import '../../customStyles/toast.scss';
 
 
 // Check if the bugsnag API key was configured correctly
