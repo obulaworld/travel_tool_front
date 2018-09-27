@@ -14,16 +14,22 @@ class Modal extends PureComponent {
     modalId: PropTypes.string,
     modalContentId: PropTypes.string,
     width:  PropTypes.string,
+    showOverlay: PropTypes.bool,
     modalBar: PropTypes.object,
+    customModalStyles: PropTypes.string,
+    closeDeleteCommentModal: PropTypes.func,
+    params: PropTypes.string,
+    customOverlayStyle: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.arrayOf(PropTypes.object)
-    ]).isRequired
+    ]).isRequired,
   };
 
+
   renderModalHeader = () => {
-    const { title, closeModal, modalBar, params, requestId } = this.props;
-    let url = `${location.pathname}${location.search}`;
+    const { title, closeModal, modalBar, params, closeDeleteCommentModal, requestId } = this.props;
+    let url = location.pathname;
     if(requestId){
       let urlArr = url.split('/');
       url = urlArr.slice(0, urlArr.length-1).join('/');
@@ -38,12 +44,21 @@ class Modal extends PureComponent {
             {modalBar}
           </div>
         </div>
-        <Link to={url}>
-          <button type="button" onClick={closeModal} className="modal-close">
-            <img alt="close" src={closeButton} />
-          </button>
-
-        </Link>
+        {closeDeleteCommentModal ?
+          (
+            <button type="button" onClick={closeDeleteCommentModal} className="modal-close">
+              <img alt="close" src={closeButton} />
+            </button>
+          )
+          :
+          (
+            <Link to={url}>
+              <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
+                <img alt="close" src={closeButton} />
+              </button>
+            </Link>
+          )
+        }
       </div>
     );
   };
@@ -54,14 +69,20 @@ class Modal extends PureComponent {
       visibility,
       width,
       modalId,
-      modalContentId
+      modalContentId,
+      showOverlay,
+      customOverlayStyle,
+      customModalStyles
     } = this.props;
+
+    const overlayStyle = `${visibility} ${customOverlayStyle}`;
+
     return (
       visibility === 'visible' ? (
         <Fragment>
-          <Overlay className={visibility}>
+          <Overlay className={overlayStyle} overlayBackground={!showOverlay ? 'overlayBackground' : ''}>
             <div
-              className={`modal ${visibility}`}
+              className={`modal ${visibility} ${customModalStyles}`}
               style={{maxWidth: width}}
               onClick={e => {e.stopPropagation();}} onKeyPress={() => {}}
               id={modalId}
@@ -84,16 +105,19 @@ Modal.propTypes = {
   requestId: PropTypes.string,
 };
 
-
 Modal.defaultProps = {
   title: '',
   modalId: '',
   requestId: '',
   width: '',
   modalContentId: '',
+  customOverlayStyle: '',
+  customModalStyles: '',
+  showOverlay: true,
   params: '',
   modalBar: <div />,
   closeModal: null,
+  closeDeleteCommentModal: null,
 };
 
 export default Modal;

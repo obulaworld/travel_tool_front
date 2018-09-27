@@ -3,12 +3,16 @@
 exports[`<Requests> renders as expected 1`] = `
 <Fragment>
   <Modal
+    closeDeleteCommentModal={null}
     closeModal={[Function]}
+    customModalStyles=""
+    customOverlayStyle=""
     modalBar={<div />}
     modalContentId=""
     modalId=""
     params=""
     requestId=""
+    showOverlay={true}
     title="New Travel Request"
     visibility="invisible"
     width="1000px"

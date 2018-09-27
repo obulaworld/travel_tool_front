@@ -1,0 +1,65 @@
+.delete-comment-modal {
+  width: 243px;
+  min-height: 0px;
+  height: 120px;
+  font-size: 14px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.15);
+  text-align: right;
+
+  .modal-title-bar {
+    font-size: 14px;
+    font-family: 'DIN Pro';
+    height: 30px;
+    border-radius: 2px 2px 0 0;
+    background-color: #F8F8F8;
+    line-height: 18px;
+  }
+
+  img {
+    height: 10px;
+    width: 10px;
+  }
+
+  &__text{
+    text-align: left;
+  }
+
+  &__btn{
+    height: 26px;
+    width: 82px;
+    border-radius: 1px;
+    background-color: #FF5359;
+    color: #FFFFFF;
+  }
+}
+
+.delete-modal-overlay {
+  position: absolute !important;
+  height: 175px;
+  width: 335px;
+  top: -175px;
+  left: -6px;
+  outline: none
+}
+
+@media screen and (min-width: 420px) and (max-width: 655px) {
+  .delete-modal-overlay {
+    left: -153px;
+  }
+}
+
+.blue-text {
+  color: #3359db;
+  text-decoration: underline;
+}
+
+.modal__delete-btn {
+  position: relative;
+  &:hover{
+    color: #3359db;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

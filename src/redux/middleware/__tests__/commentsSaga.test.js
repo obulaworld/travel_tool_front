@@ -2,7 +2,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import CommentsAPI from '../../../services/CommentsAPI';
-import { watchCreateComment, watchEditComment } from '../commentsSaga';
+import { watchCreateComment, watchEditComment, watchDeleteComment } from '../commentsSaga';
 
 const error = 'Possible network error, please reload the page';
 describe('Comments saga', () => {
@@ -66,16 +66,24 @@ describe('Comments saga', () => {
       requestId: 'abcdefgh',
       comment: 'Saga test comment',
     };
+    const response = {
+      data: { success: 'new comment data' }
+    };
     const id = 'F5hDV2lK';
 
     it('Updates comment successfully', () => {
       return expectSaga(watchEditComment)
         .provide([
-          [call(CommentsAPI.editComment, id), commentData]
+          [call(CommentsAPI.editComment, commentData, id), response]
         ])
+        .put({
+          type: 'EDIT_COMMENT_SUCCESS',
+          comment: { success: 'new comment data' }
+        })
         .dispatch({
           type: 'EDIT_COMMENT',
-          response: commentData,
+          requestId: commentData.requestId,
+          comment: commentData.comment,
           id
         })
         .run();
@@ -94,6 +102,49 @@ describe('Comments saga', () => {
           type: 'EDIT_COMMENT',
           requestId: commentData.requestId,
           comment: commentData.comment
+        })
+        .run();
+    });
+  });
+
+  describe('Delete comment saga', () => {
+    const commentId = 'F5hDV2lK';
+    const requestId = 'requestId';
+    const response = {
+      data: { success: true },
+    };
+
+    it('Deletes comment successfully', () => {
+      return expectSaga(watchDeleteComment)
+        .provide([
+          [call(CommentsAPI.deleteComment, commentId), response]
+        ])
+        .put({
+          type: 'DELETE_COMMENT_SUCCESS',
+          response: { success: true },
+          commentId,
+        })
+        .dispatch({
+          type: 'DELETE_COMMENT',
+          requestId,
+          commentId,
+        })
+        .run();
+    });
+
+    it('throws an error while deleting a comment', () => {
+      return expectSaga(watchDeleteComment)
+        .provide([
+          [call(CommentsAPI.deleteComment, requestId, commentId), throwError(error)]
+        ])
+        .put({
+          type: 'DELETE_COMMENT_FAILURE',
+          error,
+        })
+        .dispatch({
+          type: 'DELETE_COMMENT',
+          requestId,
+          commentId,
         })
         .run();
     });

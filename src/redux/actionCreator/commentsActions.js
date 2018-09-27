@@ -1,4 +1,4 @@
-import { CREATE_COMMENT, EDIT_COMMENT } from '../constants/actionTypes';
+import { CREATE_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../constants/actionTypes';
 
 export const createComment = (requestId, comment) => ({
   type: CREATE_COMMENT,
@@ -30,5 +30,22 @@ export const editCommentSuccess = (comment) => ({
 
 export const editCommentFailure = (error) => ({
   type: 'EDIT_COMMENT_FAILURE',
+  error
+});
+
+export const deleteComment = (requestId, commentId) => ({
+  type: DELETE_COMMENT,
+  commentId,
+  requestId,
+});
+
+export const deleteCommentSuccess = (response, commentId) => ({
+  type: 'DELETE_COMMENT_SUCCESS',
+  response,
+  commentId,
+});
+
+export const deleteCommentFailure = (error) => ({
+  type: 'DELETE_COMMENT_FAILURE',
   error
 });

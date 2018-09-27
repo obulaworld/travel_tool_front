@@ -8,7 +8,7 @@ import { fetchUserRequestDetails } from '../../redux/actionCreator/requestAction
 import { updateRequestStatus } from '../../redux/actionCreator/approvalActions';
 import './RequestsModal.scss';
 import AddComment from './CommentBox/AddComment';
-import UserComments from './UserComments/UserComments';
+import ConnectedUserComments from './UserComments/UserComments';
 import UserInfo from './UserInfo/UserInfo';
 import TripDetails from './TripDetails';
 import RequestDetailsHeader from './RequestDetailsHeader';
@@ -227,7 +227,7 @@ export class RequestDetailsModal extends Component {
         <ConnectedCommentBox requestId={requestId} />
         {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
         <div id="comments">
-          <UserComments comments={comments} email={email} />
+          <ConnectedUserComments comments={comments} email={email} />
         </div>
       </Fragment>
     );

@@ -2,15 +2,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import ImageLink from '../../image-link/ImageLink';
-import ConnectedCommentBox from '../CommentBox/CommentBox';
+import { connect } from 'react-redux';
+import { deleteComment } from '../../../redux/actionCreator/commentsActions';
+import CommentItem from './CommentItem';
+import './UserComments.scss';
 
-class UserComments extends Component {
+
+export class UserComments extends Component {
   state = {
     commentToEdit: '',
     activeCommentId: '',
-    editReady: false 
- 
+    editReady: false,
   };
 
   editComment = (comment) => {
@@ -29,8 +31,8 @@ class UserComments extends Component {
     });
   }
 
-  handleCancelClick = (e) => {
-    e.preventDefault();
+  handleCancelClick = (event) => {
+    event.preventDefault();
     this.editComment('');
   }
 
@@ -43,20 +45,10 @@ class UserComments extends Component {
     return moment(createdAt).fromNow();
   }
 
-  renderDeleteButton () {
-    return (
-      <span className="modal__dialog">
-        <button type="button" className="modal__delete-btn">
-            Delete
-        </button>
-      </span>
-    );
-  }
-
-  renderCancelButton () {
+  renderCancelButton = () => {
     return (
       <button
-        className="editor__post-btn editor__post-btn post-btn-text button-color" id="cancel-button" 
+        className="editor__post-btn editor__post-btn post-btn-text button-color" id="cancel-button"
         type="submit" onClick={this.handleCancelClick}>
           Cancel
       </button>
@@ -64,40 +56,27 @@ class UserComments extends Component {
   }
 
   render() {
-    const { commentToEdit, activeCommentId, editReady } = this.state;
-    const { comments, email } = this.props;
+    const { commentToEdit, activeCommentId, commentToDelete, editReady } = this.state;
+    const { comments, email, deleteComment } = this.props;
     return comments && comments.map((comment) => {
       const editedLabel = comment.isEdited  ? '<span>(edited)</span>' : '';
       return (
-        <div className="modal__modal1" key={comment.id}>
-          <hr />
-          <div className="modal__mdl-icons">
-            <ImageLink imageSrc={comment.picture} altText="avatar" imageClass="modal__oval-copy" />
-            <span className="modal__user-name">
-              { comment.userName }
-            </span>
-            <span className="modal__hours-status">
-              {this.formatDate(comment.createdAt)}
-            </span>
-            {email === comment.userEmail ? (
-              <span className="modal__dialog">
-                <button 
-                  type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} onClick={() => this.editComment(comment)} id="edited">
-                Edit
-                </button>
-                {this.renderDeleteButton()}
-              </span>) : null }
-            {commentToEdit == comment.comment ? (
-              <div className="comment-box">
-                <ConnectedCommentBox startSubmitReady={true} handleNoEdit={this.handleNoEdit} afterSubmit={this.resetEditing} editReady={editReady} editComment={this.editComment} comment={commentToEdit} requestId={comment.requestId} id={comment.id} />  {/* eslint-disable-line */}
-                {this.renderCancelButton()}
-              </div>
-            ) :  (
-              <div className="modal__modal2">
-                  <div className="modal__status-update" dangerouslySetInnerHTML={{ __html: `${comment.comment} ${editedLabel}` }} /> {/*eslint-disable-line*/}
-              </div>)} 
-          </div>
-        </div>
+        <CommentItem
+          key={comment.id}
+          comment={comment}
+          deleteComment={deleteComment}
+          email={email}
+          editReady={editReady}
+          handleNoEdit={this.handleNoEdit}
+          editedLabel={editedLabel}
+          commentToEdit={commentToEdit}
+          activeCommentId={activeCommentId}
+          commentToDelete={commentToDelete}
+          renderCancelButton={this.renderCancelButton}
+          resetEditing={this.resetEditing}
+          editComment={this.editComment}
+          formatDate={this.formatDate}
+        />
       );
     });
   }
@@ -105,12 +84,19 @@ class UserComments extends Component {
 
 UserComments.propTypes = {
   comments: PropTypes.array,
-  email:PropTypes.string
+  email:PropTypes.string,
+  deleteComment: PropTypes.func,
 };
 
 UserComments.defaultProps = {
+  deleteComment: () => {},
   comments: [],
   email: ''
 };
 
-export default UserComments;
+
+const actionCreators = {
+  deleteComment,
+};
+
+export default connect(undefined, actionCreators)(UserComments);

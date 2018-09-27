@@ -3,11 +3,12 @@
 exports[`<Modal /> renders correctly 1`] = `
 <Fragment>
   <Overlay
-    className="visible"
+    className="visible "
     click={null}
+    overlayBackground=""
   >
     <div
-      className="modal visible"
+      className="modal visible "
       id=""
       onClick={[Function]}
       onKeyPress={[Function]}

@@ -1,75 +1,84 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
-import UserComments from '../UserComments';
+import { UserComments } from '../UserComments';
 
-const props = {
-  comments: [
-    {
-      id: 1,
-      userName: 'Smith Allen',
-      picture: '/path/to/image',
-      createdAt: '',
-      comment: 'Can you clarify why',
-      isEdited: true,
-      userEmail: 'gdgdgdgdg'
-    }
-  ],
-  email: 'gdgdgdgdg'
+const deleteComment = jest.fn();
+const event = {
+  preventDefault: jest.fn()
 };
 
-const formatDateSpy = sinon.spy(UserComments.prototype, 'formatDate');
+const comments = [{
+  id: 1,
+  userName: 'Smith Allen',
+  picture: '/path/to/image',
+  createdAt: '',
+  comment: 'Can you clarify why',
+  userEmail: 'ik@gmail.com',
+  isEdited: true,
+}];
+
+const secondComments = [{
+  id: 1,
+  userName: 'Smith Allen',
+  picture: '/path/to/image',
+  createdAt: '',
+  comment: 'Can you clarify why',
+  userEmail: 'ik@gmail.com',
+  isEdited: false,
+}];
+
 describe('UserComments component', () => {
-  const wrapper = shallow(<UserComments {...props} />);
+  const wrapper = shallow(<UserComments
+    deleteComment={deleteComment}
+    comments={comments}
+  />);
 
   it('should match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should call formatDate', () => {
-    expect(formatDateSpy.called).toBe(true);
+  it('should match snapshot', () => {
+    const wrapper = shallow(<UserComments
+      deleteComment={deleteComment}
+      comments={secondComments}
+    />);
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render the UserComments component as expected', () => {
-    expect(wrapper.find('div').length).toBe(4);
-    expect(wrapper.find('span').length).toBe(4);
-    expect(wrapper.find('ImageLink').length).toBe(1);
-    expect(wrapper.find('button').length).toBe(2);
-    expect(wrapper.length).toBe(1);
-  });
+  it('should call formatDate', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'formatDate');
+    wrapper.instance().formatDate('date');
+    expect(spy).toHaveBeenCalledTimes(1);  });
+
+  it('should call editComment', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'editComment');
+    wrapper.instance().editComment(1);
+    expect(spy).toHaveBeenCalledTimes(1);  });
+
+  it('should call handleCancelClick', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'handleCancelClick');
+    wrapper.instance().handleCancelClick(event);
+    expect(spy).toHaveBeenCalledTimes(1);  });
+
+  it('should call renderCancelButton', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'renderCancelButton');
+    wrapper.instance().renderCancelButton();
+    expect(spy).toHaveBeenCalledTimes(1);  });
 
   it('should handle reset editing', () => {
-    const wrapper = shallow(<UserComments {...props} />);
     const spy = jest.spyOn(wrapper.instance(), 'resetEditing');
     wrapper.instance().resetEditing();
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it('should call handleCancel', () => {
-    const wrapper = shallow(<UserComments {...props} />);
-    const spy = jest.spyOn(wrapper.instance(), 'handleCancelClick');
-    const fakeEvent = { preventDefault: () => {} };
-    wrapper.setState({
-      commentToEdit: 'Can you clarify why'
-    });
-    const cancelButton = wrapper.find('#cancel-button');
-    cancelButton.simulate('click', fakeEvent);
-    expect(spy).toHaveBeenCalled();
-  });
-
   it('should handleNoEdit', () => {
-    const wrapper = shallow(<UserComments {...props} />);
     const spy = jest.spyOn(wrapper.instance(), 'handleNoEdit');
     wrapper.instance().handleNoEdit();
     expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  it('should open commentbox on click', () => {
-    const wrapper = shallow(<UserComments {...props} />);
-    const spy = jest.spyOn(wrapper.instance(), 'editComment');
-    wrapper.state().dataInput = 'comment';
-    const editButton = wrapper.find('#edited').at(0);
-    editButton.simulate('click');
-    expect(spy).toHaveBeenCalled();
+  test('should have default deleteComment', () => {
+    const result = UserComments.defaultProps.deleteComment();
+    expect(result).toEqual(undefined);
   });
 });

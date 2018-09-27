@@ -280,7 +280,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
   <div
     id="comments"
   >
-    <UserComments
+    <Connect(UserComments)
       comments={
         Array [
           Object {

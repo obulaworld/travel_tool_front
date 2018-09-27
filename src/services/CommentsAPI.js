@@ -11,6 +11,10 @@ class CommentsAPI {
   static editComment(commentData, id) {
     return axios.put(`${baseUrl}/comments/${id}`, commentData);
   }
+  
+  static deleteComment(commentId) {
+    return axios.delete(`${baseUrl}/comments/${commentId}`);
+  }
 }
 
 export default CommentsAPI;
