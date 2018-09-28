@@ -95,7 +95,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
               Object {
                 "backgroundColor": "#49AAAF",
                 "color": "white",
-                "cursor": "",
+                "cursor": "default",
               }
             }
             type="button"
@@ -119,7 +119,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
               Object {
                 "backgroundColor": "white",
                 "color": "black",
-                "cursor": "",
+                "cursor": "default",
               }
             }
             type="button"
@@ -129,6 +129,15 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
         </span>
       </span>
     </div>
+    <ConfirmDialog
+      buttonSelected={false}
+      handleApprove={[Function]}
+      handleConfirmModal={[Function]}
+      handleReject={[Function]}
+      id="xDh20cuGx"
+      modalInvisible={true}
+      renderDialogText={[Function]}
+    />
   </div>
   <div
     className="request-details"
@@ -249,34 +258,67 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
   <Connect(CommentBox)
     requestId="xDh20cuGx"
   />
-  <div
-    className="modal__modal1"
-  >
-    <span
-      className="modal__mdl-icons"
-    >
-      <ImageLink
-        altText="avatar"
-        imageClass="modal__oval-copy"
-        imageSrc="Oval2.png"
-      />
-      <span
-        className="modal__user-name"
-      >
-        Samuel Kubai
-      </span>
-      <span
-        className="modal__approval-status"
-      >
-        approved your travel request.
-      </span>
-      <span
-        className="modal__hours-status"
-      >
-        5 hours ago
-      </span>
-    </span>
-  </div>
+  <RequestApproval
+    requestData={
+      Object {
+        "arrivalDate": "2018-11-12",
+        "comments": Array [
+          Object {
+            "comment": "This is a comment",
+            "createdAt": "2018-09-04T10:38:12.141Z",
+            "id": 1,
+            "picture": "http://my-image",
+            "userName": "Random User",
+          },
+          Object {
+            "comment": "This is another comment",
+            "createdAt": "2018-10-04T10:38:12.141Z",
+            "id": 2,
+            "picture": "http://my-image",
+            "userName": "Random User Two",
+          },
+        ],
+        "createdAt": "2018-09-04T10:38:12.141Z",
+        "department": "TDD",
+        "departureDate": "2018-09-12",
+        "destination": "Nairobi",
+        "id": "xDh20cuGx",
+        "manager": "Samuel Kubai",
+        "name": "Test user C",
+        "origin": "Lagos",
+        "role": "Software Developer",
+        "status": "Approved",
+        "tripType": "multi",
+        "trips": Array [
+          Object {
+            "arrivalDate": "2018-12-15",
+            "departureDate": "2018-12-09",
+            "destination": "Nairobi",
+            "origin": "Lagos",
+          },
+          Object {
+            "arrivalDate": "2019-01-10",
+            "departureDate": "2018-12-15",
+            "destination": "New York",
+            "origin": "Nairobi",
+          },
+          Object {
+            "arrivalDate": "2019-01-20",
+            "departureDate": "2019-01-10",
+            "destination": "Lagos",
+            "origin": "New York",
+          },
+          Object {
+            "arrivalDate": "2019-02-13",
+            "departureDate": "2019-01-30",
+            "destination": "Nairobi",
+            "origin": "Lagos",
+          },
+        ],
+        "userId": "-MUyHJmKrxA90lPNQ1FOLNm",
+      }
+    }
+  />
   <div
     id="comments"
   >

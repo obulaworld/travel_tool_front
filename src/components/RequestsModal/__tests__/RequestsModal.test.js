@@ -130,28 +130,54 @@ describe('Render RequestsModal component', () => {
     expect(wrapper.length).toBe(1);
   });
 
+  it('should call updateRequestStatus', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'updateRequestStatus');
+    wrapper.instance().updateRequestStatus();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call handleConfirmModal', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'handleConfirmModal');
+    wrapper.instance().handleConfirmModal('Approve');
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(wrapper.state('buttonSelected')).toBe(false);
+  });
+
+  it('should call handleButtonState', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'handleButtonState');
+    wrapper.instance().handleButtonState('Approve', '', 'Approve');
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(wrapper.state('buttonSelected')).toBe('Approve');
+  });
+
+  it('should call handleApprove', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'handleApprove');
+    wrapper.instance().handleApprove('2jhd13')();
+    expect(spy).toHaveBeenCalledTimes(3);
+  });
+
+  it('should call handleReject', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'handleReject');
+    wrapper.instance().handleReject('2jhd13')();
+    expect(spy).toHaveBeenCalledTimes(3);
+  });
+
+  it('should call getRequestTripsDetails', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'getRequestTripsDetails');
+    wrapper.instance().getRequestTripsDetails('2jhd13');
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
   it('should render approveTextColor when button is clicked', () => {
     const approveButton = wrapper.find('#b1').at(0);
     approveButton.simulate('click');
-    expect(wrapper.state('approveTextColor')).toBe('white');
-  });
-
-  it('should render rejectTextColor when button is clicked', () => {
-    const rejectButton = wrapper.find('#b2').at(0);
-    rejectButton.simulate('click');
-    expect(wrapper.state('rejectTextColor')).toBe('white');
-  });
-
-  it('should render approveColor when button is clicked', () => {
-    const approveButton = wrapper.find('#b1').at(0);
-    approveButton.simulate('click');
-    expect(wrapper.state('approveColor')).toBe('#49AAAF');
+    expect(wrapper.state('buttonSelected')).toBe('Approve');
   });
 
   it('should render rejectColor when button is clicked', () => {
     const rejectButton = wrapper.find('#b2').at(0);
     rejectButton.simulate('click');
-    expect(wrapper.state('rejectColor')).toBe('#FF5359');
+    expect(wrapper.state('buttonSelected')).toBe('Reject');
   });
 
   it('should call renderStatusAsBadge function', () => {
@@ -161,9 +187,19 @@ describe('Render RequestsModal component', () => {
     expect(renderStatusAsBadge).toBeCalled();
   });
 
-  it('should call changeButtonColor function', () => {
+  it('should call changeButtonColor for approval function', () => {
     const button = {
       id: 1,
+    };
+    const action = wrapper.instance();
+    const changeButtonColor = jest.spyOn(wrapper.instance(), 'changeButtonColor');
+    action.changeButtonColor(button, 'Approved');
+    expect(changeButtonColor.mock.calls.length).toBe(1);
+  });
+
+  it('should call changeButtonColor for rejection function', () => {
+    const button = {
+      id: 2,
     };
     const action = wrapper.instance();
     const changeButtonColor = jest.spyOn(wrapper.instance(), 'changeButtonColor');

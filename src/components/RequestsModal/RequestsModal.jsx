@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Oval2 from '../../images/Oval2.png';
 import ConnectedCommentBox from './CommentBox/CommentBox';
-import ImageLink from '../image-link/ImageLink';
 import { fetchUserRequestDetails } from '../../redux/actionCreator/requestActions';
 import { updateRequestStatus } from '../../redux/actionCreator/approvalActions';
 import './RequestsModal.scss';
 import AddComment from './CommentBox/AddComment';
+import RequestApproval from './CommentBox/RequestApproval';
 import ConnectedUserComments from './UserComments/UserComments';
 import UserInfo from './UserInfo/UserInfo';
 import TripDetails from './TripDetails';
 import RequestDetailsHeader from './RequestDetailsHeader';
+import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
 
 export class RequestDetailsModal extends Component {
   state = {
@@ -21,7 +21,8 @@ export class RequestDetailsModal extends Component {
     rejectTextColor: '',
     buttonSelected: false,
     approvalText: 'Approve',
-    rejectText: 'Reject'
+    rejectText: 'Reject',
+    modalInvisible: true
   };
 
   componentDidMount() {
@@ -53,9 +54,7 @@ export class RequestDetailsModal extends Component {
 
   changeButtonColor = (button, status) => {
     const { approveTextColor, rejectTextColor } = this.state;
-    const style = {
-      color: 'white'
-    };
+    const style = { color: 'white' };
     const approvedCondition = approveTextColor && button.id === 1 && !rejectTextColor;
     const rejectCondition = rejectTextColor && button.id === 2 && !approveTextColor;
 
@@ -84,35 +83,42 @@ export class RequestDetailsModal extends Component {
     };
   };
 
+  handleConfirmModal = (button) => {
+    return () => {
+      this.setState(prevState => ({
+        modalInvisible: !prevState.modalInvisible,
+        buttonSelected: button
+      }));
+    };
+  }
+
   showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor, id) => {
     const { approvalText, rejectText } =  this.state;
     return (
-      [
-        {
-          id: 1,
-          onClick: this.handleApprove(id),
-          action: approveColor,
-          actionText: approveTextColor,
-          class: 'modal__button-submitted-text bg',
-          text: approvalText
-        },
-        {
-          id: 2,
-          onClick: this.handleReject(id),
-          action: rejectColor,
-          actionText: rejectTextColor,
-          class: 'modal__button-rejected-text',
-          text: rejectText
-        }
-      ]);
+      [{
+        id: 1,
+        onClick: this.handleApprove(id),
+        action: approveColor,
+        actionText: approveTextColor,
+        class: 'modal__button-submitted-text bg',
+        text: approvalText
+      },
+      {
+        id: 2,
+        onClick: this.handleReject(id),
+        action: rejectColor,
+        actionText: rejectTextColor,
+        class: 'modal__button-rejected-text',
+        text: rejectText
+      }]);
   }
 
   updateRequestStatus = () => {
     const { requestId, newStatus }= this.state;
     const { updateRequestStatus } = this.props;
     updateRequestStatus({requestId, newStatus});
+    this.setState({ modalInvisible: true });
   }
-
 
   disableButtons(status, page) {
     const { buttonSelected } = this.state;
@@ -129,6 +135,10 @@ export class RequestDetailsModal extends Component {
 
   renderButtonText(status, text) {
     return status && status.includes(text) ? status : text;
+  }
+
+  renderDialogText(buttonSelected) {
+    return buttonSelected === 'Approve' ? 'approval' : 'rejection';
   }
 
   renderStatusAsBadge(status) {
@@ -159,11 +169,11 @@ export class RequestDetailsModal extends Component {
               <button
                 style={{
                   backgroundColor: `${buttonStyle.backgroundColor}`,
-                  color: `${buttonStyle.color}`, cursor: status === 'Open' ? 'Pointer' : ''
+                  color: `${buttonStyle.color}`, cursor: status === 'Open' ? 'Pointer' : 'default'
                 }}
-                onClick={button.onClick}
-                className={button.class}
-                id={`b${button.id}`}
+                onClick={this.handleConfirmModal(button.text)}
+                className={`${button.class}`}
+                id={'b'+button.id}
                 type="button"
                 disabled={this.disableButtons(status, navigatedPage)}
               >
@@ -183,31 +193,14 @@ export class RequestDetailsModal extends Component {
 
   renderRequestAprroval = () => {
     const { requestData } = this.props;
-    return (
-      <div className="modal__modal1">
-        <span className="modal__mdl-icons">
-          <ImageLink
-            imageSrc={Oval2}
-            altText="avatar"
-            imageClass="modal__oval-copy" />
-          <span className="modal__user-name">
-            {requestData && requestData.manager}
-          </span>
-          <span className="modal__approval-status">
-          approved your travel request.
-          </span>
-          <span className="modal__hours-status">
-           5 hours ago
-          </span>
-        </span>
-      </div>
-    );
+    return <RequestApproval requestData={requestData} />;
   }
 
   render() {
-    const { requestId, requestData, user, email } = this.props;
-    const { status, comments } = requestData;
-    const { picture } = user;
+    const { requestId, requestData, user, user: {picture}, email } = this.props;
+    const { status, comments, id } = requestData;
+    const { modalInvisible, buttonSelected } = this.state;
+    const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
     return (
       <Fragment>
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
@@ -216,16 +209,23 @@ export class RequestDetailsModal extends Component {
             user={user}
           />
           {this.shouldButtonsRender(status)}
+          <ConfirmDialog
+            id={id}
+            modalInvisible={modalInvisible}
+            buttonSelected={buttonSelected}
+            renderDialogText={renderDialogText}
+            handleConfirmModal={handleConfirmModal}
+            handleApprove={handleApprove}
+            handleReject={handleReject}
+          />
         </div>
         <div className="request-details">
           {this.renderRequestDetailsHeader(requestData)}
           {this.getRequestTripsDetails(requestData)}
         </div>
-        <AddComment
-          image={picture}
-        />
+        <AddComment image={picture} />
         <ConnectedCommentBox requestId={requestId} />
-        {(requestData && status) === 'Approved' && this.renderRequestAprroval()}
+        {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
         <div id="comments">
           <ConnectedUserComments comments={comments} email={email} />
         </div>
