@@ -60,7 +60,6 @@ const requests = (state = initialState, action) => {
     };
   case FETCH_USER_REQUEST_DETAILS:
     return {
-      ...state,
       fetchingRequest: true
     };
   case FETCH_USER_REQUEST_DETAILS_SUCCESS:
