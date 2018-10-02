@@ -41,29 +41,36 @@ export default class NotificationContainer extends PureComponent {
   }
 
   renderNotifications = (notifications) => {
+    const displayViewDetails =
+      ['approved your request', 'posted a comment', 'rejected your request'];
     return notifications.length && notifications.map(
       notification => {
+        const {
+          id, message, notificationLink, notificationType,
+          notificationStatus, senderImage, senderName, updatedAt,
+        } = notification;
+
         let isPending = false;
         let general = false;
-        if(notification.notificationType === 'pending'){
+        if(notificationType === 'pending'){
           isPending = true;
         }
-        if(notification.message === 'approved your request' || notification.message === 'posted a comment'){
+        if(displayViewDetails.includes(message)){
           general = true;
         }
         const{ handleClick } = this.props;
         return  (
           <NotificationItem
             handleClick={handleClick}
-            link={notification.notificationLink}
-            key={notification.id}
+            link={notificationLink}
+            key={id}
             isPending={isPending}
             general={general}
-            name={notification.senderName}
-            notificationStatus={notification.notificationStatus}
-            image={notification.senderImage}
-            timeStamp={notification.updatedAt}
-            message={notification.message}
+            name={senderName}
+            notificationStatus={notificationStatus}
+            image={senderImage}
+            timeStamp={updatedAt}
+            message={message}
           />
         );
       }

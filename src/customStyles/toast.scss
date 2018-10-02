@@ -36,6 +36,7 @@
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   filter: alpha(opacity=80);
   line-height: 21px;
+  outline: none;
 }
 .toast-close-button:hover,
 .toast-close-button:focus {
@@ -138,9 +139,6 @@ button.toast-close-button {
   background-position: right 15px center;
 }
 #toast-container > div:hover {
-  -moz-box-shadow: 0 0 12px #000000;
-  -webkit-box-shadow: 0 0 12px #000000;
-  box-shadow: 0 0 12px #000000;
   opacity: 1;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   filter: alpha(opacity=100);

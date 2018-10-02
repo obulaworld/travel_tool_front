@@ -16,7 +16,9 @@ export default function handleManagerNotification(userId) {
     if (data.recipientId === userId) {
       const { senderName, message } = data;
       store.dispatch(addNotification(data));
-      toast.success(`${senderName} ${message}`);
+      (message === 'rejected your request')
+        ? toast.error(`${senderName} ${message}`)
+        : toast.success(`${senderName} ${message}`);
       const audio = new Audio(notificationSound);
       audio.play();
     }
