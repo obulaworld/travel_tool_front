@@ -94,6 +94,7 @@
   font-family: "DIN Pro";
   font-size: 14px;
   line-height: 18px;
+  font-weight: 100;
 
   .modal-title-text {
     color: #4F4F4F;
@@ -123,25 +124,27 @@
   }
 }
 
-.approval-comment-modal__text {
-  height: 18px;
-  width: 159px;
-  color: #999999;
-  font-size: 14px;
-  line-height: 18px;
-  margin-top: 10px;
-  margin-left: 25px;
-}
+.approval-comment-modal{
+  &__text {
+    height: 18px;
+    width: 159px;
+    color: #999999;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 14px;
+    margin-left: 26px;
+  }
 
-.approval-comment-modal__btn {
-  height: 26px;
-  width: 80px;
-  border-radius: 1px;
-  background-color: rgb(73, 170, 175);
-  border: none;
-  color: #ffffff;
-  margin-right: 28px;
-  cursor: pointer;
+  &__btn {
+    height: 26px;
+    width: 80px;
+    border-radius: 1px;
+    background-color: rgb(73, 170, 175);
+    border: none;
+    color: #ffffff;
+    margin-right: 28px;
+    cursor: pointer;
+  }
 }
 
 .rejection-comment-modal__btn {
