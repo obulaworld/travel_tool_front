@@ -8,17 +8,27 @@ describe('<Checkbox />', ()=> {
     const handleDisableInputs = jest.fn();
     const state = {
       checkBox:status
-    }
+    };
+    const props = {
+      savePersonalDetails: jest.fn(),
+      values: {
+        name: 'name',
+        gender: 'Male',
+        department: 'Success',
+        role: 'Technical Team Lead',
+        management: 'Marcus'
+      }
+    };
     const localStorage = {
       getItem: (value)=>{return localstorage;},
       setItem: jest.fn()
     }
     global.localStorage = localStorage;
-    return shallow(<Checkbox state={state} handleDisableInputs={handleDisableInputs}/>);
+    return shallow(<Checkbox state={state} handleDisableInputs={handleDisableInputs} {...props} />);
   }
   it('should render correctly', () =>{
     const handleDisableInputs=jest.fn()
-    const wrapper = shallow(<Checkbox handleDisableInputs={handleDisableInputs}/>);
+    const wrapper = shallow(<Checkbox handleDisableInputs={handleDisableInputs} />);
     expect(wrapper).toMatchSnapshot();
   });
 

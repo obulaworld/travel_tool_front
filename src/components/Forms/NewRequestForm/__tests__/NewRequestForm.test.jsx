@@ -73,7 +73,6 @@ describe('<NewRequestForm />', () => {
     trips: [{}],
     errors: {},
     hasBlankFields: true,
-    checkBox: 'notClicked',
     selection: 'return',
     collapse: false,
     title: 'Hide Details',
@@ -459,7 +458,7 @@ describe('<NewRequestForm />', () => {
 
   it('should submit travel details ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
-    localStorage.setItem('state', 'clicked');
+    localStorage.setItem('checkBox', 'clicked');
     shallowWrapper.setState({
       values: {
         name: 'tomato', // FIX: need to be refactor later

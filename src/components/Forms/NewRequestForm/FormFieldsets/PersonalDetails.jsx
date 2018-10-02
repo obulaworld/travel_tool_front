@@ -18,6 +18,7 @@ class PersonalDetailsFieldset extends Component {
   };
   renderfields = (collapse) => {
     const { disableInputs } = this.state;
+    const { values, savePersonalDetails } = this.props;
     const { renderInput } = this.inputRenderer;
     const disabled = disableInputs;
     return (
@@ -41,7 +42,7 @@ class PersonalDetailsFieldset extends Component {
                 {renderInput('manager', 'dropdown-select')}
               </div>
               <div className="input-group">
-                <Checkbox handleDisableInputs={this.handleDisableInputs} />
+                <Checkbox savePersonalDetails={savePersonalDetails} values={values} handleDisableInputs={this.handleDisableInputs} />
               </div>
             </div>
           )  : null
@@ -100,6 +101,7 @@ PersonalDetailsFieldset.propTypes = {
   position: position.isRequired,
   line: position.isRequired,
   values: values,
+  savePersonalDetails: PropTypes.func.isRequired,
 };
 
 PersonalDetailsFieldset.defaultProps = {

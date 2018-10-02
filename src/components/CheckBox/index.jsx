@@ -9,13 +9,15 @@ class Checkbox extends PureComponent {
   };
 
   clickCheckbox = checkBox => {
-    const { handleDisableInputs } = this.props;
+    const { handleDisableInputs, values, savePersonalDetails } = this.props;
     if (checkBox === 'notClicked') {
       this.setState({ checkBox: 'clicked' });
       checkBox = 'clicked';
+      savePersonalDetails(values.name,values.gender, values.department, values.role, values.management);
     } else {
       this.setState({ checkBox: 'notClicked' });
       checkBox = 'notClicked';
+      savePersonalDetails('','','','','');
     }
     handleDisableInputs(checkBox);
     this.renderCurrentState(checkBox);
@@ -76,7 +78,9 @@ class Checkbox extends PureComponent {
 }
 
 Checkbox.propTypes = {
-  handleDisableInputs: PropTypes.func.isRequired
+  handleDisableInputs: PropTypes.func.isRequired,
+  values: PropTypes.func.isRequired,
+  savePersonalDetails: PropTypes.func.isRequired,
 };
 
 export default Checkbox;

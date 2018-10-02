@@ -40,15 +40,6 @@ export class Requests extends Base {
     }
   }
 
-  componentDidUpdate(){
-    const {getUserData}=this.props;
-    const data = getUserData.result;
-    localStorage.setItem('passportName', data && data.passportName);
-    localStorage.setItem('gender', data && data.gender);
-    localStorage.setItem('department', data && data.department);
-    localStorage.setItem('role', data && data.occupation);
-    localStorage.setItem('manager', data && data.manager);
-  }
 
   fetchRequests = query => {
     const { history, fetchUserRequests, location } = this.props;

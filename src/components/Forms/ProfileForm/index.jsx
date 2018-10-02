@@ -12,7 +12,7 @@ import * as formMetadata from '../FormsMetadata/NewProfileMetadata/index';
 class ProfileForm extends PureComponent {
   constructor(props) {
     super(props);
-    const user = localStorage.getItem('passportName');
+    const user = localStorage.getItem('name');
     const gender = localStorage.getItem('gender');
     const department = localStorage.getItem('department');
     const role = localStorage.getItem('role');
