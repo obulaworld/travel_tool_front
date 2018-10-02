@@ -17,7 +17,8 @@ describe('Requests Reducer', () => {
     const initialState = {
       requestData: {
         trips: []
-      }
+      },
+      'requestOnEdit': {}
     };
     const error = 'Error fetching requests, network error';
     it('returns the correct initial state', () => {
@@ -181,6 +182,50 @@ describe('Requests Reducer', () => {
       expect(requests(initialState, action)).toEqual({
         fetchingRequest: false,
         errors: 'Possible network error, please reload the page',
+      });
+    });
+  });
+
+  describe('Update Request Details Reducer', () => {
+    const initialState = {};
+    it('returns the correct state for EDIT_REQUEST', () => {
+      const action = {
+        type: 'EDIT_REQUEST'
+      };
+      expect(requests(initialState, action)).toEqual({
+        editingRequest: true,
+      });
+    });
+    it('returns the correct state for FETCH_USER_REQUEST_DETAILS_SUCCESS action', () => {
+      const initialState = {
+        requests: [fetchRequestsDetailsResponse.requestData],
+        requestData: {
+          trips: []
+        },
+        requestOnEdit: {}
+      };
+      const action = {
+        type: 'EDIT_REQUEST_SUCCESS',
+        updatedRequest: fetchRequestsDetailsResponse.requestData,
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        editingRequest: false,
+        requests: [
+          fetchRequestsDetailsResponse.requestData,
+          fetchRequestsDetailsResponse.requestData,
+        ],
+        editRequestError: null
+      });
+    });
+    it('returns the correct state for EDIT_REQUEST_FAILURE action', () => {
+      const action = {
+        type: 'EDIT_REQUEST_FAILURE',
+        error: 'Possible network error, please reload the page',
+      };
+      expect(requests(initialState, action)).toEqual({
+        editingRequest: false,
+        editRequestError: 'Possible network error, please reload the page',
       });
     });
   });

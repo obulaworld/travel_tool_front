@@ -9,7 +9,9 @@ import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
 import {
   fetchUserRequests,
-  createNewRequest
+  createNewRequest,
+  editRequest,
+  fetchEditRequest,
 } from '../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
@@ -25,6 +27,7 @@ export class Requests extends Base {
     hideNewRequestModal: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
     url: this.props.location.search,
+    requestForEdit: null,
     requestId: ''
   };
 
@@ -40,6 +43,21 @@ export class Requests extends Base {
     }
   }
 
+  handleEditRequest = (requestId, newRequest) => {
+    const { openModal, fetchEditRequest } = this.props;
+    fetchEditRequest(requestId);
+    openModal(true, 'edit request');
+  }
+
+  componentDidUpdate(){
+    const {getUserData}=this.props;
+    const data = getUserData.result;
+    localStorage.setItem('passportName', data && data.passportName);
+    localStorage.setItem('gender', data && data.gender);
+    localStorage.setItem('department', data && data.department);
+    localStorage.setItem('role', data && data.occupation);
+    localStorage.setItem('manager', data && data.manager);
+  }
 
   fetchRequests = query => {
     const { history, fetchUserRequests, location } = this.props;
@@ -105,6 +123,7 @@ export class Requests extends Base {
       <div className="rp-table">
         <WithLoadingTable
           type="requests"
+          editRequest={this.handleEditRequest}
           location={location}
           history={history}
           requestId={requestId}
@@ -122,35 +141,26 @@ export class Requests extends Base {
     );
   }
   renderNewRequestForm() {
-    const {
-      updateUserProfile,
-      user,
-      createNewRequest,
-      loading,
-      errors,
-      closeModal,
-      shouldOpen,
-      modalType,
-      manager,
-    } = this.props;
-
+    const { updateUserProfile, user, createNewRequest, loading, errors, closeModal,
+      shouldOpen, modalType, manager, requestOnEdit, editRequest } = this.props;
     return (
       <Modal
         closeModal={closeModal}
         width="1000px"
-        visibility={
-          shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
-        }
-        title="New Travel Request"
+        visibility={(shouldOpen && (modalType === 'edit request' || modalType === 'new model')) ? 'visible' : 'invisible'}
+        title={modalType === 'edit request' ? 'Edit Travel Request' : 'New Travel Request'}
       >
         <NewRequestForm
           updateUserProfile={updateUserProfile}
           user={user}
           handleCreateRequest={createNewRequest}
+          handleEditRequest={editRequest}
           loading={loading}
           errors={errors}
           closeModal={closeModal}
           managers={manager}
+          modalType={modalType}
+          requestOnEdit={requestOnEdit}
         />
       </Modal>
     );
@@ -191,6 +201,8 @@ Requests.propTypes = {
   url: PropTypes.string,
   history: PropTypes.shape({}).isRequired,
   createNewRequest: PropTypes.func.isRequired,
+  fetchEditRequest: PropTypes.func.isRequired,
+  editRequest: PropTypes.func.isRequired,
   creatingRequest: PropTypes.bool,
   errors: PropTypes.array,
   shouldOpen: PropTypes.bool.isRequired,
@@ -216,12 +228,14 @@ export const mapStateToProps = ({ requests, modal, role, user }) => ({
   ...requests,
   ...modal.modal,
   ...role,
-  getUserData: user.getUserData
+  getUserData: user.getUserData,
 });
 
 const actionCreators = {
   fetchUserRequests,
   createNewRequest,
+  fetchEditRequest,
+  editRequest,
   fetchRoleUsers,
   openModal,
   closeModal,

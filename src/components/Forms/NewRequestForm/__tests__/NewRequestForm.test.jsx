@@ -39,6 +39,32 @@ describe('<NewRequestForm />', () => {
         id: '09ijrjt'
       }
     },
+    requestOnEdit: {
+      id: '1',
+      name: 'Seun Undefined',
+      tripType: 'multi',
+      manager: 'Faluyi Seun',
+      gender: 'Male',
+      department: 'Talent & Development',
+      role: 'Software Developer',
+      status: 'Open',
+      userId: 'lorem-ipsum',
+      createdAt: '2018-09-26T15:15:49.808Z',
+      updatedAt: '2018-09-26T15:15:49.808Z',
+      trips: [
+        {
+          id: '1',
+          origin: 'Abuja Nigeria',
+          destination: 'Lagos Nigeria',
+          departureDate: '2018-09-30',
+          returnDate: '2018-09-30',
+          createdAt: '2018-09-27T18:49:03.626Z',
+          updatedAt: '2018-09-27T18:49:43.803Z',
+          requestId: 'NfR-9KoCP'
+        }
+      ]
+    },
+    google: {},
     handleCreateRequest: jest.fn(() => {}),
     updateUserProfile: jest.fn(() => {}),
     creatingRequest: jest.fn(() => {}),
@@ -56,6 +82,7 @@ describe('<NewRequestForm />', () => {
     },
   };
 
+  const { requestOnEdit } = props;
   const user = localStorage.getItem('name');
   const gender = localStorage.getItem('gender');
   const department = localStorage.getItem('department');
@@ -70,7 +97,7 @@ describe('<NewRequestForm />', () => {
       role: !(/^null|undefined$/).test(role) ? role :'',
       manager: !(/^null|undefined$/).test(manager) ? manager : '',
     },
-    trips: [{}],
+    trips: requestOnEdit.trips || [{}],
     errors: {},
     hasBlankFields: true,
     selection: 'return',
@@ -326,17 +353,18 @@ describe('<NewRequestForm />', () => {
 
   it('should update state when a trip is added and when it\'s removed', () => {
     expect.assertions(7);
+    // a form has one trip by default
     wrapper.instance().addNewTrip();
     wrapper.instance().addNewTrip();
-    expect(wrapper.instance().state.values[`origin-1`]).toBe('');
-    expect(wrapper.instance().state.values[`origin-2`]).toBe('');
+    expect(wrapper.instance().state.values['origin-1']).toBe('');
+    expect(wrapper.instance().state.values['origin-2']).toBe('');
     expect(wrapper.instance().state.parentIds).toBe(3);
     wrapper.instance().removeTrip(1);
     expect(wrapper.instance().state.parentIds).toBe(2);
-    // still have one trip, origin-1 should now be what was at origin-2 and so forth
-    expect(wrapper.instance().state.values[`origin-1`]).toBe('');
+    // still have two trip, origin-1 should now be what was at origin-2 and so forth
+    expect(wrapper.instance().state.values['origin-1']).toBe('');
     // after shifting state values, origin-{parentIds} in state should be undefined
-    expect(wrapper.instance().state.values[`origin-2`]).toBe(undefined);
+    expect(wrapper.instance().state.values['origin-2']).toBe(undefined);
     expect(wrapper.instance().state.trips).toHaveLength(2);
   });
 
@@ -446,7 +474,7 @@ describe('<NewRequestForm />', () => {
   it('should call handleClearForm', () => {
     const wrapper = shallow(<NewRequestForm {...props} />);
     wrapper.instance().handleClearForm();
-    expect(wrapper.state()).toMatchObject(defaultState);
+    expect(wrapper.state()).toMatchObject({});
   });
 
 
@@ -512,7 +540,7 @@ describe('<NewRequestForm />', () => {
   });
 
   it('check hasBlankTrips works', ()=>{
-    const wrapper = shallow(<NewRequestForm {...props}/>)
+    const wrapper = shallow(<NewRequestForm {...props} />)
     const wrapperInstance = wrapper.instance();
     wrapperInstance.state.trips = ['Nigeria', 'Ghana']
     expect(wrapperInstance.hasBlankTrips()).toEqual([false, false]);

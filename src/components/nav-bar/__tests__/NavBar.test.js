@@ -92,16 +92,16 @@ describe('Render NavBar component', () => {
   });
 
   it('should call `getUnreadNotifictionsCount` on component render',
-  (done) => {
-    const wrapper = setup();
+    (done) => {
+      const wrapper = setup();
 
-    const getUnreadNotificationsCountSpy =
+      const getUnreadNotificationsCountSpy =
       jest.spyOn(wrapper.instance(), 'getUnreadNotificationsCount');
-    wrapper.instance().getUnreadNotificationsCount();
-    expect(getUnreadNotificationsCountSpy).toHaveBeenCalled();
+      wrapper.instance().getUnreadNotificationsCount();
+      expect(getUnreadNotificationsCountSpy).toHaveBeenCalled();
 
-    done();
-  });
+      done();
+    });
 
   it('should update state when onChange function is triggered', () => {
     const wrapper = mount(<NavBar {...props} />);

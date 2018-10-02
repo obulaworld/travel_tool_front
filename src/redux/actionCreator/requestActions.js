@@ -8,6 +8,10 @@ import {
   FETCH_USER_REQUEST_DETAILS,
   FETCH_USER_REQUEST_DETAILS_SUCCESS,
   FETCH_USER_REQUEST_DETAILS_FAILURE,
+  FETCH_EDIT_REQUEST,
+  EDIT_REQUEST,
+  EDIT_REQUEST_SUCCESS,
+  EDIT_REQUEST_FAILURE,
 } from '../constants/actionTypes';
 
 export const fetchUserRequests = url => ({
@@ -57,4 +61,24 @@ export const fetchUserRequestDetailsFailure = (error) => ({
   type: FETCH_USER_REQUEST_DETAILS_FAILURE,
   error,
 });
+
+export const fetchEditRequest = (requestId) => ({
+  type: FETCH_EDIT_REQUEST,
+  requestId
+});
+
+export const editRequest = (requestId, requestData) => ({
+  type: EDIT_REQUEST,
+  requestId,
+  requestData
+});
+export const editRequestSuccess = (updatedRequest) => ({
+  type: EDIT_REQUEST_SUCCESS,
+  updatedRequest,
+});
+export const editRequestFailure = (error) => ({
+  type: EDIT_REQUEST_FAILURE,
+  error,
+});
+
 

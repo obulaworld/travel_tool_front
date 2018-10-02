@@ -9,9 +9,12 @@ import addMultipleCityBtn from '../../../../images/add.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
 
 class TravelDetailsFieldset extends Component {
+
+
   componentDidMount = () => {
     this.get_details();
   }
+
 
   get_details = () => {
     const { parentIds } = this.props;
@@ -32,24 +35,27 @@ class TravelDetailsFieldset extends Component {
     minDate: moment()
   })
 
-  renderRadioButton = (handleChange) => {
+  renderRadioButton = (handleRadioButtonChange) => {
+    const {selection} = this.props;
     return (
-      <div className="trip-align" onChange={handleChange}>
+      <div className="trip-align" onChange={handleRadioButtonChange}>
         <RadioButton
           name="One Way Trip"
           value="oneWay"
           id="oneWay"
+          defaultChecked={selection === 'oneWay'}
         />
         <RadioButton
           name="Return Trip"
           value="return"
           id="return"
-          defaultChecked="defaultChecked"
+          defaultChecked={selection === 'return'}
         />
         <RadioButton
           name="Multi City Trip"
           value="multi"
           id="multi"
+          defaultChecked={selection === 'multi'}
         />
       </div>
     );
@@ -66,8 +72,8 @@ class TravelDetailsFieldset extends Component {
       </div>
     );
   }
-  renderTravelDetails = (i, selection, onChangeInput) => {
-    const { values, handleDate, removeTrip } = this.props;
+  renderTravelDetails = (i, selection, onChangeInput, mappedTrip) => {
+    const { values, handleDate, removeTrip, parentIds, existingTrips } = this.props;
     const { renderInput } = this.inputRenderer;
     return (
       <Fragment>
@@ -76,15 +82,16 @@ class TravelDetailsFieldset extends Component {
             <div className={selection === 'multi' ? 'rec-div': ''} />
             <div className="rectangle">
               <div className="style-details">
-
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`origin-${i}`, 'text', {parentid: i})}
-                  <img src={location} alt="icn" className="location-icon" />
+                  {renderInput(`destination-${i}`, 'text', {parentid: i}, 
+                  )}
+                  <img src={location} alt="icn" className="location-icon"  />
                 </div>
 
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`destination-${i}`, 'text', {parentid: i})}
-                  <img src={location} alt="icn" className="location-icon"  />
+                  {renderInput(`origin-${i}`, 'text', {parentid: i}, 
+                  )}
+                  <img src={location} alt="icn" className="location-icon" />
                 </div>
 
                 <div className="others-width" role="presentation">
@@ -110,7 +117,7 @@ class TravelDetailsFieldset extends Component {
   }
 
 
-  renderForms(parentIds, selection, onChangeInput) {
+  renderForms(parentIds, selection, onChangeInput, existingTrips) {
     const forms = [];
     for (let i = 0; i < parentIds; i += 1) {
       forms.push(
@@ -124,9 +131,9 @@ class TravelDetailsFieldset extends Component {
 
   render() {
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
-    const { handleChange, selection, onChangeInput} = this.props;
-
-    const { parentIds } = this.props;
+    const { handleRadioButtonChange, selection, onChangeInput} = this.props;
+  
+    const { parentIds, existingTrips } = this.props;
     return (
       <fieldset className="travel-details">
         <legend
@@ -134,8 +141,8 @@ class TravelDetailsFieldset extends Component {
           style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4' }}>
         Travel Details
         </legend>
-        {this.renderRadioButton(handleChange)}
-        {this.renderForms(parentIds, selection, onChangeInput)}
+        {this.renderRadioButton(handleRadioButtonChange)}
+        {this.renderForms(parentIds, selection, onChangeInput, existingTrips)}
         {selection === 'multi' && this.renderAddAnotherBtn()}
       </fieldset>
     );
@@ -143,23 +150,29 @@ class TravelDetailsFieldset extends Component {
 }
 
 const values = PropTypes.object;
-const handleChange = PropTypes.func;
+const handleRadioButtonChange = PropTypes.func;
 const selection = PropTypes.string;
 const onChangeInput = PropTypes.func;
 const addNewTrip = PropTypes.func;
 const handleDate = PropTypes.func;
 const removeTrip = PropTypes.func;
-const parentIds = PropTypes.string;
+const parentIds = PropTypes.number;
+const existingTrips = PropTypes.func;
 
 TravelDetailsFieldset.propTypes = {
   values: values.isRequired,
-  handleChange: handleChange.isRequired,
+  handleRadioButtonChange: handleRadioButtonChange.isRequired,
   selection: selection.isRequired,
   onChangeInput: onChangeInput.isRequired,
   addNewTrip: addNewTrip.isRequired,
   handleDate: handleDate.isRequired,
   removeTrip: removeTrip.isRequired,
-  parentIds: parentIds.isRequired
+  parentIds: parentIds.isRequired,
+  existingTrips: existingTrips
+};
+
+TravelDetailsFieldset.defaultProps = {
+  existingTrips: null,
 };
 
 export default TravelDetailsFieldset;

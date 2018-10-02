@@ -24,6 +24,34 @@ exports[`<Requests> renders as expected 1`] = `
       handleCreateRequest={[Function]}
       loading={false}
       managers={Array []}
+      modalType={null}
+      requestOnEdit={
+        Object {
+          "createdAt": "2018-09-26T15:15:49.808Z",
+          "department": "Talent & Development",
+          "gender": "Male",
+          "id": "1",
+          "manager": "Faluyi Seun",
+          "name": "Seun Undefined",
+          "role": "Software Developer",
+          "status": "Open",
+          "tripType": "multi",
+          "trips": Array [
+            Object {
+              "createdAt": "2018-09-27T18:49:03.626Z",
+              "departureDate": "2018-09-30",
+              "destination": "Lagos Nigeria",
+              "id": "1",
+              "origin": "Abuja Nigeria",
+              "requestId": "NfR-9KoCP",
+              "returnDate": "2018-09-30",
+              "updatedAt": "2018-09-27T18:49:43.803Z",
+            },
+          ],
+          "updatedAt": "2018-09-26T15:15:49.808Z",
+          "userId": "lorem-ipsum",
+        }
+      }
       updateUserProfile={[Function]}
       user={
         Object {
@@ -55,6 +83,7 @@ exports[`<Requests> renders as expected 1`] = `
   >
     <WithLoading
       closeModal={[Function]}
+      editRequest={[Function]}
       fetchRequestsError={null}
       history={
         Object {

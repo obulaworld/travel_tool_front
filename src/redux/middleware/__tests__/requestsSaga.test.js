@@ -5,7 +5,8 @@ import RequestAPI from '../../../services/RequestAPI';
 import {
   watchFetchRequests,
   watchCreateNewRequestAsync,
-  watchFetchUserRequestsDetails
+  watchFetchUserRequestsDetails,
+  watchEditRequest
 } from '../requestsSaga';
 import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
@@ -138,6 +139,59 @@ describe('Requests Saga', () => {
         })
         .dispatch({
           type: 'FETCH_USER_REQUEST_DETAILS',
+          requestId
+        })
+        .run();
+    });
+  });
+
+  describe('Edit request details Saga', () => {
+    const action = {
+      requestData: {
+        name: 'Incredible Hulk',
+        origin: 'Lagos',
+        destination: 'Nairobi'
+      }
+    };
+
+    const response = {
+      data: {
+        updatedRequest: {
+          name: 'Incredible Hulk',
+          origin: 'Lagos',
+          destination: 'Nairobi'
+        }
+      }
+    };
+
+    it('edits request details', () => {
+      return expectSaga(watchEditRequest, RequestAPI)
+        .provide([
+          [call(RequestAPI.editRequest, requestId, action.requestData), response]
+        ])
+        .put({
+          type: 'EDIT_REQUEST_SUCCESS',
+          updatedRequest: response.data.updatedRequest,
+        })
+        .dispatch({
+          type: 'EDIT_REQUEST',
+          requestId,
+          requestData: action.requestData
+        })
+        .run();
+    });
+
+    it('throws error if there is an error fetching a user\'s requests details', () => {
+      return expectSaga(watchEditRequest, RequestAPI)
+        .provide([
+          [call(RequestAPI.editRequest, error), throwError(error)]
+        ])
+        .put({
+          type: 'EDIT_REQUEST_FAILURE',
+          error
+        })
+        .dispatch({
+          type: 'EDIT_REQUEST',
           requestId
         })
         .run();

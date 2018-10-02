@@ -5,9 +5,15 @@ import RequestsModal from '../RequestsModal/RequestsModal';
 import Modal from '../modal/Modal';
 import './Table.scss';
 import withLoading from '../Hoc/withLoading';
+import TableMenu from '../TableMenu/TableMenu';
 
 export class Table extends Component {
-
+  state = {
+    menuOpen: {
+      open: false,
+      id: null
+    }
+  };
   getDuration(trips) {
     const returnDates = trips.map(trip => new Date(trip.returnDate));
     const departureDates = trips.map(trip => new Date(trip.departureDate));
@@ -17,6 +23,23 @@ export class Table extends Component {
       moment(maxReturn).diff(moment(minDeparture), 'days')
     );
     return `${duration + 1} days`;
+  }
+  toggleMenu = requestId => {
+    const { menuOpen } = this.state;
+    if (menuOpen.id !== requestId) {
+      return this.setState({
+        menuOpen: {
+          open: true,
+          id: requestId
+        }
+      });
+    }
+    this.setState({
+      menuOpen: {
+        open: !menuOpen.open,
+        id: requestId
+      }
+    });
   }
   formatTripType = tripType => {
     if (tripType === 'oneWay') {
@@ -28,7 +51,10 @@ export class Table extends Component {
       .concat(tripType.toLowerCase().slice(1));
   };
   handleClickRequest = requestId => {
-    const {history, location: {pathname} } = this.props;
+    const {
+      history,
+      location: { pathname }
+    } = this.props;
     history.push(`${pathname}/${requestId}`);
   };
   renderNoRequests(message) {
@@ -40,23 +66,33 @@ export class Table extends Component {
   }
 
   renderRequestStatus(request) {
+    const { editRequest, type } = this.props;
+
+    const { menuOpen } = this.state;
     return (
       <div>
-        <div
-          id={`status-${request.id}`}
-          className={
-            request.status === 'Open'
-              ? 'request__status--open'
-              : request.status === 'Rejected'
-                ? 'request__status--rejected'
-                : 'request__status--approved'
-          }
-        >
-          {request.status}
+        <div className="table__menu">
+          <div
+            id={`status-${request.id}`}
+            className={
+              request.status === 'Open'
+                ? 'request__status--open'
+                : request.status === 'Rejected'
+                  ? 'request__status--rejected'
+                  : 'request__status--approved'
+            }
+          >
+            {request.status}
+          </div>
+          <TableMenu
+            editRequest={editRequest}
+            requestStatus={request.status}
+            type={type}
+            menuOpen={menuOpen}
+            request={request}
+            toggleMenu={this.toggleMenu}
+          />
         </div>
-        <span className="table__request-menu">
-          <i className="fa fa-ellipsis-v" />
-        </span>
       </div>
     );
   }
@@ -205,9 +241,10 @@ Table.propTypes = {
   modalType: PropTypes.string,
   requestId: PropTypes.string,
   message: PropTypes.string,
+  page: PropTypes.string,
+  editRequest: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  page: PropTypes.string
+  location: PropTypes.object.isRequired
 };
 
 Table.defaultProps = {
@@ -218,8 +255,8 @@ Table.defaultProps = {
   shouldOpen: false,
   modalType: null,
   message: '',
-  page:'',
-  requestId: '',
+  page: '',
+  requestId: ''
 };
 
 export default withLoading(Table);

@@ -51,4 +51,58 @@ describe('RequestAPI', () => {
       destination: 'Nairobi'
     });
   });
+
+  it('should send a GET request to retrieve a travel-request details', async () => {
+    const requestId = '12fr2esa';
+    const requestData = {
+      name: 'Tester Ademola',
+      origin: 'Lagos',
+      destination: 'Nairobi'
+    };
+
+    moxios.stubRequest(`${baseUrl}/requests/${requestId}`, {
+      status: 200,
+      response: {
+        name: 'Tester Ademola',
+        origin: 'Lagos',
+        destination: 'Nairobi'
+      }
+    });
+
+    const response = await RequestAPI.getUserRequestDetails(requestId);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/requests/${requestId}`);
+    expect(response.data).toEqual({
+      name: 'Tester Ademola',
+      origin: 'Lagos',
+      destination: 'Nairobi'
+    });
+  });
+
+  it('should send an PUT request to update an existing travel-request', async () => {
+    const requestId = '12fr2esa';
+    const requestData = {
+      name: 'Tester Ademola',
+      origin: 'Lagos',
+      destination: 'Nairobi'
+    };
+
+    moxios.stubRequest(`${baseUrl}/requests/${requestId}`, {
+      status: 200,
+      response: {
+        name: 'Tester Ademola',
+        origin: 'Lagos',
+        destination: 'Nairobi'
+      }
+    });
+
+    const response = await RequestAPI.editRequest(requestId, requestData);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/requests/${requestId}`);
+    expect(response.data).toEqual({
+      name: 'Tester Ademola',
+      origin: 'Lagos',
+      destination: 'Nairobi'
+    });
+  });
 });

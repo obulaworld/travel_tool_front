@@ -1,9 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './RaidoButton.scss';
 
-class RadioButton extends PureComponent {
-
+class RadioButton extends Component {
   render() {
     const  { name, value, id, defaultChecked} = this.props;
     return (
@@ -14,7 +13,7 @@ class RadioButton extends PureComponent {
             id={id}
             value={value}
             name="selector"
-            defaultChecked={defaultChecked}
+            checked={defaultChecked}
             onChange={()=>{}}
           />
           <label htmlFor={id}>

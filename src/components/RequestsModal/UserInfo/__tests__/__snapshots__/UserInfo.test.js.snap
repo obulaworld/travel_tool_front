@@ -7,6 +7,7 @@ exports[`UserComments component should match snapshot 1`] = `
   <img
     alt="avatar"
     className="modal__oval"
+    src="http://my-image"
   />
   <div>
     <div>

@@ -57,6 +57,31 @@ const props ={
       role: 'Learning Facilitator'
     }
   ],
+  requestOnEdit: {
+    id: '1',
+    name: 'Seun Undefined',
+    tripType: 'multi',
+    manager: 'Faluyi Seun',
+    gender: 'Male',
+    department: 'Talent & Development',
+    role: 'Software Developer',
+    status: 'Open',
+    userId: 'lorem-ipsum',
+    createdAt: '2018-09-26T15:15:49.808Z',
+    updatedAt: '2018-09-26T15:15:49.808Z',
+    trips: [
+      {
+        id: '1',
+        origin: 'Abuja Nigeria',
+        destination: 'Lagos Nigeria',
+        departureDate: '2018-09-30',
+        returnDate: '2018-09-30',
+        createdAt: '2018-09-27T18:49:03.626Z',
+        updatedAt: '2018-09-27T18:49:43.803Z',
+        requestId: 'NfR-9KoCP'
+      }
+    ]
+  },
   getUserData:{
     result:{
       id: '2',

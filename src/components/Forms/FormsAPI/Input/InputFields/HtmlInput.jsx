@@ -1,8 +1,6 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-// HTML input
-
 const HtmlInput = (props) => {
   let htmlProps = {...props};
   let { error } = props;
@@ -14,7 +12,7 @@ const HtmlInput = (props) => {
   return (
     <input
       {...htmlProps}
-      className={`${className} ${htmlProps.className}`} 
+      className={`${className} ${htmlProps.className}`}
     />
   );
 };

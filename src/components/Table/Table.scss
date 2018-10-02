@@ -22,6 +22,36 @@ $font-normal: 'DIN Pro';
   background-color: $backgroundColor;
 }
 
+.menu-icon {
+  margin-right: 10px;
+}
+ .table__menu-container {
+  position: relative;
+  overflow: visible;
+  &.open > ul.table__menu-list {
+    display: block;
+    z-index: 10;
+    top: -12px;
+    left: 6px;
+    border: 1px solid #E4E4E4;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
+  }
+}
+ .table__menu-list {
+  display: none;
+  transition: 0.5s ease;
+  position: absolute;
+  padding: 15px;
+}
+ .table__menu-list-item {
+  list-style-type: none;
+  z-index: 2;
+  font-size: 15px;
+  color: $primary-color;
+}
+
 .button-outline {
   outline: none;
 }
@@ -101,6 +131,9 @@ td.pl-sm-100 {
       border-color: #e4e4e4 !important;
     }
   }
+  &__menu {
+    display: flex;
+ }
   &__row {
     border-radius: 2px;
     background-color: $white-color;

@@ -3,7 +3,8 @@ import { userAuth } from './userAuthSagas';
 import {
   watchFetchRequests,
   watchCreateNewRequestAsync,
-  watchFetchUserRequestsDetails
+  watchFetchUserRequestsDetails,
+  watchEditRequest,
 } from './requestsSaga';
 import {
   watchPostUserDataSagaAsync,
@@ -43,6 +44,8 @@ function* rootSaga() {
     watchUpdateRequestStatus(),
     watchEditComment(),
     watchFetchNotifications(),
+    watchUpdateUserProfileAsync(),
+    watchEditRequest(),
     watchAddNotification(),
     watchUpdateUserProfileAsync(),
     watchUpdateAllNotificationStatus()

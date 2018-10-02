@@ -4,6 +4,7 @@ import {
   FETCH_USER_REQUESTS,
   CREATE_NEW_REQUEST,
   FETCH_USER_REQUEST_DETAILS,
+  EDIT_REQUEST
 } from '../constants/actionTypes';
 import RequestAPI from '../../services/RequestAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -14,6 +15,8 @@ import {
   createNewRequestFailure,
   fetchUserRequestDetailsSuccess,
   fetchUserRequestDetailsFailure,
+  editRequestSuccess,
+  editRequestFailure
 } from '../actionCreator/requestActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -70,3 +73,18 @@ export function* watchFetchUserRequestsDetails() {
   yield takeLatest(FETCH_USER_REQUEST_DETAILS, fetchUserRequestsDetails);
 }
 
+export function* editRequest(action) {
+  try {
+    const response = yield call(RequestAPI.editRequest, action.requestId, action.requestData);
+    yield put(editRequestSuccess(response.data.updatedRequest));
+    toast.success('Request updated');
+    yield put(closeModal());
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(editRequestFailure(errorMessage));
+    toast.success(errorMessage);
+  }
+}
+export function* watchEditRequest() {
+  yield takeLatest(EDIT_REQUEST, editRequest);
+}
