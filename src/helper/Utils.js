@@ -60,6 +60,11 @@ class Utils {
       : regex.exec(queryString)[0].split('=')[1];
     return value;
   }
+
+  static formatWord(word, criteria) {
+    const formattedWord = `${word}${criteria > 1 ? 's' : ''}`;
+    return formattedWord;
+  }
 }
 
 export default Utils;

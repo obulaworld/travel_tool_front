@@ -2548,6 +2548,13 @@ cosmiconfig@^5.0.5:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
+country-data@^0.0.31:
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/country-data/-/country-data-0.0.31.tgz#80966b8e1d147fa6d6a589d32933f8793774956d"
+  dependencies:
+    currency-symbol-map "~2"
+    underscore ">1.4.4"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
@@ -2766,6 +2773,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
 csstype@^2.2.0:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.7.tgz#bf9235d5872141eccfb2d16d82993c6b149179ff"
+
+currency-symbol-map@~2:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/currency-symbol-map/-/currency-symbol-map-2.2.0.tgz#2b3c1872ff1ac2ce595d8273e58e1fff0272aea2"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -9305,6 +9316,10 @@ underscore-contrib@~0.3.0:
 underscore@1.6.0, underscore@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
+
+underscore@>1.4.4:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
 
 underscore@~1.4.4:
   version "1.4.4"

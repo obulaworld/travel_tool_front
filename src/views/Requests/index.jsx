@@ -37,7 +37,7 @@ export class Requests extends Base {
     fetchUserRequests(url);
     fetchRoleUsers(53019);
 
-    if(requestId){  
+    if(requestId){
       openModal(true, 'request details', page);
       this.storeRequestIdRequest(requestId);
     }

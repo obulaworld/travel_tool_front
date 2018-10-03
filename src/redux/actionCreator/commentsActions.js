@@ -1,4 +1,8 @@
-import { CREATE_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../constants/actionTypes';
+import {
+  CREATE_COMMENT,
+  EDIT_COMMENT,
+  DELETE_COMMENT
+} from '../constants/actionTypes';
 
 export const createComment = (requestId, comment) => ({
   type: CREATE_COMMENT,

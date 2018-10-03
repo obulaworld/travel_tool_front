@@ -2,9 +2,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import { userDetails } from '../../../helper/userDetails';
-import RoleAPI from '../../../services/RoleAPI';
 import { userAuth } from '../userAuthSagas';
-import roles from '../../__mocks__/role';
 
 const response = {
   user: {

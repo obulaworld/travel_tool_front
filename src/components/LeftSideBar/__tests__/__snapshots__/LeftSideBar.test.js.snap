@@ -37,6 +37,20 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             },
             Object {
               "activateOnLogin": false,
+              "icons": Object {
+                "active": "accommodation-blue.svg",
+                "inactive": "accomodation-grey.svg",
+              },
+              "isDropdown": false,
+              "link_to": "/accommodation",
+              "onlyVisibleTo": Array [
+                "Travel Administrator",
+                "Super Administrator",
+              ],
+              "text": "Accomodation",
+            },
+            Object {
+              "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
                   "link_to": "/settings/roles",

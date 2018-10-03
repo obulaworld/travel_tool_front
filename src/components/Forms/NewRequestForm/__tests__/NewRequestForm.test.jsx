@@ -14,9 +14,9 @@ describe('<NewRequestForm />', () => {
     getPlace = () => {
       const components = {
         address_components:  [
-          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: Array(2)},
-          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: Array(2)},
-          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: Array(2)},
+          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: ['locality', 'political']},
+          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: ['political']},
+          {long_name: 'Las Vegas', short_name: 'Las Vegas', types: ['country', 'political']},
         ]
       };
       return components;

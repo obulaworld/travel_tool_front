@@ -130,7 +130,8 @@ class NewRequestForm extends PureComponent {
     const autocomplete = new google.maps.places.Autocomplete(event.target, options);
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace().address_components;
-      const places = place[0].long_name + ' ' + place[2].long_name;
+      const countryIndex = place.findIndex(addr => addr.types.includes('country'));
+      const places = place[0].long_name + ', ' + place[countryIndex].long_name;
       if (trips[getId]){
         if (name.startsWith('destination')) {
           trips[getId].destination = places;

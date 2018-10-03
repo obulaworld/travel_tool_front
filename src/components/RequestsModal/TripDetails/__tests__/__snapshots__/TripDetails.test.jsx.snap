@@ -60,7 +60,7 @@ exports[`<TripDetails /> should render correctly 1`] = `
       <div
         className="modal__trip-detail-text"
       >
-        02 Oct 2018
+        03 Oct 2018
       </div>
     </div>
   </div>
