@@ -49,7 +49,10 @@ class TableMenu extends PureComponent {
               <li
                 className="table__menu-list-item"
                 id="iconBtn"
-                onClick={() => editRequest(request.id)}
+                onClick={() => {
+                  editRequest(request.id);
+                  toggleMenu(request.id);
+                }}
                 role="presentation"
               >
                 <img src={editIcon} alt="edit-icon" className="menu-icon" />

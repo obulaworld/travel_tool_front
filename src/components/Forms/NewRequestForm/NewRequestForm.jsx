@@ -36,7 +36,7 @@ class NewRequestForm extends PureComponent {
         manager: !(/^null|undefined$/).test(manager) ? manager : '',
         ...firstTripStateValues, ...editTripsStateValues
       },
-      trips: [{}], errors: {},hasBlankFields: true, checkBox: 'notClicked', selection: 'return',
+      trips: requestTrips, errors: {},hasBlankFields: true, checkBox: 'notClicked', selection: 'return',
       collapse: false, title: 'Hide Details', position: 'none', line: '1px solid #E4E4E4', parentIds: 1
     };
     this.state = { ...this.defaultState };
@@ -44,7 +44,7 @@ class NewRequestForm extends PureComponent {
 
 
   componentDidMount() {
-    const { modalType, requestOnEdit } = this.props;
+    const { modalType } = this.props;
     if (modalType === 'edit request') {
       this.handleEditForm();
     }
@@ -72,7 +72,7 @@ class NewRequestForm extends PureComponent {
     return tripsStateValues;
   }
   handleEditForm = () => {
-    const { modalType, requestOnEdit } = this.props;
+    const { requestOnEdit } = this.props;
     const event = {
       target: {
         value: requestOnEdit.tripType
@@ -123,7 +123,7 @@ class NewRequestForm extends PureComponent {
   onChangeInput = (event) => {
     const name = event.target.name;
     const getId = event.target.dataset.parentid;
-    const { trips, values } = this.state;
+    const { trips } = this.state;
     const options = {
       types: ['(cities)'],
     };
@@ -154,7 +154,7 @@ class NewRequestForm extends PureComponent {
 
   handleRadioButton = (event) => {
     const { modalType, requestOnEdit } = this.props;
-    const { selection, collapse, trips } = this.state;
+    const { collapse } = this.state;
     const tripType = event.target.value;
     this.setState({
       selection: tripType,
@@ -392,11 +392,10 @@ class NewRequestForm extends PureComponent {
   }
 
   render() {
-    const {creatingRequest,requestOnEdit } = this.props;
-    const { trips } = requestOnEdit;
+    const {creatingRequest } = this.props;
     return (
       <div>
-        {this.renderForm(creatingRequest, trips)}
+        {this.renderForm(creatingRequest)}
       </div>
     );
   }
