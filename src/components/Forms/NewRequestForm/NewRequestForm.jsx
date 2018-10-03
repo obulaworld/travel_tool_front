@@ -333,6 +333,7 @@ class NewRequestForm extends PureComponent {
     return (
       <PersonalDetailsFieldset
         values={values}
+        savePersonalDetails={this.savePersonalDetails}
         collapsible={this.collapsible}
         collapse={collapse}
         title={title}

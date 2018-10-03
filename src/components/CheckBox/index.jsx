@@ -13,7 +13,7 @@ class Checkbox extends PureComponent {
     if (checkBox === 'notClicked') {
       this.setState({ checkBox: 'clicked' });
       checkBox = 'clicked';
-      savePersonalDetails(values.name,values.gender, values.department, values.role, values.management);
+      savePersonalDetails(values.name,values.gender, values.department, values.role, values.manager);
     } else {
       this.setState({ checkBox: 'notClicked' });
       checkBox = 'notClicked';
