@@ -9,7 +9,8 @@ import './_notificationPane.scss';
 import handleManagerNotification from '../../helper/socket/socket';
 import {
   fetchUsersNotification,
-  updateAllNotificationStatus
+  updateAllNotificationStatus,
+  markSingleNotificationAsRead
 } from '../../redux/actionCreator/notificationsActions';
 
 export class NotificationPane extends PureComponent {
@@ -34,9 +35,17 @@ export class NotificationPane extends PureComponent {
     return { generalNotifications, pendingNotifications };
   }
 
+  renderNoNotificationsMessage() {
+    return (
+      <div className="no-notification-msg">
+        No notifications
+      </div>
+    );
+  }
+
   render() {
 
-    const { onCloseNotificationPane, updateAllNotificationStatus } = this.props;
+    const { onCloseNotificationPane, updateAllNotificationStatus, markSingleNotificationAsRead } = this.props;
     const { generalNotifications, pendingNotifications } = this.getNotifications();
     return (
       <div className="nav-pane">
@@ -50,6 +59,7 @@ export class NotificationPane extends PureComponent {
                     title="Pending Approvals"
                     pendingNotifications={pendingNotifications}
                     updateAllNotificationStatus={updateAllNotificationStatus}
+                    markSingleNotificationAsRead={markSingleNotificationAsRead}
                   />
                 )
               }
@@ -59,14 +69,11 @@ export class NotificationPane extends PureComponent {
                     title="General Notifications"
                     generalNotifications={generalNotifications}
                     updateAllNotificationStatus={updateAllNotificationStatus}
+                    markSingleNotificationAsRead={markSingleNotificationAsRead}
                   />)
               }
             </div>
-          ) : (
-            <div className="no-notification-msg">
-              No notifications
-            </div>
-          )}
+          ) : this.renderNoNotificationsMessage()}
         <div className="notification-item__last" />
       </div>
 
@@ -79,7 +86,8 @@ NotificationPane.propTypes = {
   fetchUsersNotification: PropTypes.func.isRequired,
   updateAllNotificationStatus: PropTypes.func.isRequired,
   user: PropTypes.object,
-  notifications: PropTypes.arrayOf(PropTypes.object)
+  notifications: PropTypes.arrayOf(PropTypes.object),
+  markSingleNotificationAsRead: PropTypes.func.isRequired
 };
 
 NotificationPane.defaultProps = {
@@ -102,7 +110,7 @@ const mapDispatchToProps = {
   updateAllNotificationStatus,
   openModal,
   closeModal,
+  markSingleNotificationAsRead
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationPane);

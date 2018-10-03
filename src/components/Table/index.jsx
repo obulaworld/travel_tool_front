@@ -136,7 +136,7 @@ export class Table extends Component {
           {tripTypeFormatted}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {trips[0].origin}
+          {trips.length > 0 && trips[0].origin}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           {travelDuration}

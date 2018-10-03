@@ -1,6 +1,7 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import RequestAPI from '../../../services/RequestAPI';
 import {
   watchFetchRequests,
@@ -24,7 +25,7 @@ describe('Requests Saga', () => {
     it('fetches users request', () => {
       return expectSaga(watchFetchRequests, RequestAPI)
         .provide([
-          [call(RequestAPI.getUserRequests, url), response]
+          [matchers.call.fn(RequestAPI.getUserRequests, url), response]
         ])
         .put({
           type: 'FETCH_USER_REQUESTS_SUCCESS',
@@ -42,7 +43,7 @@ describe('Requests Saga', () => {
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchFetchRequests, RequestAPI)
         .provide([
-          [call(RequestAPI.getUserRequests, url), throwError(error)]
+          [matchers.call.fn(RequestAPI.getUserRequests, url), throwError(error)]
         ])
         .put({
           type: 'FETCH_USER_REQUESTS_FAILURE',
@@ -80,9 +81,9 @@ describe('Requests Saga', () => {
     };
 
     it('Posts a new request successfully', () => {
-      return expectSaga(watchCreateNewRequestAsync)
+      return expectSaga(watchCreateNewRequestAsync, RequestAPI)
         .provide([
-          [call(RequestAPI.postNewRequest, action.requestData), response]
+          [matchers.call.fn(RequestAPI.postNewRequest, action.requestData), response]
         ])
         .put({
           type: 'CREATE_NEW_REQUEST_SUCCESS',
@@ -96,9 +97,9 @@ describe('Requests Saga', () => {
     });
 
     it('throws error while creating a new request', () => {
-      return expectSaga(watchCreateNewRequestAsync)
+      return expectSaga(watchCreateNewRequestAsync, RequestAPI)
         .provide([
-          [call(RequestAPI.postNewRequest, action.requestData), throwError(error)]
+          [matchers.call.fn(RequestAPI.postNewRequest, action.requestData), throwError(error)]
         ])
         .put({
           type: 'CREATE_NEW_REQUEST_FAILURE',
@@ -131,7 +132,7 @@ describe('Requests Saga', () => {
     it('throws error if there is an error fetching a user\'s requests details', () => {
       return expectSaga(watchFetchUserRequestsDetails, RequestAPI)
         .provide([
-          [call(RequestAPI.getUserRequestDetails, error), throwError(error)]
+          [call(RequestAPI.getUserRequestDetails, requestId), throwError(error)]
         ])
         .put({
           type: 'FETCH_USER_REQUEST_DETAILS_FAILURE',
@@ -184,7 +185,7 @@ describe('Requests Saga', () => {
     it('throws error if there is an error fetching a user\'s requests details', () => {
       return expectSaga(watchEditRequest, RequestAPI)
         .provide([
-          [call(RequestAPI.editRequest, error), throwError(error)]
+          [call(RequestAPI.editRequest, requestId, action.requestData), throwError(error)]
         ])
         .put({
           type: 'EDIT_REQUEST_FAILURE',
@@ -192,7 +193,8 @@ describe('Requests Saga', () => {
         })
         .dispatch({
           type: 'EDIT_REQUEST',
-          requestId
+          requestId,
+          requestData: action.requestData
         })
         .run();
     });

@@ -50,13 +50,14 @@ describe('User Saga', () => {
 
   it('fails to post user data', () => {
     return expectSaga(watchPostUserDataSagaAsync, UserAPI)
-      .provide([[call(UserAPI.postNewUsers), throwError(error)]])
+      .provide([[call(UserAPI.postNewUsers, user), throwError(error)]])
       .put({
         type: 'POST_USER_DATA_FAILURE',
         error
       })
       .dispatch({
-        type: 'POST_USER_DATA'
+        type: 'POST_USER_DATA',
+        userData: user
       })
       .run();
   });

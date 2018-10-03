@@ -92,7 +92,7 @@ describe('Comments saga', () => {
     it('throws an error while updating a comment', () => {
       return expectSaga(watchEditComment)
         .provide([
-          [call(CommentsAPI.editComment, id), throwError(error)]
+          [call(CommentsAPI.editComment, commentData, id), throwError(error)]
         ])
         .put({
           type: 'EDIT_COMMENT_FAILURE',
@@ -101,7 +101,8 @@ describe('Comments saga', () => {
         .dispatch({
           type: 'EDIT_COMMENT',
           requestId: commentData.requestId,
-          comment: commentData.comment
+          comment: commentData.comment,
+          id
         })
         .run();
     });
@@ -135,7 +136,7 @@ describe('Comments saga', () => {
     it('throws an error while deleting a comment', () => {
       return expectSaga(watchDeleteComment)
         .provide([
-          [call(CommentsAPI.deleteComment, requestId, commentId), throwError(error)]
+          [call(CommentsAPI.deleteComment, commentId), throwError(error)]
         ])
         .put({
           type: 'DELETE_COMMENT_FAILURE',

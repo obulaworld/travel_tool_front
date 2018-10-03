@@ -7,7 +7,10 @@ import {
   ADD_NOTIFICATION_FAILURE,
   UPDATE_ALL_NOTIFICATIONS_STATUS,
   UPDATE_ALL_NOTIFICATIONS_STATUS_FAILURE,
-  UPDATE_ALL_NOTIFICATIONS_STATUS_SUCCESS
+  UPDATE_ALL_NOTIFICATIONS_STATUS_SUCCESS,
+  MARK_SINGLE_NOTIFICATION_AS_READ,
+  MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS,
+  MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchUsersNotification = () => ({
@@ -51,5 +54,20 @@ export const updateAllNotificationStatusSuccess = (response) => ({
 
 export const updateAllNotificationStatusFailure = (error) => ({
   type: UPDATE_ALL_NOTIFICATIONS_STATUS_FAILURE,
+  error
+});
+
+export const markSingleNotificationAsRead = (notificationId) => ({
+  type: MARK_SINGLE_NOTIFICATION_AS_READ,
+  notificationId
+});
+
+export const markSingleNotificationAsReadSuccess = (notification) => ({
+  type: MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS,
+  notification
+});
+
+export const markSingleNotificationAsReadFailure = (error) => ({
+  type: MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE,
   error
 });

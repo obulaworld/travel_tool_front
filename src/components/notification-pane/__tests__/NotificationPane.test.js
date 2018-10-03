@@ -7,7 +7,9 @@ import notificationMockData from '../__mocks__/notificationMockData';
 const props = {
   onCloseNotificationPane: jest.fn(),
   fetchUsersNotification: jest.fn(),
-  notifications: [...notificationMockData]
+  notifications: [...notificationMockData],
+  markSingleNotificationAsRead: jest.fn(),
+  updateAllNotificationStatus: jest.fn()
 };
 describe('Notification Pane Component', () => {
   const setup = () => shallow(<NotificationPane {...props} />);

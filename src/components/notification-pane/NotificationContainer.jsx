@@ -40,6 +40,7 @@ export default class NotificationContainer extends PureComponent {
     );
   }
 
+
   renderNotifications = (notifications) => {
     const displayViewDetails =
       ['approved your request', 'posted a comment', 'rejected your request'];
@@ -58,12 +59,13 @@ export default class NotificationContainer extends PureComponent {
         if(displayViewDetails.includes(message)){
           general = true;
         }
-        const{ handleClick } = this.props;
+        const{ markSingleNotificationAsRead } = this.props;
         return  (
           <NotificationItem
-            handleClick={handleClick}
-            link={notificationLink}
-            key={id}
+            markSingleNotificationAsRead={markSingleNotificationAsRead}
+            link={notification.notificationLink}
+            key={notification.id}
+            id={notification.id}
             isPending={isPending}
             general={general}
             name={senderName}
@@ -120,17 +122,13 @@ const NOTIFICATIONS_PROPTYPES = PropTypes.arrayOf(PropTypes.shape({
 
 NotificationContainer.propTypes = {
   title: PropTypes.string.isRequired,
-  handleClick: PropTypes.func,
   updateAllNotificationStatus: PropTypes.func.isRequired,
   pendingNotifications: NOTIFICATIONS_PROPTYPES,
   generalNotifications: NOTIFICATIONS_PROPTYPES,
+  markSingleNotificationAsRead: PropTypes.func.isRequired,
 };
 
 NotificationContainer.defaultProps = {
   pendingNotifications: [],
   generalNotifications: [],
-  handleClick: ()=>{}
 };
-
-
-

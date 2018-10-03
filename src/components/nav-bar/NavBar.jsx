@@ -209,13 +209,14 @@ NavBar.propTypes = {
   openSearch: PropTypes.bool,
   handleShowDrawer: PropTypes.func,
   clickPage: PropTypes.bool,
-  notifications: PropTypes.array.isRequired
+  notifications: PropTypes.array
 };
 
 NavBar.defaultProps = {
   openSearch: false,
   clickPage: true,
-  handleShowDrawer:()=>{}
+  handleShowDrawer:()=>{},
+  notifications: []
 };
 
 const mapStateToProps = state => ({

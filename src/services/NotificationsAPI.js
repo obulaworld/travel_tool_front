@@ -11,6 +11,10 @@ class NotificationsAPI {
   static updateNotification(updateData) {
     return axios.put(`${baseUrl}/notifications`, updateData);
   }
+
+  static markSingleNotificationAsRead(notificationId) {
+    return axios.put(`${baseUrl}/notifications/${notificationId}`);
+  }
 }
 
 export default NotificationsAPI;

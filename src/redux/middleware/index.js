@@ -28,6 +28,7 @@ import {
   watchFetchNotifications,
   watchAddNotification,
   watchUpdateAllNotificationStatus,
+  markSingleNotificationAsReadSaga
 } from './notificationsSaga';
 
 import { watchUpdateUserProfileAsync } from './UserProfileSaga';
@@ -57,7 +58,8 @@ function* rootSaga() {
     watchAddNotification(),
     watchFetchAccommodation(),
     watchUpdateUserProfileAsync(),
-    watchUpdateAllNotificationStatus()
+    watchUpdateAllNotificationStatus(),
+    markSingleNotificationAsReadSaga(),
   ]);
 }
 

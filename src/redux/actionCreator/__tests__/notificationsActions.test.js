@@ -19,7 +19,10 @@ import {
   addNotificationSuccess,
   updateAllNotificationStatus,
   updateAllNotificationStatusFailure,
-  updateAllNotificationStatusSuccess
+  updateAllNotificationStatusSuccess,
+  markSingleNotificationAsRead,
+  markSingleNotificationAsReadSuccess,
+  markSingleNotificationAsReadFailure
 } from '../notificationsActions';
 import notificationsMockData from '../../__mocks__/notificationsMockData';
 
@@ -167,5 +170,31 @@ describe('Notification actions test', () => {
 
         expect(newAction).toEqual(expectedAction);
       });
+  });
+
+  describe('Mark single notification as read', () => {
+    it('should return action of type MARK_SINGLE_NOTIFICATION_AS_READ', () => {
+      const expectedAction = {
+        type: 'MARK_SINGLE_NOTIFICATION_AS_READ',
+        notificationId: 12
+      };
+      expect(markSingleNotificationAsRead(12)).toEqual(expectedAction);
+    });
+
+    it('should return action of type MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS', () => {
+      const expectedAction = {
+        type: 'MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS',
+        notification: 'updated notification'
+      };
+      expect(markSingleNotificationAsReadSuccess('updated notification')).toEqual(expectedAction);
+    });
+
+    it('should return action of type MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE', () => {
+      const expectedAction = {
+        type: 'MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE',
+        error: 'updated notification error'
+      };
+      expect(markSingleNotificationAsReadFailure('updated notification error')).toEqual(expectedAction);
+    });
   });
 });

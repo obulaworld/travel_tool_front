@@ -53,4 +53,18 @@ const notifications = [
   }
 ];
 
+export const notification = {
+  id: 12,
+  senderId: 'LMZXCmY9_kexpk-2p',
+  recipientId: 'LMZXCmY9_kexpk-2p',
+  notificationType: 'pending',
+  message: 'created a new travel request',
+  notificationLink: 'notify.com',
+  notificationStatus: 'unread',
+  senderName: 'Wonder Woman',
+  senderImage: 'image.com',
+  createdAt: new Date(),
+  updatedAt: new Date()
+};
+
 export default notifications;

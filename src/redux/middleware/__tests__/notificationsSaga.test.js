@@ -1,10 +1,12 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import {
   watchFetchNotifications,
   watchAddNotification,
-  watchUpdateAllNotificationStatus
+  watchUpdateAllNotificationStatus,
+  markSingleNotificationAsReadSaga
 } from '../notificationsSaga';
 import NotificationsAPI from '../../../services/NotificationsAPI';
 import {
@@ -122,6 +124,55 @@ describe('Notifications Saga', () => {
         .dispatch({
           type: UPDATE_ALL_NOTIFICATIONS_STATUS,
           statusUpdateData
+        })
+        .run();
+    });
+  });
+
+  describe('mark single notification as read', () => {
+    const response = {
+      data: {
+        notification: ['notification 1']
+      }
+    };
+    const error = {
+      response: {
+        data: {
+          error: 'Notification saga error'
+        }
+      }
+    };
+
+    it('should mark notification as read', () => {
+      return expectSaga(markSingleNotificationAsReadSaga, NotificationsAPI)
+        .provide([[
+          matchers.call.fn(NotificationsAPI.markSingleNotificationAsRead, 12),
+          response
+        ]])
+        .put({
+          type: 'MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS',
+          notification: response.data.notification
+        })
+        .dispatch({
+          type: 'MARK_SINGLE_NOTIFICATION_AS_READ',
+          notificationId: 12
+        })
+        .run();
+    });
+
+    it('throws error while marking a notification as read', () => {
+      return expectSaga(markSingleNotificationAsReadSaga, NotificationsAPI)
+        .provide([[
+          matchers.call.fn(NotificationsAPI.markSingleNotificationAsRead, 12),
+          throwError(error)
+        ]])
+        .put({
+          type: 'MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE',
+          error: error.response.data.error
+        })
+        .dispatch({
+          type: 'MARK_SINGLE_NOTIFICATION_AS_READ',
+          notificationId: 12
         })
         .run();
     });

@@ -15,9 +15,12 @@ import {
   addNotificationSuccess,
   updateAllNotificationStatus,
   updateAllNotificationStatusFailure,
-  updateAllNotificationStatusSuccess
+  updateAllNotificationStatusSuccess,
+  markSingleNotificationAsRead,
+  markSingleNotificationAsReadSuccess,
+  markSingleNotificationAsReadFailure
 } from '../../actionCreator/notificationsActions';
-import notificationsMockData from '../../__mocks__/notificationsMockData';
+import notificationsMockData, { notification } from '../../__mocks__/notificationsMockData';
 
 describe('Notifications reducer', () => {
   describe('Fetch notifications reducer', () => {
@@ -122,6 +125,45 @@ describe('Notifications reducer', () => {
         done();
       });
   });
+
+  describe('Mark notification as read', () => {
+    beforeEach(() => initialState.notifications = notificationsMockData);
+    it('should handle MARK_SINGLE_NOTIFICATION_AS_READ', (done) => {
+      const action = markSingleNotificationAsRead(notification.id);
+      const newState = notificationsReducer(initialState, action);
+      expect(newState).toEqual({
+        isLoading: true,
+        notifications: [...notificationsMockData],
+        error: null
+      });
+      done();
+    });
+
+    it('should handle MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS', (done) => {
+      const action = markSingleNotificationAsReadSuccess(notification);
+      initialState.notifications = [...notificationsMockData, notification];
+      const markedNotification = {...notification};
+      markedNotification.notificationStatus = 'read';
+      const newState = notificationsReducer(initialState, action);
+      expect(newState).toEqual({
+        isLoading: false,
+        notifications: [ ...notificationsMockData, markedNotification ],
+        error: null
+      });
+      done();
+    });
+
+    it('should handle MARK_SINGLE_NOTIFICATION_AS_READ_FAILURE',
+      (done) => {
+        const error = 'Server Error';
+        const action = markSingleNotificationAsReadFailure(error);
+        const newState = notificationsReducer(initialState, action);
+        expect(newState).toEqual({
+          isLoading: false,
+          notifications: [ ...notificationsMockData ],
+          error
+        });
+        done();
+      });
+  });
 });
-
-

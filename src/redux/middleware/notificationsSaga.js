@@ -2,14 +2,18 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import {
   FETCH_NOTIFICATIONS,
   ADD_NOTIFICATION,
-  UPDATE_ALL_NOTIFICATIONS_STATUS
+  UPDATE_ALL_NOTIFICATIONS_STATUS,
+  MARK_SINGLE_NOTIFICATION_AS_READ
 } from '../constants/actionTypes';
 import {
   fetchUsersNotificationSuccess,
   fetchUsersNotificationFailure,
   addNotificationSuccess,
   updateAllNotificationStatusFailure,
-  updateAllNotificationStatusSuccess
+  updateAllNotificationStatusSuccess,
+  markSingleNotificationAsRead,
+  markSingleNotificationAsReadSuccess,
+  markSingleNotificationAsReadFailure
 } from '../actionCreator/notificationsActions';
 import NotificationAPI from '../../services/NotificationsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -54,4 +58,21 @@ export function* updateAllNotificationStatusSync(action) {
     const errorMessage = apiErrorHandler(error);
     yield put(updateAllNotificationStatusFailure(errorMessage));
   }
+}
+
+
+export function* markSingleNotificationAsReadAsync(action) {
+  try {
+    const response = yield call(
+      NotificationAPI.markSingleNotificationAsRead, action.notificationId//notification id from view
+    );
+    yield put(markSingleNotificationAsReadSuccess(response.data.notification));
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(markSingleNotificationAsReadFailure(errorMessage));
+  }
+}
+
+export function* markSingleNotificationAsReadSaga() {
+  yield takeLatest(MARK_SINGLE_NOTIFICATION_AS_READ, markSingleNotificationAsReadAsync);
 }

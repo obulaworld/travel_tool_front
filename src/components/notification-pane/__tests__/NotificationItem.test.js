@@ -11,8 +11,8 @@ describe('Notification Item Component', () => {
     name: 'Ademola Ariya',
     notificationStatus: 'unread',
     image: testImage,
-    handleClick: ()=>{},
-    id: ''
+    markSingleNotificationAsRead: jest.fn(),
+    id: 12
   };
 
   it('should render successfully if notification is pending', () => {
@@ -51,5 +51,13 @@ describe('Notification Item Component', () => {
     const wrapper = shallow(<NotificationItem {...newProps} />);
     expect(wrapper.find('img.msg-icon').prop('src'))
       .toBe('read-message.svg');
+  });
+
+  it('should change the notification status to `read` when a notification gets clicked', () => {
+    const wrapper = shallow(<NotificationItem {...props} />);
+    const notification = wrapper.find('.view-details').at(0);
+    notification.simulate('click');
+    expect(props.markSingleNotificationAsRead).toHaveBeenCalledTimes(1);
+    expect(props.markSingleNotificationAsRead).toHaveBeenCalledWith(12);
   });
 });
