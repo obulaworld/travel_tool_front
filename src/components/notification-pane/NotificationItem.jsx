@@ -7,8 +7,18 @@ import unreadMessageIcon from '../../images/unread-message.svg';
 import generateDynamicDate from '../../helper/generateDynamicDate';
 
 export default class NotificationItem extends PureComponent {
+  state = {
+    localNotificationStatus: 'unread'
+  }
+
+  markAsRead = () => {
+    this.setState({
+      localNotificationStatus: 'read'
+    });
+  }
   renderNotificationItemMetaInfo = () => {
     const { isPending, notificationStatus, link, timeStamp, general, markSingleNotificationAsRead, id } = this.props;
+    const { localNotificationStatus } = this.state;
     return (
       <div className="notification--item__info__bottom">
         <span className="t-hours-ago">
@@ -23,9 +33,10 @@ export default class NotificationItem extends PureComponent {
         </Link>
         <img
           role="presentation"
-          src={notificationStatus === 'read' ? readMessageIcon : unreadMessageIcon}
+          src={notificationStatus === 'read' || localNotificationStatus === 'read' ? readMessageIcon : unreadMessageIcon}
           alt="message icon"
-          className={notificationStatus === 'read' ? 'msg-icon msg-icon__opened' : 'msg-icon msg-icon__closed'}
+          className={notificationStatus === 'read' || localNotificationStatus === 'read' ? 'msg-icon msg-icon__opened' : 'msg-icon msg-icon__closed'}
+          onClick={this.markAsRead}
         />
       </div>
     );
@@ -33,7 +44,8 @@ export default class NotificationItem extends PureComponent {
 
   render() {
     const { name, image, notificationStatus, message } = this.props;
-    const bgColorClass = notificationStatus === 'read' ? 'message-opened' : '';
+    const { localNotificationStatus } = this.state;
+    const bgColorClass = notificationStatus === 'read'|| localNotificationStatus === 'read' ? 'message-opened' : '';
 
     return (
       <div className={`notification-item ${bgColorClass}`}>
@@ -61,7 +73,6 @@ NotificationItem.defaultProps = {
   general: false,
   name: '',
   image: '',
-  id: '',
   markSingleNotificationAsRead: () => {},
   message: '',
 };
@@ -71,7 +82,7 @@ NotificationItem.propTypes = {
   general: PropTypes.bool,
   link: PropTypes.string.isRequired,
   name: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.number.isRequired,
   notificationStatus: PropTypes.string.isRequired,
   image: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,

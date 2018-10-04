@@ -21,21 +21,21 @@ describe('Test Suite for Accommodation Component', () => {
 
   it('should render the pending checkin records', () => {
     const wrapper = setup(props);
-    expect(wrapper.find('.table__row').length).toBe(1);
+    expect(wrapper.find('.checkInTable__row').length).toBe(1);
   });
 
 
   it('should call handleCheck function when button is clicked', () => {
     const wrapper = setup(props);
     const handleCheckSpy = jest.spyOn(wrapper.instance(), 'handleCheck');
-    wrapper.find('.table__button-checkin').at(0).simulate('click');
+    wrapper.find('.checkInTable__button-checkin').at(0).simulate('click');
     expect(handleCheckSpy).toHaveBeenCalled();
   });
 
   it('should call handleCheckStatus function when button is clicked', () => {
     const wrapper = setup(props);
     const { handleCheckStatus } = props;
-    wrapper.find('.table__button-checkin').at(0).simulate('click');
+    wrapper.find('.checkInTable__button-checkin').at(0).simulate('click');
     expect(handleCheckStatus).toHaveBeenCalled();
   });
 
@@ -47,13 +47,13 @@ describe('Test Suite for Accommodation Component', () => {
   it('should display error if error exists', () => {
     props.tripError = 'Network error occurred';
     const wrapper = setup(props);
-    expect(wrapper.find('.table__trips--error').length).toBe(1);
+    expect(wrapper.find('.checkInTable__trips--error').length).toBe(1);
   });
 
   it('should display no records message', () => {
     props.tripError = '';
     props.trips = [];
     const wrapper = setup(props);
-    expect(wrapper.find('.table__trips--empty').length).toBe(1);
+    expect(wrapper.find('.checkInTable__trips--empty').length).toBe(1);
   });
 });

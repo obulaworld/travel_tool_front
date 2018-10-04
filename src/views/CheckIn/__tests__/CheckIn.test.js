@@ -57,7 +57,7 @@ describe('Test Suite for CheckIn Component', () => {
 
   it('should render the pending checkin records', () => {
     const wrapper = setup();
-    expect(wrapper.find('.table__row').length).toBe(1);
+    expect(wrapper.find('.checkInTable__row').length).toBe(1);
     wrapper.unmount();
   });
 
@@ -73,7 +73,7 @@ describe('Test Suite for CheckIn Component', () => {
     const wrapper = setup();
     const { updateTrip } = props;
     const component = wrapper.find(CheckIn);
-    component.find('.table__button-checkin').at(0).simulate('click');
+    component.find('.checkInTable__button-checkin').at(0).simulate('click');
     expect(updateTrip).toHaveBeenCalled();
     wrapper.unmount();
   });

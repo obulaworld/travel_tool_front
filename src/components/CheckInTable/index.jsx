@@ -13,20 +13,20 @@ export class CheckInTable extends Component {
   }
   renderCheckIns(trip) {
     return (
-      <tr key={trip.id} className="table__row">
+      <tr key={trip.id} className="checkInTable__row">
         <td
-          className="mdl-data-table__cell--non-numeric table__data"
+          className="mdl-data-table__cell--non-numeric checkInTable__data"
         >
           {Utils.generateTripRoomName(trip)}
         </td>
-        <td className="mdl-data-table__cell--non-numeric table__data">
+        <td className="mdl-data-table__cell--non-numeric checkInTable__data">
           {Utils.generateTripDuration(trip)}
         </td>
-        <td className="mdl-data-table__cell--non-numeric table__data table__button-column">
+        <td className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column">
           {trip.checkStatus === 'Not Checked In' && (
             <button
               id="btnCheck"
-              className="table__button-checkin"
+              className="checkInTable__button-checkin"
               onClick={() => {this.handleCheck(trip.id, 'checkIn');}}
               type="button">
               Check-in
@@ -38,11 +38,11 @@ export class CheckInTable extends Component {
   }
 
   renderNoCheckIn(message) {
-    return <div className="table__trips--empty">{message}</div>;
+    return <div className="checkInTable__trips--empty">{message}</div>;
   }
 
   renderError(error) {
-    return <div className="table__trips--error">{error}</div>;
+    return <div className="checkInTable__trips--error">{error}</div>;
   }
   render() {
     const { trips, tripError } = this.props;
@@ -52,7 +52,7 @@ export class CheckInTable extends Component {
           {tripError && this.renderError(tripError)}
           {trips &&
             trips.length > 0 && (
-            <table className="mdl-data-table mdl-js-data-table table__trips">
+            <table className="mdl-data-table mdl-js-data-table checkInTable__trips">
               <tbody className="table__body">
                 {trips.map(trip => this.renderCheckIns(trip))}
               </tbody>
