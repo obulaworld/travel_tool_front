@@ -77,5 +77,4 @@ NotificationItem.propTypes = {
   timeStamp: PropTypes.string.isRequired,
   message: PropTypes.string,
   markSingleNotificationAsRead: PropTypes.func,
-  id: PropTypes.number.isRequired
 };
