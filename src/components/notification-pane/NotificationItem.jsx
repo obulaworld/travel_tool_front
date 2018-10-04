@@ -61,6 +61,7 @@ NotificationItem.defaultProps = {
   general: false,
   name: '',
   image: '',
+  id: '',
   markSingleNotificationAsRead: () => {},
   message: '',
 };
@@ -70,6 +71,7 @@ NotificationItem.propTypes = {
   general: PropTypes.bool,
   link: PropTypes.string.isRequired,
   name: PropTypes.string,
+  id: PropTypes.string,
   notificationStatus: PropTypes.string.isRequired,
   image: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,
