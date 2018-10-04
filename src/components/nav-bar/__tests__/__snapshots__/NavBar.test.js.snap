@@ -106,11 +106,32 @@ exports[`Render NavBar component should match snapshot 1`] = `
                 }
               }
             >
+              <Link
+                id="profile"
+                replace={false}
+                role="presentation"
+                to="/settings/profile"
+              >
+                <img
+                  alt="profile"
+                  className="navbar__navbar-account"
+                  src="account_circle.svg"
+                />
+                Profile
+              </Link>
+              <div
+                className="border-d"
+              />
               <div
                 id="logout"
                 onClick={[Function]}
                 role="presentation"
               >
+                <img
+                  alt="profile"
+                  className="navbar__navbar-account"
+                  src="logout.svg"
+                />
                 Logout
               </div>
             </div>

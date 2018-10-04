@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import travela from '../../images/travela.svg';
+import account from '../../images/account_circle.svg';
+import logout from '../../images/logout.svg';
 import mobileTravel from '../../images/travela-mobile.svg';
 import icon from '../../images/drop-down-icon.svg';
 import notification from '../../images/notification.svg';
@@ -88,8 +90,22 @@ export class NavBar extends PureComponent {
           buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
         />
         <div className="navbar__mdl-list" style={{display: `${logoutDropdownStyle}`}}>
+          <Link id="profile" role="presentation" to="/settings/profile">
+            <img
+              src={account}
+              alt="profile"
+              className="navbar__navbar-account"
+            />
+            Profile
+          </Link>
+          <div className="border-line" />
           <div onClick={this.logout} id="logout" role="presentation">
-                Logout
+            <img
+              src={logout}
+              alt="profile"
+              className="navbar__navbar-account"
+            />
+            Logout
           </div>
         </div>
       </span>

@@ -27,7 +27,14 @@ const props = {
   }
 };
 
+
+
 const setup = () => shallow(<NavBar {...props} />);
+const navBarSetup = () => mount(
+  <MemoryRouter>
+    <NavBar {...props} />
+  </MemoryRouter>
+);
 
 // describe what we are testing
 describe('Render NavBar component', () => {
@@ -79,16 +86,16 @@ describe('Render NavBar component', () => {
   });
 
   it('should render dropdown items contain logout link when button is clicked', ()=>{
-    const wrapper = mount(<NavBar {...props} />);
-    expect(wrapper.state('hideLogoutDropdown')).toBe(true);
+    const wrapper = navBarSetup();
+    expect(wrapper.find('NavBar').instance().state.hideLogoutDropdown).toBe(true);
     wrapper.find('#demo-menu-lower-right').simulate('click');
-    expect(wrapper.state('hideLogoutDropdown')).toBe(false);
+    expect(wrapper.find('NavBar').instance().state.hideLogoutDropdown).toBe(false);
   });
 
   it('should hide  logout Dropdown when dropdown button is clicked twice', ()=>{
-    const wrapper = mount(<NavBar {...props} />);
-    wrapper.instance().hideDropdown();
-    expect(wrapper.state('hideLogoutDropdown')).toBe(true);
+    const wrapper = navBarSetup();
+    wrapper.find('NavBar').instance().hideDropdown();
+    expect(wrapper.find('NavBar').instance().state.hideLogoutDropdown).toBe(true);
   });
 
   it('should call `getUnreadNotifictionsCount` on component render',
@@ -104,20 +111,20 @@ describe('Render NavBar component', () => {
     });
 
   it('should update state when onChange function is triggered', () => {
-    const wrapper = mount(<NavBar {...props} />);
+    const wrapper = navBarSetup();
     const event = {
       target: {
         value: 'kampala'
       }
     };
-    wrapper.instance().onChange(event);
-    expect(wrapper.state('keyword')).toBe(event.target.value);
+    wrapper.find('NavBar').instance().onChange(event);
+    expect(wrapper.find('NavBar').instance().state.keyword).toBe(event.target.value);
   });
 
   it('should call history push function when onSubmit is triggered', () => {
-    const wrapper = mount(<NavBar {...props} />);
-    wrapper.setState({ keyword: 'Kampala' });
-    wrapper.instance().onSubmit();
+    const wrapper = navBarSetup();
+    wrapper.find('NavBar').instance().setState({ keyword: 'Kampala' });
+    wrapper.find('NavBar').instance().onSubmit();
     expect(props.history.push).toHaveBeenCalled();
   });
 
