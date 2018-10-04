@@ -1,11 +1,11 @@
 
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ImageLink from '../../image-link/ImageLink';
 
 class UserInfo extends PureComponent {
   render() {
-    const { requestData, user } = this.props;
+    const { requestData } = this.props;
     return (
       <div className="modal__user-info">
         <ImageLink
@@ -29,12 +29,10 @@ class UserInfo extends PureComponent {
 
 UserInfo.propTypes = {
   requestData: PropTypes.object,
-  user: PropTypes.object,
 };
 
 UserInfo.defaultProps = {
   requestData: {},
-  user: {},
 };
 
 export default UserInfo;
