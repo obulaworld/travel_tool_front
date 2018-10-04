@@ -1,0 +1,98 @@
+.timeline {
+  width: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  border: 1px solid #E4E4E4;
+  border-radius: 2px;
+  font-family: "DIN Pro";
+  overflow-x: scroll;
+  position: relative;
+  box-sizing: border-box;
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  .item-row {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }
+
+  &__body {
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    top: 45px;
+    height: calc(100% - 45px);
+    width: calc(100% - 125px);
+    left: 125px;
+    min-width: 953px;
+    animation: draw-left .5s ease-out;
+
+    &-segments {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      color: #4F4F4F;
+      position: relative;
+
+      .timeline__segment {
+        min-width: 30px;
+        flex-grow: 1;
+        position: relative;
+
+        &:nth-child(odd) {
+          background-color: #F8F8F8;
+        }
+        &::before {
+          position: absolute;
+          width: 100%;
+          display: flex;
+          content: attr(data-Segment-label);
+          height: 36px;
+          justify-content: center;
+          align-items: center;
+          border-bottom: 1px solid #E4E4E4;
+          background-color: #FFFFFF;
+          font-size: 13px;
+        }
+        &.current{
+          &::before {
+            color: #3359DB;
+            font-size: 13px;
+          }
+          &.month-view {
+            &::before {
+              background: transparent;
+              color: #FFFFFF;
+              z-index: 100;
+            }
+            &::after {
+              position: absolute;
+              top: 8px;
+              left: 50%;
+              height: 20px;
+              width: 20px;
+              border-radius: 50%;
+              display: flex;
+              content: '';
+              background: #3359DB;
+              transform: translateX(-50%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes draw-left {
+  from{
+    left: 70px;
+  }
+  to {
+    left: 0;
+  }
+}

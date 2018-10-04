@@ -23,7 +23,7 @@ export class NavBar extends PureComponent {
       keyword: ''
     };
 
-  
+
   debouncer = debounce(
     (history, pathName, queryString) =>
       (history.push(`${pathName}${queryString}`)),

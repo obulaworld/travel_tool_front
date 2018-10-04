@@ -1,0 +1,91 @@
+.guesthouse-details-wrapper {
+  font-family: "DIN Pro";
+  margin-top: 57px;
+
+  .guesthouse-details-wrapper {
+    &--top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 35px;
+      * {
+        display: flex;
+        align-items: center;
+      }
+      .details-wrapper-top-right {
+        justify-content: space-between;
+        .back-button {
+          justify-content: center;
+          align-items: center;
+          height: 26px;
+          width: 26px;
+          border-radius: 50%;
+          color: #FFFFFF;
+          background: #3359DB;
+          cursor: pointer;
+
+          div.arrow {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            padding: 5px;
+            align-items: center;
+            span {
+              position: absolute;
+              height: 2px;
+              width: 60%;
+              background: white;
+              &:first-child, &:last-child {
+                transform-origin: left;
+                width: 30%;
+              }
+              &:first-child {
+                transform: rotate(-45deg);
+              }
+              &:last-child {
+                transform: rotate(45deg);
+              }
+            }
+          }
+        }
+        .guest-house-name {
+          align-items: center;
+          color: #4F4F4F;
+          font-size: 18px;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+        .bed-count-label {
+          height: 20px;
+          width: 40px;
+          border: 1px solid #D4D4D4;
+          border-radius: 10px;
+          background-color: #FFFFFF;
+          padding-left: 5px;
+          >div:first-child {
+            padding-right: 7px;
+            >img {
+              height: 10px;
+              width: 20px;
+            }
+          }
+          > div:nth-child(2) {
+            color: #4F4F4F;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 15px;
+            text-align: center;
+          }
+        }
+        > div:not(:last-child) {
+          margin-right: 15px;
+        }
+      }
+    }
+    &--key-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+  }
+}

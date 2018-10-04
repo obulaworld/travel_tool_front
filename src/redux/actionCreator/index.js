@@ -19,6 +19,15 @@ import {
   updateAllNotificationStatusSuccess
 } from './notificationsActions';
 
+import {
+  initFetchTimelineData,
+  fetchTimelineDataSuccess,
+  fetchTimelineDataFailure,
+  fetchAccommodation,
+  fetchAccommodationSuccess,
+  fetchAccommodationFailure
+} from './accommodationActions';
+
 export {
   setCurrentUser,
   setCurrentUserSuccess,
@@ -32,5 +41,12 @@ export {
   updateRequestStatusFailure,
   updateAllNotificationStatus,
   updateAllNotificationStatusFailure,
-  updateAllNotificationStatusSuccess
+  updateAllNotificationStatusSuccess,
+  // guest-house actions
+  initFetchTimelineData,
+  fetchTimelineDataSuccess,
+  fetchTimelineDataFailure,
+  fetchAccommodation,
+  fetchAccommodationSuccess,
+  fetchAccommodationFailure
 };

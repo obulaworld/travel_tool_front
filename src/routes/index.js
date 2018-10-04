@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ConnectedLogin from '../views/Login';
 import ConnectedRequests from '../views/Requests';
+import ConnectedGuestHouseDetails from '../views/Accommodation/FullGuestHouseDetails';
 import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
 import ConnectedRole from '../views/Role';
@@ -52,16 +53,20 @@ const Routes = () => (
             component={RequireAuth(ConnectedApprovals)}
           />
           <Route
-            path="/residence"
+            path="/residence/manage"
             exact
             component={RequireAuth(ConnectedAccommodation)}
+          />
+          <Route
+            path="/residence/manage/guest-houses/:guestHouseId"
+            exact
+            component={RequireAuth(ConnectedGuestHouseDetails)}
           />
           <Route
             path="/residence/checkin"
             exact
             component={RequireAuth(ConnectedCheckIn)}
           />
-
         </Switch>
       </LayoutShell>
     </Route>

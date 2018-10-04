@@ -37,7 +37,7 @@ const NavItemsMetadata = [
     isDropdown: true,
     dropdownItems: [
       {
-        link_to: '/residence',
+        link_to: '/residence/manage',
         text: 'Manage',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
         exact: true

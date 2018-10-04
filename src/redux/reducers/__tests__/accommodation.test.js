@@ -8,7 +8,13 @@ import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHo
 
 describe('Accommodation Reducer', () => {
   describe('Fetch Accommodation Reducer', () => {
-    const initialState = {};
+    const initialState = {
+      guestHouses: [],
+      guestHouse: {
+        rooms: []
+      },
+      isLoading: false
+    };
     const error = 'Error fetching accommodation centres, network error';
     it('returns the correct initial state', () => {
       expect(accommodation(undefined, {})).toEqual({

@@ -40,7 +40,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "dropdownItems": Array [
                 Object {
                   "exact": true,
-                  "link_to": "/residence",
+                  "link_to": "/residence/manage",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
                     "Super Administrator",

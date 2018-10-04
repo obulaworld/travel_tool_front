@@ -49,7 +49,8 @@ describe('<CentreGrid />', () => {
       countryFlagImage: 'https://www.countryflags.io/KE/flat/64.png',
       guestHouseLocation: 'Nairobi, Kenya',
       guestHouseName: 'Guest House 2',
-      imageAlt: 'Guest House 2 image'
+      imageAlt: 'Guest House 2 image',
+      guesthouseId: 'wrtnytom_9',
     };
     const secondExpectedProps = {
       bathrooms: 4,
@@ -58,7 +59,8 @@ describe('<CentreGrid />', () => {
       countryFlagImage: 'https://www.countryflags.io/NG/flat/64.png',
       guestHouseLocation: 'Lagos, Nigeria',
       guestHouseName: 'Guest House 3',
-      imageAlt: 'Guest House 3 image'
+      imageAlt: 'Guest House 3 image',
+      guesthouseId: 'bytrwqjk9',
     };
     const secondCentre = wrapper.find('CentreCard').at(1);
     const thirdCentre = wrapper.find('CentreCard').at(2);

@@ -39,7 +39,7 @@ describe('Layout component', () => {
       wrapper = mount(
         <Provider store={store}>
           <MemoryRouter>
-            <Layout location={{}}>
+            <Layout {...props} location={{}}>
               <div>
                 Test Content
               </div>

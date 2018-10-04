@@ -41,8 +41,8 @@ class LeftSideNavItems extends PureComponent {
     logoutUser(history);
   };
 
-  isLinkVisible = (dropdownItem, userRole) => {
-    const {onlyVisibleTo} = dropdownItem;
+  isLinkVisible = (linkItem, userRole) => {
+    const {onlyVisibleTo} = linkItem;
     const showItem = !onlyVisibleTo || onlyVisibleTo.includes(userRole);
     return showItem;
   }

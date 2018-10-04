@@ -1,4 +1,5 @@
 import React, { PureComponent} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import bedIcon from '../../images/icons/accomodation-grey.svg';
 import bathroomIcon from '../../images/icons/hot_tub_24px.svg';
@@ -58,24 +59,27 @@ class CentreCard extends PureComponent {
       guestHouseName,
       guestHouseLocation,
       beds,
-      bathrooms
+      bathrooms,
+      guesthouseId
     } = this.props;
     return (
       <div className="mdl-cell mdl-cell--4 mdl-card centre-card">
-        { this.renderCentreImage(cardImage, imageAlt)}
-        <div className="mdl-card__supporting-text centre-info">
-          <div className="centre-info__container">
-            {this.renderCentreFlag(guestHouseLocation, countryFlagImage)}
-            {this.renderCentreInfo(guestHouseName, guestHouseLocation)}
+        <Link to={`/residence/manage/guest-houses/${guesthouseId}`}>
+          { this.renderCentreImage(cardImage, imageAlt)}
+          <div className="mdl-card__supporting-text centre-info">
+            <div className="centre-info__container">
+              {this.renderCentreFlag(guestHouseLocation, countryFlagImage)}
+              {this.renderCentreInfo(guestHouseName, guestHouseLocation)}
+            </div>
           </div>
-        </div>
-        <div className="mdl-card__actions centre__description">
-          <div className="centre__horizontal-line" />
-          <div className="centre__facility">
-            {this.renderCentreFacilities(bedIcon, 'Bed', beds)}
-            {this.renderCentreFacilities(bathroomIcon, 'Bathroom', bathrooms)}
+          <div className="mdl-card__actions centre__description">
+            <div className="centre__horizontal-line" />
+            <div className="centre__facility">
+              {this.renderCentreFacilities(bedIcon, 'Bed', beds)}
+              {this.renderCentreFacilities(bathroomIcon, 'Bathroom', bathrooms)}
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   }
@@ -88,7 +92,8 @@ CentreCard.propTypes = {
   guestHouseName: PropTypes.string.isRequired,
   guestHouseLocation: PropTypes.string.isRequired,
   beds: PropTypes.number.isRequired,
-  bathrooms: PropTypes.number.isRequired
+  bathrooms: PropTypes.number.isRequired,
+  guesthouseId: PropTypes.string.isRequired
 };
 
 export default CentreCard;

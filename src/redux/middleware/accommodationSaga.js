@@ -5,9 +5,12 @@ import {
 import AccommodationAPI from '../../services/AccommodationAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
+  initFetchTimelineData,
+  fetchTimelineDataSuccess,
+  fetchTimelineDataFailure,
   fetchAccommodationSuccess,
   fetchAccommodationFailure,
-} from '../actionCreator/accommodationActions';
+} from '../actionCreator';
 
 export function* fetchAccommodationSaga() {
   try {
@@ -23,9 +26,24 @@ export function* fetchAccommodationSaga() {
   }
 }
 
-
 export function* watchFetchAccommodation() {
   yield takeLatest(
     FETCH_ACCOMMODATION_CENTRES,
     fetchAccommodationSaga);
+}
+
+export function * fetchGuestHouseTimelineDataSaga(action) {
+  try {
+    const {guestHouseId, startDate, endDate} = action;
+    const fetchTimelineData = AccommodationAPI.fetchTimelineData;
+    const response = yield call(fetchTimelineData, guestHouseId, startDate, endDate);
+    yield put(fetchTimelineDataSuccess(response.data.guestHouse));
+  } catch (e) {
+    const errorMessage = apiErrorHandler(e);
+    yield put(fetchTimelineDataFailure(errorMessage));
+  }
+}
+
+export function* watchFetchTimelneData() {
+  yield takeLatest(initFetchTimelineData().type, fetchGuestHouseTimelineDataSaga);
 }

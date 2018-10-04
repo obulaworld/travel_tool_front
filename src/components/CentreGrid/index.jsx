@@ -42,6 +42,7 @@ export class CentreGrid extends PureComponent {
           { guestHouses.map(guestHouse => (
             <CentreCard
               key={guestHouse.id}
+              guesthouseId={guestHouse.id}
               cardImage={guestHouse.imageUrl}
               imageAlt={`${guestHouse.houseName} image`}
               countryFlagImage={this.getCountryFlag(guestHouse.location)}

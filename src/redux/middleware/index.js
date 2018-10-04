@@ -30,15 +30,16 @@ import {
   watchUpdateAllNotificationStatus,
   markSingleNotificationAsReadSaga
 } from './notificationsSaga';
-
 import { watchUpdateUserProfileAsync } from './UserProfileSaga';
-import { watchFetchAccommodation } from './accommodationSaga';
+import {
+  watchFetchAccommodation,
+  watchFetchTimelneData
+} from './accommodationSaga';
 
 import {
   watchFetchTrips,
   watchUpdateTrip
 } from './tripsSaga';
-
 
 
 function* rootSaga() {
@@ -64,6 +65,7 @@ function* rootSaga() {
     watchFetchAccommodation(),
     watchUpdateUserProfileAsync(),
     watchUpdateAllNotificationStatus(),
+    watchFetchTimelneData(),
     markSingleNotificationAsReadSaga(),
     watchFetchTrips(),
     watchUpdateTrip()
