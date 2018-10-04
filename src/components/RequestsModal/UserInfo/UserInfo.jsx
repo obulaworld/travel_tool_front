@@ -9,7 +9,7 @@ class UserInfo extends PureComponent {
     return (
       <div className="modal__user-info">
         <ImageLink
-          imageSrc={user.picture}
+          imageSrc={requestData.picture}
           altText="avatar"
           imageClass="modal__oval"
         />
