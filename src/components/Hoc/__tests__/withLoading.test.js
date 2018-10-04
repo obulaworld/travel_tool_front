@@ -6,6 +6,9 @@ import Preloader from '../../Preloader/Preloader';
 
 const props = {
   isLoading: true,
+  editRequest: jest.fn(),
+  history: {},
+  location: {}
 };
 
 describe('withLoading', () => {

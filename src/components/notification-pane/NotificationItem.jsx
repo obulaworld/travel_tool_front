@@ -74,5 +74,6 @@ NotificationItem.propTypes = {
   image: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,
   message: PropTypes.string,
-  markSingleNotificationAsRead: PropTypes.func
+  markSingleNotificationAsRead: PropTypes.func,
+  id: PropTypes.number.isRequired
 };

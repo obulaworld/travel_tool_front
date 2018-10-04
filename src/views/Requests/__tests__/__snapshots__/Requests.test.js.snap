@@ -22,6 +22,7 @@ exports[`<Requests> renders as expected 1`] = `
       creatingRequest={false}
       errors={Array []}
       handleCreateRequest={[Function]}
+      handleEditRequest={[Function]}
       loading={false}
       managers={Array []}
       modalType={null}

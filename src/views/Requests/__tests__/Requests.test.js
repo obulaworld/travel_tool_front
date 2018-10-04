@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Requests, mapStateToProps } from '..';
-import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 
 const props ={ 
   requests: [
@@ -134,6 +133,8 @@ const props ={
   match: {
     params: { requestId: 'sgjdgljgd' }
   },
+  fetchEditRequest:jest.fn(), 
+  editRequest:jest.fn(), 
 };
 
 const initialState = {

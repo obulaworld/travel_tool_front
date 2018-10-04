@@ -12,7 +12,9 @@ describe('Notification Item Component', () => {
     notificationStatus: 'unread',
     image: testImage,
     markSingleNotificationAsRead: jest.fn(),
-    id: 12
+    id: 12,
+    timeStamp: '',
+    link: ''
   };
 
   it('should render successfully if notification is pending', () => {

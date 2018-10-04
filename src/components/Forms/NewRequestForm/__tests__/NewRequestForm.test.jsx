@@ -68,6 +68,7 @@ describe('<NewRequestForm />', () => {
     handleCreateRequest: jest.fn(() => {}),
     updateUserProfile: jest.fn(() => {}),
     creatingRequest: jest.fn(() => {}),
+    handleEditRequest: jest.fn(() => {}),
     managers: [
       {
         fullName: 'Test User',

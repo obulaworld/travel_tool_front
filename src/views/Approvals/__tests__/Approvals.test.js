@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import { Approvals } from '..';
-import mockAxios from '../../../redux/__mocks__/mockAxios';
 
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);

@@ -12,7 +12,7 @@ describe('Notification Container Component', () => {
       name: 'Captain America',
       notificationType: 'pending',
       notificationStatus: 'unread',
-      image: testImage,
+      senderImage: testImage,
       id: 'id1'
     },
     {
@@ -21,7 +21,7 @@ describe('Notification Container Component', () => {
       name: 'The Wasp',
       notificationStatus: 'unread',
       notificationType: 'pending',
-      image: testImage,
+      senderImage: testImage,
       id: 'id2'
     },
     {
@@ -30,7 +30,7 @@ describe('Notification Container Component', () => {
       name: 'Thor Ragnarok',
       notificationStatus: 'unread',
       notificationType: 'pending',
-      image: testImage,
+      senderImage: testImage,
       id: 'id3'
     },
     ],
@@ -41,11 +41,14 @@ describe('Notification Container Component', () => {
       message: 'posted a comment',
       notificationStatus: 'unread',
       notificationType: 'general',
-      image: testImage,
+      senderImage: testImage,
       id: 'id11'
     }],
     updateAllNotificationStatus: jest.fn(),
-    handleClick: jest.fn()
+    markSingleNotificationAsRead: jest.fn(),
+    link: '',
+    timeStamp: '',
+    id: 12
   };
 
   const setup = (props = customProps) => shallow( <NotificationContainer {...props} />);

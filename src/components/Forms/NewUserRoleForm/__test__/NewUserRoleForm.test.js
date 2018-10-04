@@ -16,6 +16,7 @@ describe('<NewUserRoleForm />', () => {
     errors: [],
     getRoleData: jest.fn(() => {}),
     handleUpdateRole:  jest.fn(() => {}),
+    onChange: jest.fn()
   };
 
   const defaultState = {
