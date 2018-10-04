@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Suite for Accommodation Component renders as expected 1`] = `
+<Fragment>
+  <div
+    className="table__container padding-top"
+  >
+    <table
+      className="mdl-data-table mdl-js-data-table table__trips"
+    >
+      <tbody
+        className="table__body"
+      >
+        <tr
+          className="table__row"
+          key="3"
+        >
+          <td
+            className="mdl-data-table__cell--non-numeric table__data"
+          >
+            Mini flat, big cutter, 
+                  bed 1
+          </td>
+          <td
+            className="mdl-data-table__cell--non-numeric table__data"
+          >
+            27th Sep - 4th Oct 2018
+          </td>
+          <td
+            className="mdl-data-table__cell--non-numeric table__data table__button-column"
+          >
+            <button
+              className="table__button-checkin"
+              id="btnCheck"
+              onClick={[Function]}
+              type="button"
+            >
+              Check-in
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</Fragment>
+`;

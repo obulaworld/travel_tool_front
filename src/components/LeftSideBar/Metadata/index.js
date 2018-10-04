@@ -29,12 +29,24 @@ const NavItemsMetadata = [
       inactive: inactiveBookmarkIcon
     }
   },
+  // Accommodation
   {
-    text: 'Accomodation',
-    link_to: '/accommodation',
+    text: 'Residence',
+    link_to: '/residence',
     activateOnLogin: false,
-    isDropdown: false,
-    onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
+    isDropdown: true,
+    dropdownItems: [
+      {
+        link_to: '/residence',
+        text: 'Manage',
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
+        exact: true
+      },
+      {
+        link_to: '/residence/checkin',
+        text: 'Check-in'
+      }
+    ],
     icons: {
       active: activeAccomodationIcon,
       inactive: inactiveAccomodationIcon

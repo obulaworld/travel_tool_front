@@ -37,17 +37,28 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             },
             Object {
               "activateOnLogin": false,
+              "dropdownItems": Array [
+                Object {
+                  "exact": true,
+                  "link_to": "/residence",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                  ],
+                  "text": "Manage",
+                },
+                Object {
+                  "link_to": "/residence/checkin",
+                  "text": "Check-in",
+                },
+              ],
               "icons": Object {
                 "active": "accommodation-blue.svg",
                 "inactive": "accomodation-grey.svg",
               },
-              "isDropdown": false,
-              "link_to": "/accommodation",
-              "onlyVisibleTo": Array [
-                "Travel Administrator",
-                "Super Administrator",
-              ],
-              "text": "Accomodation",
+              "isDropdown": true,
+              "link_to": "/residence",
+              "text": "Residence",
             },
             Object {
               "activateOnLogin": false,

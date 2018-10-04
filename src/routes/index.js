@@ -8,6 +8,8 @@ import ConnectedRole from '../views/Role';
 import ConnectedUserProfile from '../views/UserProfile';
 import LayoutShell from '../hoc/Layout';
 import ConnectedAccommodation from '../views/Accommodation';
+import ConnectedCheckIn from '../views/CheckIn';
+
 
 const Routes = () => (
   <Switch>
@@ -50,9 +52,14 @@ const Routes = () => (
             component={RequireAuth(ConnectedApprovals)}
           />
           <Route
-            path="/accommodation"
+            path="/residence"
             exact
             component={RequireAuth(ConnectedAccommodation)}
+          />
+          <Route
+            path="/residence/checkin"
+            exact
+            component={RequireAuth(ConnectedCheckIn)}
           />
 
         </Switch>

@@ -6,6 +6,7 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
 <ul>
   <undefined />
   <undefined />
+  <undefined />
   <li
     className="left-side-nav-item logout-button inactive"
   >

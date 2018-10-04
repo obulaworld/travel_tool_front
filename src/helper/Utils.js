@@ -1,3 +1,6 @@
+import { isEmpty } from 'lodash';
+import moment from 'moment';
+
 class Utils {
 
   static getRegex(query) {
@@ -64,6 +67,45 @@ class Utils {
   static formatWord(word, criteria) {
     const formattedWord = `${word}${criteria > 1 ? 's' : ''}`;
     return formattedWord;
+  }
+
+  static updateTrips(trips, updatedTrip) {
+    let newTripsRecord = trips
+      .filter((tripObject) => (tripObject.id !== updatedTrip.id));
+    let tripToUpdate = trips
+      .find((tripObject) => (tripObject.id === updatedTrip.id));
+    if (tripToUpdate) {
+      tripToUpdate = { ...tripToUpdate, ...updatedTrip };
+      newTripsRecord.push(tripToUpdate);
+    }
+    return newTripsRecord;
+  }
+
+  static generateTripRoomName(trip) {
+    let tripRoomName = '';
+    if (trip.beds.bedName && trip.beds.rooms && trip.beds.rooms.roomName
+      && trip.beds.rooms.guestHouses.houseName) {
+      tripRoomName = `${trip.beds.rooms.guestHouses.houseName}, ${trip.beds.rooms.roomName}, 
+      ${trip.beds.bedName}`;
+    }
+    return tripRoomName;
+  }
+
+  static generateTripDuration({departureDate, returnDate}) {
+    let endDay = '';
+    let endMonth = '';
+    let endYear = '';
+    let startDay = moment(departureDate).format('Do');
+    const startMonth = moment(departureDate).format('MMM');
+    const startYear = moment(departureDate).format('YYYY');
+    if (returnDate) {
+      endDay = moment(returnDate).format('Do');
+      endMonth = moment(returnDate).format('MMM');
+      endYear = moment(returnDate).format('YYYY');
+      if (startMonth !== endMonth) startDay += ` ${startMonth}`;
+      return `${startDay} - ${endDay} ${endMonth} ${endYear}`;
+    }
+    return `${startDay} ${startMonth} ${startYear}`;
   }
 }
 
