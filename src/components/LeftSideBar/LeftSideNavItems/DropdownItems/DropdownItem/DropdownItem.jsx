@@ -4,10 +4,10 @@ import { PropTypes } from 'prop-types';
 import './_dropdownItem.scss';
 
 const DropdownItem = (props) => {
-  const { children, link_to } = props;
+  const { children, link_to, exact } = props;
 
   return (
-    <NavLink exact to={link_to} className="dropdown-item">
+    <NavLink exact={exact} to={link_to} className="dropdown-item">
       {children}
     </NavLink>
   );
@@ -16,6 +16,11 @@ const DropdownItem = (props) => {
 DropdownItem.propTypes = {
   link_to: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
+  exact: PropTypes.bool
+};
+
+DropdownItem.defaultProps = {
+  exact: false
 };
 
 export default DropdownItem;

@@ -40,11 +40,12 @@ const NavItemsMetadata = [
         link_to: '/residence/manage',
         text: 'Manage',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
-        exact: true
+        exact: false
       },
       {
         link_to: '/residence/checkin',
-        text: 'Check-in'
+        text: 'Check-in',
+        exact: false
       }
     ],
     icons: {

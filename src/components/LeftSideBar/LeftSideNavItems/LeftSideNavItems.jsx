@@ -68,7 +68,11 @@ class LeftSideNavItems extends PureComponent {
 
   renderDropdownItem = (dropdownItem) => {
     return (
-      <DropdownItem key={dropdownItem.text} link_to={dropdownItem.link_to}>
+      <DropdownItem
+        exact={dropdownItem.exact}
+        key={dropdownItem.text}
+        link_to={dropdownItem.link_to}
+      >
         {dropdownItem.text}
       </DropdownItem>
     );
