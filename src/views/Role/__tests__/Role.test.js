@@ -46,8 +46,6 @@ const props = {
   openModal: jest.fn(),
   onNotificationToggle: jest.fn(),
   closeModal: jest.fn(),
-
-
 };
 
 const initialState = {

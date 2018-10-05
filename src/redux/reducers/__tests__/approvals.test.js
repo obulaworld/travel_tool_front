@@ -8,14 +8,22 @@ import {
   UPDATE_REQUEST_STATUS_FAILURE,
 } from '../../constants/actionTypes';
 
-const initState = {};
+const initState = {
+  postAccommodationData: [],
+  errors: [],
+  guestHouses: [],
+  guestHouse: {
+    rooms: []
+  },
+  isLoading: false
+};
 
 describe('Approvals Reducer', () => {
   it('returns initial state with unknown actions', () => {
     const unknownAction = {
       type: 'UNKNOWN TYPE'
     };
-    expect(approvals(initState, unknownAction)).toEqual({});
+    expect(approvals(initState, unknownAction)).toEqual(initState);
   });
 
   it('updates the error with a fetch failure', () => {

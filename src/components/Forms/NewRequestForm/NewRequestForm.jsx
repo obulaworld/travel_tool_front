@@ -276,17 +276,11 @@ class NewRequestForm extends PureComponent {
   handleClearForm = () => {
     this.setState({ ...this.defaultState });
   };
-  hasBlankTrips = () => {
-    let { trips } = this.state;
-    const blank = trips.map(trip => {
-      return Object.keys(trip).some(key => !trip[key]);
-    });
-    return blank;
-  }
   validate = field => {
     let { values, errors, trips } = this.state;
     [errors, values, trips] = [{ ...errors }, { ...values }, [...trips]];
     let hasBlankFields = false;
+
     hasBlankFields = Object.keys(values).some(key => !values[key]);
     if (!field){
       this.setState({hasBlankFields});

@@ -17,7 +17,9 @@ import '../../customStyles/toast.scss';
 let Wrapper = Fragment;
 
 if (process.env.REACT_APP_BUGSNAG_API_KEY) {
+  /* istanbul ignore next */
   const bugsnagClient = bugsnag(process.env.REACT_APP_BUGSNAG_API_KEY);
+  /* istanbul ignore next */
   let Wrapper = bugsnagClient.use(createPlugin(React));
 }
 

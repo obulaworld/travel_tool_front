@@ -1,101 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Accommodation /> renders correctly 1`] = `
-<div
-  className="table__container"
->
-  <WithLoading
-    error=""
-    guestHouses={
-      Array [
-        Object {
-          "bathRooms": 5,
-          "houseName": "Guest House 1",
-          "id": "wrtiuy56_u",
-          "imageUrl": "http://images/guest-house.jpg",
-          "location": "Nairobi, Kenya",
-          "rooms": Array [
-            Object {
-              "bedCount": 2,
-              "faulty": false,
-              "id": "tryuompl0",
-              "roomName": "Nyati",
-              "roomType": "Ensuite",
-            },
-            Object {
-              "bedCount": 2,
-              "faulty": false,
-              "id": "trytrimo",
-              "roomName": "Maputi",
-              "roomType": "Ensuite",
-            },
-          ],
-        },
-        Object {
-          "bathRooms": 3,
-          "houseName": "Guest House 2",
-          "id": "wrtnytom_9",
-          "imageUrl": "http://images/guest-house.jpg",
-          "location": "Nairobi, Kenya",
-          "rooms": Array [
-            Object {
-              "bedCount": 1,
-              "faulty": false,
-              "id": "plmyt0pol",
-              "roomName": "Santana",
-              "roomType": "Single",
-            },
-            Object {
-              "bedCount": 4,
-              "faulty": false,
-              "id": "plmmnuyt",
-              "roomName": "Shiloh",
-              "roomType": "Single",
-            },
-          ],
-        },
-        Object {
-          "bathRooms": 4,
-          "houseName": "Guest House 3",
-          "id": "bytrwqjk9",
-          "imageUrl": "http://images/guest-house.jpg",
-          "location": "Lagos, Nigeria",
-          "rooms": Array [
-            Object {
-              "bedCount": 2,
-              "faulty": false,
-              "id": "btrfdseq23",
-              "roomName": "Aben",
-              "roomType": "Ensuite",
-            },
-            Object {
-              "bedCount": 2,
-              "faulty": false,
-              "id": "btrfdsnytr3",
-              "roomName": "Aben",
-              "roomType": "Ensuite",
-            },
-          ],
-        },
-        Object {
-          "bathRooms": 1,
-          "houseName": "Guest House 4",
-          "id": "requntm0",
-          "imageUrl": "http://images/guest-house.jpg",
-          "location": "Kigali, Rwanda",
-          "rooms": Array [
-            Object {
-              "bedCount": 2,
-              "faulty": false,
-              "id": "mnytbvfdc9",
-              "roomName": "Berger",
-              "roomType": "Suite",
-            },
-          ],
-        },
-      ]
-    }
-    isLoading={false}
-  />
-</div>
+<Fragment>
+  <div
+    className="rp-role__header"
+  >
+    <AccommodationPanelHeader
+      openModal={[Function]}
+    />
+  </div>
+  <Modal
+    closeDeleteCommentModal={null}
+    closeModal={[Function]}
+    customModalStyles=""
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={true}
+    title="Add Guest House"
+    visibility="invisible"
+    width="800px"
+  >
+    <NewAccommodation
+      closeModal={[Function]}
+      createAccommodation={[Function]}
+      fetchAccommodation={[Function]}
+    />
+  </Modal>
+  <div
+    className="table__container"
+  >
+    <WithLoading
+      guestHouses={
+        Array [
+          Object {
+            "bathRooms": 5,
+            "houseName": "Guest House 1",
+            "id": "wrtiuy56_u",
+            "imageUrl": "http://images/guest-house.jpg",
+            "location": "Nairobi, Kenya",
+            "rooms": Array [
+              Object {
+                "bedCount": 2,
+                "faulty": false,
+                "id": "tryuompl0",
+                "roomName": "Nyati",
+                "roomType": "Ensuite",
+              },
+              Object {
+                "bedCount": 2,
+                "faulty": false,
+                "id": "trytrimo",
+                "roomName": "Maputi",
+                "roomType": "Ensuite",
+              },
+            ],
+          },
+          Object {
+            "bathRooms": 3,
+            "houseName": "Guest House 2",
+            "id": "wrtnytom_9",
+            "imageUrl": "http://images/guest-house.jpg",
+            "location": "Nairobi, Kenya",
+            "rooms": Array [
+              Object {
+                "bedCount": 1,
+                "faulty": false,
+                "id": "plmyt0pol",
+                "roomName": "Santana",
+                "roomType": "Single",
+              },
+              Object {
+                "bedCount": 4,
+                "faulty": false,
+                "id": "plmmnuyt",
+                "roomName": "Shiloh",
+                "roomType": "Single",
+              },
+            ],
+          },
+          Object {
+            "bathRooms": 4,
+            "houseName": "Guest House 3",
+            "id": "bytrwqjk9",
+            "imageUrl": "http://images/guest-house.jpg",
+            "location": "Lagos, Nigeria",
+            "rooms": Array [
+              Object {
+                "bedCount": 2,
+                "faulty": false,
+                "id": "btrfdseq23",
+                "roomName": "Aben",
+                "roomType": "Ensuite",
+              },
+              Object {
+                "bedCount": 2,
+                "faulty": false,
+                "id": "btrfdsnytr3",
+                "roomName": "Aben",
+                "roomType": "Ensuite",
+              },
+            ],
+          },
+          Object {
+            "bathRooms": 1,
+            "houseName": "Guest House 4",
+            "id": "requntm0",
+            "imageUrl": "http://images/guest-house.jpg",
+            "location": "Kigali, Rwanda",
+            "rooms": Array [
+              Object {
+                "bedCount": 2,
+                "faulty": false,
+                "id": "mnytbvfdc9",
+                "roomName": "Berger",
+                "roomType": "Suite",
+              },
+            ],
+          },
+        ]
+      }
+      isLoading={false}
+    />
+  </div>
+</Fragment>
 `;

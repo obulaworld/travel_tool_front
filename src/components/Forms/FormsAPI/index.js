@@ -9,10 +9,9 @@ class InputRenderer {
   }
 
   switchProps(name, type, values, inputProps) {
-
     switch (type) {
     case 'dropdown-select':
-      inputProps.choices = this.formMetadata.dropdownSelectOptions[name];
+      inputProps.choices = this.formMetadata.dropdownSelectOptions[name.split('-')[0]];
       return inputProps;
     case 'button-toggler':
       inputProps.choices = this.formMetadata.buttonToggleOptions[name];
@@ -26,8 +25,7 @@ class InputRenderer {
   }
 
   renderInput = (name, type, customProps, editValue) => {
-    const { values, onChange, value} = this.props;
-
+    const { values, onChange, value, handleInputChange} = this.props;
     let inputProps = {
       defaultValue: editValue,
       value: values[name],
@@ -37,12 +35,12 @@ class InputRenderer {
       label: this.formMetadata.inputLabels[name.split('-')[0]].label,
       labelNote: this.formMetadata.inputLabels[name.split('-')[0]].note,
       onChange: onChange,
+      handleInputChange: handleInputChange,
       ...customProps,
     };
 
     customProps ? inputProps['data-parentid'] = customProps.parentid : null;
     inputProps = this.switchProps(name, type, values, inputProps);
-
     return createInput(inputProps);
   }
 }

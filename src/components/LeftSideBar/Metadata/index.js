@@ -3,8 +3,8 @@ import inactiveBookmarkIcon from '../../../images/icons/bookmark_inactive.svg';
 import activeSettingsIcon from '../../../images/icons/settings_active.svg';
 import inactiveSettingsIcon from '../../../images/icons/settings_inactive.svg';
 import inactiveLogoutIcon from '../../../images/icons/logout_inactive.svg';
-import activeAccomodationIcon from '../../../images/icons/accommodation-blue.svg';
-import inactiveAccomodationIcon from '../../../images/icons/accomodation-grey.svg';
+import activeAccommodationIcon from '../../../images/icons/accommodation-blue.svg';
+import inactiveAccommodationIcon from '../../../images/icons/accomodation-grey.svg';
 
 const NavItemsMetadata = [
   // Requests
@@ -48,8 +48,8 @@ const NavItemsMetadata = [
       }
     ],
     icons: {
-      active: activeAccomodationIcon,
-      inactive: inactiveAccomodationIcon
+      active: activeAccommodationIcon,
+      inactive: inactiveAccommodationIcon
     }
   },
   // Settings

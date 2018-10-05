@@ -1,6 +1,6 @@
 import Cookie from 'cookies-js';
 import jwtDecode from 'jwt-decode';
-import successMessage from './toast';
+import { successMessage } from './toast';
 
 export const userDetails = ()  => {
   const cookie = Cookie.get('jwt-token');

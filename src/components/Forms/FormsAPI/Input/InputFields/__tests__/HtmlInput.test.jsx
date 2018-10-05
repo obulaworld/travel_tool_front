@@ -12,4 +12,5 @@ describe('<HtmlInput />', () => {
     const wrapper = shallow(<HtmlInput error="This field is required" />);
     expect(wrapper.prop('className')).toContain('error');
   });
+
 });

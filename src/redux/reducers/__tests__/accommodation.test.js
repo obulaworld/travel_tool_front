@@ -9,6 +9,8 @@ import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHo
 describe('Accommodation Reducer', () => {
   describe('Fetch Accommodation Reducer', () => {
     const initialState = {
+      postAccommodationData: [],
+      errors: [],
       guestHouses: [],
       guestHouse: {
         rooms: []

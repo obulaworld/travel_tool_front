@@ -1,16 +1,42 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import {
-  FETCH_ACCOMMODATION_CENTRES,
-} from '../constants/actionTypes';
+import toast from 'toastr';
 import AccommodationAPI from '../../services/AccommodationAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
+  createAccommodation,
+  createAccommodationSuccess,
+  createAccommodationFailure,
   initFetchTimelineData,
   fetchTimelineDataSuccess,
   fetchTimelineDataFailure,
   fetchAccommodationSuccess,
   fetchAccommodationFailure,
-} from '../actionCreator';
+} from '../actionCreator/accommodationActions';
+import { closeModal } from '../actionCreator/modalActions';
+
+import {
+  FETCH_ACCOMMODATION_CENTRES,
+} from '../constants/actionTypes';
+
+
+
+export function* watchCreateAccommodationSagaAsync() {
+  yield takeLatest(createAccommodation().type, accommodationSagaAsync);
+}
+let response;
+export function* accommodationSagaAsync(action) {
+  try {
+    response = yield call(AccommodationAPI.postAccommodation, action.accommodationData);
+    yield put(createAccommodationSuccess(response.data));
+    yield put(closeModal());
+    toast.success('Guest House added');
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(createAccommodationFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+  
 
 export function* fetchAccommodationSaga() {
   try {

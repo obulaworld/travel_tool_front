@@ -23,7 +23,6 @@ export default class DropdownSelect extends Component {
   }
 
   getSelectOptions(choices) {
-
     const choiceItems = choices
       .map((option, id) => (
         <li key={option}>
@@ -37,7 +36,6 @@ export default class DropdownSelect extends Component {
           </div>
         </li>
       ));
-
     return (
       <ul className={`select-menu select-menu--${this.getDropdownStatus()}`}>
         {choiceItems}
@@ -72,9 +70,10 @@ export default class DropdownSelect extends Component {
   };
 
   handleOptClick = (choice) => {
-    const { onChange } = this.props;
+    const { onChange, handleDropDown } = this.props;
     onChange(choice);
     this.handleToggleDropdown();
+    handleDropDown ? handleDropDown(this.props, choice) : null;
   }
 
   handleToggleDropdown = (e) => {
