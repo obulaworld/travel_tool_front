@@ -83,11 +83,13 @@ class TravelDetailsFieldset extends Component {
             <div className="rectangle">
               <div className="style-details">
 
+
                 <div className="travel-to" onChange={onChangeInput}>
                   {renderInput(`origin-${i}`, 'text', {parentid: i}, 
                   )}
                   <img src={location} alt="icn" className="location-icon" />
                 </div>
+
                 <div className="travel-to" onChange={onChangeInput}>
                   {renderInput(`destination-${i}`, 'text', {parentid: i}, 
                   )}

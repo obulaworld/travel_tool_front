@@ -193,11 +193,16 @@ class Timeline extends PureComponent {
       timelineViewType,
       periodOffset
     } = this.state;
-    const {rooms} = this.props;
+    const {rooms, updateRoomState, guestHouseId} = this.props;
     const { timelineDayWidth, noOfSegments } = this.getTimelineViewTypeProperties();
     return (
       <div className="timeline">
-        <TimelineVerticalAxis rooms={rooms} />
+        <TimelineVerticalAxis
+          rooms={rooms}
+          updateRoomState={updateRoomState}
+          timelineDateRange={this.getTimelineRange()}
+          guestHouseId={guestHouseId}
+        />
         <TimelineHeader
           selectedTimeDisplay={this.constructSelectedPeriodDisplay()}
           changeTimelineViewType={this.changeTimelineViewType}
@@ -224,7 +229,9 @@ class Timeline extends PureComponent {
 
 Timeline.propTypes = {
   rooms: PropTypes.array,
-  fetchTimelineRoomsData: PropTypes.func.isRequired
+  fetchTimelineRoomsData: PropTypes.func.isRequired,
+  updateRoomState: PropTypes.func.isRequired,
+  guestHouseId: PropTypes.string.isRequired,
 };
 
 Timeline.defaultProps = {

@@ -8,6 +8,7 @@ class RoomsGeomWrapper extends PureComponent {
     const {rooms, timelineStartDate, tripDayWidth, timelineViewType, offset} = this.props;
     const roomGeoms = rooms.map(room => (
       <RoomGeomWrapper
+        status={room.faulty}
         key={room.id}
         offset={offset}
         beds={room.beds}

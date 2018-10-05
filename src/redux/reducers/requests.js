@@ -20,6 +20,7 @@ const initialState = {
   },
   requestOnEdit: {}
 };
+
 let editedRequestIndex;
 const requests = (state = initialState, action) => {
   switch (action.type) {

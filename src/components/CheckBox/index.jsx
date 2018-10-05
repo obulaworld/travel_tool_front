@@ -27,6 +27,7 @@ class Checkbox extends PureComponent {
     localStorage.setItem('checkBox', status);
   }
 
+
   renderCheckBox = () => {
     const state = localStorage.getItem('checkBox');
     const { handleDisableInputs } = this.props;

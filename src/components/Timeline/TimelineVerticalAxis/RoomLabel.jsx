@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
-import { PropTypes } from 'prop-types';
+import {PropTypes} from 'prop-types';
+import tick from '../../../images/Tick/tick.svg';
 
 class RoomLabel extends PureComponent {
   state = {
@@ -12,9 +13,25 @@ class RoomLabel extends PureComponent {
     }));
   }
 
+
+  showId = (id, status) =>{
+    const {updateRoomState, timelineDateRange, guestHouseId} = this.props;
+    const [startDateString, endDateString] = timelineDateRange;
+    let data;
+    if (status == true){
+      data = { fault: false };
+      updateRoomState(data, id, startDateString, endDateString, guestHouseId);
+    }
+    else{
+      data = { fault: true };
+      updateRoomState(data, id, startDateString, endDateString, guestHouseId);
+    }
+  }
+
+
   render() {
     const {showMarkUnavailable} = this.state;
-    const {name} = this.props;
+    const {name, id, status} = this.props;
     const visibility = showMarkUnavailable ? 'is-visible' : 'is-hidden';
     return (
       <div className="room-name item-row">
@@ -28,7 +45,29 @@ class RoomLabel extends PureComponent {
         >
           &hellip;
           <div className={`mark-unavailable ${visibility}`}>
-            <div>CB</div>
+
+            {status ? (
+              <div
+                role="button"
+                tabIndex="0"
+                className="container_room_fault"
+                onClick={()=>{this.showId(id, status);}}
+                onKeyDown={() => {
+                  this.showId(id, status);
+                }}
+              />
+
+            ): (
+              <div
+                className="container_room_fine"
+                role="button"
+                tabIndex="0"
+                onClick={()=>{this.showId(id, status);}}
+                onKeyDown={() => {
+                  this.showId(id, status);
+                }}
+              />
+            )}
             <span>Unavailable</span>
           </div>
         </div>
@@ -38,7 +77,12 @@ class RoomLabel extends PureComponent {
 }
 
 RoomLabel.propTypes = {
-  name: PropTypes.string.isRequired
+  updateRoomState: PropTypes.func.isRequired,
+  timelineDateRange: PropTypes.array.isRequired,
+  guestHouseId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default RoomLabel;

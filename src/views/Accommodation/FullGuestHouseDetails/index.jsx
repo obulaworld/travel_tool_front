@@ -6,6 +6,7 @@ import GuestHouseDetailCard from '../../../components/GuestHouseDetailCard';
 import {initFetchTimelineData} from '../../../redux/actionCreator';
 import greyBedIcon from '../../../images/icons/accomodation_inactive.svg';
 import './FullGuestHouseDetails.scss';
+import  updateRoomState  from '../../../redux/actionCreator/roomActionCreator';
 
 class GuestHouseDetails extends PureComponent {
   renderGuestHouseDetailsNameBar = () => {
@@ -64,7 +65,7 @@ class GuestHouseDetails extends PureComponent {
   }
 
   render() {
-    const { guestHouse } = this.props;
+    const { guestHouse, updateRoomState } = this.props;
     return (
       <div className="guesthouse-details-wrapper">
         <div>
@@ -90,7 +91,9 @@ class GuestHouseDetails extends PureComponent {
         </div>
         <Timeline
           rooms={guestHouse.rooms}
+          guestHouseId={guestHouse.id}
           fetchTimelineRoomsData={this.fetchTimelineRoomsData}
+          updateRoomState={updateRoomState}
         />
       </div>
     );
@@ -101,7 +104,8 @@ GuestHouseDetails.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.array.isRequired,
   initFetchTimelineData: PropTypes.func,
-  guestHouse: PropTypes.object.isRequired
+  guestHouse: PropTypes.object.isRequired,
+  updateRoomState: PropTypes.func.isRequired,
 };
 
 GuestHouseDetails.defaultProps = {
@@ -113,7 +117,8 @@ const mapStateToProps = (state) => ({
 });
 
 const actionCreators = {
-  initFetchTimelineData
+  initFetchTimelineData,
+  updateRoomState
 };
 
 export default connect(mapStateToProps, actionCreators)(GuestHouseDetails);

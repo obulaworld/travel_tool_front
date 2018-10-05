@@ -109,8 +109,8 @@
     "coveragePathIgnorePatterns": [
       "<rootDir>/src/redux/actionCreator/index.js",
       "<rootDir>/src/mockData/*",
+      "<rootDir>/src/mockData/*",
       "<rootDir>/src/redux/store/selectors.js"
-
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js"

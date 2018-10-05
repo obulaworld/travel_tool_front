@@ -517,7 +517,6 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().addNewTrip.calledOnce).toEqual(true);
   });
 
-  
   it('should save savePersonalDetails personal details ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     shallowWrapper.setState({
@@ -532,7 +531,6 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().savePersonalDetails.calledOnce).toEqual(true);
   });
 
-   
   it('should save return hasBlankTrips', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     sinon.spy(shallowWrapper.instance(), 'hasBlankTrips');

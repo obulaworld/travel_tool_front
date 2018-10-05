@@ -7,8 +7,10 @@ import user from './user';
 import role from './role';
 import notifications from './notifications';
 import comments from './comments';
+import rooms from './room';
 import accommodation from './accommodation';
 import trips from './trips';
+
 
 const rootReducer = combineReducers({
   auth,
@@ -19,8 +21,10 @@ const rootReducer = combineReducers({
   role,
   comments,
   notifications,
+  rooms,
   accommodation,
   trips
+
 });
 
 export default rootReducer;

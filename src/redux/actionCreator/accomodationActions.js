@@ -20,3 +20,4 @@ export const fetchTimelineDataFailure = (errorMsg) => ({
   guestHouse: {rooms: [] },
   error: errorMsg
 });
+

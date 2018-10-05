@@ -6,7 +6,9 @@ import './RoomGeomWrapper.scss';
 
 class RoomGeomWrapper extends PureComponent {
   render() {
-    const {beds, timelineStartDate, tripDayWidth, timelineViewType} = this.props;
+
+    const {beds, timelineStartDate, tripDayWidth, timelineViewType, status} = this.props;
+
     const bedGeoms = beds.map(bed => (
       <BedGeomWrapper
         key={bed.id}
@@ -18,7 +20,20 @@ class RoomGeomWrapper extends PureComponent {
     ));
     return (
       <div className="room-geometry-wrapper">
-        <div className="room-status-bar item-row" />
+        <div className="room-status-bar item-row">
+          {status ? (
+            <div style={{
+              background: '#FF5359',
+              width: '100%',
+              color: '#FFFFFF',
+              fontFamily: 'DIN Pro',
+            }}>
+              Unavailable
+            </div>
+          ) :(
+            <div />
+          )}
+        </div>
         {bedGeoms}
       </div>
     );
@@ -29,7 +44,8 @@ RoomGeomWrapper.propTypes = {
   beds: PropTypes.object.isRequired,
   timelineStartDate: PropTypes.object.isRequired,
   tripDayWidth: PropTypes.number.isRequired,
-  timelineViewType: PropTypes.string
+  timelineViewType: PropTypes.string,
+  status: PropTypes.string.isRequired,
 };
 
 RoomGeomWrapper.defaultProps = {
