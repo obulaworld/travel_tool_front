@@ -8,7 +8,6 @@ import './CentreGrid.scss';
 export class CentreGrid extends PureComponent {
   getCountryFlag(guestHouseLocation) {
     const country = guestHouseLocation.split(', ')[1];
-    console.log(guestHouseLocation, country);
     const countryCode = 'KE'; //const countryCode = lookup.countries({name: country})[0].alpha2;
     return `https://www.countryflags.io/${countryCode}/flat/64.png`;
   }
