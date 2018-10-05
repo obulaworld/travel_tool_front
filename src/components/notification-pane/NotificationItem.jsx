@@ -12,9 +12,11 @@ export default class NotificationItem extends PureComponent {
   }
 
   markAsRead = () => {
+    const { markSingleNotificationAsRead, id } = this.props;
     this.setState({
       localNotificationStatus: 'read'
     });
+    markSingleNotificationAsRead(id);
   }
   renderNotificationItemMetaInfo = () => {
     const { isPending, notificationStatus, link, timeStamp, general, markSingleNotificationAsRead, id } = this.props;

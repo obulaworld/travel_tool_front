@@ -133,6 +133,11 @@ td.pl-sm-100 {
   }
   &__menu {
     display: flex;
+    // justify-content: center;
+    .menu__container {
+      // margin: 0 40px 0 30px;
+      margin-left: 40px;
+    }
  }
   &__row {
     border-radius: 2px;
