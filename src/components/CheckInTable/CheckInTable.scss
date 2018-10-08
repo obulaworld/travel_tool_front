@@ -1,5 +1,7 @@
 $white-color: #fff;
 $primary-color: #3359db;
+$checkout-color: #FF5359;
+$checkedout-color: #E4E4E4;
 $border-color: #e4e4e4;
 $table-font-color: #4f4f4f !important;
 $font-medium: 'DIN Pro Medium';
@@ -106,6 +108,37 @@ $font-normal: 'DIN Pro';
     font-size: 15px;
     font-weight: 500;
     line-height: 20px;
+    border-style: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__button-checkout {
+    height: 36px;
+    width: 120px;
+    border-radius: 1px;
+    background-color: $checkout-color;
+    color: #FFFFFF;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    border-style: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__button-checkedout {
+    height: 36px;
+    width: 120px;
+    border-radius: 1px;
+    background-color: $checkedout-color;
+    color: #FFFFFF;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    border-style: none;
     &:hover {
       cursor: pointer;
     }
@@ -116,5 +149,5 @@ $font-normal: 'DIN Pro';
 }
 
 .padding-top {
-  padding-top: 50px;
+  padding-top: 25px;
 }

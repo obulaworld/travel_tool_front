@@ -29,11 +29,21 @@ export class CheckIn extends Base {
     updateTrip({tripId, tripData});
   }
   render() {
+    const { trips, tripError } = this.props;
     return (
       <Fragment>
         <div>
-          <PageHeader title="RESIDENCE" />
-          <Table {...this.props} handleCheckStatus={this.handleCheckStatus} />
+          <PageHeader className="checkin_text_header" title="RESIDENCE" />
+          <Table
+            trips={trips.filter((trip) => trip.checkStatus !== 'Checked Out')}
+            tripError={tripError}
+            handleCheckStatus={this.handleCheckStatus} />
+        </div>
+        <div>
+          <PageHeader className="checkin_text_header" title="Past Check-in's" />
+          <Table
+            trips={trips.filter((trip) => trip.checkStatus === 'Checked Out')}
+            handleCheckStatus={this.handleCheckStatus} />
         </div>
       </Fragment>
     );

@@ -14,9 +14,7 @@ export class CheckInTable extends Component {
   renderCheckIns(trip) {
     return (
       <tr key={trip.id} className="checkInTable__row">
-        <td
-          className="mdl-data-table__cell--non-numeric checkInTable__data"
-        >
+        <td className="mdl-data-table__cell--non-numeric checkInTable__data">
           {Utils.generateTripRoomName(trip)}
         </td>
         <td className="mdl-data-table__cell--non-numeric checkInTable__data">
@@ -24,12 +22,25 @@ export class CheckInTable extends Component {
         </td>
         <td className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column">
           {trip.checkStatus === 'Not Checked In' && (
-            <button
+            <button 
               id="btnCheck"
               className="checkInTable__button-checkin"
-              onClick={() => {this.handleCheck(trip.id, 'checkIn');}}
-              type="button">
+              onClick={() => {this.handleCheck(trip.id, 'checkIn');}} type="button">
               Check-in
+            </button>
+          )}
+          {trip.checkStatus === 'Checked In' && (
+            <button
+              id="btnCheckOut"
+              className="checkInTable__button-checkout"
+              onClick={() => {this.handleCheck(trip.id, 'checkOut');}} type="button">
+              Check-out
+            </button>
+          )}
+          {trip.checkStatus === 'Checked Out' && (
+            <button
+              className="checkInTable__button-checkedout" type="button">
+              Checked-out
             </button>
           )}
         </td>
