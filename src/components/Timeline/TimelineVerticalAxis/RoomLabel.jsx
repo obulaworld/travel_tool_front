@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {PropTypes} from 'prop-types';
 import tick from '../../../images/Tick/tick.svg';
 
+
 class RoomLabel extends PureComponent {
   state = {
     showMarkUnavailable: false
@@ -28,7 +29,6 @@ class RoomLabel extends PureComponent {
     }
   }
 
-
   render() {
     const {showMarkUnavailable} = this.state;
     const {name, id, status} = this.props;
@@ -52,20 +52,15 @@ class RoomLabel extends PureComponent {
                 tabIndex="0"
                 className="container_room_fault"
                 onClick={()=>{this.showId(id, status);}}
-                onKeyDown={() => {
-                  this.showId(id, status);
-                }}
+                onKeyDown={() => {this.showId(id, status);}}
               />
-
             ): (
               <div
                 className="container_room_fine"
                 role="button"
                 tabIndex="0"
                 onClick={()=>{this.showId(id, status);}}
-                onKeyDown={() => {
-                  this.showId(id, status);
-                }}
+                onKeyDown={() => {this.showId(id, status);}}
               />
             )}
             <span>Unavailable</span>

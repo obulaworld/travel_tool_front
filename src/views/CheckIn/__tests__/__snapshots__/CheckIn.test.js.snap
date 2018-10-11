@@ -1,57 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test Suite for CheckIn Component renders as expected 1`] = `
-<div>
-  <div
-    className="PageHeader"
-  >
-    <div>
-      <span
-        className="title"
-      >
-        RESIDENCE
-      </span>
-    </div>
-  </div>
-  <div
-    className="table__container padding-top"
-  >
-    <table
-      className="mdl-data-table mdl-js-data-table checkInTable__trips"
+Array [
+  <div>
+    <div
+        className="PageHeader"
     >
-      <tbody
-        className="table__body"
-      >
-        <tr
-          className="checkInTable__row"
-          key="3"
-        >
-          <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data"
-          >
-            Mini flat, big cutter, 
-                  bed 1
-          </td>
-          <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data"
-          >
-            27th Sep - 4th Oct 2018
-          </td>
-          <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column"
-          >
-            <button
-              className="checkInTable__button-checkin"
-              id="btnCheck"
-              onClick={[Function]}
-              type="button"
+        <div>
+            <span
+                className="title"
             >
-              Check-in
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+                RESIDENCE
+            </span>
+        </div>
+    </div>
+    <div
+        className="table__container padding-top"
+    >
+        <table
+            className="mdl-data-table mdl-js-data-table checkInTable__trips"
+        >
+            <tbody
+                className="table__body"
+            >
+                <tr
+                    className="checkInTable__row"
+                    key="3"
+                >
+                    <td
+                        className="mdl-data-table__cell--non-numeric checkInTable__data"
+                    >
+                        Mini flat, big cutter, 
+                              bed 1
+                    </td>
+                    <td
+                        className="mdl-data-table__cell--non-numeric checkInTable__data"
+                    >
+                        27th Sep - 4th Oct 2018
+                    </td>
+                    <td
+                        className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column"
+                    >
+                        <button
+                            className="checkInTable__button-checkin"
+                            id="btnCheck"
+                            onClick={[Function]}
+                            type="button"
+                        >
+                            Check-in
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>,
+  <div>
+    <div
+        className="PageHeader"
+    >
+        <div>
+            <span
+                className="title"
+            >
+                Past Check-in's
+            </span>
+        </div>
+    </div>
+    <div
+        className="table__container padding-top"
+    >
+        <div
+            className="checkInTable__trips--empty"
+        >
+            You have no check-in record yet
+        </div>
+    </div>
+</div>,
+]
 `;

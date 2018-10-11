@@ -6,7 +6,6 @@ import ProfileApi from '../../../services/ProfileApi';
 import {watchUpdateUserProfileAsync, postUserProfileDataSagaAsync} from '../UserProfileSaga';
 
 
-
 describe('Profile saga', () =>{
   const action = {
     UserProfile :{
