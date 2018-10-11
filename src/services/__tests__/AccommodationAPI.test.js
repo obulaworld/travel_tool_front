@@ -7,7 +7,21 @@ const expectedResponse = {
   success: true,
   guestHouses,
   message: 'Successfully retrieved guestHouses',
-}
+};
+
+const expectedFullDetailsResponse = {
+  guestHouse: {
+    houseName: 'Mini Flat',
+    rooms: [{
+      id: 'F4YFiKlrw-',
+      roomName: 'Kwetu',
+      roomType: 'ensuited',
+      bedCount: 0,
+      faulty: false,
+      beds: []
+    }]
+  }
+};
 
 describe('AccommodationAPI', () => {
   beforeEach(() => {
@@ -83,13 +97,13 @@ describe('AccommodationAPI', () => {
               'roomId': 'dtnJtaRE7Y'
             }
           ]
-  
+
         ]
       },
     });
 
     const response = await AccommodationAPI.editAccommodation(accommodationData, guestHouseId);
-    
+
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/guesthouses/${guestHouseId}`);
     expect(response.data).toEqual({
       'id': 'zNnGJAJH5',
@@ -123,8 +137,25 @@ describe('AccommodationAPI', () => {
             'roomId': 'dtnJtaRE7Y'
           }
         ]
-  
+
       ]
     });
+  });
+
+  it('should send a GET request to fetch full guest house details', async () => {
+    const guestHouseId = 'test-id';
+    const startDate = '2018-01-01';
+    const endDate = '2018-01-15';
+    const query = `startDate=${startDate}&endDate=${endDate}`;
+    moxios.stubRequest(`${baseUrl}/guesthouses/${guestHouseId}?${query}`, {
+      status: 200,
+      response: { ...expectedFullDetailsResponse }
+    });
+    const response = await AccommodationAPI.fetchTimelineData(
+      guestHouseId,
+      startDate,
+      endDate
+    );
+    expect(response.data).toEqual(expectedFullDetailsResponse);
   });
 });

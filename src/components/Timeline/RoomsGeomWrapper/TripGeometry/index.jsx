@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import moment from 'moment';
 import TripDetails from './TripDetails';
 import TripGeomHelper from './TripGeomHelper';
-import {COLOR_SPEC_RANGES} from '../../settings';
+import {COLOR_SPEC_RANGES, SHADE_OFFSETS} from '../../settings';
 import './TripGeometry.scss';
 
 class TripGeometry extends Component {
@@ -12,17 +12,27 @@ class TripGeometry extends Component {
     this.state = {
       bookingDetailsVisible: false,
       colorSpecs: this.shuffleColorSpecs(),
-      bookingDetailsPos: 0
+      bookingDetailsPos: 0,
+      translateDetailsLeft: false
     };
+  }
+
+  checkShouldTranslateDetails = (mouseX) => {
+    const screenWidth = window.innerWidth;
+    if(screenWidth/2 < mouseX)
+      return true;
+    return false;
   }
 
   setBookingDetailsAbsolutePos = (e) => {
     const tripGeomLeft = e.target.getBoundingClientRect().left;
     const mouseX = e.clientX;
     const bookingDetailsPos = mouseX - tripGeomLeft;
+    const translateDetailsLeft = this.checkShouldTranslateDetails(mouseX);
     this.setState(prevState => ({
       ...prevState,
-      bookingDetailsPos
+      bookingDetailsPos,
+      translateDetailsLeft
     }));
   }
 
@@ -49,8 +59,8 @@ class TripGeometry extends Component {
 
   getInnerColorShade = (colorSpecs) => {
     let {hue, saturation, lightness} = colorSpecs;
-    saturation+=10;
-    lightness-=20;
+    saturation+=SHADE_OFFSETS.saturation;
+    lightness+=SHADE_OFFSETS.lightness;
     return {hue, saturation, lightness};
   }
 
@@ -111,7 +121,7 @@ class TripGeometry extends Component {
   }
 
   render() {
-    const {bookingDetailsPos} = this.state;
+    const {bookingDetailsPos, translateDetailsLeft} = this.state;
     const {trip} = this.props;
     const detailsVariant = this.getBookingDetailsVariant();
     const helper = new TripGeomHelper(this.props);
@@ -133,6 +143,7 @@ class TripGeometry extends Component {
         <TripDetails
           trip={trip}
           bookingDetailsPos={bookingDetailsPos}
+          translateDetailsLeft={translateDetailsLeft}
           detailsVariantClass={detailsVariant}
           toggleBookingDetails={this.toggleBookingDetails}
         />

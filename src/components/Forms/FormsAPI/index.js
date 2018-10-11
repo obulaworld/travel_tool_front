@@ -25,22 +25,23 @@ class InputRenderer {
   }
 
   renderInput = (name, type, customProps, editValue) => {
-    const { values, onChange, value, handleInputChange} = this.props;
+    const { values, value, handleInputChange} = this.props;
     let inputProps = {
       defaultValue: editValue,
       value: values[name],
-      name: name,
-      type: type,
+      name,
+      type,
       size: value,
       label: this.formMetadata.inputLabels[name.split('-')[0]].label,
       labelNote: this.formMetadata.inputLabels[name.split('-')[0]].note,
-      onChange: onChange,
-      handleInputChange: handleInputChange,
-      ...customProps,
+      handleInputChange,
     };
-
     customProps ? inputProps['data-parentid'] = customProps.parentid : null;
     inputProps = this.switchProps(name, type, values, inputProps);
+    inputProps = {
+      ...inputProps,
+      ...customProps
+    };
     return createInput(inputProps);
   }
 }

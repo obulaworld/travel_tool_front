@@ -14,13 +14,15 @@ class TimelineHeader extends PureComponent {
     showChoices: PropTypes.bool,
     onNavigateTime: PropTypes.func.isRequired,
     changeTimelineViewType: PropTypes.func.isRequired,
-    toggleChoices: PropTypes.func.isRequired
+    toggleChoices: PropTypes.func.isRequired,
+    goToToday: PropTypes.func
   }
 
   static defaultProps = {
     currentTimelineViewType: 'month',
     showChoices: false,
-    selectedTimeDisplay: ''
+    selectedTimeDisplay: '',
+    goToToday: ()=>{}
   }
 
   handleItemBlur = () => {
@@ -36,8 +38,13 @@ class TimelineHeader extends PureComponent {
     };
   }
 
+  getChangeViewTypeHandler = (choice) => {
+    const {changeTimelineViewType} = this.props;
+    return () => changeTimelineViewType(choice.value);
+  }
+
   generateViewTypeChoices = () => {
-    const {changeTimelineViewType, showChoices} = this.props;
+    const {showChoices} = this.props;
     const status = showChoices
       ? 'active'
       : 'inactive';
@@ -47,9 +54,9 @@ class TimelineHeader extends PureComponent {
           timelineViewTypeChoices.map(choice => (
             <div
               key={choice.value}
-              onClick={() => changeTimelineViewType(choice.value)}
+              onClick={this.getChangeViewTypeHandler(choice)}
               role="presentation"
-              className="timeline-view-choice"
+              className={`timeline-view-choice ${choice.value}`}
             >
               {choice.label}
             </div>
@@ -83,7 +90,7 @@ class TimelineHeader extends PureComponent {
   }
 
   renderTimelinePeriodNavigator = () => {
-    const {selectedTimeDisplay} = this.props;
+    const {selectedTimeDisplay, goToToday} = this.props;
     return (
       <div className="timeline-period-selector selector">
         <span className="timeline-period value">
@@ -100,6 +107,16 @@ class TimelineHeader extends PureComponent {
             iconSrc={activeDropdownIcon}
             onClickIcon={this.getChangePeriodHandler('increment')}
           />
+        </div>
+        <div
+          className="go-to-today"
+          role="button"
+          onKeyUp={()=>{}}
+          onFocus={()=>{}}
+          tabIndex="-1"
+          onClick={goToToday}
+        >
+          Today
         </div>
       </div>
     );

@@ -63,6 +63,16 @@ class Timeline extends PureComponent {
     }, this.fetchTimelineData);
   }
 
+  handleGoToToday = () => {
+    this.setState(prevState => {
+      const { timelineViewType } = prevState;
+      return {
+        ...prevState,
+        timelineStartDate: moment().startOf(timelineViewType)
+      };
+    }, this.fetchTimelineData);
+  }
+
   getTimelineRange = () => {
     const {timelineStartDate, timelineViewType} = this.state;
     const cloneStartDate = timelineStartDate.clone();
@@ -210,6 +220,7 @@ class Timeline extends PureComponent {
           currentTimelineViewType={timelineViewType}
           onNavigateTime={this.handleNavigateTime}
           showChoices={timelineChoicesOpen}
+          goToToday={this.handleGoToToday}
         />
         <div className="timeline__body">
           <div className="timeline__body-segments">

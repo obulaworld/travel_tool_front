@@ -55,7 +55,7 @@ export default class TripDetails extends Component {
     e.stopPropagation();
   }
 
-  handleCloseDetailsButton = (e) => {
+  handleCloseDetailsButton = () => {
     const {toggleBookingDetails} = this.props;
     toggleBookingDetails('close');
   }
@@ -69,7 +69,7 @@ export default class TripDetails extends Component {
           role="presentation"
           onKeyUp={()=>{}}
           className="close-button"
-          onClick={(e) => this.handleCloseDetailsButton(e)}
+          onClick={this.handleCloseDetailsButton}
         >
           <div>&times;</div>
         </div>
@@ -103,20 +103,30 @@ export default class TripDetails extends Component {
           <span>Duration</span>
           <span>{this.humanizeDuration(trip)}</span>
         </div>
+        <div>
+          <span>Origin</span>
+          <span>{trip.origin}</span>
+        </div>
       </div>
     );
   }
 
+  determineTranslateClass = () => {
+    const { translateDetailsLeft } = this.props;
+    return translateDetailsLeft ? 'translateX' : '';
+  }
+
   render() {
     const { bookingDetailsPos, detailsVariantClass, trip } = this.props;
+    const translateClass = this.determineTranslateClass();
     return (
       <div
-        className={`trip-booking-details details-${detailsVariantClass}`}
+        className={`trip-booking-details details-${detailsVariantClass} ${translateClass}`}
         onClick={this.handleClickBookingDetailsBody}
         role="presentation"
         style={{
           position: 'absolute',
-          left: `${bookingDetailsPos}px`
+          left: `${bookingDetailsPos}px`,
         }}
       >
         {this.renderBookingDetailsHeader(trip)}
@@ -130,10 +140,12 @@ TripDetails.propTypes = {
   trip: PropTypes.object.isRequired,
   bookingDetailsPos: PropTypes.string,
   detailsVariantClass: PropTypes.string,
-  toggleBookingDetails: PropTypes.func.isRequired
+  toggleBookingDetails: PropTypes.func.isRequired,
+  translateDetailsLeft: PropTypes.bool
 };
 
 TripDetails.defaultProps = {
   bookingDetailsPos: '100px',
-  detailsVariantClass: 'hidden'
+  detailsVariantClass: 'hidden',
+  translateDetailsLeft: false
 };

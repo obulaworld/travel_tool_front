@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RoomLabel /> renders properly 1`] = `
+<div
+  className="room-name item-row"
+>
+  <div>
+    Ndovu
+  </div>
+  <div
+    className="ellipsis"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    role="button"
+    tabIndex="0"
+  >
+    …
+    <div
+      className="mark-unavailable is-hidden"
+    >
+      <div
+        className="container_room_fault"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex="0"
+      />
+      <span>
+        Unavailable
+      </span>
+    </div>
+  </div>
+</div>
+`;

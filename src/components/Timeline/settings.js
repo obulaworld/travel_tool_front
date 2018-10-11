@@ -25,3 +25,8 @@ export const COLOR_SPEC_RANGES = {
   saturation: { max: 72, min: 35 },
   lightness: { max: 75, min: 45 }
 };
+
+export const SHADE_OFFSETS = {
+  saturation: 10,
+  lightness: -20
+};

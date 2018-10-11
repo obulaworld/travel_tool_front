@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GuestHouseDetails /> renders properly 1`] = `
+<div
+  className="guesthouse-details-wrapper"
+>
+  <Modal
+    closeDeleteCommentModal={null}
+    closeModal={null}
+    customModalStyles=""
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={true}
+    title="Edit Ndovu"
+    visibility="invisible"
+    width="800px"
+  >
+    <NewAccommodation
+      guestHouse={
+        Object {
+          "houseName": "Ndovu",
+          "rooms": Array [
+            Object {},
+          ],
+        }
+      }
+      initFetchTimelineData={[Function]}
+      modalType={null}
+    />
+  </Modal>
+  <div>
+    <div
+      className="guesthouse-details-wrapper--top"
+    >
+      <div
+        className="details-wrapper-top-right"
+      >
+        <div
+          className="back-button"
+          onClick={[Function]}
+          role="presentation"
+        >
+          <div
+            className="arrow"
+          >
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+        <div
+          className="guest-house-name"
+        >
+          Ndovu
+        </div>
+        <div
+          className="bed-count-label"
+        >
+          <div>
+            <img
+              alt="ic"
+              src="accomodation_inactive.svg"
+            />
+          </div>
+          <div>
+            NaN
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="guesthouse-details-wrapper--key-details"
+    >
+      <GuestHouseDetailCard
+        label="Available spaces"
+        value={NaN}
+      />
+      <GuestHouseDetailCard
+        label="No. of rooms"
+        value={1}
+      />
+      <GuestHouseDetailCard
+        label="Vacant spaces"
+        value={4}
+      />
+      <GuestHouseDetailCard
+        label="Unavailable"
+        value={NaN}
+      />
+    </div>
+  </div>
+  <Timeline
+    fetchTimelineRoomsData={[Function]}
+    rooms={
+      Array [
+        Object {},
+      ]
+    }
+    updateRoomState={[Function]}
+  />
+</div>
+`;

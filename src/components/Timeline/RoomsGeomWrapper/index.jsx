@@ -5,12 +5,11 @@ import './RoomsGeomWrapper.scss';
 
 class RoomsGeomWrapper extends PureComponent {
   render() {
-    const {rooms, timelineStartDate, tripDayWidth, timelineViewType, offset} = this.props;
+    const {rooms, timelineStartDate, tripDayWidth, timelineViewType} = this.props;
     const roomGeoms = rooms.map(room => (
       <RoomGeomWrapper
         status={room.faulty}
         key={room.id}
-        offset={offset}
         beds={room.beds}
         timelineStartDate={timelineStartDate}
         tripDayWidth={tripDayWidth}
@@ -26,16 +25,14 @@ class RoomsGeomWrapper extends PureComponent {
 }
 
 RoomsGeomWrapper.propTypes = {
-  rooms: PropTypes.object.isRequired,
+  rooms: PropTypes.array.isRequired,
   timelineStartDate: PropTypes.object.isRequired,
   tripDayWidth: PropTypes.number.isRequired,
-  timelineViewType: PropTypes.string,
-  offset: PropTypes.number
+  timelineViewType: PropTypes.string
 };
 
 RoomsGeomWrapper.defaultProps = {
-  timelineViewType: 'month',
-  offset: 0
+  timelineViewType: 'month'
 };
 
 export default RoomsGeomWrapper;

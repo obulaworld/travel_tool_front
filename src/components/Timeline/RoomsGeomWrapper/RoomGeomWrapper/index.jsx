@@ -21,18 +21,20 @@ class RoomGeomWrapper extends PureComponent {
     return (
       <div className="room-geometry-wrapper">
         <div className="room-status-bar item-row">
-          {status ? (
-            <div style={{
-              background: '#FF5359',
-              width: '100%',
-              color: '#FFFFFF',
-              fontFamily: 'DIN Pro',
-            }}>
-              Unavailable
-            </div>
-          ) :(
-            <div />
-          )}
+          {status
+            ? (
+              <div style={{
+                background: '#FF5359',
+                paddingLeft: '15px',
+                width: '100%',
+                color: '#FFFFFF',
+                fontFamily: 'DIN Pro',
+              }}>
+                Unavailable
+              </div>
+            )
+            : null
+          }
         </div>
         {bedGeoms}
       </div>
@@ -41,7 +43,7 @@ class RoomGeomWrapper extends PureComponent {
 }
 
 RoomGeomWrapper.propTypes = {
-  beds: PropTypes.object.isRequired,
+  beds: PropTypes.array.isRequired,
   timelineStartDate: PropTypes.object.isRequired,
   tripDayWidth: PropTypes.number.isRequired,
   timelineViewType: PropTypes.string,

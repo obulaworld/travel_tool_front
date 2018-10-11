@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RoomGeomWrapper /> renders properly 1`] = `
+<div
+  className="room-geometry-wrapper"
+>
+  <div
+    className="room-status-bar item-row"
+  />
+  <BedGeomWrapper
+    timelineStartDate={"2018-09-30T21:00:00.000Z"}
+    timelineViewType="month"
+    tripDayWidth={31}
+  />
+</div>
+`;

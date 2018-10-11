@@ -29,6 +29,19 @@ class RoomLabel extends PureComponent {
     }
   }
 
+  renderCheckBox = (statusClass) => {
+    const { id, status} = this.props;
+    return (
+      <div
+        role="button"
+        tabIndex="0"
+        className={`container_room_${statusClass}`}
+        onClick={()=> this.showId(id, status)}
+        onKeyDown={() => this.showId(id, status)}
+      />
+    );
+  }
+
   render() {
     const {showMarkUnavailable} = this.state;
     const {name, id, status} = this.props;
@@ -45,24 +58,7 @@ class RoomLabel extends PureComponent {
         >
           &hellip;
           <div className={`mark-unavailable ${visibility}`}>
-
-            {status ? (
-              <div
-                role="button"
-                tabIndex="0"
-                className="container_room_fault"
-                onClick={()=>{this.showId(id, status);}}
-                onKeyDown={() => {this.showId(id, status);}}
-              />
-            ): (
-              <div
-                className="container_room_fine"
-                role="button"
-                tabIndex="0"
-                onClick={()=>{this.showId(id, status);}}
-                onKeyDown={() => {this.showId(id, status);}}
-              />
-            )}
+            {status ? this.renderCheckBox('fault') : this.renderCheckBox('fine')}
             <span>Unavailable</span>
           </div>
         </div>
@@ -72,12 +68,12 @@ class RoomLabel extends PureComponent {
 }
 
 RoomLabel.propTypes = {
-  updateRoomState: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
   timelineDateRange: PropTypes.array.isRequired,
   guestHouseId: PropTypes.string.isRequired,
+  updateRoomState: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
 };
 
 export default RoomLabel;

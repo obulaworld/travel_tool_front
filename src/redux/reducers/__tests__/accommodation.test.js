@@ -87,7 +87,7 @@ describe('Accommodation Reducer', () => {
     it('should handle EDIT_ACCOMMODATION_DATA', () => {
       const action = {
         type: EDIT_ACCOMMODATION_DATA,
-        guestHouseData: { guestHouse: { 
+        guestHouseData: { guestHouse: {
           'houseName': 'Kololo heights',
           'location': 'Kampala',
           'bathRooms': '4',
@@ -103,7 +103,7 @@ describe('Accommodation Reducer', () => {
         }
         }
       };
-  
+
       const newState = accommodation(initialState, action);
       const expectedState = {
         postAccommodationData: [],
@@ -131,10 +131,10 @@ describe('Accommodation Reducer', () => {
         },
         isLoading: false
       };
-  
+
       expect(newState).toEqual(expectedState);
     });
-  
+
     it('should handle EDIT_ACCOMMODATION_DATA_SUCCESS', () => {
       const action = {
         type: EDIT_ACCOMMODATION_DATA_SUCCESS,
@@ -153,7 +153,7 @@ describe('Accommodation Reducer', () => {
           ]
         },
       };
-  
+
       const newState = accommodation(initialState, action);
       const expectedState = {
         postAccommodationData: [],
@@ -182,20 +182,62 @@ describe('Accommodation Reducer', () => {
       };
       expect(newState).toEqual(expectedState);
     });
-  
+
     it('should handle EDIT_ACCOMMODATION_DATA_FAILURE', () => {
       const error = 'Failed to edit guest house';
       const action = {
         type: EDIT_ACCOMMODATION_DATA_FAILURE,
         error
       };
-  
+
       const newState = accommodation(initialState, action);
       const expectedState = {
         editingAccommodation: false,
         error: 'Failed to edit guest house'
       };
       expect(newState).toMatchObject(expectedState);
+    });
+
+    it('returns the correct state for initFetchTimelineData', () => {
+      const action = { type: 'INIT_FETCH_TIMELINE_DATA' };
+      const expectedState = {
+        ...initialState,
+        isLoading: true
+      };
+      expect(accommodation(initialState, action)).toEqual(expectedState);
+    });
+
+    it('returns the correct state for fetchTimelineDataSuccess', () => {
+      const successAction = {
+        type: 'FETCH_TIMELINE_DATA_SUCCESS',
+        guestHouse: {
+          houseName: 'Mini Flat',
+          rooms: []
+        }
+      };
+      const expectedState = {
+        ...initialState,
+        isLoading: false,
+        guestHouse: successAction.guestHouse
+      };
+      expect(accommodation(initialState, successAction)).toEqual(expectedState);
+    });
+
+    it('returns the correct state for fetchTimelineDataFailure', () => {
+      const failureAction = {
+        type: 'FETCH_TIMELINE_DATA_FAILURE',
+        error: 'Test error message',
+        guestHouse: {
+          rooms: []
+        }
+      };
+      const expectedState = {
+        ...initialState,
+        isLoading: false,
+        error: failureAction.error,
+        guestHouse: failureAction.guestHouse
+      };
+      expect(accommodation(initialState, failureAction)).toEqual(expectedState);
     });
   });
 });

@@ -38,7 +38,7 @@ export function* accommodationSagaAsync(action) {
     toast.error(errorMessage);
   }
 }
-  
+
 
 export function* fetchAccommodationSaga() {
   try {

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TripGeometry /> renders correctly 1`] = `
+<div
+  className="timeline-trip-geometry"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onKeyUp={[Function]}
+  role="presentation"
+  style={
+    Object {
+      "left": "-8773px",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="geom-trip geom-trip--outer"
+    style={
+      Object {
+        "background": "hsl(132,42%,65%)",
+        "minHeight": "20px",
+        "width": "217px",
+      }
+    }
+  >
+    <div
+      className="geom-trip geom-trip--inner"
+      style={
+        Object {
+          "background": "hsl(132,52%,45%)",
+          "width": "100%",
+        }
+      }
+    />
+    <span>
+      John Doe  (M)
+    </span>
+  </div>
+  <TripDetails
+    bookingDetailsPos={0}
+    detailsVariantClass="hidden"
+    toggleBookingDetails={[Function]}
+    translateDetailsLeft={false}
+    trip={
+      Object {
+        "departureDate": "2018-01-01",
+        "request": Object {
+          "gender": "Male",
+          "name": "John Doe",
+        },
+        "returnDate": "2018-01-07",
+      }
+    }
+  />
+</div>
+`;

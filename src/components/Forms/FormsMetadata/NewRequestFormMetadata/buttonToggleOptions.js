@@ -1,7 +1,7 @@
 const buttonToggleOptions = {
   gender: [
     'Female',
-    'Male',
+    'Male'
   ],
 
 };

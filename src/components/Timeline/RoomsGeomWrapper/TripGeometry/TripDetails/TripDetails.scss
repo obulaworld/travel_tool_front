@@ -67,9 +67,15 @@
     }
     &.details-visible {
       transform: translateY(-10%) scaleY(1);
+      &.translateX {
+        transform: translateY(-10%) scaleY(1) translateX(-90%);
+      }
     }
     &.details-hidden {
       transform: translateY(-10%) scaleY(0);
+      &.translateX {
+        transform: translateY(-10%) scaleY(0) translateX(-90%);
+      }
     }
   }
 
@@ -83,9 +89,15 @@
       transform-origin: bottom;
       &.details-visible {
         transform: translateY(-110%) scaleY(1);
+        &.translateX {
+          transform: translateY(-110%) scaleY(1) translateX(-90%);
+        }
       }
       &.details-hidden {
         transform: translateY(-110%) scaleY(0);
+        &.translateX {
+          transform: translateY(-110%) scaleY(0) translateX(-90%);
+        }
       }
     }
   }

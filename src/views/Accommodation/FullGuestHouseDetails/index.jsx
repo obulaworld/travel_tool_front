@@ -26,7 +26,7 @@ export class GuestHouseDetails extends PureComponent {
 
   renderGuestHouseDetailsNameBar = () => {
     const { match, history, guestHouse, userId } = this.props;
-    const { params } = match;
+
     return (
       <div className="guesthouse-details-wrapper--top">
         <div className="details-wrapper-top-right">
@@ -75,7 +75,7 @@ export class GuestHouseDetails extends PureComponent {
 
   getAvailableBedsCount = rooms => {
     return rooms.reduce((currSum, room) => {
-      return room.faulty ? currSum + 0 : currSum + room.bedCount;
+      return room.faulty ? currSum : (currSum + room.bedCount);
     }, 0);
   };
 

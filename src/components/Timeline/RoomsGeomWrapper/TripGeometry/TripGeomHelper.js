@@ -5,7 +5,7 @@ class TripGeomHelper {
   constructor({timelineStartDate, tripDayWidth, timelineViewType}) {
     this.values = {
       timelineStartDate,
-      timelineSegmentWidth: tripDayWidth,
+      tripDayWidth,
       timelineViewType
     };
   }
@@ -37,10 +37,10 @@ class TripGeomHelper {
   }
 
   getTripOffsetLeft = (departureDate) => {
-    const { timelineStartDate, timelineSegmentWidth } = this.values;
+    const { timelineStartDate, tripDayWidth } = this.values;
     const daysFromTimelineStart = departureDate.diff(timelineStartDate, 'days');
     const leftOffsetMarginErr = this.calculateLeftOffsetError(departureDate);
-    return (daysFromTimelineStart * timelineSegmentWidth) + leftOffsetMarginErr;
+    return (daysFromTimelineStart * tripDayWidth) + leftOffsetMarginErr;
   }
 
   getTripStats = (trip) => {

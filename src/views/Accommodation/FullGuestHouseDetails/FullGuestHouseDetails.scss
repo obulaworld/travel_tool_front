@@ -85,7 +85,20 @@
     &--key-details {
       display: flex;
       justify-content: space-between;
+      flex-flow: wrap;
       margin-bottom: 50px;
+      @media (max-width: 640px) {
+        .guesthouse-detail-card {
+          flex-basis: 40%;
+          margin-bottom: 15px;
+        }
+      }
+      @media (max-width: 450px) {
+        .guesthouse-detail-card {
+          flex-basis: 100%;
+          margin-bottom: 15px;
+        }
+      }
     }
   }
   .edit-btn{

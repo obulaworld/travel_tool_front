@@ -44,4 +44,3 @@ ProfileDetailsFieldSets.defaultProps = {
 };
 
 export default ProfileDetailsFieldSets;
-

@@ -45,7 +45,7 @@ export class LeftSideNavItem extends PureComponent {
   componentDidMount() {
     const {activateOnLogin} = this.props;
     const {setActiveNavItem} = this.context;
-    if(activateOnLogin)
+    if(this.isActive())
       setActiveNavItem(this);
   }
 
