@@ -64,10 +64,9 @@ class NewAccommodation extends PureComponent {
     } };
 
   defaultRoom = index => ({
-    [`roomName-${index}`]: '',
-    [`roomType-${index}`]: '',
-    [`bedCount-${index}`]: ''
+    [`roomName-${index}`]: '',  [`roomType-${index}`]: '',  [`bedCount-${index}`]: ''
   });
+
 
   handleImageChange = event => {
     event.preventDefault();
@@ -76,9 +75,11 @@ class NewAccommodation extends PureComponent {
     if (event.target.files[0]) {
       const file = event.target.files[0];
       reader.onloadend = () => {
-        this.setState({ values: { ...values, preview: reader.result, image: file }}); };
-      reader.readAsDataURL(file);
-    } };
+        this.setState(
+          prevState => ({
+            values: { ...prevState.values, preview: reader.result, image: file, }
+          }), this.validate );}; reader.readAsDataURL(file); 
+    }};
 
   displayImage = () => {
     const { values } = this.state;
@@ -88,7 +89,7 @@ class NewAccommodation extends PureComponent {
       <div className="image-rectangle">
         <img src={addPhoto} alt="ImagePreview" className="add-photo" />
       </div>
-    ); };
+    );};
 
   handleLocation = event => {
     const { target } = event;
@@ -203,10 +204,7 @@ class NewAccommodation extends PureComponent {
     fd.append('upload_preset', process.env.REACT_APP_PRESET_NAME);
     try {
       delete axios.defaults.headers.common['Authorization'];
-      const imageData = await axios.post(
-        process.env.REACT_APP_CLOUNDINARY_API,
-        fd
-      );
+      const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd);
       const imageUrl = imageData.data.secure_url;
       AccommodationAPI.setToken();
       const guestHouseData = {
