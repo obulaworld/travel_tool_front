@@ -51,6 +51,8 @@ class NewRequestForm extends PureComponent {
   }
 
   componentWillUnmount() {
+    const { fetchUserRequests } = this.props;
+    fetchUserRequests();
     this.handleClearForm();
   }
 
@@ -177,20 +179,20 @@ class NewRequestForm extends PureComponent {
       }));
     }else if (!collapse) {
       this.setState(prevState => {
-        const newValues = this.refreshValues(prevState, tripType);
+        const {newValues, trips} = this.refreshValues(prevState, tripType);
         return {
           parentIds : 1,
           values: newValues,
-          trips: [prevState.trips[0] || {}]
+          trips: trips || [{}]
         };
       });
     }else{
       this.setState(prevState => {
-        const newValues = this.refreshValues(prevState, tripType);
+        const {newValues, trips} = this.refreshValues(prevState, tripType);
         return {
           parentIds : 1,
           values: newValues,
-          trips: [prevState.trips[0] || {}]
+          trips: trips || [{}]
         };
       });
       this.collapsible();
@@ -204,12 +206,17 @@ class NewRequestForm extends PureComponent {
   })
   refreshValues = (prevState, tripType) => {
     // squash state.values to the shape defaultState keeping the values from state
-    const {values} = prevState;
+    const {values, trips} = prevState;
     const newValues = {...this.defaultState.values};
     Object.keys(newValues)
       .map(inputName => (newValues[inputName] = values[inputName]));
-    tripType === 'oneWay' && delete newValues['arrivalDate-0'];
-    return newValues;
+    if(tripType === 'oneWay'){
+      let newTrip = {...trips[0]};
+      delete newValues['arrivalDate-0'];
+      delete newTrip.returnDate;
+      trips[0] = newTrip;
+    }
+    return {newValues, trips};
   }
  
   handleSubmit = event => {
@@ -403,7 +410,8 @@ NewRequestForm.propTypes = {
   managers: PropTypes.array,
   creatingRequest: PropTypes.bool,
   modalType: PropTypes.string,
-  requestOnEdit: PropTypes.object.isRequired
+  requestOnEdit: PropTypes.object.isRequired,
+  fetchUserRequests: PropTypes.func.isRequired
 };
 
 NewRequestForm.defaultProps = {

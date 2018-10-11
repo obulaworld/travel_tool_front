@@ -133,7 +133,8 @@ export class Requests extends Base {
   }
   renderNewRequestForm() {
     const { updateUserProfile, user, createNewRequest, loading, errors, closeModal,
-      shouldOpen, modalType, manager, requestOnEdit, editRequest } = this.props;
+      shouldOpen, modalType, manager, requestOnEdit, editRequest, fetchUserRequests } = this.props;
+    const { url } = this.state;
     return (
       <Modal
         closeModal={closeModal}
@@ -152,6 +153,7 @@ export class Requests extends Base {
           managers={manager}
           modalType={modalType}
           requestOnEdit={requestOnEdit}
+          fetchUserRequests={() => fetchUserRequests(url)}
         />
       </Modal>
     );

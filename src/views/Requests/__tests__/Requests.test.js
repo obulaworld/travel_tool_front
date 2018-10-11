@@ -103,6 +103,7 @@ const props ={
     dataCount: 10,
     onPageChange: sinon.spy()
   },
+  fetchEditRequest:sinon.spy(() => Promise.resolve()),
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
   fetchRoleUsers: sinon.spy(() => Promise.resolve()),
   updateUserProfile:sinon.spy(() => Promise.resolve()),
@@ -133,7 +134,6 @@ const props ={
   match: {
     params: { requestId: 'sgjdgljgd' }
   },
-  fetchEditRequest:jest.fn(), 
   editRequest:jest.fn(), 
 };
 

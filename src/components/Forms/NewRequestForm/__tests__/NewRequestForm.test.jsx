@@ -68,6 +68,7 @@ describe('<NewRequestForm />', () => {
     updateUserProfile: jest.fn(() => {}),
     creatingRequest: jest.fn(() => {}),
     handleEditRequest: jest.fn(() => {}),
+    fetchUserRequests: jest.fn(() => {}),
     managers: [
       {
         fullName: 'Test User',
@@ -349,6 +350,21 @@ describe('<NewRequestForm />', () => {
     sinon.spy(shallowWrapper.instance(), 'handleRadioButton');
     shallowWrapper.instance().handleRadioButton(event);
     expect(shallowWrapper.instance().handleRadioButton.calledOnce).toEqual(true);
+  });
+
+  it('should update trip selection to oneWay on select oneWay radio', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({ selection: 'return' });
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        value: 'oneWay'
+      },
+    };
+    const travelDetails = shallowWrapper.find('TravelDetailsFieldset').at(0);
+    const tripTypeChangeListener = travelDetails.prop('handleRadioButtonChange');
+    tripTypeChangeListener(event);
+    expect(shallowWrapper.state().selection).toEqual('oneWay');
   });
 
   it('should update state when a trip is added and when it\'s removed', () => {

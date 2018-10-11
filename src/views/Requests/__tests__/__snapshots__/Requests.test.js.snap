@@ -21,6 +21,7 @@ exports[`<Requests> renders as expected 1`] = `
       closeModal={[Function]}
       creatingRequest={false}
       errors={Array []}
+      fetchUserRequests={[Function]}
       handleCreateRequest={[Function]}
       handleEditRequest={[Function]}
       loading={false}

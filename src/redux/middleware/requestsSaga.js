@@ -83,7 +83,7 @@ export function* editRequest(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(editRequestFailure(errorMessage));
-    toast.success(errorMessage);
+    toast.error(errorMessage);
   }
 }
 export function* watchEditRequest() {
