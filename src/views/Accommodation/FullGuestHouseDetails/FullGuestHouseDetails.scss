@@ -88,4 +88,20 @@
       margin-bottom: 50px;
     }
   }
+  .edit-btn{
+    height: 21px;		
+    color: #3359DB;	
+    font-family: "DIN Pro";	
+    font-size: 16px;	
+    line-height: 21px;	
+    text-align: right;
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+
+  }
+  .edit-btn:hover{
+    text-decoration: underline;
+  }
 }

@@ -4,11 +4,14 @@ import * as actionTypes from '../../constants/actionTypes';
 import { response } from '../../__mocks__/AccommodationData';
 
 
-describe('User Reducer', () => {
+describe('Accommodation Reducer', () => {
   const initialState = {
     postAccommodationData: [],
     errors: [],
+    editAccommodationData: {},
+    editingAccommodation: false,
     guestHouses: [],
+    guestHouseData: {},
     guestHouse: {
       rooms: []
     },

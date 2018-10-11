@@ -5,7 +5,12 @@ import Modal from '../../components/modal/Modal';
 import { NewAccommodationForm } from '../../components/Forms';
 import AccommodationPanelHeader from '../../components/AccommodationPanelHeader';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
-import { createAccommodation, fetchAccommodation } from '../../redux/actionCreator/accommodationActions';
+import {
+  createAccommodation,
+  fetchAccommodation,
+  editAccommodation,
+  initFetchTimelineData
+} from '../../redux/actionCreator/accommodationActions';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
 
 export class Accommodation extends Component {
@@ -13,7 +18,7 @@ export class Accommodation extends Component {
     const { fetchAccommodation } = this.props;
     fetchAccommodation();
   }
-  
+
   renderAccommodationPanelHeader() {
     let { openModal } = this.props;
     return (
@@ -24,7 +29,14 @@ export class Accommodation extends Component {
   }
 
   renderAccommodationForm() {
-    const { closeModal, shouldOpen, modalType, createAccommodation, fetchAccommodation } = this.props;
+    const {
+      closeModal,
+      shouldOpen,
+      modalType,
+      createAccommodation,
+      fetchAccommodation,
+      editAccommodation
+    } = this.props;
     return (
       <Modal
         closeModal={closeModal}
@@ -36,8 +48,10 @@ export class Accommodation extends Component {
       >
         <NewAccommodationForm
           closeModal={closeModal}
+          modalType={modalType}
           createAccommodation={createAccommodation}
           fetchAccommodation={fetchAccommodation}
+          editAccommodation={editAccommodation}
         />
       </Modal>
     );
@@ -47,12 +61,16 @@ export class Accommodation extends Component {
     const { guestHouses, isLoading, accommodationError } = this.props;
     const { getCurrentUserRole, history } = this.props;
     const isAdmin = getCurrentUserRole && getCurrentUserRole;
-    if (isAdmin && isAdmin != 'Super Administrator' && isAdmin !== 'Travel Administrator') {
+    if (
+      isAdmin &&
+      isAdmin != 'Super Administrator' &&
+      isAdmin !== 'Travel Administrator'
+    ) {
       history.push('/');
     }
     return (
       <Fragment>
-        {this.renderAccommodationPanelHeader() }
+        {this.renderAccommodationPanelHeader()}
         {this.renderAccommodationForm()}
         <div className="table__container">
           <WithLoadingCentreGrid
@@ -74,42 +92,44 @@ Accommodation.propTypes = {
   createAccommodation: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
-  guestHouses:  PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    houseName: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
-    bathRooms: PropTypes.number.isRequired
-  })),
+  guestHouses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+      houseName: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      rooms: PropTypes.arrayOf(PropTypes.object).isRequired,
+      bathRooms: PropTypes.number.isRequired
+    })
+  ),
   isLoading: PropTypes.bool,
   accommodationError: PropTypes.string,
   fetchAccommodation: PropTypes.func.isRequired,
+  editAccommodation: PropTypes.func.isRequired
 };
 
 Accommodation.defaultProps = {
   guestHouses: [],
   accommodationError: '',
-  isLoading: false
+  isLoading: false,
+  modalType: ''
 };
-
-Accommodation.defaultProps = {
-  modalType: '',
-};
-
 
 const actionCreators = {
   openModal,
   closeModal,
   fetchAccommodation,
   createAccommodation,
+  editAccommodation
 };
 
 export const mapStateToProps = ({ accommodation, modal, user }) => ({
   ...accommodation,
   ...modal.modal,
-  ...user,
+  ...user
 });
 
-
-export default connect(mapStateToProps, actionCreators)(Accommodation);
+export default connect(
+  mapStateToProps,
+  actionCreators
+)(Accommodation);

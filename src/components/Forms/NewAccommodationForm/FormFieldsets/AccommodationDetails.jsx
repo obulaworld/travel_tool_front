@@ -88,11 +88,14 @@ class AccommodationDetails extends Component {
   };
 
   renderImageDisplay = (displayImage, handleImageChange) => {
+    const { modalType } = this.props; 
     return (
       <div className="aline-box">
         {displayImage()}
         <div className="image-space">
-          <p className="upload">Upload guest house image</p>
+          { modalType === 'edit accomodation' ? (
+            <p className="upload">Change guest house image</p> )
+            : <p className="upload">Upload guest house image</p> }
           <div className="upload-btn-wrapper">
             <button type="button" className="action-btn btn-new-request">
               upload
@@ -135,6 +138,7 @@ const handleLocation = PropTypes.func;
 const removeRoom = PropTypes.func;
 const documentId = PropTypes.string;
 const handleDropDown =PropTypes.string;
+const modalType =PropTypes.string;
 
 AccommodationDetails.propTypes = {
   handleImageChange: handleImageChange.isRequired,
@@ -144,7 +148,8 @@ AccommodationDetails.propTypes = {
   handleLocation: handleLocation.isRequired,
   removeRoom: removeRoom.isRequired,
   documentId: documentId.isRequired,
-  handleDropDown: handleDropDown.isRequired
+  handleDropDown: handleDropDown.isRequired,
+  modalType: modalType.isRequired,
 };
 
 export default AccommodationDetails;

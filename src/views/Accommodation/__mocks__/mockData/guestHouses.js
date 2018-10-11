@@ -87,4 +87,3 @@ const guestHouses = [
 ];
 
 export default guestHouses;
-

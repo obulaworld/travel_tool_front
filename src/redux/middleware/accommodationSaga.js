@@ -11,11 +11,13 @@ import {
   fetchTimelineDataFailure,
   fetchAccommodationSuccess,
   fetchAccommodationFailure,
+  editAccommodationSuccess,
+  editAccommodationFailure,
 } from '../actionCreator/accommodationActions';
 import { closeModal } from '../actionCreator/modalActions';
 
 import {
-  FETCH_ACCOMMODATION_CENTRES,
+  FETCH_ACCOMMODATION_CENTRES, EDIT_ACCOMMODATION_DATA
 } from '../constants/actionTypes';
 
 
@@ -72,4 +74,23 @@ export function * fetchGuestHouseTimelineDataSaga(action) {
 
 export function* watchFetchTimelneData() {
   yield takeLatest(initFetchTimelineData().type, fetchGuestHouseTimelineDataSaga);
+}
+
+export function* editAccommodationAsync(action) {
+  try {
+    const { guestHouseId, guestHouseData} = action;
+    const response = yield call(AccommodationAPI.editAccommodation, guestHouseData, guestHouseId);
+    yield put(editAccommodationSuccess(response.data.guestHouse));
+    yield put(closeModal());
+    toast.success('Guest House Updated Successfully');
+  }
+  catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    toast.error(errorMessage);
+    yield put(editAccommodationFailure(errorMessage));
+  }
+}
+
+export function* watchEditAccommodation() {
+  yield takeLatest(EDIT_ACCOMMODATION_DATA, editAccommodationAsync);
 }

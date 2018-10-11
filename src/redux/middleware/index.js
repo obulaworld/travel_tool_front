@@ -38,7 +38,8 @@ import { watchUpdateUserProfileAsync } from './UserProfileSaga';
 import {
   watchCreateAccommodationSagaAsync,
   watchFetchAccommodation,
-  watchFetchTimelneData
+  watchFetchTimelneData,
+  watchEditAccommodation,
 } from './accommodationSaga';
 
 import { watchUpdateRoomsAsync } from './roomUpdateSaga';
@@ -72,6 +73,7 @@ function* rootSaga() {
     watchEditRequest(),
     watchAddNotification(),
     watchFetchAccommodation(),
+    watchEditAccommodation(),
     watchUpdateAllNotificationStatus(),
     watchCreateAccommodationSagaAsync(),
     watchFetchTimelneData(),

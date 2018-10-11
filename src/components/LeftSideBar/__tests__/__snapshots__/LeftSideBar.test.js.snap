@@ -39,7 +39,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
-                  "exact": true,
+                  "exact": false,
                   "link_to": "/residence/manage",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
@@ -48,6 +48,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "text": "Manage",
                 },
                 Object {
+                  "exact": false,
                   "link_to": "/residence/checkin",
                   "text": "Check-in",
                 },

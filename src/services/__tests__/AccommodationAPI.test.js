@@ -31,4 +31,100 @@ describe('AccommodationAPI', () => {
     expect(request.config.method).toEqual('get');
     expect(response.data).toEqual(expectedResponse);
   });
+
+  it('should send a PUT request to update guest house', async () =>{
+    const accommodationData = {
+      'houseName': 'Bukoto heights',
+      'location': 'Kampala',
+      'bathRooms': '4',
+      'imageUrl': 'https://www.lol.com',
+      'rooms': [
+        {
+          'roomName': 'Rwenzori',
+          'roomType': 'non-ensuite',
+          'bedCount': '1',
+          'id': 'dtnJtaRE7Y'
+        }
+      ]
+    };
+    const guestHouseId = 'zNnGJAJH5';
+
+    moxios.stubRequest(`${baseUrl}/guesthouses/${guestHouseId}`, {
+      status: 200,
+      response: {
+        'id': 'zNnGJAJH5',
+        'houseName': 'Bukoto heights',
+        'location': 'Kampala',
+        'bathRooms': '4',
+        'imageUrl': 'https://www.lol.com',
+        'createdAt': '2018-10-05T00:07:22.276Z',
+        'updatedAt': '2018-10-07T03:17:09.928Z',
+        'userId': '-LJNzPWupJiiToLowHq9',
+        rooms: [
+          {
+            'id': 'dtnJtaRE7Y',
+            'roomName': 'Rwenzori',
+            'roomType': 'non-ensuite',
+            'bedCount': '1',
+            'faulty': false,
+            'createdAt': '2018-10-05T00:07:22.281Z',
+            'updatedAt': '2018-10-07T03:17:09.938Z',
+            'guestHouseId': 'zNnGJAJH5'
+          }
+        ],
+        bed: [
+          [
+            {
+              'id': 68,
+              'bedName': 'bed 1',
+              'booked': false,
+              'createdAt': '2018-10-07T03:17:09.969Z',
+              'updatedAt': '2018-10-07T03:17:09.969Z',
+              'roomId': 'dtnJtaRE7Y'
+            }
+          ]
+  
+        ]
+      },
+    });
+
+    const response = await AccommodationAPI.editAccommodation(accommodationData, guestHouseId);
+    
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/guesthouses/${guestHouseId}`);
+    expect(response.data).toEqual({
+      'id': 'zNnGJAJH5',
+      'houseName': 'Bukoto heights',
+      'location': 'Kampala',
+      'bathRooms': '4',
+      'imageUrl': 'https://www.lol.com',
+      'createdAt': '2018-10-05T00:07:22.276Z',
+      'updatedAt': '2018-10-07T03:17:09.928Z',
+      'userId': '-LJNzPWupJiiToLowHq9',
+      rooms: [
+        {
+          'id': 'dtnJtaRE7Y',
+          'roomName': 'Rwenzori',
+          'roomType': 'non-ensuite',
+          'bedCount': '1',
+          'faulty': false,
+          'createdAt': '2018-10-05T00:07:22.281Z',
+          'updatedAt': '2018-10-07T03:17:09.938Z',
+          'guestHouseId': 'zNnGJAJH5'
+        }
+      ],
+      bed: [
+        [
+          {
+            'id': 68,
+            'bedName': 'bed 1',
+            'booked': false,
+            'createdAt': '2018-10-07T03:17:09.969Z',
+            'updatedAt': '2018-10-07T03:17:09.969Z',
+            'roomId': 'dtnJtaRE7Y'
+          }
+        ]
+  
+      ]
+    });
+  });
 });

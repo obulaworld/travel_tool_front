@@ -3,6 +3,9 @@ import {
   FETCH_ACCOMMODATION_CENTRES,
   FETCH_ACCOMMODATION_CENTRES_SUCCESS,
   FETCH_ACCOMMODATION_CENTRES_FAILURE,
+  EDIT_ACCOMMODATION_DATA,
+  EDIT_ACCOMMODATION_DATA_SUCCESS,
+  EDIT_ACCOMMODATION_DATA_FAILURE,
 } from '../../constants/actionTypes';
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
 
@@ -11,16 +14,35 @@ describe('Accommodation Reducer', () => {
     const initialState = {
       postAccommodationData: [],
       errors: [],
+      editAccommodationData: {},
+      editingAccommodation: false,
       guestHouses: [],
+      guestHouseData: {'guestHouse': {
+        'houseName': 'Kololo heights',
+        'location': 'Kampala',
+        'bathRooms': '4',
+        'imageUrl': 'https://www.lol.com',
+        'rooms': [
+          {
+            'roomName': 'Rwenzori',
+            'roomType': 'non-ensuite',
+            'bedCount': '1',
+            'id': 'dtnJtaRE7Y'
+          }
+        ]
+      }
+      },
       guestHouse: {
         rooms: []
       },
       isLoading: false
     };
+
     const error = 'Error fetching accommodation centres, network error';
     it('returns the correct initial state', () => {
       expect(accommodation(undefined, {})).toEqual({
-        ...initialState
+        ...initialState,
+        'guestHouseData': {}
       });
     });
 
@@ -60,6 +82,120 @@ describe('Accommodation Reducer', () => {
         accommodationError: error,
         guestHouses: null
       });
+    });
+
+    it('should handle EDIT_ACCOMMODATION_DATA', () => {
+      const action = {
+        type: EDIT_ACCOMMODATION_DATA,
+        guestHouseData: { guestHouse: { 
+          'houseName': 'Kololo heights',
+          'location': 'Kampala',
+          'bathRooms': '4',
+          'imageUrl': 'https://www.lol.com',
+          'rooms': [
+            {
+              'roomName': 'Rwenzori',
+              'roomType': 'non-ensuite',
+              'bedCount': '1',
+              'id': 'dtnJtaRE7Y'
+            }
+          ]
+        }
+        }
+      };
+  
+      const newState = accommodation(initialState, action);
+      const expectedState = {
+        postAccommodationData: [],
+        errors: [],
+        editAccommodationData: {},
+        editingAccommodation: true,
+        guestHouses: [],
+        guestHouse: {
+          rooms: []
+        },
+        guestHouseData: {'guestHouse': {
+          'houseName': 'Kololo heights',
+          'location': 'Kampala',
+          'bathRooms': '4',
+          'imageUrl': 'https://www.lol.com',
+          'rooms': [
+            {
+              'roomName': 'Rwenzori',
+              'roomType': 'non-ensuite',
+              'bedCount': '1',
+              'id': 'dtnJtaRE7Y'
+            }
+          ]
+        }
+        },
+        isLoading: false
+      };
+  
+      expect(newState).toEqual(expectedState);
+    });
+  
+    it('should handle EDIT_ACCOMMODATION_DATA_SUCCESS', () => {
+      const action = {
+        type: EDIT_ACCOMMODATION_DATA_SUCCESS,
+        guestHouseData: {
+          'houseName': 'Kololo heights',
+          'location': 'Kampala',
+          'bathRooms': '4',
+          'imageUrl': 'https://www.lol.com',
+          'rooms': [
+            {
+              'roomName': 'Rwenzori',
+              'roomType': 'non-ensuite',
+              'bedCount': '1',
+              'id': 'dtnJtaRE7Y'
+            }
+          ]
+        },
+      };
+  
+      const newState = accommodation(initialState, action);
+      const expectedState = {
+        postAccommodationData: [],
+        errors: [],
+        editAccommodationData: {},
+        editingAccommodation: false,
+        guestHouses: [],
+        guestHouse: {
+          rooms: []
+        },
+        guestHouseData: {
+          'houseName': 'Kololo heights',
+          'location': 'Kampala',
+          'bathRooms': '4',
+          'imageUrl': 'https://www.lol.com',
+          'rooms': [
+            {
+              'roomName': 'Rwenzori',
+              'roomType': 'non-ensuite',
+              'bedCount': '1',
+              'id': 'dtnJtaRE7Y'
+            }
+          ]
+        },
+        isLoading: false,
+      };
+      expect(newState).toEqual(expectedState);
+    });
+  
+    it('should handle EDIT_ACCOMMODATION_DATA_FAILURE', () => {
+      const error = 'Failed to edit guest house';
+      const action = {
+        type: EDIT_ACCOMMODATION_DATA_FAILURE,
+        error
+      };
+  
+      const newState = accommodation(initialState, action);
+      const expectedState = {
+        editingAccommodation: false,
+        error: 'Failed to edit guest house'
+      };
+      expect(newState).toMatchObject(expectedState);
     });
   });
 });

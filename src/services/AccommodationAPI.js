@@ -11,6 +11,9 @@ class AccommodationAPI {
   static getAccommodationCentres() {
     return axios.get(`${baseUrl}/guesthouses`);
   }
+  static editAccommodation(accommodationData, guestHouseId) {
+    return axios.put(`${baseUrl}/guesthouses/${guestHouseId}`, accommodationData);
+  }
   static setToken () {
     const token = Cookies.get('jwt-token');
     axios.defaults.headers.common['Authorization'] = token;

@@ -7,7 +7,10 @@ import {
   CREATE_ACCOMMODATION_DATA_FAILURE,
   INIT_FETCH_TIMELINE_DATA,
   FETCH_TIMELINE_DATA_SUCCESS,
-  FETCH_TIMELINE_DATA_FAILURE
+  FETCH_TIMELINE_DATA_FAILURE,
+  EDIT_ACCOMMODATION_DATA,
+  EDIT_ACCOMMODATION_DATA_SUCCESS, 
+  EDIT_ACCOMMODATION_DATA_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchAccommodation = () => ({
@@ -57,4 +60,20 @@ export const fetchTimelineDataFailure = (errorMsg) => ({
   type: FETCH_TIMELINE_DATA_FAILURE,
   guestHouse: {rooms: [] },
   error: errorMsg
+});
+
+export const editAccommodation  = (guestHouseId, guestHouseData) => ({
+  type: EDIT_ACCOMMODATION_DATA,
+  guestHouseId,
+  guestHouseData,
+});
+
+export const editAccommodationSuccess = guestHouseData => ({
+  type: EDIT_ACCOMMODATION_DATA_SUCCESS,
+  guestHouseData,
+});
+
+export const editAccommodationFailure = error => ({
+  type: EDIT_ACCOMMODATION_DATA_FAILURE,
+  error,
 });

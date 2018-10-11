@@ -3,7 +3,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import AccommodationAPI from '../../../services/AccommodationAPI';
 import {
-  watchFetchAccommodation
+  watchFetchAccommodation, watchEditAccommodation
 } from '../accommodationSaga';
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
 
@@ -50,4 +50,5 @@ describe('Accommodation Saga', () => {
     });
 
   });
+
 });

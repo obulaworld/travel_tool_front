@@ -28,12 +28,14 @@ exports[`<Accommodation /> renders correctly 1`] = `
       closeModal={[Function]}
       createAccommodation={[Function]}
       fetchAccommodation={[Function]}
+      modalType={null}
     />
   </Modal>
   <div
     className="table__container"
   >
     <WithLoading
+      error=""
       guestHouses={
         Array [
           Object {
