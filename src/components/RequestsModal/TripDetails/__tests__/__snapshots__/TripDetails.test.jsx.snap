@@ -4,46 +4,52 @@ exports[`<TripDetails /> should render correctly 1`] = `
 <div
   className="modal__modal-trip-details undefined"
 >
-  <div
-    className="modal__trip-detail"
-  >
+  <div>
     <div
-      className="modal__trip-detail-label"
+      className="modal__trip-detail"
     >
-      From
-    </div>
-    <div
-      className="modal__trip-detail-text"
-    >
-      Lagos
-    </div>
-  </div>
-  <div
-    className="modal__trip-detail"
-  >
-    <div
-      className="modal__trip-detail-label"
-    >
-      Travel to
-    </div>
-    <div
-      className="modal__trip-detail-text"
-    >
-      Nairobi
+      <div
+        className="modal__trip-detail-label"
+      >
+        From
+      </div>
+      <div
+        className="modal__trip-detail-text"
+      >
+        Lagos
+      </div>
     </div>
   </div>
-  <div
-    className="modal__trip-detail"
-  >
+  <div>
     <div
-      className="modal__trip-detail-label"
+      className="modal__trip-detail"
     >
-      Depature date
+      <div
+        className="modal__trip-detail-label"
+      >
+        Travel to
+      </div>
+      <div
+        className="modal__trip-detail-text"
+      >
+        Nairobi
+      </div>
     </div>
+  </div>
+  <div>
     <div
-      className="modal__trip-detail-text"
+      className="modal__trip-detail"
     >
-      09 Dec 2018
+      <div
+        className="modal__trip-detail-label"
+      >
+        Depature date
+      </div>
+      <div
+        className="modal__trip-detail-text"
+      >
+        09 Dec 2018
+      </div>
     </div>
   </div>
   <div
@@ -56,6 +62,24 @@ exports[`<TripDetails /> should render correctly 1`] = `
         className="modal__trip-detail-label"
       >
         Return date
+      </div>
+      <div
+        className="modal__trip-detail-text"
+      >
+        04 Oct 2018
+      </div>
+    </div>
+  </div>
+  <div
+    id="trip-detail"
+  >
+    <div
+      className="modal__trip-detail"
+    >
+      <div
+        className="modal__trip-detail-label"
+      >
+        Accomodation
       </div>
       <div
         className="modal__trip-detail-text"

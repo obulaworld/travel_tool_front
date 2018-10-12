@@ -7,10 +7,44 @@ export default class TripDetails extends PureComponent {
   static propTypes = {
     tripDetails: PropTypes.object.isRequired
   }
-
+  renderTripDetails = (
+    origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationdetails
+  ) => (
+    <React.Fragment>
+      <div>
+        <TripDetail
+          label="From"
+          value={origin} />
+      </div>
+      <div>
+        <TripDetail
+          label="Travel to"
+          value={destination} />
+      </div>
+      <div>
+        <TripDetail
+          label="Depature date"
+          value={generateDynamicDate(tripDetails, departureDate)} />
+      </div>
+      <div id="return-date">
+        { tripType !== 'oneWay' ?
+          (<TripDetail
+            label="Return date"
+            value={generateDynamicDate(tripDetails, returnDate)} />
+          )  : ''
+        }
+      </div>
+      <div id="trip-detail">
+        <TripDetail
+          label="Accomodation"
+          value={accomodationdetails} />
+      </div>
+    </React.Fragment>
+  )
   renderTrips() {
     const { tripDetails } = this.props;
     const {
+      beds,
       createdAt,
       departureDate,
       returnDate,
@@ -18,25 +52,14 @@ export default class TripDetails extends PureComponent {
       origin,
       tripType
     } = tripDetails;
+    const {rooms:{roomName, guestHouses:{houseName}}, bedName } = beds;
+    const accomodationdetails = `${houseName}, ${roomName}, ${bedName}`;
+   
     return (
       <div className={`modal__modal-trip-details ${tripType}`}>
-        <TripDetail
-          label="From"
-          value={origin} />
-        <TripDetail
-          label="Travel to"
-          value={destination} />
-        <TripDetail
-          label="Depature date"
-          value={generateDynamicDate(tripDetails, departureDate)} />
-        <div id="return-date">
-          { tripType !== 'oneWay' ?
-            (<TripDetail
-              label="Return date"
-              value={generateDynamicDate(tripDetails, returnDate)} />
-            )  : ''
-          }
-        </div>
+        {this.renderTripDetails(
+          origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationdetails
+        )}
       </div>
     );
   }

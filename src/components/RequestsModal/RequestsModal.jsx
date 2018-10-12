@@ -36,6 +36,7 @@ export class RequestDetailsModal extends Component {
       const tripDetails = { createdAt, tripType, ...trip, };
       return <TripDetails key={trip.id} tripDetails={tripDetails} />;
     });
+
     return requestTripsDetails;
   }
 
