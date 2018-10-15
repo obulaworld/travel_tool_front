@@ -23,7 +23,7 @@ export default class TripDetails extends PureComponent {
       </div>
       <div>
         <TripDetail
-          label="Depature date"
+          label="Departure date"
           value={generateDynamicDate(tripDetails, departureDate)} />
       </div>
       <div id="return-date">
