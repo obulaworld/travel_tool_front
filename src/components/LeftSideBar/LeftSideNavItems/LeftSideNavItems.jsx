@@ -1,10 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import {withRouter} from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { logoutUser } from '../../../helper/userDetails';
 import LeftSidebarNavItem from './LeftSideNavItem/LeftSideNavItem';
 import DropdownItem from './DropdownItems/DropdownItem/DropdownItem';
-import logoutInactiveIcon from '../../../images/icons/logout_inactive.svg';
 import './_leftSideNavItems.scss';
 
 

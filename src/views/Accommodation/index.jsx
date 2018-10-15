@@ -15,8 +15,17 @@ import WithLoadingCentreGrid from '../../components/CentreGrid';
 
 export class Accommodation extends Component {
   componentDidMount() {
-    const { fetchAccommodation } = this.props;
-    fetchAccommodation();
+    const { fetchAccommodation, getCurrentUserRole, history } = this.props;
+    const isAdmin = getCurrentUserRole && getCurrentUserRole;
+    if (
+      isAdmin &&
+      isAdmin !== 'Super Administrator' &&
+      isAdmin !== 'Travel Administrator'
+    ) {
+      history.push('/');
+    } else {
+      fetchAccommodation();
+    }
   }
 
   renderAccommodationPanelHeader() {
@@ -59,15 +68,6 @@ export class Accommodation extends Component {
 
   render() {
     const { guestHouses, isLoading, accommodationError } = this.props;
-    const { getCurrentUserRole, history } = this.props;
-    const isAdmin = getCurrentUserRole && getCurrentUserRole;
-    if (
-      isAdmin &&
-      isAdmin != 'Super Administrator' &&
-      isAdmin !== 'Travel Administrator'
-    ) {
-      history.push('/');
-    }
     return (
       <Fragment>
         {this.renderAccommodationPanelHeader()}

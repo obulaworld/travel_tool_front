@@ -10,7 +10,7 @@ import {
 const initialState = {
   postUserData: [],
   getUserData: {},
-  getCurrentUserRole: 'loading',
+  getCurrentUserRole: '',
   errors: []
 };
 const user = (state = initialState, action) => {

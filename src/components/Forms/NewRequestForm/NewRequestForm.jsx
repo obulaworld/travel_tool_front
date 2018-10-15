@@ -215,6 +215,12 @@ class NewRequestForm extends PureComponent {
       delete newValues['arrivalDate-0'];
       delete newTrip.returnDate;
       trips[0] = newTrip;
+      const slicedTrips = trips.slice(0, 1);
+      return {newValues, trips: slicedTrips };
+    }
+    if(tripType === 'return'){
+      const slicedTrips = trips.slice(0, 1);
+      return {newValues, trips: slicedTrips };
     }
     return {newValues, trips};
   }

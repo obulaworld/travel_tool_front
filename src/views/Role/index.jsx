@@ -14,8 +14,13 @@ import './Role.scss';
 
 export class Role extends Component {
   componentDidMount() {
-    const { getRoleData } = this.props;
-    getRoleData();
+    const { getRoleData, getCurrentUserRole, history } = this.props;
+    const isAdmin = getCurrentUserRole && getCurrentUserRole;
+    if (isAdmin && isAdmin != 'Super Administrator') {
+      history.push('/');
+    } else {
+      getRoleData();
+    }  
   }
 
   renderUserRolePanelHeader() {
@@ -71,11 +76,6 @@ export class Role extends Component {
   }
 
   render() {
-    const { getCurrentUserRole, history } = this.props;
-    const isAdmin = getCurrentUserRole && getCurrentUserRole;
-    if (isAdmin && isAdmin != 'Super Administrator') {
-      history.push('/');
-    }
     return (
       <Fragment>
         {this.renderRoleForm()}
