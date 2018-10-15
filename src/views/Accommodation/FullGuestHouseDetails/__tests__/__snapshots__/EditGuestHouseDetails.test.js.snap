@@ -101,6 +101,15 @@ exports[`<Accommodation /> should render correctly 1`] = `
           </div>
         </div>
       </div>
+      <div>
+        <button
+          className="edit-btn"
+          onClick={[Function]}
+          type="button"
+        >
+          Edit Guest House
+        </button>
+      </div>
     </div>
     <div
       className="guesthouse-details-wrapper--key-details"

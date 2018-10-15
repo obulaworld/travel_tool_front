@@ -32,11 +32,14 @@ class NewAccommodation extends PureComponent {
       rooms: modalType === 'edit accomodation' ? guestHouse.rooms : [{}],
       errors: {},
       documentId: modalType === 'edit accomodation' ? guestHouse.rooms.length: 1,
-      hasBlankFields: true };
+      hasBlankFields: modalType === 'edit accomodation' ? false : true };
     this.state = { ...this.defaultState };}
 
   componentDidMount() {
-    this.addRoomOnClick();
+    const { modalType } = this.props;
+    if (modalType === 'new model') {
+      this.addRoomOnClick();
+    } return null;
   }
 
   componentWillUnmount() {

@@ -252,12 +252,12 @@ describe('<NewAccommodation />', () => {
     wrapper.instance().addRoomOnClick();
     expect(wrapper.instance().state.values['roomName-1']).toBe('');
     expect(wrapper.instance().state.values['roomName-2']).toBe('');
-    expect(wrapper.instance().state.documentId).toBe(4);
-    wrapper.instance().removeRoom(1);
     expect(wrapper.instance().state.documentId).toBe(3);
+    wrapper.instance().removeRoom(1);
+    expect(wrapper.instance().state.documentId).toBe(2);
     expect(wrapper.instance().state.values['roomName-1']).toBe('');
     expect(wrapper.instance().state.values['roomName-4']).toBe(undefined);
-    expect(wrapper.instance().state.rooms).toHaveLength(3);
+    expect(wrapper.instance().state.rooms).toHaveLength(2);
   });
 
   it('should handle Image Change', () => {

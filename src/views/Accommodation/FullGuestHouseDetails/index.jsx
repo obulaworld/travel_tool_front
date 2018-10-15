@@ -15,6 +15,7 @@ import {
   openModal,
   closeModal
 } from '../../../redux/actionCreator/modalActions';
+import edit_icon from '../../../images/icons/edit_icon.svg';
 import './FullGuestHouseDetails.scss';
 import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
 
@@ -25,7 +26,7 @@ export class GuestHouseDetails extends PureComponent {
   };
 
   renderGuestHouseDetailsNameBar = () => {
-    const { match, history, guestHouse, userId } = this.props;
+    const { match, history, guestHouse } = this.props;
 
     return (
       <div className="guesthouse-details-wrapper--top">
@@ -49,17 +50,16 @@ export class GuestHouseDetails extends PureComponent {
             <div>{this.getBedCount(guestHouse.rooms)}</div>
           </div>
         </div>
-        {userId === guestHouse.userId ? (
-          <div>
-            <button
-              type="button"
-              className="edit-btn"
-              onClick={this.handleOnEdit}
-            >
+        <div>
+          <img src={edit_icon} alt="Edit Link" className="edit-icon" />
+          <button
+            type="button"
+            className="edit-btn"
+            onClick={this.handleOnEdit}
+          >
               Edit Guest House
-            </button>
-          </div>
-        ) : null}
+          </button>
+        </div>
       </div>
     );
   };
@@ -158,10 +158,8 @@ GuestHouseDetails.propTypes = {
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   initFetchTimelineData: PropTypes.func,
-  // guestHouse: PropTypes.object.isRequired,
   guestHouse: PropTypes.object,
   updateRoomState: PropTypes.func.isRequired,
-  userId: PropTypes.string,
   modal: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired
@@ -169,7 +167,6 @@ GuestHouseDetails.propTypes = {
 
 GuestHouseDetails.defaultProps = {
   initFetchTimelineData: () => {},
-  userId: '',
   guestHouse: {},
 };
 
@@ -177,7 +174,6 @@ const mapStateToProps = state => ({
   guestHouse: state.accommodation.guestHouse,
   user: state.auth.user.UserInfo,
   modal: state.modal.modal,
-  userId: state.auth.user.UserInfo.id
 });
 
 const actionCreators = {

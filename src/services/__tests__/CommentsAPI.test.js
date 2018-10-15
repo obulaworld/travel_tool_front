@@ -54,4 +54,23 @@ describe('CommentsAPI', () => {
       comment: 'Your comment has been updated successfully',
     });
   });
+
+  it('should send a DELETE request to delete created comment', async () =>{
+    
+    const commentId = 'Er4HTD2xz';
+
+    moxios.stubRequest(`${baseUrl}/comments/${commentId}`, {
+      status: 200,
+      response: {
+        data: 'Comment deleted successfully',
+      }
+    });
+
+    const response = await CommentsAPI.deleteComment(commentId);
+    
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/comments/${commentId}`);
+    expect(response.data).toEqual({
+      data: 'Comment deleted successfully',
+    });
+  });
 });
