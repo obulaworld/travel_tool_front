@@ -10,6 +10,9 @@ class InputRenderer {
 
   switchProps(name, type, values, inputProps) {
     switch (type) {
+    case 'filter-dropdown-select':
+      inputProps.choices = this.formMetadata.dropdownSelectOptions[name];
+      return inputProps;
     case 'dropdown-select':
       inputProps.choices = this.formMetadata.dropdownSelectOptions[name.split('-')[0]];
       return inputProps;

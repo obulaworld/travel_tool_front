@@ -330,7 +330,7 @@ class NewRequestForm extends PureComponent {
   
   renderPersonalDetailsFieldset = () => {
     const {collapse, title, position, line,values} = this.state;
-    const { managers } = this.props; 
+    const { managers , occupations } = this.props; 
     return (
       <PersonalDetailsFieldset
         values={values}
@@ -341,6 +341,7 @@ class NewRequestForm extends PureComponent {
         position={position}
         line={line}
         managers={managers}
+        occupations={occupations}
         value="232px"
       />
 
@@ -364,8 +365,8 @@ class NewRequestForm extends PureComponent {
     );
   }
 
-  renderForm = (creatingRequest) => {
-    const { errors, hasBlankFields } = this.state;
+  renderForm = (managers, creatingRequest, occupations) => {
+    const { values, errors, hasBlankFields, selection,  collapse, title, position, line, parentIds } = this.state;
     const { modalType } = this.props;
     return (
       <FormContext targetForm={this} errors={errors} validatorName="validate">
@@ -393,10 +394,10 @@ class NewRequestForm extends PureComponent {
   }
 
   render() {
-    const {creatingRequest } = this.props;
+    const {managers,creatingRequest, occupations } = this.props;
     return (
       <div>
-        {this.renderForm(creatingRequest)}
+        {this.renderForm(managers,creatingRequest, occupations)}
       </div>
     );
   }
@@ -411,7 +412,8 @@ NewRequestForm.propTypes = {
   creatingRequest: PropTypes.bool,
   modalType: PropTypes.string,
   requestOnEdit: PropTypes.object.isRequired,
-  fetchUserRequests: PropTypes.func.isRequired
+  fetchUserRequests: PropTypes.func.isRequired,
+  occupations: PropTypes.array.isRequired,
 };
 
 NewRequestForm.defaultProps = {

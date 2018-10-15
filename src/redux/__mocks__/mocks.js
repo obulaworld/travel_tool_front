@@ -259,3 +259,20 @@ export const updateTripResponse = {
   },
   message: 'Updated Successfully'
 };
+export const fetchOccupationsResponse ={ 
+  'data': {
+    'occupations': [
+      {
+        'id': 1,
+        'occupationName': 'success manager',
+        'createdAt': '2018-09-27T13:57:13.898Z',
+        'updatedAt': '2018-09-27T13:57:13.898Z'
+      },
+      {
+        'id': 2,
+        'occupationName': 'accounts manager',
+        'createdAt': '2018-09-27T13:57:13.898Z',
+        'updatedAt': '2018-09-27T13:57:13.898Z'
+      },
+    ]}
+};

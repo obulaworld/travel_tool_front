@@ -1,4 +1,4 @@
-const dropdownSelectOptions = {
+const dropdownSelectOptions = { /* istanbul ignore next */
   department: [
     'Talent & Development',
     'Success',

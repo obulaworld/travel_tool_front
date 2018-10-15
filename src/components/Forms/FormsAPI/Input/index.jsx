@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { HtmlInput, DropdownSelect, DateInput, ButtonToggler, NumberInput } from './InputFields';
+import { HtmlInput, DropdownSelect, DateInput, ButtonToggler, NumberInput, filterDropdownSelect } from './InputFields';
 import createEventHandlersFor from '../formEventHandlers';
 import './_input.scss';
 
@@ -58,6 +58,13 @@ class Input extends PureComponent {
         onChange: onChange || eventHandlers.handleSelectDropdown,
       };
       return DropdownSelect;
+
+    case 'filter-dropdown-select':
+      this.props = {
+        ...this.props,
+        onChange: onChange ||  eventHandlers.handleSelectDropdown
+      };
+      return filterDropdownSelect;
     }
   }
 

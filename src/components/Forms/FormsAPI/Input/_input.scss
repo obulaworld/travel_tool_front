@@ -101,6 +101,11 @@ form .form-input {
       }
     }
   }
+
+  .novisibility{
+    visibility: hidden;
+}
+
   label {
     span {
       color: #999999;
@@ -154,6 +159,11 @@ form .form-input {
       text-shadow: 0 0 0 #999999;
       width: 190px;
       cursor: context-menu;
+    }
+
+    .input.select .select-menu {
+        transition-delay: 0.25s;
+        /* Don't reduce this */
     }
     .calendar-icon {
       position: absolute;

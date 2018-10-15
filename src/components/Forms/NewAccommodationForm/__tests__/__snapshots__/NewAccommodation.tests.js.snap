@@ -297,9 +297,11 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       className="select-menu select-menu--inactive"
                     >
                       <li
+                        id="choice"
                         key="Ensuite"
                       >
                         <div
+                          id="choice"
                           onClick={[Function]}
                           onKeyPress={[Function]}
                           role="button"
@@ -309,9 +311,11 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                         </div>
                       </li>
                       <li
+                        id="choice"
                         key="Non-Ensuite"
                       >
                         <div
+                          id="choice"
                           onClick={[Function]}
                           onKeyPress={[Function]}
                           role="button"
@@ -509,9 +513,11 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       className="select-menu select-menu--inactive"
                     >
                       <li
+                        id="choice"
                         key="Ensuite"
                       >
                         <div
+                          id="choice"
                           onClick={[Function]}
                           onKeyPress={[Function]}
                           role="button"
@@ -521,9 +527,11 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                         </div>
                       </li>
                       <li
+                        id="choice"
                         key="Non-Ensuite"
                       >
                         <div
+                          id="choice"
                           onClick={[Function]}
                           onKeyPress={[Function]}
                           role="button"

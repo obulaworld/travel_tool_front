@@ -11,8 +11,9 @@ describe('<PersonalDetailsFieldset/>',()=> {
     line: '',
     values: {},
     savePersonalDetails: jest.fn(),
+    occupations: ['manager', 'country director']
   };
-  it('tests handleDisableInputs', () => {
+  it('tests handleDisableInputs', ()=>{
     const wrapper = shallow(<PersonalDetailsFieldset {...props} />);
     const instance = wrapper.instance();
     instance.handleDisableInputs('clicked');

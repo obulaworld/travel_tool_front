@@ -37,7 +37,7 @@ class PersonalDetailsFieldset extends Component {
               </div>
               <div className={`input-group ${disabled}`}>
                 <div className="spaces">
-                  {renderInput('role', 'dropdown-select')}
+                  {renderInput('role', 'filter-dropdown-select')}
                 </div>
                 {renderInput('manager', 'dropdown-select')}
               </div>
@@ -53,9 +53,11 @@ class PersonalDetailsFieldset extends Component {
 
  
   render() {
-    const { managers, collapsible, collapse, title, position, line, values } = this.props;
+    const { managers, collapsible, collapse, title, position, line, values, occupations } = this.props;
     const managerNames = managers.map(manager => manager.fullName);
+    const occupationsNames = occupations.map(occupation => occupation.occupationName);
     formMetadata.dropdownSelectOptions.manager = managerNames;
+    formMetadata.dropdownSelectOptions.role = occupationsNames;
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
     const { renderInput } = this.inputRenderer;
 
@@ -92,6 +94,7 @@ const title = PropTypes.string;
 const position = PropTypes.string;
 const line = PropTypes.string;
 const values = PropTypes.object;
+const occupations = PropTypes.array;
 
 PersonalDetailsFieldset.propTypes = {
   managers: managers.isRequired,
@@ -102,10 +105,12 @@ PersonalDetailsFieldset.propTypes = {
   line: position.isRequired,
   values: values,
   savePersonalDetails: PropTypes.func.isRequired,
+  occupations
 };
 
 PersonalDetailsFieldset.defaultProps = {
   values: {},
+  occupations: [],
 };
 
 

@@ -119,9 +119,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
               className="select-menu select-menu--inactive"
             >
               <li
+                id="choice"
                 key="Super Administrator"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -131,9 +133,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Travel Administrator"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -143,9 +147,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Travel Team Member"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -155,9 +161,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Requester"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -167,9 +175,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Manager"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"

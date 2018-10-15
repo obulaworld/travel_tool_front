@@ -179,9 +179,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               className="select-menu select-menu--inactive"
             >
               <li
+                id="choice"
                 key="Software Developer"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -191,9 +193,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Technical Team Lead"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -203,9 +207,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Product Engineer"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -215,9 +221,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Product Coordinator"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -227,9 +235,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Travel Coordinator"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -239,9 +249,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Country Director"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -323,9 +335,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               className="select-menu select-menu--inactive"
             >
               <li
+                id="choice"
                 key="Talent & Development"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -335,9 +349,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Success"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -347,9 +363,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="IT"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -359,9 +377,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 </div>
               </li>
               <li
+                id="choice"
                 key="Operations"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"
@@ -444,9 +464,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               className="select-menu select-menu--inactive"
             >
               <li
+                id="choice"
                 key="Test User"
               >
                 <div
+                  id="choice"
                   onClick={[Function]}
                   onKeyPress={[Function]}
                   role="button"

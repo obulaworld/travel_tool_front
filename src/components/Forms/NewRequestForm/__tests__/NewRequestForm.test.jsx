@@ -69,6 +69,7 @@ describe('<NewRequestForm />', () => {
     creatingRequest: jest.fn(() => {}),
     handleEditRequest: jest.fn(() => {}),
     fetchUserRequests: jest.fn(() => {}),
+    choices: ['director', 'chef'],
     managers: [
       {
         fullName: 'Test User',

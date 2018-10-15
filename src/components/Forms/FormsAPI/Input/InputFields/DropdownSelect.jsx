@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import selectDropdownIcon from '../../../../../images/icons/form_select_dropdown.svg';
+import DropdownOptions from './DropdownOptions';
 
 export default class DropdownSelect extends Component {
 
@@ -23,23 +24,12 @@ export default class DropdownSelect extends Component {
   }
 
   getSelectOptions(choices) {
-    const choiceItems = choices
-      .map((option, id) => (
-        <li key={option}>
-          <div
-            onClick={()=>this.handleOptClick(option)}
-            onKeyPress={()=>{}}
-            role="button"
-            tabIndex="0"
-          >
-            {option}
-          </div>
-        </li>
-      ));
-    return (
-      <ul className={`select-menu select-menu--${this.getDropdownStatus()}`}>
-        {choiceItems}
-      </ul>
+    return(
+      <DropdownOptions
+        items={choices}
+        handleClick={this.handleOptClick}
+        getDropdownStatus={this.getDropdownStatus}
+      />
     );
   }
 

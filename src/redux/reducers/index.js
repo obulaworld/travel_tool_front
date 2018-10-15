@@ -10,6 +10,7 @@ import comments from './comments';
 import rooms from './room';
 import accommodation from './accommodation';
 import trips from './trips';
+import occupations from './occupations';
 
 
 const rootReducer = combineReducers({
@@ -23,8 +24,8 @@ const rootReducer = combineReducers({
   notifications,
   rooms,
   accommodation,
-  trips
-
+  trips,
+  occupations,
 });
 
 export default rootReducer;
