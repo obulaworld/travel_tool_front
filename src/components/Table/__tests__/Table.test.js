@@ -124,4 +124,9 @@ describe('<Requests />', () => {
     requestId.simulate('click');
     expect(wrapper.find('Modal').length).toEqual(1);
   });
+  it('should spy on toggleMenu method ', () => {
+    const wrapper = mount(<Table {...props} />);
+    wrapper.instance().toggleMenu('xDh20btGz')
+    expect(wrapper.state().menuOpen.id).toBe('xDh20btGz');
+  });
 });

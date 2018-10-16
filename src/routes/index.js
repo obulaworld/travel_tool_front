@@ -19,6 +19,11 @@ const Routes = () => (
       exact
       component={ConnectedLogin}
     />
+    <Route
+      path="/redirect/*"
+      exact
+      component={ConnectedLogin}
+    />
     <Route>
       <LayoutShell>
         <Switch>

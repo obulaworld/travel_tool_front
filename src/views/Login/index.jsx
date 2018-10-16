@@ -15,20 +15,31 @@ import Button from '../../components/buttons/Buttons';
 
 export class Login extends Component {
   componentDidMount() {
-    this.authenticated();
+    const {match:{params}, isAuthenticated} = this.props;
+    if(params[0]){
+      localStorage.setItem('url', `/${params[0]}`);
+      !isAuthenticated && this.login();
+    }
+    this.authenticated(); 
   }
 
   authenticated() {
-    const { history, isAuthenticated, setCurrentUser, user, postUserData } = this.props;
+    const {  history, isAuthenticated, setCurrentUser, user, postUserData } = this.props;
     if (isAuthenticated) {
       const users = {
         fullName: user.UserInfo.name,
         email: user.UserInfo.email,
-        userId: user.UserInfo.id
+        userId: user.UserInfo.id,
+        picture: user.UserInfo.picture
       };
       loginStatus();
       postUserData(users);
-      history.push('/requests');
+      if(localStorage.getItem('url')){
+        history.push(`${localStorage.getItem('url')}`);
+        localStorage.removeItem('url');      
+      }else{
+        history.push('/requests');  
+      }
     }
     setCurrentUser();
   }
@@ -121,10 +132,12 @@ Login.propTypes = {
   setCurrentUser: PropTypes.func.isRequired,
   postUserData: PropTypes.func.isRequired,
   user: PropTypes.shape({}),
+  match: PropTypes.object
 };
 
 Login.defaultProps = {
-  user: []
+  user: [],
+  match:{}
 };
 
 export const mapStateToProps = ({ auth }) => ({

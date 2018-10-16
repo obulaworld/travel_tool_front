@@ -10,14 +10,19 @@ const props = {
     UserInfo: {
       fullName: 'Tomato Jos',
       email: 'tomato@andela.com',
-      userId: '29492494'
+      userId: '29492494',
+      picture: 'https://fakephote.jpg'
     }
   },
   history: {
     push: jest.fn()
   },
-  postUserData: jest.fn()
+  postUserData: jest.fn(),
+  match: {
+    params: [{}]
+  }
 };
+const historyMock = { push: jest.fn() };
 
 const wrapper = shallow(<Login {...props} />);
 
@@ -51,5 +56,6 @@ describe('Login Component', () => {
     shallow(<Login {...props} />);
     const loginStatus = Cookie.get('login-status');
     expect(loginStatus).toEqual(undefined);
+    expect(localStorage.getItem('url')).toBe(null);
   });
 });
