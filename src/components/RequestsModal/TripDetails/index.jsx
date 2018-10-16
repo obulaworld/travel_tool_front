@@ -8,7 +8,7 @@ export default class TripDetails extends PureComponent {
     tripDetails: PropTypes.object.isRequired
   }
   renderTripDetails = (
-    origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationdetails
+    origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationDetails
   ) => (
     <React.Fragment>
       <div>
@@ -37,7 +37,7 @@ export default class TripDetails extends PureComponent {
       <div id="trip-detail">
         <TripDetail
           label="Accomodation"
-          value={accomodationdetails} />
+          value={accomodationDetails} />
       </div>
     </React.Fragment>
   )
@@ -52,13 +52,15 @@ export default class TripDetails extends PureComponent {
       origin,
       tripType
     } = tripDetails;
-    const {rooms:{roomName, guestHouses:{houseName}}, bedName } = beds;
-    const accomodationdetails = `${houseName}, ${roomName}, ${bedName}`;
-   
+    let accomodationDetails='None';
+    if(beds){
+      const {rooms:{roomName, guestHouses:{houseName}}, bedName } = beds;
+      accomodationDetails = `${houseName}, ${roomName}, ${bedName}`;
+    }
     return (
       <div className={`modal__modal-trip-details ${tripType}`}>
         {this.renderTripDetails(
-          origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationdetails
+          origin, destination, tripDetails, departureDate, tripType, returnDate, accomodationDetails
         )}
       </div>
     );
