@@ -24,6 +24,7 @@ class TravelDetailsFieldset extends Component {
   }
 
   customPropsForArrival = (values, name) => ({
+    className: 'arrival-date',
     disabled: !values[name],
     minDate: moment(values[name]),
     placeholderText: !values[name]
@@ -79,19 +80,18 @@ class TravelDetailsFieldset extends Component {
       <Fragment>
         <div className="travel-input-area">
           <div className="input-group" id={`trip${i}`}>
-            <div className={selection === 'multi' ? 'rec-div': ''} />
-            <div className="rectangle">
+            <div className={`rectangle ${selection}`}>
               <div className="style-details">
 
 
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`origin-${i}`, 'text', {parentid: i}, 
+                  {renderInput(`origin-${i}`, 'text', {parentid: i},
                   )}
                   <img src={location} alt="icn" className="location-icon" />
                 </div>
 
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`destination-${i}`, 'text', {parentid: i}, 
+                  {renderInput(`destination-${i}`, 'text', {parentid: i},
                   )}
                   <img src={location} alt="icn" className="location-icon"  />
                 </div>
@@ -134,7 +134,7 @@ class TravelDetailsFieldset extends Component {
   render() {
     this.inputRenderer = new InputRenderer(this.props, formMetadata);
     const { handleRadioButtonChange, selection, onChangeInput} = this.props;
-  
+
     const { parentIds, existingTrips } = this.props;
     return (
       <fieldset className="travel-details">

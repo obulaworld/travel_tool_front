@@ -7,11 +7,16 @@ form.new-request {
       }
     }
     .input-group {
+      position: relative;
       display: flex;
       justify-content: flex-start;
     }
     .spaces {
       margin-right: 30px;
+      @media (max-width: 450px) {
+        margin-right: 0;
+        width: 100%;
+      }
     }
 
     .line {
@@ -41,24 +46,31 @@ form.new-request {
     }
 
     .rectangle {
-      height: 95px;
-      width: 890px;
-      border: 1px solid #e4e4e4;
+      box-shadow: 0 0 0 1px #e4e4e4;
       border-radius: 2px;
       background-color: #f8f8f8;
       margin: 7px 0px 20px 0px;
       color: gray;
+      &.multi {
+        border-left: 10px solid #FFAF30;
+      }
     }
     .style-details {
       display: flex;
+      flex-wrap: wrap;
+      width: 100%;
       padding: 10px;
       margin-left: 20px;
+      box-sizing: border-box;
     }
 
     .travel-to {
       margin-right: 20px;
       position: relative;
       width: 198px;
+      @media (max-width: 450px) {
+        width: 100%;
+      }
     }
 
     .location-icon {
@@ -69,10 +81,13 @@ form.new-request {
 
     .others-width {
       margin-right: 20px;
+      @media (max-width: 450px) {
+        width: 100%;
+      }
     }
   }
 
-  
+
 }
 
 
@@ -102,19 +117,19 @@ h1{
 }
 
 .add-multi-trip-area{
-  height: 50px;	
-  width: 50px;	
+  height: 50px;
+  width: 50px;
   border: 1px solid  #D4D4D4;
-  border-style: dashed;	
-  border-radius: 2px;	
+  border-style: dashed;
+  border-radius: 2px;
   background-color: #FFFFFF;
   min-width: 100%;
 }
 .another-trip{
-  height: 21px;		
-  color: #4F4F4F;	
-  font-family: "DIN Pro";	
-  font-size: 16px;	
+  height: 21px;
+  color: #4F4F4F;
+  font-family: "DIN Pro";
+  font-size: 16px;
   line-height: 21px;
   padding: 0;
   border: none;
@@ -131,11 +146,4 @@ h1{
 }
 .travel-input-area{
   display: flex;
-}
-.rec-div{
-  height: 100px;	
-  width: 10px;	
-  border-radius: 2px 0 0 2px;	
-  background-color: #FFAF30;
-  margin-top: 5px;
 }
