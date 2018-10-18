@@ -13,10 +13,10 @@ const res = {
     createdAt: '2018-09-03T17:09:05.824Z',
     updatedAt: '2018-09-03T17:09:05.824Z',
     roleId: 401938,
-    roles: {
+    roles: [{
       roleName: 'Requester',
       description: 'Can make travel request'
-    }
+    }]
   }
 };
 
@@ -30,8 +30,9 @@ describe('User Reducer', () => {
   const initialState = {
     postUserData: [],
     getUserData: {},
-    getCurrentUserRole: '',
-    errors: []
+    getCurrentUserRole: [],
+    errors: [],
+    isLoaded: false
   };
 
   it('should return proper initial state', done => {
@@ -52,7 +53,6 @@ describe('User Reducer', () => {
     const action = {
       type: actionTypes.GET_USER_DATA_SUCCESS,
       response: res,
-      
     };
     const newState = userReducer(initialState, action);
     expect(newState.getUserData).toEqual(res);

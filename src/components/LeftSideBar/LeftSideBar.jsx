@@ -42,11 +42,11 @@ export const mapStateToProps = ({ modal, role, user }) => ({
 });
 
 LeftSideBar.propTypes = {
-  getCurrentUserRole: PropTypes.string
+  getCurrentUserRole: PropTypes.array
 };
 
 LeftSideBar.defaultProps = {
-  getCurrentUserRole: ''
+  getCurrentUserRole: []
 };
 
 export default connect(mapStateToProps)(LeftSideBar);

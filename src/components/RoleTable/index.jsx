@@ -29,7 +29,7 @@ export class RoleTable extends PureComponent {
     );
   }
 
-  renderTableHead() {
+  renderTableHeader() {
     return (
       <tr>
         <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze freeze-head ">
@@ -57,7 +57,7 @@ export class RoleTable extends PureComponent {
             role.length > 0 && (
             <table className="mdl-data-table mdl-js-data-table table__requests">
               <thead>
-                {this.renderTableHead()}
+                {this.renderTableHeader()}
               </thead>
               <tbody className="table__body">
                 {role.map(role => this.renderRoles(role))}

@@ -8,6 +8,7 @@ exports[`should render approvals header correctly 1`] = `
     actionBtn=""
     openModal={[Function]}
     title="APPROVALS"
+    titleClassName="title"
   />
 </div>
 `;

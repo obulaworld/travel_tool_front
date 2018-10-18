@@ -11,6 +11,7 @@ import rooms from './room';
 import accommodation from './accommodation';
 import trips from './trips';
 import occupations from './occupations';
+import centers from './centers';
 
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   accommodation,
   trips,
   occupations,
+  centers
 });
 
 export default rootReducer;

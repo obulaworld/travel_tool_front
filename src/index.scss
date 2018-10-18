@@ -61,12 +61,10 @@ body {
 .pd-left {
   padding-left: 10px !important;
 }
-.checkin_text_header{
-  height: 21px;	
-  width: 116px;	
-  color: #4F4F4F;	
-  font-family: "DIN Pro";	
-  font-size: 16px;	
-  font-weight: 500;	
+.past_checkin_header{
+  color: #4F4F4F;
+  font-family: "DIN Pro Medium";
+  font-size: 16px;
   line-height: 21px;
+  text-transform: none;
 }

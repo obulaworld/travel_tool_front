@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ROleDetails /> renders correctly 1`] = `
+<Fragment>
+  <Modal
+    closeDeleteCommentModal={null}
+    closeModal={[Function]}
+    customModalStyles=""
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={true}
+    title="Add User"
+    visibility="invisible"
+    width="480px"
+  >
+    <NewUserRoleForm
+      centers={
+        Array [
+          Object {},
+        ]
+      }
+      closeModal={[Function]}
+      errors=""
+      fetchCenters={[Function]}
+      getRoleData={[Function]}
+      handleUpdateRole={[Function]}
+      myTitle="Add User"
+      role="Travel team member"
+      updateUserCenter={[Function]}
+      updatingRole={false}
+      userDetail=""
+    />
+  </Modal>
+  <div
+    className="rp-role__header"
+  >
+    <div
+      className="role-panel-header"
+    >
+      <PageHeader
+        actionBtn="Add User"
+        openModal={[Function]}
+        title="Travel team members"
+        titleClassName="title"
+      />
+    </div>
+  </div>
+  <div
+    className="rp-table"
+  >
+    <WithLoading
+      error=""
+      handleEditCenter={[Function]}
+      isLoading={false}
+      roleName="Travel team member"
+      travelTeamMembers={
+        Array [
+          Object {
+            "centers": Array [
+              Object {
+                "id": 12345,
+                "location": "Lagos, Nigeria",
+              },
+            ],
+            "fullName": "A user",
+          },
+        ]
+      }
+    />
+  </div>
+</Fragment>
+`;

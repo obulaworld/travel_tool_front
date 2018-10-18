@@ -65,6 +65,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
+                  "exact": "/settings/roles",
                   "link_to": "/settings/roles",
                   "onlyVisibleTo": Array [
                     "Super Administrator",
@@ -74,6 +75,15 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                 Object {
                   "link_to": "/settings/profile",
                   "text": "User Profile",
+                },
+                Object {
+                  "exact": "/settings/roles/:roleId",
+                  "link_to": "/settings/roles/339458",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                  ],
+                  "text": "Travel team",
                 },
               ],
               "icons": Object {
@@ -98,7 +108,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
           ]
         }
         setActiveNavItem={[Function]}
-        userRole=""
+        userRole={Array []}
       />
     </div>
   </div>

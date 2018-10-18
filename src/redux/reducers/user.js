@@ -10,31 +10,31 @@ import {
 const initialState = {
   postUserData: [],
   getUserData: {},
-  getCurrentUserRole: '',
-  errors: []
+  getCurrentUserRole: [],
+  errors: [],
+  isLoaded: false
 };
 const user = (state = initialState, action) => {
   switch (action.type) {
   case GET_USER_DATA:
-    return {
-      ...state
-    };
+    return { ...state, isLoaded: false };
   case GET_USER_DATA_SUCCESS:
     return {
       ...state,
       getUserData: action.response,
-      getCurrentUserRole: action.response.result.roles.roleName,
-      errors: []
+      getCurrentUserRole: action.response.result
+        .roles.map(role => role.roleName),
+      errors: [],
+      isLoaded: true
     };
   case GET_USER_DATA_FAILURE:
     return {
       ...state,
-      errors: action.error
+      errors: action.error,
+      isLoaded: false
     };
   case POST_USER_DATA:
-    return {
-      ...state
-    };
+    return { ...state };
   case POST_USER_DATA_SUCCESS:
     return {
       ...state,

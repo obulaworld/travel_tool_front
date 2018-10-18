@@ -61,7 +61,7 @@ Array [
     >
         <div>
             <span
-                className="title"
+                className="past_checkin_header"
             >
                 Past Check-in's
             </span>

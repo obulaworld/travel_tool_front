@@ -10,7 +10,6 @@ class PersonalDetailsFieldset extends Component {
     disableInputs:''
   }
   handleDisableInputs = (value) => {
-    const { disableInputs } = this.state;
     const newState = value==='clicked'?'disable-details':'';
     this.setState({
       disableInputs: newState
@@ -65,7 +64,8 @@ class PersonalDetailsFieldset extends Component {
     const disabledFields= values.state==='clicked'?'disable-details':null;
     return (
       <fieldset className={`personal-details ${disabledFields}`}>
-        <legend style={{ width: '100%' , borderBottom: line }}>
+        <legend style={{ width: '100%' , borderBottom: line,
+          fontFamily: 'DIN Pro Medium',	fontSize: '18px', paddingTop: '12px' }}>
           Personal Details
           <span className="required-field">
           * Required Field

@@ -73,8 +73,8 @@ class TravelDetailsFieldset extends Component {
       </div>
     );
   }
-  renderTravelDetails = (i, selection, onChangeInput, mappedTrip) => {
-    const { values, handleDate, removeTrip, parentIds, existingTrips } = this.props;
+  renderTravelDetails = (i, selection, onChangeInput) => {
+    const { values, handleDate, removeTrip } = this.props;
     const { renderInput } = this.inputRenderer;
     return (
       <Fragment>
@@ -82,8 +82,6 @@ class TravelDetailsFieldset extends Component {
           <div className="input-group" id={`trip${i}`}>
             <div className={`rectangle ${selection}`}>
               <div className="style-details">
-
-
                 <div className="travel-to" onChange={onChangeInput}>
                   {renderInput(`origin-${i}`, 'text', {parentid: i},
                   )}
@@ -119,7 +117,7 @@ class TravelDetailsFieldset extends Component {
   }
 
 
-  renderForms(parentIds, selection, onChangeInput, existingTrips) {
+  renderForms(parentIds, selection, onChangeInput) {
     const forms = [];
     for (let i = 0; i < parentIds; i += 1) {
       forms.push(
@@ -140,7 +138,8 @@ class TravelDetailsFieldset extends Component {
       <fieldset className="travel-details">
         <legend
           className="line"
-          style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4' }}>
+          style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4',
+            fontFamily: 'DIN Pro Medium',	fontSize: '18px', paddingTop: '5px' }}>
         Travel Details
         </legend>
         {this.renderRadioButton(handleRadioButtonChange)}

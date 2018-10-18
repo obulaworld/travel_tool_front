@@ -12,7 +12,7 @@ class LeftSideNavItems extends PureComponent {
   static propTypes = {
     setActiveNavItem: PropTypes.func.isRequired,
     activeNavItem: PropTypes.object.isRequired,
-    userRole: PropTypes.string,
+    userRole: PropTypes.array,
     metadata: PropTypes.arrayOf(PropTypes.object).isRequired,
     history: PropTypes.object
   };
@@ -23,7 +23,7 @@ class LeftSideNavItems extends PureComponent {
   };
 
   static defaultProps = {
-    userRole: '',
+    userRole: [],
     history: {}
   };
 
@@ -42,7 +42,13 @@ class LeftSideNavItems extends PureComponent {
 
   isLinkVisible = (linkItem, userRole) => {
     const {onlyVisibleTo} = linkItem;
-    const showItem = !onlyVisibleTo || onlyVisibleTo.includes(userRole);
+    let hasPermission;
+    if (onlyVisibleTo) {
+      hasPermission = userRole && userRole
+        .some(role => onlyVisibleTo.includes(role));
+    }
+    const showItem = !onlyVisibleTo || hasPermission;
+
     return showItem;
   }
 

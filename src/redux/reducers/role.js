@@ -9,6 +9,7 @@ import {
   FETCH_ROLE_USERS_SUCCESS,
   FETCH_ROLE_USERS_FAILURE
 } from '../constants/actionTypes';
+import Utils from '../../helper/Utils';
 
 const initialState = { putRoleData: [], getRole: {}, roleErrors: '' };
 let roleName;
@@ -30,8 +31,8 @@ const role = (state = initialState, action) => {
     return { ...state, isFetching: true };
   case FETCH_ROLE_USERS_SUCCESS:
     roleName = action.roleName;
-    state[`${roleName.toLowerCase()}`] = action.users;
-    return { ...state, isFetching: false };
+    state[`${Utils.toCamelCase(roleName)}s`] = action.users;
+    return { ...state, isFetching: false, roleName: action.roleName , error: ''};
   case FETCH_ROLE_USERS_FAILURE:
     return { ...state, isFetching: false, error: action.error };
   default: return state;

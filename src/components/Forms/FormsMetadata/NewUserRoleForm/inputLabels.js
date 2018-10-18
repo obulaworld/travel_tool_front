@@ -5,6 +5,9 @@ const inputLabels = {
   roleName: {
     label: 'Role'
   },
+  center: {
+    label: 'Center'
+  },
 };
 
 export default inputLabels;

@@ -22,7 +22,7 @@ import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
 export class GuestHouseDetails extends PureComponent {
   handleOnEdit = () => {
     let { openModal } = this.props;
-    openModal(true, 'edit accomodation');
+    openModal(true, 'edit accommodation');
   };
 
   renderGuestHouseDetailsNameBar = () => {

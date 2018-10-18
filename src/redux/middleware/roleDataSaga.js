@@ -21,7 +21,8 @@ export function* putURoleDataSagaAsync(action) {
     const response = yield call(RoleAPI.putData, action.roleData);
     yield put(putRoleDataSuccess(response.data));
     yield put(closeModal());
-    toast.success('User role updated');
+    toast.success(`User has been added as a
+      ${action.roleData.roleName.toLowerCase()}`);
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(putRoleDataFailure(errorMessage));

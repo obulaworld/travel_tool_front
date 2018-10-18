@@ -12,7 +12,6 @@
   min-width: 320px;
   box-sizing: border-box;
   font-family: "DIN Pro";
-  font-weight: 800;
   color: #4F4F4F;
   outline: none;
   &#request-details-modal {
@@ -65,6 +64,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
+    font-family: 'DIN Pro Medium';
   }
 
  .modal-bar {

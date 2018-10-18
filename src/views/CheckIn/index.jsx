@@ -33,14 +33,17 @@ export class CheckIn extends Base {
     return (
       <Fragment>
         <div>
-          <PageHeader className="checkin_text_header" title="RESIDENCE" />
+          <PageHeader title="RESIDENCE" />
           <Table
             trips={trips.filter((trip) => trip.checkStatus !== 'Checked Out')}
             tripError={tripError}
             handleCheckStatus={this.handleCheckStatus} />
         </div>
         <div>
-          <PageHeader className="checkin_text_header" title="Past Check-in's" />
+          <PageHeader
+            title="Past Check-in's"
+            titleClassName="past_checkin_header"
+          />
           <Table
             trips={trips.filter((trip) => trip.checkStatus === 'Checked Out')}
             handleCheckStatus={this.handleCheckStatus} />

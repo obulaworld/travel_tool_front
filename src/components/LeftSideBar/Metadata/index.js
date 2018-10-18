@@ -62,12 +62,19 @@ const NavItemsMetadata = [
     dropdownItems: [
       {
         link_to: '/settings/roles',
+        exact: '/settings/roles',
         text: 'User Roles',
-        onlyVisibleTo: ['Super Administrator', ]
+        onlyVisibleTo: ['Super Administrator']
       },
       {
         link_to: '/settings/profile',
         text: 'User Profile',
+      },
+      {
+        link_to: '/settings/roles/339458',
+        exact: '/settings/roles/:roleId',
+        text: 'Travel team',
+        onlyVisibleTo: ['Travel Administrator','Super Administrator' ]
       }
 
     ],

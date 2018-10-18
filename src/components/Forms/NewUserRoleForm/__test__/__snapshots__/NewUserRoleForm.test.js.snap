@@ -8,14 +8,11 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
   <fieldset
     className="personal-details"
   >
-    <div
-      className="input-group"
-    >
+    <div>
       <div
         style={
           Object {
-            "marginRight": "30px",
-            "width": " 232px",
+            "paddingTop": "14px",
           }
         }
       >
@@ -38,160 +35,162 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
           </label>
           <input
             className=" "
+            disabled={false}
             label="Andela Email Address"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
             type="text"
-            value=""
           />
           <span
             className="error"
           />
         </div>
       </div>
-      <div
-        className="form-input  "
-      >
-        <label
-          htmlFor="roleName"
-        >
-          Role
-          <span
-            style={
-              Object {
-                "color": "red",
-              }
-            }
-          >
-            *
-          </span>
-        </label>
+      <div />
+      <div>
         <div
-          style={
-            Object {
-              "position": "relative",
-            }
-          }
+          className="form-input  "
         >
-          <div
-            choices={
-              Array [
-                "Super Administrator",
-                "Travel Administrator",
-                "Travel Team Member",
-                "Requester",
-                "Manager",
-              ]
-            }
-            className="input select  "
-            error=""
-            label="Role"
-            name="roleName"
-            onChange={[Function]}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="button"
-            tabIndex="0"
-            type="dropdown-select"
-            value=""
+          <label
+            htmlFor="roleName"
           >
-            <div
-              className="value"
+            Role
+            <span
               style={
                 Object {
-                  "width": undefined,
+                  "color": "red",
                 }
               }
             >
-              <div
-                className="select-dropdown inactive"
-              >
-                <img
-                  alt="icn"
-                  src="form_select_dropdown.svg"
-                />
-              </div>
-            </div>
-            <ul
-              className="select-menu select-menu--inactive"
+              *
+            </span>
+          </label>
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              choices={
+                Array [
+                  "Super Administrator",
+                  "Travel Administrator",
+                  "Travel Team Member",
+                  "Requester",
+                  "Manager",
+                ]
+              }
+              className="input select  "
+              error=""
+              label="Role"
+              name="roleName"
+              onChange={[Function]}
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              tabIndex="0"
+              type="dropdown-select"
             >
-              <li
-                id="choice"
-                key="Super Administrator"
+              <div
+                className="value"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <div
-                  id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
+                  className="select-dropdown inactive"
                 >
-                  Super Administrator
+                  <img
+                    alt="icn"
+                    src="form_select_dropdown.svg"
+                  />
                 </div>
-              </li>
-              <li
-                id="choice"
-                key="Travel Administrator"
+              </div>
+              <ul
+                className="select-menu select-menu--inactive"
               >
-                <div
+                <li
                   id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
+                  key="Super Administrator"
                 >
-                  Travel Administrator
-                </div>
-              </li>
-              <li
-                id="choice"
-                key="Travel Team Member"
-              >
-                <div
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Super Administrator
+                  </div>
+                </li>
+                <li
                   id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
+                  key="Travel Administrator"
                 >
-                  Travel Team Member
-                </div>
-              </li>
-              <li
-                id="choice"
-                key="Requester"
-              >
-                <div
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Travel Administrator
+                  </div>
+                </li>
+                <li
                   id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
+                  key="Travel Team Member"
                 >
-                  Requester
-                </div>
-              </li>
-              <li
-                id="choice"
-                key="Manager"
-              >
-                <div
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Travel Team Member
+                  </div>
+                </li>
+                <li
                   id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
+                  key="Requester"
                 >
-                  Manager
-                </div>
-              </li>
-            </ul>
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Requester
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Manager"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Manager
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
+          <span
+            className="error"
+          />
         </div>
-        <span
-          className="error"
-        />
       </div>
     </div>
   </fieldset>

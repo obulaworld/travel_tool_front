@@ -51,6 +51,10 @@ import {
   watchUpdateTrip
 } from './tripsSaga';
 
+import {
+  watchFetchCenters,
+  watchUpdateUserCenterAsync
+} from './centersSaga';
 
 function* rootSaga() {
   yield all([
@@ -82,6 +86,8 @@ function* rootSaga() {
     watchFetchTrips(),
     watchUpdateTrip(),
     watchFetchOccupations(),
+    watchFetchCenters(),
+    watchUpdateUserCenterAsync()
   ]);
 }
 

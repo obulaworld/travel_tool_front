@@ -5,17 +5,31 @@ import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 
 class NewUserRoleForm extends PureComponent {
-  defaultState = {
-    values: {
-      email: '',
-      roleName: ''
-    },
-    errors: {},
-    hasBlankFields: true
-  };
-
-  state = { ...this.defaultState };
-  validate = getDefaultBlanksValidatorFor(this);
+  constructor(props) {
+    super(props);
+    const { role, userDetail } = this.props;
+    const defaultValues = {
+      email: userDetail ? userDetail.email : '',
+      roleName: role,
+    };
+    const initialValues = role &&
+    role.toLowerCase() === 'travel team member' ? {
+        ...defaultValues,
+        center: userDetail ? userDetail.centers[0].location : ''
+      } : defaultValues;
+    this.defaultState = {
+      values: initialValues,
+      errors: {},
+      hasBlankFields: true
+    };
+    this.state = { ...this.defaultState };
+  }
+  componentDidMount() {
+    const { role, fetchCenters } = this.props;
+    if (role && role.toLowerCase() === 'travel team member') {
+      fetchCenters();
+    }
+  }
 
   componentWillUnmount() {
     const { getRoleData } = this.props;
@@ -25,11 +39,13 @@ class NewUserRoleForm extends PureComponent {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { handleUpdateRole } = this.props;
+    const { handleUpdateRole, updateUserCenter, userDetail, myTitle } = this.props;
     const { values } = this.state;
     if (this.validate()) {
       let data = values;
-      handleUpdateRole(data);
+      myTitle === 'Add User' ?  
+        handleUpdateRole(data): 
+        updateUserCenter(userDetail.id, data);
     }
   };
 
@@ -37,9 +53,23 @@ class NewUserRoleForm extends PureComponent {
     this.setState({ ...this.defaultState });
   };
 
+  validate = field => {
+    let { values, errors } = this.state;
+    [errors, values] = [{ ...errors }, { ...values }];
+    let hasBlankFields = false;
+    !values[field]
+      ? (errors[field] = 'This field is required')
+      : (errors[field] = '');
+    hasBlankFields = Object.keys(values).some(key => !values[key]);
+    this.setState(prevState => {
+      return { ...prevState, errors, hasBlankFields };
+    });
+    return !hasBlankFields;
+  };
+
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { updatingRole } = this.props;
+    const { updatingRole, role, centers, myTitle } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         {updatingRole && (
@@ -49,7 +79,12 @@ class NewUserRoleForm extends PureComponent {
           </h5>
         )}
         <form onSubmit={this.handleSubmit} className="new-request">
-          <PersonalDetailsFieldset values={values} value="232px" />
+          <PersonalDetailsFieldset
+            values={values}
+            roleName={role}
+            centers={centers}
+            myTitle={myTitle}
+          />
           <hr />
           <SubmitArea
             onCancel={this.handleCancel}
@@ -66,10 +101,20 @@ NewUserRoleForm.propTypes = {
   handleUpdateRole: PropTypes.func.isRequired,
   updatingRole: PropTypes.bool,
   getRoleData: PropTypes.func.isRequired,
+  centers: PropTypes.array.isRequired,
+  myTitle: PropTypes.string.isRequired,
+  updateUserCenter: PropTypes.func,
+  fetchCenters: PropTypes.func,
+  role: PropTypes.string.isRequired,
+  userDetail:  PropTypes.object,
 };
 
 NewUserRoleForm.defaultProps = {
   updatingRole: false,
+  updateUserCenter: ()=> {},
+  fetchCenters: ()=> {},
+  userDetail: {},
+
 };
 
 export default NewUserRoleForm;

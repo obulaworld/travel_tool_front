@@ -13,13 +13,12 @@
     }
 
     .title {
-        height: 23px;
-        width: 89px;
-        color: #4F4F4F;
-        font-family: "DIN Pro";
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 23px;
+      font-family: 'Din Pro Medium';
+      color: #4F4F4F;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 23px;
+      text-transform: uppercase;
     }
 
     .action-btn {

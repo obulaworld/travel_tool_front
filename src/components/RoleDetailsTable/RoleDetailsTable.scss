@@ -1,0 +1,25 @@
+$primary-color: #3359db;
+$border-color: #e4e4e4;
+
+.role-user__name {
+  color: $primary-color;
+	border-left: 1px solid $border-color;
+	width: 60%;
+    @media (max-width: 839px) {
+    width: 40%;
+  }
+}
+
+.table {
+  &__rows {
+    border-radius: 2px;
+    background-color:white;
+    text-align: center;
+    height: 46px;
+    &:hover {
+      box-shadow: 0 0px 0px 0;
+      background-color: white !important;
+      cursor: pointer;
+    }
+  }
+}

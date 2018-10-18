@@ -132,7 +132,9 @@ describe('Role Reducer', () => {
         };
         expect(roleReducer(initialState, action)).toEqual({
           isFetching: false,
-          manager: fetchRoleUsersResponse.users
+          managers: fetchRoleUsersResponse.users,
+          roleName: 'Manager',
+          error: ''
         });
       });
 

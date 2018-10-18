@@ -11,16 +11,12 @@ import {
   putRoleData
 } from '../../redux/actionCreator/roleActions';
 import './Role.scss';
+import checkUserPermission from '../../helper/permissions';
 
 export class Role extends Component {
   componentDidMount() {
-    const { getRoleData, getCurrentUserRole, history } = this.props;
-    const isAdmin = getCurrentUserRole && getCurrentUserRole;
-    if (isAdmin && isAdmin != 'Super Administrator') {
-      history.push('/');
-    } else {
-      getRoleData();
-    }  
+    const { getRoleData } = this.props;
+    getRoleData();
   }
 
   renderUserRolePanelHeader() {
@@ -50,7 +46,7 @@ export class Role extends Component {
     return (
       <Modal
         closeModal={closeModal}
-        width="600px"
+        width="480px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
         }
@@ -59,6 +55,7 @@ export class Role extends Component {
         <NewUserRoleForm
           handleUpdateRole={putRoleData}
           errors={roleErrors}
+          myTitle="Add User"
           closeModal={closeModal}
           getRoleData={getRoleData}
         />
@@ -76,6 +73,11 @@ export class Role extends Component {
   }
 
   render() {
+    const { getCurrentUserRole, history, isLoaded } = this.props;
+    if (isLoaded) {
+      const allowedRoles = ['Travel Administrator', 'Super Administrator'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole );
+    }
     return (
       <Fragment>
         {this.renderRoleForm()}
@@ -98,17 +100,19 @@ Role.propTypes = {
   roleErrors: PropTypes.string,
   putRoleData: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  getCurrentUserRole: PropTypes.string.isRequired,
+  getCurrentUserRole: PropTypes.array.isRequired,
   history: PropTypes.shape({}).isRequired,
   openModal: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
-  modalType: PropTypes.string
+  modalType: PropTypes.string,
+  isLoaded: PropTypes.bool,
 };
 
 Role.defaultProps = {
   isLoading: false,
   roleErrors: '',
-  modalType: ''
+  modalType: '',
+  isLoaded: false
 };
 
 const actionCreators = {

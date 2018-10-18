@@ -9,23 +9,14 @@ import {
   createAccommodation,
   fetchAccommodation,
   editAccommodation,
-  initFetchTimelineData
 } from '../../redux/actionCreator/accommodationActions';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
+import checkUserPermission from '../../helper/permissions';
 
 export class Accommodation extends Component {
   componentDidMount() {
-    const { fetchAccommodation, getCurrentUserRole, history } = this.props;
-    const isAdmin = getCurrentUserRole && getCurrentUserRole;
-    if (
-      isAdmin &&
-      isAdmin !== 'Super Administrator' &&
-      isAdmin !== 'Travel Administrator'
-    ) {
-      history.push('/');
-    } else {
-      fetchAccommodation();
-    }
+    const { fetchAccommodation } = this.props;
+    fetchAccommodation();
   }
 
   renderAccommodationPanelHeader() {
@@ -49,6 +40,7 @@ export class Accommodation extends Component {
     return (
       <Modal
         closeModal={closeModal}
+        // customModalStyles="add-user"
         width="800px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
@@ -67,7 +59,11 @@ export class Accommodation extends Component {
   }
 
   render() {
-    const { guestHouses, isLoading, accommodationError } = this.props;
+    const { guestHouses, isLoading, accommodationError, isLoaded, getCurrentUserRole, history } = this.props;
+    if (isLoaded) {
+      const allowedRoles = ['Travel Administrator', 'Super Administrator'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole );
+    }
     return (
       <Fragment>
         {this.renderAccommodationPanelHeader()}
@@ -87,7 +83,7 @@ export class Accommodation extends Component {
 Accommodation.propTypes = {
   history: PropTypes.shape({}).isRequired,
   shouldOpen: PropTypes.bool.isRequired,
-  getCurrentUserRole: PropTypes.bool.isRequired,
+  getCurrentUserRole: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
   createAccommodation: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
@@ -105,14 +101,16 @@ Accommodation.propTypes = {
   isLoading: PropTypes.bool,
   accommodationError: PropTypes.string,
   fetchAccommodation: PropTypes.func.isRequired,
-  editAccommodation: PropTypes.func.isRequired
+  editAccommodation: PropTypes.func.isRequired,
+  isLoaded: PropTypes.bool
 };
 
 Accommodation.defaultProps = {
   guestHouses: [],
   accommodationError: '',
   isLoading: false,
-  modalType: ''
+  modalType: '',
+  isLoaded: false
 };
 
 const actionCreators = {

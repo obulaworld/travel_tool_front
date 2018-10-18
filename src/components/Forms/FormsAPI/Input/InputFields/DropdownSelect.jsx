@@ -83,7 +83,7 @@ export default class DropdownSelect extends Component {
   }
 
   render() {
-    const {choices, value, className, size} = this.props;
+    const {choices, value, size} = this.props;
     const options = this.getSelectOptions(choices);
     return (
       <div style={{position:'relative'}}>

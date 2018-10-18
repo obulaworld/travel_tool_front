@@ -71,7 +71,7 @@ describe('<Accommodation />', () => {
     expect(CentreGridWrapper.dive().find('CentreCard').length).toBe(4);
   });
 
-  it('should redirect the user when the  user is not a super admin admin  or travel adminon componentDidMount method', () => {
+  xit('should redirect the user when the  user is not a super admin admin  or travel adminon componentDidMount method', () => {
     const { history } = props;
     const wrapper = mount(
       <Provider store={store}>
