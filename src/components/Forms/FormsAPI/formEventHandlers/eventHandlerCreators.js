@@ -4,38 +4,36 @@ function updateFormValues(value, targetField, validate) {
     ...values,
     [targetField]: value
   };
-
   validate = validate ? validate : () => {};
-
   this.setState({ values }, () => validate(targetField));
 }
 
-export function getInputChangeHandler(validate, targetField) {
+export function getInputChangeHandler(targetForm, validate, targetField) {
   return e => {
     let value = e.target.value;
-    updateFormValues.call(this, value, targetField, validate);
+    updateFormValues.call(targetForm, value, targetField, validate);
   };
 }
 
-export function getTogglerHandler(validate, targetField) {
-  return opt => updateFormValues.call(this, opt, targetField, validate);
+export function getTogglerHandler(targetForm, validate, targetField) {
+  return opt => updateFormValues.call(targetForm, opt, targetField, validate);
 }
 
-export function getDateHandler(validate, targetField) {
+export function getDateHandler(targetForm, validate, targetField) {
   return date =>
     updateFormValues.call(
-      this,
+      targetForm,
       date.format('MM/DD/YYYY'),
       targetField,
       validate
     );
 }
 
-export function getDropdownHandler(validate, targetField) {
+export function getDropdownHandler(targetForm, validate, targetField) {
   return selectedOpt =>
-    updateFormValues.call(this, selectedOpt, targetField, validate);
+    updateFormValues.call(targetForm, selectedOpt, targetField, validate);
 }
 
-export function getOnBlurHandler(validate, targetField) {
-  return () => validate.call(this, targetField);
+export function getOnBlurHandler(targetForm, validate, targetField) {
+  return () => validate(targetField);
 }

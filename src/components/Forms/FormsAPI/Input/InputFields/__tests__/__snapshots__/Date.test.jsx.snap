@@ -31,12 +31,13 @@ exports[`<Date /> renders as expected 1`] = `
     preventOpenOnFocus={false}
     previousMonthButtonLabel="Previous Month"
     readOnly={false}
-    selected=""
+    selected={null}
     selectedDate=""
     shouldCloseOnSelect={true}
     showTimeSelect={false}
     timeCaption="Time"
     timeIntervals={30}
+    value={null}
     withPortal={false}
   />
   <img

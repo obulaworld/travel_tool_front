@@ -68,22 +68,30 @@ export default class DropdownSelect extends Component {
 
   handleToggleDropdown = (e) => {
     const {dropdownOpen} = this.state;
+    const {onClick} = this.props;
+    onClick && onClick(e);
     this.setState(() => ({
       dropdownOpen: !dropdownOpen
     }));
   }
 
+  valueToChoiceLabel = (choices, value) => {
+    const choice = choices.filter(choice => {
+      return (choice.value || choice) === value;
+    })[0] || '';
+    return (choice.label || choice);
+  }
+
   render() {
     const {choices, value, className, size} = this.props;
     const options = this.getSelectOptions(choices);
-
     return (
       <div style={{position:'relative'}}>
         <div
           {...this.getPropsObject()}
         >
-          <div className="value" style={{width: size}}> 
-            {value}
+          <div className="value" style={{width: size}}>
+            {this.valueToChoiceLabel(choices, value)}
             <div className={`select-dropdown ${this.getDropdownStatus()}`}>
               <img src={selectDropdownIcon} alt="icn" />
             </div>

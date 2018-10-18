@@ -5,15 +5,15 @@ const DropdownOptions = (props) => {
   const { items, handleClick, getDropdownStatus } = props;
   const choiceList = items
     .map((item) => (
-      <li id="choice" key={item}>
-        <div 
+      <li id="choice" key={item.value || item}>
+        <div
           id="choice"
-          onClick={()=>handleClick(item)}
-          onKeyPress={()=>{}} 
-          role="button" 
+          onClick={()=>handleClick(item.value || item)}
+          onKeyPress={()=>{}}
+          role="button"
           tabIndex="0"
         >
-          {item}
+          {item.label || item}
         </div>
       </li>
     ));

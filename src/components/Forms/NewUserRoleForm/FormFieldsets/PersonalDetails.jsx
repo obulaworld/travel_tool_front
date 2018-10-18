@@ -4,7 +4,7 @@ import * as formMetadata from '../../FormsMetadata/NewUserRoleForm';
 
 class PersonalDetailsFiedset extends Component {
   render() {
-    this.inputRenderer = new InputRenderer(this.props, formMetadata);
+    this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
 
     return (

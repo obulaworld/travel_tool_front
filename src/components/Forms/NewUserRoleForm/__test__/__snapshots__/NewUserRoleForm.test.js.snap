@@ -42,7 +42,6 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
-            size="232px"
             type="text"
             value=""
           />
@@ -93,7 +92,6 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
-            size="232px"
             tabIndex="0"
             type="dropdown-select"
             value=""
@@ -102,7 +100,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
               className="value"
               style={
                 Object {
-                  "width": "232px",
+                  "width": undefined,
                 }
               }
             >

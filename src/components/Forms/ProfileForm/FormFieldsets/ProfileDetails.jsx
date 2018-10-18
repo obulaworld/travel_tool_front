@@ -9,7 +9,7 @@ class ProfileDetailsFieldSets extends Component {
     const managerNames = managers.map(manager => manager.fullName);
     formMetadata.dropdownSelectOptions.manager = managerNames;
 
-    this.inputRenderer = new InputRenderer(this.props, formMetadata);
+    this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
     const { hasBlankFields } = this.props;
 

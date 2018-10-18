@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { FormContext } from '../FormsAPI';
+import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 
@@ -15,6 +15,7 @@ class NewUserRoleForm extends PureComponent {
   };
 
   state = { ...this.defaultState };
+  validate = getDefaultBlanksValidatorFor(this);
 
   componentWillUnmount() {
     const { getRoleData } = this.props;
@@ -36,26 +37,11 @@ class NewUserRoleForm extends PureComponent {
     this.setState({ ...this.defaultState });
   };
 
-  validate = field => {
-    let { values, errors } = this.state;
-    [errors, values] = [{ ...errors }, { ...values }];
-    let hasBlankFields = false;
-    !values[field]
-      ? (errors[field] = 'This field is required')
-      : (errors[field] = '');
-
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
-    this.setState(prevState => {
-      return { ...prevState, errors, hasBlankFields };
-    });
-    return !hasBlankFields;
-  };
-
   render() {
     const { values, errors, hasBlankFields } = this.state;
     const { updatingRole } = this.props;
     return (
-      <FormContext targetForm={this} errors={errors} validatorName="validate">
+      <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         {updatingRole && (
           <h5 style={{ display: 'flex', justifyContent: 'center', fontFamily: 'DIN Pro' }}
           >

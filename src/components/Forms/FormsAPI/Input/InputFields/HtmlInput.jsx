@@ -1,6 +1,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
+// good for types like text, email, passord 
 const HtmlInput = (props) => {
   let htmlProps = {...props};
   let { error } = props;

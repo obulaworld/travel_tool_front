@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
 import moment from 'moment';
-import { FormContext } from '../FormsAPI';
+import { FormContext,  getDefaultBlanksValidatorFor} from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
@@ -12,34 +12,27 @@ class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
     const { modalType, requestOnEdit } = this.props;
-    const user = (modalType === 'edit request' && requestOnEdit.passportName) 
-      ? requestOnEdit.passportName : localStorage.getItem('name');
-    const gender = (modalType === 'edit request'  && requestOnEdit.gender) 
-      ? requestOnEdit.gender : localStorage.getItem('gender');
-    const department = (modalType === 'edit request'  && requestOnEdit.department) 
-      ? requestOnEdit.department : localStorage.getItem('department');
-    const role = (modalType === 'edit request'  && requestOnEdit.role) 
-      ? requestOnEdit.role : localStorage.getItem('role');
-    const manager = (modalType === 'edit request'  && requestOnEdit.manager) 
-      ? requestOnEdit.manager : localStorage.getItem('manager');
-    const firstTripStateValues = this.getDefaultTripStateValues(0);
-    const editTripsStateValues =modalType === 'edit request' 
-      ? this.getTrips(requestOnEdit) : {};
-    const requestTrips = modalType === 'edit request' 
-      ? this.setTrips(requestOnEdit) : [{}];
-    this.defaultState = { 
+    const isEdit = modalType === 'edit request';
+    const { user, gender, department, role, manager } =
+      this.getPersonalDetails(modalType, requestOnEdit);
+    const defaultTripStateValues = this.getDefaultTripStateValues(0);
+    const editTripsStateValues = isEdit ? this.getTrips(requestOnEdit) : {};
+    const requestTrips = isEdit ? this.setTrips(requestOnEdit) : [{}];
+    this.defaultState = {
       values: {
-        name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be refactor later
-        gender: !(/^null|undefined$/).test(gender) ? gender: '',
-        department: !(/^null|undefined$/).test(department) ? department: '',
-        role: !(/^null|undefined$/).test(role) ? role :'',
-        manager: !(/^null|undefined$/).test(manager) ? manager : '',
-        ...firstTripStateValues, ...editTripsStateValues
+        name: user,
+        gender,
+        department,
+        role,
+        manager,
+        ...defaultTripStateValues,
+        ...editTripsStateValues
       },
       trips: requestTrips, errors: {},hasBlankFields: true, checkBox: 'notClicked', selection: 'return',
       collapse: false, title: 'Hide Details', position: 'none', line: '1px solid #E4E4E4', parentIds: 1
     };
     this.state = { ...this.defaultState };
+    this.validate = getDefaultBlanksValidatorFor(this);
   }
 
 
@@ -54,6 +47,21 @@ class NewRequestForm extends PureComponent {
     const { fetchUserRequests } = this.props;
     fetchUserRequests();
     this.handleClearForm();
+  }
+
+  getPersonalDetails = (modalType, detailsSource) => {
+    const personalDetails = {};
+    const personalDetailsAttributes = [
+      'user', 'gender', 'department', 'role', 'manager'
+    ];
+    personalDetailsAttributes.map(attrb => {
+      if (modalType === 'edit request')
+        return personalDetails[attrb] = detailsSource[attrb];
+      let value = localStorage.getItem(attrb);
+      value = !(/^null|undefined$/).test(value) ? value : '';
+      return personalDetails[attrb] = value;
+    });
+    return personalDetails;
   }
 
   setTrips = (requestOnEdit) => {
@@ -102,7 +110,7 @@ class NewRequestForm extends PureComponent {
     }
 
     const onPickDate = (dateStartsWithDeparture && selection !== 'oneWay')
-      ? () => this.resetTripArrivalDate(getId)
+      ? () => this.resetTripArrivalDate(getId, dateName)
       : () => this.validate(dateName);
 
     this.setState(prevState => ({
@@ -113,13 +121,13 @@ class NewRequestForm extends PureComponent {
     }), onPickDate);
   }
 
-  resetTripArrivalDate = (id) => {
+  resetTripArrivalDate = (id, dateName) => {
     this.setState((prevState) => ({
       values: {
         ...prevState.values,
         [`arrivalDate-${id}`]: null
       }
-    }), this.validate);
+    }), () => this.validate(dateName));
   }
 
   onChangeInput = (event) => {
@@ -156,20 +164,20 @@ class NewRequestForm extends PureComponent {
 
   handleRadioButton = (event) => {
     const { modalType, requestOnEdit } = this.props;
-    const { collapse } = this.state;
+    let { collapse, trips } = this.state;
     const tripType = event.target.value;
     this.setState({
       selection: tripType,
     }, this.validate);
     if (tripType === 'multi' && !collapse) {
       this.collapsible();
-      let parentIds, trips, secondTripStateValues = {};
+      let parentIds, secondTripStateValues = {};
       if(modalType === 'edit request') {
         parentIds = requestOnEdit.trips.length;
         trips = requestOnEdit.trips;
       } else {
         parentIds = 2;
-        trips = [].concat([{}, {}]);
+        trips = [].concat([trips[0] || {}, {}]);
         secondTripStateValues = this.getDefaultTripStateValues(1);
       }
       this.setState(prevState => ({
@@ -224,7 +232,7 @@ class NewRequestForm extends PureComponent {
     }
     return {newValues, trips};
   }
- 
+
   handleSubmit = event => {
     event.preventDefault();
     const { handleCreateRequest, handleEditRequest, modalType, requestOnEdit, updateUserProfile, user } = this.props;
@@ -289,23 +297,6 @@ class NewRequestForm extends PureComponent {
   handleClearForm = () => {
     this.setState({ ...this.defaultState });
   };
-  validate = field => {
-    let { values, errors, trips } = this.state;
-    [errors, values, trips] = [{ ...errors }, { ...values }, [...trips]];
-    let hasBlankFields = false;
-
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
-    if (!field){
-      this.setState({hasBlankFields});
-      return !hasBlankFields;
-    }
-
-    !values[field]
-      ? (errors[field] = 'This field is required')
-      : (errors[field] = '');
-    this.setState(prevState => ({ ...prevState, errors, hasBlankFields}));
-    return !hasBlankFields;
-  };
   collapsible =  () => {
     const { collapse } = this.state;
     if(!collapse) {
@@ -333,10 +324,10 @@ class NewRequestForm extends PureComponent {
     localStorage.setItem('role', role);
     localStorage.setItem('manager', manager);
   }
-  
+
   renderPersonalDetailsFieldset = () => {
     const {collapse, title, position, line,values} = this.state;
-    const { managers , occupations } = this.props; 
+    const { managers , occupations } = this.props;
     return (
       <PersonalDetailsFieldset
         values={values}
@@ -371,11 +362,11 @@ class NewRequestForm extends PureComponent {
     );
   }
 
-  renderForm = (managers, creatingRequest, occupations) => {
-    const { values, errors, hasBlankFields, selection,  collapse, title, position, line, parentIds } = this.state;
-    const { modalType } = this.props;
+  renderForm = () => {
+    const { errors, values, hasBlankFields } = this.state;
+    const { modalType, creatingRequest } = this.props;
     return (
-      <FormContext targetForm={this} errors={errors} validatorName="validate">
+      <FormContext targetForm={this} values={values} errors={errors} validatorNam="validate">
         {creatingRequest && (
           <h5 className="style-h5">
          Creating request...
@@ -400,10 +391,10 @@ class NewRequestForm extends PureComponent {
   }
 
   render() {
-    const {managers,creatingRequest, occupations } = this.props;
+    const {managers, creatingRequest, occupations } = this.props;
     return (
       <div>
-        {this.renderForm(managers,creatingRequest, occupations)}
+        {this.renderForm()}
       </div>
     );
   }

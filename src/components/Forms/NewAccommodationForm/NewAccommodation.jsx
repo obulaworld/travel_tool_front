@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
 import axios from 'axios';
 import AccommodationAPI from '../../../services/AccommodationAPI';
-import { FormContext } from '../FormsAPI';
+import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import { errorMessage } from '../../../helper/toast';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 import AccommodationDetails from './FormFieldsets/AccommodationDetails';
@@ -15,25 +15,25 @@ class NewAccommodation extends PureComponent {
   constructor(props) {
     super(props);
     const { modalType, guestHouse } = this.props;
+    const isEdit = modalType === 'edit accomodation';
+    const {
+      houseName,
+      location,
+      bathRooms,
+      image,
+      rooms
+    } = this.getHouseDetails(modalType, guestHouse);
     const defaultRoom = this.defaultRoom(0);
-    const houseName = (modalType === 'edit accomodation'  && guestHouse) 
-      ? guestHouse.houseName : '';
-    const location = (modalType === 'edit accomodation'  && guestHouse) 
-      ? guestHouse.location : '';
-    const bathRooms = (modalType === 'edit accomodation'  && guestHouse) 
-      ? guestHouse.bathRooms : '';
-    const image = (modalType === 'edit accomodation'  && guestHouse) 
-      ? guestHouse.imageUrl : '';
-    const rooms = (modalType === 'edit accomodation'  && guestHouse) 
-      ? guestHouse.rooms : ''; 
     this.defaultState = {
       values: { houseName, location, bathRooms, image,
         preview: image, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
-      rooms: modalType === 'edit accomodation' ? guestHouse.rooms : [{}],
+      rooms: isEdit ? guestHouse.rooms : [{}],
       errors: {},
-      documentId: modalType === 'edit accomodation' ? guestHouse.rooms.length: 1,
-      hasBlankFields: modalType === 'edit accomodation' ? false : true };
-    this.state = { ...this.defaultState };}
+      documentId: isEdit ? guestHouse.rooms.length: 1,
+      hasBlankFields: isEdit ? false : true };
+    this.state = { ...this.defaultState };
+    this.validate = getDefaultBlanksValidatorFor(this);
+  }
 
   componentDidMount() {
     const { modalType } = this.props;
@@ -52,6 +52,17 @@ class NewAccommodation extends PureComponent {
       initFetchTimelineData(guestHouse.id, startDate, endDate);
     }
     fetchAccommodation();
+  }
+
+  getHouseDetails = (modalType, detailsSource) => {
+    const houseDetails = {};
+    const houseAttribs = ['houseName', 'location', 'bathRooms', 'image', 'rooms'];
+    houseAttribs.map(attrb => {
+      if(!(modalType === 'edit accomodation'))
+        return houseDetails[attrb] = '';
+      return houseDetails[attrb] = detailsSource[attrb];
+    });
+    return houseDetails;
   }
 
   populateRoomsDefaultStateValues = rooms => {
@@ -81,7 +92,7 @@ class NewAccommodation extends PureComponent {
         this.setState(
           prevState => ({
             values: { ...prevState.values, preview: reader.result, image: file, }
-          }), this.validate );}; reader.readAsDataURL(file); 
+          }), this.validate );}; reader.readAsDataURL(file);
     }};
 
   displayImage = () => {
@@ -135,22 +146,8 @@ class NewAccommodation extends PureComponent {
       this.setState(
         prevState => ({ values: { ...prevState.values, [rooms]: choice } }),
         this.validate
-      );} };
-
-  validate = field => {
-    let { values, errors } = this.state;
-    [errors, values] = [{ ...errors }, { ...values }];
-    let hasBlankFields = false;
-
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
-    if (!field) {
-      this.setState({ hasBlankFields });
-      return !hasBlankFields; }
-    !values[field]
-      ? (errors[field] = 'This field is required')
-      : (errors[field] = '');
-    this.setState(prevState => ({ ...prevState, errors, hasBlankFields }));
-    return !hasBlankFields;
+      );
+    }
   };
 
   handleFormCancel = () => {
@@ -232,7 +229,7 @@ class NewAccommodation extends PureComponent {
     const { values, errors, hasBlankFields, documentId } = this.state;
     const { modalType } = this.props;
     return (
-      <FormContext targetForm={this} errors={errors} validatorName="validate">
+      <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         <form onSubmit={this.handleInputSubmit} className="new-request">
           <AccommodationDetails
             values={values}

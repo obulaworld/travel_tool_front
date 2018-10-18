@@ -3,6 +3,8 @@
   eventHandlers will update the form and validate the input based on the validate logic in the form.
 */
 import * as handlerCreators from './eventHandlerCreators';
+import getDefaultBlanksValidatorFor from '../formValidator';
+
 
 const createEventHandlersFor = (targetForm, targetField, validatorName) => {
   // creates every event handler for a form
@@ -15,10 +17,12 @@ const createEventHandlersFor = (targetForm, targetField, validatorName) => {
     handleInputChange: handlerCreators.getInputChangeHandler
   };
   // call the creators in _handlerCreators to create the handlers for the target form and store them in eventHandlers
+  const validator = targetForm[validatorName || 'validate']
+    || getDefaultBlanksValidatorFor(targetForm);
   for(let handlerName of Object.keys(_handlerCreators)) {
-    eventHandlers[handlerName] = _handlerCreators[handlerName].call(
+    eventHandlers[handlerName] = _handlerCreators[handlerName](
       targetForm,
-      targetForm[validatorName || 'validate'],
+      validator,
       targetField
     );
   }

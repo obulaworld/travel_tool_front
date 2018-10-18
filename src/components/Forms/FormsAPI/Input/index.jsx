@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { HtmlInput, DropdownSelect, DateInput, ButtonToggler, NumberInput, filterDropdownSelect } from './InputFields';
+import {
+  HtmlInput,
+  DropdownSelect,
+  DateInput,
+  ButtonToggler,
+  NumberInput,
+  filterDropdownSelect
+} from './InputFields';
 import createEventHandlersFor from '../formEventHandlers';
 import './_input.scss';
 
@@ -9,62 +16,61 @@ class Input extends PureComponent {
   getInputType() {
     let { name, type, onChange } = this.props;
     const { errors, targetForm, validatorName } = this.context;
-
     // get event handlers for the form in this context, for its input named 'name'
     const eventHandlers = createEventHandlersFor(targetForm, name, validatorName);
-
-    if(type === 'text'){
-      this.props = {
-        ...this.props,
-        onBlur: eventHandlers.handleInputBlur,
-        onChange: onChange ||  eventHandlers.handleInputChange
-      };
-      return HtmlInput;
-    } else if(type === 'number'){
-      this.props = {
-        ...this.props,
-        onBlur: eventHandlers.handleInputBlur,
-        onChange: onChange ||  eventHandlers.handleInputChange
-      };
-      return NumberInput;
-    } 
-    else { // explore other input options
-      return this.switchInputWithProps(type, eventHandlers);
-    }
+    return this.switchTypeWithProps(type, eventHandlers);
   }
 
-  switchInputWithProps = (type, eventHandlers) => {
+  switchTypeWithProps = (type, eventHandlers) => {
     const { onChange, handleInputChange } = this.props;
     switch (type) {
     case 'button-toggler':
-      // switches mutually exclusive options like a fancy set of radio buttons
       this.props = {
         ...this.props,
         onChange: onChange ||  eventHandlers.handleSelectTogglerOpt
       };
       return ButtonToggler;
-
     case 'date':
-      this.props = { // save props for date type for use in render InputElement
+      this.props = {
         ...this.props,
         onChange: onChange || eventHandlers.handleSelectDate,
         onBlur: eventHandlers.handleInputBlur
       };
-      return DateInput; // pick date Input
-
+      return DateInput;
     case 'dropdown-select':
+    case 'filter-dropdown-select':
       this.props = {
         ...this.props,
         onChange: onChange || eventHandlers.handleSelectDropdown,
       };
-      return DropdownSelect;
-
-    case 'filter-dropdown-select':
+      return this.switchDropdownInputTypes(type);
+    default:
       this.props = {
         ...this.props,
-        onChange: onChange ||  eventHandlers.handleSelectDropdown
+        onBlur: eventHandlers.handleInputBlur,
+        onChange: onChange ||  eventHandlers.handleInputChange
       };
+      return this.switchTextBasedInputTypes(type);
+    }
+  }
+
+  switchTextBasedInputTypes(type) {
+    switch (type) {
+    case 'text':
+    case 'password':
+    case 'email':
+      return HtmlInput;
+    case 'number':
+      return NumberInput;
+    }
+  }
+
+  switchDropdownInputTypes(type) {
+    switch (type) {
+    case 'filter-dropdown-select':
       return filterDropdownSelect;
+    default:
+      return DropdownSelect;
     }
   }
 
@@ -78,8 +84,10 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { errors } = this.context;
+    const { errors, values } = this.context;
     let { name, label, labelNote, className } = this.props;
+    const value = values? values[name]: '';
+    const error = errors? errors[name]: '';
     let customClass = className ? className : '';
     // switch input types into InputElement
     const InputElement = this.getInputType();
@@ -91,13 +99,13 @@ class Input extends PureComponent {
         <label htmlFor={name}>
           {label}
           <span style={{color: 'red'}}>
-          *
+            *
           </span>
           {this.labelNote(labelNote)}
         </label>
-        <InputElement error={errors[name]} {...this.props} />
+        <InputElement value={value} error={error} {...this.props} />
         <span className="error">
-          {errors[name]}
+          {error}
         </span>
       </div>
     );
@@ -106,6 +114,7 @@ class Input extends PureComponent {
 
 Input.contextTypes = {
   errors: PropTypes.object.isRequired,
+  values: PropTypes.object,
   targetForm: PropTypes.object.isRequired,
   validatorName: PropTypes.string
 };

@@ -5,28 +5,28 @@ import {PropTypes} from 'prop-types';
 const ButtonToggler = (props) => {
   const {value, onChange, choices, name, className} = props;
 
-  const buttons = choices
-    .map(option => {
-      const status = option === value? 'active': 'inactive';
+  const choiceButtons = choices
+    .map(choice => {
+      const status = (choice.value || choice) === value? 'active': 'inactive';
       return (
         <button
-          key={option}
+          key={choice.value || choice}
           name={name}
           onClick={(e) => {onChange(e.target.value ||
           e.target.getAttribute('data-value') ||
           e.target.dataset.value);}}
-          data-value={option}
+          data-value={choice.value || choice}
           type="button"
           className={`bg-btn bg-btn--${status}`}
         >
-          {option}
+          {choice.label || choice}
         </button>
       );
     });
 
   return (
     <div className={`input ${className}`}>
-      {buttons}
+      {choiceButtons}
     </div>
   );
 };

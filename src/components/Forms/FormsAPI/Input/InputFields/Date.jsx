@@ -6,10 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import calendarIcon from '../../../../../images/icons/calendar_icon.svg';
 
 const DateInput = props => {
-  const { error, className, selectedDate, name} = props;
-  let _selectedDate = selectedDate
-    ? moment(selectedDate, 'MM-DD-YYYY')
-    : selectedDate;
+  const { error, value, className, name} = props;
+  let selectedDate = value
+    ? moment(value, 'MM-DD-YYYY')
+    : value;
 
 
   return (
@@ -19,7 +19,7 @@ const DateInput = props => {
         calendarClassName="calendar-body"
         dayClassName={() => 'calendar-day'}
         fixedHeight
-        selected={_selectedDate}
+        selected={selectedDate}
         {...props}
       />
       <img className="calendar-icon" src={calendarIcon} alt="cal" />
@@ -28,6 +28,10 @@ const DateInput = props => {
 };
 
 DateInput.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   error: PropTypes.string,
   className: PropTypes.string,
   name:  PropTypes.string,
@@ -38,6 +42,7 @@ DateInput.propTypes = {
 };
 
 DateInput.defaultProps = {
+  value: null,
   className: '',
   error: '',
   selectedDate: '',

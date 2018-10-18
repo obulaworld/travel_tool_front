@@ -5,4 +5,11 @@ import filterDropdownSelect from './filterDropdownSelect';
 import ButtonToggler from './ButtonToggler';
 import NumberInput from './NumberInput';
 
-export { DropdownSelect, DateInput, ButtonToggler, HtmlInput, NumberInput, filterDropdownSelect};
+export {
+  DropdownSelect,
+  DateInput,
+  ButtonToggler,
+  HtmlInput,
+  NumberInput,
+  filterDropdownSelect
+};

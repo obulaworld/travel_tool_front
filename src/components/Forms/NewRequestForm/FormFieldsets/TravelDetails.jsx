@@ -32,7 +32,7 @@ class TravelDetailsFieldset extends Component {
       : 'select return date'
   })
 
-  customPropsForDeparture = (values, name) => ({
+  customPropsForDeparture = (values) => ({
     minDate: moment()
   })
 
@@ -99,10 +99,10 @@ class TravelDetailsFieldset extends Component {
                 <div className="others-width" role="presentation">
                   {renderInput(
                     `departureDate-${i}`,
-                    'date', {...this.customPropsForDeparture(values, `arrivalDate-${i}`), parentid: i, handleDate, onChange: handleDate}
+                    'date', {...this.customPropsForDeparture(values), parentid: i, onChange: handleDate}
                   )}
                 </div>
-                { selection !== 'oneWay' ? renderInput(`arrivalDate-${i}`, 'date', {...this.customPropsForArrival(values, `departureDate-${i}`), parentid: i, handleDate, onChange: handleDate}) : null}
+                { selection !== 'oneWay' ? renderInput(`arrivalDate-${i}`, 'date', {...this.customPropsForArrival(values, `departureDate-${i}`), parentid: i, onChange: handleDate}) : null}
               </div>
             </div>
             {selection === 'multi' && i >= 2 &&
@@ -132,7 +132,7 @@ class TravelDetailsFieldset extends Component {
   }
 
   render() {
-    this.inputRenderer = new InputRenderer(this.props, formMetadata);
+    this.inputRenderer = new InputRenderer(formMetadata);
     const { handleRadioButtonChange, selection, onChangeInput} = this.props;
 
     const { parentIds, existingTrips } = this.props;

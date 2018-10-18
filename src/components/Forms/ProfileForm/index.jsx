@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import InputRenderer, { FormContext } from '../FormsAPI';
+import InputRenderer, { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import ProfileDetails from './FormFieldsets/ProfileDetails';
 import './ProfileForm.scss';
 import Validator from '../../../validator';
@@ -35,6 +35,7 @@ class ProfileForm extends PureComponent {
       hideOverlay: false
     };
     this.state = { ...this.defaultState };
+    this.validate = getDefaultBlanksValidatorFor(this);
   }
 
   submitProfileForm = event => {
@@ -54,32 +55,12 @@ class ProfileForm extends PureComponent {
     this.setState({ ...this.defaultState });
   };
 
-  validate = field => {
-    let { values, errors } = this.state;
-    [errors, values] = [{ ...errors }, { ...values }];
-    let hasBlankFields = false;
-
-    !values[field]
-      ? (errors[field] = 'This field is required')
-      : (errors[field] = '');
-
-    // check if the form has any other blank fields
-    // this will qualify the form as fully filled or not
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
-    // update the form's validity and return a boolean to use on Submit
-    this.setState(prevState => {
-      return { ...prevState, errors, hasBlankFields };
-    });
-    return !hasBlankFields;
-  };
-
-
   render() {
     const { values, errors, hasBlankFields } = this.state;
     const { managers } = this.props;
 
     return (
-      <FormContext targetForm={this} validatorName="validate" errors={errors}>
+      <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={this.submitProfileForm} className="new-profile">
           <ProfileDetails values={values} managers={managers} hasBlankFields={hasBlankFields} />
           {hasBlankFields ? (

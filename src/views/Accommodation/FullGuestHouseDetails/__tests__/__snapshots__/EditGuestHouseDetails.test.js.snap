@@ -102,6 +102,11 @@ exports[`<Accommodation /> should render correctly 1`] = `
         </div>
       </div>
       <div>
+        <img
+          alt="Edit Link"
+          className="edit-icon"
+          src="edit_icon.svg"
+        />
         <button
           className="edit-btn"
           onClick={[Function]}

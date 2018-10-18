@@ -25,6 +25,7 @@ exports[`<Input /> renders as expected 1`] = `
     onBlur={[Function]}
     onChange={[Function]}
     type="text"
+    value=""
   />
   <span
     className="error"

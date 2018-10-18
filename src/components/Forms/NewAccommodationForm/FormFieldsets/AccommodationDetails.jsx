@@ -88,7 +88,7 @@ class AccommodationDetails extends Component {
   };
 
   renderImageDisplay = (displayImage, handleImageChange) => {
-    const { modalType } = this.props; 
+    const { modalType } = this.props;
     return (
       <div className="aline-box">
         {displayImage()}
@@ -108,7 +108,7 @@ class AccommodationDetails extends Component {
   };
 
   render() {
-    this.inputRenderer = new InputRenderer(this.props, formMetadata);
+    this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
     const {
       handleImageChange,
