@@ -100,7 +100,7 @@ export class GuestHouseDetails extends PureComponent {
         closeModal={closeModal}
         width="800px"
         visibility={
-          shouldOpen && modalType === 'edit accomodation'
+          shouldOpen && modalType === 'edit accommodation'
             ? 'visible'
             : 'invisible'
         }

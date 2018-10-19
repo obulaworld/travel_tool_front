@@ -15,18 +15,13 @@ class NewAccommodation extends PureComponent {
   constructor(props) {
     super(props);
     const { modalType, guestHouse } = this.props;
-    const isEdit = modalType === 'edit accomodation';
-    const {
-      houseName,
-      location,
-      bathRooms,
-      image,
-      rooms
+    const isEdit = modalType === 'edit accommodation';
+    const { houseName, location, bathRooms, imageUrl, rooms
     } = this.getHouseDetails(modalType, guestHouse);
     const defaultRoom = this.defaultRoom(0);
     this.defaultState = {
-      values: { houseName, location, bathRooms, image,
-        preview: image, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
+      values: { houseName, location, bathRooms, image: imageUrl ,
+        preview: imageUrl, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
       rooms: isEdit ? guestHouse.rooms : [{}],
       errors: {},
       documentId: isEdit ? guestHouse.rooms.length: 1,
@@ -45,7 +40,7 @@ class NewAccommodation extends PureComponent {
   componentWillUnmount() {
     const { fetchAccommodation, guestHouse, modalType, initFetchTimelineData } = this.props;
     this.handleFormCancel();
-    if (modalType == 'edit accomodation') {
+    if (modalType == 'edit accommodation') {
       const cloneStartDate = moment().startOf('month').clone();
       const startDate = cloneStartDate.format('YYYY-MM-DD');
       const endDate = cloneStartDate.endOf('month').format('YYYY-MM-DD');
@@ -56,9 +51,9 @@ class NewAccommodation extends PureComponent {
 
   getHouseDetails = (modalType, detailsSource) => {
     const houseDetails = {};
-    const houseAttribs = ['houseName', 'location', 'bathRooms', 'image', 'rooms'];
+    const houseAttribs = ['houseName', 'location', 'bathRooms', 'imageUrl', 'rooms'];
     houseAttribs.map(attrb => {
-      if(!(modalType === 'edit accomodation'))
+      if(!(modalType === 'edit accommodation'))
         return houseDetails[attrb] = '';
       return houseDetails[attrb] = detailsSource[attrb];
     });
@@ -67,7 +62,7 @@ class NewAccommodation extends PureComponent {
 
   populateRoomsDefaultStateValues = rooms => {
     const { modalType } = this.props;
-    if (modalType === 'edit accomodation') {
+    if (modalType === 'edit accommodation') {
       const stateValues = {};
       rooms.map((room, i) => {
         stateValues[`roomName-${i}`] = room.roomName;
@@ -156,7 +151,7 @@ class NewAccommodation extends PureComponent {
 
   handleEditFormCancel = () => {
     let { closeModal } = this.props;
-    closeModal(true, 'edit accomodation');
+    closeModal(true, 'edit accommodation');
   };
 
   addRoomOnClick = () => {
@@ -214,7 +209,7 @@ class NewAccommodation extends PureComponent {
         imageUrl: imageUrl,
         rooms: rooms
       };
-      if (this.validate() && modalType === 'edit accomodation') {
+      if (this.validate() && modalType === 'edit accommodation') {
         editAccommodation(guestHouse.id, guestHouseData);
       } else {
         createAccommodation(guestHouseData);
@@ -248,7 +243,7 @@ class NewAccommodation extends PureComponent {
             onCancel={this.handleFormCancel}
             onEditCancel={this.handleEditFormCancel}
             hasBlankFields={hasBlankFields}
-            send={modalType === 'edit accomodation' ? 'Save changes' : 'Save'}
+            send={modalType === 'edit accommodation' ? 'Save changes' : 'Save'}
             modalType={modalType} />
         </form>
       </FormContext>
