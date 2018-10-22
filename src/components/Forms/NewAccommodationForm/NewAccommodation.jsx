@@ -198,9 +198,14 @@ class NewAccommodation extends PureComponent {
     fd.append('file', values.image);
     fd.append('upload_preset', process.env.REACT_APP_PRESET_NAME);
     try {
+      let imageUrl;
       delete axios.defaults.headers.common['Authorization'];
-      const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd);
-      const imageUrl = imageData.data.secure_url;
+      if(typeof values.image !== 'string') {
+        const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd);
+        imageUrl = imageData.data.secure_url;
+      } else {
+        imageUrl = values.image;
+      }
       AccommodationAPI.setToken();
       const guestHouseData = {
         houseName: values.houseName,
