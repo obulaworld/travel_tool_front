@@ -6,7 +6,7 @@ exports[`<BedGeomWrapper /> renders properly 1`] = `
 >
   <TripGeometry
     key="trip-id-1"
-    timelineStartDate={"2018-09-30T23:00:00.000Z"}
+    timelineStartDate={"2018-09-30T21:00:00.000Z"}
     timelineViewType="month"
     trip={
       Object {

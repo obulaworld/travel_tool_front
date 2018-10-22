@@ -29,10 +29,15 @@ class Modal extends PureComponent {
 
   renderModalHeader = () => {
     const { title, closeModal, modalBar, params, closeDeleteCommentModal, requestId } = this.props;
-    let url = location.pathname;
-    if(requestId){
+    let url;
+    if (location.pathname.includes('/requests')) {
+      url = '/requests/';
+    } else {
+      url = location.pathname;
+    }
+    if (requestId) {
       let urlArr = url.split('/');
-      url = urlArr.slice(0, urlArr.length-1).join('/');
+      url = urlArr.slice(0, urlArr.length - 1).join('/');
     }
     return (
       <div className="modal-title-bar">
@@ -52,11 +57,18 @@ class Modal extends PureComponent {
           )
           :
           (
-            <Link to={url}>
-              <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
-                <img alt="close" src={closeButton} />
-              </button>
-            </Link>
+            (url.includes('/requests')) ?
+              (
+                <Link to={url}>
+                  <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
+                    <img alt="close" src={closeButton} />
+                  </button>
+                </Link>
+              ) : (
+                <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
+                  <img alt="close" src={closeButton} />
+                </button>
+              )
           )
         }
       </div>

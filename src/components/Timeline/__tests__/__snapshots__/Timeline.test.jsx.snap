@@ -116,7 +116,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="16"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="18"
         key="17"
       />
@@ -187,7 +187,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       />
       <RoomsGeomWrapper
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="month"
         tripDayWidth={0}
       />
@@ -263,7 +263,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       />
       <RoomsGeomWrapper
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="week"
         tripDayWidth={0}
       />
@@ -364,7 +364,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       />
       <RoomsGeomWrapper
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="year"
         tripDayWidth={0}
       />
