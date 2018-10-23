@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Editor } from '@tinymce/tinymce-react';
+import ReactQuill from 'react-quill'; 
 import sanitizeHtml from 'sanitize-html-react';
 import './_CommentBox.scss';
 import {
   createComment,
   editComment
 } from '../../../redux/actionCreator/commentsActions';
+import 'react-quill/dist/quill.snow.css'; 
 
 export class CommentBox extends Component {
-  placeholder =
-    '<p style="color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;">Write a comment</p>';
   constructor(props) {
     super(props);
     const { comment, startSubmitReady } = this.props;
     this.state = {
-      dataInput: comment || this.placeholder,
+      text: comment || '',
       submitReady: startSubmitReady || false
     };
   }
@@ -24,52 +23,53 @@ export class CommentBox extends Component {
   handleKeyUp = event => {
     if (event.target.innerText.trim().length >= 1) {
       this.setState({
-        dataInput: event.target.innerHtml,
+        text: event.target.innerHTML,
         submitReady: true
       });
     } else {
       this.setState({
-        submitReady: false,
-        dataInput: '',
-      });
-    }
-  };
-
-  handleFocus = event => {
-    event.target.editorContainer.style.border = '1px solid blue';
-    const { dataInput } = this.state;
-    if (dataInput == this.placeholder) {
-      this.setState({
-        dataInput: ''
-      });
-    }
-  };
-
-  handleBlur = event => {
-    event.target.editorContainer.style.border = '1px solid #E4E4E4';
-    const { dataInput } = this.state;
-    if (dataInput == '') {
-      this.setState({
-        dataInput: this.placeholder,
+        text: '',
         submitReady: false
       });
     }
   };
 
-  handleEditorChange = dataInput => {
-    this.setState({ dataInput });
+  handleChange = value => {
+    this.setState({
+      text: value,
+      submitReady: true
+    });
+  };
+
+  handleFocus = event => {
+    event.target.editorContainer.style.border = '1px solid blue';
+    const { dataInput } = this.state;
+    this.setState({
+      text: ''
+    });
+  };
+
+  handleBlur = event => {
+    event.target.editorContainer.style.border = '1px solid #E4E4E4';
+    const { text } = this.state;
+    if (text == '') {
+      this.setState({
+        text: '',
+        submitReady: false
+      });
+    }
   };
 
   handleSubmit = event => {
-    const { dataInput } = this.state;
+    const { text } = this.state;
     const { createComment, requestId } = this.props;
     event.preventDefault();
-    if (dataInput.trim() !== '' && dataInput.trim() != this.placeholder) {
-      createComment(requestId, this.sanitizeInputData(dataInput));
+    if (text.trim() !== '') {
+      createComment(requestId, this.sanitizeInputData(text));
     }
     this.setState({
-      dataInput: '',
-      submitReady: false,
+      text: '',
+      submitReady: false
     });
   };
 
@@ -86,54 +86,86 @@ export class CommentBox extends Component {
 
   handleEditComment = event => {
     event.preventDefault();
-    const { dataInput } = this.state;
+    const { text } = this.state;
     const cachedComment = localStorage.getItem('comment');
-    const { editComment, requestId, id, afterSubmit, handleNoEdit } = this.props;
-    if (dataInput !== cachedComment) {
-      editComment(requestId, dataInput, id);
-    }else {
+    const {
+      editComment,
+      requestId,
+      id,
+      afterSubmit,
+      handleNoEdit
+    } = this.props;
+    if (text !== cachedComment && text !== '') {
+      editComment(requestId, text, id);
+    } else {
       handleNoEdit();
     }
     afterSubmit();
   };
 
+  renderButtons = () => {
+    const { submitReady, text } = this.state;
+    const { comment } = this.props;
+    const status = submitReady ? '--active' : '';
+    return (
+      <span className="editor__btn-wrap">
+        {comment ? (
+          <div>
+            <button
+              type="submit"
+              onClick={this.handleEditComment}
+              className={`editor__post-btn editor__post-btn${status} --active post-btn-text edit-buttons`}
+              disabled={!text && true}
+            >
+              Save
+            </button>
+          </div>
+        ) : (
+          <button
+            className={`editor__post-btn editor__post-btn${status} post-btn-text`}
+            type="submit"
+            id="post-submit"
+            onClick={this.handleSubmit}
+            disabled={!text && true}
+          >
+            Posts
+          </button>
+        )}
+      </span>
+    );
+  }
+
   render() {
-    const { dataInput, submitReady } = this.state;
-    const { comment, editReady } = this.props;
-    let status = submitReady ? '--active' : '';
+    const { text } = this.state;
     return (
       <form className="editor__editor-form">
-        <Editor
-          init={{
-            mode: 'textareas',
-            statusbar: false,
-            plugins: 'lists',
-            skin: 'lightgray',
-            menubar: false,
-            branding: false,
-            toolbar: 'bold italic underline   numlist bullist   outdent indent'
-          }}
-          onKeyUp={this.handleKeyUp} value={dataInput}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onEditorChange={this.handleEditorChange} />
+        <ReactQuill
+          value={text}
+          className="quill-contents"  
+          onChange={this.handleChange}
+          onKeyUp={this.handleKeyUp}
+          modules={CommentBox.modules}
+          placeholder="Write a comment"
+        />
         <div className="editor__btn-size">
-          <span className="editor__btn-wrap">
-            {comment ? (
-              <div>
-                <button disabled={!submitReady || !editReady} type="submit" onClick={this.handleEditComment} className={`editor__post-btn editor__post-btn${status} --active post-btn-text edit-buttons`}>
-                  Save
-                </button>
-              </div>) : (
-              <button className={`editor__post-btn editor__post-btn${status} post-btn-text`} type="submit" id="post-submit" onClick={this.handleSubmit}> { /* eslint-disable-line */ }
-                Post
-              </button>)}
-          </span>
+          {this.renderButtons()}
         </div>
       </form>
     );
   }
 }
+
+CommentBox.modules = {
+  toolbar: [
+    ['bold', 'italic', 'underline'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' }
+    ]
+  ]
+};
 
 CommentBox.propTypes = {
   createComment: PropTypes.func.isRequired,
@@ -143,21 +175,20 @@ CommentBox.propTypes = {
   id: PropTypes.string,
   afterSubmit: PropTypes.func,
   handleNoEdit: PropTypes.func,
-  editReady: PropTypes.func,
-  startSubmitReady: PropTypes.bool,
+  startSubmitReady: PropTypes.bool
 };
 
 CommentBox.defaultProps = {
-  afterSubmit: ()=>{},
+  afterSubmit: () => {},
   requestId: '',
   comment: '',
   id: '',
   handleNoEdit: () => {},
-  editReady: () => {},
-  startSubmitReady: false,
+  startSubmitReady: false
 };
 
 export default connect(
   null,
   { createComment, editComment }
 )(CommentBox);
+

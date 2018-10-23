@@ -4,10 +4,14 @@ import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import moxios from 'moxios';
-import ConnectedRequestDetailsModal,
-{ RequestDetailsModal } from '../RequestsModal';
-import { fetchRequestsDetailsResponse,
-  userImage, userEmail } from '../../../redux/__mocks__/mocks';
+import ConnectedRequestDetailsModal, {
+  RequestDetailsModal
+} from '../RequestsModal';
+import {
+  fetchRequestsDetailsResponse,
+  userImage,
+  userEmail
+} from '../../../redux/__mocks__/mocks';
 import requestData from '../__mocks__/requestData';
 import testRequestDetailsResp from '../../../services/__mocks__/mockApprovals';
 import rootSaga from '../../../redux/middleware';
@@ -17,9 +21,9 @@ const baseUrl = 'http://127.0.0.1:5000/api/v1';
 const sagaMiddleware = createSagaMiddleware();
 const mockStore = configureStore([sagaMiddleware]);
 const store = mockStore({
-  requests: {requestData: {tripType: 'multi', trips:[]}},
+  requests: { requestData: { tripType: 'multi', trips: [] } },
   approvals: [],
-  modal: {modal: {}},
+  modal: { modal: {} },
   auth: { ...userImage },
   user: { ...userEmail }
 });
@@ -49,30 +53,30 @@ const props = {
     arrivalDate: '2018-11-12',
     createdAt: '2018-09-04T10:38:12.141Z',
     tripType: 'multi',
-    'trips': [
+    trips: [
       {
-        'origin': 'Lagos',
-        'destination': 'Nairobi',
-        'departureDate': '2018-12-09',
-        'arrivalDate': '2018-12-15'
+        origin: 'Lagos',
+        destination: 'Nairobi',
+        departureDate: '2018-12-09',
+        arrivalDate: '2018-12-15'
       },
       {
-        'origin': 'Nairobi',
-        'destination': 'New York',
-        'departureDate': '2018-12-15',
-        'arrivalDate': '2019-01-10'
+        origin: 'Nairobi',
+        destination: 'New York',
+        departureDate: '2018-12-15',
+        arrivalDate: '2019-01-10'
       },
       {
-        'origin': 'New York',
-        'destination': 'Lagos',
-        'departureDate': '2019-01-10',
-        'arrivalDate': '2019-01-20'
+        origin: 'New York',
+        destination: 'Lagos',
+        departureDate: '2019-01-10',
+        arrivalDate: '2019-01-20'
       },
       {
-        'origin': 'Lagos',
-        'destination': 'Nairobi',
-        'departureDate': '2019-01-30',
-        'arrivalDate': '2019-02-13'
+        origin: 'Lagos',
+        destination: 'Nairobi',
+        departureDate: '2019-01-30',
+        arrivalDate: '2019-02-13'
       }
     ],
     comments: [
@@ -89,7 +93,7 @@ const props = {
         comment: 'This is another comment',
         createdAt: '2018-10-04T10:38:12.141Z',
         picture: 'http://my-image'
-      },
+      }
     ]
   },
   fetchUserRequestDetails: sinon.spy(() => Promise.resolve()),
@@ -101,10 +105,14 @@ const props = {
     }
   },
   updateRequestStatus: jest.fn(() => Promise.resolve()),
-  isStatusUpdating: false
+  isStatusUpdating: false,
+  url: 'travela.andela.com/requests/'
 };
 
-const componentDidMountSpy = sinon.spy(RequestDetailsModal.prototype, 'componentDidMount');
+const componentDidMountSpy = sinon.spy(
+  RequestDetailsModal.prototype,
+  'componentDidMount'
+);
 
 describe('Render RequestsModal component', () => {
   beforeEach(() => {
@@ -120,7 +128,7 @@ describe('Render RequestsModal component', () => {
   });
 
   it('should call componentDidMount()', () => {
-    const {fetchUserRequestDetails, requestData} =  props;
+    const { fetchUserRequestDetails, requestData } = props;
     expect(componentDidMountSpy.called).toBe(true);
     expect(fetchUserRequestDetails.called).toEqual(true);
     expect(fetchUserRequestDetails.calledWith(requestData.id)).toEqual(true);
@@ -182,27 +190,36 @@ describe('Render RequestsModal component', () => {
 
   it('should call renderStatusAsBadge function', () => {
     const action = wrapper.instance();
-    const renderStatusAsBadge = jest.spyOn(wrapper.instance(), 'renderStatusAsBadge');
+    const renderStatusAsBadge = jest.spyOn(
+      wrapper.instance(),
+      'renderStatusAsBadge'
+    );
     action.renderStatusAsBadge('Approved');
     expect(renderStatusAsBadge).toBeCalled();
   });
 
   it('should call changeButtonColor for approval function', () => {
     const button = {
-      id: 1,
+      id: 1
     };
     const action = wrapper.instance();
-    const changeButtonColor = jest.spyOn(wrapper.instance(), 'changeButtonColor');
+    const changeButtonColor = jest.spyOn(
+      wrapper.instance(),
+      'changeButtonColor'
+    );
     action.changeButtonColor(button, 'Approved');
     expect(changeButtonColor.mock.calls.length).toBe(1);
   });
 
   it('should call changeButtonColor for rejection function', () => {
     const button = {
-      id: 2,
+      id: 2
     };
     const action = wrapper.instance();
-    const changeButtonColor = jest.spyOn(wrapper.instance(), 'changeButtonColor');
+    const changeButtonColor = jest.spyOn(
+      wrapper.instance(),
+      'changeButtonColor'
+    );
     action.changeButtonColor(button, 'Rejected');
     expect(changeButtonColor.mock.calls.length).toBe(1);
   });
@@ -219,42 +236,11 @@ describe('Render RequestsModal component', () => {
     afterEach(() => {
       moxios.uninstall();
     });
-
-    it('it dispatches actions to fetch a request\'s recorded trips', (done) => {
-      expect.assertions(3);
-      const requestId = 'testRequestId';
-      const url = `${baseUrl}/requests/${requestId}`;
-      moxios.stubRequest(url, {
-        status: 200,
-        response: testRequestDetailsResp
-      });
-
-      const wrapper = mount(
-        <Provider store={store}>
-          <ConnectedRequestDetailsModal requestId="testRequestId" />
-        </Provider>
-      );
-      process.nextTick(() => {
-        expect(moxios.requests.mostRecent().url).toEqual(url);
-        const dispatchedActions = store.getActions();
-        // Did the modal send the correct requestId?
-        const initFetchAction = dispatchedActions.find(action => (
-          action.type === 'FETCH_USER_REQUEST_DETAILS'
-        ));
-        expect(initFetchAction.requestId).toBe(requestId);
-        // Will the modal receive the expected trips once state updates?
-        const successFetchAction = dispatchedActions.find(action => (
-          action.type  === 'FETCH_USER_REQUEST_DETAILS_SUCCESS'
-        ));
-        expect(successFetchAction.trips).toEqual(testRequestDetailsResp.trips);
-        done();
-      });
-    });
   });
 
   describe('Connected RequestDetailsModal component', () => {
     it('tests that the component successfully rendered', () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <Provider store={store}>
           <ConnectedRequestDetailsModal />
         </Provider>
