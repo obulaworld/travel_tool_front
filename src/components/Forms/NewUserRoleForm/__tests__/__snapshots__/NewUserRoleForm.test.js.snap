@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewUserRoleForm /> <PersonalDetails /> renders correctly 1`] = `
+<fieldset
+  className="personal-details"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "paddingTop": "14px",
+        }
+      }
+    >
+      <Input
+        className=""
+        disabled={true}
+        label="Andela Email Address"
+        labelNote=""
+        name="email"
+        type="text"
+      />
+    </div>
+    <div>
+      <Input
+        choices={
+          Array [
+            Array [],
+          ]
+        }
+        className=""
+        label="Center"
+        labelNote=""
+        name="center"
+        type="dropdown-select"
+      />
+    </div>
+    <div />
+  </div>
+</fieldset>
+`;
+
+exports[`<NewUserRoleForm /> renders correctly 1`] = `
+<form
+  className="new-request"
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="personal-details"
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "paddingTop": "14px",
+          }
+        }
+      >
+        <div
+          className="form-input  "
+        >
+          <label
+            htmlFor="email"
+          >
+            Andela Email Address
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+              *
+            </span>
+          </label>
+          <input
+            className=" "
+            disabled={false}
+            label="Andela Email Address"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+            value="tomato@andela.com"
+          />
+          <span
+            className="error"
+          />
+        </div>
+      </div>
+      <div />
+      <div />
+    </div>
+  </fieldset>
+  <hr />
+  <fieldset>
+    <div
+      className="submit-area"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        onClick={[Function]}
+        type="button"
+      >
+        Clear
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;

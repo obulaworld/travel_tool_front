@@ -21,7 +21,7 @@ export class RoleDetailsTable extends PureComponent {
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
           style={testColor}
         >
-          <span onClick={()=>  handleEditCenter(roleUser)} role="presentation" onKeyDown={this.key}>Edit</span>
+          <span onClick={()=>  handleEditCenter(roleUser)} id="editButton" role="presentation" onKeyDown={this.key}>Edit</span>
            &ensp; &ensp;  &ensp;  &ensp; &ensp;  Delete
         </td>
       </tr>

@@ -33,7 +33,8 @@ const props = {
       picture: 'http://www.image.com/jepg'
     }
   },
-  getCurrentUserRole: 'Super Administrator',
+  isLoaded: true,
+  getCurrentUserRole: ['Travel Administrator', 'Requester'],
   getRoleData: sinon.spy(() => Promise.resolve()),
   isLoading: false,
   history: {
@@ -117,32 +118,8 @@ describe('<RolePage>', () => {
     wrapper.unmount();
   });
 
-  xit('should redirect the user when the  user is not a super admin admin on componentDidMount method', () => {
-    const { history } = props;
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Role {...{ ...props, getCurrentUserRole: ' Administrator' }} />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(history.push).toHaveBeenCalledWith('/');
-    wrapper.unmount();
-  });
 
-  it.skip('should set `shouldOpen` prop to `true` when add role button is clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Role {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    wrapper.find('.btn-new-request').simulate('click');
-    expect(wrapper.find('Role').props().shouldOpen).toEqual(true);
-  });
-
-  it('should set `visibility` prop to `visible` when add nre role button is clicked', () => {
+  it('should set `visibility` prop to `visible` when add new role button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>

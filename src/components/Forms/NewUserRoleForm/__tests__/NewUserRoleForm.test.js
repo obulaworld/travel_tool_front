@@ -1,6 +1,7 @@
 import React from 'react';
-import moment from 'moment';
+import sinon from 'sinon';
 import NewUserRoleForm from '../NewUserRoleForm';
+import PersonalDetails from '../FormFieldsets/PersonalDetails';
 
 describe('<NewUserRoleForm />', () => {
   let wrapper, onSubmit;
@@ -12,22 +13,21 @@ describe('<NewUserRoleForm />', () => {
         name: 'John Doe'
       },
     },
+    role: 'travel team member',
     loading: false,
     errors: [],
+    myTitle: 'Add User' ,
     getRoleData: jest.fn(() => {}),
     handleUpdateRole:  jest.fn(() => {}),
-    onChange: jest.fn()
+    onChange: jest.fn(),
+    userDetail: {
+      email: 'tomato@andela.com',
+      id: 1,
+      centers: [{
+        location: 'New York, USA'
+      }]
+    }
   };
-
-  const defaultState = {
-    values: {
-      email: '',
-      roleName: '',
-    },
-    errors: {},
-    hasBlankFields: true
-  };
-
 
   beforeEach(() => {
     wrapper = mount(<NewUserRoleForm {...props} />);
@@ -57,14 +57,6 @@ describe('<NewUserRoleForm />', () => {
     expect(wrapper.state().values.email).toBe('Tomato Guy');
   });
 
-
-  it('validates input on blur', () => {
-    wrapper.find('input[name="email"]').simulate('blur');
-    wrapper.update();
-    expect(wrapper.state().errors.email).toBe('This field is required');
-  });
-
-
   it('validates form before sending data', () => {
     const form = wrapper.find('form');
     form.simulate('submit');
@@ -77,22 +69,28 @@ describe('<NewUserRoleForm />', () => {
   });
 
 
-  xit('calls on submit when all details are correct', () => {
+  it('calls on submit when all details are correct', () => {
     wrapper.setState({
       values: {
         email: 'test',
         roleName: 'Requester',
       }
     });
-
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.instance().forceUpdate();
     wrapper.find('form').simulate('submit');
-    expect(spy).toHaveBeenCalledTimes(1);
     wrapper.state().values.email = 'test';
-
     expect(props.handleUpdateRole).toHaveBeenCalledWith(wrapper.state().values);
-    expect(props.handleUpdateRole).toHaveBeenCalledTimes(1);
+    expect(props.handleUpdateRole).toHaveBeenCalledTimes(2);
+  });
+
+
+  it('calls on submit when all details are correct when changing user center ', () => {
+    const wrapper =  mount(<NewUserRoleForm {...{...props, myTitle: 'Change Center'}} />);
+    const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.instance().forceUpdate();
+    wrapper.find('form').simulate('submit');
+    expect(props.handleUpdateRole).toHaveBeenCalledTimes(2);
   });
 
 
@@ -100,6 +98,41 @@ describe('<NewUserRoleForm />', () => {
     const componentWillUnmount = jest.spyOn(wrapper.instance(), 'componentWillUnmount');
     wrapper.unmount();
     expect(componentWillUnmount).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls the componentDidMount method', () => {
+    const spy = sinon.spy(NewUserRoleForm.prototype, 'componentDidMount');
+    const wrapper = mount(
+      <NewUserRoleForm {...{...props,  
+        role: 'travel team member',  userDetail: {
+          email: 'tomato@andela.com',
+          id: 1,
+          centers: [{
+            location: 'New York, USA'
+          }]
+        }}} />);
+    expect(spy.called).toEqual(true);
+    wrapper.unmount();
+  });
+
+  describe('<PersonalDetails />', () => {
+    const props = {
+      myTitle: 'Change Center',
+      centers: [{
+        location: []
+      }],
+      roleName: 'travel team member',
+      validate: true
+    };
+
+    beforeEach(() => {
+      wrapper = shallow(<PersonalDetails {...props} />);
+    });
+
+    it('renders correctly', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
   });
 
 });

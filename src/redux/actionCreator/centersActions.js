@@ -27,7 +27,7 @@ export const updateUserCenter = (userId, newCenter) => ({
   newCenter
 });
 
-export const updateUserSuccess = ({ userCenter }) => ({
+export const updateUserSuccess = (userCenter) => ({
   type: UPDATE_USER_CENTER_SUCCESS,
   userCenter
 });

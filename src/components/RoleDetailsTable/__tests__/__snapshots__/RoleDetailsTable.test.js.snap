@@ -52,6 +52,7 @@ exports[`<RoleDetailsTable /> renders correctly 1`] = `
             }
           >
             <span
+              id="editButton"
               onClick={[Function]}
               role="presentation"
             >

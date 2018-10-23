@@ -19,6 +19,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
     className="geom-trip geom-trip--outer"
     style={
       Object {
+        "background": "hsl(266,38%,46%)",
         "background": "hsl(208,51%,72%)",
         "minHeight": "20px",
         "width": "217px",

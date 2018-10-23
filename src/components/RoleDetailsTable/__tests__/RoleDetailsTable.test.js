@@ -11,7 +11,17 @@ const props = {
       }
     ]
   }],
-  roleName: 'Travel team member'
+  roleName: 'Travel team member',
+  handleEditCenter: jest.fn(),
+  roleUser: {
+    id: 1,
+    fullName: 'tomato',
+    centers: [
+      {
+        location: 'Nairobi, Kenya'
+      }
+    ]
+  }
 };
 let wrapper;
 describe('<RoleDetailsTable />', () => {
@@ -42,4 +52,10 @@ describe('<RoleDetailsTable />', () => {
     expect(wrapper.find('.table__requests--error')
       .text()).toEqual('Network error');
   });
+
+  it('should set `visibility` prop to `visible` when add new role button is clicked', () => {
+    const {handleEditCenter } = props;
+    wrapper.find('#editButton').simulate('click');
+  });
+    
 });
