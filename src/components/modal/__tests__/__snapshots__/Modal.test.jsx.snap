@@ -35,21 +35,16 @@ exports[`<Modal /> renders correctly 1`] = `
             <div />
           </div>
         </div>
-        <Link
-          replace={false}
-          to="/"
+        <button
+          className="modal-close"
+          onClick={[Function]}
+          type="button"
         >
-          <button
-            className="modal-close"
-            onClick={[Function]}
-            type="button"
-          >
-            <img
-              alt="close"
-              src="close.svg"
-            />
-          </button>
-        </Link>
+          <img
+            alt="close"
+            src="close.svg"
+          />
+        </button>
       </div>
       <div
         className="modal-content"

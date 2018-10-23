@@ -36,7 +36,7 @@ export default class TripDetails extends PureComponent {
       </div>
       <div id="trip-detail">
         <TripDetail
-          label="Accomodation"
+          label="Accommodation"
           value={accomodationDetails} />
       </div>
     </React.Fragment>
