@@ -62,6 +62,22 @@ exports[`<Requests> renders as expected 1`] = `
           },
         }
       }
+      userData={
+        Object {
+          "createdAt": "2018-09-14T12:48:11.266Z",
+          "department": "Talent & Development",
+          "email": "collins.muru@andela.com",
+          "fullName": "Collins Muru",
+          "gender": "Male",
+          "id": "2",
+          "manager": "Collins",
+          "occupation": "Software Developer",
+          "passportName": "Collins Njau",
+          "roleId": 401938,
+          "updatedAt": "2018-09-16T07:53:48.835Z",
+          "userId": "-LJNw1BsT0LP_E4l2peP",
+        }
+      }
     />
   </Modal>
   <div

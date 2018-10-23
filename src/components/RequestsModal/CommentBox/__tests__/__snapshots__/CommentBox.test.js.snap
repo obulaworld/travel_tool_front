@@ -4,23 +4,38 @@ exports[`Render CommentBox component should match snapshot 1`] = `
 <form
   className="editor__editor-form"
 >
-  <Editor
-    init={
+  <Quill
+    className="quill-contents"
+    modules={
       Object {
-        "branding": false,
-        "menubar": false,
-        "mode": "textareas",
-        "plugins": "lists",
-        "skin": "lightgray",
-        "statusbar": false,
-        "toolbar": "bold italic underline   numlist bullist   outdent indent",
+        "toolbar": Array [
+          Array [
+            "bold",
+            "italic",
+            "underline",
+          ],
+          Array [
+            Object {
+              "list": "ordered",
+            },
+            Object {
+              "list": "bullet",
+            },
+            Object {
+              "indent": "-1",
+            },
+            Object {
+              "indent": "+1",
+            },
+          ],
+        ],
       }
     }
-    onBlur={[Function]}
-    onEditorChange={[Function]}
-    onFocus={[Function]}
+    onChange={[Function]}
     onKeyUp={[Function]}
-    value="<p style=\\"color:#999999; font-size: 16px;	font-family: DIN Pro;	line-height: 20px; text-align: left; margin: 20px;\\">Write a comment</p>"
+    placeholder="Write a comment"
+    theme="snow"
+    value=""
   />
   <div
     className="editor__btn-size"
@@ -30,12 +45,12 @@ exports[`Render CommentBox component should match snapshot 1`] = `
     >
       <button
         className="editor__post-btn editor__post-btn post-btn-text"
+        disabled={true}
         id="post-submit"
         onClick={[Function]}
         type="submit"
       >
-         
-        Post
+        Posts
       </button>
     </span>
   </div>

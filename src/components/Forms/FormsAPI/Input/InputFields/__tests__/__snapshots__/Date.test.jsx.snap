@@ -24,7 +24,6 @@ exports[`<Date /> renders as expected 1`] = `
     onChange={[Function]}
     onClickOutside={[Function]}
     onFocus={[Function]}
-    onInputClick={[Function]}
     onKeyDown={[Function]}
     onMonthChange={[Function]}
     onSelect={[Function]}

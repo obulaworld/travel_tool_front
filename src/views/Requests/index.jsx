@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WithLoadingTable from '../../components/Table';
@@ -7,20 +7,14 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
-import {
-  fetchUserRequests,
-  createNewRequest,
-  editRequest,
-  fetchEditRequest,
-} from '../../redux/actionCreator/requestActions';
+import {fetchUserRequests,createNewRequest,editRequest,fetchEditRequest} from '../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
 
 export class Requests extends Base {
-
-  constructor (props){
+  constructor(props) {
     super(props);
   }
   state = {
@@ -32,13 +26,17 @@ export class Requests extends Base {
   };
 
   componentDidMount() {
-    const { openModal, fetchUserRequests,getOccupation, fetchRoleUsers, page, match: { params: { requestId } } } = this.props;
+    const {openModal,fetchUserRequests,getOccupation,fetchRoleUsers,page,
+      match: {
+        params: { requestId }
+      }
+    } = this.props;
     const { url } = this.state;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
     getOccupation();
 
-    if(requestId){
+    if (requestId) {
       openModal(true, 'request details', page);
       this.storeRequestIdRequest(requestId);
     }
@@ -48,8 +46,7 @@ export class Requests extends Base {
     const { openModal, fetchEditRequest } = this.props;
     fetchEditRequest(requestId);
     openModal(true, 'edit request');
-  }
-
+  };
 
   fetchRequests = query => {
     const { history, fetchUserRequests, location } = this.props;
@@ -73,21 +70,14 @@ export class Requests extends Base {
     const { url } = this.state;
     const { pagination } = this.props;
     this.getEntriesWithLimit(limit, url, pagination, this.fetchRequests);
-  }
+  };
 
-  storeRequestIdRequest = (requestId)=> {
-    this.setState({requestId: requestId});
-  }
+  storeRequestIdRequest = requestId => {
+    this.setState({ requestId: requestId });
+  };
 
   renderRequestPanelHeader() {
-    const {
-      openRequestsCount,
-      requests,
-      pastRequestsCount,
-      openModal,
-      shouldOpen,
-      modalType
-    } = this.props;
+    const {openRequestsCount,requests,pastRequestsCount,openModal,shouldOpen,modalType} = this.props;
     const { url, activeStatus } = this.state;
 
     return (
@@ -109,8 +99,8 @@ export class Requests extends Base {
   }
 
   renderRequests(requests, isLoading, error, message) {
-    const { history, location, openModal, closeModal, shouldOpen, modalType } = this.props;
-    const {requestId} = this.state;
+    const {history,location,openModal,closeModal,shouldOpen,modalType} = this.props;
+    const { requestId } = this.state;
     return (
       <div className="rp-table">
         <WithLoadingTable
@@ -133,18 +123,22 @@ export class Requests extends Base {
     );
   }
   renderNewRequestForm() {
-    const { updateUserProfile, user, createNewRequest, loading, errors, closeModal,
-      shouldOpen, modalType, managers, requestOnEdit, editRequest, fetchUserRequests,occupations } = this.props;
+    const {updateUserProfile,userData,user,createNewRequest,loading,errors,closeModal,shouldOpen,
+      modalType,managers,requestOnEdit,editRequest,fetchUserRequests,occupations,getUserData} = this.props;
     const { url } = this.state;
     return (
       <Modal
         closeModal={closeModal}
         width="1000px"
-        visibility={(shouldOpen && (modalType === 'edit request' || modalType === 'new model')) ? 'visible' : 'invisible'}
-        title={modalType === 'edit request' ? 'Edit Travel Request' : 'New Travel Request'}
-      >
+        visibility={shouldOpen &&
+          (modalType === 'edit request' || modalType === 'new model')
+          ? 'visible'
+          : 'invisible'
+        }
+        title={modalType === 'edit request'? 'Edit Travel Request': 'New Travel Request'}>
         <NewRequestForm
           updateUserProfile={updateUserProfile}
+          userData={userData.result}
           user={user}
           handleCreateRequest={createNewRequest}
           handleEditRequest={editRequest}
@@ -156,13 +150,13 @@ export class Requests extends Base {
           requestOnEdit={requestOnEdit}
           fetchUserRequests={() => fetchUserRequests(url)}
           occupations={occupations}
-        />
+          getUserData={getUserData} />
       </Modal>
     );
   }
 
   renderRequestPage() {
-    const {isLoading, requests, pagination, fetchRequestsError, message} = this.props;
+    const { isLoading,requests,pagination,fetchRequestsError,message} = this.props;
     return (
       <Fragment>
         {this.renderRequestPanelHeader()}
@@ -219,18 +213,24 @@ Requests.defaultProps = {
   user: {}
 };
 
-export const mapStateToProps = ({ requests, modal, role, user, occupations }) => ({
+export const mapStateToProps = ({requests,modal,role,user,occupations}) => ({
   ...requests,
   ...modal.modal,
   ...role,
   ...occupations,
-  getUserData: user.getUserData
+  userData: user.getUserData
 });
 
-const actionCreators = {fetchUserRequests,createNewRequest,fetchEditRequest,editRequest,fetchRoleUsers,openModal,closeModal,updateUserProfile,getOccupation,
+const actionCreators = {
+  fetchUserRequests,
+  createNewRequest,
+  fetchEditRequest,
+  editRequest,
+  fetchRoleUsers,
+  openModal,
+  closeModal,
+  updateUserProfile,
+  getOccupation
 };
 
-export default connect(
-  mapStateToProps,
-  actionCreators
-)(Requests);
+export default connect(mapStateToProps,actionCreators)(Requests);

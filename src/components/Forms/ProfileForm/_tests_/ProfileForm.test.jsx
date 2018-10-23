@@ -21,6 +21,7 @@ describe ('<ProfileForm />', () =>{
     shouldOpen: false,
     onNotificationToggle: jest.fn(),
     updateUserProfile: jest.fn(() => {}),
+    getUserData: jest.fn(() => {}),
     onChange: jest.fn(() => {}),
     size:10,
     managers: [
@@ -30,7 +31,6 @@ describe ('<ProfileForm />', () =>{
       }
     ]
   };
-  const {user} = props;
 
   beforeEach(() => {
     wrapper = mount(<ProfileForm {...props} />);

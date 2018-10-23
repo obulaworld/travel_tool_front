@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Requests, mapStateToProps } from '..';
 
-const props ={ 
+const props = {
   requests: [
     {
       id: 'xDh20btGz',
@@ -81,20 +81,20 @@ const props ={
       }
     ]
   },
-  getUserData:{
-    result:{
+  userData: {
+    result: {
       id: '2',
-      fullName:'Collins Muru',
-      email:'collins.muru@andela.com',
+      fullName: 'Collins Muru',
+      email: 'collins.muru@andela.com',
       userId: '-LJNw1BsT0LP_E4l2peP',
-      passportName:'Collins Njau',
-      department:'Talent & Development',
-      occupation:'Software Developer',
+      passportName: 'Collins Njau',
+      department: 'Talent & Development',
+      occupation: 'Software Developer',
       manager: 'Collins',
       gender: 'Male',
-      createdAt:'2018-09-14T12:48:11.266Z',
-      updatedAt:'2018-09-16T07:53:48.835Z',
-      roleId:401938,
+      createdAt: '2018-09-14T12:48:11.266Z',
+      updatedAt: '2018-09-16T07:53:48.835Z',
+      roleId: 401938
     }
   },
   pagination: {
@@ -103,10 +103,10 @@ const props ={
     dataCount: 10,
     onPageChange: sinon.spy()
   },
-  fetchEditRequest:sinon.spy(() => Promise.resolve()),
+  fetchEditRequest: sinon.spy(() => Promise.resolve()),
   fetchUserRequests: sinon.spy(() => Promise.resolve()),
   fetchRoleUsers: sinon.spy(() => Promise.resolve()),
-  updateUserProfile:sinon.spy(() => Promise.resolve()),
+  updateUserProfile: sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,
@@ -135,7 +135,7 @@ const props ={
   match: {
     params: { requestId: 'sgjdgljgd' }
   },
-  editRequest:jest.fn(), 
+  editRequest: jest.fn()
 };
 
 const initialState = {
@@ -148,6 +148,7 @@ const initialState = {
       }
     }
   },
+  user: { userData: { result: {} } },
   requestsReducer: {
     requests: [],
     request: {},
@@ -354,11 +355,13 @@ describe('<Requests>', () => {
       }
     };
     const user = {
-      getUserData:{
-
-      }
+      userData: {}
     };
-    const props = mapStateToProps({requests, modal, user});
-    expect(props).toEqual({...requests, ...modal.modal, getUserData: user.getUserData});
+    const props = mapStateToProps({ requests, modal, user });
+    expect(props).toEqual({
+      ...requests,
+      ...modal.modal,
+      getUserData: user.getUserData
+    });
   });
 });

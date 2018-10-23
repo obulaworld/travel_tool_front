@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { FormContext } from '../../components/Forms/FormsAPI';
@@ -16,25 +16,24 @@ class UserProfile extends Base {
     super(props);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { fetchRoleUsers } = this.props;
     fetchRoleUsers(53019);
   }
 
   render() {
-    const { manager, updateUserProfile, user } = this.props;
-
+    const { manager, updateUserProfile, user, fetchUserData, getUserData } = this.props;
     return (
       <Fragment>
-        <h1>
-          PROFILE
-        </h1>
+        <h1>PROFILE</h1>
         <div className="main">
           <div className="main--user_profile">
             <ProfileForm
               managers={manager}
               updateUserProfile={updateUserProfile}
+              userData={fetchUserData && fetchUserData.result}
               user={user}
+              getUserData={getUserData}
             />
           </div>
         </div>
@@ -44,12 +43,12 @@ class UserProfile extends Base {
 }
 
 UserProfile.defaultProps = {
-  manager: [],
+  manager: []
 };
 
-export const mapStateToProps = ({ user,role, }) => ({
-  ...user,
-  ...role
+export const mapStateToProps = ({ user, role }) => ({
+  ...role,
+  fetchUserData: user.getUserData
 });
 
 const actionCreators = {

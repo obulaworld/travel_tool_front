@@ -2,7 +2,6 @@ import { isEmpty } from 'lodash';
 import moment from 'moment';
 
 class Utils {
-
   static getRegex(query) {
     let regex = new RegExp(`${query}=[0-9]+`);
     if (query === 'search') {
@@ -30,10 +29,12 @@ class Utils {
 
   static buildQuery(queryString, query, queryValue) {
     const regex = Utils.getRegex(query);
-    const queryparams = (queryValue) ? `${query}=${queryValue}` : '';
+    const queryparams = queryValue ? `${query}=${queryValue}` : '';
     let newQueryString = Utils.createQuery(queryString, queryparams, regex);
-    newQueryString = (query === 'search')
-      ? Utils.removeQueryParam(newQueryString, 'page') : newQueryString;
+    newQueryString =
+      query === 'search'
+        ? Utils.removeQueryParam(newQueryString, 'page')
+        : newQueryString;
     newQueryString = newQueryString.replace(/(.+)(&)$/, '$1');
     return newQueryString;
   }
@@ -52,15 +53,17 @@ class Utils {
 
   static getCurrentLimit(query) {
     const regex = /limit=\d+/;
-    const limit = regex.exec(query) === null ? ''
-      : regex.exec(query)[0].split('=')[1];
+    const limit =
+      regex.exec(query) === null ? '' : regex.exec(query)[0].split('=')[1];
     return limit;
   }
 
   static getQueryValue(queryString, key) {
     const regex = Utils.getRegex(key);
-    const value = regex.exec(queryString) === null ? ''
-      : regex.exec(queryString)[0].split('=')[1];
+    const value =
+      regex.exec(queryString) === null
+        ? ''
+        : regex.exec(queryString)[0].split('=')[1];
     return value;
   }
 
@@ -70,10 +73,12 @@ class Utils {
   }
 
   static updateTrips(trips, updatedTrip) {
-    let newTripsRecord = trips
-      .filter((tripObject) => (tripObject.id !== updatedTrip.id));
-    let tripToUpdate = trips
-      .find((tripObject) => (tripObject.id === updatedTrip.id));
+    let newTripsRecord = trips.filter(
+      tripObject => tripObject.id !== updatedTrip.id
+    );
+    let tripToUpdate = trips.find(
+      tripObject => tripObject.id === updatedTrip.id
+    );
     if (tripToUpdate) {
       tripToUpdate = { ...tripToUpdate, ...updatedTrip };
       newTripsRecord.push(tripToUpdate);
@@ -83,15 +88,21 @@ class Utils {
 
   static generateTripRoomName(trip) {
     let tripRoomName = '';
-    if (trip.beds.bedName && trip.beds.rooms && trip.beds.rooms.roomName
-      && trip.beds.rooms.guestHouses.houseName) {
-      tripRoomName = `${trip.beds.rooms.guestHouses.houseName}, ${trip.beds.rooms.roomName}, 
+    if (
+      trip.beds.bedName &&
+      trip.beds.rooms &&
+      trip.beds.rooms.roomName &&
+      trip.beds.rooms.guestHouses.houseName
+    ) {
+      tripRoomName = `${trip.beds.rooms.guestHouses.houseName}, ${
+        trip.beds.rooms.roomName
+      },
       ${trip.beds.bedName}`;
     }
     return tripRoomName;
   }
 
-  static generateTripDuration({departureDate, returnDate}) {
+  static generateTripDuration({ departureDate, returnDate }) {
     let endDay = '';
     let endMonth = '';
     let endYear = '';
@@ -107,15 +118,17 @@ class Utils {
     }
     return `${startDay} ${startMonth} ${startYear}`;
   }
-  static toCamelCase = (str) => {
-    return str.split(' ').map(function(word,index){
-      if(index == 0){
-        return word.toLowerCase();
-      }
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    }).join('');
-  }
+  static toCamelCase = str => {
+    return str
+      .split(' ')
+      .map(function(word, index) {
+        if (index == 0) {
+          return word.toLowerCase();
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join('');
+  };
 }
 
 export default Utils;
-

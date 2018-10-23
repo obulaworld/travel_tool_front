@@ -13,7 +13,6 @@ import trips from './trips';
 import occupations from './occupations';
 import centers from './centers';
 
-
 const rootReducer = combineReducers({
   auth,
   requests,

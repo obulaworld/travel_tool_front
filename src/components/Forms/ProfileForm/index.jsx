@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import InputRenderer, { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
+import InputRenderer, {
+  FormContext,
+  getDefaultBlanksValidatorFor
+} from '../FormsAPI';
 import ProfileDetails from './FormFieldsets/ProfileDetails';
 import './ProfileForm.scss';
 import Validator from '../../../validator';
@@ -8,23 +11,18 @@ import Validator from '../../../validator';
 // TODO: Create your own meta data.
 import * as formMetadata from '../FormsMetadata/NewProfileMetadata/index';
 
-
 class ProfileForm extends PureComponent {
   constructor(props) {
     super(props);
-    const user = localStorage.getItem('name');
-    const gender = localStorage.getItem('gender');
-    const department = localStorage.getItem('department');
-    const role = localStorage.getItem('role');
-    const manager = localStorage.getItem('manager');
+    const { userData } = this.props;
 
     this.defaultState = {
       values: {
-        name: Validator.databaseValueValidator(user), // FIX: need to be refactor later
-        gender: Validator.databaseValueValidator(gender),
-        department: Validator.databaseValueValidator(department),
-        role: Validator.databaseValueValidator(role),
-        manager: Validator.databaseValueValidator(manager),
+        name: '',
+        gender: '',
+        department: '',
+        role: '',
+        manager: ''
       },
       errors: {},
       hasBlankFields: true,
@@ -38,9 +36,27 @@ class ProfileForm extends PureComponent {
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
+  static getDerivedStateFromProps(props, state){
+    const {userData} = props;
+    if(userData !== undefined && state.values.name === ''){
+      const { passportName, gender, department, occupation, manager } = userData;
+      return  {
+        ...state,
+        values: {
+          name: Validator.databaseValueValidator(passportName),
+          gender: Validator.databaseValueValidator(gender),
+          department: Validator.databaseValueValidator(department),
+          role: Validator.databaseValueValidator(occupation),
+          manager: Validator.databaseValueValidator(manager)
+        }
+      };
+    }
+    return null;
+  }
+
   submitProfileForm = event => {
     event.preventDefault();
-    const { updateUserProfile, user } = this.props;
+    const { updateUserProfile, user, getUserData } = this.props;
     const userId = user.UserInfo.id;
     const { values } = this.state;
     if (this.validate) {
@@ -48,6 +64,7 @@ class ProfileForm extends PureComponent {
       data.passportName = data.name;
       data.occupation = data.role;
       updateUserProfile(data, userId, true);
+      getUserData(userId);
     }
   };
 
@@ -65,21 +82,23 @@ class ProfileForm extends PureComponent {
           <ProfileDetails values={values} managers={managers} hasBlankFields={hasBlankFields} />
           {hasBlankFields ? (
             <div className="submit-area">
-              <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--inactive">
+              <button
+                type="submit"
+                disabled={hasBlankFields}
+                className="bg-btn bg-btn--inactive">
                 Save Changes
               </button>
-            </div>) :
-            (
-              <div className="submit-area">
-                <button type="submit" className="bg-btn bg-btn--active">
+            </div>
+          ) : (
+            <div className="submit-area">
+              <button type="submit" className="bg-btn bg-btn--active">
                 Save Changes
-                </button>
-                <button type="button" className="bg-btn bg-btn--inactive" onClick={this.handleClearForm} id="btn-cancel">
+              </button>
+              <button type="button" className="bg-btn bg-btn--inactive" onClick={this.handleClearForm} id="btn-cancel">
                 Cancel
-                </button>
-              </div>
-            )}
-
+              </button>
+            </div>
+          )}
         </form>
       </FormContext>
     );
@@ -89,10 +108,12 @@ class ProfileForm extends PureComponent {
 ProfileForm.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   managers: PropTypes.array,
+  userData: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  getUserData: PropTypes.func.isRequired
 };
 ProfileForm.defaultProps = {
-  managers: [],
+  managers: []
 };
 
 export default ProfileForm;

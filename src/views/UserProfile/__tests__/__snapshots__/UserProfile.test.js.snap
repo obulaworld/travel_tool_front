@@ -70,7 +70,7 @@ Array [
                             onBlur={[Function]}
                             onChange={[Function]}
                             type="text"
-                            value=""
+                            value="Collins Njau"
                         />
                         <span
                             className="error"
@@ -107,7 +107,7 @@ Array [
                                 Female
                             </button>
                             <button
-                                className="bg-btn bg-btn--inactive"
+                                className="bg-btn bg-btn--active"
                                 data-value="Male"
                                 key="Male"
                                 name="gender"
@@ -166,7 +166,7 @@ Array [
                                 role="button"
                                 tabIndex="0"
                                 type="dropdown-select"
-                                value=""
+                                value="Software Developer"
                             >
                                 <div
                                     className="value"
@@ -176,6 +176,7 @@ Array [
                                           }
                                     }
                                 >
+                                    Software Developer
                                     <div
                                         className="select-dropdown inactive"
                                     >
@@ -322,7 +323,7 @@ Array [
                                 role="button"
                                 tabIndex="0"
                                 type="dropdown-select"
-                                value=""
+                                value="Talent & Development"
                             >
                                 <div
                                     className="value"
@@ -332,6 +333,7 @@ Array [
                                           }
                                     }
                                 >
+                                    Talent & Development
                                     <div
                                         className="select-dropdown inactive"
                                     >
@@ -447,7 +449,7 @@ Array [
                                 role="button"
                                 tabIndex="0"
                                 type="dropdown-select"
-                                value=""
+                                value="Collins"
                             >
                                 <div
                                     className="value"
@@ -457,6 +459,7 @@ Array [
                                           }
                                     }
                                 >
+                                    Collins
                                     <div
                                         className="select-dropdown inactive"
                                     >

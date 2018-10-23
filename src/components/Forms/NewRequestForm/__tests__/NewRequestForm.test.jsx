@@ -38,6 +38,20 @@ describe('<NewRequestForm />', () => {
         id: '09ijrjt'
       }
     },
+    userData:{
+      id: '2',
+      fullName: 'Collins Muru',
+      email: 'collins.muru@andela.com',
+      userId: '-LJNw1BsT0LP_E4l2peP',
+      passportName: '',
+      department: 'Talent & Development',
+      occupation: 'Software Developer',
+      manager: 'Collins',
+      gender: 'Male',
+      createdAt: '2018-09-14T12:48:11.266Z',
+      updatedAt: '2018-09-16T07:53:48.835Z',
+      roleId: 401938
+    },
     requestOnEdit: {
       id: '1',
       name: 'Seun Undefined',
@@ -64,6 +78,7 @@ describe('<NewRequestForm />', () => {
       ]
     },
     google: {},
+    getUserData: jest.fn(() => {}),
     handleCreateRequest: jest.fn(() => {}),
     updateUserProfile: jest.fn(() => {}),
     creatingRequest: jest.fn(() => {}),
@@ -93,7 +108,7 @@ describe('<NewRequestForm />', () => {
 
   const defaultState = {
     values: {
-      name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be 
+      name: !(/^null|undefined$/).test(user) ? user : '', // FIX: need to be
       gender: !(/^null|undefined$/).test(gender) ? gender: '',
       department: !(/^null|undefined$/).test(department) ? department: '',
       role: !(/^null|undefined$/).test(role) ? role :'',
@@ -225,7 +240,7 @@ describe('<NewRequestForm />', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     const event = {
       target: {
-        dataset: {  
+        dataset: {
           parentid: '0'
         },
         name: 'destination-0',
@@ -240,7 +255,7 @@ describe('<NewRequestForm />', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     const event = {
       target: {
-        dataset: {  
+        dataset: {
           parentid: '0'
         },
         name: 'destination-0',
@@ -262,7 +277,7 @@ describe('<NewRequestForm />', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     const event = {
       target: {
-        dataset: {  
+        dataset: {
           parentid: '0'
         },
         name: 'origin-0',
@@ -531,20 +546,6 @@ describe('<NewRequestForm />', () => {
     sinon.spy(shallowWrapper.instance(), 'addNewTrip');
     shallowWrapper.instance().addNewTrip();
     expect(shallowWrapper.instance().addNewTrip.calledOnce).toEqual(true);
-  });
-
-  it('should save savePersonalDetails personal details ', () => {
-    const shallowWrapper = shallow(<NewRequestForm {...props} />);
-    shallowWrapper.setState({
-      name: 'tomato', // FIX: need to be refactor later
-      gender: 'male',
-      department: 'fame',
-      role: 'job',
-      manager: 'mango',
-    });
-    sinon.spy(shallowWrapper.instance(), 'savePersonalDetails');
-    shallowWrapper.instance().savePersonalDetails(event);
-    expect(shallowWrapper.instance().savePersonalDetails.calledOnce).toEqual(true);
   });
 
   xit('should save return hasBlankTrips', () => {
