@@ -1,6 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
 import NewRequestForm from '../NewRequestForm';
+import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
@@ -73,9 +74,13 @@ describe('<NewRequestForm />', () => {
           returnDate: '2018-09-30',
           createdAt: '2018-09-27T18:49:03.626Z',
           updatedAt: '2018-09-27T18:49:43.803Z',
-          requestId: 'NfR-9KoCP'
+          requestId: 'NfR-9KoCP',
+          bedId: beds[0].id
         }
       ]
+    },
+    availableRooms: {
+      beds
     },
     google: {},
     getUserData: jest.fn(() => {}),
@@ -84,6 +89,7 @@ describe('<NewRequestForm />', () => {
     creatingRequest: jest.fn(() => {}),
     handleEditRequest: jest.fn(() => {}),
     fetchUserRequests: jest.fn(() => {}),
+    fetchAvailableRooms: jest.fn(() => {}),
     choices: ['director', 'chef'],
     managers: [
       {
@@ -202,7 +208,7 @@ describe('<NewRequestForm />', () => {
       selection: 'multi',
       parentIds: 2,
       trips: [
-        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30'},
+        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
     });
     sinon.spy(shallowWrapper.instance(), 'onChangeDate');
@@ -224,7 +230,7 @@ describe('<NewRequestForm />', () => {
       selection: 'multi',
       parentIds: 2,
       trips: [
-        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30'},
+        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
     });
     sinon.spy(shallowWrapper.instance(), 'onChangeDate');
@@ -265,7 +271,7 @@ describe('<NewRequestForm />', () => {
       selection: 'multi',
       parentIds: 2,
       trips: [
-        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30'},
+        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
     });
     sinon.spy(shallowWrapper.instance(), 'onChangeInput');
@@ -287,7 +293,7 @@ describe('<NewRequestForm />', () => {
       selection: 'multi',
       parentIds: 2,
       trips: [
-        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30'},
+        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
     });
     sinon.spy(shallowWrapper.instance(), 'onChangeInput');
@@ -295,6 +301,27 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().onChangeInput.calledOnce).toEqual(true);
   });
 
+  it('call event when available room is picked', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    const event = {
+      target: {
+        dataset: {
+          parentid: '0'
+        },
+        name: 'bed-0'
+      },
+    };
+    shallowWrapper.setState({
+      selection: 'multi',
+      parentIds: 2,
+      trips: [
+        {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
+      ]
+    });
+    sinon.spy(shallowWrapper.instance(), 'onChangeInput');
+    shallowWrapper.instance().onChangeInput(event);
+    expect(shallowWrapper.instance().onChangeInput.calledOnce).toEqual(true);
+  })
 
   it('should change the radio button on click to multi ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
@@ -484,7 +511,8 @@ describe('<NewRequestForm />', () => {
         destination: 'Nairobi',
         otherDestination: '',
         departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988'
+        arrivalDate: '09/27/1988',
+        bed: beds[0].id
       }
     });
     wrapper.setProps({
@@ -556,9 +584,16 @@ describe('<NewRequestForm />', () => {
   });
 
   xit('check hasBlankTrips works', ()=>{
-    const wrapper = shallow(<NewRequestForm {...props} />)
+    const wrapper = shallow(<NewRequestForm {...props} />);
     const wrapperInstance = wrapper.instance();
-    wrapperInstance.state.trips = ['Nigeria', 'Ghana']
+    wrapperInstance.state.trips = ['Nigeria', 'Ghana'];
     expect(wrapperInstance.hasBlankTrips()).toEqual([false, false]);
   });
+
+  it('should update state with bedId when handlePickBed is called', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().setState(defaultState);
+    wrapper.instance().handlePickBed(1, 0);
+    expect(wrapper.instance().state.values['bed-0']).toBe(1);
+  })
 });

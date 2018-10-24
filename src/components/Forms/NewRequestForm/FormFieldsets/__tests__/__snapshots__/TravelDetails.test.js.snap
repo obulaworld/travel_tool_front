@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TravelDetails /> should match snapshot 1`] = `
+<fieldset
+  className="travel-details"
+>
+  <legend
+    className="line"
+    style={
+      Object {
+        "borderBottom": "1px solid #E4E4E4",
+        "fontFamily": "DIN Pro Medium",
+        "fontSize": "18px",
+        "marginBottom": "6px",
+        "paddingTop": "5px",
+      }
+    }
+  >
+    Travel Details
+  </legend>
+  <div
+    className="trip-align"
+  >
+    <RadioButton
+      defaultChecked={false}
+      id="oneWay"
+      name="One Way Trip"
+      value="oneWay"
+    />
+    <RadioButton
+      defaultChecked={false}
+      id="return"
+      name="Return Trip"
+      value="return"
+    />
+    <RadioButton
+      defaultChecked={true}
+      id="multi"
+      name="Multi City Trip"
+      value="multi"
+    />
+  </div>
+  <div
+    id={0}
+    key="0"
+  >
+    <div
+      className="travel-input-area"
+    >
+      <div
+        className="input-group"
+        id="trip0"
+      >
+        <div
+          className="rectangle multi"
+        >
+          <div
+            className="style-details"
+          >
+            <div
+              className="travel-to"
+            >
+              <Input
+                className=""
+                data-parentid={0}
+                label="From"
+                labelNote=""
+                name="origin-0"
+                parentid={0}
+                type="text"
+              />
+              <img
+                alt="icn"
+                className="location-icon"
+                src="location.svg"
+              />
+            </div>
+            <div
+              className="travel-to"
+            >
+              <Input
+                className=""
+                data-parentid={0}
+                label="Travel to"
+                labelNote=""
+                name="destination-0"
+                parentid={0}
+                type="text"
+              />
+              <img
+                alt="icn"
+                className="location-icon"
+                src="location.svg"
+              />
+            </div>
+            <div
+              className="others-width"
+              role="presentation"
+            >
+              <Input
+                className=""
+                data-parentid={0}
+                handleDate={[Function]}
+                label="Depart"
+                labelNote=""
+                minDate={"2018-10-24T10:00:50.981Z"}
+                name="departureDate-0"
+                onChange={[Function]}
+                parentid={0}
+                type="date"
+              />
+            </div>
+            <div
+              className="others-width"
+              role="presentation"
+            >
+              <Input
+                className="arrival-date"
+                data-parentid={0}
+                disabled={true}
+                handleDate={[Function]}
+                label="Return"
+                labelNote=""
+                minDate={"2018-10-24T10:00:50.982Z"}
+                name="arrivalDate-0"
+                onChange={[Function]}
+                parentid={0}
+                placeholderText="select depart date first"
+                type="date"
+              />
+            </div>
+            <div
+              className="travel-to"
+            >
+              <Input
+                choices={
+                  Array [
+                    Object {
+                      "label": "Kwetu, bed 1",
+                      "value": 6000,
+                    },
+                    Object {
+                      "label": "Menengai, bed 1",
+                      "value": 6002,
+                    },
+                    Object {
+                      "label": "Menengai, bed 2",
+                      "value": 6003,
+                    },
+                    Object {
+                      "label": "Menengai, bed 3",
+                      "value": 6004,
+                    },
+                    Object {
+                      "label": "Kwetu, bed 2",
+                      "value": 6001,
+                    },
+                  ]
+                }
+                className=""
+                data-parentid={0}
+                label="Available rooms"
+                labelNote=""
+                name="bed-0"
+                onChange={[Function]}
+                onFocus={[Function]}
+                parentid={0}
+                size="100%"
+                type="dropdown-select"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="add-multi-trip-area"
+  >
+    <button
+      className="another-trip"
+      onClick={[Function]}
+      type="button"
+    >
+      <img
+        alt="clicked"
+        className="addsvg"
+        src="add.svg"
+      />
+      Add another trip
+    </button>
+  </div>
+</fieldset>
+`;

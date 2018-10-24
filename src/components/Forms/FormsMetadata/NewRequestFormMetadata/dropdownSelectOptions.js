@@ -1,10 +1,6 @@
-const dropdownSelectOptions = { /* istanbul ignore next */
-  department: [
-    'Talent & Development',
-    'Success',
-    'IT',
-    'Operations'
-  ],
+const dropdownSelectOptions = {
+  /* istanbul ignore next */
+  department: ['Talent & Development', 'Success', 'IT', 'Operations'],
 
   role: [
     'Software Developer',
@@ -12,8 +8,8 @@ const dropdownSelectOptions = { /* istanbul ignore next */
     'Product Engineer',
     'Product Coordinator',
     'Travel Coordinator',
-    'Country Director',
-  ],
+    'Country Director'
+  ]
 };
 
 export default dropdownSelectOptions;

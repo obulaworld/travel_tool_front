@@ -7,7 +7,7 @@ import {
 import {
   fetchAccommodation,
   fetchAccommodationSuccess,
-  fetchAccommodationFailure
+  fetchAccommodationFailure 
 } from '../accommodationActions';
 
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';

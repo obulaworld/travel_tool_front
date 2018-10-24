@@ -40,7 +40,7 @@ describe('AccommodationAPI', () => {
       }
     });
     const response = await AccommodationAPI.getAccommodationCentres();
-    const request = (moxios.requests.mostRecent());
+    const request = moxios.requests.mostRecent();
     expect(request.url).toEqual(`${baseUrl}/guesthouses`);
     expect(request.config.method).toEqual('get');
     expect(response.data).toEqual(expectedResponse);

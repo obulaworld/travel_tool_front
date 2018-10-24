@@ -1,6 +1,6 @@
 form.new-request {
   fieldset {
-    div{
+    div {
       div.disable-details {
         pointer-events: none;
         opacity: 0.4;
@@ -8,6 +8,7 @@ form.new-request {
     }
     .input-group {
       position: relative;
+      width: 100%;
       display: flex;
       justify-content: flex-start;
     }
@@ -24,16 +25,16 @@ form.new-request {
       padding-bottom: 11px;
     }
     .style-h5 {
-      display: "flex";
-      justify-content: "center";
-      font-family: "DIN Pro";
+      display: 'flex';
+      justify-content: 'center';
+      font-family: 'DIN Pro';
     }
 
     .hide-details {
       height: 18px;
       width: 103px;
       color: #4f4f4f;
-      font-family: "DIN Pro";
+      font-family: 'DIN Pro';
       font-size: 14px;
       font-weight: 500;
       line-height: 18px;
@@ -47,6 +48,9 @@ form.new-request {
 
     .rectangle {
       box-shadow: 0 0 0 1px #e4e4e4;
+      height: 95px;
+      width: 100%;
+      border: 1px solid #e4e4e4;
       border-radius: 2px;
       background-color: #f8f8f8;
       margin: 7px 0px 20px 0px;
@@ -90,28 +94,26 @@ form.new-request {
 
 }
 
-
-
-h1{
+h1 {
   height: 23px;
   width: 72px;
-  color: #4F4F4F;
-  font-family: "DIN Pro";
+  color: #4f4f4f;
+  font-family: 'DIN Pro';
   font-size: 18px;
   font-weight: 500;
   line-height: 23px;
   margin: 60px 0px 0px 0px;
 }
-.main{
+.main {
   height: 400px;
   width: 1080px;
-  border: 1px solid #E4E4E4;
+  border: 1px solid #e4e4e4;
   border-radius: 2px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin: 10px 60px 0px 0px;
 }
-.main--user_profile{
-  width:550px;
+.main--user_profile {
+  width: 550px;
   padding-left: 20px;
   padding-bottom: 10px;
 }
@@ -136,14 +138,21 @@ h1{
   background: none;
   margin-top: 9px;
 }
-.addsvg{
+.addsvg {
   margin: 10px 10px 10px 10px;
 }
-.delete-icon{
+.delete-icon {
   padding: 0;
   border: none;
   background: none;
 }
-.travel-input-area{
+.travel-input-area {
   display: flex;
+}
+.rec-div {
+  height: 100px;
+  width: 10px;
+  border-radius: 2px 0 0 2px;
+  background-color: #ffaf30;
+  margin-top: 5px;
 }

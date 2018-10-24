@@ -9,19 +9,16 @@ import addMultipleCityBtn from '../../../../images/add.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
 
 class TravelDetailsFieldset extends Component {
-
-
   componentDidMount = () => {
     this.get_details();
-  }
-
+  };
 
   get_details = () => {
     const { parentIds } = this.props;
     for (let i = 0; i < parentIds; i += 1) {
       const id = document.getElementById(i);
     }
-  }
+  };
 
   customPropsForArrival = (values, name) => ({
     className: 'arrival-date',
@@ -30,14 +27,14 @@ class TravelDetailsFieldset extends Component {
     placeholderText: !values[name]
       ? 'select depart date first'
       : 'select return date'
-  })
+  });
 
-  customPropsForDeparture = (values) => ({
+  customPropsForDeparture = values => ({
     minDate: moment()
-  })
+  });
 
-  renderRadioButton = (handleRadioButtonChange) => {
-    const {selection} = this.props;
+  renderRadioButton = handleRadioButtonChange => {
+    const { selection } = this.props;
     return (
       <div className="trip-align" onChange={handleRadioButtonChange}>
         <RadioButton
@@ -60,7 +57,7 @@ class TravelDetailsFieldset extends Component {
         />
       </div>
     );
-  }
+  };
 
   renderAddAnotherBtn = () => {
     const { addNewTrip } = this.props;
@@ -68,14 +65,62 @@ class TravelDetailsFieldset extends Component {
       <div className="add-multi-trip-area">
         <button type="button" className="another-trip" onClick={addNewTrip}>
           <img src={addMultipleCityBtn} alt="clicked" className="addsvg" />
-        Add another trip
+          Add another trip
         </button>
       </div>
     );
+  };
+
+  fetchRoomsOnFocus = (values, i, selection) => {
+    let data = {};
+    const { fetchAvailableRooms } = this.props;
+    if (this.validateAllTripDetails(values, i, selection)) {
+      data = {
+        gender: values.gender,
+        location: values[`destination-${i}`],
+        arrivalDate: values[`arrivalDate-${i}`]
+          ? values[`arrivalDate-${i}`].format('YYYY-MM-DD')
+          : '',
+        departureDate: values[`departureDate-${i}`].format('YYYY-MM-DD'),
+        tripType: selection
+      };
+      fetchAvailableRooms(data);
+    }
   }
-  renderTravelDetails = (i, selection, onChangeInput) => {
-    const { values, handleDate, removeTrip } = this.props;
+
+  validateAllTripDetails(values, i, selection) {
+    const isValid =
+      values.gender &&
+      values[`destination-${i}`] &&
+      values[`departureDate-${i}`];
+    if (selection === 'oneWay') return isValid;
+    return isValid && values[`arrivalDate-${i}`];
+  }
+
+
+  renderTravelDetails = (i, selection, onChangeInput, mappedTrip) => {
+    const {
+      values,
+      handleDate,
+      handlePickBed,
+      removeTrip,
+      parentIds,
+      existingTrips,
+      availableRooms
+    } = this.props;
+
     const { renderInput } = this.inputRenderer;
+    
+    let bedChoices = availableRooms.beds || ['Fetching beds...'];
+    if (availableRooms.beds.length < 1) {
+      bedChoices = [{ label: 'No beds found', value: [null] }];
+    } else {
+      bedChoices = bedChoices.map(choice => ({
+        label: `${choice.rooms.roomName}, ${choice.bedName}`,
+        value: choice.id
+      }));
+    }
+
     return (
       <Fragment>
         <div className="travel-input-area">
@@ -83,39 +128,62 @@ class TravelDetailsFieldset extends Component {
             <div className={`rectangle ${selection}`}>
               <div className="style-details">
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`origin-${i}`, 'text', {parentid: i},
-                  )}
+                  {renderInput(`origin-${i}`, 'text', { parentid: i })}
                   <img src={location} alt="icn" className="location-icon" />
                 </div>
 
                 <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`destination-${i}`, 'text', {parentid: i},
-                  )}
-                  <img src={location} alt="icn" className="location-icon"  />
+                  {renderInput(`destination-${i}`, 'text', { parentid: i })}
+                  <img src={location} alt="icn" className="location-icon" />
                 </div>
 
                 <div className="others-width" role="presentation">
-                  {renderInput(
-                    `departureDate-${i}`,
-                    'date', {...this.customPropsForDeparture(values), parentid: i, onChange: handleDate}
-                  )}
+                  {renderInput(`departureDate-${i}`, 'date', {
+                    ...this.customPropsForDeparture(values),
+                    parentid: i,
+                    handleDate,
+                    onChange: handleDate
+                  })}
                 </div>
-                { selection !== 'oneWay' ? renderInput(`arrivalDate-${i}`, 'date', {...this.customPropsForArrival(values, `departureDate-${i}`), parentid: i, onChange: handleDate}) : null}
+                {selection !== 'oneWay' ? (
+                  <div className="others-width" role="presentation">
+                    {renderInput(`arrivalDate-${i}`, 'date', {
+                      ...this.customPropsForArrival(
+                        values,
+                        `departureDate-${i}`
+                      ),
+                      parentid: i,
+                      handleDate,
+                      onChange: handleDate
+                    })}
+                  </div>
+                ) : null}
+                <div className="travel-to">
+                  {renderInput(`bed-${i}`, 'dropdown-select', {
+                    parentid: i,
+                    size: '100%',
+                    choices: bedChoices,
+                    onChange: value => handlePickBed(value, i),
+                    onFocus: () => this.fetchRoomsOnFocus(values, i, selection)
+                  })}
+                </div>
               </div>
             </div>
-            {selection === 'multi' && i >= 2 &&
-                (
-                  <button type="button" className="delete-icon" onClick={() => removeTrip(i)}>
-                    <img src={deleteBtnRed} alt="clicked" className="addsvg" />
-                  </button>
-                ) }
+            {selection === 'multi' &&
+              i >= 2 && (
+              <button
+                type="button"
+                className="delete-icon"
+                onClick={() => removeTrip(i)}
+              >
+                <img src={deleteBtnRed} alt="clicked" className="addsvg" />
+              </button>
+            )}
           </div>
         </div>
       </Fragment>
-
     );
-  }
-
+  };
 
   renderForms(parentIds, selection, onChangeInput) {
     const forms = [];
@@ -131,7 +199,7 @@ class TravelDetailsFieldset extends Component {
 
   render() {
     this.inputRenderer = new InputRenderer(formMetadata);
-    const { handleRadioButtonChange, selection, onChangeInput} = this.props;
+    const { handleRadioButtonChange, selection, onChangeInput } = this.props;
 
     const { parentIds, existingTrips } = this.props;
     return (
@@ -159,6 +227,9 @@ const handleDate = PropTypes.func;
 const removeTrip = PropTypes.func;
 const parentIds = PropTypes.number;
 const existingTrips = PropTypes.func;
+const handlePickBed = PropTypes.func;
+const fetchAvailableRooms = PropTypes.func;
+const availableRooms = PropTypes.object;
 
 TravelDetailsFieldset.propTypes = {
   values: values.isRequired,
@@ -169,11 +240,14 @@ TravelDetailsFieldset.propTypes = {
   handleDate: handleDate.isRequired,
   removeTrip: removeTrip.isRequired,
   parentIds: parentIds.isRequired,
-  existingTrips: existingTrips
+  existingTrips: existingTrips,
+  handlePickBed: handlePickBed.isRequired,
+  fetchAvailableRooms: fetchAvailableRooms.isRequired,
+  availableRooms: availableRooms.isRequired
 };
 
 TravelDetailsFieldset.defaultProps = {
-  existingTrips: null,
+  existingTrips: null
 };
 
 export default TravelDetailsFieldset;

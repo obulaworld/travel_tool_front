@@ -3,10 +3,10 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import AccommodationAPI from '../../../services/AccommodationAPI';
 import {
-  watchFetchAccommodation, watchEditAccommodation
+  watchFetchAccommodation,
+  watchEditAccommodation
 } from '../accommodationSaga';
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
-
 
 const response = {
   data: {
@@ -21,15 +21,13 @@ describe('Accommodation Saga', () => {
   describe('Fetch Accommodation saga', () => {
     it('fetches accommodation centres', () => {
       return expectSaga(watchFetchAccommodation, AccommodationAPI)
-        .provide([
-          [call(AccommodationAPI.getAccommodationCentres), response]
-        ])
+        .provide([[call(AccommodationAPI.getAccommodationCentres), response]])
         .put({
           type: 'FETCH_ACCOMMODATION_CENTRES_SUCCESS',
           guestHouses: response.data.guestHouses
         })
         .dispatch({
-          type: 'FETCH_ACCOMMODATION_CENTRES',
+          type: 'FETCH_ACCOMMODATION_CENTRES'
         })
         .run();
     });
@@ -44,11 +42,9 @@ describe('Accommodation Saga', () => {
           error
         })
         .dispatch({
-          type: 'FETCH_ACCOMMODATION_CENTRES',
+          type: 'FETCH_ACCOMMODATION_CENTRES'
         })
         .run();
     });
-
   });
-
 });

@@ -13,6 +13,7 @@ import trips from './trips';
 import occupations from './occupations';
 import travelChecklist from './travelChecklist';
 import centers from './centers';
+import availableRooms from './availableRooms';
 
 const rootReducer = combineReducers({
   auth,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   trips,
   occupations,
   travelChecklist,
-  centers
+  centers,
+  availableRooms
 });
 
 export default rootReducer;
