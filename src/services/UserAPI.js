@@ -16,7 +16,7 @@ class UserAPI {
 
   static getUserDataFromStagingApi(email) {
     const token = Cookie.get('jwt-token');
-    const usersStagingUrl = process.env.REACT_APP_ALL_USERS_STAGING;
+    const usersStagingUrl = process.env.REACT_APP_ALL_USERS;
     return axios.get(
       `${usersStagingUrl}${email}`,
       { headers: { Authorization: `Bearer ${token}` } });
