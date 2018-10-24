@@ -37,3 +37,10 @@ export function getDropdownHandler(targetForm, validate, targetField) {
 export function getOnBlurHandler(targetForm, validate, targetField) {
   return () => validate(targetField);
 }
+
+export function getCheckBoxHandler(targetForm, validate, targetField) {
+  return (checkStatus) => {
+    let value = checkStatus;
+    updateFormValues.call(targetForm, value, targetField);
+  };
+}

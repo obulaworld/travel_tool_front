@@ -20,6 +20,9 @@ class InputRenderer {
     case 'button-toggler':
       inputProps.choices = (formMetadata.buttonToggleOptions || {})[name];
       return inputProps;
+    // case 'checkbox':
+    //   // inputProps.checked = true;
+    //   return inputProps;
     default:
       return inputProps;
     }

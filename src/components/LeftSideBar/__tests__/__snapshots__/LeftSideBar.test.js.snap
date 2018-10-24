@@ -63,6 +63,20 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             },
             Object {
               "activateOnLogin": false,
+              "icons": Object {
+                "active": "checklist-active.svg",
+                "inactive": "checklist-inactive.svg",
+              },
+              "isDropdown": false,
+              "link_to": "/checklists",
+              "onlyVisibleTo": Array [
+                "Super Administrator",
+                "Travel Administrator",
+              ],
+              "text": "Trip Planner",
+            },
+            Object {
+              "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
                   "exact": "/settings/roles",

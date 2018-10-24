@@ -12,6 +12,8 @@ import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
+import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
+
 
 export class Requests extends Base {
   constructor(props) {
@@ -46,7 +48,14 @@ export class Requests extends Base {
     const { openModal, fetchEditRequest } = this.props;
     fetchEditRequest(requestId);
     openModal(true, 'edit request');
-  };
+  }
+
+  handleShowTravelChecklist = (requestId) => {
+    const { fetchTravelChecklist, openModal } = this.props;
+    fetchTravelChecklist(requestId);
+    openModal(true, 'travel checklist');
+  }
+
 
   fetchRequests = query => {
     const { history, fetchUserRequests, location } = this.props;
@@ -99,13 +108,20 @@ export class Requests extends Base {
   }
 
   renderRequests(requests, isLoading, error, message) {
-    const {history,location,openModal,closeModal,shouldOpen,modalType} = this.props;
+    const {
+      history, location, openModal,
+      closeModal, shouldOpen, modalType ,
+      travelChecklists
+    } = this.props;
     const { requestId } = this.state;
+
     return (
       <div className="rp-table">
         <WithLoadingTable
           type="requests"
           editRequest={this.handleEditRequest}
+          travelChecklists={travelChecklists}
+          showTravelChecklist={this.handleShowTravelChecklist}
           location={location}
           history={history}
           requestId={requestId}
@@ -213,12 +229,15 @@ Requests.defaultProps = {
   user: {}
 };
 
-export const mapStateToProps = ({requests,modal,role,user,occupations}) => ({
+export const mapStateToProps = ({
+  requests, modal, role, user, occupations, travelChecklist
+}) => ({
   ...requests,
   ...modal.modal,
   ...role,
   ...occupations,
-  userData: user.getUserData
+  travelChecklists: travelChecklist.checklistItems,
+  userData: user.getUserData,
 });
 
 const actionCreators = {
@@ -230,7 +249,8 @@ const actionCreators = {
   openModal,
   closeModal,
   updateUserProfile,
-  getOccupation
+  getOccupation,
+  fetchTravelChecklist
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

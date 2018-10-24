@@ -27,7 +27,6 @@ describe('Api Error Handler', () => {
     expect(apiErrorHandler(error)).toEqual('Server error, try again');
   });
 
-
   it('should handle a case when the server returns 400', () => {
     error = {
       ...error,
@@ -41,7 +40,7 @@ describe('Api Error Handler', () => {
     expect(apiErrorHandler(error)).toEqual('errors');
   });
 
-  it('should handle errors from the server other than 500 and 422 errors', () => {
+  it('should handle error with status code 401', () => {
     error = { ...error,
       response: {
         status: 401,
@@ -67,5 +66,31 @@ describe('Api Error Handler', () => {
       }
     };
     expect(apiErrorHandler(error)).toEqual('Bad request. name is required, destination is required');
+  });
+
+  it('should handle a case when the server returns 404 status code', () => {
+    error = {
+      ...error,
+      response: {
+        status: 404,
+        data: {
+          message: 'Not found'
+        }
+      }
+    };
+    expect(apiErrorHandler(error)).toEqual('Not found');
+  });
+
+  it('should handle a case error with unhandled code', () => {
+    error = {
+      ...error,
+      response: {
+        status: 504,
+        data: {
+          error: 'Error'
+        }
+      }
+    };
+    expect(apiErrorHandler(error)).toEqual('Error');
   });
 });

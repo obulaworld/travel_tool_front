@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Requests, mapStateToProps } from '..';
+import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 
 const props = {
   requests: [
@@ -159,7 +160,8 @@ const initialState = {
     shouldOpen: false,
     modalType: null
   },
-  getCurrentUserRole: 'tomato'
+  getCurrentUserRole: 'tomato',
+  travelChecklist: { checklistItems: travelChecklistMockData }
 };
 const mockStore = configureStore();
 const store = mockStore(initialState);
@@ -357,11 +359,13 @@ describe('<Requests>', () => {
     const user = {
       userData: {}
     };
-    const props = mapStateToProps({ requests, modal, user });
+
+    const travelChecklist = { checklistItems: travelChecklistMockData };
+    const props = mapStateToProps({requests, modal, user, travelChecklist});
     expect(props).toEqual({
-      ...requests,
-      ...modal.modal,
-      getUserData: user.getUserData
+      ...requests, ...modal.modal,
+      getUserData: user.getUserData,
+      travelChecklists: travelChecklist.checklistItems
     });
   });
 });

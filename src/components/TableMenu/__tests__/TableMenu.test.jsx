@@ -20,6 +20,7 @@ let props = {
     id: 1,
     open: true
   },
+  showTravelChecklist: jest.fn(),
   toggleMenu: jest.fn(),
   requestStatus: '',
   type: '',
@@ -34,7 +35,7 @@ describe('<TableMenu />', () => {
     expect(wrapper.find('.fa-ellipsis-v').length).toBe(1);
     expect(wrapper.find('div').length).toBe(3);
   });
-  
+
   it('should render the component when props change', () => {
     props = {
       ...props,
@@ -44,8 +45,8 @@ describe('<TableMenu />', () => {
     wrapper = shallow(<TableMenu {...props} />);
 
     expect(wrapper.find('ul').length).toBe(1);
-    expect(wrapper.find('li').length).toBe(2);
-    expect(wrapper.find('img').length).toBe(2);
+    expect(wrapper.find('li').length).toBe(3);
+    expect(wrapper.find('img').length).toBe(3);
   });
 
   it('should render Onclick request works as exepected', () => {
@@ -67,7 +68,7 @@ describe('<TableMenu />', () => {
   });
 
   it('should render Onclick request works as exepected', () => {
-    
+
     wrapper = mount(<TableMenu {...props} />);
 
     const { editRequest, request } = props;
@@ -75,5 +76,20 @@ describe('<TableMenu />', () => {
     iconBtn.simulate('click');
     expect(editRequest.called).toEqual(true);
     expect(editRequest.calledWith(request.id)).toEqual(true);
+  });
+
+  it('should call `showTravelChecklist` on click', () => {
+    let newProps = {
+      ...props,
+      requestStatus: 'Open',
+      type: 'requests'
+    };
+    wrapper = shallow(<TableMenu {...newProps} />);
+
+    const { showTravelChecklist, request } = props;
+    const travelChecklistBtn = wrapper.find('#travelChecklistBtn');
+    travelChecklistBtn.simulate('click');
+    expect(showTravelChecklist).toHaveBeenCalled();
+    expect(wrapper.find('#travelChecklistBtn').length).toBe(1);
   });
 });

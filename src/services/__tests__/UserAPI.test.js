@@ -1,4 +1,5 @@
 import moxios from 'moxios';
+import Cookie from 'cookies-js'
 import UserAPI from '../UserAPI';
 import ProfileApi from '../ProfileApi';
 import { userResponse } from '../__mocks__/serviceMocks';
@@ -85,4 +86,3 @@ describe('UserAPI', () => {
     });
   });
 });
-

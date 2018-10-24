@@ -6,7 +6,8 @@ import {
   DateInput,
   ButtonToggler,
   NumberInput,
-  filterDropdownSelect
+  filterDropdownSelect,
+  CheckBox
 } from './InputFields';
 import createEventHandlersFor from '../formEventHandlers';
 import './_input.scss';
@@ -44,6 +45,12 @@ class Input extends PureComponent {
         onChange: onChange || eventHandlers.handleSelectDropdown,
       };
       return this.switchDropdownInputTypes(type);
+    case 'checkbox':
+      this.props = {
+        ...this.props,
+        onChange: onChange || eventHandlers.handleCheckBoxChange
+      };
+      return CheckBox;
     default:
       this.props = {
         ...this.props,

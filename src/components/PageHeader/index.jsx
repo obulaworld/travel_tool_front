@@ -4,7 +4,9 @@ import './_header.scss';
 
 class PageHeader extends PureComponent {
   render() {
-    const { title, actionBtn, openModal, titleClassName } = this.props;
+    const {
+      title, actionBtn, openModal, titleClassName, location
+    } = this.props;
 
     return (
       <div className="PageHeader">
@@ -12,6 +14,11 @@ class PageHeader extends PureComponent {
           <span className={titleClassName}>
             {title}
           </span>
+          {location && (
+            <span className="location">
+              {location}
+            </span>
+          )}
         </div>
         {actionBtn ? (
           <div>
@@ -36,12 +43,14 @@ export default PageHeader;
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   actionBtn: PropTypes.string,
+  openModal: PropTypes.func,
+  location: PropTypes.string,
   titleClassName: PropTypes.string,
-  openModal: PropTypes.func
 };
 
 PageHeader.defaultProps = {
   actionBtn: '',
+  location: '',
   titleClassName: 'title',
   openModal: () => {}
 };

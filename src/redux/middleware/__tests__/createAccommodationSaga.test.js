@@ -1,5 +1,6 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
+import { throwError } from 'redux-saga-test-plan/providers';
 import AccommodationAPI from '../../../services/AccommodationAPI';
 import {
   watchCreateAccommodationSagaAsync,
@@ -19,7 +20,7 @@ describe('Accommodation Saga', () => {
     it('fails to create Accommodation ', () => {
       return expectSaga(watchCreateAccommodationSagaAsync)
         .provide([
-          [call(AccommodationAPI.postAccommodation, action.error), response]])
+          [call(AccommodationAPI.postAccommodation, action.accommodationData), throwError(error)]])
         .put({
           type: 'CREATE_ACCOMMODATION_DATA_FAILURE',
           error: error,

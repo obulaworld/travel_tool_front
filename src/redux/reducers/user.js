@@ -10,8 +10,9 @@ import {
 const initialState = {
   postUserData: [],
   getUserData: {},
-  getCurrentUserRole: [],
+  currentUser: {},
   errors: [],
+  getCurrentUserRole: [],
   isLoaded: false
 };
 const user = (state = initialState, action) => {
@@ -22,6 +23,7 @@ const user = (state = initialState, action) => {
     return {
       ...state,
       getUserData: action.response,
+      currentUser: action.response.result,
       getCurrentUserRole: action.response.result
         .roles.map(role => role.roleName),
       errors: [],

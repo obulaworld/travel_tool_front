@@ -30,8 +30,9 @@ describe('User Reducer', () => {
   const initialState = {
     postUserData: [],
     getUserData: {},
-    getCurrentUserRole: [],
+    currentUser: {},
     errors: [],
+    getCurrentUserRole: [],
     isLoaded: false
   };
 

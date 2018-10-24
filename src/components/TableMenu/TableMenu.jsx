@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import editIcon from '../../images/edit.svg';
 import cancelIcon from '../../images/cancel.svg';
+import checkListIcon from '../../images/checklisticon.svg';
 
 class TableMenu extends PureComponent {
   handleIconOpentoggle = (toggleMenu, requestId) => {
@@ -28,6 +29,21 @@ class TableMenu extends PureComponent {
       </li>
     );
   };
+
+  renderTravelCheckListBtn = () => {
+    const { showTravelChecklist, request } = this.props;
+    return (
+      <li
+        className="table__menu-list-item"
+        id="travelChecklistBtn"
+        onClick={() => showTravelChecklist(request.id)}
+        role="presentation"
+      >
+        <img src={checkListIcon} alt="cancel-icon" className="menu-icon" />
+        Travel Checklist
+      </li>
+    );
+  }
 
   renderToggle = () => {
     const {
@@ -58,6 +74,9 @@ class TableMenu extends PureComponent {
                 <img src={editIcon} alt="edit-icon" className="menu-icon" />
                   Edit
               </li>
+              {type === 'requests' &&
+                requestStatus === 'Open' && this.renderTravelCheckListBtn()
+              }
               {this.handleIconClosetoggle(toggleMenu, request.id)}
             </ul>
           )}
@@ -77,6 +96,7 @@ class TableMenu extends PureComponent {
 
 TableMenu.propTypes = {
   editRequest: PropTypes.func.isRequired,
+  showTravelChecklist: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
   requestStatus: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

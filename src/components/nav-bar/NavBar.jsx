@@ -23,14 +23,14 @@ export class NavBar extends PureComponent {
       keyword: ''
     };
 
-
-  debouncer = debounce(
-    (history, pathName, queryString) =>
-      (history.push(`${pathName}${queryString}`)),
-    2000,
-    { trailing: true }
-  );
-
+    
+    debouncer = debounce(
+      (history, pathName, queryString) =>
+        (history.push(`${pathName}${queryString}`)),
+      2000,
+      { trailing: true }
+    );
+  
   getUnreadNotificationsCount = () => {
     const { notifications } = this.props;
     let count = 0;

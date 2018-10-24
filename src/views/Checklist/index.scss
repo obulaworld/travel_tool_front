@@ -1,0 +1,180 @@
+.checklist-page {
+  #default-item-header {
+    height: 20px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 2px;
+  }
+
+  #added-item-header {
+    height: 20px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 30px;
+  }
+
+  .checklist-item {
+    display: flex;
+    height: 60px;
+    width: 96.3%;
+    background-color: #FFFFFF;
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+    align-items: center;
+    margin-top: 8px;
+  
+    #item-name {
+      height: 18px;
+      color: #4F4F4F;
+      font-family: "DIN Pro";
+      font-size: 15px;
+      line-height: 18px;
+      margin-left: 30px;
+    }
+  
+    #edit-btn {
+      margin-left: auto;
+      height: 18px;
+      color: #3359DB;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      line-height: 18px;
+      border: 0;
+      padding: 0;
+      background: none;
+      outline: none;
+      margin-right: 40px;
+      cursor: pointer;
+    };
+  
+    #delete-btn {
+      height: 18px;
+      color: #3359DB;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      line-height: 18px;
+      border: 0;
+      padding: 0;
+      background: none;
+      outline: none;
+      margin-right: 60px;
+      cursor: pointer;
+    }
+  }
+}
+
+.checkInTable__trips--empty {
+  margin-top: 7%;
+}
+
+.add-checklist-item {
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  -ms-transform: translate(-50%, -50%);
+}
+
+.delete-checklist-item {
+  height: 370px;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  -ms-transform: translate(-50%, -50%);
+
+  &__reason {
+    height: 18px;
+    width: 47px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 20px;
+  }
+
+  &__disclaimer {
+    height: 18px;
+    width: 181px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 114px;
+    font-weight: 100;
+
+    &--error {
+      padding-right: 7.5px;
+    }
+  }
+
+  &__input {
+    height: 84px;
+    width: 419px;
+    border: 1px solid #D4D4D4;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    margin-bottom: 15.07px !important;
+    resize: none;
+    font-size: 15px;
+    color: #4F4F4F;
+    font-weight: 100;
+  }
+
+  &__input:focus {
+    outline: none;
+  }
+
+  &__hr {
+    box-sizing:
+    border-box;    height: 1px;
+    width: 479.6px;
+    border: 1px solid #F8F8F8;
+    margin: 30px -30px 018.5px -30px !important;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    bottom: 30px;
+
+    &--cancel {
+      box-sizing: border-box;
+      height: 35px;
+      width: 84px;
+      border: 1px solid #BCBCBC;
+      border-radius: 1px;
+      background-color: #FFFFFF;
+      cursor: pointer;
+      margin-right: 19.5px;
+      color: #999999;
+    }
+
+    &--delete {
+      height: 34px;
+      width: 91px;
+      border-radius: 1px;
+      background-color: #FF5359;
+      border: none;
+      color: #FFF;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}

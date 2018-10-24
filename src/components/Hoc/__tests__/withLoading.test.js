@@ -8,7 +8,9 @@ const props = {
   isLoading: true,
   editRequest: jest.fn(),
   history: {},
-  location: {}
+  location: {},
+  travelChecklists: [],
+  showTravelChecklist: jest.fn()
 };
 
 describe('withLoading', () => {

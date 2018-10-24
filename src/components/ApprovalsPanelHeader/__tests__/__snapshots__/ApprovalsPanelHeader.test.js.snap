@@ -6,6 +6,7 @@ exports[`should render approvals header correctly 1`] = `
 >
   <PageHeader
     actionBtn=""
+    location=""
     openModal={[Function]}
     title="APPROVALS"
     titleClassName="title"

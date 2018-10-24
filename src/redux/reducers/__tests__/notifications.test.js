@@ -1,14 +1,5 @@
 import notificationsReducer, { initialState } from '../notifications';
 import {
-  FETCH_NOTIFICATIONS_SUCCESS,
-  FETCH_NOTIFICATIONS_FAILURE,
-  ADD_NOTIFICATION_SUCCESS,
-  ADD_NOTIFICATION_FAILURE,
-  UPDATE_ALL_NOTIFICATIONS_STATUS,
-  UPDATE_ALL_NOTIFICATIONS_STATUS_FAILURE,
-  UPDATE_ALL_NOTIFICATIONS_STATUS_SUCCESS
-} from '../../constants/actionTypes';
-import {
   fetchUsersNotificationFailure,
   fetchUsersNotificationSuccess,
   addNotificationFailure,
@@ -80,7 +71,7 @@ describe('Notifications reducer', () => {
         ...initialState,
         isLoading: true,
         notifications: [...notificationsMockData]
-      }
+      };
       const updateSuccessResponse = {
         message: 'All general notifications have been marked as read'
       };
@@ -100,7 +91,7 @@ describe('Notifications reducer', () => {
         ...initialState,
         isLoading: true,
         notifications: [...notificationsMockData]
-      }
+      };
       const updateSuccessResponse = {
         message: 'All pending notifications have been marked as read'
       };

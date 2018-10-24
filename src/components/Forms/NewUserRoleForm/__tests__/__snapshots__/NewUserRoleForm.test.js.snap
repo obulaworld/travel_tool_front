@@ -99,6 +99,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
     >
       <button
         className="bg-btn bg-btn--inactive"
+        id="cancel"
         onClick={[Function]}
         type="button"
       >
@@ -107,6 +108,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
       <button
         className="bg-btn bg-btn--active"
         disabled={true}
+        id="submit"
         type="submit"
       >
         Submit

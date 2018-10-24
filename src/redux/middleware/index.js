@@ -31,8 +31,6 @@ import {
   markSingleNotificationAsReadSaga
 } from './notificationsSaga';
 
-
-
 import { watchUpdateUserProfileAsync } from './UserProfileSaga';
 
 import {
@@ -45,11 +43,16 @@ import { watchFetchOccupations } from './occupationSaga';
 
 import { watchUpdateRoomsAsync } from './roomUpdateSaga';
 
-
 import {
   watchFetchTrips,
   watchUpdateTrip
 } from './tripsSaga';
+import {
+  watchCreateChecklist,
+  watchFetchAllChecklists,
+  watchUpdateChecklist,
+  watchDeleteChecklist
+} from './travelChecklistSaga';
 
 import {
   watchFetchCenters,
@@ -86,6 +89,10 @@ function* rootSaga() {
     watchFetchTrips(),
     watchUpdateTrip(),
     watchFetchOccupations(),
+    watchFetchAllChecklists(),
+    watchUpdateChecklist(),
+    watchCreateChecklist(),
+    watchDeleteChecklist(),
     watchFetchCenters(),
     watchUpdateUserCenterAsync()
   ]);
