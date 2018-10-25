@@ -186,6 +186,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="30"
       />
       <RoomsGeomWrapper
+        handleChangeRoomModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-09-30T23:00:00.000Z"}
         timelineViewType="month"
@@ -193,6 +194,31 @@ exports[`<Timeline /> renders correctly 1`] = `
       />
     </div>
   </div>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={false}
+    title="Re-assign Room"
+    visibility="visible"
+    width=""
+  >
+    <ChangeBedForm
+      bedChoices={Array []}
+      closeModal={[Function]}
+      handleRoomSubmit={[Function]}
+      loading={false}
+      loadingBeds={false}
+      requesterName=""
+      toggleChangeRoomModal={[Function]}
+    />
+  </Modal>
 </div>
 `;
 
@@ -262,6 +288,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         key="6"
       />
       <RoomsGeomWrapper
+        handleChangeRoomModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-09-30T23:00:00.000Z"}
         timelineViewType="week"
@@ -269,6 +296,31 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       />
     </div>
   </div>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={false}
+    title="Re-assign Room"
+    visibility="visible"
+    width=""
+  >
+    <ChangeBedForm
+      bedChoices={Array []}
+      closeModal={[Function]}
+      handleRoomSubmit={[Function]}
+      loading={false}
+      loadingBeds={false}
+      requesterName=""
+      toggleChangeRoomModal={[Function]}
+    />
+  </Modal>
 </div>
 `;
 
@@ -363,6 +415,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
         key="11"
       />
       <RoomsGeomWrapper
+        handleChangeRoomModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-09-30T23:00:00.000Z"}
         timelineViewType="year"
@@ -370,5 +423,30 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       />
     </div>
   </div>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={false}
+    title="Re-assign Room"
+    visibility="visible"
+    width=""
+  >
+    <ChangeBedForm
+      bedChoices={Array []}
+      closeModal={[Function]}
+      handleRoomSubmit={[Function]}
+      loading={false}
+      loadingBeds={false}
+      requesterName=""
+      toggleChangeRoomModal={[Function]}
+    />
+  </Modal>
 </div>
 `;

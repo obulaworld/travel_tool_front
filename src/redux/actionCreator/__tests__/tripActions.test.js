@@ -4,9 +4,16 @@ import {
   updateTripFailure,
   fetchTrips,
   fetchTripsSuccess,
-  fetchTripsFailure
+  fetchTripsFailure,
+  updateTripRoom,
+  updateTripRoomSuccess,
+  updateTripRoomFailure
 } from '../tripActions';
-import { tripsResponse, updateTripResponse } from '../../__mocks__/mocks';
+import {
+  tripsResponse,
+  updateTripResponse,
+  updateTripRoomResponse
+} from '../../__mocks__/mocks';
 
 describe('Trip Actions', () => {
   describe('Fetch trips actions', () => {
@@ -79,6 +86,47 @@ describe('Trip Actions', () => {
         error,
       };
       const createdAction = updateTripFailure(error);
+      expect(createdAction).toEqual(receivedAction);
+    });
+  });
+
+  describe('Update trip room action', () => {
+    it('should return action type UPDATE_TRIP_ROOM', () => {
+      const updateTripRoomData = {
+        tripId: 1,
+        data: {
+          bedId: 2,
+          reason: 'Reason',
+          guestHouseId: 'xyr123dsw',
+          startDate: '2018-10-01',
+          endDate: '2018-10-31'
+        }
+      };
+      const receivedAction = {
+        type: 'UPDATE_TRIP_ROOM',
+        tripId: updateTripRoomData.tripId,
+        data: updateTripRoomData.data
+      };
+      const newAction = updateTripRoom(updateTripRoomData);
+      expect(newAction).toEqual(receivedAction);
+    });
+
+    it('should return action type UPDATE_TRIP_ROOM_FAILURE', () => {
+      const error = 'Could not update trip room';
+
+      const receivedAction = {
+        type: 'UPDATE_TRIP_ROOM_FAILURE',
+        error,
+      };
+      const createdAction = updateTripRoomFailure(error);
+      expect(createdAction).toEqual(receivedAction);
+    });
+
+    it('should return action type UPDATE_TRIP_ROOM_SUCCESS', () => {
+      const receivedAction = {
+        type: 'UPDATE_TRIP_ROOM_SUCCESS'
+      };
+      const createdAction = updateTripRoomSuccess();
       expect(createdAction).toEqual(receivedAction);
     });
   });

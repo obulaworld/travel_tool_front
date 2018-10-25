@@ -122,7 +122,7 @@ class TripGeometry extends Component {
 
   render() {
     const {bookingDetailsPos, translateDetailsLeft} = this.state;
-    const {trip} = this.props;
+    const {trip, handleChangeRoomModal} = this.props;
     const detailsVariant = this.getBookingDetailsVariant();
     const helper = new TripGeomHelper(this.props);
     const tripStats = helper.getTripStats(trip);
@@ -146,6 +146,7 @@ class TripGeometry extends Component {
           translateDetailsLeft={translateDetailsLeft}
           detailsVariantClass={detailsVariant}
           toggleBookingDetails={this.toggleBookingDetails}
+          handleChangeRoomModal={handleChangeRoomModal}
         />
       </div>
     );
@@ -154,7 +155,8 @@ class TripGeometry extends Component {
 
 TripGeometry.propTypes = {
   trip: PropTypes.object.isRequired,
-  tripDayWidth: PropTypes.number.isRequired
+  tripDayWidth: PropTypes.number.isRequired,
+  handleChangeRoomModal: PropTypes.func.isRequired
 };
 
 export default TripGeometry;

@@ -6,7 +6,13 @@ import TimelineHeader from './TimelineHeader';
 import TimelineVerticalAxis from './TimelineVerticalAxis';
 import {getViewTypeProperties} from './helpers';
 import {calendarConstants} from './settings';
+import Utils from '../../helper/Utils';
 import './Timeline.scss';
+import Modal from '../modal/Modal';
+import ChangeBedForm from '../Forms/ChangeBedForm';
+import InputRenderer, { FormContext }  from '../Forms/FormsAPI';
+import * as formMetadata from '../Forms/FormsMetadata/NewRequestFormMetadata';
+import Preloader from '../Preloader/Preloader';
 
 class Timeline extends PureComponent {
   constructor(props) {
@@ -16,7 +22,12 @@ class Timeline extends PureComponent {
       timelineViewType: 'month',
       timelineStartDate: moment().startOf('month'),
       timelineSegmentWidth: '',
-      timelineChoicesOpen: false
+      timelineChoicesOpen: false,
+      modalInvisible: true,
+      tripId: 0,
+      bedId: 0,
+      requesterName: '',
+      bedChoices: []
     };
   }
 
@@ -25,14 +36,32 @@ class Timeline extends PureComponent {
     this.fetchTimelineData();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.loadAvailableBeds(nextProps);
+  }
+
   componentDidUpdate() {
     this.updateTimelineSegmentWidth();
   }
+
 
   fetchTimelineData = () => {
     const {fetchTimelineRoomsData} = this.props;
     const [startDateString, endDateString] = this.getTimelineRange();
     fetchTimelineRoomsData(startDateString, endDateString);
+  }
+
+  loadAvailableBeds = (props) => {
+    const { availableBeds } = props;
+    let bedChoices = availableBeds;
+    bedChoices = bedChoices.map(choice => ({
+      label: Utils.generateTripRoomName({beds: choice}),
+      value: choice.id
+    }));
+    this.setState(prevState => ({
+      ...prevState,
+      bedChoices
+    }));
   }
 
   changeTimelineViewType = (userChoice) => {
@@ -159,24 +188,6 @@ class Timeline extends PureComponent {
     );
   }
 
-  constructSelectedPeriodDisplay() {
-    const {timelineStartDate, timelineViewType} = this.state;
-    let startDateStr, endDateStr, weekStartDisp, weekEndDisp;
-    switch (timelineViewType) {
-    case 'year':
-      return timelineStartDate.format('YYYY');
-    case 'week':
-      [startDateStr, endDateStr] = this.getTimelineRange();
-      weekStartDisp = moment(startDateStr, 'YYYY-MM-DD').format('D');
-      weekEndDisp = moment(endDateStr, 'YYYY-MM-DD').format('D MMM YYYY');
-      return `${weekStartDisp} - ${weekEndDisp}`;
-    case 'month':
-    default:
-      return timelineStartDate.format('MMMM YYYY');
-
-    }
-  }
-
   renderTimelineSegments = (availableSegSlotsCount) => {
     /**
      * Creates first node as a reference: good for determining the
@@ -194,6 +205,88 @@ class Timeline extends PureComponent {
         {availableSegSlots.map((slot, i) => this._constructTimelineSegment(++i))}
       </Fragment>
     );
+  }
+
+  renderChangeRoomModal = () => {
+    const { modalInvisible, requesterName, bedId, changeReason,
+      values, value, bedIdNames, bedNames, bedChoices } = this.state;
+    const { loadingBeds, modalType, shouldOpen, closeModal, loading } = this.props;
+    return (
+      <Modal
+        closeModal={closeModal}
+        customModalStyles="change-room-modal"
+        visibility={
+          shouldOpen &&
+          (modalType === 'change-room-modal') ? 'visible' : 'invisible'
+        }
+        closeDeleteCommentModal={this.toggleChangeRoomModal}
+        title="Re-assign Room"
+        showOverlay={false}
+      >
+        <ChangeBedForm 
+          handleRoomSubmit={this.handleRoomSubmit}
+          requesterName={requesterName}
+          bedChoices={bedChoices}
+          loadingBeds={loadingBeds}
+          toggleChangeRoomModal={this.toggleChangeRoomModal}
+          closeModal={closeModal}
+          loading={loading}        
+        />
+      </Modal>
+    );
+  }
+
+  handleChangeRoomModal = (trip) => {
+    const { modalInvisible } = this.state;
+    const { fetchAvailableRooms, openModal } = this.props;
+    openModal(true, 'change-room-modal');
+    if (modalInvisible === true) {
+      // call api to get available beds
+      const data = {
+        location: trip.destination || '',
+        gender: trip.request.gender || '',
+        arrivalDate: trip.returnDate || '',
+        departureDate: trip.departureDate || '',
+        tripType: trip.request.tripType || ''
+      };
+      fetchAvailableRooms(data);
+    }
+    this.setState(prevState => ({
+      modalInvisible: !prevState.modalInvisible,
+      tripId: trip.id,
+      requesterName: trip.request.name
+    }));
+  }
+
+  toggleChangeRoomModal = () => {
+    const { closeModal } = this.props;
+    closeModal(true, 'change-room-modal');
+  }
+
+  handleRoomSubmit = (newBedId, reason) => {
+    const { updateTripRoom } = this.props;
+    const { tripId } = this.state;
+    const timelineDateArray = this.getTimelineRange();
+    updateTripRoom(tripId, newBedId,
+      reason, timelineDateArray[0], timelineDateArray[1]);
+  }
+
+  constructSelectedPeriodDisplay() {
+    const {timelineStartDate, timelineViewType} = this.state;
+    let startDateStr, endDateStr, weekStartDisp, weekEndDisp;
+    switch (timelineViewType) {
+    case 'year':
+      return timelineStartDate.format('YYYY');
+    case 'week':
+      [startDateStr, endDateStr] = this.getTimelineRange();
+      weekStartDisp = moment(startDateStr, 'YYYY-MM-DD').format('D');
+      weekEndDisp = moment(endDateStr, 'YYYY-MM-DD').format('D MMM YYYY');
+      return `${weekStartDisp} - ${weekEndDisp}`;
+    case 'month':
+    default:
+      return timelineStartDate.format('MMMM YYYY');
+
+    }
   }
 
   render() {
@@ -230,9 +323,11 @@ class Timeline extends PureComponent {
               timelineViewType={timelineViewType}
               tripDayWidth={timelineDayWidth}
               rooms={rooms}
+              handleChangeRoomModal={this.handleChangeRoomModal}
             />
           </div>
         </div>
+        {this.renderChangeRoomModal()}
       </div>
     );
   }
@@ -243,6 +338,14 @@ Timeline.propTypes = {
   fetchTimelineRoomsData: PropTypes.func.isRequired,
   updateRoomState: PropTypes.func.isRequired,
   guestHouseId: PropTypes.string.isRequired,
+  updateTripRoom: PropTypes.string.isRequired,
+  fetchAvailableRooms: PropTypes.func.isRequired,
+  loadingBeds: PropTypes.bool.isRequired,
+  openModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  modalType: PropTypes.string.isRequired,
+  shouldOpen: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 Timeline.defaultProps = {

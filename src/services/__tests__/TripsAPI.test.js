@@ -44,4 +44,22 @@ describe('TripsAPI', () => {
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/trips/${tripId}`);
     expect(response.data).toEqual(singleTripResponse);
   });
+
+  it('should send a put request to update a single trip room record', async () => {
+    const tripId = '3';
+    const tripData = {
+      bedId: 2,
+      reason: 'Reason'
+    };
+
+    moxios.stubRequest(`${baseUrl}/trips/${tripId}/room`, {
+      status: 200,
+      response: singleTripResponse
+    });
+
+    const response = await TripsAPI.updateTripRoom(tripId, tripData);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/trips/${tripId}/room`);
+    expect(response.data).toEqual(singleTripResponse);
+  });
 });

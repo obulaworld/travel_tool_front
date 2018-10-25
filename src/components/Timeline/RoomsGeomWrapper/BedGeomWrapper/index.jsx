@@ -5,7 +5,8 @@ import TripGeometry from '../TripGeometry';
 
 class BedGeomWrapper extends Component {
   render() {
-    const {tripDayWidth, trips, timelineStartDate, timelineViewType} = this.props;
+    const {tripDayWidth, trips, timelineStartDate,
+      timelineViewType, handleChangeRoomModal} = this.props;
     const tripGeoms = trips.map(trip => (
       <TripGeometry
         key={trip.id}
@@ -13,6 +14,7 @@ class BedGeomWrapper extends Component {
         timelineStartDate={timelineStartDate}
         trip={trip}
         timelineViewType={timelineViewType}
+        handleChangeRoomModal={handleChangeRoomModal}
       />
     ));
     return (
@@ -27,7 +29,8 @@ BedGeomWrapper.propTypes = {
   tripDayWidth: PropTypes.number.isRequired,
   trips: PropTypes.array.isRequired,
   timelineStartDate: PropTypes.object.isRequired,
-  timelineViewType: PropTypes.string
+  timelineViewType: PropTypes.string,
+  handleChangeRoomModal: PropTypes.func.isRequired
 };
 
 BedGeomWrapper.defaultProps = {

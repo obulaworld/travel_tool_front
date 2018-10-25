@@ -1,12 +1,23 @@
 import React from 'react';
 import moment from 'moment';
 import Timeline from '..';
+import { tripsResponse } from '../../../redux/__mocks__/mocks';
+import availableRooms from '../__mocks__/availableRooms';
+import Utils from '../../../helper/Utils';
 
 const props = {
   rooms: [],
+  fetchAvailableRooms: jest.fn(),
   fetchTimelineRoomsData: jest.fn(),
   updateRoomState: jest.fn(),
-  guestHouseId: 'guest-house-id-1'
+  guestHouseId: 'guest-house-id-1',
+  updateTripRoom: jest.fn(),
+  loadingBeds: false,
+  openModal: jest.fn(),
+  closeModal: jest.fn(),
+  modalType: 'change-room-modal',
+  shouldOpen: true,
+  loading: false
 };
 
 describe('<Timeline />', () => {
@@ -70,5 +81,36 @@ describe('<Timeline />', () => {
       .prop('toggleChoices');
     toggleChoicesHandler();
     expect(wrapper.state().timelineChoicesOpen).toBe(true);
+  });
+
+  it('should call updateTripRoom method when handleRoomSubmit is clicked', () => {
+    wrapper.instance().handleRoomSubmit();
+    expect(props.updateTripRoom).toHaveBeenCalled();
+  });
+
+  it('should call closeModal when toggleChangeRoomModal is called', () => {
+    wrapper.instance().toggleChangeRoomModal();
+    expect(props.closeModal).toHaveBeenCalled();
+  });
+
+  it('should load state with available beds when loadAvailableBeds is called', () => {
+    wrapper.instance().loadAvailableBeds({availableBeds: availableRooms});
+    const bedName = Utils.generateTripRoomName({beds: availableRooms[0]});
+    const bedId = availableRooms[0].id;
+    expect(wrapper.state().bedChoices[0].label).toBe(bedName);
+    expect(wrapper.state().bedChoices[0].value).toBe(bedId);
+  });
+  
+  it('should update state with trip id, requester name and modal status', () => {
+    const trip = {
+      id: 1,
+      request: {
+        name: 'Jacob'
+      }
+    };
+    wrapper.instance().handleChangeRoomModal(trip);
+    expect(wrapper.state().tripId).toBe(trip.id);
+    expect(wrapper.state().requesterName).toBe(trip.request.name);
+    expect(wrapper.state().modalInvisible).toBe(false);
   });
 });

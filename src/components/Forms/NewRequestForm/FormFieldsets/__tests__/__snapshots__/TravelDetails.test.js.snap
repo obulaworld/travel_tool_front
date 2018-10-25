@@ -103,7 +103,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                 handleDate={[Function]}
                 label="Depart"
                 labelNote=""
-                minDate={"2018-10-24T10:00:50.981Z"}
+                minDate={"2018-10-24T14:46:49.688Z"}
                 name="departureDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -121,7 +121,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                 handleDate={[Function]}
                 label="Return"
                 labelNote=""
-                minDate={"2018-10-24T10:00:50.982Z"}
+                minDate={"2018-10-24T14:46:49.688Z"}
                 name="arrivalDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -137,23 +137,23 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                   Array [
                     Object {
                       "label": "Kwetu, bed 1",
-                      "value": 6000,
-                    },
-                    Object {
-                      "label": "Menengai, bed 1",
-                      "value": 6002,
-                    },
-                    Object {
-                      "label": "Menengai, bed 2",
-                      "value": 6003,
-                    },
-                    Object {
-                      "label": "Menengai, bed 3",
-                      "value": 6004,
+                      "value": 1,
                     },
                     Object {
                       "label": "Kwetu, bed 2",
-                      "value": 6001,
+                      "value": 2,
+                    },
+                    Object {
+                      "label": "Menengai, bed 1",
+                      "value": 3,
+                    },
+                    Object {
+                      "label": "Menengai, bed 2",
+                      "value": 4,
+                    },
+                    Object {
+                      "label": "Menengai, bed 3",
+                      "value": 5,
                     },
                   ]
                 }

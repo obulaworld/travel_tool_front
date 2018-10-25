@@ -18,6 +18,8 @@ import {
 import edit_icon from '../../../images/icons/edit_icon.svg';
 import './FullGuestHouseDetails.scss';
 import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
+import { updateTripRoom } from '../../../redux/actionCreator/tripActions';
+import { fetchAvailableRooms } from '../../../redux/actionCreator/availableRoomsActions';
 
 export class GuestHouseDetails extends PureComponent {
   handleOnEdit = () => {
@@ -85,6 +87,18 @@ export class GuestHouseDetails extends PureComponent {
     return allBeds - availableBeds;
   };
 
+  callUpdateTripRoom = (tripId, bedId, reason, startDate, endDate) => {
+    const { updateTripRoom, match } = this.props;
+    const data = {
+      bedId,
+      reason,
+      guestHouseId: match.params.guestHouseId,
+      startDate,
+      endDate
+    };
+    updateTripRoom({tripId, data});
+  }
+
   renderEditAccommodationForm() {
     const {
       closeModal,
@@ -119,7 +133,10 @@ export class GuestHouseDetails extends PureComponent {
   }
 
   render() {
-    const { guestHouse, updateRoomState } = this.props;
+    const { guestHouse, updateRoomState, availableBeds,
+      fetchAvailableRooms, loadingBeds, openModal,
+      closeModal, modal, loading } = this.props;
+    const { shouldOpen, modalType } = modal;
     return (
       <div className="guesthouse-details-wrapper">
         {this.renderEditAccommodationForm()}
@@ -146,6 +163,15 @@ export class GuestHouseDetails extends PureComponent {
           guestHouseId={guestHouse.id}
           fetchTimelineRoomsData={this.fetchTimelineRoomsData}
           updateRoomState={updateRoomState}
+          updateTripRoom={this.callUpdateTripRoom}
+          availableBeds={availableBeds}
+          fetchAvailableRooms={fetchAvailableRooms}
+          loadingBeds={loadingBeds}
+          openModal={openModal}
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
+          loading={loading}
         />
       </div>
     );
@@ -162,7 +188,12 @@ GuestHouseDetails.propTypes = {
   updateRoomState: PropTypes.func.isRequired,
   modal: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
-  editAccommodation: PropTypes.func.isRequired
+  editAccommodation: PropTypes.func.isRequired,
+  updateTripRoom: PropTypes.func.isRequired,
+  availableBeds: PropTypes.array.isRequired,
+  fetchAvailableRooms: PropTypes.func.isRequired,
+  loadingBeds: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 GuestHouseDetails.defaultProps = {
@@ -170,10 +201,13 @@ GuestHouseDetails.defaultProps = {
   guestHouse: {},
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   guestHouse: state.accommodation.guestHouse,
   user: state.auth.user.UserInfo,
   modal: state.modal.modal,
+  availableBeds: state.availableRooms.beds,
+  loadingBeds: state.availableRooms.isLoading,
+  loading: state.trips.loading
 });
 
 const actionCreators = {
@@ -182,7 +216,9 @@ const actionCreators = {
   openModal,
   closeModal,
   editAccommodation,
-  fetchAccommodation
+  fetchAccommodation,
+  updateTripRoom,
+  fetchAvailableRooms,
 };
 
 export default connect(

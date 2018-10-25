@@ -109,12 +109,15 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
   </div>
   <Timeline
     fetchTimelineRoomsData={[Function]}
+    modalType={null}
     rooms={
       Array [
         Object {},
       ]
     }
+    shouldOpen={false}
     updateRoomState={[Function]}
+    updateTripRoom={[Function]}
   />
 </div>
 `;

@@ -1,10 +1,12 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
+import toast from 'toastr';
 import TripsAPI from '../../../services/TripsAPI';
 import {
   watchFetchTrips,
-  watchUpdateTrip
+  watchUpdateTrip,
+  watchUpdateTripRoom
 } from '../tripsSaga';
 import {
   tripsResponse,
@@ -16,7 +18,10 @@ import {
   FETCH_TRIPS_FAILURE,
   UPDATE_TRIP,
   UPDATE_TRIP_SUCCESS,
-  UPDATE_TRIP_FAILURE
+  UPDATE_TRIP_FAILURE,
+  UPDATE_TRIP_ROOM,
+  UPDATE_TRIP_ROOM_FAILURE,
+  INIT_FETCH_TIMELINE_DATA
 } from '../../constants/actionTypes';
 
 const error = 'Possible network error, please reload the page';
@@ -26,6 +31,9 @@ const fetchResponse = {
 const updateResponse = {
   data: updateTripResponse
 };
+
+toast.success = jest.fn();
+toast.error = jest.fn();
 
 describe('Test suite for Trips Saga', () => {
   describe('Tests for trips fetch requests', () => {
@@ -91,7 +99,6 @@ describe('Test suite for Trips Saga', () => {
     it('should throw an error if update fails', () => {
       const error = {
         response: {
-          me: 'Clinton is foolish',
           status: 422,
           data: {
             errors: [{msg: 'checkType must be "checkIn" or "checkOut"'}]
@@ -112,6 +119,74 @@ describe('Test suite for Trips Saga', () => {
           tripData: action.tripData
         })
         .run();
+    });
+  });
+
+  describe('Test suite for trip room update requests', () => {
+    const action = {
+      tripId: 1,
+      data: {
+        bedId: 2,
+        reason: 'Reason',
+        guestHouseId: 'xyr123dsw',
+        startDate: '2018-10-01',
+        endDate: '2018-10-31'
+      },
+      tripData: {
+        bedId: 2,
+        reason: 'Reason',
+      }
+    };
+    it('should return updated trip if update request was successful', () => {
+      return expectSaga(watchUpdateTripRoom, TripsAPI)
+        .provide([
+          [call(TripsAPI.updateTripRoom, action.tripId, action.tripData), updateResponse]
+        ])
+        .put({
+          type: INIT_FETCH_TIMELINE_DATA,
+          guestHouseId: action.data.guestHouseId,
+          startDate: action.data.startDate,
+          endDate: action.data.endDate
+        })
+        .dispatch({
+          type: UPDATE_TRIP_ROOM,
+          tripId: action.tripId,
+          data: action.data
+        })
+        .run();
+    });
+
+    it('should have called the toast success method', () => {
+      expect(toast.success).toHaveBeenCalledTimes(1);
+    });
+
+    it('should throw an error if update fails', () => {
+      const error = {
+        response: {
+          status: 422,
+          data: {
+            errors: [{msg: 'Reason for change is required'}]
+          }
+        }
+      };
+      return expectSaga(watchUpdateTripRoom, TripsAPI)
+        .provide([
+          [call(TripsAPI.updateTripRoom, action.tripId, action.tripData), throwError(error)]
+        ])
+        .put({
+          type: UPDATE_TRIP_ROOM_FAILURE,
+          error: 'Bad request. Reason for change is required'
+        })
+        .dispatch({
+          type: UPDATE_TRIP_ROOM,
+          tripId: action.tripId,
+          data: action.data
+        })
+        .run();
+    });
+
+    it('should have called the toast error method', () => {
+      expect(toast.error).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -43,6 +43,10 @@ const inputLabels = {
 
   bed: {
     label: 'Available rooms'
+  },
+
+  newBed: {
+    label: 'Other Available Rooms'
   }
 };
 

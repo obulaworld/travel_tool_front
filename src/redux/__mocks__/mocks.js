@@ -275,4 +275,25 @@ export const fetchOccupationsResponse ={
         'updatedAt': '2018-09-27T13:57:13.898Z'
       },
     ]}
+}
+
+export const updateTripRoomResponse = {
+  success: true,
+  trip: {
+    id: 'G5qZlv2j2P',
+    origin: 'Lagos, Nigeria',
+    destination: 'Nice, France',
+    departureDate: '2018-10-10',
+    returnDate: '2018-10-20',
+    checkStatus: 'Checked In',
+    checkInDate: '2018-10-10T10:51:30.134Z',
+    checkOutDate: null,
+    lastNotifyDate: null,
+    notificationCount: 0,
+    createdAt: '2018-10-10T10:43:07.642Z',
+    updatedAt: '2018-10-10T11:53:52.604Z',
+    bedId: '12',
+    requestId: '2xrO2f_Qx'
+  },
+  message: 'Updated Successfully'
 };

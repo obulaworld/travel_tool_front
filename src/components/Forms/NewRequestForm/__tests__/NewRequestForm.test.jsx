@@ -3,6 +3,8 @@ import sinon from 'sinon';
 import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 
+localStorage.setItem = jest.fn();
+
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
   onSubmit = jest.fn();
@@ -595,5 +597,11 @@ describe('<NewRequestForm />', () => {
     wrapper.instance().setState(defaultState);
     wrapper.instance().handlePickBed(1, 0);
     expect(wrapper.instance().state.values['bed-0']).toBe(1);
-  })
+  });
+
+  it('should call localStorage when savePersonalDetails is called', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().savePersonalDetails('','','','','');
+    expect(localStorage.setItem).toHaveBeenCalled();
+  });
 });

@@ -71,6 +71,17 @@ exports[`<TimelineDetails /> renders properly without a checkInDate or checkOutD
       </span>
       <span />
     </div>
+    <div>
+      <span>
+        <button
+          className="trip-booking-details__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Change Room
+        </button>
+      </span>
+    </div>
   </div>
 </div>
 `;
@@ -145,6 +156,17 @@ exports[`<TimelineDetails /> renders prorperly 1`] = `
         Origin
       </span>
       <span />
+    </div>
+    <div>
+      <span>
+        <button
+          className="trip-booking-details__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Change Room
+        </button>
+      </span>
     </div>
   </div>
 </div>

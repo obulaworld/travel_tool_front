@@ -47,7 +47,8 @@ import { watchUpdateRoomsAsync } from './roomUpdateSaga';
 
 import {
   watchFetchTrips,
-  watchUpdateTrip
+  watchUpdateTrip,
+  watchUpdateTripRoom
 } from './tripsSaga';
 import {
   watchCreateChecklist,
@@ -98,6 +99,7 @@ function* rootSaga() {
     watchFetchCenters(),
     watchUpdateUserCenterAsync(),
     watchFetchAvailableRooms(),
+    watchUpdateTripRoom()
 
   ]);
 }

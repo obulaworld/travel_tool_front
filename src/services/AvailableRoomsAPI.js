@@ -5,19 +5,13 @@ const baseUrl = resolveBaseUrl();
 
 class AvailableRoomsAPI {
   static getAvailableRooms(data) {
-    const {
-      gender,
-      departureDate,
-      location,
-      arrivalDate,
-      tripType
-    } = data.action;
+    const { gender, departureDate, location, arrivalDate, tripType } = data.action;
     const availableRoomsQueryObj = {
       gender,
       departureDate,
-      location
+      location,
     };
-    if (tripType !== 'oneWay') {
+    if(tripType !== 'oneWay'){
       availableRoomsQueryObj.arrivalDate = arrivalDate;
     }
     const availableRoomQueryString = Object.keys(availableRoomsQueryObj)

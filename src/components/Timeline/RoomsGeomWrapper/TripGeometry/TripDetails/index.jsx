@@ -84,6 +84,7 @@ export default class TripDetails extends Component {
     const checkOutDate = trip.checkOutDate
       ? moment(trip.checkOutDate, 'YYYY-MM-DD').format('DD MMM YYYY')
       : 'n/a';
+    const { handleChangeRoomModal } = this.props;
 
     return (
       <div className="trip-booking-details__body">
@@ -106,6 +107,17 @@ export default class TripDetails extends Component {
         <div>
           <span>Origin</span>
           <span>{trip.origin}</span>
+        </div>
+        <div>
+          <span>
+            <button
+              type="button"
+              className="trip-booking-details__button"
+              onClick={() => handleChangeRoomModal(trip)}
+            >
+          Change Room
+            </button>
+          </span>
         </div>
       </div>
     );
@@ -141,7 +153,8 @@ TripDetails.propTypes = {
   bookingDetailsPos: PropTypes.string,
   detailsVariantClass: PropTypes.string,
   toggleBookingDetails: PropTypes.func.isRequired,
-  translateDetailsLeft: PropTypes.bool
+  translateDetailsLeft: PropTypes.bool,
+  handleChangeRoomModal: PropTypes.func.isRequired
 };
 
 TripDetails.defaultProps = {

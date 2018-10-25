@@ -46,6 +46,7 @@ const props = {
   openModal: jest.fn(),
   initFetchTimelineData: jest.fn(),
   closeModal: jest.fn(),
+  updateTripRoom: jest.fn(),
   match: {
     params: { }
   },
@@ -74,6 +75,13 @@ describe('<Accommodation />', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleOnEdit');
     wrapper.instance().handleOnEdit();
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call callUpdateTripRoom', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'callUpdateTripRoom');
+    wrapper.instance().callUpdateTripRoom(1, 1, 'reason', 'startDate', 'endDate');
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(props.updateTripRoom).toHaveBeenCalled();
   });
 
 });

@@ -12,7 +12,8 @@ const props = {
   bookingDetailsPos: '0px',
   detailsVariantClass: '',
   toggleBookingDetails: jest.fn(),
-  translateDetailsLeft: false
+  translateDetailsLeft: false,
+  handleChangeRoomModal: jest.fn()
 };
 
 describe('<TimelineDetails />', () => {
@@ -47,4 +48,11 @@ describe('<TimelineDetails />', () => {
     clickDetailsListener(e);
     expect(e.stopPropagation).toHaveBeenCalledTimes(1);
   });
+
+  it('calls the handleChangeRoomModal function onclick', () => {
+    wrapper = shallow(<TimelineDetails {...props} />);
+    const submitButton = wrapper.find('button');
+    submitButton.simulate('click');
+    expect(props.handleChangeRoomModal).toHaveBeenCalled();
+  })
 });

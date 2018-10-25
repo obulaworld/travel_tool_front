@@ -5,7 +5,7 @@
     border-radius: 2px;
     background-color: #FFFFFF;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.15);
-    z-index: 500;
+    z-index: 100;
     transition: all .5s ease-out;
     cursor: auto;
     &__header, &__body {
@@ -64,6 +64,16 @@
           color: #3359DB;
         }
       }
+    }
+    &__button {
+      background-color: #3359DB;
+      color: #FFFFFF;
+      height: 20px;
+      border-radius: 1px;
+      font-size: 10px;
+      outline: none;
+      border: none;
+      cursor: pointer;
     }
     &.details-visible {
       transform: translateY(-10%) scaleY(1);

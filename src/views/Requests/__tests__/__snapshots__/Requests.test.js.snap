@@ -25,7 +25,35 @@ exports[`<Requests> renders as expected 1`] = `
               "bedName": "bed 1",
               "booked": false,
               "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 6000,
+              "id": 1,
+              "roomId": "room-id-1",
+              "rooms": Object {
+                "bedCount": 2,
+                "createdAt": "2018-08-16T11:11:52.181Z",
+                "faulty": false,
+                "guestHouseId": "guest-house-1",
+                "guestHouses": Object {
+                  "bathRooms": 1,
+                  "createdAt": "2018-08-16T11:11:52.181Z",
+                  "houseName": "Mini flat-B",
+                  "id": "guest-house-1",
+                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                  "location": "Lagos,Nigeria",
+                  "updatedAt": "2018-08-16T11:11:52.181Z",
+                  "userId": "-LJV4b1QTCYewOtk5F63",
+                },
+                "id": "room-id-1",
+                "roomName": "Kwetu",
+                "roomType": "ensuited",
+                "updatedAt": "2018-08-16T11:11:52.181Z",
+              },
+              "updatedAt": "2018-08-16T11:11:52.181Z",
+            },
+            Object {
+              "bedName": "bed 2",
+              "booked": false,
+              "createdAt": "2018-08-16T11:11:52.181Z",
+              "id": 2,
               "roomId": "room-id-1",
               "rooms": Object {
                 "bedCount": 2,
@@ -53,7 +81,7 @@ exports[`<Requests> renders as expected 1`] = `
               "bedName": "bed 1",
               "booked": false,
               "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 6002,
+              "id": 3,
               "roomId": "room-id-2",
               "rooms": Object {
                 "bedCount": 3,
@@ -81,7 +109,7 @@ exports[`<Requests> renders as expected 1`] = `
               "bedName": "bed 2",
               "booked": false,
               "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 6003,
+              "id": 4,
               "roomId": "room-id-2",
               "rooms": Object {
                 "bedCount": 3,
@@ -109,7 +137,7 @@ exports[`<Requests> renders as expected 1`] = `
               "bedName": "bed 3",
               "booked": false,
               "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 6004,
+              "id": 5,
               "roomId": "room-id-2",
               "rooms": Object {
                 "bedCount": 3,
@@ -132,34 +160,6 @@ exports[`<Requests> renders as expected 1`] = `
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
               "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-            Object {
-              "bedName": "bed 2",
-              "booked": true,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 6001,
-              "roomId": "room-id-1",
-              "rooms": Object {
-                "bedCount": 2,
-                "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
-                  "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
-                  "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
-                },
-                "id": "room-id-1",
-                "roomName": "Kwetu",
-                "roomType": "ensuited",
-                "updatedAt": "2018-08-16T11:11:52.181Z",
-              },
-              "updatedAt": "2018-10-18T17:27:08.163Z",
             },
           ],
         }
@@ -187,7 +187,7 @@ exports[`<Requests> renders as expected 1`] = `
           "tripType": "multi",
           "trips": Array [
             Object {
-              "bedId": 6000,
+              "bedId": 1,
               "createdAt": "2018-09-27T18:49:03.626Z",
               "departureDate": "2018-09-30",
               "destination": "Lagos Nigeria",
@@ -279,7 +279,7 @@ exports[`<Requests> renders as expected 1`] = `
             "tripType": "oneWay",
             "trips": Array [
               Object {
-                "bedId": 6000,
+                "bedId": 1,
                 "departureDate": "2018-09-20",
                 "destination": "Angola",
                 "origin": "Lagos",
@@ -296,7 +296,7 @@ exports[`<Requests> renders as expected 1`] = `
             "tripType": "oneWay",
             "trips": Array [
               Object {
-                "bedId": 6000,
+                "bedId": 1,
                 "departureDate": "2018-09-20",
                 "destination": "Angola",
                 "origin": "Lagos",
@@ -313,7 +313,7 @@ exports[`<Requests> renders as expected 1`] = `
             "tripType": "oneWay",
             "trips": Array [
               Object {
-                "bedId": 6000,
+                "bedId": 1,
                 "departureDate": "2018-09-20",
                 "destination": "Angola",
                 "origin": "Lagos",
