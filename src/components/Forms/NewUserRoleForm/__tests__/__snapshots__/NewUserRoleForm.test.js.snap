@@ -13,6 +13,7 @@ exports[`<NewUserRoleForm /> <PersonalDetails /> renders correctly 1`] = `
       }
     >
       <Input
+        autoComplete="off"
         className=""
         disabled={true}
         label="Andela Email Address"
@@ -23,6 +24,7 @@ exports[`<NewUserRoleForm /> <PersonalDetails /> renders correctly 1`] = `
     </div>
     <div>
       <Input
+        autoComplete="off"
         choices={
           Array [
             Array [],
@@ -74,6 +76,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
             </span>
           </label>
           <input
+            autoComplete="off"
             className=" "
             disabled={false}
             label="Andela Email Address"

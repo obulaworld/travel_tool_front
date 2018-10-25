@@ -64,6 +64,7 @@ Array [
                             </span>
                         </label>
                         <input
+                            autoComplete="off"
                             className=" "
                             label="Name"
                             name="name"
@@ -146,6 +147,7 @@ Array [
                             }
                         >
                             <div
+                                autoComplete="off"
                                 choices={
                                     Array [
                                         "Software Developer",
@@ -305,6 +307,7 @@ Array [
                             }
                         >
                             <div
+                                autoComplete="off"
                                 choices={
                                     Array [
                                         "Talent & Development",
@@ -438,6 +441,7 @@ Array [
                             }
                         >
                             <div
+                                autoComplete="off"
                                 choices={Array []}
                                 className="input select  "
                                 error=""

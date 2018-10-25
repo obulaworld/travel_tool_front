@@ -34,6 +34,7 @@ class InputRenderer {
       type,
       label: this.formMetadata.inputLabels[name.split('-')[0]].label,
       labelNote: this.formMetadata.inputLabels[name.split('-')[0]].note,
+      autoComplete: 'off'
     };
     customProps ? inputProps['data-parentid'] = customProps.parentid : null;
     inputProps = this.switchProps(name, type, inputProps);

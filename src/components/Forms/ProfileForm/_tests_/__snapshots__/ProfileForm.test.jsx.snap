@@ -54,6 +54,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           </span>
         </label>
         <input
+          autoComplete="off"
           className=" "
           label="Name"
           name="name"
@@ -136,6 +137,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
+            autoComplete="off"
             choices={
               Array [
                 "Software Developer",
@@ -294,6 +296,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
+            autoComplete="off"
             choices={
               Array [
                 "Talent & Development",
@@ -426,6 +429,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
+            autoComplete="off"
             choices={
               Array [
                 "Test User",

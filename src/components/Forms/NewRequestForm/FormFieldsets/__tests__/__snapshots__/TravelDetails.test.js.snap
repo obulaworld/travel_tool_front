@@ -61,6 +61,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
               className="travel-to"
             >
               <Input
+                autoComplete="off"
                 className=""
                 data-parentid={0}
                 label="From"
@@ -79,6 +80,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
               className="travel-to"
             >
               <Input
+                autoComplete="off"
                 className=""
                 data-parentid={0}
                 label="Travel to"
@@ -98,12 +100,13 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
               role="presentation"
             >
               <Input
+                autoComplete="off"
                 className=""
                 data-parentid={0}
                 handleDate={[Function]}
                 label="Depart"
                 labelNote=""
-                minDate={"2018-10-25T10:34:13.171Z"}
+                minDate={"2018-10-25T09:45:43.049Z"}
                 name="departureDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -115,13 +118,14 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
               role="presentation"
             >
               <Input
+                autoComplete="off"
                 className="arrival-date"
                 data-parentid={0}
                 disabled={true}
                 handleDate={[Function]}
                 label="Return"
                 labelNote=""
-                minDate={"2018-10-25T10:34:13.171Z"}
+                minDate={"2018-10-25T09:45:43.049Z"}
                 name="arrivalDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -133,6 +137,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
               className="travel-to"
             >
               <Input
+                autoComplete="off"
                 choices={
                   Array [
                     Object {

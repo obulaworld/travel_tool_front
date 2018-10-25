@@ -67,6 +67,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
             </span>
           </label>
           <input
+            autoComplete="off"
             className=" "
             label="Guest House Name"
             name="houseName"
@@ -102,6 +103,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
             </span>
           </label>
           <input
+            autoComplete="off"
             className=" "
             label="Location"
             name="location"
@@ -137,6 +139,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
           </label>
           <div>
             <input
+              autoComplete="off"
               className=" "
               label="Bathrooms"
               min="1"
@@ -207,6 +210,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                   </span>
                 </label>
                 <input
+                  autoComplete="off"
                   className=" "
                   data-parentid={0}
                   label="Room Name"
@@ -250,6 +254,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                   }
                 >
                   <div
+                    autoComplete="off"
                     choices={
                       Array [
                         "Ensuite",
@@ -350,6 +355,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                 </label>
                 <div>
                   <input
+                    autoComplete="off"
                     className=" "
                     data-parentid={0}
                     label="No. of Beds"
