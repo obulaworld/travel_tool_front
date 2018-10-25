@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ConnectedLogin from '../views/Login';
+import ConnectedDashboard from '../views/Dashboard';
 import ConnectedRequests from '../views/Requests';
 import ConnectedGuestHouseDetails from '../views/Accommodation/FullGuestHouseDetails';
 import RequireAuth from '../hoc/authHoc';
@@ -29,6 +30,11 @@ const Routes = () => (
     <Route>
       <LayoutShell>
         <Switch>
+          <Route
+            path="/dashboard"
+            exact
+            component={RequireAuth(ConnectedDashboard)}
+          />
           <Route
             path="/requests/my-approvals"
             exact

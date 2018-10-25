@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DashboardHeader /> renders as expected 1`] = `
+<div
+  className="DashboardHeader"
+>
+  <h2
+    className="title"
+  >
+    Dashboard
+  </h2>
+  <div
+    className="actions"
+  >
+    <button
+      className="action-btn"
+      type="button"
+    >
+      Lagos
+      <img
+        alt="Lagos"
+        src="location_active.svg"
+      />
+    </button>
+    <TimelineDropdown
+      defaultSelected="This week"
+      dropDownItems={
+        Array [
+          "Today",
+          "Tomorrow",
+          "This week",
+          "This month",
+          "Pick a date",
+        ]
+      }
+      icon="calendar_active.svg"
+      onClickItem={[Function]}
+    />
+    <button
+      className="action-btn"
+      type="button"
+    >
+      <img
+        src="download.svg"
+      />
+    </button>
+  </div>
+</div>
+`;

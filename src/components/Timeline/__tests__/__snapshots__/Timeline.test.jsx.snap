@@ -146,12 +146,12 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="22"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="24"
         key="23"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="25"
         key="24"
       />
@@ -188,7 +188,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="month"
         tripDayWidth={0}
       />
@@ -290,7 +290,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="week"
         tripDayWidth={0}
       />
@@ -417,7 +417,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-09-30T23:00:00.000Z"}
+        timelineStartDate={"2018-09-30T21:00:00.000Z"}
         timelineViewType="year"
         tripDayWidth={0}
       />

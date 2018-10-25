@@ -7,8 +7,21 @@ import activeAccommodationIcon from '../../../images/icons/accommodation-blue.sv
 import inactiveAccommodationIcon from '../../../images/icons/accomodation-grey.svg';
 import activeChecklistIcon from '../../../images/icons/checklist-active.svg';
 import inactiveChecklistIcon from '../../../images/icons/checklist-inactive.svg';
+import activeDashboardIcon from '../../../images/icons/dashboard.svg';
+import inactiveDashboardIcon  from '../../../images/icons/dashboard_inactive.svg';
 
 const NavItemsMetadata = [
+  // Dashboard
+  {
+    text: 'Dashboard',
+    link_to: '/dashboard',
+    activateOnLogin: true,
+    onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
+    icons: {
+      active: activeDashboardIcon,
+      inactive: inactiveDashboardIcon
+    }
+  },
   // Requests
   {
     text: 'Requests',

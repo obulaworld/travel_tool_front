@@ -16,6 +16,19 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
           Array [
             Object {
               "activateOnLogin": true,
+              "icons": Object {
+                "active": "dashboard.svg",
+                "inactive": "dashboard_inactive.svg",
+              },
+              "link_to": "/dashboard",
+              "onlyVisibleTo": Array [
+                "Travel Administrator",
+                "Super Administrator",
+              ],
+              "text": "Dashboard",
+            },
+            Object {
+              "activateOnLogin": true,
               "dropdownItems": Array [
                 Object {
                   "exact": true,
