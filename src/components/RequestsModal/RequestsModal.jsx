@@ -198,7 +198,7 @@ export class RequestDetailsModal extends Component {
   }
 
   render() {
-    const { requestId, requestData, user, user: {picture}, email } = this.props;
+    const { requestId, requestData, user, user: {picture}, email: { result: email} } = this.props;
     const { status, comments, id } = requestData;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
@@ -243,7 +243,7 @@ RequestDetailsModal.propTypes = {
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
   navigatedPage: PropTypes.string,
-  email:PropTypes.string
+  email:PropTypes.object
 };
 
 RequestDetailsModal.defaultProps = {
@@ -254,7 +254,7 @@ RequestDetailsModal.defaultProps = {
   user: {},
   isStatusUpdating: false,
   navigatedPage: '',
-  email: ''
+  email: {}
 };
 
 const mapStateToProps = (state) => {
@@ -262,7 +262,7 @@ const mapStateToProps = (state) => {
     requestData: state.requests.requestData,
     user: state.auth.user.UserInfo,
     isStatusUpdating: state.approvals.updatingStatus,
-    email:state.user.getUserData.result.email,
+    email:state.user.getUserData,
     ...state.modal.modal
   };
 };

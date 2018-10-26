@@ -8,7 +8,8 @@
 }
 
 .container{
-  display: flex;
+  display: -ms-flexbox;
+  display: flex !important;
   height: auto !important;
   width: auto !important;
   color: #4F4F4F;
@@ -16,6 +17,7 @@
   font-size: 18px;
   letter-spacing: -0.23px;
   line-height: 23px;
+  margin-left: -35px;
 }
 
 .checkbox{

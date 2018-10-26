@@ -28,11 +28,13 @@ export function* postUserDataSagaAsync(action) {
       localStorage.setItem('location', location.name);
       action.userData.location = location.name;
     } else {
+      localStorage.setItem('location', process.env.REACT_APP_DEFAULT_LOCATION);
       action.userData.location = process.env.REACT_APP_DEFAULT_LOCATION;
     }
 
     const response = yield call(UserAPI.postNewUsers, action.userData);
     yield put(postUserDataSuccess(response.data));
+    yield put(getUserDataSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(postUserDataFailure(errorMessage));

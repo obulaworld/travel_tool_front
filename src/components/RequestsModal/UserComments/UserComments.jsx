@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { deleteComment } from '../../../redux/actionCreator/commentsActions';
 import CommentItem from './CommentItem';
 import './UserComments.scss';
+import generateDynamicTime from '../../../helper/generateDynamicTime';
 
 
 export class UserComments extends Component {
@@ -41,8 +42,7 @@ export class UserComments extends Component {
   }
 
   formatDate(date) {
-    const createdAt = moment(date).format('MM/DD/YYYY @ h:mm a');
-    return moment(createdAt).fromNow();
+    return generateDynamicTime(date);
   }
 
   renderCancelButton = () => {

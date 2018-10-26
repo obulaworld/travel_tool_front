@@ -153,7 +153,7 @@ export class Requests extends Base {
       >
         <NewRequestForm
           updateUserProfile={updateUserProfile}
-          userData={userData.result}
+          userData={userData && userData.result}
           user={user}
           handleCreateRequest={createNewRequest}
           handleEditRequest={editRequest}
