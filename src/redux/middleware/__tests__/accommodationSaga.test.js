@@ -7,6 +7,8 @@ import {
   watchEditAccommodation
 } from '../accommodationSaga';
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
+import { EDIT_ACCOMMODATION_DATA_SUCCESS, EDIT_ACCOMMODATION_DATA, EDIT_ACCOMMODATION_DATA_FAILURE } from '../../constants/actionTypes';
+import { editAccommodation } from '../../actionCreator/accommodationActions';
 
 const response = {
   data: {

@@ -6,7 +6,8 @@ import {
   watchFetchAllChecklists,
   watchDeleteChecklist,
   watchUpdateChecklist,
-  watchCreateChecklist
+  watchCreateChecklist,
+  watchFetchDeletedChecklistItems
 } from '../travelChecklistSaga';
 import TravelChecklistAPI from '../../../services/travelChecklistAPI';
 import {
@@ -21,7 +22,10 @@ import {
   UPDATE_TRAVEL_CHECKLIST_FAILURE,
   CREATE_TRAVEL_CHECKLIST,
   CREATE_TRAVEL_CHECKLIST_SUCCESS,
-  CREATE_TRAVEL_CHECKLIST_FAILURE
+  CREATE_TRAVEL_CHECKLIST_FAILURE,
+  FETCH_DELETED_CHECKLISTITEMS,
+  FETCH_DELETED_CHECKLISTITEMS_SUCCESS,
+  FETCH_DELETED_CHECKLISTITEMS_FAILURE
 } from '../../constants/actionTypes';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
 
@@ -261,6 +265,49 @@ describe('Travel Checklist Saga test', () => {
           type: UPDATE_TRAVEL_CHECKLIST,
           checklistItemId: '20',
           checklistItemData: {name: 'ItemUpdates'}
+        })
+        .run();
+    });
+  });
+
+  describe('Fetch deleted checklist items', () => {
+    const response = {
+      data: {
+        deletedTravelChecklists: travelChecklistMockData
+      }
+    };
+    const destinationName = 'destinationName';
+    it('fetches deleted checklist items', () => {
+      expectSaga(watchFetchDeletedChecklistItems, TravelChecklistAPI)
+        .provide([[
+          matchers.call.fn(TravelChecklistAPI.getDeletedCheckListItems, destinationName),
+          response
+        ]])
+        .put({
+          type: FETCH_DELETED_CHECKLISTITEMS_SUCCESS,
+          deletedTravelChecklists: response.data.deletedTravelChecklists
+        })
+        .dispatch({
+          type: FETCH_DELETED_CHECKLISTITEMS,
+          destinationName
+        })
+        .run();
+    });
+
+    it('throws an error when fetching deleted checlist items fails', () => {
+      const error = new Error('Server error, try again');
+      error.response = { status: 500 };
+      expectSaga(watchFetchDeletedChecklistItems, TravelChecklistAPI)
+        .provide([
+          [matchers.call.fn(TravelChecklistAPI.getDeletedCheckListItems, destinationName), throwError(error)]
+        ])
+        .put({
+          type: FETCH_DELETED_CHECKLISTITEMS_FAILURE,
+          error
+        })
+        .dispatch({
+          type: FETCH_DELETED_CHECKLISTITEMS,
+          destinationName
         })
         .run();
     });

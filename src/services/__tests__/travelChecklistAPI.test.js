@@ -121,4 +121,20 @@ describe('TravelChecklistAPI', () => {
     expect(response.data)
       .toEqual({ travelChecklists: [] });
   });
+
+  it('should send `GET` request to fetch deleted checklist items', async () => {
+    moxios.stubRequest(`${baseUrl}/checklists/deleted?destinationName=Nairobi`, {
+      status: 200,
+      response: { deletedTravelChecklists: [] }
+    });
+
+    const response = await TravelChecklistAPI.getDeletedCheckListItems('Nairobi');
+    const request = moxios.requests.mostRecent();
+    expect(request.url)
+      .toEqual(`${baseUrl}/checklists/deleted?destinationName=Nairobi`);
+    expect(request.config.method).toEqual('get');
+    expect(response.status).toEqual(200);
+    expect(response.data)
+      .toEqual({ deletedTravelChecklists: [] });
+  });
 });

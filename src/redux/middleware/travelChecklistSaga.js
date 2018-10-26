@@ -7,6 +7,7 @@ import {
   UPDATE_TRAVEL_CHECKLIST,
   CREATE_TRAVEL_CHECKLIST,
   DELETE_TRAVEL_CHECKLIST,
+  FETCH_DELETED_CHECKLISTITEMS,
 } from '../constants/actionTypes';
 import {
   fetchTravelChecklistFailure,
@@ -18,6 +19,8 @@ import {
   deleteChecklistSuccess,
   deleteChecklistFailure,
   fetchTravelChecklist,
+  fetchDeletedChecklistItemsSuccess,
+  fetchDeletedChecklistItemsFailure,
 } from '../actionCreator/travelChecklistActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -101,4 +104,21 @@ export function* deleteChecklistAsync(action) {
 
 export function* watchDeleteChecklist() {
   yield takeLatest(DELETE_TRAVEL_CHECKLIST, deleteChecklistAsync);
+}
+
+export function* fetchDeletedChecklistItemsAsync(action) {
+  try {
+    const response = yield call(TravelChecklistAPI.getDeletedCheckListItems, action.destinationName);
+    yield put(fetchDeletedChecklistItemsSuccess(response.data));
+  } catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(fetchDeletedChecklistItemsFailure(errorMessage));
+    if (errorMessage !== 'There are currently no deleted travel checklist items for your location') {
+      toast.error(errorMessage);
+    }
+  }
+}
+
+export function* watchFetchDeletedChecklistItems() {
+  yield takeLatest(FETCH_DELETED_CHECKLISTITEMS, fetchDeletedChecklistItemsAsync);
 }

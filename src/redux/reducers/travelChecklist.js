@@ -11,6 +11,9 @@ import {
   DELETE_TRAVEL_CHECKLIST,
   DELETE_TRAVEL_CHECKLIST_SUCCESS,
   DELETE_TRAVEL_CHECKLIST_FAILURE,
+  FETCH_DELETED_CHECKLISTITEMS,
+  FETCH_DELETED_CHECKLISTITEMS_SUCCESS,
+  FETCH_DELETED_CHECKLISTITEMS_FAILURE,
 } from '../constants/actionTypes';
 
 export const initialState = {
@@ -19,6 +22,7 @@ export const initialState = {
   creatingChecklist: false,
   fetchingChecklists: false,
   checklistItems: [],
+  deletedCheckListItems: [],
   error: ''
 };
 const traveChecklist = (state = initialState, action) => {
@@ -64,6 +68,25 @@ const traveChecklist = (state = initialState, action) => {
     return {
       ...state,
       deletingChecklist: false,
+      error: action.error
+    };
+  case FETCH_DELETED_CHECKLISTITEMS:
+    return {
+      ...state,
+      isLoading: true,
+    };
+  case FETCH_DELETED_CHECKLISTITEMS_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      deletedCheckListItems: action.deletedTravelChecklists,
+      error: ''
+    };
+  case FETCH_DELETED_CHECKLISTITEMS_FAILURE:
+    return {
+      ...state,
+      isLoading: false,
+      deletedCheckListItems: [],
       error: action.error
     };
   default: return state;

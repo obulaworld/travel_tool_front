@@ -30,6 +30,11 @@ class TravelChecklistAPI {
     });
   }
 
+  static getDeletedCheckListItems(destinationName) {
+    const url = `${baseUrl}/checklists/deleted?destinationName=${destinationName}`;
+    return axios.get(url);
+  }
+
 }
 
 export default TravelChecklistAPI;

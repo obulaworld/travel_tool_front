@@ -5,7 +5,10 @@ import {
   fetchTravelChecklistSuccess,
   createChecklistFailure,
   createTravelChecklist,
-  createChecklistSuccess
+  createChecklistSuccess,
+  fetchDeletedChecklistItems,
+  fetchDeletedChecklistItemsSuccess,
+  fetchDeletedChecklistItemsFailure
 } from '../../actionCreator/travelChecklistActions';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
 import { DELETE_TRAVEL_CHECKLIST_FAILURE, DELETE_TRAVEL_CHECKLIST_SUCCESS, DELETE_TRAVEL_CHECKLIST } from '../../constants/actionTypes';
@@ -154,6 +157,7 @@ describe('Travel checklists reducer', () => {
       expectedState = {
         checklistItems: [],
         creatingChecklist: false,
+        deletedCheckListItems: [],
         deletingChecklist: true,
         error: '',
         fetchingChecklists: false,
@@ -175,6 +179,7 @@ describe('Travel checklists reducer', () => {
       expectedState = {
         checklistItems: [],
         creatingChecklist: false,
+        deletedCheckListItems: [],
         deletingChecklist: false,
         error: '',
         fetchingChecklists: false,
@@ -249,6 +254,48 @@ describe('Travel checklists reducer', () => {
         const newState = travelChecklistReducer(currentState, action);
         expect(newState.creatingChecklist).toEqual(false);
         expect(newState.error).toEqual(error);
+      });
+  });
+
+  describe('View deleted checklist items reducer', () => {
+    it(`should update 'isLoading' state to true while 
+      sending get deleted checklist items server request`, (done) => {
+      const action = fetchDeletedChecklistItems('destinationName');
+      const newState = travelChecklistReducer(initialState, action);
+      expect(newState.isLoading).toBe(true);
+      done();
+    });
+
+    it('should handle FETCH_DELETED_CHECKLISTITEMS_SUCCESS',
+      (done) => {
+        const currentState = {
+          ...initialState,
+          isLoading: true,
+          deletedCheckListItems: []
+        };
+        const response = {
+          deletedTravelChecklists: travelChecklistMockData
+        };
+        const action = fetchDeletedChecklistItemsSuccess(response);
+        const newState = travelChecklistReducer(currentState, action);
+        expect(newState.isLoading).toBe(false);
+        expect(newState.deletedCheckListItems).toMatchObject(travelChecklistMockData);
+        done();
+      });
+
+    it('should handle FETCH_DELETED_CHECKLISTITEMS_FAILURE',
+      (done) => {
+        const currentState = {
+          ...initialState,
+          isLoading: true,
+          deletedCheckListItems: []
+        };
+        const error = 'Error'
+        const action = fetchDeletedChecklistItemsFailure(error);
+        const newState = travelChecklistReducer(currentState, action);
+        expect(newState.isLoading).toBe(false);
+        expect(newState.error).toEqual(error)
+        done();
       });
   });
 });

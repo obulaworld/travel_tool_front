@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `
+<div
+  className="request-details--header"
+>
+  <span
+    className="request-type"
+  >
+    <span
+      className="label"
+    >
+      Request type: 
+    </span>
+    <b>
+      Return Trip
+    </b>
+  </span>
+  <span
+    className="date-submitted"
+  >
+    <span
+      className="label"
+    >
+      Date submitted: 
+    </span>
+    <b>
+      25 Oct 2018
+    </b>
+  </span>
+</div>
+`;
+
 exports[`Render RequestsModal component should match snapshot 1`] = `
 <Fragment>
   <div

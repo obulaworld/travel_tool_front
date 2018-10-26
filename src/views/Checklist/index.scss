@@ -19,6 +19,16 @@
     margin-top: 30px;
   }
 
+  #deleted-item-header {
+    height: 20px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 30px;
+  }
+
   .checklist-item {
     display: flex;
     height: 60px;
@@ -34,6 +44,16 @@
       color: #4F4F4F;
       font-family: "DIN Pro";
       font-size: 15px;
+      line-height: 18px;
+      margin-left: 30px;
+    }
+
+    #deleted-item {
+      height: 18px;
+      width: 283px;	
+      color: #999999;	
+      font-family: "DIN Pro";	
+      font-size: 14px;	
       line-height: 18px;
       margin-left: 30px;
     }
@@ -54,6 +74,21 @@
     };
   
     #delete-btn {
+      height: 18px;
+      color: #3359DB;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      line-height: 18px;
+      border: 0;
+      padding: 0;
+      background: none;
+      outline: none;
+      margin-right: 60px;
+      cursor: pointer;
+    }
+
+    #restore-btn {
+      margin-left: auto;
       height: 18px;
       color: #3359DB;
       font-family: "DIN Pro";

@@ -7,18 +7,6 @@ import ConnectedChecklist, { Checklist, mapStateToProps } from '../index';
 import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 
 travelChecklistMockData[0].destination = 'Nairobi';
-const props = {
-  openModal: sinon.spy(),
-  closeModal: sinon.spy(),
-  createTravelChecklist: jest.fn(),
-  fetchTravelChecklist: jest.fn(),
-  deleteTravelChecklist: jest.fn(),
-  shouldOpen: false,
-  modalType: '',
-  checklistItems: travelChecklistMockData,
-  currentUser: { location: 'Nairobi' },
-  isLoading: false
-};
 
 const initialState = {
   auth: {
@@ -43,45 +31,60 @@ const initialState = {
   getCurrentUserRole: 'tomato',
   travelChecklist: { checklistItems: travelChecklistMockData }
 };
-
-let shallowWrapper, mountWrapper;
-beforeEach(() => {
-  shallowWrapper = shallow( <Checklist {...props} />);
-  mountWrapper = mount(
-    <Provider>
-      <MemoryRouter>
-        <Checklist {...props} />
-      </MemoryRouter>
-    </Provider>
-  );
-});
+let shallowWrapper, mountWrapper, wrapper;
 
 describe('<Checklist> component', () => {
+  const props = {
+    openModal: sinon.spy(),
+    closeModal: sinon.spy(),
+    createTravelChecklist: jest.fn(),
+    fetchTravelChecklist: jest.fn(),
+    deleteTravelChecklist: jest.fn(),
+    fetchDeletedChecklistItems: jest.fn(),
+    shouldOpen: false,
+    modalType: '',
+    checklistItems: travelChecklistMockData,
+    deletedChecklistItems: travelChecklistMockData,
+    currentUser: {
+      location: 'Nairobi'
+    },
+    isLoading: false
+  };
+  beforeEach(() => {
+    shallowWrapper = shallow( <Checklist {...props} />);
+    mountWrapper = mount(
+      <Provider>
+        <MemoryRouter>
+          <Checklist {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+  });
   it('should render the Checklist page without crashing', () => {
     expect(shallowWrapper.length).toBe(1);
   });
   it('renders loading indicator if `isLoading is true`', () => {
     const wrapper = shallowWrapper;
     wrapper.setProps({ isLoading: true});
-    expect(wrapper.find('#loading').length).toBe(1);
+    expect(wrapper.find('#loading').length).toBe(2);
   });
   it('should call the setItemToDelete function', () => {
-    const checklistItemId = 5
+    const checklistItemId = 5;
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     wrapperInstance.setItemToDelete(checklistItemId)();
-    expect(wrapper.state().checklistItemId).toEqual(checklistItemId)
+    expect(wrapper.state().checklistItemId).toEqual(checklistItemId);
   });
 
   it('should call the handleEditItem function', () => {
     const checklistItem = {
       name: 'edit',
       id: 5
-    }
+    };
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     wrapperInstance.handleEditItem(checklistItem)();
-    expect(wrapper.state().itemToEdit).toEqual(checklistItem)
+    expect(wrapper.state().itemToEdit).toEqual(checklistItem);
   });
 
   it('should call the openAddModal function', () => {
@@ -112,9 +115,9 @@ describe('<Checklist> component', () => {
     const event = { preventDefault: () => {} };
     const state = {
       itemToEdit: null,
-    deleteReason: '',
-    checklistItemId: ''
-    }
+      deleteReason: '',
+      checklistItemId: ''
+    };
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     const { deleteTravelChecklist } = props;
@@ -126,10 +129,10 @@ describe('<Checklist> component', () => {
     let event = { target: { value: '' } };
     const wrapper = shallowWrapper;
     event.target.value = 'We need more items';
-    const input = wrapper.find('.delete-checklist-item__input')
-    input.simulate('change', event)
+    const input = wrapper.find('.delete-checklist-item__input');
+    input.simulate('change', event);
     expect(wrapper.instance().state.deleteReason).toBe('We need more items');
-  })
+  });
 
   it('maps state to props and return the expected object', () => {
     const modal = {
@@ -163,5 +166,38 @@ describe('<Checklist> component', () => {
   test('should have default updateTravelChecklist', () => {
     const result = Checklist.defaultProps.updateTravelChecklist();
     expect(result).toEqual(undefined);
+  });
+});
+
+describe('<Checklist> component without created or deleted travel checklist items',() => {
+  const props = {
+    openModal: sinon.spy(),
+    closeModal: sinon.spy(),
+    createTravelChecklist: jest.fn(),
+    fetchTravelChecklist: jest.fn(),
+    deleteTravelChecklist: jest.fn(),
+    fetchDeletedChecklistItems: jest.fn(),
+    shouldOpen: false,
+    modalType: '',
+    checklistItems: [],
+    deletedChecklistItems: [],
+    currentUser: {
+      location: 'Nairobi'
+    },
+    isLoading: false
+  };
+  beforeEach(() => {
+    shallowWrapper = shallow( <Checklist {...props} />);
+    mountWrapper = mount(
+      <Provider>
+        <MemoryRouter>
+          <Checklist {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+  });
+  it('should show two error messages for travel checlist items',() => {
+    const wrapper = shallowWrapper;
+    expect(wrapper.find('.checkInTable__trips--empty').length).toBe(2);
   });
 });

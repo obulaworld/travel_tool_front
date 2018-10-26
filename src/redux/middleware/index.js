@@ -55,7 +55,8 @@ import {
   watchCreateChecklist,
   watchFetchAllChecklists,
   watchUpdateChecklist,
-  watchDeleteChecklist
+  watchDeleteChecklist,
+  watchFetchDeletedChecklistItems,
 } from './travelChecklistSaga';
 
 import {
@@ -99,6 +100,7 @@ function* rootSaga() {
     watchDeleteChecklist(),
     watchFetchCenters(),
     watchUpdateUserCenterAsync(),
+    watchFetchDeletedChecklistItems(),
     watchFetchAvailableRooms(),
     watchUpdateTripRoom(),
     watchDeleteUserRoleAsync()

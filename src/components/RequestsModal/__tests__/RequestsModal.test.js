@@ -15,6 +15,7 @@ import {
 import requestData from '../__mocks__/requestData';
 import testRequestDetailsResp from '../../../services/__mocks__/mockApprovals';
 import rootSaga from '../../../redux/middleware';
+import RequestDetailsHeader from '../RequestDetailsHeader';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 
@@ -247,5 +248,16 @@ describe('Render RequestsModal component', () => {
       );
       expect(wrapper.length).toBe(1);
     });
+  });
+
+  describe('RequestDetailsHeader to match snapshot', () => {
+    const requestData = {
+      tripType: {
+        multi: '',
+        oneWay: ''
+      }
+    };
+    const headerWrapper = shallow(<RequestDetailsHeader requestData={requestData} />);
+    expect(headerWrapper).toMatchSnapshot();
   });
 });
