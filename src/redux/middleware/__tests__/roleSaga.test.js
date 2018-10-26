@@ -1,27 +1,38 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
+import toast from 'toastr';
 import RoleAPI from '../../../services/RoleAPI';
-import { watchFetchRoleUsers } from '../roleSaga';
+import { watchFetchRoleUsers, watchDeleteUserRoleAsync } from '../roleSaga';
+import {
+  DELETE_USER_ROLE,
+  DELETE_USER_ROLE_FAILURE,
+  DELETE_USER_ROLE_SUCCESS,
+  HIDE_DELETE_ROLE_MODAL
+} from '../../constants/actionTypes';
 import { fetchRoleUsersResponse } from '../../__mocks__/mocks';
 
-const response = {
-  data: {
-    result: {
-      ...fetchRoleUsersResponse
-    }
-  }
-};
-const errorResponse = {
-  response: {
-    data: {
-      error: 'An error occurred'
-    }
-  }
-};
+toast.success = jest.fn();
+toast.error = jest.fn();
 
 describe('Role Saga', () => {
+
   describe('Fetch role users saga', () => {
+    const response = {
+      data: {
+        result: {
+          ...fetchRoleUsersResponse
+        },
+      }
+    };
+    const errorResponse = {
+      response: {
+        data: {
+          error: 'An error occurred'
+        }
+      }
+    };
+
     it('fetches users with a particular role', () => {
       return expectSaga(watchFetchRoleUsers, RoleAPI)
         .provide([
@@ -54,6 +65,67 @@ describe('Role Saga', () => {
         })
         .run();
     });
+  });
 
+  describe('Delete user role saga', () => {
+    const userId = 1;
+    const roleId = 2;
+
+    it('deletes a travel checklist item successfully', () => {
+      const response = {
+        data: {
+          message: 'Delete Successful'
+        }
+      };
+
+      return expectSaga(watchDeleteUserRoleAsync)
+        .provide([[
+          call(RoleAPI.deleteUserRole, userId, roleId ), response
+        ]])
+        .put({
+          type: DELETE_USER_ROLE_SUCCESS,
+          message: response.data.message,
+          userId
+        })
+        .put({
+          type: HIDE_DELETE_ROLE_MODAL
+        })
+        .dispatch({
+          type: DELETE_USER_ROLE,
+          userId,
+          roleId
+        })
+        .run();
+    });
+
+    it('should call toast.success once', (done) => {
+      expect(toast.success).toHaveBeenCalledTimes(1);
+      done();
+    });
+
+    it('handles failed user role delete', () => {
+      const error = new Error('Server error, try again');
+      error.response = { status: 500 };
+
+      return expectSaga(watchDeleteUserRoleAsync)
+        .provide([[
+          call(RoleAPI.deleteUserRole, userId, roleId ), throwError(error)
+        ]])
+        .put({
+          type: DELETE_USER_ROLE_FAILURE,
+          error: error.message,
+        })
+        .dispatch({
+          type: DELETE_USER_ROLE,
+          userId,
+          roleId
+        })
+        .run();
+    });
+
+    it('should call toast.error once', (done) => {
+      expect(toast.error).toHaveBeenCalledTimes(1);
+      done();
+    });
   });
 });

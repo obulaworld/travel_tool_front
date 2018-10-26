@@ -53,4 +53,31 @@ const roles = {
   ]
 };
 
+export const travelTeamMembersMockData = [
+  {
+    email: 'batman.robin@andela.com',
+    fullName: 'Batman Robin',
+    userId: '-LetUsWait',
+    id: 1,
+    centers: [
+      {
+        id: '12345',
+        location: 'Travel Team Member'
+      }
+    ]
+  },
+  {
+    email: 'spider.man@andela.com',
+    fullName: 'Spider Man',
+    userId: '-LetUsGo',
+    id: 2,
+    centers: [
+      {
+        id: '12345',
+        location: 'Travel Team Member'
+      }
+    ]
+  }
+];
+
 export default roles;

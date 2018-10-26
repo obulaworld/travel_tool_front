@@ -1,10 +1,14 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { FETCH_ROLE_USERS } from '../constants/actionTypes';
+import toast from 'toastr';
+import { FETCH_ROLE_USERS, DELETE_USER_ROLE } from '../constants/actionTypes';
 import RoleAPI from '../../services/RoleAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
   fetchRoleUsersSuccess,
-  fetchRoleUsersFailure
+  fetchRoleUsersFailure,
+  deleteUserRoleFailure,
+  deleteUserRoleSuccess,
+  hideDeleteRoleModal
 } from '../actionCreator/roleActions';
 
 export function* watchFetchRoleUsers() {
@@ -18,5 +22,23 @@ export function* fetchRoleUsersSaga(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchRoleUsersFailure(errorMessage));
+  }
+}
+
+export function* watchDeleteUserRoleAsync() {
+  yield takeLatest(DELETE_USER_ROLE, deleteUserRoleSaga);
+}
+
+export function* deleteUserRoleSaga(action) {
+  try {
+    const { userId, roleId } = action;
+    response = yield call(RoleAPI.deleteUserRole, userId, roleId);
+    yield put(deleteUserRoleSuccess(response.data.message, userId, roleId));
+    yield put(hideDeleteRoleModal());
+    toast.success('User removed successfully!');
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(deleteUserRoleFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }

@@ -14,7 +14,7 @@ import {
   watchGetRoleDataSagaAsync,
   watchPutRoleDataSagaAsync
 } from './roleDataSaga';
-import { watchFetchRoleUsers } from './roleSaga';
+import { watchFetchRoleUsers, watchDeleteUserRoleAsync } from './roleSaga';
 import {
   watchCreateComment,
   watchEditComment,
@@ -39,6 +39,7 @@ import {
   watchFetchTimelneData,
   watchEditAccommodation,
 } from './accommodationSaga';
+
 import { watchFetchOccupations } from './occupationSaga';
 
 import { watchFetchAvailableRooms } from './availableRoomsSaga';
@@ -99,8 +100,8 @@ function* rootSaga() {
     watchFetchCenters(),
     watchUpdateUserCenterAsync(),
     watchFetchAvailableRooms(),
-    watchUpdateTripRoom()
-
+    watchUpdateTripRoom(),
+    watchDeleteUserRoleAsync()
   ]);
 }
 

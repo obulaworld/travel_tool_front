@@ -39,7 +39,7 @@ describe('Travel checklists reducer', () => {
         done();
       });
 
-    it('should add travelChecklist to state on successful fetching',
+    it('should add error to state on unsuccessful fetching',
       (done) => {
         const currentState = {
           ...initialState,
@@ -74,7 +74,7 @@ describe('Travel checklists reducer', () => {
 
     let action, newState, expectedState;
 
-  
+
     it('should handle UPDATE_TRAVEL_CHECKLIST', () => {
       action = {
         type: 'UPDATE_TRAVEL_CHECKLIST',

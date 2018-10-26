@@ -17,7 +17,7 @@ class Modal extends PureComponent {
     showOverlay: PropTypes.bool,
     modalBar: PropTypes.object,
     customModalStyles: PropTypes.string,
-    closeDeleteCommentModal: PropTypes.func,
+    closeDeleteModal: PropTypes.func,
     params: PropTypes.string,
     customOverlayStyle: PropTypes.string,
     children: PropTypes.oneOfType([
@@ -28,7 +28,7 @@ class Modal extends PureComponent {
 
 
   renderModalHeader = () => {
-    const { title, closeModal, modalBar, params, closeDeleteCommentModal, requestId } = this.props;
+    const { title, closeModal, modalBar, params, closeDeleteModal, requestId } = this.props;
     let url;
     if (location.pathname.includes('/requests')) {
       url = '/requests/';
@@ -49,9 +49,9 @@ class Modal extends PureComponent {
             {modalBar}
           </div>
         </div>
-        {closeDeleteCommentModal ?
+        {closeDeleteModal ?
           (
-            <button type="button" onClick={closeDeleteCommentModal} className="modal-close">
+            <button type="button" onClick={closeDeleteModal} className="modal-close">
               <img alt="close" src={closeButton} />
             </button>
           )
@@ -60,12 +60,12 @@ class Modal extends PureComponent {
             (url.includes('/requests')) ?
               (
                 <Link to={url}>
-                  <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
+                  <button type="button" onClick={closeDeleteModal ? closeDeleteModal : closeModal} className="modal-close">
                     <img alt="close" src={closeButton} />
                   </button>
                 </Link>
               ) : (
-                <button type="button" onClick={closeDeleteCommentModal ? closeDeleteCommentModal : closeModal} className="modal-close">
+                <button type="button" onClick={closeDeleteModal ? closeDeleteModal : closeModal} className="modal-close">
                   <img alt="close" src={closeButton} />
                 </button>
               )
@@ -129,7 +129,7 @@ Modal.defaultProps = {
   params: '',
   modalBar: <div />,
   closeModal: null,
-  closeDeleteCommentModal: null,
+  closeDeleteModal: null,
 };
 
 export default Modal;

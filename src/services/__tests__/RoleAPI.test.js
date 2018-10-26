@@ -51,6 +51,23 @@ describe('UserAPI', () => {
     });
   });
 
+  it(`should send 'DELETE' request to
+  delete user role for specified userId`, async () => {
+    moxios.stubRequest(`${baseUrl}/user/roles/2/339458`, {
+      status: 200,
+      response: { travelTeamMembers: [] }
+    });
+
+    const response = await RoleAPI.deleteUserRole(2, 339458);
+    const request = moxios.requests.mostRecent();
+    expect(request.url)
+      .toEqual(`${baseUrl}/user/roles/2/339458`);
+    expect(request.config.method).toEqual('delete');
+    expect(response.status).toEqual(200);
+    expect(response.data)
+      .toEqual({ travelTeamMembers: [] });
+  });
+
   describe('RequestAPI', () => {
     beforeEach(() => {
       moxios.install();

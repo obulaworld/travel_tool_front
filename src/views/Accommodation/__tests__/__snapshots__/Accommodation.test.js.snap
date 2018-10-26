@@ -10,7 +10,7 @@ exports[`<Accommodation /> renders correctly 1`] = `
     />
   </div>
   <Modal
-    closeDeleteCommentModal={null}
+    closeDeleteModal={null}
     closeModal={[Function]}
     customModalStyles=""
     customOverlayStyle=""

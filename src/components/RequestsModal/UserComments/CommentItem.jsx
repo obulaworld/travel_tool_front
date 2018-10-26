@@ -37,7 +37,7 @@ export default class CommentItem extends Component {
           customModalStyles="delete-comment-modal"
           customOverlayStyle="delete-modal-overlay"
           visibility={deleteModalState}
-          closeDeleteCommentModal={this.closeDeleteCommentModal}
+          closeDeleteModal={this.closeDeleteCommentModal}
           title="Delete Comment ?"
           showOverlay={false}
         >

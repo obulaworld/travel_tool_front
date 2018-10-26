@@ -8,7 +8,10 @@ import { NewUserRoleForm } from '../../components/Forms';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import {
   fetchRoleUsers,
-  putRoleData
+  putRoleData,
+  deleteUserRole,
+  hideDeleteRoleModal,
+  showDeleteRoleModal
 } from '../../redux/actionCreator/roleActions';
 import { fetchCenters, updateUserCenter } from '../../redux/actionCreator/centersActions';
 import './RoleDetails.scss';
@@ -21,21 +24,34 @@ export class RoleDetails extends Component {
   }
 
   componentDidMount() {
-    const { fetchRoleUsers, match: { params } } = this.props;
+    const {
+      fetchRoleUsers,
+      match: { params },
+      hideDeleteRoleModal
+    } = this.props;
+
+    hideDeleteRoleModal();
     fetchRoleUsers(params.roleId);
   }
 
+  handleDeleteUserRole = (userId) => {
+    const travelTeamMembersRoleId = 339458;
+    const { deleteUserRole } = this.props;
+    deleteUserRole(userId, travelTeamMembersRoleId);
+  }
+
   handleEditCenter = (user) => {
-    let { openModal } = this.props;
+    let { openModal, hideDeleteRoleModal } = this.props;
+    hideDeleteRoleModal();
     openModal(true, 'new model');
     this.setState({
       headTitle: 'Change Center',
-      userDetail: user 
+      userDetail: user
     });
-  } 
+  }
 
   renderUserRolePanelHeader() {
-    const { openModal, roleName } = this.props;
+    const { openModal, roleName, hideDeleteRoleModal } = this.props;
     return (
       <div className="rp-role__header">
         <div className="role-panel-header">
@@ -44,6 +60,7 @@ export class RoleDetails extends Component {
               title={`${roleName}s`}
               actionBtn="Add User"
               openModal={openModal}
+              hideDeleteRoleModal={hideDeleteRoleModal}
             />
           ) }
         </div>
@@ -52,7 +69,12 @@ export class RoleDetails extends Component {
   }
 
   renderRoles() {
-    const { error, roleName,  isFetching, travelTeamMembers } = this.props;
+    const {
+      error, roleName,
+      isFetching, travelTeamMembers,
+      deleteModalState, deleteModalRoleId,
+      hideDeleteRoleModal, showDeleteRoleModal
+    } = this.props;
     return (
       <div className="rp-table">
         <WithLoadingRoleDetailsTable
@@ -61,6 +83,11 @@ export class RoleDetails extends Component {
           error={error}
           roleName={roleName}
           handleEditCenter={this.handleEditCenter}
+          handleDeleteUserRole={this.handleDeleteUserRole}
+          deleteModalState={deleteModalState}
+          deleteModalRoleId={deleteModalRoleId}
+          hideDeleteRoleModal={hideDeleteRoleModal}
+          showDeleteRoleModal={showDeleteRoleModal}
         />
       </div>
     );
@@ -146,6 +173,11 @@ RoleDetails.propTypes = {
   putRoleData: PropTypes.func.isRequired,
   updateUserCenter: PropTypes.func.isRequired,
   isLoaded: PropTypes.bool,
+  deleteModalRoleId: PropTypes.number.isRequired,
+  deleteModalState: PropTypes.string.isRequired,
+  showDeleteRoleModal: PropTypes.func.isRequired,
+  hideDeleteRoleModal: PropTypes.func.isRequired,
+  deleteUserRole: PropTypes.func.isRequired
 };
 
 RoleDetails.defaultProps = {
@@ -163,7 +195,10 @@ const actionCreators = {
   openModal,
   closeModal,
   fetchCenters,
-  updateUserCenter
+  updateUserCenter,
+  deleteUserRole,
+  hideDeleteRoleModal,
+  showDeleteRoleModal
 };
 
 export default connect(

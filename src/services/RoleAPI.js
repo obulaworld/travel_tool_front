@@ -16,5 +16,9 @@ class RoleAPI {
   static getRoleUsers(roleId) {
     return axios.get(`${baseUrl}/user/roles/${roleId}`);
   }
+
+  static deleteUserRole(userId, roleId) {
+    return axios.delete(`${baseUrl}/user/roles/${userId}/${roleId}`);
+  }
 }
 export default RoleAPI;

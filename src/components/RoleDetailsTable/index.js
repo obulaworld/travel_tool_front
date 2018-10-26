@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../modal/Modal';
 import withLoading from '../Hoc/withLoading';
 import './RoleDetailsTable.scss';
 
@@ -7,8 +8,43 @@ const testColor = {
   color: 'blue',
 };
 export class RoleDetailsTable extends PureComponent {
+  showDeleteModal = (roleId) => {
+    const { showDeleteRoleModal } = this.props;
+    showDeleteRoleModal(roleId);
+  }
+
+  closeDeleteModal = () => {
+    const { hideDeleteRoleModal } = this.props;
+    hideDeleteRoleModal();
+  }
+
+  renderDeleteModal = (user) => {
+    const { handleDeleteUserRole, deleteModalState } = this.props;
+    return (
+      <Modal
+        customModalStyles="delete-role-modal"
+        customOverlayStyle="delete-modal-overlay position-below"
+        visibility={deleteModalState}
+        closeDeleteModal={this.closeDeleteModal}
+        title="Remove Member ?"
+        showOverlay={false}
+      >
+        <p className="delete-comment-modal__text">
+          This action cannot be undone!
+        </p>
+        <button
+          className="delete-comment-modal__btn"
+          type="button"
+          onClick={() => handleDeleteUserRole(user.id)}
+        >
+          Delete
+        </button>
+      </Modal>
+    );
+  }
+
   renderRoleUser(roleUser) {
-    const { handleEditCenter } = this.props;
+    const { handleEditCenter, deleteModalRoleId, deleteModalState } = this.props;
     return (
       <tr key={roleUser.id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric role-user__name table__data freeze-role-table">
@@ -21,8 +57,21 @@ export class RoleDetailsTable extends PureComponent {
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
           style={testColor}
         >
-          <span onClick={()=>  handleEditCenter(roleUser)} id="editButton" role="presentation" onKeyDown={this.key}>Edit</span>
-           &ensp; &ensp;  &ensp;  &ensp; &ensp;  Delete
+          <span onClick={() => handleEditCenter(roleUser)} id="editButton" role="presentation" onKeyDown={this.key}>Edit</span>
+          &ensp; &ensp;  &ensp;  &ensp; &ensp;
+          <span
+            onClick={() => this.showDeleteModal(roleUser.id)}
+            id="deleteButton"
+            role="presentation"
+            onKeyDown={this.key}
+          >
+            Delete
+            {
+              deleteModalRoleId === roleUser.id
+              && deleteModalState === 'visible'
+              && this.renderDeleteModal(roleUser)
+            }
+          </span>
         </td>
       </tr>
     );
@@ -83,15 +132,25 @@ export class RoleDetailsTable extends PureComponent {
 RoleDetailsTable.propTypes = {
   travelTeamMembers: PropTypes.array,
   handleEditCenter: PropTypes.func,
+  handleDeleteUserRole: PropTypes.func,
   error: PropTypes.string,
   roleName: PropTypes.string,
+  deleteModalState: PropTypes.string,
+  deleteModalRoleId: PropTypes.number,
+  hideDeleteRoleModal: PropTypes.func,
+  showDeleteRoleModal: PropTypes.func,
 };
 
 RoleDetailsTable.defaultProps = {
   travelTeamMembers: [],
   error: '',
   roleName: '',
-  handleEditCenter: ()=> {}
+  handleEditCenter: ()=> {},
+  deleteModalState: 'invisible',
+  deleteModalRoleId: 0,
+  hideDeleteRoleModal: ()=> {},
+  showDeleteRoleModal: ()=> {},
+  handleDeleteUserRole: ()=> {},
 };
 
 export default withLoading(RoleDetailsTable);

@@ -41,6 +41,11 @@ const props = {
   fetchCenters: sinon.spy(),
   centers: [{}],
   putRoleData: sinon.spy(),
+  deleteModalRoleId: 1,
+  deleteModalState: 'invisible',
+  hideDeleteRoleModal: jest.fn(),
+  showDeleteRoleModal: jest.fn(),
+  deleteUserRole: jest.fn()
 };
 
 
@@ -99,6 +104,16 @@ describe('<ROleDetails />', () => {
     expect(shallowWrapper.instance().handleEditCenter.calledOnce).toEqual(true);
   });
 
+  it('should call `handleDeleteUserRole`', (done) => {
+    const handleDeleteUserRoleSpy = jest
+      .spyOn(wrapper.instance(), 'handleDeleteUserRole');
+    wrapper.instance().handleDeleteUserRole(1);
+    expect(handleDeleteUserRoleSpy).toHaveBeenCalled();
+    expect(props.deleteUserRole).toHaveBeenCalledTimes(1);
+
+    done();
+  });
+
   it('should render the RolesPage without crashing', () => {
     const wrapper = mount(
       <Provider store={store}>
@@ -107,8 +122,11 @@ describe('<ROleDetails />', () => {
         </MemoryRouter>
       </Provider>
     );
+    wrapper.setState({
+      headTitle: 'Change Center',
+      userDetail: user,
+    });
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
   });
-
 });

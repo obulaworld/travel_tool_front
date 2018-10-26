@@ -1,7 +1,14 @@
-// import * as actionTypes from '../../constants';
 import roleReducer from '../role';
 import * as actionTypes from '../../constants/actionTypes';
+import {
+  deleteUserRole,
+  deleteUserRoleFailure,
+  deleteUserRoleSuccess,
+  showDeleteRoleModal,
+  hideDeleteRoleModal
+} from '../../actionCreator/roleActions';
 import { fetchRoleUsersResponse } from '../../__mocks__/mocks';
+import { travelTeamMembersMockData } from '../../__mocks__/role';
 
 const res = {
   message: 'data',
@@ -38,7 +45,12 @@ describe('Role Reducer', () => {
   const initialState = {
     putRoleData: [],
     getRole: {},
-    roleErrors: ''
+    isLoading: false,
+    roleErrors: '',
+    message: '',
+    deleteModalState: 'invisible',
+    deleteModalRoleId: '',
+    travelTeamMembers: []
   };
 
   it('should return proper initial state', done => {
@@ -107,6 +119,62 @@ describe('Role Reducer', () => {
     expect(newState.roleErrors).toEqual(
       'Possible network error, please reload the page'
     );
+    done();
+  });
+
+  it('should delete travel team member on success', (done) => {
+    const action = deleteUserRole(1, 2);
+    const newState = roleReducer(initialState, action);
+    expect(newState.isLoading).toBe(true);
+    done();
+  });
+
+  it('should delete travel team member on success', (done) => {
+    const currentState = {
+      ...initialState,
+      isLoading: true,
+      travelTeamMembers: travelTeamMembersMockData
+    };
+    const action = deleteUserRoleSuccess('Delete Successful', 2);
+    const newState = roleReducer(currentState, action);
+    expect(newState.isLoading).toBe(false);
+    expect(newState.travelTeamMembers.length).toEqual(1);
+    expect(newState.message).toEqual('Delete Successful');
+    done();
+  });
+
+  it('should delete travel team member on failure', (done) => {
+    const currentState = {
+      ...initialState,
+      isLoading: true,
+      travelTeamMembers: travelTeamMembersMockData
+    };
+    const action = deleteUserRoleFailure('Server Error');
+    const newState = roleReducer(currentState, action);
+    expect(newState.isLoading).toBe(false);
+    expect(newState.travelTeamMembers.length).toEqual(2);
+    expect(newState.roleErrors).toEqual('Server Error');
+    done();
+  });
+
+  it('should should update `deleteModalState` to `visible`', (done) => {
+    const action = showDeleteRoleModal(1);
+    const newState = roleReducer(initialState, action);
+    expect(newState.deleteModalState).toBe('visible');
+    expect(newState.deleteModalRoleId).toEqual(1);
+    done();
+  });
+
+  it('should should update `deleteModalState` to `invisible`', (done) => {
+    const currentState = {
+      ...initialState,
+      deleteModalState: 'visible',
+      deleteModalRoleId: 1
+    };
+    const action = hideDeleteRoleModal();
+    const newState = roleReducer(currentState, action);
+    expect(newState.deleteModalRoleId).toBe('');
+    expect(newState.deleteModalState).toEqual('invisible');
     done();
   });
 

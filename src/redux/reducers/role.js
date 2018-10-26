@@ -7,11 +7,25 @@ import {
   PUT_ROLE_DATA_FAILURE,
   FETCH_ROLE_USERS,
   FETCH_ROLE_USERS_SUCCESS,
-  FETCH_ROLE_USERS_FAILURE
+  FETCH_ROLE_USERS_FAILURE,
+  DELETE_USER_ROLE,
+  DELETE_USER_ROLE_SUCCESS,
+  DELETE_USER_ROLE_FAILURE,
+  HIDE_DELETE_ROLE_MODAL,
+  SHOW_DELETE_ROLE_MODAL
 } from '../constants/actionTypes';
 import Utils from '../../helper/Utils';
 
-const initialState = { putRoleData: [], getRole: {}, roleErrors: '' };
+const initialState = {
+  putRoleData: [],
+  isLoading: false,
+  getRole: {},
+  roleErrors: '',
+  deleteModalState: 'invisible',
+  deleteModalRoleId: '',
+  message: '',
+  travelTeamMembers: []
+};
 let roleName;
 const role = (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +49,28 @@ const role = (state = initialState, action) => {
     return { ...state, isFetching: false, roleName: action.roleName , error: ''};
   case FETCH_ROLE_USERS_FAILURE:
     return { ...state, isFetching: false, error: action.error };
+  case DELETE_USER_ROLE:
+    return { ...state, isLoading: true };
+  case DELETE_USER_ROLE_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      travelTeamMembers: [...state.travelTeamMembers]
+        .filter(member => member.id !== action.userId),
+      message: action.message,
+      roleErrors: ''
+    };
+  case DELETE_USER_ROLE_FAILURE:
+    return {
+      ...state,
+      isLoading: false,
+      roleErrors: action.error,
+      message: '',
+    };
+  case SHOW_DELETE_ROLE_MODAL:
+    return { ...state, deleteModalState: 'visible', deleteModalRoleId: action.roleId};
+  case HIDE_DELETE_ROLE_MODAL:
+    return { ...state, deleteModalState: 'invisible', deleteModalRoleId: ''};
   default: return state;
   }
 };

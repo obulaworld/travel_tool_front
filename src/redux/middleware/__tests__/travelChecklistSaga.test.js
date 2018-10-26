@@ -34,7 +34,7 @@ describe('Travel Checklist Saga test', () => {
         travelChecklists: travelChecklistMockData
       }
     };
-  
+
     it('deletes a travel checklist item successfully', () => {
       return expectSaga(watchDeleteChecklist)
         .provide([[
@@ -57,7 +57,7 @@ describe('Travel Checklist Saga test', () => {
     it('handles failed travel checklist item delete', () => {
       const error = new Error('Server error, try again');
       error.response = { status: 500 };
-  
+
       return expectSaga(watchDeleteChecklist)
         .provide([[
           call(TravelChecklistAPI.deleteChecklistItem, {
@@ -177,6 +177,7 @@ describe('Travel Checklist Saga test', () => {
         })
         .run();
     });
+
     it('handles failed travel checklist creation', () => {
       const error = {
         response: {

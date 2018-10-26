@@ -4,6 +4,7 @@ import { RoleDetailsTable } from '..';
 
 const props = {
   travelTeamMembers: [{
+    id: 1,
     fullName: 'A user',
     centers: [
       {
@@ -21,7 +22,12 @@ const props = {
         location: 'Nairobi, Kenya'
       }
     ]
-  }
+  },
+  deleteModalState: 'visible',
+  deleteModalRoleId: 1,
+  hideDeleteRoleModal: jest.fn(),
+  showDeleteRoleModal: jest.fn(),
+  handleDeleteUserRole: jest.fn()
 };
 let wrapper;
 describe('<RoleDetailsTable />', () => {
@@ -40,6 +46,24 @@ describe('<RoleDetailsTable />', () => {
     expect(wrapper.find('.pl-sm-120')
       .text()).toEqual('Nairobi, Kenya');
   });
+
+  it('renders delete confirmation modal when delete button is clicked', () => {
+    wrapper.find('#deleteButton').simulate('click');
+    wrapper.find('.delete-comment-modal__btn').simulate('click');
+    expect(wrapper.find('.delete-comment-modal__text').text())
+      .toEqual('This action cannot be undone!');
+    expect(props.handleDeleteUserRole).toHaveBeenCalledTimes(1);
+    expect(wrapper.find('.delete-comment-modal__btn').length).toEqual(1);
+  });
+
+  it('should call `closeDeleteModal`', () => {
+    const closeDeleteModalSpy = jest
+      .spyOn(wrapper.instance(), 'closeDeleteModal');
+    wrapper.instance().closeDeleteModal();
+    expect(closeDeleteModalSpy).toHaveBeenCalled();
+    expect(props.hideDeleteRoleModal).toHaveBeenCalledTimes(1);
+  });
+
   it('renders text when there are no users', () => {
     wrapper = shallow (<RoleDetailsTable
       roleUsers={[]}
@@ -57,5 +81,4 @@ describe('<RoleDetailsTable />', () => {
     const {handleEditCenter } = props;
     wrapper.find('#editButton').simulate('click');
   });
-    
 });

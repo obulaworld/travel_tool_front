@@ -3,7 +3,7 @@
 exports[`<ROleDetails /> renders correctly 1`] = `
 <Fragment>
   <Modal
-    closeDeleteCommentModal={null}
+    closeDeleteModal={null}
     closeModal={[Function]}
     customModalStyles=""
     customOverlayStyle=""
@@ -54,10 +54,15 @@ exports[`<ROleDetails /> renders correctly 1`] = `
     className="rp-table"
   >
     <WithLoading
+      deleteModalRoleId={1}
+      deleteModalState="invisible"
       error=""
+      handleDeleteUserRole={[Function]}
       handleEditCenter={[Function]}
+      hideDeleteRoleModal={[Function]}
       isLoading={false}
       roleName="Travel team member"
+      showDeleteRoleModal={[Function]}
       travelTeamMembers={
         Array [
           Object {

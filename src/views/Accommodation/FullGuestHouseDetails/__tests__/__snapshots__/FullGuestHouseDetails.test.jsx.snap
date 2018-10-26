@@ -5,7 +5,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
   className="guesthouse-details-wrapper"
 >
   <Modal
-    closeDeleteCommentModal={null}
+    closeDeleteModal={null}
     closeModal={null}
     customModalStyles=""
     customOverlayStyle=""

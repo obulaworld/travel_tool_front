@@ -32,6 +32,7 @@ exports[`<RoleDetailsTable /> renders correctly 1`] = `
       >
         <tr
           className="table__rows"
+          key="1"
         >
           <td
             className="mdl-data-table__cell--non-numeric role-user__name table__data freeze-role-table"
@@ -58,7 +59,42 @@ exports[`<RoleDetailsTable /> renders correctly 1`] = `
             >
               Edit
             </span>
-                         Delete
+                       
+            <span
+              id="deleteButton"
+              onClick={[Function]}
+              role="presentation"
+            >
+              Delete
+              <Modal
+                closeDeleteModal={[Function]}
+                closeModal={null}
+                customModalStyles="delete-role-modal"
+                customOverlayStyle="delete-modal-overlay position-below"
+                modalBar={<div />}
+                modalContentId=""
+                modalId=""
+                params=""
+                requestId=""
+                showOverlay={false}
+                title="Remove Member ?"
+                visibility="visible"
+                width=""
+              >
+                <p
+                  className="delete-comment-modal__text"
+                >
+                  This action cannot be undone!
+                </p>
+                <button
+                  className="delete-comment-modal__btn"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </Modal>
+            </span>
           </td>
         </tr>
       </tbody>

@@ -39,7 +39,7 @@ exports[`CommentItem component should match snapshot 1`] = `
       >
         Delete
         <Modal
-          closeDeleteCommentModal={[Function]}
+          closeDeleteModal={[Function]}
           closeModal={null}
           customModalStyles="delete-comment-modal"
           customOverlayStyle="delete-modal-overlay"
@@ -124,7 +124,7 @@ exports[`CommentItem component should match snapshot 2`] = `
       >
         Delete
         <Modal
-          closeDeleteCommentModal={[Function]}
+          closeDeleteModal={[Function]}
           closeModal={null}
           customModalStyles="delete-comment-modal"
           customOverlayStyle="delete-modal-overlay"
