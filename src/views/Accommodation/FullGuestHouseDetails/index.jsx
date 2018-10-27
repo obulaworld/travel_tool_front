@@ -59,7 +59,7 @@ export class GuestHouseDetails extends PureComponent {
             className="edit-btn"
             onClick={this.handleOnEdit}
           >
-              Edit Guest House
+            Edit Guest House
           </button>
         </div>
       </div>
@@ -96,7 +96,7 @@ export class GuestHouseDetails extends PureComponent {
       startDate,
       endDate
     };
-    updateTripRoom({tripId, data});
+    updateTripRoom({ tripId, data });
   }
 
   renderEditAccommodationForm() {
@@ -144,14 +144,16 @@ export class GuestHouseDetails extends PureComponent {
           {this.renderGuestHouseDetailsNameBar()}
           <div className="guesthouse-details-wrapper--key-details">
             <GuestHouseDetailCard
-              label="Available spaces"
-              value={this.getAvailableBedsCount(guestHouse.rooms)}
+              label="Room Capacity "
+              value={this.getBedCount(guestHouse.rooms)}
             />
             <GuestHouseDetailCard
               label="No. of rooms"
               value={guestHouse.rooms.length}
             />
-            <GuestHouseDetailCard label="Vacant spaces" value={4} />
+            <GuestHouseDetailCard
+              label="Vacant spaces"
+              value={this.getAvailableBedsCount(guestHouse.rooms)} />
             <GuestHouseDetailCard
               label="Unavailable"
               value={this.getUnavailableBedCount(guestHouse.rooms)}
@@ -197,7 +199,7 @@ GuestHouseDetails.propTypes = {
 };
 
 GuestHouseDetails.defaultProps = {
-  initFetchTimelineData: () => {},
+  initFetchTimelineData: () => { },
   guestHouse: {},
 };
 

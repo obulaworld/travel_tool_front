@@ -90,7 +90,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       className="guesthouse-details-wrapper--key-details"
     >
       <GuestHouseDetailCard
-        label="Available spaces"
+        label="Room Capacity "
         value={NaN}
       />
       <GuestHouseDetailCard
@@ -99,7 +99,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       />
       <GuestHouseDetailCard
         label="Vacant spaces"
-        value={4}
+        value={NaN}
       />
       <GuestHouseDetailCard
         label="Unavailable"
