@@ -5,11 +5,7 @@ import Modal from '../../components/modal/Modal';
 import ChecklistPanelHeader from '../../components/ChecklistPanelHeader';
 import { NewChecklistForm, } from '../../components/Forms';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
-import {
-  createTravelChecklist,
-  fetchTravelChecklist,
-  updateTravelChecklist,
-  deleteTravelChecklist,
+import { createTravelChecklist, fetchTravelChecklist, updateTravelChecklist, deleteTravelChecklist,
   fetchDeletedChecklistItems
 } from '../../redux/actionCreator/travelChecklistActions';
 import './index.scss';
@@ -44,6 +40,12 @@ export class Checklist extends Component {
     let { closeModal } = this.props;
     closeModal(true, 'edit cheklistItem');
   }
+
+  closeDeleteModal = () => {
+    let { closeModal } = this.props;
+    closeModal();
+    this.setState({ deleteReason: null });
+  }
   handleEditItem = (checklistItem) => () => {
     this.setState(() => ({itemToEdit: checklistItem}));
     this.openEditModal();
@@ -56,6 +58,7 @@ export class Checklist extends Component {
     const { deleteTravelChecklist } = this.props;
     const { checklistItemId } = this.state;
     deleteTravelChecklist(checklistItemId, this.state);
+    this.setState({ deleteReason: null });
   }
 
   renderChecklistPanelHeader() {
@@ -70,7 +73,7 @@ export class Checklist extends Component {
     const { closeModal, shouldOpen, modalType, createTravelChecklist, updateTravelChecklist, currentUser, fetchTravelChecklist } = this.props;
     const { itemToEdit } = this.state;
     return (
-      <Modal 
+      <Modal
         customModalStyles="add-checklist-item" closeModal={closeModal} width="480px"
         visibility={
           shouldOpen && (modalType === 'edit cheklistItem' || modalType === 'add cheklistItem') ? 'visible' : 'invisible'
@@ -87,11 +90,12 @@ export class Checklist extends Component {
     );
   }
   renderDeleteChecklistForm() {
-    const { closeModal, shouldOpen, modalType } = this.props;
+    const { shouldOpen, modalType } = this.props;
     return (
       <Modal
-        closeModal={closeModal}
-        customModalStyles="delete-checklist-item" visibility={
+        closeModal={this.closeDeleteModal}
+        customModalStyles="delete-checklist-item"
+        visibility={
           shouldOpen && modalType.match('delete checklist item') ? 'visible' : 'invisible'
         }
         title="Delete Travel Checklist Item"
@@ -104,7 +108,9 @@ export class Checklist extends Component {
         </span>
         <div className="delete-checklist-item__hr" />
         <div className="delete-checklist-item__footer">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
+          <button type="button" className="delete-checklist-item__footer--cancel" onClick={this.closeDeleteModal}>
+            Cancel
+          </button>
           <button type="button" className="delete-checklist-item__footer--delete" onClick={this.deleteChecklistItem}>
             Delete
           </button>
@@ -133,11 +139,7 @@ export class Checklist extends Component {
   }
   renderChecklistPage() {
     const defaultChecklistItem = {
-      name: 'Trip Ticket',
-      resources: {
-        label: '',
-        link: ''
-      }
+      name: 'Trip Ticket', resources: { label: '', link: '' }
     };
     const { isLoading, checklistItems, deletedChecklistItems } = this.props;
     const currentChecklistItems = (checklistItems.length !== 0) ? this.renderChecklistItems() : this.renderNoMessage();
@@ -174,9 +176,7 @@ export class Checklist extends Component {
     return (
       <div className="">
         { checklistItems.length !== 0 && checklistItems[0].checklist.map(checklistItem => {
-          return (
-            <div key={checklistItem.id}>{this.renderChecklistItem(checklistItem)}</div>
-          );
+          return ( <div key={checklistItem.id}>{this.renderChecklistItem(checklistItem)}</div> );
         }) }
       </div>
     );

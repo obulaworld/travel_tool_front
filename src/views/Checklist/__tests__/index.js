@@ -111,6 +111,21 @@ describe('<Checklist> component', () => {
     expect(closeModal.called).toEqual(true);
   });
 
+  it('should call the closeDeleteModal function', () => {
+    const wrapper = shallowWrapper;
+    const wrapperInstance = wrapper.instance();
+    const { closeModal } = props;
+    wrapperInstance.closeDeleteModal();
+    expect(closeModal.called).toEqual(true);
+  });
+
+  it('should call the renderNoMessage function', () => {
+    const wrapper = shallowWrapper;
+    wrapper.setProps({ checklistItems: []});
+    expect(wrapper.find('.checkInTable__trips--empty').text())
+      .toBe('No new checklist item added yet');
+  });
+
   it('should call the deleteChecklistItem function', () => {
     const event = { preventDefault: () => {} };
     const state = {
