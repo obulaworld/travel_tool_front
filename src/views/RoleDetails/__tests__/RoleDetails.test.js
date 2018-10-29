@@ -94,7 +94,8 @@ describe('<ROleDetails />', () => {
 
 
   it('should call handleEditCenter  ', () => {
-    const shallowWrapper = shallow(<RoleDetails {...props} />);
+    const newProps = { ...props, deleteModalState: 'visible' };
+    const shallowWrapper = shallow(<RoleDetails {...newProps} />);
     shallowWrapper.setState({
       headTitle: 'Change Center',
       userDetail: user ,
@@ -102,6 +103,18 @@ describe('<ROleDetails />', () => {
     sinon.spy(shallowWrapper.instance(), 'handleEditCenter');
     shallowWrapper.instance().handleEditCenter(user);
     expect(shallowWrapper.instance().handleEditCenter.calledOnce).toEqual(true);
+  });
+
+  it('should call `handleAddUser`', (done) => {
+    const newProps = { ...props, deleteModalState: 'visible' };
+    wrapper = shallow(<RoleDetails {...newProps} />);
+
+    const handleAddUserSpy = jest
+      .spyOn(wrapper.instance(), 'handleAddUser');
+    wrapper.instance().handleAddUser();
+    expect(handleAddUserSpy).toHaveBeenCalled();
+
+    done();
   });
 
   it('should call `handleDeleteUserRole`', (done) => {

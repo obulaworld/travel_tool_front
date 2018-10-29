@@ -23,7 +23,7 @@ const initialState = {
   roleErrors: '',
   deleteModalState: 'invisible',
   deleteModalRoleId: '',
-  message: '',
+  roleMessage: '',
   travelTeamMembers: []
 };
 let roleName;
@@ -57,7 +57,7 @@ const role = (state = initialState, action) => {
       isLoading: false,
       travelTeamMembers: [...state.travelTeamMembers]
         .filter(member => member.id !== action.userId),
-      message: action.message,
+      roleMessage: action.message,
       roleErrors: ''
     };
   case DELETE_USER_ROLE_FAILURE:

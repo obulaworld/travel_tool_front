@@ -19,18 +19,17 @@ import checkUserPermission from '../../helper/permissions';
 
 export class RoleDetails extends Component {
   state = {
-    headTitle: '',
+    headTitle: 'Add User',
     userDetail: ''
   }
 
   componentDidMount() {
     const {
-      fetchRoleUsers,
-      match: { params },
-      hideDeleteRoleModal
+      fetchRoleUsers, match: { params }, hideDeleteRoleModal,
+      deleteModalState
     } = this.props;
 
-    hideDeleteRoleModal();
+    deleteModalState === 'visible' && hideDeleteRoleModal();
     fetchRoleUsers(params.roleId);
   }
 
@@ -40,9 +39,16 @@ export class RoleDetails extends Component {
     deleteUserRole(userId, travelTeamMembersRoleId);
   }
 
+  handleAddUser = () => {
+    const { openModal, hideDeleteRoleModal, deleteModalState } = this.props;
+    this.setState({ headTitle: 'Add User', userDetail: '' });
+    deleteModalState === 'visible' && hideDeleteRoleModal();
+    openModal(true, 'new model');
+  }
+
   handleEditCenter = (user) => {
-    let { openModal, hideDeleteRoleModal } = this.props;
-    hideDeleteRoleModal();
+    let { openModal, hideDeleteRoleModal, deleteModalState } = this.props;
+    deleteModalState === 'visible' && hideDeleteRoleModal();
     openModal(true, 'new model');
     this.setState({
       headTitle: 'Change Center',
@@ -51,7 +57,7 @@ export class RoleDetails extends Component {
   }
 
   renderUserRolePanelHeader() {
-    const { openModal, roleName, hideDeleteRoleModal } = this.props;
+    const { roleName, hideDeleteRoleModal } = this.props;
     return (
       <div className="rp-role__header">
         <div className="role-panel-header">
@@ -59,8 +65,8 @@ export class RoleDetails extends Component {
             <PageHeader
               title={`${roleName}s`}
               actionBtn="Add User"
-              openModal={openModal}
               hideDeleteRoleModal={hideDeleteRoleModal}
+              openModal={this.handleAddUser}
             />
           ) }
         </div>
@@ -97,7 +103,6 @@ export class RoleDetails extends Component {
     const { error, closeModal, shouldOpen, modalType,
       roleName, fetchRoleUsers, fetchCenters, centers, putRoleData, updateUserCenter, match } = this.props;
     const { headTitle, userDetail } = this.state;
-    const myTitle = headTitle == '' ? 'Add User' : headTitle;
     const { params: {roleId } } = match;
     return (
       <Modal
@@ -106,7 +111,7 @@ export class RoleDetails extends Component {
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
         }
-        title={myTitle}
+        title={headTitle}
       >
         <NewUserRoleForm
           role={roleName}
@@ -118,7 +123,7 @@ export class RoleDetails extends Component {
           updateUserCenter={updateUserCenter}
           centers={centers}
           userDetail={userDetail}
-          myTitle={myTitle}
+          myTitle={headTitle}
         />
       </Modal>
     );

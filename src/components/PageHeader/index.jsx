@@ -6,7 +6,6 @@ class PageHeader extends PureComponent {
   render() {
     const {
       title, actionBtn, openModal, titleClassName, location,
-      hideDeleteRoleModal
     } = this.props;
 
     return (
@@ -24,10 +23,7 @@ class PageHeader extends PureComponent {
         {actionBtn ? (
           <div>
             <button
-              onClick={() => {
-                hideDeleteRoleModal();
-                openModal(true, 'new model');
-              }}
+              onClick={() => openModal(true, 'new model')}
               type="button"
               className="action-btn btn-new-request"
             >
@@ -48,7 +44,6 @@ PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   actionBtn: PropTypes.string,
   openModal: PropTypes.func,
-  hideDeleteRoleModal: PropTypes.func,
   location: PropTypes.string,
   titleClassName: PropTypes.string,
 };
@@ -57,6 +52,5 @@ PageHeader.defaultProps = {
   actionBtn: '',
   location: '',
   titleClassName: 'title',
-  openModal: () => {},
-  hideDeleteRoleModal: () => {}
+  openModal: () => {}
 };

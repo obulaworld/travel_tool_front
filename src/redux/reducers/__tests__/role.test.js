@@ -47,7 +47,7 @@ describe('Role Reducer', () => {
     getRole: {},
     isLoading: false,
     roleErrors: '',
-    message: '',
+    roleMessage: '',
     deleteModalState: 'invisible',
     deleteModalRoleId: '',
     travelTeamMembers: []
@@ -139,7 +139,7 @@ describe('Role Reducer', () => {
     const newState = roleReducer(currentState, action);
     expect(newState.isLoading).toBe(false);
     expect(newState.travelTeamMembers.length).toEqual(1);
-    expect(newState.message).toEqual('Delete Successful');
+    expect(newState.roleMessage).toEqual('Delete Successful');
     done();
   });
 
