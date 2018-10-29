@@ -198,7 +198,7 @@ export class RequestDetailsModal extends Component {
   }
 
   render() {
-    const { requestId, requestData, user, user: {picture}, email: { result: email} } = this.props;
+    const { requestId, requestData, user, user: {picture}, email } = this.props;
     const { status, comments, id } = requestData;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
@@ -228,7 +228,7 @@ export class RequestDetailsModal extends Component {
         <ConnectedCommentBox requestId={requestId} />
         {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
         <div id="comments">
-          <ConnectedUserComments comments={comments} email={email} />
+          <ConnectedUserComments comments={comments} email={email.result && email.result.email} />
         </div>
       </Fragment>
     );
