@@ -21,6 +21,7 @@ import {
   fetchTravelChecklist,
   fetchDeletedChecklistItemsSuccess,
   fetchDeletedChecklistItemsFailure,
+  fetchDeletedChecklistItems,
 } from '../actionCreator/travelChecklistActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -89,11 +90,13 @@ export function* watchUpdateChecklist() {
 export function* deleteChecklistAsync(action) {
   try {
     const { checklistItemId, deleteReason } = action;
+    const { location } = localStorage;
     const response = yield call(TravelChecklistAPI.deleteChecklistItem, {checklistItemId, deleteReason});
     yield put(deleteChecklistSuccess(checklistItemId));
     toast.success(response.data.message);
     yield put(closeModal());
-    yield put(fetchTravelChecklist(null, localStorage.location));
+    yield put(fetchTravelChecklist(null, location));
+    yield put(fetchDeletedChecklistItems(location));
   }
   catch(error) {
     const errorMessage = apiErrorHandler(error);
@@ -105,7 +108,6 @@ export function* deleteChecklistAsync(action) {
 export function* watchDeleteChecklist() {
   yield takeLatest(DELETE_TRAVEL_CHECKLIST, deleteChecklistAsync);
 }
-
 export function* fetchDeletedChecklistItemsAsync(action) {
   try {
     const response = yield call(TravelChecklistAPI.getDeletedCheckListItems, action.destinationName);
