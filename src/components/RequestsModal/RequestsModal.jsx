@@ -12,6 +12,7 @@ import UserInfo from './UserInfo/UserInfo';
 import TripDetails from './TripDetails';
 import RequestDetailsHeader from './RequestDetailsHeader';
 import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
+import Preloader from '../Preloader/Preloader';
 
 export class RequestDetailsModal extends Component {
   state = {
@@ -72,46 +73,39 @@ export class RequestDetailsModal extends Component {
     }
   }
 
-  handleApprove = (requestId) => {
-    return () => {
-      this.handleButtonState('Approved','Reject',true,'#49AAAF', '', 'white', '','Approved', requestId);
-    };
+  handleApprove = (requestId) => () => {
+    this.handleButtonState('Approved','Reject',true,'#49AAAF', '', 'white', '','Approved', requestId);
   };
 
-  handleReject = (requestId) => {
-    return () => {
-      this.handleButtonState('Approve', 'Rejected', true, '', '#FF5359', '', 'white', 'Rejected', requestId);
-    };
+  handleReject = (requestId) => () => {
+    this.handleButtonState('Approve', 'Rejected', true, '', '#FF5359', '', 'white', 'Rejected', requestId);
   };
 
-  handleConfirmModal = (button) => {
-    return () => {
-      this.setState(prevState => ({
-        modalInvisible: !prevState.modalInvisible,
-        buttonSelected: button
-      }));
-    };
+  handleConfirmModal = (button) => () => {
+    this.setState(prevState => ({
+      modalInvisible: !prevState.modalInvisible,
+      buttonSelected: button
+    }));
   }
 
   showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor, id) => {
     const { approvalText, rejectText } =  this.state;
-    return (
-      [{
-        id: 1,
-        onClick: this.handleApprove(id),
-        action: approveColor,
-        actionText: approveTextColor,
-        class: 'modal__button-submitted-text bg',
-        text: approvalText
-      },
-      {
-        id: 2,
-        onClick: this.handleReject(id),
-        action: rejectColor,
-        actionText: rejectTextColor,
-        class: 'modal__button-rejected-text',
-        text: rejectText
-      }]);
+    return ([{
+      id: 1,
+      onClick: this.handleApprove(id),
+      action: approveColor,
+      actionText: approveTextColor,
+      class: 'modal__button-submitted-text bg',
+      text: approvalText
+    },
+    {
+      id: 2,
+      onClick: this.handleReject(id),
+      action: rejectColor,
+      actionText: rejectTextColor,
+      class: 'modal__button-rejected-text',
+      text: rejectText
+    }]);
   }
 
   updateRequestStatus = () => {
@@ -146,9 +140,7 @@ export class RequestDetailsModal extends Component {
     const style = `request__status--${!status ? '' : status.toLowerCase()}`;
     return (
       <div className="modal__button-below">
-        <span className={style}>
-          {status}
-        </span>
+        <span className={style}>{status}</span>
       </div>
     );
   }
@@ -186,9 +178,7 @@ export class RequestDetailsModal extends Component {
       });
 
     return (
-      <div className="modal__button-below">
-        {displayButtons}
-      </div>
+      <div className="modal__button-below">{displayButtons}</div>
     );
   }
 
@@ -197,7 +187,7 @@ export class RequestDetailsModal extends Component {
     return <RequestApproval requestData={requestData} />;
   }
 
-  render() {
+  renderRequests() {
     const { requestId, requestData, user, user: {picture}, email } = this.props;
     const { status, comments, id } = requestData;
     const { modalInvisible, buttonSelected } = this.state;
@@ -205,10 +195,7 @@ export class RequestDetailsModal extends Component {
     return (
       <Fragment>
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
-          <UserInfo
-            requestData={requestData}
-            user={user}
-          />
+          <UserInfo requestData={requestData} user={user} />
           {this.shouldButtonsRender(status)}
           <ConfirmDialog
             id={id}
@@ -233,6 +220,15 @@ export class RequestDetailsModal extends Component {
       </Fragment>
     );
   }
+
+  render() {
+    const { fetchingRequest } = this.props;
+    return (
+      <Fragment>
+        { fetchingRequest ? <Preloader /> : this.renderRequests()}
+      </Fragment>
+    );
+  }
 }
 
 RequestDetailsModal.propTypes = {
@@ -242,6 +238,7 @@ RequestDetailsModal.propTypes = {
   user: PropTypes.object,
   requestData: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
+  fetchingRequest: PropTypes.bool,
   navigatedPage: PropTypes.string,
   email:PropTypes.object
 };
@@ -253,6 +250,7 @@ RequestDetailsModal.defaultProps = {
   requestData: {},
   user: {},
   isStatusUpdating: false,
+  fetchingRequest: false,
   navigatedPage: '',
   email: {}
 };
@@ -262,6 +260,7 @@ const mapStateToProps = (state) => {
     requestData: state.requests.requestData,
     user: state.auth.user.UserInfo,
     isStatusUpdating: state.approvals.updatingStatus,
+    fetchingRequest: state.requests.fetchingRequest,
     email:state.user.getUserData,
     ...state.modal.modal
   };
