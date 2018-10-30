@@ -183,7 +183,7 @@ export class Table extends Component {
           Duration
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head">
-          Start Date
+          Date Created
         </th>
         { type === 'requests' && (
           <th className="mdl-data-table__cell--non-numeric table__head">
