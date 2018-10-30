@@ -18,6 +18,12 @@ attach_workspace: &attach_workspace
   attach_workspace:
     at: ~/travela-frontend
 
+send_failure_notification: &send_failure_notification
+  run:
+    name: Notify Slack of failed job
+    command: .circleci/build_deploy.sh sendSlackDeployNotification fail
+    when: on_fail
+
 filters: &filters
   filters:
     branches:
@@ -47,6 +53,7 @@ jobs:
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths: node_modules
       - *persist_to_workspace
+      - *send_failure_notification
 
   check_vulnerabilities:
     <<: *defaults
@@ -58,6 +65,7 @@ jobs:
           command: |
             yarn check --integrity
             npx nsp check
+      - *send_failure_notification
 
   test_and_report:
     <<: *defaults
@@ -75,6 +83,7 @@ jobs:
             ./cc-test-reporter before-build
             yarn test --coverage
             ./cc-test-reporter after-build --exit-code $?
+      - *send_failure_notification
   build:
     <<: *defaults
     steps:
@@ -90,6 +99,7 @@ jobs:
           name: Build Application artifacts
           command: yarn run build
       - *persist_to_workspace
+      - *send_failure_notification
 
   deployment:
     <<: *defaults
@@ -110,10 +120,7 @@ jobs:
       - run:
           name: Build and Deploy Application
           command: .circleci/build_deploy.sh main
-      - run:
-          name: Upload Failed Tests
-          command: .circleci/build_deploy.sh main fail
-          when: on_fail
+      - *send_failure_notification
 workflows:
   version: 2
   test-build-deploy:

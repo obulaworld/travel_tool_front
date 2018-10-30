@@ -105,6 +105,9 @@ EOF
 }
 
 sendSlackDeployNotification() {
+  if [ "${CIRCLE_BRANCH}" == "master" ] \
+  || [ "${CIRCLE_BRANCH}" == "develop" ]
+  then
     require NOTIFICATION_CHANNEL $NOTIFICATION_CHANNEL
     require SLACK_CHANNEL_HOOK $SLACK_CHANNEL_HOOK
 
@@ -117,13 +120,16 @@ sendSlackDeployNotification() {
     info "${INFO}"
     curl -X POST -H 'Content-type: application/json' --data "$(slackPayLoad "${1}")" "${SLACK_CHANNEL_HOOK}"
     is_success "Slack notification has been successfully sent"
+  else
+    info "Sends notification for master or develop branch only"
+  fi
 }
 
 main() {
     checkoutDeployScriptRepo
     buildTagAndPushDockerImage
     buildLintAndDeployK8sConfiguration
-    sendSlackDeployNotification ${1}
+    sendSlackDeployNotification
     cleanGeneratedYamlFiles
 }
 
