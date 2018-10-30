@@ -76,9 +76,11 @@ export class GuestHouseDetails extends PureComponent {
   };
 
   getAvailableBedsCount = rooms => {
-    return rooms.reduce((currSum, room) => {
-      return room.faulty ? currSum : (currSum + room.bedCount);
-    }, 0);
+    if (rooms.length !== 0) {
+      const room = (rooms.map(room => room.faulty? [] : room.beds));
+      return room.map(bed => bed? bed.filter(b => !b.booked): []).reduce((acc, val) => acc+val.length, 0);
+    }
+    return 0;
   };
 
   getUnavailableBedCount = rooms => {

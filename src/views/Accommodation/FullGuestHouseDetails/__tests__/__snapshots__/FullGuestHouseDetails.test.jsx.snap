@@ -24,7 +24,18 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
         Object {
           "houseName": "Ndovu",
           "rooms": Array [
-            Object {},
+            Object {
+              "beds": Array [
+                Object {
+                  "bed1": Object {
+                    "booked": false,
+                  },
+                  "bed2": Object {
+                    "booked": true,
+                  },
+                },
+              ],
+            },
           ],
         }
       }
@@ -99,7 +110,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       />
       <GuestHouseDetailCard
         label="Vacant spaces"
-        value={NaN}
+        value={1}
       />
       <GuestHouseDetailCard
         label="Unavailable"
@@ -112,7 +123,18 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     modalType={null}
     rooms={
       Array [
-        Object {},
+        Object {
+          "beds": Array [
+            Object {
+              "bed1": Object {
+                "booked": false,
+              },
+              "bed2": Object {
+                "booked": true,
+              },
+            },
+          ],
+        },
       ]
     }
     shouldOpen={false}

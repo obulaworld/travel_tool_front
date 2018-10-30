@@ -26,7 +26,7 @@ const props = {
         'guestHouseId': 'zNnGJAJH5'
       }
     ],
-    bed: [
+    beds: [
       [
         {
           'id': 68,

@@ -151,12 +151,12 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="23"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="25"
         key="24"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="26"
         key="25"
       />
@@ -171,7 +171,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="27"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="29"
         key="28"
       />
@@ -196,6 +196,7 @@ exports[`<Timeline /> renders correctly 1`] = `
   </div>
   <Modal
     closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
     closeModal={[Function]}
     customModalStyles="change-room-modal"
     customOverlayStyle=""
@@ -298,6 +299,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
   </div>
   <Modal
     closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
     closeModal={[Function]}
     customModalStyles="change-room-modal"
     customOverlayStyle=""
@@ -425,6 +427,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
   </div>
   <Modal
     closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
     closeModal={[Function]}
     customModalStyles="change-room-modal"
     customOverlayStyle=""

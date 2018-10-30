@@ -13,12 +13,28 @@ const props = {
   initFetchTimelineData: jest.fn(),
   guestHouse: {
     houseName: 'Ndovu',
-    rooms: [{}]
+    rooms: [{
+      beds: [
+        {bed1: {
+          booked: false,
+        },
+        bed2: {
+          booked: true,
+        }}
+      ]
+    }]
   },
   updateRoomState: jest.fn(),
   modal: {
     shouldOpen: false,
     modalType: null
+  }
+};
+
+const newProps = {
+  ...props,
+  guestHouse: {
+    rooms: []
   }
 };
 
@@ -37,5 +53,9 @@ describe('<GuestHouseDetails />', () => {
     const fetchDataHandler = timeline.prop('fetchTimelineRoomsData');
     fetchDataHandler();
     expect(props.initFetchTimelineData).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns zero when there are no guest rooms', () => {
+    const zeroWrapper = shallow(<GuestHouseDetails {...newProps} />);
   });
 });

@@ -290,11 +290,11 @@ describe('Travel checklists reducer', () => {
           isLoading: true,
           deletedCheckListItems: []
         };
-        const error = 'Error'
+        const error = 'Error';
         const action = fetchDeletedChecklistItemsFailure(error);
         const newState = travelChecklistReducer(currentState, action);
         expect(newState.isLoading).toBe(false);
-        expect(newState.error).toEqual(error)
+        expect(newState.error).toEqual(error);
         done();
       });
   });
