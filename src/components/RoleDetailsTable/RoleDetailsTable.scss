@@ -79,3 +79,23 @@ $border-color: #e4e4e4;
   top: 48px;
   left: -65px;
 }
+
+@media only screen and (max-width: 1039px) {
+  .delete-modal-overlay.position-below {
+    left: -100px;
+  }
+}
+
+@media only screen and (max-width: 899px) {
+  .delete-modal-overlay.position-below {
+    left: -120px;
+  }
+}
+
+@media only screen and (max-width: 839px) {
+  .table__container {
+    width: 100%;
+    overflow: scroll;
+    position: fixed;
+  }
+}
