@@ -10,7 +10,7 @@ class ConfirmDialog extends Component {
       modalInvisible,
       buttonSelected,
       renderDialogText,
-      handleConfirmModal,
+      closeDeleteModal,
       handleApprove,
       handleReject
     } = this.props;
@@ -20,7 +20,7 @@ class ConfirmDialog extends Component {
         customOverlayStyle={
           `${renderDialogText(buttonSelected)}-modal-overlay`}
         visibility={modalInvisible ? 'invisible' : 'visible'}
-        closeDeleteCommentModal={handleConfirmModal('')}
+        closeDeleteModal={closeDeleteModal('')}
         title={`${buttonSelected} Request?`}
         showOverlay={false}
       >
@@ -57,7 +57,7 @@ ConfirmDialog.propTypes = {
     PropTypes.bool, PropTypes.string
   ]).isRequired,
   renderDialogText: PropTypes.func.isRequired,
-  handleConfirmModal: PropTypes.func.isRequired,
+  closeDeleteModal: PropTypes.func.isRequired,
   handleApprove: PropTypes.func.isRequired,
   handleReject: PropTypes.func.isRequired
 };

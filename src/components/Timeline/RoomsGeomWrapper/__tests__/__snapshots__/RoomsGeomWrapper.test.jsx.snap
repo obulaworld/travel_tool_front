@@ -15,7 +15,7 @@ exports[`<RoomsGeomWrapper /> renders properly 1`] = `
     }
     key="room-id-1"
     status={false}
-    timelineStartDate={"2018-09-30T21:00:00.000Z"}
+    timelineStartDate={"2018-09-30T23:00:00.000Z"}
     timelineViewType="month"
     tripDayWidth={31}
   />

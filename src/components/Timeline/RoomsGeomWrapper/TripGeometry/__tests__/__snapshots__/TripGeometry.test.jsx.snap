@@ -10,7 +10,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
   role="presentation"
   style={
     Object {
-      "left": "-9331px",
+      "left": "-9362px",
     }
   }
   tabIndex="-1"
@@ -19,7 +19,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
     className="geom-trip geom-trip--outer"
     style={
       Object {
-        "background": "hsl(278,70%,58%)",
+        "background": "hsl(288,70%,69%)",
         "minHeight": "20px",
         "width": "217px",
       }
@@ -29,7 +29,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       className="geom-trip geom-trip--inner"
       style={
         Object {
-          "background": "hsl(278,80%,38%)",
+          "background": "hsl(288,80%,49%)",
           "width": "100%",
         }
       }

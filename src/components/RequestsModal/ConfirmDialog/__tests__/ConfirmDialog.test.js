@@ -7,7 +7,7 @@ const props = {
   modalInvisible: true,
   buttonSelected: false,
   renderDialogText: jest.fn(),
-  handleConfirmModal: jest.fn(),
+  closeDeleteModal: jest.fn(),
   handleApprove: jest.fn(),
   handleReject: jest.fn()
 };

@@ -202,7 +202,7 @@ export class RequestDetailsModal extends Component {
             modalInvisible={modalInvisible}
             buttonSelected={buttonSelected}
             renderDialogText={renderDialogText}
-            handleConfirmModal={handleConfirmModal}
+            closeDeleteModal={handleConfirmModal}
             handleApprove={handleApprove}
             handleReject={handleReject}
           />

@@ -25,7 +25,7 @@ exports[` 1`] = `
       Date submitted: 
     </span>
     <b>
-      29 Oct 2018
+      30 Oct 2018
     </b>
   </span>
 </div>
@@ -162,8 +162,8 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
     </div>
     <ConfirmDialog
       buttonSelected={false}
+      closeDeleteModal={[Function]}
       handleApprove={[Function]}
-      handleConfirmModal={[Function]}
       handleReject={[Function]}
       id="xDh20cuGx"
       modalInvisible={true}
