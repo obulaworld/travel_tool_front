@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Cookies from 'cookies-js';
 import { setCurrentUser } from '../../redux/actionCreator';
 import { postUserData } from '../../redux/actionCreator/userActions';
 import travelaLogo from '../../images/travela-logo.svg';
@@ -11,6 +12,7 @@ import fileSymbol from '../../images/file.svg';
 import './Login.scss';
 import TextLink from '../../components/TextLink/TextLink';
 import { loginStatus } from '../../helper/userDetails';
+import Utils from '../../helper/Utils';
 import Button from '../../components/buttons/Buttons';
 
 export class Login extends Component {
@@ -20,12 +22,25 @@ export class Login extends Component {
       localStorage.setItem('url', `/${params[0]}`);
       !isAuthenticated && this.login();
     }
-    this.authenticated(); 
+    this.authenticated();
   }
 
+  /* istanbul ignore next */
   authenticated() {
-    const {  history, isAuthenticated, setCurrentUser, user, postUserData } = this.props;
-    if (isAuthenticated) {
+    const {  history, setCurrentUser, user, postUserData } = this.props;
+    const token = Cookies.get('jwt-token');
+    if (token) {
+      const decodedToken = Utils.verifyToken(token);
+      if(!decodedToken) return history.push('/');
+      const { exp } = decodedToken;
+      this.checkTokenExpiration(exp);
+    }
+    setCurrentUser();
+  }
+
+  checkTokenExpiration(exp) {
+    const { user, postUserData } = this.props;
+    if(exp && !Utils.isExpired(exp)) {
       const users = {
         fullName: user.UserInfo.name,
         email: user.UserInfo.email,
@@ -34,14 +49,20 @@ export class Login extends Component {
       };
       loginStatus();
       postUserData(users);
-      if(localStorage.getItem('url')){
-        history.push(`${localStorage.getItem('url')}`);
-        localStorage.removeItem('url');      
-      }else{
-        history.push('/requests');  
-      }
+      this.redirect();
     }
-    setCurrentUser();
+  }
+
+  /* istanbul ignore next */
+  redirect() {
+    const {  history } = this.props;
+    const url = localStorage.getItem('url');
+    if(url) {
+      history.push(url);
+      localStorage.removeItem('url');
+    } else {
+      history.push('/requests');
+    }
   }
 
   login() {

@@ -62,4 +62,16 @@ describe('Notification Item Component', () => {
     expect(props.markSingleNotificationAsRead).toHaveBeenCalledTimes(1);
     expect(props.markSingleNotificationAsRead).toHaveBeenCalledWith(12);
   });
+
+  it('should call markAsRead', (done) => {
+    const wrapper = shallow(<NotificationItem {...props} />);
+
+    const markAsReadSpy = jest.spyOn(wrapper.instance(), 'markAsRead');
+    wrapper.instance().markAsRead();
+
+    expect(markAsReadSpy).toHaveBeenCalled();
+    expect(props.markSingleNotificationAsRead).toHaveBeenCalled();
+
+    done();
+  });
 });

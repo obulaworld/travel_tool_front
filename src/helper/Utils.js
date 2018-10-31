@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash';
 import moment from 'moment';
+import jwt from 'jsonwebtoken';
 
 class Utils {
   static getRegex(query) {
@@ -129,6 +130,28 @@ class Utils {
       })
       .join('');
   };
+
+  static isExpired(expireTimeInSec) {
+    if (expireTimeInSec) {
+      const now = new Date();
+      const nowInSec = Math.floor(now.getTime() * 0.001); // Convert date to sec
+      return nowInSec > expireTimeInSec;
+    }
+  }
+
+  /* istanbul ignore next */
+  static verifyToken(token) {
+    return jwt.verify(
+      token,
+      Buffer.from(process.env.REACT_APP_JWT_PUBLIC_KEY, 'base64'),
+      (error, decodedToken) => {
+        if(error) {
+          return false;
+        }
+        return decodedToken;
+      }
+    );
+  }
 }
 
 export default Utils;

@@ -1,6 +1,6 @@
 import Cookie from 'cookies-js';
 import jwtDecode from 'jwt-decode';
-import { successMessage } from './toast';
+import { successMessage, errorMessage } from './toast';
 
 export const userDetails = ()  => {
   const cookie = Cookie.get('jwt-token');
@@ -20,10 +20,10 @@ export const loginStatus = () => {
   }
 };
 
-export const logoutUser = (history) => {
+export const logoutUser = (history, msg) => {
   Cookie.expire('login-status', { path: '/', domain: '.andela.com' });
   Cookie.expire('jwt-token', { path: '/', domain: '.andela.com' });
   setTimeout(window.location.reload.bind(window.location), 500);
   history.push('/');
-  successMessage('Logout Successful');
+  msg ? errorMessage(msg) : successMessage('Logout Successful');
 };

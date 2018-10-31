@@ -50,12 +50,22 @@ describe('Login Component', () => {
     expect(loginStatus).toEqual(undefined);
   });
 
-  it('should set user Login status to true if user is authenticated', () => {
-    const token = 'TOKEN';
-    Cookie.set('jwt-token', token);
-    shallow(<Login {...props} />);
-    const loginStatus = Cookie.get('login-status');
-    expect(loginStatus).toEqual(undefined);
-    expect(localStorage.getItem('url')).toBe(null);
+  it('should call authenticate method on component mount', (done) => {
+    const authenticatedSpy= jest.spyOn(wrapper.instance(), 'authenticated');
+    wrapper.instance().componentDidMount();
+    expect(authenticatedSpy).toHaveBeenCalledTimes(1);
+
+    done();
+  });
+
+  it('should call checkTokenExpiration method on component mount', (done) => {
+    const checkTokenExpirationSpy = jest
+      .spyOn(wrapper.instance(), 'checkTokenExpiration');
+    const expiredDate = new Date();
+    const expiredDateInSeconds = expiredDate.getTime() * 0.001;
+    wrapper.instance().checkTokenExpiration(expiredDateInSeconds);
+    expect(checkTokenExpirationSpy).toHaveBeenCalledTimes(1);
+
+    done();
   });
 });
