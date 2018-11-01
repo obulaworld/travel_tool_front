@@ -97,7 +97,7 @@ export default class filterDropdownSelect extends Component  {
              onChange={this.changeText}
            />
            {role ? (
-             <div className={dropdownClass}>
+             <div className={dropdownClass || 'hide'}>
                { options }
              </div>
            ): null}
