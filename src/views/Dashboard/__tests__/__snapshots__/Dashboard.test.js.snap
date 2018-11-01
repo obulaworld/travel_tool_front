@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Dashboard /> renders correctly 1`] = `
-<Fragment>
-  <DashboardHeader />
-  <Analytics />
+<FilterContext>
+  <ContextConsumer>
+    <Component />
+  </ContextConsumer>
   <AnalyticsReport
     departmentTrips={
       Object {
@@ -13,5 +14,5 @@ exports[`<Dashboard /> renders correctly 1`] = `
     }
     fetchDepartmentTrips={[Function]}
   />
-</Fragment>
+</FilterContext>
 `;

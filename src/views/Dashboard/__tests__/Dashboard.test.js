@@ -5,6 +5,17 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import ConnectedDashboard, { Dashboard, mapStateToProps } from '..';
 
+const initialState = {
+  analytics: {
+    payload: {
+      total_requests: 230
+    },
+    error: '',
+    isLoading: false,
+    success: false
+  }
+};
+
 const props = {
   getCurrentUserRole: ['Travel Administrator'],
   history: {
@@ -18,7 +29,7 @@ const props = {
 };
 
 const mockStore = configureStore();
-const store = mockStore({});
+const store = mockStore(initialState);
 
 const wrapper = mount(
   <Provider store={store}>

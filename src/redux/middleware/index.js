@@ -63,6 +63,7 @@ import {
   watchFetchCenters,
   watchUpdateUserCenterAsync
 } from './centersSaga';
+import { watchFetchAnalytics } from './analyticsSaga';
 
 import {
   watchFetchDepartmentTrips
@@ -107,6 +108,7 @@ function* rootSaga() {
     watchFetchDeletedChecklistItems(),
     watchFetchAvailableRooms(),
     watchUpdateTripRoom(),
+    watchFetchAnalytics(),
     watchDeleteUserRoleAsync(),
     watchFetchDepartmentTrips()
   ]);

@@ -3,7 +3,12 @@ import {resolveBaseUrl} from '.';
 
 const baseUrl = resolveBaseUrl();
 
-class AnalyticsAPI {
+export default class AnalyticsAPI {
+  static getAnalytics(query) {
+    const responseType = (query === '?type=file') ? 'blob' : 'json';
+    return axios.get(`${baseUrl}/analytics${query}`, { responseType });
+  }
+
   static getDepartmentTrips(query) {
     const responseType = (query.type === 'file') ? 'blob' : 'json';
     return axios.get(
@@ -14,5 +19,3 @@ class AnalyticsAPI {
     );
   }
 }
-
-export default AnalyticsAPI;

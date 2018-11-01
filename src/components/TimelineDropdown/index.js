@@ -4,29 +4,11 @@ import PropTypes from 'prop-types';
 
 import './index.scss';
 import RadioButton from '../RadioButton';
+import { Consumer } from '../../views/Dashboard/DashboardContext/FilterContext';
 
 export default class TimelineDropdown extends PureComponent {
-  static defaultProps = {
-    icon: '',
-    defaultSelected: '',
-  }
-  state = {
-    isDropdownOpen: false,
-    selectedItem: {}
-  };
-
-  componentWillMount() {
-    const { defaultSelected, dropDownItems } = this.props;
-    const selectedItem = dropDownItems.find(item => item === defaultSelected)
-      || dropDownItems[0];
-    this.setState(state => ({...state, selectedItem}));
-  }
-
-  selectItem = item => {
-    this.setState({
-      selectedItem: item
-    });
-  };
+  static defaultProps = { icon: '' };
+  state = { isDropdownOpen: false };
 
   showDropdownItems = () => {
     this.setState({
@@ -42,48 +24,43 @@ export default class TimelineDropdown extends PureComponent {
     document.removeEventListener('click', this.hideDropdownItems);
   };
 
-  handleItemClick = item => {
-    const { onClickItem } = this.props;
-    this.selectItem(item);
-    onClickItem(item);
-  };
-
-  checkSelected = (item) => {
-    const { selectedItem } = this.state;
-    const isSelected = selectedItem === item ? 'selected': '';
-    return isSelected;
-  };
-
   renderDropDownItems(dropDownItems) {
     return (
-      <ul>
-        {dropDownItems.map(item => (
-          <li
-            id={`${item}`}
-            key={item}
-            className={`${this.checkSelected(item)}`}
-            onClick={() => this.handleItemClick(item)}
-            role="presentation">
-            {item}
-          </li>
-        ))}
-      </ul>
+      <Consumer>
+        {(context) => (
+          <ul>
+            {dropDownItems.map(item => (
+              <li
+                id={`${item}`}
+                key={item}
+                onClick={() => context.handleFilter(item)}
+                role="presentation">
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </Consumer>
     );
   }
 
   render() {
-    const {icon, dropDownItems} =this.props;
-    const {isDropdownOpen, selectedItem} = this.state;
+    const { icon, dropDownItems } =this.props;
+    const { isDropdownOpen } = this.state;
     return (
-      <Fragment>
-        <button type="button" className="action-btn" onClick={this.showDropdownItems}>
-          {selectedItem}
-          <img src={icon} alt="calendar-icon" />
-        </button>
-        <div className={`dropdown__content ${isDropdownOpen ? 'open': ''}`}>
-          {this.renderDropDownItems(dropDownItems)}
-        </div>
-      </Fragment>
+      <Consumer>
+        {(context) => (
+          <Fragment>
+            <button type="button" className="action-btn" onClick={this.showDropdownItems}>
+              {context.state.filter}
+              <img src={icon} alt="calendar-icon" />
+            </button>
+            <div className={`dropdown__content ${isDropdownOpen ? 'open': ''}`}>
+              {this.renderDropDownItems(dropDownItems)}
+            </div>
+          </Fragment>
+        )}
+      </Consumer>
     );
   }
 }
@@ -91,7 +68,4 @@ export default class TimelineDropdown extends PureComponent {
 TimelineDropdown.propTypes = {
   icon: PropTypes.string,
   dropDownItems: PropTypes.array.isRequired,
-  defaultSelected: PropTypes.string,
-  onClickItem: PropTypes.func.isRequired,
 };
-

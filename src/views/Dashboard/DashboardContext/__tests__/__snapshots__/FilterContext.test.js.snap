@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FilterContext /> should render without crushing 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "handleFilter": [Function],
+      "state": Object {
+        "filter": "This Week",
+        "range": Object {
+          "end": "2018-11-04",
+          "start": "2018-10-29",
+        },
+      },
+    }
+  }
+/>
+`;

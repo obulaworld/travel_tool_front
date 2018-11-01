@@ -120,7 +120,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
       className="guesthouse-details-wrapper--key-details"
     >
       <GuestHouseDetailCard
-        label="Room Capacity "
+        label="Bed Capacity "
         value="01"
       />
       <GuestHouseDetailCard

@@ -14,6 +14,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
   >
     <button
       className="action-btn"
+      onClick={false}
       type="button"
     >
       Lagos
@@ -23,21 +24,20 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
       />
     </button>
     <TimelineDropdown
-      defaultSelected="This week"
       dropDownItems={
         Array [
           "Today",
           "Tomorrow",
-          "This week",
-          "This month",
+          "This Week",
+          "This Month",
           "Pick a date",
         ]
       }
       icon="calendar_active.svg"
-      onClickItem={[Function]}
     />
     <button
       className="action-btn"
+      onClick={[Function]}
       type="button"
     >
       <img

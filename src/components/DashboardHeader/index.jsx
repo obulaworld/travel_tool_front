@@ -1,4 +1,5 @@
 import React, { PureComponent,  Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import './_header.scss';
 import activeLocation from '../../images/icons/location_active.svg';
@@ -9,26 +10,16 @@ import availableRooms from '../../redux/reducers/availableRooms';
 import SelectDropDown from '../SelectDropDown/SelectDropDown';
 import TimelineDropdown from '../TimelineDropdown';
 
-const choices = [{
-  name: 'This Week',
-  value: 'This Week'
-}, {name: 'Today',
-  value: 'Today'
-}, {name: 'This Month',
-  value: 'This Month'
-}, {name: 'Pick a date',
-  value: 'Pick a date'
-}];
-
 class DashboardHeader extends PureComponent {
-  renderButton = (icon, text) => (
-    <button type="button" className="action-btn">
-      <Fragment>
+  renderButton = (icon, text) => {
+    const { downloadCsv } = this.props;
+    return (
+      <button type="button" className="action-btn" onClick={!text && (() => downloadCsv('?type=file'))}>
         {text}
         <img src={icon} alt={text} />
-      </Fragment>
-    </button>
-  );
+      </button>
+    );
+  };
 
   render() {
     const selectedChoice = 'This Week';
@@ -39,9 +30,7 @@ class DashboardHeader extends PureComponent {
           {this.renderButton(activeLocation, 'Lagos')}
           <TimelineDropdown
             icon={activeCalendar}
-            defaultSelected="This week"
-            dropDownItems={['Today', 'Tomorrow','This week', 'This month', 'Pick a date']}
-            onClickItem={(item) => {}}
+            dropDownItems={['Today', 'Tomorrow','This Week', 'This Month', 'Pick a date']}
           />
           {this.renderButton(download)}
         </div>
@@ -49,5 +38,9 @@ class DashboardHeader extends PureComponent {
     );
   }
 }
+
+DashboardHeader.propTypes = {
+  downloadCsv: PropTypes.func.isRequired
+};
 
 export default DashboardHeader;

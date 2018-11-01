@@ -101,7 +101,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       className="guesthouse-details-wrapper--key-details"
     >
       <GuestHouseDetailCard
-        label="Room Capacity "
+        label="Bed Capacity "
         value={NaN}
       />
       <GuestHouseDetailCard

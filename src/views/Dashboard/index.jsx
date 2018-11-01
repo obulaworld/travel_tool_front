@@ -2,16 +2,16 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Base from '../Base';
+import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
+import { fetchAnalytics } from '../../redux/actionCreator/analyticsActions';
+import FilterContext, { Consumer } from './DashboardContext/FilterContext';
+import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
 import Analytics from '../../components/Analytics';
-import AnalyticsReport from '../../components/AnalyticsReport';
-import {
-  fetchDepartmentTrips
-} from '../../redux/actionCreator/tripAnalyticsActions';
+import ConnectedAnalytics from '../Analytics';
 
-export class Dashboard extends Base {
+export class Dashboard extends Component {
   constructor(props) {
     super(props);
     const { history, getCurrentUserRole } = this.props;
@@ -20,22 +20,29 @@ export class Dashboard extends Base {
   }
 
   render() {
-    const { fetchDepartmentTrips, departmentTrips } = this.props;
+    const { fetchDepartmentTrips, departmentTrips, fetchAnalytics } = this.props;
     return (
-      <Fragment>
-        <DashboardHeader />
-        <Analytics />
+      <FilterContext>
+        <Consumer>
+          {(context) => (
+            <Fragment>
+              <DashboardHeader downloadCsv={fetchAnalytics} context={context} />
+              <ConnectedAnalytics context={context} />
+            </Fragment>
+          )}
+        </Consumer>
         <AnalyticsReport
           fetchDepartmentTrips={fetchDepartmentTrips}
           departmentTrips={departmentTrips}
         />
-      </Fragment>
+      </FilterContext>
     );
   }
 }
 
 const actions = {
-  fetchDepartmentTrips
+  fetchDepartmentTrips,
+  fetchAnalytics
 };
 
 export const mapStateToProps = ({user, analytics}) => ({
@@ -45,7 +52,10 @@ export const mapStateToProps = ({user, analytics}) => ({
 
 Dashboard.propTypes = {
   history: PropTypes.shape({}).isRequired,
+  fetchAnalytics: PropTypes.func.isRequired,
   getCurrentUserRole: PropTypes.array.isRequired,
+  departmentTrips: PropTypes.shape({}).isRequired,
+  fetchDepartmentTrips: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);
