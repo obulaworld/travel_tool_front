@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Dashboard /> renders correctly 1`] = `
-<FilterContext>
-  <ContextConsumer>
-    <Component />
-  </ContextConsumer>
+<Fragment>
+  <FilterContext>
+    <ContextConsumer>
+      <Component />
+    </ContextConsumer>
+  </FilterContext>
   <AnalyticsReport
     departmentTrips={
       Object {
@@ -20,5 +22,6 @@ exports[`<Dashboard /> renders correctly 1`] = `
       }
     }
   />
-</FilterContext>
+  <Connect(TravelCalendar) />
+</Fragment>
 `;

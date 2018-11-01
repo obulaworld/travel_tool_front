@@ -8,12 +8,8 @@ exports[`<ProfileForm /> renders correctly 1`] = `
   <fieldset
     className="personal-details"
   >
-    <legend
-      style={
-        Object {
-          "width": "100%",
-        }
-      }
+    <div
+      className="legend"
     >
       <span
         className="personal-details-text"
@@ -25,10 +21,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
       >
         * Required Field
       </span>
-      <div
-        className="profile-divider"
-      />
-    </legend>
+    </div>
     <div
       className="input-group profile-input"
     >

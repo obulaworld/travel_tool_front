@@ -1,0 +1,74 @@
+.container{
+  display: flex;
+  flex-direction: column;
+
+  &:last-child{
+    margin-bottom: 50px;
+  }
+}
+
+.calendar-header{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+.actions{
+  display: flex;
+  justify-content: flex-end;
+
+  &__btn{
+    margin-left: 19px;
+    box-sizing: border-box;
+    height: 37px;
+    width: 37px;
+    border: 1px solid #D4D4D4;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    display: flex;
+    padding: 0 12.5px;
+    align-items: center;
+    justify-content: center;
+
+    &:focus{
+      outline: none;
+    }
+
+    &:hover,
+    &:active ,
+    &:visited {
+      border: 1px solid #3359DB;
+    }
+  }
+
+  .action-btn--calender {
+    height: 36px;
+    width: 127px;
+    border: 1px solid #D4D4D4;
+    border-radius: 1px;
+    background-color: #ffffff;
+    cursor: pointer;
+    outline: none !important;
+    color: #3359db;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+      &:hover,
+      &:active ,
+      &:visited {
+        border: 1px solid #3359DB;
+    }
+  }
+}
+.title{
+  font-family: "DIN Pro";
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}

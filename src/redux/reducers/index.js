@@ -16,6 +16,7 @@ import centers from './centers';
 import availableRooms from './availableRooms';
 import analytics from './analytics';
 import readiness from './readiness';
+import travelCalendar from './travelCalendar';
 
 const rootReducer = combineReducers({
   auth,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   accommodation,
   trips,
   occupations,
+  travelCalendar,
   travelChecklist,
   centers,
   availableRooms,

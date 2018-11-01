@@ -152,6 +152,31 @@ class Utils {
       }
     );
   }
+  static manageTimelineDropdownActions = (timeline) => {
+    let nextDate;
+    let currentDate;
+    let startDate;
+    let endDate;
+    switch(timeline){
+    case 'Today':
+      currentDate = moment().format('D/M/YYYY');
+      return {query: `date_from=${currentDate}&date_to=${currentDate}`};
+    case 'Tomorrow':
+      nextDate = moment().add(1, 'days').format('D/M/YYYY');
+      return {query: `date_from=${nextDate}&date_to=${nextDate}`};
+    case 'This week':
+      startDate = moment().startOf('week').format('D/M/YYYY');
+      endDate = moment().endOf('week').format('D/M/YYYY');
+      return {query: `date_from=${startDate}&date_to=${endDate}`};
+    case 'This month':
+      startDate = moment().startOf('month').format('D/M/YYYY');
+      endDate = moment().endOf('month').format('D/M/YYYY');
+      return {query: `date_from=${startDate}&date_to=${endDate}`};
+    default:
+      return '';
+    }
+  }
+
 }
 
 export default Utils;

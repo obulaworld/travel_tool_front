@@ -219,3 +219,34 @@ export const fetchReadinessResponse = {
     },
   ]
 };
+
+export const fetchTravelCalendarResponse = {
+  "data": [{
+    "name": "Barrison Waina",
+    "department": "Apprenticeship Department",
+    "role": "Product designer",
+    "flights": {
+      "arrival": {
+        "destination": "Lagos",
+        "airline": "Kenya Airways",
+        "flight_no": "KQ5752",
+        "arrival_time": "24/10/2018 13:23:33",
+        "depature_time": "24/10/2018 13:23:33"
+      },
+      "depature": {
+        "destination": "Nairobi",
+        "airline": "Kenya Airways",
+        "flight_no": "KQ5752",
+        "arrival_time": "24/10/2018 13:23:33",
+        "depature_time": "24/10/2018 13:23:33"
+      }
+    }
+  }],
+  "pagination": {
+    "total": 30,
+    "current_page": 1,
+    "limit": 13,
+    "nextPage": 2,
+    "prevPage": null
+  }
+}

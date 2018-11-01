@@ -81,3 +81,4 @@ AnalyticsCard.propTypes = {
   stats: PropTypes.number,
   title: PropTypes.string.isRequired
 };
+

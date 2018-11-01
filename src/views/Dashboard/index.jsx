@@ -9,6 +9,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
 import { fetchReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import ConnectedAnalytics from '../Analytics';
+import TravelCalendar from '../TravelCalendar';
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -21,22 +22,25 @@ export class Dashboard extends Component {
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness, readiness, fetchAnalytics } = this.props;
     return (
-      <FilterContext>
-        <Consumer>
-          {(context) => (
-            <Fragment>
-              <DashboardHeader downloadCsv={fetchAnalytics} context={context} />
-              <ConnectedAnalytics context={context} />
-            </Fragment>
-          )}
-        </Consumer>
+      <Fragment>
+        <FilterContext>
+          <Consumer>
+            {(context) => (
+              <Fragment>
+                <DashboardHeader downloadCsv={fetchAnalytics} context={context} />
+                <ConnectedAnalytics context={context} />
+              </Fragment>
+            )}
+          </Consumer>
+        </FilterContext>
         <AnalyticsReport
           fetchDepartmentTrips={fetchDepartmentTrips}
           departmentTrips={departmentTrips}
           fetchReadiness={fetchReadiness}
           readiness={readiness}
         />
-      </FilterContext>
+        <TravelCalendar />
+      </Fragment>
     );
   }
 }

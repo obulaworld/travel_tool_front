@@ -59,6 +59,8 @@ import {
   watchFetchDeletedChecklistItems,
 } from './travelChecklistSaga';
 
+import {watchFetchCalendarAnalytics} from './travelCalendarSaga';
+
 import {
   watchFetchCenters,
   watchUpdateUserCenterAsync
@@ -112,7 +114,8 @@ function* rootSaga() {
     watchFetchAnalytics(),
     watchDeleteUserRoleAsync(),
     watchFetchDepartmentTrips(),
-    watchFetchReadiness()
+    watchFetchReadiness(),
+    watchFetchCalendarAnalytics()
   ]);
 }
 

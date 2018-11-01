@@ -28,6 +28,12 @@ import {
   fetchAccommodationFailure
 } from './accommodationActions';
 
+import {
+  fetchCalendarAnalytics,
+  fetchCalendarAnalyticsSuccess,
+  fetchCalendarAnalyticsFailure
+} from './travelCalendarActions';
+
 export {
   setCurrentUser,
   setCurrentUserSuccess,
@@ -48,5 +54,9 @@ export {
   fetchTimelineDataFailure,
   fetchAccommodation,
   fetchAccommodationSuccess,
-  fetchAccommodationFailure
+  fetchAccommodationFailure,
+  // Trave Calendar Analytics
+  fetchCalendarAnalytics,
+  fetchCalendarAnalyticsSuccess,
+  fetchCalendarAnalyticsFailure
 };
