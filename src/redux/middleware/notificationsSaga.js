@@ -11,7 +11,6 @@ import {
   addNotificationSuccess,
   updateAllNotificationStatusFailure,
   updateAllNotificationStatusSuccess,
-  markSingleNotificationAsRead,
   markSingleNotificationAsReadSuccess,
   markSingleNotificationAsReadFailure
 } from '../actionCreator/notificationsActions';
@@ -64,7 +63,7 @@ export function* updateAllNotificationStatusSync(action) {
 export function* markSingleNotificationAsReadAsync(action) {
   try {
     const response = yield call(
-      NotificationAPI.markSingleNotificationAsRead, action.notificationId//notification id from view
+      NotificationAPI.markSingleNotificationAsRead, action.notificationId
     );
     yield put(markSingleNotificationAsReadSuccess(response.data.notification));
   } catch (error) {

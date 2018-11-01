@@ -44,8 +44,10 @@ export class NotificationPane extends PureComponent {
   }
 
   render() {
-
-    const { onCloseNotificationPane, updateAllNotificationStatus, markSingleNotificationAsRead } = this.props;
+    const {
+      onCloseNotificationPane, updateAllNotificationStatus,
+      markSingleNotificationAsRead, singleNotificationRead
+    } = this.props;
     const { generalNotifications, pendingNotifications } = this.getNotifications();
     return (
       <div className="nav-pane">
@@ -56,9 +58,8 @@ export class NotificationPane extends PureComponent {
               {
                 (pendingNotifications.length > 0) && (
                   <NotificationContainer
-                    title="Pending Approvals"
-                    pendingNotifications={pendingNotifications}
-                    updateAllNotificationStatus={updateAllNotificationStatus}
+                    title="Pending Approvals" pendingNotifications={pendingNotifications}
+                    updateAllNotificationStatus={updateAllNotificationStatus} singleNotificationRead={singleNotificationRead}
                     markSingleNotificationAsRead={markSingleNotificationAsRead}
                   />
                 )
@@ -66,10 +67,9 @@ export class NotificationPane extends PureComponent {
               {
                 (generalNotifications.length > 0) && (
                   <NotificationContainer
-                    title="General Notifications"
-                    generalNotifications={generalNotifications}
-                    updateAllNotificationStatus={updateAllNotificationStatus}
-                    markSingleNotificationAsRead={markSingleNotificationAsRead}
+                    title="General Notifications" generalNotifications={generalNotifications}
+                    updateAllNotificationStatus={updateAllNotificationStatus} markSingleNotificationAsRead={markSingleNotificationAsRead}
+                    singleNotificationRead={singleNotificationRead}
                   />)
               }
             </div>
@@ -87,7 +87,8 @@ NotificationPane.propTypes = {
   updateAllNotificationStatus: PropTypes.func.isRequired,
   user: PropTypes.object,
   notifications: PropTypes.arrayOf(PropTypes.object),
-  markSingleNotificationAsRead: PropTypes.func.isRequired
+  markSingleNotificationAsRead: PropTypes.func.isRequired,
+  singleNotificationRead: PropTypes.number.isRequired
 };
 
 NotificationPane.defaultProps = {
@@ -102,6 +103,7 @@ NotificationPane.defaultProps = {
 const mapStateToProps = ({auth, notifications, modal}) => ({
   user: auth.user,
   notifications: notifications.notifications,
+  singleNotificationRead: notifications.singleNotificationRead,
   ...modal.modal
 });
 

@@ -125,6 +125,7 @@ describe('Notifications reducer', () => {
       expect(newState).toEqual({
         isLoading: true,
         notifications: [...notificationsMockData],
+        singleNotificationRead: 0,
         error: null
       });
       done();
@@ -139,6 +140,7 @@ describe('Notifications reducer', () => {
       expect(newState).toEqual({
         isLoading: false,
         notifications: [ ...notificationsMockData, markedNotification ],
+        singleNotificationRead: 12,
         error: null
       });
       done();
@@ -152,6 +154,7 @@ describe('Notifications reducer', () => {
         expect(newState).toEqual({
           isLoading: false,
           notifications: [ ...notificationsMockData ],
+          singleNotificationRead: 0,
           error
         });
         done();

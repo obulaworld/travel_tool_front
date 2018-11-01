@@ -102,4 +102,17 @@ describe('Notification Container Component', () => {
 
     done();
   });
+
+  it(`should call 'handleMarkSingleAsRead'
+    if a notification is clicked`, (done) => {
+    const wrapper =
+        setup({ ...customProps, title: 'General Notifications' });
+
+    const handleMarkSingleAsReadSpy =
+        jest.spyOn(wrapper.instance(), 'handleMarkSingleAsRead');
+    wrapper.instance().handleMarkSingleAsRead();
+    expect(handleMarkSingleAsReadSpy).toHaveBeenCalled();
+
+    done();
+  });
 });

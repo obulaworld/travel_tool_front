@@ -11,9 +11,10 @@ describe('Notification Item Component', () => {
     name: 'Ademola Ariya',
     notificationStatus: 'unread',
     image: testImage,
-    markSingleNotificationAsRead: jest.fn(),
+    markSingleAsRead: jest.fn(),
     id: 12,
     timeStamp: '',
+    message: '',
     link: ''
   };
 
@@ -59,19 +60,15 @@ describe('Notification Item Component', () => {
     const wrapper = shallow(<NotificationItem {...props} />);
     const notification = wrapper.find('.view-details').at(0);
     notification.simulate('click');
-    expect(props.markSingleNotificationAsRead).toHaveBeenCalledTimes(1);
-    expect(props.markSingleNotificationAsRead).toHaveBeenCalledWith(12);
+    expect(props.markSingleAsRead).toHaveBeenCalledTimes(1);
+    expect(props.markSingleAsRead).toHaveBeenCalledWith(12);
   });
 
-  it('should call markAsRead', (done) => {
-    const wrapper = shallow(<NotificationItem {...props} />);
-
-    const markAsReadSpy = jest.spyOn(wrapper.instance(), 'markAsRead');
-    wrapper.instance().markAsRead();
-
-    expect(markAsReadSpy).toHaveBeenCalled();
-    expect(props.markSingleNotificationAsRead).toHaveBeenCalled();
-
-    done();
-  });
+  it('should change notication image icon to open when notification is read',
+    () => {
+      const wrapper = shallow(<NotificationItem {...props} />);
+      const notification = wrapper.find('.msg-icon__closed').at(0);
+      notification.simulate('click');
+      expect(props.markSingleAsRead).toHaveBeenCalledWith(12);
+    });
 });

@@ -6,7 +6,9 @@ import NotificationItem from './NotificationItem';
 export default class NotificationContainer extends PureComponent {
   constructor(props) {
     super(props);
-
+    this.state = {
+      notificationsCount: 0
+    };
     this.handleMarkAllAsRead = this.handleMarkAllAsRead.bind(this);
     this.getUnreadNotificationsCount = this.getUnreadNotificationsCount.bind(this);
   }
@@ -22,7 +24,16 @@ export default class NotificationContainer extends PureComponent {
     const unreadNotifications =
       notificationStatus.filter(status => status === 'unread');
     const notificationsCount = unreadNotifications.length;
-    return notificationsCount;
+    this.setState({ notificationsCount });
+  }
+
+  handleMarkSingleAsRead = (id) => {
+    const { markSingleNotificationAsRead, singleNotificationRead } = this.props;
+    const { notificationsCount } = this.state;
+    markSingleNotificationAsRead(id);
+    (id === singleNotificationRead) && this.setState(
+      { notificationsCount: notificationsCount - 1 }
+    );
   }
 
   handleMarkAllAsRead() {
@@ -39,7 +50,6 @@ export default class NotificationContainer extends PureComponent {
       notificationType
     );
   }
-
 
   renderNotifications = (notifications) => {
     const displayViewDetails =
@@ -59,10 +69,11 @@ export default class NotificationContainer extends PureComponent {
         if(displayViewDetails.includes(message)){
           general = true;
         }
-        const{ markSingleNotificationAsRead } = this.props;
+        const{ notificationsCount } = this.state;
         return  (
           <NotificationItem
-            markSingleNotificationAsRead={markSingleNotificationAsRead}
+            markSingleAsRead={this.handleMarkSingleAsRead}
+            notificationsCount={notificationsCount}
             link={notification.notificationLink}
             key={notification.id}
             id={notification.id}
@@ -81,18 +92,19 @@ export default class NotificationContainer extends PureComponent {
 
   render() {
     const { title, pendingNotifications, generalNotifications } = this.props;
+    const { notificationsCount } = this.state;
     const customClass = title === 'Pending Approvals' ? 'pending' : 'general';
     const number = title === 'Pending Approvals'
       ? pendingNotifications.length
       : generalNotifications.length;
-
+    this.getUnreadNotificationsCount();
     return (
       <div className="notification-container">
         <div className={`notification-container__header--${customClass}`}>
           <div className="notification-container__header__title">
             {title}
             <div className={`notification-container__header__title__number--${customClass}`}>
-              {this.getUnreadNotificationsCount()}
+              {notificationsCount}
             </div>
           </div>
           <div
@@ -126,6 +138,7 @@ NotificationContainer.propTypes = {
   pendingNotifications: NOTIFICATIONS_PROPTYPES,
   generalNotifications: NOTIFICATIONS_PROPTYPES,
   markSingleNotificationAsRead: PropTypes.func.isRequired,
+  singleNotificationRead: PropTypes.number.isRequired
 };
 
 NotificationContainer.defaultProps = {

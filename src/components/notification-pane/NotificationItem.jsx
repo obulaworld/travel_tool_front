@@ -12,14 +12,14 @@ export default class NotificationItem extends PureComponent {
   }
 
   markAsRead = () => {
-    const { markSingleNotificationAsRead, id } = this.props;
+    const { markSingleAsRead, id } = this.props;
     this.setState({
       localNotificationStatus: 'read'
     });
-    markSingleNotificationAsRead(id);
+    markSingleAsRead(id);
   }
   renderNotificationItemMetaInfo = () => {
-    const { isPending, notificationStatus, link, timeStamp, general, markSingleNotificationAsRead, id } = this.props;
+    const { isPending, notificationStatus, link, timeStamp, general, markSingleAsRead, id } = this.props;
     const { localNotificationStatus } = this.state;
     return (
       <div className="notification--item__info__bottom">
@@ -27,7 +27,7 @@ export default class NotificationItem extends PureComponent {
           {generateDynamicDate(true, timeStamp)}
         </span>
         <Link to={`${link}`}>
-          <span className="view-details" onClick={() => markSingleNotificationAsRead(id)} role="button" tabIndex="0" onKeyUp={()=>{}}>
+          <span className="view-details" onClick={() => markSingleAsRead(id)} role="button" tabIndex="0" onKeyUp={()=>{}}>
             {isPending && 'View Details'}
             {' '}
             {general && 'View Details'}
@@ -75,7 +75,7 @@ NotificationItem.defaultProps = {
   general: false,
   name: '',
   image: '',
-  markSingleNotificationAsRead: () => {},
+  markSingleAsRead: () => {},
   message: '',
 };
 
@@ -89,5 +89,5 @@ NotificationItem.propTypes = {
   image: PropTypes.string,
   timeStamp: PropTypes.string.isRequired,
   message: PropTypes.string,
-  markSingleNotificationAsRead: PropTypes.func,
+  markSingleAsRead: PropTypes.func,
 };

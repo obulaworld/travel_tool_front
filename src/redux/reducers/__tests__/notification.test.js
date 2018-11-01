@@ -9,6 +9,7 @@ import {
 const initialState = {
   isLoading: false,
   notifications: [],
+  singleNotificationRead: 0,
   error: null
 };
 const newNotification = {
@@ -43,14 +44,14 @@ describe('Notifications Reducer', ()=> {
         notificationType: 'pending',
         notificationStatus: 'reading'
       },
-    ]; 
+    ];
     const fetchNotification = {
       type: FETCH_NOTIFICATIONS_SUCCESS,
       notifications: allNotifications
     };
-    expect(notification(initialState, fetchNotification).notifications).toEqual(allNotifications)
+    expect(notification(initialState, fetchNotification).notifications).toEqual(allNotifications);
   });
-  it('should return error for fetching notification', ()=>{ 
+  it('should return error for fetching notification', ()=>{
     const fetchNotification = {
       type: FETCH_NOTIFICATIONS_FAILURE,
     };
