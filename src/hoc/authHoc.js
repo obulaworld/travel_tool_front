@@ -20,14 +20,14 @@ export default function(ComposedComponent) {
       if(token) {
         this.verifyToken(token);
       } else {
-        return logoutUser(history, 'No Token');
+        return logoutUser(history, 'Session Expired. Login to continue');
       }
     }
 
     verifyToken(token) {
       const { history, getUserData, user } = this.props;
       const decodedToken = Utils.verifyToken(token);
-      const msg = 'Invalid Token';
+      const msg = 'Session Expired. Login to continue';
       if(!decodedToken) return logoutUser(history, msg);
       const { exp } = decodedToken;
       Utils.isExpired(exp) && logoutUser(history, msg);
