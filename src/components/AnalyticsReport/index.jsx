@@ -3,12 +3,14 @@ import { PropTypes } from 'prop-types';
 import './index.scss';
 import errorIcon from '../../images/error_24px.svg';
 import download from '../../images/icons/save_alt_24px.svg';
+import TravelReady from '../TravelReadiness';
 
 export default class AnalyticsReport extends Component {
 
   componentDidMount() {
-    const { fetchDepartmentTrips } = this.props;
+    const { fetchDepartmentTrips, fetchReadiness } = this.props;
     fetchDepartmentTrips({filterBy: 'month', type: 'json'});
+    fetchReadiness({page: '1', limit: '6', type:'json'});
   }
 
   getDepartmentTripsCSV = () => {
@@ -63,13 +65,11 @@ export default class AnalyticsReport extends Component {
     );
   }
   render() {
-    const { departmentTrips } = this.props;
+    const { departmentTrips, readiness, fetchReadiness } = this.props;
     const { report, loading } = departmentTrips;
     return(
       <div className="analyticsReport">
-        <div>
-          <p>Travel Readiness Report</p>
-        </div>
+        <TravelReady readiness={readiness} renderNotFound={this.renderNotFound} renderButton={this.renderButton} fetchReadiness={fetchReadiness} renderSpinner={this.renderSpinner} />
         <div className="analyticsReport__card">
           <div className="analyticsReport__row analyticsReport__header">
             <p>Number of Trips/Month</p>
@@ -99,5 +99,7 @@ export default class AnalyticsReport extends Component {
 
 AnalyticsReport.propTypes = {
   departmentTrips: PropTypes.object.isRequired,
-  fetchDepartmentTrips: PropTypes.func.isRequired
+  readiness: PropTypes.object.isRequired,
+  fetchDepartmentTrips: PropTypes.func.isRequired,
+  fetchReadiness:PropTypes.func.isRequired
 };

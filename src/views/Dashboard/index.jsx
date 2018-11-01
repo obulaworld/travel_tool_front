@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
 import { fetchAnalytics } from '../../redux/actionCreator/analyticsActions';
 import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
-import Analytics from '../../components/Analytics';
+import { fetchReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import ConnectedAnalytics from '../Analytics';
 
 export class Dashboard extends Component {
@@ -20,7 +19,7 @@ export class Dashboard extends Component {
   }
 
   render() {
-    const { fetchDepartmentTrips, departmentTrips, fetchAnalytics } = this.props;
+    const { fetchDepartmentTrips, departmentTrips, fetchReadiness, readiness, fetchAnalytics } = this.props;
     return (
       <FilterContext>
         <Consumer>
@@ -34,6 +33,8 @@ export class Dashboard extends Component {
         <AnalyticsReport
           fetchDepartmentTrips={fetchDepartmentTrips}
           departmentTrips={departmentTrips}
+          fetchReadiness={fetchReadiness}
+          readiness={readiness}
         />
       </FilterContext>
     );
@@ -41,13 +42,13 @@ export class Dashboard extends Component {
 }
 
 const actions = {
-  fetchDepartmentTrips,
-  fetchAnalytics
+  fetchDepartmentTrips, fetchReadiness, fetchAnalytics
 };
 
-export const mapStateToProps = ({user, analytics}) => ({
+export const mapStateToProps = ({user, analytics, readiness}) => ({
   getCurrentUserRole: user.getCurrentUserRole,
-  departmentTrips: analytics.departmentTrips
+  departmentTrips: analytics.departmentTrips,
+  readiness
 });
 
 Dashboard.propTypes = {
@@ -55,7 +56,9 @@ Dashboard.propTypes = {
   fetchAnalytics: PropTypes.func.isRequired,
   getCurrentUserRole: PropTypes.array.isRequired,
   departmentTrips: PropTypes.shape({}).isRequired,
-  fetchDepartmentTrips: PropTypes.func.isRequired
+  fetchDepartmentTrips: PropTypes.func.isRequired,
+  fetchReadiness: PropTypes.func.isRequired,
+  readiness: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Travel Readiness Component should match the snapshot 1`] = `
+<div
+  className="analyticsReport__card"
+>
+  <div
+    className="analyticsReport__row analyticsReport__header"
+  >
+    Travel Readiness
+  </div>
+  <div
+    className="analyticsReport__row analyticsReport__report-header"
+  >
+    <div>
+      <p>
+        Name
+      </p>
+    </div>
+    <div>
+      <p>
+        % Complete
+      </p>
+    </div>
+    <div>
+      <p>
+        Expected Arrival Date
+      </p>
+    </div>
+  </div>
+</div>
+`;

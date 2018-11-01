@@ -8,7 +8,8 @@ const defaultProps = {
     report: tripsPerMonthData,
     loading: false,
   },
-  fetchDepartmentTrips: jest.fn()
+  fetchDepartmentTrips: jest.fn(),
+  fetchReadiness: jest.fn(),
 };
 
 const setup = (props) => {

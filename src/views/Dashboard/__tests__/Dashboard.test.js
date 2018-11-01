@@ -25,7 +25,11 @@ const props = {
     report: [],
     loading: false,
   },
-  fetchDepartmentTrips: jest.fn()
+  fetchDepartmentTrips: jest.fn(),
+  fetchReadiness: jest.fn(),
+  readiness: {
+    isLoading: false,
+  }
 };
 
 const mockStore = configureStore();

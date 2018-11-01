@@ -275,7 +275,7 @@ export const fetchOccupationsResponse ={
         'updatedAt': '2018-09-27T13:57:13.898Z'
       },
     ]}
-}
+};
 
 export const updateTripRoomResponse = {
   success: true,
@@ -320,5 +320,18 @@ export const fetchDepartmentsTripsError = {
       message: 'type must be \'json\' or \'file\'',
       name: 'type'
     }
+  ]
+};
+export const fetchReadinessResponse = {
+  sucess:true,
+  readiness: [
+    {
+      departureDate: '2018-10-04',
+      request: {
+        name: 'Lazuli Doe'
+      },
+      travelReadiness: '0% complete',
+      arrivalDate: '2018-10-05T00:00:00.000Z'
+    },
   ]
 };

@@ -15,6 +15,7 @@ import travelChecklist from './travelChecklist';
 import centers from './centers';
 import availableRooms from './availableRooms';
 import analytics from './analytics';
+import readiness from './readiness';
 
 const rootReducer = combineReducers({
   auth,
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   travelChecklist,
   centers,
   availableRooms,
-  analytics
+  analytics,
+  readiness
 });
 
 export default rootReducer;

@@ -5,9 +5,12 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
   className="analyticsReport"
 >
   <div>
-    <p>
-      Travel Readiness Report
-    </p>
+    <TravelReadiness
+      fetchReadiness={[Function]}
+      renderButton={[Function]}
+      renderNotFound={[Function]}
+      renderSpinner={[Function]}
+    />
   </div>
   <div
     className="analyticsReport__card"

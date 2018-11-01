@@ -13,6 +13,12 @@ exports[`<Dashboard /> renders correctly 1`] = `
       }
     }
     fetchDepartmentTrips={[Function]}
+    fetchReadiness={[Function]}
+    readiness={
+      Object {
+        "isLoading": false,
+      }
+    }
   />
 </FilterContext>
 `;

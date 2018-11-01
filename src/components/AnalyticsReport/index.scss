@@ -2,11 +2,11 @@ $grey-color: #4F4F4F;
 $white: #FFFFFF;
 
 .analyticsReport {
-  margin-top: 5%;
-  display: grid;
-  padding: 10px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
+  margin-top: 5%; 
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 0;
   color: $grey-color;
   p {
     color: $grey-color !important;
