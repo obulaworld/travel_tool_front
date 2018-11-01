@@ -7,8 +7,8 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
-import { 
-  fetchAvailableRooms, fetchAvailableRoomsSuccess 
+import {
+  fetchAvailableRooms, fetchAvailableRoomsSuccess
 } from '../../redux/actionCreator/availableRoomsActions';
 import {
   fetchUserRequests, createNewRequest, editRequest,
@@ -54,7 +54,7 @@ export class Requests extends Base {
     }
   }
 
-  handleEditRequest = (requestId, newRequest) => {
+  handleEditRequest = (requestId) => {
     const { openModal, fetchEditRequest } = this.props;
     fetchEditRequest(requestId);
     openModal(true, 'edit request');
@@ -68,7 +68,7 @@ export class Requests extends Base {
       fetchSubmission({ requestId, tripType });
     openModal(true, modalType);
   }
-  
+
   handleUploadSubmissionModal = (request) => {
     const {openModal, fetchEditRequest } = this.props;
     fetchUserRequestDetails(request.id);
@@ -76,7 +76,7 @@ export class Requests extends Base {
   }
 
   fetchRequests = query => {
-    const { history, fetchUserRequests, location } = this.props;
+    const { history, fetchUserRequests} = this.props;
     history.push(`/requests${query}`);
     fetchUserRequests(query);
     this.setState(prevState => ({
@@ -157,10 +157,10 @@ export class Requests extends Base {
   }
   renderNewRequestForm() {
     const {
-      updateUserProfile, userData, getUserData, 
-      user, createNewRequest, 
+      updateUserProfile, userData, getUserData,
+      user, createNewRequest,
       loading,errors,closeModal,shouldOpen,
-      modalType,managers,requestOnEdit,editRequest,
+      modalType, roleUsers,requestOnEdit,editRequest,
       fetchUserRequests,occupations,
       fetchAvailableRooms,  availableRooms, fetchAvailableRoomsSuccess
     } = this.props;
@@ -179,7 +179,7 @@ export class Requests extends Base {
           userData={userData && userData.result} occupations={occupations}
           handleCreateRequest={createNewRequest}
           handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
-          managers={managers} availableRooms={availableRooms} modalType={modalType}
+          managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
           requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms} getUserData={getUserData}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
@@ -188,8 +188,8 @@ export class Requests extends Base {
     );
   }
   renderRequestPage() {
-    const { 
-      isLoading, requests, pagination, 
+    const {
+      isLoading, requests, pagination,
       fetchRequestsError, message
     } = this.props;
     return (

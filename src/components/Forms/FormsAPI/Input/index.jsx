@@ -7,7 +7,8 @@ import {
   ButtonToggler,
   NumberInput,
   filterDropdownSelect,
-  CheckBox
+  CheckBox,
+  TextArea
 } from './InputFields';
 import createEventHandlersFor from '../formEventHandlers';
 import './_input.scss';
@@ -15,15 +16,15 @@ import './_input.scss';
 class Input extends PureComponent {
 
   getInputType() {
-    let { name, type, onChange } = this.props;
-    const { errors, targetForm, validatorName } = this.context;
+    let { name, type } = this.props;
+    const { targetForm, validatorName } = this.context;
     // get event handlers for the form in this context, for its input named 'name'
     const eventHandlers = createEventHandlersFor(targetForm, name, validatorName);
     return this.switchTypeWithProps(type, eventHandlers);
   }
 
   switchTypeWithProps = (type, eventHandlers) => {
-    const { onChange, handleInputChange } = this.props;
+    const { onChange } = this.props;
     switch (type) {
     case 'button-toggler':
       this.props = {
@@ -69,6 +70,8 @@ class Input extends PureComponent {
       return HtmlInput;
     case 'number':
       return NumberInput;
+    case 'textarea':
+      return TextArea;
     }
   }
 
@@ -99,18 +102,18 @@ class Input extends PureComponent {
      * This method checks for this and will display the asterisk appropriately.
      */
 
-    const { required} = this.props;
-    if(required !== false) {
-      const { labelNote } = this.props;
-      return (
-        <Fragment>
+    const { required, labelNote } = this.props;
+    let requiredInput = required === undefined ? true : required;
+    return (
+      <Fragment>
+        {requiredInput && (
           <span style={{color: 'red'}}>
             *
           </span>
-          {this.labelNote(labelNote)}
-        </Fragment>
-      );
-    }
+        ) }
+        {this.labelNote(labelNote)}
+      </Fragment>
+    );
   }
 
   render() {
@@ -151,14 +154,15 @@ Input.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.oneOfType([
     PropTypes.func, PropTypes.object
-  ]).isRequired,
+  ]),
   labelNote: PropTypes.string,
   className: PropTypes.string,
 };
 
 Input.defaultProps = {
   labelNote: '',
-  className: ''
+  className: '',
+  onChange: null
 };
 
 export default Input;

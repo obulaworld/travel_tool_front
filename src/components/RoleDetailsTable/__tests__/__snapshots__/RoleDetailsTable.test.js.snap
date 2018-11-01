@@ -74,7 +74,6 @@ exports[`<RoleDetailsTable /> renders correctly 1`] = `
                 modalBar={<div />}
                 modalContentId=""
                 modalId=""
-                params=""
                 requestId=""
                 showOverlay={false}
                 title="Remove Member ?"

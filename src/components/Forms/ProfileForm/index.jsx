@@ -14,8 +14,6 @@ import * as formMetadata from '../FormsMetadata/NewProfileMetadata/index';
 class ProfileForm extends PureComponent {
   constructor(props) {
     super(props);
-    const { userData } = this.props;
-
     this.defaultState = {
       values: {
         name: '',
@@ -37,7 +35,7 @@ class ProfileForm extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state){
-    const {userData} = props;
+    const { userData } = props;
     if(userData !== undefined && state.values.name === ''){
       const { passportName, gender, department, occupation, manager } = userData;
       return  {
@@ -112,7 +110,6 @@ class ProfileForm extends PureComponent {
 ProfileForm.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   managers: PropTypes.array,
-  userData: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   getUserData: PropTypes.func.isRequired,
   occupations: PropTypes.array

@@ -12,7 +12,6 @@ exports[`<Accommodation /> should render correctly 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="Edit Bukoto heights"

@@ -119,7 +119,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "link_to": "/settings/roles/339458",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
-                    "Super Administrator",
                   ],
                   "text": "Travel team",
                 },

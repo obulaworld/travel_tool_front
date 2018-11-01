@@ -33,7 +33,7 @@ export default class NewChecklistForm extends PureComponent {
   componentDidMount() {
     this.handleBlanksOnEditing();
   }
-  
+
   componentWillUnmount() {
     const { currentUser, fetchTravelChecklist, closeModal } = this.props;
     fetchTravelChecklist(null, currentUser.location);
@@ -63,7 +63,7 @@ export default class NewChecklistForm extends PureComponent {
         label: values.label
       }]
     };
-    
+
     if (!values.label || !values.link) {
       checklistItemData.resources = [];
     }
@@ -116,7 +116,6 @@ export default class NewChecklistForm extends PureComponent {
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
             send={modalType === 'edit cheklistItem' ? 'Save Item' : 'Add Item'}
-            cancel="Cancel"
             modalType={modalType}
           />
         </form>

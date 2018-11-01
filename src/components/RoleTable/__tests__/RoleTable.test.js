@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { RoleTable } from '../index';
 
 const props = {
-  role: [
+  roles: [
     {
       id: '1',
       roleName: 'Super Administrator',
@@ -65,8 +65,8 @@ describe('<RoleTable />', () => {
     expect(wrapper.find('.table__row').length).toBe(5);
   });
 
-  it('should render a when there are no roles', () => {
-    wrapper.setProps({ role: [] });
+  it('should render a div when there are no roles', () => {
+    wrapper.setProps({ roles: [] });
     expect(wrapper.find('table.mdl-data-table').length).toBe(0);
     expect(wrapper.find('div.table__requests--empty').length).toBe(0);
   });

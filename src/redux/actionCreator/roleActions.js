@@ -12,7 +12,10 @@ import {
   DELETE_USER_ROLE_SUCCESS,
   DELETE_USER_ROLE_FAILURE,
   SHOW_DELETE_ROLE_MODAL,
-  HIDE_DELETE_ROLE_MODAL
+  HIDE_DELETE_ROLE_MODAL,
+  ADD_ROLE,
+  ADD_ROLE_SUCCESS,
+  ADD_ROLE_FAILURE
 } from '../constants/actionTypes';
 
 export const getRoleData  = () => ({
@@ -85,4 +88,19 @@ export const showDeleteRoleModal = roleId => ({
 
 export const hideDeleteRoleModal = () => ({
   type: HIDE_DELETE_ROLE_MODAL
+});
+
+export const addRole = (roleData) => ({
+  type: ADD_ROLE,
+  roleData
+});
+
+export const addRoleSuccess = (role) => ({
+  type: ADD_ROLE_SUCCESS,
+  role
+});
+
+export const addRoleFailure = (error) => ({
+  type: ADD_ROLE_FAILURE,
+  error
 });

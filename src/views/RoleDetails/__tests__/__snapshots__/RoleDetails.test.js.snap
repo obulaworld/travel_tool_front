@@ -5,12 +5,11 @@ exports[`<ROleDetails /> renders correctly 1`] = `
   <Modal
     closeDeleteModal={null}
     closeModal={[Function]}
-    customModalStyles=""
+    customModalStyles="add-user"
     customOverlayStyle=""
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="Add User"
@@ -30,6 +29,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
       handleUpdateRole={[Function]}
       myTitle="Add User"
       role="Travel team member"
+      roleId={335498}
       updateUserCenter={[Function]}
       updatingRole={false}
       userDetail=""
@@ -41,14 +41,21 @@ exports[`<ROleDetails /> renders correctly 1`] = `
     <div
       className="role-panel-header"
     >
-      <PageHeader
-        actionBtn="Add User"
-        hideDeleteRoleModal={[Function]}
-        location=""
-        openModal={[Function]}
-        title="Travel team members"
-        titleClassName="title"
-      />
+      <div
+        className="role-details__header"
+      >
+        <PageHeader
+          actionBtn="Add User"
+          addLink={false}
+          hideDeleteRoleModal={[Function]}
+          icon="back-icon.svg"
+          iconLink="/settings/roles"
+          location=""
+          openModal={[Function]}
+          title="Travel team members"
+          titleClassName="title"
+        />
+      </div>
     </div>
   </div>
   <div
@@ -63,8 +70,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
       hideDeleteRoleModal={[Function]}
       isLoading={false}
       roleName="Travel team member"
-      showDeleteRoleModal={[Function]}
-      travelTeamMembers={
+      roleUsers={
         Array [
           Object {
             "centers": Array [
@@ -77,6 +83,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
           },
         ]
       }
+      showDeleteRoleModal={[Function]}
     />
   </div>
 </Fragment>

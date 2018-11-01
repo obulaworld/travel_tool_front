@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
-import * as formMetadata from '../../FormsMetadata/NewChecklistForm';
+import inputLabels from '../../FormsMetadata/NewChecklistForm/inputLabels';
 import './newChecklistForm.scss';
 
 export default class ChecklistFieldSet extends Component {
   render() {
+    const formMetadata = {
+      inputLabels
+    }
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
     return (

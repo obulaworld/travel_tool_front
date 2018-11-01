@@ -6,14 +6,14 @@ exports[`<TripGeometry /> renders correctly 1`] = `
   toggleBookingDetails={[Function]}
   tripStats={
     Object {
-      "left": "-10044px",
+      "left": "-10075px",
     }
   }
 >
   <TimelineBar
     customStyle={
       Object {
-        "background": "hsl(164,53%,65%)",
+        "background": "hsl(326,44%,49%)",
         "minHeight": "20px",
         "width": "217px",
       }
@@ -23,7 +23,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       className="geom-trip geom-trip--inner"
       style={
         Object {
-          "background": "hsl(164,63%,45%)",
+          "background": "hsl(326,54%,29%)",
           "width": "100%",
         }
       }

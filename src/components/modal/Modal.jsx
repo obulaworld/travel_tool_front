@@ -18,7 +18,7 @@ class Modal extends PureComponent {
     modalBar: PropTypes.object,
     customModalStyles: PropTypes.string,
     closeDeleteModal: PropTypes.func,
-    params: PropTypes.string,
+    requestId: PropTypes.string,
     customOverlayStyle: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.object,
@@ -28,7 +28,7 @@ class Modal extends PureComponent {
 
 
   renderModalHeader = () => {
-    const { title, closeModal, modalBar, params, closeDeleteModal, requestId } = this.props;
+    const { title, closeModal, modalBar, closeDeleteModal, requestId } = this.props;
     let url = location.pathname;
     if (requestId) {
       let urlArr = url.split('/');
@@ -37,7 +37,7 @@ class Modal extends PureComponent {
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">
-          <div>
+          <div className="modal-title">
             {title}
           </div>
           <div className="lable-text modal-bar">
@@ -107,11 +107,6 @@ class Modal extends PureComponent {
   }
 }
 
-Modal.propTypes = {
-  params: PropTypes.string,
-  requestId: PropTypes.string,
-};
-
 Modal.defaultProps = {
   title: '',
   modalId: '',
@@ -121,7 +116,6 @@ Modal.defaultProps = {
   customOverlayStyle: '',
   customModalStyles: '',
   showOverlay: true,
-  params: '',
   modalBar: <div />,
   closeModal: null,
   closeDeleteModal: null,

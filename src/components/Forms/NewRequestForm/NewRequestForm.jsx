@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
-import { isEqual, pick, mapValues } from 'lodash';
+import { isEqual, pick } from 'lodash';
 import moment from 'moment';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { RoleDetailsTable } from '..';
 
 const props = {
-  travelTeamMembers: [{
+  roleUsers: [{
     id: 1,
     fullName: 'A user',
     centers: [

@@ -306,10 +306,6 @@ Array [
                             >
                                 *
                             </span>
-                            <span>
-                                 
-                                (Manager)
-                            </span>
                         </label>
                         <div
                             style={

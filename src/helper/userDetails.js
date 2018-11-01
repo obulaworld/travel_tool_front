@@ -27,3 +27,9 @@ export const logoutUser = (history, msg) => {
   history.push('/');
   msg ? errorMessage(msg) : successMessage('Logout Successful');
 };
+
+export const getUserRoleCenter = (userDetail, defaultCenter) => {
+  const userCenter = userDetail && userDetail.centers[0] ? userDetail.centers[0].location
+    : defaultCenter;
+  return userCenter;
+};

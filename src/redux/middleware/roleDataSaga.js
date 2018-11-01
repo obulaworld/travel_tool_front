@@ -8,7 +8,10 @@ import {
   getRoleDataFailure,
   putRoleData,
   putRoleDataSuccess,
-  putRoleDataFailure
+  putRoleDataFailure,
+  addRole,
+  addRoleFailure,
+  addRoleSuccess
 } from '../actionCreator/roleActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -41,5 +44,22 @@ export function* getRoleDataSaga() {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(getRoleDataFailure(errorMessage));
+  }
+}
+
+export function* watchAddRoleSaga() {
+  yield takeLatest(addRole().type, addRoleSaga);
+}
+export function* addRoleSaga(action) {
+  try {
+    const { roleData } = action;
+    const response = yield call(RoleAPI.addRole, roleData);
+    yield put(addRoleSuccess(response.data.result));
+    yield put(closeModal());
+    toast.success('Role created successfully');
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(addRoleFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
