@@ -6,7 +6,6 @@ exports[`should render approvals header correctly 1`] = `
 >
   <PageHeader
     actionBtn=""
-    hideDeleteRoleModal={[Function]}
     location=""
     openModal={[Function]}
     title="APPROVALS"

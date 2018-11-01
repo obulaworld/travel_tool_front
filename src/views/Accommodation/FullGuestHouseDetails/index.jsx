@@ -146,7 +146,7 @@ export class GuestHouseDetails extends PureComponent {
           {this.renderGuestHouseDetailsNameBar()}
           <div className="guesthouse-details-wrapper--key-details">
             <GuestHouseDetailCard
-              label="Room Capacity "
+              label="Bed Capacity "
               value={this.getBedCount(guestHouse.rooms)}
             />
             <GuestHouseDetailCard
