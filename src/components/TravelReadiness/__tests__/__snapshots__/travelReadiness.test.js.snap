@@ -3,6 +3,11 @@
 exports[`Test suite for Travel Readiness Component should match the snapshot 1`] = `
 <div
   className="analyticsReport__card"
+  style={
+    Object {
+      "marginRight": "30px",
+    }
+  }
 >
   <div
     className="analyticsReport__row analyticsReport__header"

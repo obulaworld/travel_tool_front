@@ -36,7 +36,7 @@ renderReadinessDetails = (item) => {
     return (
       <div className="analyticsReport__card" style={{marginRight: '30px'}}>
         <div className="analyticsReport__row analyticsReport__header">
-          Travel Readiness
+          <p>Travel Readiness</p>
           {renderButton('btnExportReadinessCSV', download, 'Export', this.getReadinessCSV)}
         </div>
         <div className="analyticsReport__row analyticsReport__report-header">
