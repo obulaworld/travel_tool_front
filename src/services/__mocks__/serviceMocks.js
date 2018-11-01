@@ -192,3 +192,17 @@ export const occupationResponses = {
       'updatedAt': '2018-09-27T13:57:13.898Z'
     }]
 };
+
+export const fetchDepartmentsTripsResponse = {
+  success: true,
+  data: [
+    {
+      label: 'Success',
+      value: 2
+    },
+    {
+      label: 'Talent & Development',
+      value: 3
+    }
+  ]
+};

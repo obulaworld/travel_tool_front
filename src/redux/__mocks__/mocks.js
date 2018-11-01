@@ -297,3 +297,28 @@ export const updateTripRoomResponse = {
   },
   message: 'Updated Successfully'
 };
+
+export const fetchDepartmentsTripsResponse = {
+  success: true,
+  data: [
+    {
+      label: 'Success',
+      value: 2
+    },
+    {
+      label: 'Talent & Development',
+      value: 3
+    }
+  ]
+};
+
+export const fetchDepartmentsTripsError = {
+  success: false,
+  message: 'Validation failed',
+  errors: [
+    {
+      message: 'type must be \'json\' or \'file\'',
+      name: 'type'
+    }
+  ]
+};

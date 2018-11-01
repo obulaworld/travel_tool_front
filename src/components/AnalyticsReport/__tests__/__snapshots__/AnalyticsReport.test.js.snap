@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test suite for Analytics Report Component should match the snapshot 1`] = `
+<div
+  className="analyticsReport"
+>
+  <div>
+    <p>
+      Travel Readiness Report
+    </p>
+  </div>
+  <div
+    className="analyticsReport__card"
+  >
+    <div
+      className="analyticsReport__row analyticsReport__header"
+    >
+      <p>
+        Number of Trips/Month
+      </p>
+      <button
+        className="analyticsReport__export-button"
+        id="btnExportTripsPerMonth"
+        name="btnExportTripsPerMonth"
+        onClick={[Function]}
+        type="button"
+      >
+        Export
+        <img
+          alt="Export"
+          src="save_alt_24px.svg"
+        />
+      </button>
+    </div>
+    <div
+      className="analyticsReport__row analyticsReport__report-header"
+    >
+      <div>
+        <p>
+          Numbers
+        </p>
+      </div>
+      <div>
+        <p>
+          Departments
+        </p>
+      </div>
+    </div>
+    <div
+      className="analyticsReport__row analyticsReport__report-details"
+    >
+      <div>
+        <p>
+          2
+        </p>
+      </div>
+      <div>
+        <p>
+          Success
+        </p>
+      </div>
+    </div>
+    <div
+      className="analyticsReport__row analyticsReport__report-details"
+    >
+      <div>
+        <p>
+          3
+        </p>
+      </div>
+      <div>
+        <p>
+          Talent & Development
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

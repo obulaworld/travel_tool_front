@@ -64,6 +64,10 @@ import {
   watchUpdateUserCenterAsync
 } from './centersSaga';
 
+import {
+  watchFetchDepartmentTrips
+} from './tripsAnalyticsSaga';
+
 function* rootSaga() {
   yield all([
     userAuth(),
@@ -103,7 +107,8 @@ function* rootSaga() {
     watchFetchDeletedChecklistItems(),
     watchFetchAvailableRooms(),
     watchUpdateTripRoom(),
-    watchDeleteUserRoleAsync()
+    watchDeleteUserRoleAsync(),
+    watchFetchDepartmentTrips()
   ]);
 }
 

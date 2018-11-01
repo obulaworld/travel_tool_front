@@ -10,6 +10,11 @@ const props = {
   history: {
     push: jest.fn()
   },
+  departmentTrips: {
+    report: [],
+    loading: false,
+  },
+  fetchDepartmentTrips: jest.fn()
 };
 
 const mockStore = configureStore();
@@ -35,7 +40,14 @@ describe('<Dashboard />', () => {
   });
 
   it('maps the correct state to props', () => {
-    const mapper = mapStateToProps({user : {getCurrentUserRole: ['Travel Admin']}});
+    const mapper = mapStateToProps(
+      {
+        user : {getCurrentUserRole: ['Travel Admin']},
+        analytics: {departmentTrips: {
+          report: [],
+          loading: false,
+        }}
+      });
     expect(mapper.getCurrentUserRole[0]).toEqual('Travel Admin');
   });
 });
