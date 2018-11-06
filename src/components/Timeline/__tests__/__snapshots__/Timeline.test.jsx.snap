@@ -31,7 +31,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="1"
         key="0"
       />
@@ -41,7 +41,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="3"
         key="2"
       />
@@ -249,7 +249,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current week-view"
+        className="timeline__segment  week-view"
         data-segment-label="Thu 11/1"
         key="0"
       />
@@ -259,7 +259,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  week-view"
+        className="timeline__segment current week-view"
         data-segment-label="Sat 11/3"
         key="2"
       />

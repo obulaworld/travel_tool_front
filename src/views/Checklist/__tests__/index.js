@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ConnectedChecklist, { Checklist, mapStateToProps } from '../index';
-import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
+import travelChecklistMockData from '../../../mockData/travelChecklistMockData'; 
 
 travelChecklistMockData[0].destination = 'Nairobi';
 
@@ -31,7 +31,7 @@ const initialState = {
   getCurrentUserRole: 'tomato',
   travelChecklist: { checklistItems: travelChecklistMockData }
 };
-let shallowWrapper, mountWrapper, wrapper;
+let shallowWrapper, mountWrapper, parentWrapper;
 
 describe('<Checklist> component', () => {
   const props = {
@@ -40,9 +40,11 @@ describe('<Checklist> component', () => {
     createTravelChecklist: jest.fn(),
     fetchTravelChecklist: jest.fn(),
     deleteTravelChecklist: jest.fn(),
+    updateTravelChecklist: jest.fn(),
+    handleInputChange: jest.fn(),
     fetchDeletedChecklistItems: jest.fn(),
     shouldOpen: false,
-    modalType: '',
+    modalType: 'edit cheklistItem',
     checklistItems: travelChecklistMockData,
     deletedChecklistItems: travelChecklistMockData,
     currentUser: {
@@ -51,7 +53,7 @@ describe('<Checklist> component', () => {
     isLoading: false
   };
   beforeEach(() => {
-    shallowWrapper = shallow( <Checklist {...props} />);
+    shallowWrapper = mount( <Checklist {...props} />);
     mountWrapper = mount(
       <Provider>
         <MemoryRouter>
@@ -59,6 +61,7 @@ describe('<Checklist> component', () => {
         </MemoryRouter>
       </Provider>
     );
+    parentWrapper = mountWrapper.find(Checklist);
   });
   it('should render the Checklist page without crashing', () => {
     expect(shallowWrapper.length).toBe(1);
@@ -76,30 +79,19 @@ describe('<Checklist> component', () => {
     expect(wrapper.state().checklistItemId).toEqual(checklistItemId);
   });
 
-  it('should call the handleEditItem function', () => {
-    const checklistItem = {
-      name: 'edit',
-      id: 5
-    };
-    const wrapper = shallowWrapper;
-    const wrapperInstance = wrapper.instance();
-    wrapperInstance.handleEditItem(checklistItem)();
-    expect(wrapper.state().itemToEdit).toEqual(checklistItem);
-  });
-
-  it('should call the openAddModal function', () => {
+  it('should call the manageModal function', () => {
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     const { openModal } = props;
-    wrapperInstance.openAddModal();
+    wrapperInstance.manageModal('add')();
     expect(openModal.called).toEqual(true);
   });
 
-  it('should call the openAddModal function', () => {
+  it('should call the manageModal function with `edit`', () => {
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     const { openModal } = props;
-    wrapperInstance.openEditModal();
+    wrapperInstance.manageModal('edit')();
     expect(openModal.called).toEqual(true);
   });
 
@@ -107,7 +99,7 @@ describe('<Checklist> component', () => {
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     const { closeModal } = props;
-    wrapperInstance.closeEditModal();
+    wrapperInstance.manageModal('close-edit-modal')();
     expect(closeModal.called).toEqual(true);
   });
 
@@ -115,7 +107,7 @@ describe('<Checklist> component', () => {
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     const { closeModal } = props;
-    wrapperInstance.closeDeleteModal();
+    wrapperInstance.manageModal('close-delete-modal')();
     expect(closeModal.called).toEqual(true);
   });
 
@@ -131,7 +123,9 @@ describe('<Checklist> component', () => {
     const state = {
       itemToEdit: null,
       deleteReason: '',
-      checklistItemId: ''
+      checklistItemId: '',
+      restoreItemData: {},
+      checklistItemName: ''
     };
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
@@ -139,13 +133,33 @@ describe('<Checklist> component', () => {
     wrapperInstance.deleteChecklistItem(event);
     expect(deleteTravelChecklist).toBeCalledWith(state.checklistItemId, state);
   });
+  it('should call the updateTravelChecklist function', () => {
+    const state = {
+      checklistItemId: '',
+      restoreItemData: {},
+      itemToEdit: null,
+      deleteReason: '',
+      checklistItemName: ''
+    };
+    const wrapper = shallowWrapper;
+    const wrapperInstance = wrapper.instance();
+    const { updateTravelChecklist } = props;
+    wrapperInstance.restoreChecklistItem();
+    expect(updateTravelChecklist).toBeCalledWith(state.checklistItemId, state.restoreItemData);
+  });
 
   it('should call handleInputChange function', () => {
     let event = { target: { value: '' } };
     const wrapper = shallowWrapper;
     event.target.value = 'We need more items';
+    wrapper.setProps({
+      shouldOpen: true,
+      modalType: 'delete checklist item'
+    });
     const input = wrapper.find('.delete-checklist-item__input');
     input.simulate('change', event);
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.handleInputChange;
     expect(wrapper.instance().state.deleteReason).toBe('We need more items');
   });
 
@@ -181,6 +195,24 @@ describe('<Checklist> component', () => {
   test('should have default updateTravelChecklist', () => {
     const result = Checklist.defaultProps.updateTravelChecklist();
     expect(result).toEqual(undefined);
+  });
+  it('should call the setItemToRestore function', () => {
+    const checklistItemId = 1;
+    const wrapper = shallowWrapper;
+    const wrapperInstance = wrapper.instance();
+    const deletedChecklistItems = [{
+      id: checklistItemId,
+      name: 'visa application'
+    }];
+    wrapper.setProps({
+      deletedChecklistItems
+    });
+    wrapper.setState({
+      restoreItemData: deletedChecklistItems[0],
+      checklistItemName: deletedChecklistItems[0].name
+    });
+    wrapperInstance.setItemToRestore(checklistItemId)();
+    expect(wrapper.state().checklistItemId).toEqual(checklistItemId);
   });
 });
 

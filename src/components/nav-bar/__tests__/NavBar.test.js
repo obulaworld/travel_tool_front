@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { MemoryRouter } from 'react-router-dom';
 import { NavBar } from '../NavBar';
-import notificatonsMockData from '../__mocks__/notificationMockData';
+import notificatonsMockData from '../__mocks__/notificationMockData-navBar';
 
 const props = {
   onNotificationToggle: jest.fn(),

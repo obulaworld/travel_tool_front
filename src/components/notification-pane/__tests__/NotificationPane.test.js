@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { NotificationPane } from '../NotificationPane';
-import notificationMockData from '../__mocks__/notificationMockData';
+import notificationMockData from '../__mocks__/notificationMockData-pane';
 
 const props = {
   onCloseNotificationPane: jest.fn(),

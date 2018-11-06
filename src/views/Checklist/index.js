@@ -10,13 +10,17 @@ import { createTravelChecklist, fetchTravelChecklist, updateTravelChecklist, del
 } from '../../redux/actionCreator/travelChecklistActions';
 import './index.scss';
 import error from '../../images/error.svg';
+import RestoreChecklistItem from '../../components/modal/RestoreChecklistModal/RestoreChecklistModal';
+import DeleteRequestForm from '../../components/Forms/DeleteRequestForm/DeleteRequestForm';
 
 
 export class Checklist extends Component {
   state = {
     itemToEdit: null,
     deleteReason: '',
-    checklistItemId: ''
+    checklistItemId: '',
+    restoreItemData: {},
+    checklistItemName: ''
   }
   componentDidMount() {
     const { fetchTravelChecklist, fetchDeletedChecklistItems } = this.props;
@@ -28,28 +32,20 @@ export class Checklist extends Component {
     this.setState({ checklistItemId });
     openModal(true, 'delete checklist item');
   }
-  openAddModal = () => {
-    let { openModal } = this.props;
-    openModal(true, 'add cheklistItem');
+  setItemToRestore = (checklistItemId) => () => {
+    const { openModal, deletedChecklistItems } = this.props;
+    const restoreItemData = deletedChecklistItems.find(item => item.id === checklistItemId);
+    this.setState({ restoreItemData, checklistItemName: restoreItemData.name, checklistItemId });
+    openModal(true, 'restore checklist item');
   }
-  openEditModal = () => {
-    let { openModal } = this.props;
-    openModal(true, 'edit cheklistItem');
-  }
-  closeEditModal = () => {
-    let { closeModal } = this.props;
-    closeModal(true, 'edit cheklistItem');
+  manageModal = (action, checklistItem = null) => () => {
+    let { openModal, closeModal } = this.props;
+    if (action === 'add') { openModal(true, 'add cheklistItem'); }
+    if (action === 'edit'){ this.setState(() => ({itemToEdit: checklistItem})); openModal(true, 'edit cheklistItem'); }
+    if (action === 'close-edit-modal') { closeModal(true, 'edit cheklistItem'); }
+    if (action === 'close-delete-modal'){ closeModal(); this.setState({ deleteReason: null });}
   }
 
-  closeDeleteModal = () => {
-    let { closeModal } = this.props;
-    closeModal();
-    this.setState({ deleteReason: null });
-  }
-  handleEditItem = (checklistItem) => () => {
-    this.setState(() => ({itemToEdit: checklistItem}));
-    this.openEditModal();
-  }
   handleInputChange = (event) => {
     this.setState({ deleteReason: event.target.value });
   }
@@ -60,12 +56,17 @@ export class Checklist extends Component {
     deleteTravelChecklist(checklistItemId, this.state);
     this.setState({ deleteReason: null });
   }
-
+  restoreChecklistItem = () => {
+    const { updateTravelChecklist, checklistItems } = this.props;
+    const { checklistItemId, restoreItemData } = this.state;
+    updateTravelChecklist(checklistItemId, restoreItemData);
+    this.setState({ deleteReason: null });
+  }
   renderChecklistPanelHeader() {
     const { currentUser } = this.props;
     return (
       <div className="rp-role__header">
-        <ChecklistPanelHeader openModal={this.openAddModal} location={currentUser.location} />
+        <ChecklistPanelHeader openModal={this.manageModal('add')} location={currentUser.location} />
       </div>
     );
   }
@@ -83,7 +84,7 @@ export class Checklist extends Component {
         <NewChecklistForm
           closeModal={closeModal}
           createTravelChecklist={createTravelChecklist} fetchTravelChecklist={fetchTravelChecklist}
-          modalType={modalType} closeEditModal={this.closeEditModal}
+          modalType={modalType} closeEditModal={this.manageModal('close-edit-modal')}
           updateTravelChecklist={updateTravelChecklist} checklistItem={itemToEdit} currentUser={currentUser}
         />
       </Modal>
@@ -92,30 +93,12 @@ export class Checklist extends Component {
   renderDeleteChecklistForm() {
     const { shouldOpen, modalType } = this.props;
     return (
-      <Modal
-        closeModal={this.closeDeleteModal}
-        customModalStyles="delete-checklist-item"
-        visibility={
-          shouldOpen && modalType.match('delete checklist item') ? 'visible' : 'invisible'
-        }
-        title="Delete Travel Checklist Item"
-      >
-        <p className="delete-checklist-item__reason">Reason</p>
-        <textarea type="text" className="delete-checklist-item__input" onChange={this.handleInputChange} />
-        <span className="delete-checklist-item__disclaimer">
-          <img src={error} alt="profile" className="delete-checklist-item__disclaimer--error" />
-          This action cannot be undone
-        </span>
-        <div className="delete-checklist-item__hr" />
-        <div className="delete-checklist-item__footer">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={this.closeDeleteModal}>
-            Cancel
-          </button>
-          <button type="button" className="delete-checklist-item__footer--delete" onClick={this.deleteChecklistItem}>
-            Delete
-          </button>
-        </div>
-      </Modal>
+      <DeleteRequestForm
+        shouldOpen={shouldOpen}
+        modalType={modalType}
+        closeModal={this.manageModal('close-delete-modal')}
+        handleInputChange={this.handleInputChange}
+        deleteChecklistItem={this.deleteChecklistItem} />
     );
   }
   renderDeletedChecklistItem(deletedChecklistItem) {
@@ -123,8 +106,20 @@ export class Checklist extends Component {
       <div className="checklist-item">
         <div id="deleted-item">{deletedChecklistItem.name}</div>
         <div id="deleted-item">{deletedChecklistItem.deleteReason}</div>
-        <button type="button" id="restore-btn" onClick="">Restore</button>
+        <button type="button" id="restore-btn" onClick={this.setItemToRestore(deletedChecklistItem.id)}>Restore</button>
       </div>
+    );
+  }
+  renderRestoreChecklistForm() {
+    const { shouldOpen, modalType } = this.props;
+    const { checklistItemName } = this.state;
+    return (     
+      <RestoreChecklistItem 
+        closeModal={this.manageModal('close-edit-modal')}
+        shouldOpen={shouldOpen}
+        modalType={modalType}
+        itemName={checklistItemName}
+        restoreChecklistItem={this.restoreChecklistItem} />
     );
   }
   renderDeletedChecklistItems() {
@@ -163,7 +158,7 @@ export class Checklist extends Component {
       <div className="checklist-item">
         <div id="item-name">{checklistItem.name}</div>
         {checklistItem.id && (
-          <button type="button" id="edit-btn" onClick={this.handleEditItem(checklistItem)}>Edit</button>
+          <button type="button" id="edit-btn" onClick={this.manageModal('edit',checklistItem)}>Edit</button>
         )}
         {checklistItem.id && (
           <button type="button" id="delete-btn" onClick={this.setItemToDelete(checklistItem.id)}>Delete</button>
@@ -205,6 +200,7 @@ export class Checklist extends Component {
         {this.renderChecklistForm()}
         {this.renderDeleteChecklistForm()}
         {this.renderChecklistPage()}
+        {this.renderRestoreChecklistForm()}
       </Fragment>
     );
   }
