@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import {
   HtmlInput,
@@ -90,25 +90,44 @@ class Input extends PureComponent {
     ) : null;
   }
 
+
+  renderAsterisk(){
+    /* This API assumes that all inputs are required and therefore a red asterisk is displayed but this is
+     * not enforced with html
+     * To remedy the former, if one has a field that should be optional,
+     * they have to explicitly pass 'required: false' into customProps
+     * This method checks for this and will display the asterisk appropriately.
+     */
+
+    const { required} = this.props;
+    if(required !== false) {
+      const { labelNote } = this.props;
+      return (
+        <Fragment>
+          <span style={{color: 'red'}}>
+            *
+          </span>
+          {this.labelNote(labelNote)}
+        </Fragment>
+      );
+    }
+  }
+
   render() {
     const { errors, values } = this.context;
-    let { name, label, labelNote, className } = this.props;
+    let { name, label, className } = this.props;
     const value = values? values[name]: '';
     const error = errors? errors[name]: '';
     let customClass = className ? className : '';
     // switch input types into InputElement
     const InputElement = this.getInputType();
-
     return (
       <div
         className={`form-input ${customClass} ${errors[name] ? 'error' : ''}`}
       >
         <label htmlFor={name}>
           {label}
-          <span style={{color: 'red'}}>
-            *
-          </span>
-          {this.labelNote(labelNote)}
+          {this.renderAsterisk()}
         </label>
         <InputElement value={value} error={error} {...this.props} />
         <span className="error">
