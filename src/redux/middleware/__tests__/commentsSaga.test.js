@@ -67,7 +67,13 @@ describe('Comments saga', () => {
       comment: 'Saga test comment',
     };
     const response = {
-      data: { success: 'new comment data' }
+      data: {
+        success: true,
+        comment: {
+          id: 'F5hDV2lK',
+          comment: 'New comment data',
+        }
+      }
     };
     const id = 'F5hDV2lK';
 
@@ -78,7 +84,10 @@ describe('Comments saga', () => {
         ])
         .put({
           type: 'EDIT_COMMENT_SUCCESS',
-          comment: { success: 'new comment data' }
+          comment: {
+            id: 'F5hDV2lK',
+            comment: 'New comment data',
+          }
         })
         .dispatch({
           type: 'EDIT_COMMENT',

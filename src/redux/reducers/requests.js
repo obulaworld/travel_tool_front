@@ -11,17 +11,22 @@ import {
   EDIT_REQUEST,
   EDIT_REQUEST_SUCCESS,
   EDIT_REQUEST_FAILURE,
-  FETCH_EDIT_REQUEST
+  FETCH_EDIT_REQUEST,
+  CREATE_COMMENT_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+  EDIT_COMMENT_SUCCESS
 } from '../constants/actionTypes';
 
 const initialState = {
   requestData: {
-    trips: []
+    trips: [],
+    comments: []
   },
-  requestOnEdit: {}
+  requestOnEdit: {},
+  comments: []
 };
 
-let editedRequestIndex;
+let editedRequestIndex, comments;
 const requests = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_USER_REQUESTS:
@@ -110,6 +115,47 @@ const requests = (state = initialState, action) => {
       ...state,
       editingRequest: false,
       editRequestError: action.error
+    };
+  case CREATE_COMMENT_SUCCESS:
+    return {
+      ...state,
+      requestData: {
+        ...state.requestData,
+        comments: [
+          action.comment.comment,
+          ...state.comments,
+        ],
+      },
+      comments: [
+        action.comment.comment,
+        ...state.comments,
+      ],
+    };
+  case EDIT_COMMENT_SUCCESS:
+    comments = state.comments.map(comment => {
+      if (comment.id === action.comment.id) {
+        comment.comment = action.comment.comment;
+        comment.isEdited = action.comment.isEdited;
+      }
+      return comment;
+    });
+    return {
+      ...state,
+      requestData: {
+        ...state.requestData,
+        comments
+      },
+      comments
+    };
+  case DELETE_COMMENT_SUCCESS:
+    comments = state.comments.filter(comment => comment.id !== action.commentId);
+    return {
+      ...state,
+      requestData: {
+        ...state.requestData,
+        comments
+      },
+      comments
     };
   default:
     return state;

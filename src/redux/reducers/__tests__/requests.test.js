@@ -16,9 +16,11 @@ describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {
     const initialState = {
       requestData: {
-        trips: []
+        trips: [],
+        comments: []
       },
-      'requestOnEdit': {}
+      requestOnEdit: {},
+      comments: []
     };
     const error = 'Error fetching requests, network error';
     it('returns the correct initial state', () => {
@@ -218,6 +220,27 @@ describe('Requests Reducer', () => {
         editRequestError: null
       });
     });
+    it('returns the correct state for FETCH_EDIT_REQUEST action', () => {
+      const initialState = {
+        requests: [fetchRequestsDetailsResponse.requestData],
+        requestData: {
+          trips: [],
+          comments: []
+        },
+        requestOnEdit: {},
+        comments: []
+      };
+      const action = {
+        type: 'FETCH_EDIT_REQUEST',
+        requestId: 'xDh20cuGx',
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        requestOnEdit: {
+          ...fetchRequestsDetailsResponse.requestData,
+        },
+      });
+    });
     it('returns the correct state for EDIT_REQUEST_FAILURE action', () => {
       const action = {
         type: 'EDIT_REQUEST_FAILURE',
@@ -226,6 +249,100 @@ describe('Requests Reducer', () => {
       expect(requests(initialState, action)).toEqual({
         editingRequest: false,
         editRequestError: 'Possible network error, please reload the page',
+      });
+    });
+  });
+  describe('Comment Reducer', () => {
+    let initialState = {
+      requestData: {
+        trips: []
+      },
+      comments: [],
+      requestOnEdit: {}
+    };
+    it('returns the correct state for CREATE_COMMENT_SUCCESS action', () => {
+      const action = {
+        type: 'CREATE_COMMENT_SUCCESS',
+        comment: {
+          id: 'ls92T30EF',
+          comment: 'Now ready'
+        },
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        requestData: {
+          ...initialState.requestData,
+          comments: [
+            action.comment.comment,
+            ...initialState.comments
+          ]
+        },
+        comments: [
+          action.comment.comment,
+          ...initialState.comments
+        ]
+      });
+    });
+    it('returns the correct state for EDIT_COMMENT_SUCCESS action', () => {
+      const action = {
+        type: 'EDIT_COMMENT_SUCCESS',
+        comment: {
+          id: 'ls92T30EF',
+          comment: 'No longer ready',
+          isEdited: false
+        },
+      };
+      initialState = {
+        requestData: {
+          trips: []
+        },
+        comments: [
+          {
+            id: 'ls92T30EF',
+            comment: 'Now ready',
+            isEdited: true
+          },
+        ],
+        requestOnEdit: {}
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        requestData: {
+          ...initialState.requestData,
+          comments: [
+            action.comment,
+          ]
+        },
+        comments: [
+          action.comment,
+        ]
+      });
+    });
+    it('returns the correct state for DELETE_COMMENT_SUCCESS action', () => {
+      const action = {
+        type: 'DELETE_COMMENT_SUCCESS',
+        commentId: 'ls92T30EF',
+      };
+      initialState = {
+        requestData: {
+          trips: []
+        },
+        comments: [
+          {
+            id: 'ls92T30EF',
+            comment: 'Now ready',
+            isEdited: true
+          },
+        ],
+        requestOnEdit: {}
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        requestData: {
+          ...initialState.requestData,
+          comments: []
+        },
+        comments: []
       });
     });
   });

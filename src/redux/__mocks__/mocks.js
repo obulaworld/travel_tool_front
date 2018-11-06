@@ -79,6 +79,12 @@ export const fetchRequestsDetailsResponse = {
         comment: 'See you next week',
         createdAt: '2018-08-16T11:11:52.181Z',
         updatedAt: '2018-08-16T11:11:52.181Z',
+      },
+      {
+        id: 'xGh30atGl',
+        comment: 'See you next two weeks',
+        createdAt: '2018-08-17T11:11:52.181Z',
+        updatedAt: '2018-08-17T11:11:52.181Z',
       }
     ]
   }
@@ -337,33 +343,33 @@ export const fetchReadinessResponse = {
 };
 
 export const fetchTravelCalendarResponse = {
-  "data": [{
-    "name": "Barrison Waina",
-    "department": "Apprenticeship Department",
-    "role": "Product designer",
-    "flights": {
-      "arrival": {
-        "destination": "Lagos",
-        "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+  'data': [{
+    'name': 'Barrison Waina',
+    'department': 'Apprenticeship Department',
+    'role': 'Product designer',
+    'flights': {
+      'arrival': {
+        'destination': 'Lagos',
+        'airline': 'Kenya Airways',
+        'flight_no': 'KQ5752',
+        'arrival_time': '24/10/2018 13:23:33',
+        'depature_time': '24/10/2018 13:23:33'
       },
-      "depature": {
-        "destination": "Nairobi",
-        "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+      'depature': {
+        'destination': 'Nairobi',
+        'airline': 'Kenya Airways',
+        'flight_no': 'KQ5752',
+        'arrival_time': '24/10/2018 13:23:33',
+        'depature_time': '24/10/2018 13:23:33'
       }
     }
   }],
-  "pagination": {
-    "total": 30,
-    "current_page": 1,
-    "limit": 13,
-    "nextPage": 2,
-    "prevPage": null
+  'pagination': {
+    'total': 30,
+    'current_page': 1,
+    'limit': 13,
+    'nextPage': 2,
+    'prevPage': null
   }
 };
 
