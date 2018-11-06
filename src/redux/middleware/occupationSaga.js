@@ -4,7 +4,7 @@ import { fetchOccupationsSuccess, fetchOccupationsFailure } from '../actionCreat
 import OccupationAPI from '../../services/OccupationAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
-// get occupations from API and dispatch action to get this data to store via reducer
+// get occupations from API and dispatch action to get this data to store through reducer
 export function* fetchOccupationsSaga(){
   try{
     const service = OccupationAPI.getOccupationData;

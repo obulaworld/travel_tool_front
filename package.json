@@ -6,6 +6,7 @@
     "@storybook/react": "^3.4.10",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "commitplease": "^3.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
@@ -160,5 +161,19 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "commitplease": {
+    "style": "angular",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore"
+    ],
+    "scope": "\\S+.*"
   }
 }
