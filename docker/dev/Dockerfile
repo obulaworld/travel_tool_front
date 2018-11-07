@@ -10,5 +10,6 @@ WORKDIR /usr/app
 # In order to allow this command to use the cache if
 # the package.json file has not changed
 COPY package.json /usr/app
+COPY yarn.lock /usr/app
 
 RUN yarn install
