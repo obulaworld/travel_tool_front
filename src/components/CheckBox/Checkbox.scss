@@ -34,6 +34,11 @@
   }
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .ticksvg{
   height: 14px;
   width: 13px;

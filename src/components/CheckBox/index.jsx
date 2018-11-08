@@ -67,7 +67,7 @@ class Checkbox extends PureComponent {
 
   render() {
     return (
-      <div className="container">
+      <div className="container flex-row">
         {this.renderCheckBox()}
         {this.renderText()}
       </div>
