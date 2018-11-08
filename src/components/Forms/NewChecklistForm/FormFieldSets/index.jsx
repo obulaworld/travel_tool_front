@@ -8,7 +8,6 @@ export default class ChecklistFieldSet extends Component {
   render() {
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
-    const { handleCheckboxChange } = this.props;
     return (
       <fieldset className="add-checklist">
         <div className="input-group">
@@ -34,11 +33,3 @@ export default class ChecklistFieldSet extends Component {
     );
   }
 }
-
-ChecklistFieldSet.propTypes = {
-  handleCheckboxChange: PropTypes.func
-};
-
-ChecklistFieldSet.defaultProps = {
-  handleCheckboxChange: () => {}
-};

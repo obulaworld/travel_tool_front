@@ -6,9 +6,8 @@ import '../_input.scss';
 export default class CheckBox extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      condition: false
-    };
+    const { value } = this.props;
+    this.state = { condition: value };
   }
   
   handleChange = ({ target: { checked }}) => {
@@ -41,4 +40,5 @@ export default class CheckBox extends Component {
 CheckBox.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  value: PropTypes.bool.isRequired
 };

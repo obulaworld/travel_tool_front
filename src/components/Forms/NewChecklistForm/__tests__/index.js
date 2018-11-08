@@ -64,4 +64,11 @@ describe('<NewChecklistForm />', () => {
     expect(spy).toHaveBeenCalledTimes(1);
     wrapper.unmount();
   });
+
+  it('should not enable save button with of a checklist with no value', () => {
+    wrapper.setProps({ modalType: 'edit cheklistItem'});
+    wrapper.setState({ values: { itemName: ''} });
+    expect(wrapper.state().hasBlankFields).toBe(true);
+    wrapper.unmount();
+  });
 });
