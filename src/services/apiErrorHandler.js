@@ -19,22 +19,8 @@ export default function apiErrorHandler(error) {
         .join(', ');
       errorMessage = `${errorMessage}. ${validationErrors}`;
       break;
-    case 400:
-      errorMessage = error.response.data.message || error.response.data.error;
-      validationErrors = error.response.data.message || error.response.data.error;
-      break;
-    case 401:
-      errorMessage = error.response.data.error;
-      break;
-    case 403:
-      errorMessage = error.response.data.message;
-      validationErrors = error.response.data.message;
-      break;
-    case 404:
-      errorMessage = error.response.data.message || error.response.data.error;
-      break;
     default:
-      errorMessage = error.response.data.error;
+      errorMessage = error.response.data.error || error.response.data.message;
     }
   } else {
     // if server is down, client won't get a response
