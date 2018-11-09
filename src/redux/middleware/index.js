@@ -72,6 +72,10 @@ import {
   watchFetchDepartmentTrips
 } from './tripsAnalyticsSaga';
 
+import {
+  watchFetchDocuments
+} from './DocumentSaga';
+
 function* rootSaga() {
   yield all([
     userAuth(),
@@ -115,7 +119,8 @@ function* rootSaga() {
     watchDeleteUserRoleAsync(),
     watchFetchDepartmentTrips(),
     watchFetchReadiness(),
-    watchFetchCalendarAnalytics()
+    watchFetchCalendarAnalytics(),
+    watchFetchDocuments()
   ]);
 }
 

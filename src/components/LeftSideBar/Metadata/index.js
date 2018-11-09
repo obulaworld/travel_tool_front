@@ -9,6 +9,8 @@ import activeChecklistIcon from '../../../images/icons/checklist-active.svg';
 import inactiveChecklistIcon from '../../../images/icons/checklist-inactive.svg';
 import activeDashboardIcon from '../../../images/icons/dashboard.svg';
 import inactiveDashboardIcon  from '../../../images/icons/dashboard_inactive.svg';
+import activeDocumentsIcon from '../../../images/icons/documents-blue.svg';
+import inactiveDocumentsIcon from '../../../images/icons/documents-grey.svg';
 
 const NavItemsMetadata = [
   // Dashboard
@@ -79,6 +81,17 @@ const NavItemsMetadata = [
       inactive: inactiveChecklistIcon
     },
     onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+  },
+  // Documents
+  {
+    text: 'Documents',
+    link_to: '/documents',
+    activateOnLogin: true,
+    isDropdown: false,
+    icons: {
+      active: activeDocumentsIcon,
+      inactive: inactiveDocumentsIcon
+    }
   },
   // Settings
   {

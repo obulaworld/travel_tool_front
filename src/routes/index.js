@@ -13,6 +13,7 @@ import ConnectedAccommodation from '../views/Accommodation';
 import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
+import ConnectedDocuments from '../views/Documents';
 
 
 const Routes = () => (
@@ -89,6 +90,11 @@ const Routes = () => (
             path="/settings/roles/:roleId"
             exact
             component={RequireAuth(ConnectedRoleDetails)}
+          />
+          <Route
+            path="/documents"
+            exact
+            component={RequireAuth(ConnectedDocuments)}
           />
         </Switch>
       </LayoutShell>
