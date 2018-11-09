@@ -5,12 +5,16 @@ import { throwError } from 'redux-saga-test-plan/providers';
 import * as  matchers from 'redux-saga-test-plan/matchers';
 import toast from 'toastr';
 import DocumentAPI from '../../../services/DocumentAPI';
-import { watchFetchDocuments, watchUpdateDocument } from '../DocumentSaga';
+import { watchFetchDocuments, watchUpdateDocument, watchCreateDocument } from '../DocumentSaga';
 import {
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
   UPDATE_DOCUMENT_SUCCESS,
+  CREATE_DOCUMENT, 
+  CREATE_DOCUMENT_SUCCESS, 
+  CREATE_DOCUMENT_FAILURE
 } from '../../constants/actionTypes';
+import { documentData, response } from '../../__mocks__/documentMockData';
 
 describe('Document saga', () => {
   describe('Fetch document saga', () => {
@@ -110,6 +114,51 @@ describe('Document saga', () => {
         .dispatch({
           type: UPDATE_DOCUMENT,
           document: newDocumentName
+        })
+        .run();
+    });
+  });
+
+  describe('Create Documents Saga test', () => {
+    it('creates a document successfully', () => {
+      return expectSaga(watchCreateDocument, DocumentAPI)
+        .provide([[
+          call(DocumentAPI.postDocument, documentData), 
+          { data: response }
+        ]])
+        .put({
+          type: CREATE_DOCUMENT_SUCCESS,
+          documentItem: response
+        })
+        .dispatch({
+          type: CREATE_DOCUMENT,
+          documentData
+        })
+        .run();
+    });
+
+    it('handles failed document creation', () => {
+      const error = {
+        response: {
+          status: 422,
+          data: {
+            errors: ['Document saga error']
+          }
+        }
+      };
+    
+      return expectSaga(watchCreateDocument, DocumentAPI)
+        .provide([[
+          call(DocumentAPI.postDocument, documentData),
+          throwError(error)
+        ]])
+        .put({
+          type: CREATE_DOCUMENT_FAILURE,
+          error: 'Bad request. '
+        })
+        .dispatch({
+          type: CREATE_DOCUMENT,
+          documentData
         })
         .run();
     });

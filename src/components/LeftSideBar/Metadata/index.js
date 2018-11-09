@@ -70,6 +70,17 @@ const NavItemsMetadata = [
       inactive: inactiveAccommodationIcon
     }
   },
+  // Documents
+  {
+    text: 'Documents',
+    link_to: '/documents',
+    activateOnLogin: true,
+    isDropdown: false,
+    icons: {
+      active: activeDocumentsIcon,
+      inactive: inactiveDocumentsIcon
+    }
+  },
   // Trip planner
   {
     text: 'Trip Planner',
@@ -81,17 +92,6 @@ const NavItemsMetadata = [
       inactive: inactiveChecklistIcon
     },
     onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
-  },
-  // Documents
-  {
-    text: 'Documents',
-    link_to: '/documents',
-    activateOnLogin: true,
-    isDropdown: false,
-    icons: {
-      active: activeDocumentsIcon,
-      inactive: inactiveDocumentsIcon
-    }
   },
   // Settings
   {

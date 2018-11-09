@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Documents, mapStateToProps } from '../index';
+import DocumentsHeader from '../../../components/DocumentsHeader';
 
 describe('<Documents />', () => {
   const props = {
@@ -45,9 +46,13 @@ describe('<Documents />', () => {
   };
 
   it('should render correctly with documents', () => {
-
     const wrapper = shallow(<Documents {...props} />);
     expect(wrapper.find('DocumentTable').length).toBe(1);
+  });
+
+  it('should render Document Header correctly', () => {
+    const wrapper = shallow(<Documents {...props} />);
+    expect(wrapper.find(DocumentsHeader).length).toBe(1);   
   });
 
   it('should render correctly without documents', () => {
@@ -142,7 +147,14 @@ describe('<Documents />', () => {
     const handleOpenModalSpy = jest.spyOn(wrapper.instance(), 'handleOpenModal');
     wrapper.instance().handleOpenModal();
     expect(handleOpenModalSpy).toHaveBeenCalled();
+    done();
+  });
 
+  it('should call `handleOpenModal method', (done) => {
+    const wrapper = shallow(<Documents {...props} />);
+    const handleOpenModalSpy = jest.spyOn(wrapper.instance(), 'openAddModal');
+    wrapper.instance().openAddModal();
+    expect(handleOpenModalSpy).toHaveBeenCalled();
     done();
   });
 
@@ -150,6 +162,7 @@ describe('<Documents />', () => {
     const mapper = mapStateToProps({
       modal: { modal: ['add document']},
       documents: { documents: ['user documents'] },
+      user: { getUserData: ['user data'] },
     });
     expect(mapper.documents).toEqual(['user documents']);
   });

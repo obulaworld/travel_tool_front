@@ -1,14 +1,15 @@
 import moxios from 'moxios';
 import DocumentAPI from '../DocumentAPI';
 import { updateDocument } from '../../redux/actionCreator/documentActions';
+import { resolveBaseUrl } from '../index';
+import { documentData } from '../../redux/__mocks__/documentMockData';
 
-const baseUrl = 'http://127.0.0.1:5000/api/v1';
+const baseUrl = resolveBaseUrl();
 
-describe('DocumentAPI', () => {
+describe('DocumentsAPI', () => {
   beforeEach(() => {
     moxios.install();
   });
-
   afterEach(() => {
     moxios.uninstall();
   });
@@ -46,4 +47,18 @@ describe('DocumentAPI', () => {
       document: 'Document was renamed successfully'
     });
   });
+  it('should send a POST request to create a document', async () => {
+    moxios.stubRequest(`${baseUrl}/documents`, {
+      status: 201,
+      response: {
+        message: 'Document uploaded successfully',
+      }
+    });
+    const response = await DocumentAPI.postDocument(documentData);
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/documents`);
+    expect(response.data).toEqual({
+      message: 'Document uploaded successfully',
+    });
+  });
+
 });

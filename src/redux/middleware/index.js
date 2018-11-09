@@ -74,7 +74,8 @@ import {
 
 import {
   watchFetchDocuments,
-  watchUpdateDocument
+  watchUpdateDocument,
+  watchCreateDocument 
 } from './DocumentSaga';
 
 function* rootSaga() {
@@ -122,7 +123,8 @@ function* rootSaga() {
     watchFetchReadiness(),
     watchFetchCalendarAnalytics(),
     watchFetchDocuments(),
-    watchUpdateDocument()
+    watchUpdateDocument(),
+    watchCreateDocument(),
   ]);
 }
 

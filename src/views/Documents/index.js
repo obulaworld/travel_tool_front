@@ -8,9 +8,11 @@ import {
   editDocument,
   updateDocumentOnEdit,
   updateDocument,
-  removeDocumentFromEdit
+  removeDocumentFromEdit,
+  createDocument
 } from '../../redux/actionCreator/documentActions';
 import DocumentsHeader from '../../components/DocumentsHeader';
+import NewDocumentForm from '../../components/Forms/NewDocumentForm';
 import DocumentTable from './DocumentTable';
 import Preloader from '../../components/Preloader/Preloader';
 import './Documents.scss';
@@ -23,6 +25,11 @@ export class Documents extends Component {
   componentDidMount() {
     const { fetchDocuments } = this.props;
     fetchDocuments();
+  }
+
+  openAddModal = () => {
+    let{ openModal } = this.props;
+    openModal(true, 'add document');
   }
 
   handleOpenModal = (modalType) => {
@@ -114,7 +121,7 @@ export class Documents extends Component {
         modalId="edit-document-modal"
         modalContentId="edit-document-modal-content"
         visibility={
-          shouldOpen && modalType.match('rename document')
+          (shouldOpen && modalType === 'rename document')
             ? 'visible'
             : 'invisible'
         }
@@ -129,7 +136,7 @@ export class Documents extends Component {
   renderDocumentsHeader() {
     return (
       <div>
-        <DocumentsHeader openModal={this.handleOpenModal} />
+        <DocumentsHeader openModal={this.openAddModal} />
       </div>
     );
   }
@@ -142,6 +149,21 @@ export class Documents extends Component {
           { !documents.length && 'No uploaded documents at the moment' }
         </div>
       </div>
+    );
+  }
+
+  renderDocumentsForm() {
+    const { closeModal, shouldOpen, modalType, user, createDocument } = this.props;
+    return (
+      <Modal 
+        customModalStyles="add-document-item" closeModal={closeModal} width="480px" height="375px"
+        visibility={
+          shouldOpen && (modalType === 'add document') ? 'visible' : 'invisible'
+        }
+        title="Add File"
+      >
+        <NewDocumentForm closeModal={closeModal} user={user} createDocument={createDocument} />
+      </Modal>
     );
   }
 
@@ -161,6 +183,7 @@ export class Documents extends Component {
 
     return (
       <Fragment>
+        {this.renderDocumentsForm()}
         {this.renderDocumentsHeader()}
         <div className="document__table">
           {isLoading ? <Preloader /> : currentDocuments }
@@ -179,17 +202,18 @@ export class Documents extends Component {
   }
 }
 
-export const mapStateToProps = ({ modal, documents  }) => ({
+export const mapStateToProps = ({ modal, user, documents }) => ({
   ...modal.modal,
+  user: user.getUserData,
   documents: documents.documents,
   documentOnEdit: documents.documentOnEdit,
   isLoading: documents.fetchingDocuments,
-
 });
 
 const matchDispatchToProps = {
   openModal,
   closeModal,
+  createDocument,
   fetchDocuments,
   editDocument,
   updateDocumentOnEdit,
@@ -197,9 +221,13 @@ const matchDispatchToProps = {
   removeDocumentFromEdit
 };
 
-const documentsPropTypes = {
+Documents.propTypes = {
+  user: PropTypes.object,
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
+  createDocument: PropTypes.func.isRequired,
+  shouldOpen: PropTypes.bool.isRequired,
+  modalType: PropTypes.string,
   fetchDocuments: PropTypes.func.isRequired,
   documents: PropTypes.array.isRequired,
   editDocument: PropTypes.func.isRequired,
@@ -208,17 +236,14 @@ const documentsPropTypes = {
   removeDocumentFromEdit: PropTypes.func.isRequired,
   updateDocument: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  shouldOpen: PropTypes.bool.isRequired,
-  modalType: PropTypes.string,
 };
 
-const documentsDefaultProps = {
+
+Documents.defaultProps ={
   modalType: null,
+  user: {},
   documentOnEdit: null
 };
 
-Documents.propTypes = { ...documentsPropTypes };
-
-Documents.defaultProps = { ...documentsDefaultProps };
 
 export default connect(mapStateToProps, matchDispatchToProps)(Documents);

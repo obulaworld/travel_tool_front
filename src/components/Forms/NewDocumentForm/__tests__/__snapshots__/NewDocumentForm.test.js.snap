@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewDocumentForm /> renders correctly 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <div
+    className="add-file"
+  >
+    Add File
+  </div>
+  <div
+    className="document-input"
+  >
+    <img
+      alt="Document Upload"
+      className="document-upload-icon"
+      src="document-upload.svg"
+    />
+    <div
+      className="upload-file"
+    >
+      Upload File
+    </div>
+    <input
+      id="upload-btn"
+      name="file"
+      onChange={[Function]}
+      type="file"
+    />
+  </div>
+  <div
+    className="form-input  "
+  >
+    <label
+      htmlFor="name"
+    >
+      Name
+      <span
+        style={
+          Object {
+            "color": "red",
+          }
+        }
+      >
+        *
+      </span>
+    </label>
+    <input
+      className=" "
+      label="Name"
+      name="name"
+      onBlur={[Function]}
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <span
+      className="error"
+    />
+  </div>
+  <hr />
+  <fieldset>
+    <div
+      className="submit-area"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        id="cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        id="submit"
+        type="submit"
+      >
+        Add
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;

@@ -7,4 +7,4 @@ describe('<DashboardHeader />', () => {
     const wrapper = shallow(<DashboardHeader />);
     expect(wrapper).toMatchSnapshot();
   });
-})
+});

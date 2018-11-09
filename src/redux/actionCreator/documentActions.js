@@ -7,7 +7,10 @@ import {
   UPDATE_DOCUMENT_ON_EDIT,
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
-  UPDATE_DOCUMENT_SUCCESS
+  UPDATE_DOCUMENT_SUCCESS,
+  CREATE_DOCUMENT, 
+  CREATE_DOCUMENT_SUCCESS, 
+  CREATE_DOCUMENT_FAILURE
 } from '../constants/actionTypes';
 
 
@@ -53,4 +56,19 @@ export const updateDocumentSuccess = ({ message, document}) => ({
   type: UPDATE_DOCUMENT_SUCCESS,
   message,
   document
+});
+
+export const createDocument = (documentData) => ({
+  type: CREATE_DOCUMENT,
+  documentData,
+});
+
+export const createDocumentSuccessfully = (documentItem) => ({
+  type: CREATE_DOCUMENT_SUCCESS,
+  documentItem,
+});
+
+export const createDocumentFailure = (error) => ({
+  type: CREATE_DOCUMENT_FAILURE,
+  error,
 });

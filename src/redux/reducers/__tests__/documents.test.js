@@ -5,9 +5,13 @@ import {
   removeDocumentFromEdit,
   updateDocument,
   updateDocumentFailure,
-  updateDocumentSuccess
+  updateDocumentSuccess,
+  createDocument, 
+  createDocumentSuccessfully, 
+  createDocumentFailure
 } from '../../actionCreator/documentActions';
 import documentsMockData from '../../../mockData/documentsMockData';
+import { documentData, response } from '../../__mocks__/documentMockData';
 
 describe('Documents reducder', () => {
   describe('Update Document', () => {
@@ -125,10 +129,13 @@ describe('Documents reducder', () => {
       newState = documentsReducer(initialState, action);
       expectedState = {
         updatingDocument: false,
-        documentOnEdit: null,
         isLoading: true,
+        document: '',
         documents: [],
-        error: ''
+        documentOnEdit: null,
+        error: '',
+        documentItem: {},
+        isUploading: false
       };
 
       expect(newState).toEqual(expectedState);
@@ -143,10 +150,13 @@ describe('Documents reducder', () => {
       newState = documentsReducer(initialState, action);
       expectedState = {
         updatingDocument: false,
-        documentOnEdit: null,
         isLoading: false,
+        document: '',
         documents: ['user documents'],
-        error: ''
+        documentOnEdit: null,
+        error: '',
+        documentItem: {},
+        isUploading: false
       };
       expect(newState).toEqual(expectedState);
     });
@@ -161,12 +171,58 @@ describe('Documents reducder', () => {
       newState = documentsReducer(initialState, action);
       expectedState = {
         updatingDocument: false,
-        documentOnEdit: null,
         isLoading: false,
+        document: '',
         documents: [],
+        documentOnEdit: null,
+        documentItem: {},
+        isUploading: false,
         error: 'failed to fetch documents'
       };
       expect(newState).toMatchObject(expectedState);
     });
   });
+
+  describe('Create Documents Reducer', () => {
+
+    it('should update \'isUploading\' state to true when creating document', (done) => {
+      const action = createDocument(documentData);
+      const newState = documentsReducer(initialState, action);
+      expect(newState.isUploading).toBe(true);
+      done();
+    });
+
+    it('should add document to state on successful creation', (done) => {
+      const currentState = {
+        ...initialState,
+        isUploading: true,
+        documentItem: response
+      };
+      const action = createDocumentSuccessfully(response);
+      const newState = documentsReducer(currentState, action);
+      expect(newState.isUploading).toBe(false);
+      expect(newState.documentItem).toMatchObject(response);
+      done();
+    });
+
+    it('should add error to state on unsuccessful document creation', (done) => {
+      const currentState = {
+        ...initialState,
+        isUploading: true,
+        documentItem: response
+      };
+      const error = 'Server Error';
+      const action = createDocumentFailure(error);
+      const newState = documentsReducer(currentState, action);
+
+      expect(newState).toEqual({
+        ...initialState,
+        isUploading: false,
+        documentItem: {},
+        error: 'Server Error'
+      });
+      done();
+    });
+  });
 });
+

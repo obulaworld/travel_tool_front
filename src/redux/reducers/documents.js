@@ -7,15 +7,21 @@ import {
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
   UPDATE_DOCUMENT_SUCCESS,
-  REMOVE_DOCUMENT_FROM_EDIT,
+  REMOVE_DOCUMENT_FROM_EDIT, 
+  CREATE_DOCUMENT, 
+  CREATE_DOCUMENT_SUCCESS, 
+  CREATE_DOCUMENT_FAILURE
 } from '../constants/actionTypes';
 
 export const initialState = {
   updatingDocument: false,
+  isLoading: false,
+  document: '',
   documents: [],
   documentOnEdit: null,
-  isLoading: false,
-  error: ''
+  error: '',
+  documentItem: {},
+  isUploading: false
 };
 
 const documents = (state = initialState, action) => {
@@ -46,6 +52,22 @@ const documents = (state = initialState, action) => {
         action.document,
         ...state.documents.filter(doc => doc.id !== action.document.id)
       ] };
+  case CREATE_DOCUMENT:
+    return { ...state, isUploading: true };
+  case CREATE_DOCUMENT_SUCCESS:
+    return {
+      ...state,
+      documentItem: action.documentItem,
+      errors: '',
+      isUploading: false
+    };
+  case CREATE_DOCUMENT_FAILURE:
+    return {
+      ...state,
+      documentItem: {},
+      error: action.error,
+      isUploading: false
+    };
   default: return state;
   }
 };

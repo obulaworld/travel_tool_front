@@ -8,8 +8,8 @@ exports[`<FilterContext /> should render without crushing 1`] = `
       "state": Object {
         "filter": "This Week",
         "range": Object {
-          "end": "2018-11-04",
-          "start": "2018-10-29",
+          "end": "2018-11-11",
+          "start": "2018-11-05",
         },
       },
     }

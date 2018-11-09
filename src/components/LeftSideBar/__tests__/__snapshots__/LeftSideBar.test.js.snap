@@ -75,6 +75,16 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "text": "Residence",
             },
             Object {
+              "activateOnLogin": true,
+              "icons": Object {
+                "active": "documents-blue.svg",
+                "inactive": "documents-grey.svg",
+              },
+              "isDropdown": false,
+              "link_to": "/documents",
+              "text": "Documents",
+            },
+            Object {
               "activateOnLogin": false,
               "icons": Object {
                 "active": "checklist-active.svg",

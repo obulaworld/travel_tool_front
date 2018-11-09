@@ -2,7 +2,7 @@
 
 exports[`<Checkbox /> should render correctly 1`] = `
 <div
-  className="container"
+  className="container flex-row"
 >
   <div
     className="checkbox default"
