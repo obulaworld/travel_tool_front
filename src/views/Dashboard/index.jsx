@@ -12,15 +12,14 @@ import ConnectedAnalytics from '../Analytics';
 import TravelCalendar from '../TravelCalendar';
 
 export class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    const { history, getCurrentUserRole } = this.props;
-    const allowedRoles = ['Travel Administrator', 'Super Administrator'];
-    checkUserPermission(history, allowedRoles, getCurrentUserRole);
-  }
 
   render() {
-    const { fetchDepartmentTrips, departmentTrips, fetchReadiness, readiness, fetchAnalytics } = this.props;
+    const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
+      fetchAnalytics, history, getCurrentUserRole, isLoaded } = this.props;
+    if (isLoaded) {
+      const allowedRoles = ['Travel Administrator', 'Super Administrator'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole );
+    }
     return (
       <Fragment>
         <FilterContext>
@@ -52,7 +51,8 @@ const actions = {
 export const mapStateToProps = ({user, analytics, readiness}) => ({
   getCurrentUserRole: user.getCurrentUserRole,
   departmentTrips: analytics.departmentTrips,
-  readiness
+  readiness,
+  isLoaded: user.isLoaded
 });
 
 Dashboard.propTypes = {
@@ -62,7 +62,8 @@ Dashboard.propTypes = {
   departmentTrips: PropTypes.shape({}).isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
   fetchReadiness: PropTypes.func.isRequired,
-  readiness: PropTypes.func.isRequired
+  readiness: PropTypes.func.isRequired,
+  isLoaded: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

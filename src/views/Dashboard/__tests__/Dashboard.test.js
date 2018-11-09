@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import ConnectedDashboard, { Dashboard, mapStateToProps } from '..';
+import checkUserPermission from '../../../helper/permissions';
+
 
 const initialState = {
   analytics: {
@@ -29,8 +31,11 @@ const props = {
   fetchReadiness: jest.fn(),
   readiness: {
     isLoading: false,
-  }
+  },
+  isLoaded: false,
 };
+
+jest.mock('../../../helper/permissions', () => jest.fn());
 
 const mockStore = configureStore();
 const store = mockStore(initialState);
@@ -64,5 +69,12 @@ describe('<Dashboard />', () => {
         }}
       });
     expect(mapper.getCurrentUserRole[0]).toEqual('Travel Admin');
+  });
+
+  it('should call the checkUserPermission method if isLoaded is true', () => {
+    const newProps = { ...props, isLoaded: true };
+    const newWrapper = shallow(<Dashboard {...newProps} />);
+    expect(newWrapper.length).toBe(1);
+    expect(checkUserPermission).toHaveBeenCalled();
   });
 });
