@@ -23,24 +23,41 @@ class DocumentTable extends Component {
   }
 
   render() {
-    const { documents } = this.props;
-
+    const {
+      documents, menuOpen, toggleMenu,
+      openModal, editDocument
+    } = this.props;
     return (
       <table className="mdl-data-table mdl-js-data-table table__requests table__documents">
         <thead>
           {this.renderTableHead()}
         </thead>
         <tbody className="table__body">
-          {documents.map(document => <DocumentItem key={document.id} document={document} />)}
+          {
+            documents.map(document => (
+              <DocumentItem
+                key={document.id}
+                document={document}
+                menuOpen={menuOpen}
+                toggleMenu={toggleMenu}
+                openModal={openModal}
+                editDocument={editDocument}
+              />
+            ))}
         </tbody>
       </table>
     );
   }
 }
 
-DocumentTable.propTypes = {
+const documentTablePropTypes = {
   documents: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  editDocument: PropTypes.func.isRequired,
+  menuOpen: PropTypes.object.isRequired,
 };
 
+DocumentTable.propTypes = { ...documentTablePropTypes };
 
 export default DocumentTable;

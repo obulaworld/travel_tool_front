@@ -20,8 +20,8 @@ export default function apiErrorHandler(error) {
       errorMessage = `${errorMessage}. ${validationErrors}`;
       break;
     case 400:
-      errorMessage = error.response.data.message;
-      validationErrors = error.response.data.message;
+      errorMessage = error.response.data.message || error.response.data.error;
+      validationErrors = error.response.data.message || error.response.data.error;
       break;
     case 401:
       errorMessage = error.response.data.error;

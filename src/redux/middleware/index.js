@@ -73,7 +73,8 @@ import {
 } from './tripsAnalyticsSaga';
 
 import {
-  watchFetchDocuments
+  watchFetchDocuments,
+  watchUpdateDocument
 } from './DocumentSaga';
 
 function* rootSaga() {
@@ -120,7 +121,8 @@ function* rootSaga() {
     watchFetchDepartmentTrips(),
     watchFetchReadiness(),
     watchFetchCalendarAnalytics(),
-    watchFetchDocuments()
+    watchFetchDocuments(),
+    watchUpdateDocument()
   ]);
 }
 
