@@ -92,4 +92,22 @@ describe('<TableMenu />', () => {
     expect(showTravelChecklist).toHaveBeenCalled();
     expect(wrapper.find('#travelChecklistBtn').length).toBe(1);
   });
+
+  it('should call `fetchTravelChecklist` on click', () => {
+    let newProps = {
+      ...props,
+      uploadTripSubmissions: jest.fn(),
+      toggleMenu: jest.fn(),
+      fetchTravelChecklist: jest.fn(),
+      requestStatus: 'Approved',
+      type: 'requests'
+    };
+    wrapper = shallow(<TableMenu {...newProps} />);
+
+    const { showTravelChecklist, request } = props;
+    const travelChecklistSubmission = wrapper.find('#checklistSubmission');
+    travelChecklistSubmission.simulate('click');
+    expect(showTravelChecklist).toHaveBeenCalled();
+    expect(wrapper.find('#checklistSubmission').length).toBe(1);
+  });
 });

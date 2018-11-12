@@ -18,6 +18,8 @@ import analytics from './analytics';
 import readiness from './readiness';
 import travelCalendar from './travelCalendar';
 import documents from './documents';
+import submissions from './checklistSubmission';
+
 
 const rootReducer = combineReducers({
   auth,
@@ -38,7 +40,9 @@ const rootReducer = combineReducers({
   availableRooms,
   analytics,
   readiness,
-  documents
+  documents,
+  submissions
+
 });
 
 export default rootReducer;

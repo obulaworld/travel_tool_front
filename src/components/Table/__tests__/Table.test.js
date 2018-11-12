@@ -73,7 +73,8 @@ const props = {
   },
   editRequest: jest.fn(),
   travelChecklists: [],
-  showTravelChecklist: jest.fn()
+  showTravelChecklist: jest.fn(),
+  fetchSubmission: jest.fn()
 };
 
 const wrapper = shallow(<Table {...props} />);
@@ -125,7 +126,7 @@ describe('<Requests />', () => {
       .find('div')
       .at(0);
     requestId.simulate('click');
-    expect(wrapper.find('Modal').length).toEqual(2);
+    expect(wrapper.find('Modal').length).toEqual(5);
   });
   it('should spy on toggleMenu method ', () => {
     const wrapper = mount(<Table {...props} />);

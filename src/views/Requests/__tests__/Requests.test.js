@@ -15,6 +15,7 @@ const props = {
       tripType: 'oneWay',
       manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      status: 'Open',
       trips: [
         {
           departureDate: '2018-09-20',
@@ -32,6 +33,7 @@ const props = {
       tripType: 'oneWay',
       manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      status: 'Approved',
       trips: [
         {
           departureDate: '2018-09-20',
@@ -117,6 +119,7 @@ const props = {
   fetchRoleUsers: sinon.spy(() => Promise.resolve()),
   updateUserProfile: sinon.spy(() => Promise.resolve()),
   fetchAvailableRooms: sinon.spy(() => Promise.resolve()),
+  fetchTravelChecklist: sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,
@@ -377,5 +380,41 @@ describe('<Requests>', () => {
       userData: user.getUserData,
       travelChecklists: travelChecklist.checklistItems
     });
+  });
+
+  it('should handle fetch travel checklist submission', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <Requests {...props} />
+      </Provider>
+    );
+    const mountWrapper = wrapper.find('li#checklistSubmission');
+    mountWrapper.simulate('click');
+    expect(props.fetchTravelChecklist.called).toBe(true);
+  });
+
+  it('should handle show travel checklist', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <Requests {...props} />
+      </Provider>
+    );
+    const mountWrapper = wrapper.find('li#travelChecklistBtn');
+    mountWrapper.simulate('click');
+    expect(props.fetchTravelChecklist.called).toBe(true);
+    expect(props.fetchTravelChecklist.calledWith('xDh20btGz')).toBe(true);
+    expect(props.openModal.called).toBe(true);
+  });
+
+  it('should handle edit request', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <Requests {...props} />
+      </Provider>
+    );
+    const mountWrapper = wrapper.find('li#iconBtn');
+    mountWrapper.simulate('click');
+    expect(props.fetchEditRequest.called).toBe(true);
+    expect(props.openModal.called).toBe(true);
   });
 });

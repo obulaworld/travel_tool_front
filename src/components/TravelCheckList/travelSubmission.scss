@@ -1,0 +1,350 @@
+#travel-checkList-modal {
+    max-height: 90vh;
+    overflow-y: scroll
+  }
+   .travelCheckList {
+    font-family: "DIN Pro";
+    &__not-found {
+      font-size: 18px;
+      padding: 20px;
+      text-align: center;
+      color: #999999;
+    }
+    &__destination:first-child {
+      margin: 20px 0;
+    }
+    &__destination {
+      margin: 50px 0;
+    }
+    &__destination-name {
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+    &--item {
+      border-bottom: 1px solid #D4D4D4;
+      text-transform: capitalize;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 20px;
+      padding: 10px 20px;
+      border: 1px solid #D4D4D4;
+      border-radius: 2px;
+      margin-top: 10px;
+      &__name {
+        color: #4F4F4F;
+      }
+      &__visa-application-gu {
+        height: 18px;
+        position: relative;
+        width: 144px;
+        left: -18px;
+        color: #999999;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+        float: left;
+        text-align: left;
+        text-decoration: underline;
+        &__ticket {
+            right: 110px;
+            position: relative;
+            color: #999999;
+            text-decoration: underline;
+        }
+    }
+    &__visa-application {
+        height: 20px;
+        width: 106px;
+        color: #4F4F4F;
+        font-family: "DIN Pro";
+        font-size: 15px;
+        line-height: 20px;
+        float: left;
+        text-align: left;
+    }
+    &__input-labels {
+        float: left;
+    }
+    &__item textarea{
+        right: 49px;
+        border-radius: 2px;
+        margin-top: 8px;
+        border: 1px solid #d4d4d4;
+        position: relative;
+        line-height: normal;
+        font-size: 13px;
+        color: #999999;
+        font-family: "DIN Pro";
+        height: 41px;
+        width: 440px;
+        right: 41px;
+        margin-bottom: 10px;
+    }
+    }
+    &__destination-flag {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      margin: 3px;
+      background-position: center center;
+      margin-right: 12px;
+    }
+    &--input {
+    &__input-field {
+        height: 41px;
+        width: 441px;
+        border-radius: 2px;
+        background-color: #F8F8F8;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        position: relative;
+        border: 1px solid #D4D4D4;
+    }
+    &__download-field{
+        height: 40px;
+        width: 440px;
+        border-radius: 2px;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        position: relative;
+        background-color: #F8F8F8;
+        overflow-x: visible;
+    }
+    &__input-field input[type=file] {
+        height: 41px;
+        width: 451px;
+        opacity: 0;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        z-index: 3;
+    }
+    &__btn {
+        height: 18px;
+        width: 67px;
+        color: #999999;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 10px;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+        &:hover {
+            color: #c4c2c2;
+        }
+    }
+    &__upload {
+        padding-top: 5px;
+        width: 470px;
+        height: 41px;
+        color: #999999;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 2;
+    }
+    &__image {
+        height: 13.33px;
+        width: 20px;
+        margin: 0px 10px 0px 15.5px;
+        top: 13px;
+        position: inherit;
+        right: 28px;
+    }
+    &__check-image {
+        margin-top: 11.5px;
+        position: relative;
+        right: 25px;
+        bottom: 4px;
+        float: right;
+        padding-top: 7px;
+        &__ticket {
+            margin-left: 10px;
+            &__hidden {
+                visibility: hidden;
+                margin-left: 10px;
+            }
+        }
+        &__text {
+            position: relative;
+            left: -34px;
+            bottom: 28px;
+            &__hidden {
+                visibility: hidden;
+            }
+        }
+    }
+    }
+  }
+  #progress-bar {
+    float: left;
+    top: 13px;
+    position: inherit;
+    font-size: 11px;
+    color: #999999;
+    &__success{
+    float: left;
+    top: 13px;
+    font-family: "DIN Pro";
+    position: inherit;
+    font-size: 11px;
+    color: #3359DB;
+    }
+    &__ticket{
+        position: absolute;
+        left: 7px;
+        font-size: 11px;
+        color: #999999;
+        font-family: "DIN Pro";
+    }
+    &__text{
+        position: relative;
+        z-index: 3;
+        text-align: left;
+        top: -17px;
+        font-size: 11px;
+        color: #999999;
+        font-family: "DIN Pro";
+    }
+  }
+  #file-name {
+    float: left;
+    padding-left: 15px;
+    padding-top: 5px;
+    height: 18px;
+    width: 98px;
+    color: #3359DB;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    line-height: 18px;
+}
+#download-file__ {
+    float: right;
+    position: absolute;
+    right: 40px;
+    top: 13px;
+    opacity:0;
+    &hidden {
+        visibility: hidden
+    }
+}
+.travel-submission{
+    &-details {
+        height: 79px;
+        width: 520px;
+        padding-left: 10px;
+        border: 1px solid #E4E4E4;
+        border-radius: 2px;
+        background-color: #F8F8F8;
+        display: inline-flex;
+        &__return {
+            height: 79px;
+            width: 520px;
+            padding-left: 10px;
+            border-radius: 2px;
+            background-color: #F8F8F8;
+            display: inline-flex;
+            .airline-name {
+                position: absolute !important ;
+                z-index: 1;
+                left: 56px;
+                height: (36%);
+                top: 288px;
+                width: 160px;
+                border: 1px solid #D4D4D4;
+                border-radius: 2px;
+                background-color: #FFFFFF;
+                display: inline-flex;
+                padding-top: 5px;
+            }
+            .airline-name input[type=text] {
+                height: 36px;
+                width: 160px;
+                border: 1px solid #D4D4D4;
+                border-radius: 2px;
+                background-color: #FFFFFF;
+                margin-right: 10px;
+                display: block;
+                cursor: text;
+                font-weight: 300;
+                font-size: 14px;
+                font-family: "DIN Pro";
+                color: #999999;
+                text-indent: 14px;
+            }
+            #label {
+                float: left;
+                font-weight: 300;
+                font-size: 14px;
+                font-family: "DIN Pro";
+            }
+        }
+        .airline-name {
+            position: absolute !important ;
+            z-index: 1;
+            left: 56px;
+            height: (36%);
+            top: 288px;
+            width: 160px;
+            border: 1px solid #D4D4D4;
+            border-radius: 2px;
+            background-color: #FFFFFF;
+            display: inline-flex;
+            padding-top: 5px;
+        }
+        .airline-name input[type=text] {
+            height: 36px;
+            width: 160px;
+            border: 1px solid #D4D4D4;
+            border-radius: 2px;
+            background-color: #FFFFFF;
+            margin-right: 10px;
+            display: block;
+            cursor: text;
+            font-weight: 300;
+            font-size: 14px;
+            font-family: "DIN Pro";
+            color: #999999;
+        }
+        .airline-name input[type=time] {
+            height: 36px;
+            width: 160px;
+            border: 1px solid #D4D4D4;
+            border-radius: 2px;
+            background-color: #FFFFFF;
+            margin-right: 10px;
+            display: block;
+        }
+        #label {
+            float: left;
+            font-weight: 300;
+            font-size: 14px;
+            font-family: "DIN Pro";
+        }
+    }
+    &-fields {
+        display: inline-grid;
+        border: 1px solid #E4E4E4;
+    }
+}
+.ticket-submission {
+    right: 7px;
+    position: relative;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    visibility: hidden;
+}

@@ -31,8 +31,9 @@ $font-normal: 'DIN Pro';
   &.open > ul.table__menu-list {
     display: block;
     z-index: 10;
-    top: -16px;
-    left: -150px;
+    top: -12px;
+    right: 0px;
+    margin-right: 5px;
     border: 1px solid #E4E4E4;
     border-radius: 2px;
     background-color: #FFFFFF;
@@ -222,4 +223,8 @@ td.pl-sm-100 {
     text-align: center;
     padding: 5px 20px 5px 20px;
   }
+}
+#checklist-submission-modal-content{
+  overflow-y: auto;
+  height: 600px;
 }

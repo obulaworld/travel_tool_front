@@ -77,6 +77,11 @@ import {
   watchUpdateDocument,
   watchCreateDocument 
 } from './DocumentSaga';
+import{
+  watchPostSubmission,
+  watchFetchSubmission,
+} from './checklistSubmissionSaga';
+
 
 function* rootSaga() {
   yield all([
@@ -126,7 +131,11 @@ function* rootSaga() {
     watchUpdateDocument(),
     watchCreateDocument(),
     watchExportReadiness(),
-    watchFetchCalendarAnalytics()
+    watchFetchCalendarAnalytics(),
+    watchDeleteUserRoleAsync(),
+    watchPostSubmission(),
+    watchFetchSubmission(),
+
   ]);
 }
 

@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import RequestsModal from '../RequestsModal/RequestsModal';
+import { CheckListSubmissionForm } from '../Forms';
+import { travelChecklists } from '../TravelCheckList/travelChecklistMockData';
 import Modal from '../modal/Modal';
 import './Table.scss';
 import withLoading from '../Hoc/withLoading';
@@ -58,6 +60,17 @@ export class Table extends Component {
     } = this.props;
     history.push(`${pathname}/${requestId}`);
   };
+
+  fetchChecklistData(destination){
+    // handles fetched trip details. Awaiting endpoint
+    return travelChecklists;
+  }
+
+  fetchRequestChecklist(trips){
+    const destinations=trips.map(trip=>{return this.fetchChecklistData(trip.destination);});
+    return destinations;
+  }
+
   renderNoRequests(message) {
     return <div className="table__requests--empty">{message}</div>;
   }
@@ -67,7 +80,8 @@ export class Table extends Component {
   }
 
   renderRequestStatus(request) {
-    const { editRequest, type, showTravelChecklist } = this.props;
+    const { editRequest, type, showTravelChecklist,
+      fetchTravelChecklist, uploadTripSubmissions } = this.props;
 
     const { menuOpen } = this.state;
     return (
@@ -86,8 +100,10 @@ export class Table extends Component {
             {request.status}
           </div>
           <TableMenu
+            fetchTravelChecklist={fetchTravelChecklist}
             editRequest={editRequest}
             showTravelChecklist={showTravelChecklist}
+            uploadTripSubmissions={uploadTripSubmissions}
             requestStatus={request.status}
             type={type}
             menuOpen={menuOpen}
@@ -154,6 +170,7 @@ export class Table extends Component {
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
           {this.renderRequestStatus(request)}
         </td>
+        {this.renderUploadSubmissions(request)}
       </tr>
     );
   }
@@ -241,6 +258,39 @@ export class Table extends Component {
     );
   }
 
+  renderUploadSubmissions(requestData) {
+    const { closeModal, postSubmission, submissionInfo, requests, isLoading,
+      shouldOpen, modalType, travelChecklists, fetchSubmission, isFetching } = this.props;
+    const { menuOpen: { id } } = this.state;
+    return (
+      <Modal
+        closeModal={closeModal}
+        width="607px"
+        customModalStyles="custom-overlay"
+        modalId="checklist-submission-modal"
+        modalContentId="checklist-submission-modal-content"
+        visibility={shouldOpen && modalType === 'upload submissions'?'visible':'invisible'}
+        title={modalType === 'upload submissions' ? 'Travel Checklist' : ''}
+        modalBar={<div className="table__modal-bar-text">{id}</div>}
+      >
+        <CheckListSubmissionForm
+          requestId={id}
+          requestData={requestData}
+          checklistsData={travelChecklists}
+          shouldOpen={shouldOpen}
+          closeModal={closeModal}
+          modalType={modalType}
+          postSubmission={postSubmission}
+          fetchSubmission={fetchSubmission}
+          submissionInfo={submissionInfo}
+          requests={requests}
+          isLoading={isFetching}
+          isFetching={isFetching}
+        />
+      </Modal>
+    );
+  }
+
   render() {
     const { requests, type, fetchRequestsError, message } = this.props;
     return (
@@ -280,9 +330,15 @@ Table.propTypes = {
   editRequest: PropTypes.func.isRequired,
   travelChecklists: PropTypes.array.isRequired,
   showTravelChecklist: PropTypes.func.isRequired,
+  fetchTravelChecklist: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  // percentage: PropTypes.string
+  uploadTripSubmissions: PropTypes.func.isRequired,
+  fetchSubmission: PropTypes.func.isRequired,
+  postSubmission: PropTypes.func.isRequired,
+  submissionInfo: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired
 };
 
 Table.defaultProps = {

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import editIcon from '../../images/edit.svg';
-import cancelIcon from '../../images/cancel.svg';
 import checkListIcon from '../../images/checklisticon.svg';
+import cancelIcon from '../../images/cancel.svg';
 
 class TableMenu extends PureComponent {
   handleIconOpentoggle = (toggleMenu, requestId) => {
@@ -30,6 +30,13 @@ class TableMenu extends PureComponent {
     );
   };
 
+  handleClickChecklist = () => {
+    const { request, fetchTravelChecklist, uploadTripSubmissions, toggleMenu } = this.props;
+    uploadTripSubmissions(request);
+    toggleMenu(request.id);
+    fetchTravelChecklist(request.id);
+  }
+
   renderTravelCheckListBtn = () => {
     const { showTravelChecklist, request } = this.props;
     return (
@@ -42,6 +49,23 @@ class TableMenu extends PureComponent {
         <img src={checkListIcon} alt="cancel-icon" className="menu-icon" />
         Travel Checklist
       </li>
+    );
+  }
+
+  renderCheckListSubmissionBtn = () => {
+    const { requestStatus } = this.props;
+    return (
+      requestStatus === 'Approved' && (
+        <li
+          className="table__menu-list-item"
+          id="checklistSubmission"
+          onClick={this.handleClickChecklist}
+          role="presentation"
+        >
+          <img src={checkListIcon} alt="list-icon" className="menu-icon" />
+          Travel Checklist
+        </li>
+      ) 
     );
   }
 
@@ -59,24 +83,25 @@ class TableMenu extends PureComponent {
       <div>
         {this.handleIconOpentoggle(toggleMenu, request.id)}
         <div className={`table__menu-container ${openMenu ? 'open' : ''}`}>
-          {type === 'requests' &&
-            requestStatus === 'Open' && (
+          {type === 'requests' && (
             <ul className="table__menu-list">
-              <li
-                className="table__menu-list-item"
-                id="iconBtn"
-                onClick={() => {
-                  editRequest(request.id);
-                  toggleMenu(request.id);
-                }}
-                role="presentation"
-              >
-                <img src={editIcon} alt="edit-icon" className="menu-icon" />
+              {requestStatus === 'Open' && (
+                <li
+                  className="table__menu-list-item"
+                  id="iconBtn"
+                  onClick={() => {
+                    editRequest(request.id);
+                    toggleMenu(request.id);
+                  }}
+                  role="presentation"
+                >
+                  <img src={editIcon} alt="edit-icon" className="menu-icon" />
                   Edit
-              </li>
+                </li>)}
               {type === 'requests' &&
                 requestStatus === 'Open' && this.renderTravelCheckListBtn()
               }
+              {this.renderCheckListSubmissionBtn()}
               {this.handleIconClosetoggle(toggleMenu, request.id)}
             </ul>
           )}
@@ -97,11 +122,13 @@ class TableMenu extends PureComponent {
 TableMenu.propTypes = {
   editRequest: PropTypes.func.isRequired,
   showTravelChecklist: PropTypes.func.isRequired,
+  fetchTravelChecklist: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
   requestStatus: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   toggleMenu: PropTypes.func.isRequired,
-  menuOpen: PropTypes.object.isRequired
+  menuOpen: PropTypes.object.isRequired,
+  uploadTripSubmissions: PropTypes.func.isRequired
 };
 
 export default TableMenu;
