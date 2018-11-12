@@ -1,7 +1,7 @@
 import {
   fetchReadiness,
   fetchReadinessSuccess,
-  fetchReadinessfailure
+  fetchReadinessFailure
 } from '../travelReadinessActions';
 import { fetchReadinessResponse } from '../../__mocks__/mocks';
 
@@ -33,7 +33,7 @@ describe('Travel Readiness Action', () => {
       type: 'FETCH_TRAVEL_READINESS_FAILURE',
       error
     };
-    const createdAction = fetchReadinessfailure(error);
+    const createdAction = fetchReadinessFailure(error);
     expect(createdAction).toEqual(expectedAction);
   });
 });

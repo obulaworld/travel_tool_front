@@ -94,6 +94,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
               imageSrc="drop-down-icon.svg"
               onClick={[Function]}
               responsiveText=""
+              reverseText={false}
               showBadge={false}
               text=""
               textClass=""

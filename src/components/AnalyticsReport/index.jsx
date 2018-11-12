@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import './index.scss';
 import errorIcon from '../../images/error_24px.svg';
 import download from '../../images/icons/save_alt_24px.svg';
-import TravelReady from '../TravelReadiness';
+import TravelReadiness   from '../TravelReadiness';
 
 export default class AnalyticsReport extends Component {
 
@@ -35,7 +35,7 @@ export default class AnalyticsReport extends Component {
 
   renderTripsDetails = (item) => {
     return (
-      <div className="analyticsReport__row analyticsReport__report-details">
+      <div className="analyticsReport__row analyticsReport__report-details" key={item.label}>
         <div>
           <p>{item.value}</p>
         </div>
@@ -65,11 +65,17 @@ export default class AnalyticsReport extends Component {
     );
   }
   render() {
-    const { departmentTrips, readiness, fetchReadiness } = this.props;
+    const { departmentTrips, readiness, fetchReadiness, exportReadiness } = this.props;
     const { report, loading } = departmentTrips;
     return(
       <div className="analyticsReport">
-        <TravelReady readiness={readiness} renderNotFound={this.renderNotFound} renderButton={this.renderButton} fetchReadiness={fetchReadiness} renderSpinner={this.renderSpinner} />
+        <TravelReadiness
+          readiness={readiness}
+          renderNotFound={this.renderNotFound}
+          renderButton={this.renderButton}
+          fetchReadiness={fetchReadiness}
+          exportReadiness={exportReadiness}
+          renderSpinner={this.renderSpinner} />
         <div className="analyticsReport__card">
           <div className="analyticsReport__row analyticsReport__header">
             <p>Number of Trips/Month</p>
@@ -101,5 +107,6 @@ AnalyticsReport.propTypes = {
   departmentTrips: PropTypes.object.isRequired,
   readiness: PropTypes.object.isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
-  fetchReadiness:PropTypes.func.isRequired
+  fetchReadiness:PropTypes.func.isRequired,
+  exportReadiness:PropTypes.func.isRequired
 };

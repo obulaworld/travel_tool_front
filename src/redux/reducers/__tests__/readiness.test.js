@@ -6,7 +6,7 @@ import {
 import { fetchReadinessResponse
 
 } from '../../__mocks__/mocks';
-import { fetchReadinessfailure, fetchReadinessSuccess, fetchReadiness } from '../../actionCreator/travelReadinessActions';
+import { fetchReadinessFailure, fetchReadinessSuccess, fetchReadiness, exportReadiness, exportReadinessFailure, exportReadinessSuccess } from '../../actionCreator/travelReadinessActions';
 
 describe('Test suite for readiness reducer', () => {
   const initialState = {
@@ -25,6 +25,25 @@ describe('Test suite for readiness reducer', () => {
     expect(newState.isLoading).toBe(true);
     done();
   });
+  it('`should update isLoading state to true for EXPORT_TRAVEL_READINESS', (done) => {
+    const action = exportReadiness();
+    const newState = readiness(initialState, action);
+    expect(newState.isLoading).toBe(true);
+    done();
+  });
+  it('`should update isLoading state to false for EXPORT_TRAVEL_READINESS_SUCCESS', (done) => {
+    const action = exportReadinessSuccess();
+    const newState = readiness(initialState, action);
+    expect(newState.isLoading).toBe(false);
+    done();
+  });
+  it('`should update isLoading state to false for EXPORT_TRAVEL_READINESS_FAILURE', (done) => {
+    const action = exportReadinessFailure();
+    const newState = readiness(initialState, action);
+    expect(newState.isLoading).toBe(false);
+    done();
+  });
+
 
   it('should handle FETCH_READINESS_SUCCESS',
     (done) => {
@@ -41,21 +60,6 @@ describe('Test suite for readiness reducer', () => {
       done();
     });
 
-//   it('should update state with payload upon FETCH_TRAVEL_READINESS_SUCCESS', () => {
-//     const action = {
-//       type: FETCH_TRAVEL_READINESS_SUCCESS,
-//       response: fetchReadinessResponse.readiness,
-//       success: fetchReadinessResponse.success
-//     };
-//     expect(readiness(initialState, action)).toEqual({
-//       ...initialState,
-//       readiness: {
-//         ...initialState.readiness,
-//         isLoading:false
-//       }
-//     });
-//   });
-
   it('should handle FETCH_READINESS_FAILURE',
     (done) => {
       const currentState = {
@@ -64,7 +68,7 @@ describe('Test suite for readiness reducer', () => {
         error: null
       };
       const error = 'Error';
-      const action = fetchReadinessfailure(error);
+      const action = fetchReadinessFailure(error);
       const newState = readiness(currentState, action);
       expect(newState.isLoading).toBe(false);
       expect(newState.error).toEqual(error);

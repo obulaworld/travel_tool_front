@@ -33,13 +33,15 @@ class Button extends PureComponent {
       badge,
       showBadge,
       badgeClass,
+      reverseText
     } = this.props;
     return (
       <button type="button" disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
-        { imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
+        { !reverseText && imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
         <span className={`${textClass} label`}>
           {text}
         </span>
+        { reverseText && imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
         <span className={`${textClass} mdl-cell--hide-desktop mdl-cell--hide-tablet`}>
           {responsiveText || text}
         </span>
@@ -63,6 +65,7 @@ Button.propTypes = {
   badge: PropTypes.number,
   showBadge: PropTypes.bool,
   badgeClass:PropTypes.string,
+  reverseText: PropTypes.bool
 };
 
 Button.defaultProps = {
@@ -79,6 +82,7 @@ Button.defaultProps = {
   badge: null,
   showBadge: false,
   badgeClass:'',
+  reverseText: false
 };
 
 export default Button;

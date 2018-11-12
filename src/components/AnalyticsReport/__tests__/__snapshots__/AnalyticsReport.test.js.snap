@@ -5,7 +5,13 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
   className="analyticsReport"
 >
   <TravelReadiness
+    exportReadiness={[Function]}
     fetchReadiness={[Function]}
+    readiness={
+      Object {
+        "isLoading": false,
+      }
+    }
     renderButton={[Function]}
     renderNotFound={[Function]}
     renderSpinner={[Function]}
@@ -49,6 +55,7 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
     </div>
     <div
       className="analyticsReport__row analyticsReport__report-details"
+      key="Success"
     >
       <div>
         <p>
@@ -63,6 +70,7 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
     </div>
     <div
       className="analyticsReport__row analyticsReport__report-details"
+      key="Talent & Development"
     >
       <div>
         <p>

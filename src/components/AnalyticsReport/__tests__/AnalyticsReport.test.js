@@ -10,6 +10,10 @@ const defaultProps = {
   },
   fetchDepartmentTrips: jest.fn(),
   fetchReadiness: jest.fn(),
+  exportReadiness: jest.fn(),
+  readiness: {
+    isLoading: false
+  }
 };
 
 const setup = (props) => {
@@ -49,5 +53,11 @@ describe('Test suite for Analytics Report Component', () => {
     const button = wrapper.find('#btnExportTripsPerMonth');
     button.simulate('click');
     expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
+  });
+  it('should call fetchReadiness when export button is clicked', () => {
+    const mountWrapper = mount(<AnalyticsReport {...defaultProps} />);
+    const button = mountWrapper.find('.analyticsReport__export-button').first();
+    button.simulate('click');
+    expect(defaultProps.fetchReadiness).toHaveBeenCalled();
   });
 });

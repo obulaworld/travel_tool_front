@@ -15,6 +15,22 @@ exports[`Test suite for Travel Readiness Component should match the snapshot 1`]
     <p>
       Travel Readiness
     </p>
+    <Button
+      altText=""
+      badge={null}
+      badgeClass=""
+      buttonClass="analyticsReport__export-button"
+      buttonId="btnExportReadinessCSV"
+      disabled={false}
+      imageClass="mdl-Icon"
+      imageSrc="save_alt_24px.svg"
+      onClick={[Function]}
+      responsiveText=""
+      reverseText={true}
+      showBadge={false}
+      text="Export"
+      textClass=""
+    />
   </div>
   <div
     className="analyticsReport__row analyticsReport__report-header"
@@ -32,6 +48,26 @@ exports[`Test suite for Travel Readiness Component should match the snapshot 1`]
     <div>
       <p>
         Expected Arrival Date
+      </p>
+    </div>
+  </div>
+  <div
+    className="analyticsReport__row analyticsReport__report-details"
+    key="item0"
+  >
+    <div>
+      <p>
+        Lazuli Doe
+      </p>
+    </div>
+    <div>
+      <p>
+        0% complete
+      </p>
+    </div>
+    <div>
+      <p>
+        05 Oct 2018
       </p>
     </div>
   </div>

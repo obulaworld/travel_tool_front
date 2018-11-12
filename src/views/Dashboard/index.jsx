@@ -7,7 +7,7 @@ import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
-import { fetchReadiness } from '../../redux/actionCreator/travelReadinessActions';
+import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import ConnectedAnalytics from '../Analytics';
 import TravelCalendar from '../TravelCalendar';
 
@@ -15,7 +15,7 @@ export class Dashboard extends Component {
 
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
-      fetchAnalytics, history, getCurrentUserRole, isLoaded } = this.props;
+      fetchAnalytics, history, getCurrentUserRole, isLoaded, exportReadiness } = this.props;
     if (isLoaded) {
       const allowedRoles = ['Travel Administrator', 'Super Administrator'];
       checkUserPermission(history, allowedRoles, getCurrentUserRole );
@@ -36,6 +36,7 @@ export class Dashboard extends Component {
           fetchDepartmentTrips={fetchDepartmentTrips}
           departmentTrips={departmentTrips}
           fetchReadiness={fetchReadiness}
+          exportReadiness={exportReadiness}
           readiness={readiness}
         />
         <TravelCalendar />
@@ -45,7 +46,7 @@ export class Dashboard extends Component {
 }
 
 const actions = {
-  fetchDepartmentTrips, fetchReadiness, fetchAnalytics
+  fetchDepartmentTrips, fetchReadiness, fetchAnalytics, exportReadiness
 };
 
 export const mapStateToProps = ({user, analytics, readiness}) => ({
@@ -63,7 +64,8 @@ Dashboard.propTypes = {
   fetchDepartmentTrips: PropTypes.func.isRequired,
   fetchReadiness: PropTypes.func.isRequired,
   readiness: PropTypes.func.isRequired,
-  isLoaded: PropTypes.bool.isRequired
+  isLoaded: PropTypes.bool.isRequired,
+  exportReadiness: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);
