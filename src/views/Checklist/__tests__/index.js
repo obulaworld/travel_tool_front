@@ -72,11 +72,11 @@ describe('<Checklist> component', () => {
     expect(wrapper.find('#loading').length).toBe(2);
   });
   it('should call the setItemToDelete function', () => {
-    const checklistItemId = 5;
+    const checklistItemId = { id: 5 };
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
     wrapperInstance.setItemToDelete(checklistItemId)();
-    expect(wrapper.state().checklistItemId).toEqual(checklistItemId);
+    expect(wrapper.state().checklistItemId).toEqual(checklistItemId.id);
   });
 
   it('should call the manageModal function', () => {

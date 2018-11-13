@@ -5,7 +5,7 @@ import Modal from '../../modal/Modal';
 import SubmitArea from './FormFieldsets/SubmitArea';
 
 
-const DeleteRequestForm = ({ closeModal, deleteChecklistItem, shouldOpen, modalType, handleInputChange }) => {
+const DeleteRequestForm = ({ closeModal, deleteChecklistItem, itemName, shouldOpen, modalType, handleInputChange }) => {
   return(
     <Modal
       closeModal={closeModal}
@@ -13,13 +13,14 @@ const DeleteRequestForm = ({ closeModal, deleteChecklistItem, shouldOpen, modalT
       visibility={
         shouldOpen && modalType.match('delete checklist item') ? 'visible' : 'invisible'
       }
-      title="Delete Travel Checklist Item"
+      title="Disable Checklist Item"
     >
-      <p className="delete-checklist-item__reason">Reason</p>
+      <p className="delete-checklist-item__reason">Reason for Disabling</p>
       <textarea type="text" className="delete-checklist-item__input" onChange={handleInputChange} />
       <span className="delete-checklist-item__disclaimer">
         <img src={error} alt="profile" className="delete-checklist-item__disclaimer--error" />
-            Are you sure you want to delete this Item?
+        <strong>{ itemName }</strong>
+         will be removed from guest travel checklist
       </span>
       <div className="delete-checklist-item__hr" />
       <SubmitArea
@@ -27,7 +28,7 @@ const DeleteRequestForm = ({ closeModal, deleteChecklistItem, shouldOpen, modalT
         hasBlankFields={false}
         deleteChecklistItem={deleteChecklistItem}
         send={
-          modalType === 'delete checklist item' ? 'Delete' : 'Send Request'
+          modalType === 'delete checklist item' ? 'Disable' : 'Send Request'
         }
       />
     </Modal>
@@ -39,7 +40,8 @@ DeleteRequestForm.propTypes = {
   deleteChecklistItem: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
-  shouldOpen: PropTypes.bool.isRequired
+  shouldOpen: PropTypes.bool.isRequired,
+  itemName: PropTypes.string.isRequired
 };
 
 DeleteRequestForm.defaultProps = {

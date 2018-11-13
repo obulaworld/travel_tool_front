@@ -29,7 +29,7 @@ export class Checklist extends Component {
   }
   setItemToDelete = (checklistItemId) => () => {
     const { openModal } = this.props;
-    this.setState({ checklistItemId });
+    this.setState({ checklistItemId: checklistItemId.id, itemName: checklistItemId.name });
     openModal(true, 'delete checklist item');
   }
   setItemToRestore = (checklistItemId) => () => {
@@ -92,12 +92,14 @@ export class Checklist extends Component {
   }
   renderDeleteChecklistForm() {
     const { shouldOpen, modalType } = this.props;
+    const { itemName } = this.state;
     return (
       <DeleteRequestForm
         shouldOpen={shouldOpen}
         modalType={modalType}
         closeModal={this.manageModal('close-delete-modal')}
         handleInputChange={this.handleInputChange}
+        itemName={itemName}
         deleteChecklistItem={this.deleteChecklistItem} />
     );
   }
@@ -147,7 +149,7 @@ export class Checklist extends Component {
           {this.renderChecklistItem(defaultChecklistItem)}
           <div id="added-item-header">Added Items</div>
           {isLoading ? <div id="loading">Loading...</div> : currentChecklistItems }
-          <div id="deleted-item-header">Deleted Items</div>
+          <div id="deleted-item-header">Disabled Items</div>
           {isLoading ? <div id="loading">Loading...</div> : deletedItems }
         </div>
       </Fragment>
@@ -161,7 +163,7 @@ export class Checklist extends Component {
           <button type="button" id="edit-btn" onClick={this.manageModal('edit',checklistItem)}>Edit</button>
         )}
         {checklistItem.id && (
-          <button type="button" id="delete-btn" onClick={this.setItemToDelete(checklistItem.id)}>Delete</button>
+          <button type="button" id="delete-btn" onClick={this.setItemToDelete(checklistItem)}>Disable</button>
         )}
       </div>
     );

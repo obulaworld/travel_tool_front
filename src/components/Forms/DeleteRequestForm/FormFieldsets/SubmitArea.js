@@ -10,7 +10,7 @@ const SubmitArea = ({ onCancel, deleteChecklistItem }) => {
           Cancel
         </button>
         <button type="button" className="restore-checklist-items__footer--delete" id="oncancel" onClick={deleteChecklistItem}>
-            Delete
+            Disable
         </button>
       </div>
     </fieldset>
