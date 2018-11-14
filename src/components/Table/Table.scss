@@ -114,7 +114,7 @@ td.pl-sm-100 {
     @media (max-width: 479px) {
       overflow: scroll;
       width: 100%;
-      position: initial;
+      position: initial !important;
     }
     @media (max-width: 839px) {
       width: 100%;

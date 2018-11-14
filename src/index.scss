@@ -29,30 +29,18 @@ body {
   };
 
 }
-  .rp-requests {
-    height: 100vh;
-    flex-grow: 1;
-    padding-left: 61px;
-    width: 100%;
+.rp-requests {
+  height: 100vh;
+  flex-grow: 1;
+  padding-left: 61px;
+  width: 100%;
 
-    @media (max-width: 839px) and (min-width: 480px){
-     width: 100%;
-     padding-left: 0;
-    }
-
-    @media (max-width: 479px) {
-      padding: 0px;
-    }
-
-    .rp-requests__header {
-      margin-bottom: 15.1px;
-      height: 164px;
-
-      @media (max-width: 479px){
-        height: 113px;
-      }
-    }
-  };
+  .rp-requests__header {
+    margin-bottom: 15.1px;
+    height: 164px;
+  }
+  @import 'responsiveness';
+};
 
 .hide {
   display: none;

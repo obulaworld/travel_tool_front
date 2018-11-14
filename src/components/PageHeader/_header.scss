@@ -5,12 +5,9 @@
   position: relative;
   top: 50px;
   height: 36px;
-	margin-bottom: 46px;
+  margin-bottom: 46px;
 
-  @media (max-width: 479px) {
-    top: 19px;
-    margin-bottom: 0px;
-  }
+  @import 'responsiveness';
 
   .title {
     height: 23px;
