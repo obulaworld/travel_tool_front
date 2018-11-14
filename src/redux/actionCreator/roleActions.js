@@ -60,9 +60,10 @@ export const fetchRoleUsersFailure = error => ({
   error
 });
 
-export const deleteUserRole = (userId, roleId) => ({
+export const deleteUserRole = (userId, fullName, roleId) => ({
   type: DELETE_USER_ROLE,
   userId,
+  fullName,
   roleId
 });
 

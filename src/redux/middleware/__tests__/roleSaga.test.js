@@ -70,11 +70,12 @@ describe('Role Saga', () => {
   describe('Delete user role saga', () => {
     const userId = 1;
     const roleId = 2;
+    const fullName = 'Test User';
 
     it('deletes a travel checklist item successfully', () => {
       const response = {
         data: {
-          message: 'Delete Successful'
+          message: 'Test User removed successfully!'
         }
       };
 

@@ -69,10 +69,11 @@ describe('Role Actions', () => {
       const expectedAction = {
         type: DELETE_USER_ROLE,
         userId: 1,
-        roleId: 2
+        fullName: 'Test User',
+        roleId: 2,
       };
 
-      const createdAction = deleteUserRole(1, 2);
+      const createdAction = deleteUserRole(1, 'Test User', 2);
       expect(createdAction).toEqual(expectedAction);
     });
 

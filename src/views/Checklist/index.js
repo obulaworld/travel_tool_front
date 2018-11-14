@@ -12,6 +12,7 @@ import './index.scss';
 import error from '../../images/error.svg';
 import RestoreChecklistItem from '../../components/modal/RestoreChecklistModal/RestoreChecklistModal';
 import DeleteRequestForm from '../../components/Forms/DeleteRequestForm/DeleteRequestForm';
+import Preloader from '../../components/Preloader/Preloader';
 
 
 export class Checklist extends Component {
@@ -115,8 +116,8 @@ export class Checklist extends Component {
   renderRestoreChecklistForm() {
     const { shouldOpen, modalType } = this.props;
     const { checklistItemName } = this.state;
-    return (     
-      <RestoreChecklistItem 
+    return (
+      <RestoreChecklistItem
         closeModal={this.manageModal('close-edit-modal')}
         shouldOpen={shouldOpen}
         modalType={modalType}
@@ -148,9 +149,9 @@ export class Checklist extends Component {
           <div id="default-item-header">Default item</div>
           {this.renderChecklistItem(defaultChecklistItem)}
           <div id="added-item-header">Added Items</div>
-          {isLoading ? <div id="loading">Loading...</div> : currentChecklistItems }
-          <div id="deleted-item-header">Disabled Items</div>
-          {isLoading ? <div id="loading">Loading...</div> : deletedItems }
+          {isLoading ? <div id="loading"><Preloader /></div> : currentChecklistItems }
+          <div id="deleted-item-header">Deleted Items</div>
+          {isLoading ? <div id="loading"><Preloader /></div> : deletedItems }
         </div>
       </Fragment>
     );

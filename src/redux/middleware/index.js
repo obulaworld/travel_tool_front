@@ -131,8 +131,6 @@ function* rootSaga() {
     watchUpdateDocument(),
     watchCreateDocument(),
     watchExportReadiness(),
-    watchFetchCalendarAnalytics(),
-    watchDeleteUserRoleAsync(),
     watchPostSubmission(),
     watchFetchSubmission(),
 

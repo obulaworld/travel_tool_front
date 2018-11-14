@@ -31,11 +31,11 @@ export function* watchDeleteUserRoleAsync() {
 
 export function* deleteUserRoleSaga(action) {
   try {
-    const { userId, roleId } = action;
+    const { userId, fullName, roleId } = action;
     response = yield call(RoleAPI.deleteUserRole, userId, roleId);
     yield put(deleteUserRoleSuccess(response.data.message, userId, roleId));
     yield put(hideDeleteRoleModal());
-    toast.success('User removed successfully!');
+    toast.success(`${fullName} removed successfully!`);
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(deleteUserRoleFailure(errorMessage));

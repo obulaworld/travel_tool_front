@@ -35,7 +35,7 @@ export class RoleDetailsTable extends PureComponent {
         <button
           className="delete-comment-modal__btn"
           type="button"
-          onClick={() => handleDeleteUserRole(user.id)}
+          onClick={() => handleDeleteUserRole(user)}
         >
           Delete
         </button>

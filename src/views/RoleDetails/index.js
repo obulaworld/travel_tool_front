@@ -33,10 +33,11 @@ export class RoleDetails extends Component {
     fetchRoleUsers(params.roleId);
   }
 
-  handleDeleteUserRole = (userId) => {
+  handleDeleteUserRole = (user) => {
     const travelTeamMembersRoleId = 339458;
+    const { id, fullName } = user;
     const { deleteUserRole } = this.props;
-    deleteUserRole(userId, travelTeamMembersRoleId);
+    deleteUserRole(id, fullName, travelTeamMembersRoleId);
   }
 
   handleAddUser = () => {
