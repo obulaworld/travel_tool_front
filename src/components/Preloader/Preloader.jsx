@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Preloader.scss';
 
 const Preloader = ({ spinnerClass }) => (
@@ -7,4 +8,11 @@ const Preloader = ({ spinnerClass }) => (
   </div>
 );
 
+Preloader.propTypes = {
+  spinnerClass: PropTypes.string,
+};
+
+Preloader.defaultProps = {
+  spinnerClass: '',
+};
 export default Preloader;
