@@ -128,7 +128,7 @@ export class CommentBox extends Component {
             onClick={this.handleSubmit}
             disabled={!text && true}
           >
-            Posts
+            Post
           </button>
         )}
       </span>
