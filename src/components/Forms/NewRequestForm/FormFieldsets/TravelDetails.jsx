@@ -64,7 +64,7 @@ class TravelDetailsFieldset extends Component {
   renderAddAnotherBtn = () => {
     const { addNewTrip } = this.props;
     return (
-      <div className="add-multi-trip-area">
+      <div className="add-multi-trip-area" onClick={addNewTrip} onKeyPress={addNewTrip} role="button" tabIndex="0">
         <button type="button" className="another-trip" onClick={addNewTrip}>
           <img src={addMultipleCityBtn} alt="clicked" className="addsvg" />
           Add another trip

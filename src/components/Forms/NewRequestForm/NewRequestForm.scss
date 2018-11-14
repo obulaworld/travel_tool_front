@@ -93,13 +93,16 @@ form.new-request {
       width: 100%;
       &.multi {
         border-left: 10px solid #FFAF30;
+        width: 98.5%;
+        margin-right: 15px;
       }
     }
     .style-details {
       display: flex;
       flex-wrap: wrap;
-      padding: 10px;
+      padding: 5px;
       margin-left: 10px;
+      width: 100%;
       box-sizing: border-box;
     }
 
@@ -154,7 +157,7 @@ h1 {
 
 .add-multi-trip-area{
   height: 50px;
-  width: 100%;
+  width: 98.5%;
   border: 1px solid  #D4D4D4;
   border-style: dashed;
   border-radius: 2px;
@@ -215,7 +218,7 @@ h1 {
   border: none;
   background: none;
   position: absolute;
-  right: -25px;
+  right: -25px !important;
   top: 37.5px;
 }
 .travel-input-area {
@@ -243,4 +246,7 @@ h1 {
 }
 form .form-input .room-dropdown .select-menu {
   top: 25px;
+}
+.occupationInput {
+  width: 245px !important;
 }

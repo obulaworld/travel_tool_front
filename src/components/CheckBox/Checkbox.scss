@@ -1,6 +1,6 @@
 @mixin checkboxStyle(){
-  height: 24px !important;
-  width: 24px !important;
+  height: 18px !important;
+  width: 18px !important;
   border:1px solid #999999 ;
   border-radius: 2px !important;
   outline:none !important;
@@ -17,7 +17,11 @@
   font-size: 18px;
   letter-spacing: -0.23px;
   line-height: 23px;
+  min-height: 40px;
   margin-left: -35px;
+  &:last-child{
+    margin-bottom: 0px;
+  }
 }
 
 .checkbox{
@@ -42,7 +46,15 @@
 .ticksvg{
   height: 14px;
   width: 13px;
-  margin-left: 5px;
-  margin-right: auto;
-  margin-bottom: 5px;
+  padding: 0 0 9px 2.5px;
+}
+
+#remember-my-details {
+  height: 20px;	
+  width: 203px;	
+  color: #4F4F4F !important;	
+  font-family: "DIN Pro";	
+  font-size: 15px;	
+  letter-spacing: -0.19px;	
+  line-height: 20px;
 }

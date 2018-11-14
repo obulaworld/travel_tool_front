@@ -18,7 +18,9 @@ exports[`<Checkbox /> should render correctly 1`] = `
       src="tick.svg"
     />
   </div>
-  <p>
+  <p
+    id="remember-my-details"
+  >
     Remember my personal details
   </p>
 </div>
