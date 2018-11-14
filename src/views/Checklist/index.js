@@ -149,9 +149,9 @@ export class Checklist extends Component {
           <div id="default-item-header">Default item</div>
           {this.renderChecklistItem(defaultChecklistItem)}
           <div id="added-item-header">Added Items</div>
-          {isLoading ? <div id="loading"><Preloader /></div> : currentChecklistItems }
-          <div id="deleted-item-header">Deleted Items</div>
-          {isLoading ? <div id="loading"><Preloader /></div> : deletedItems }
+          {isLoading ? <Preloader spinnerClass="loader" /> : currentChecklistItems }
+          <div id="deleted-item-header">Disabled Items</div>
+          {isLoading ? <Preloader spinnerClass="loader" /> : deletedItems }
         </div>
       </Fragment>
     );

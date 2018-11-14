@@ -1,9 +1,9 @@
 import React from 'react';
 import './Preloader.scss';
 
-const Preloader = () => (
+const Preloader = ({ spinnerClass }) => (
   <div className="preloader">
-    <div className="spinner" />
+    <div className={`spinner ${spinnerClass}`} />
   </div>
 );
 

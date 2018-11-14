@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ConnectedChecklist, { Checklist, mapStateToProps } from '../index';
-import travelChecklistMockData from '../../../mockData/travelChecklistMockData'; 
+import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 
 travelChecklistMockData[0].destination = 'Nairobi';
 
@@ -69,7 +69,7 @@ describe('<Checklist> component', () => {
   it('renders loading indicator if `isLoading is true`', () => {
     const wrapper = shallowWrapper;
     wrapper.setProps({ isLoading: true});
-    expect(wrapper.find('#loading').length).toBe(2);
+    expect(wrapper.find('.loader').length).toBe(2);
   });
   it('should call the setItemToDelete function', () => {
     const checklistItemId = { id: 5 };

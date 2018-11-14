@@ -3,6 +3,13 @@
   padding-bottom: 20px;
 }
 
+.loader {
+  display: flex;
+  justify-content: flex-start;
+  position: relative !important;
+  margin: 30px;
+}
+
 .checklist-page {
   margin-bottom: 50px;
   padding: 0 25px;
