@@ -1,7 +1,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-const SubmitArea = ({ onCancel, deleteChecklistItem }) => {
+const SubmitArea = ({ onCancel, deleteChecklistItem, deleteReason }) => {
 
   return (
     <fieldset>
@@ -9,8 +9,13 @@ const SubmitArea = ({ onCancel, deleteChecklistItem }) => {
         <button type="button" className="bg-btn bg-btn--inactive" onClick={onCancel} id="cancel">
           Cancel
         </button>
-        <button type="button" className="restore-checklist-items__footer--delete" id="oncancel" onClick={deleteChecklistItem}>
-            Disable
+        <button 
+          type="button"
+          className="restore-checklist-items__footer--delete"
+          id="oncancel" onClick={deleteChecklistItem}
+          disabled={!deleteReason}
+        >
+          Disable
         </button>
       </div>
     </fieldset>
@@ -20,6 +25,7 @@ const SubmitArea = ({ onCancel, deleteChecklistItem }) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   deleteChecklistItem: PropTypes.func.isRequired,
+  deleteReason: PropTypes.string.isRequired
 };
 
 export default SubmitArea;

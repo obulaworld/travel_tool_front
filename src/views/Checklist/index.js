@@ -93,7 +93,7 @@ export class Checklist extends Component {
   }
   renderDeleteChecklistForm() {
     const { shouldOpen, modalType } = this.props;
-    const { itemName } = this.state;
+    const { itemName, deleteReason } = this.state;
     return (
       <DeleteRequestForm
         shouldOpen={shouldOpen}
@@ -101,6 +101,7 @@ export class Checklist extends Component {
         closeModal={this.manageModal('close-delete-modal')}
         handleInputChange={this.handleInputChange}
         itemName={itemName}
+        deleteReason={deleteReason}
         deleteChecklistItem={this.deleteChecklistItem} />
     );
   }
@@ -193,7 +194,7 @@ export class Checklist extends Component {
     const { deletedChecklistItems } = this.props;
     return (
       <div className="checkInTable__trips--empty">
-        { !deletedChecklistItems.length && 'There are currently no deleted travel checklist items for your location' }
+        { !deletedChecklistItems.length && 'There are currently no disabled travel checklist items for your location' }
       </div>
     );
   }

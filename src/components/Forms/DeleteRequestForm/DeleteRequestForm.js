@@ -5,7 +5,11 @@ import Modal from '../../modal/Modal';
 import SubmitArea from './FormFieldsets/SubmitArea';
 
 
-const DeleteRequestForm = ({ closeModal, deleteChecklistItem, itemName, shouldOpen, modalType, handleInputChange }) => {
+const DeleteRequestForm = ({ 
+  closeModal, deleteChecklistItem, itemName, 
+  shouldOpen, modalType, handleInputChange,
+  deleteReason
+}) => {
   return(
     <Modal
       closeModal={closeModal}
@@ -27,6 +31,7 @@ const DeleteRequestForm = ({ closeModal, deleteChecklistItem, itemName, shouldOp
         onCancel={closeModal}
         hasBlankFields={false}
         deleteChecklistItem={deleteChecklistItem}
+        deleteReason={deleteReason}
         send={
           modalType === 'delete checklist item' ? 'Disable' : 'Send Request'
         }
@@ -40,11 +45,13 @@ DeleteRequestForm.propTypes = {
   deleteChecklistItem: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
+  deleteReason: PropTypes.string,
   shouldOpen: PropTypes.bool.isRequired,
   itemName: PropTypes.string.isRequired
 };
 
 DeleteRequestForm.defaultProps = {
-  modalType:''
+  modalType:'',
+  deleteReason: '',
 };
 export default DeleteRequestForm;
