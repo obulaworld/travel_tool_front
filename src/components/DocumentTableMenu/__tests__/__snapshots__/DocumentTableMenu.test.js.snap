@@ -18,6 +18,19 @@ exports[`DocumentTableMenu Component should render the component 1`] = `
         className="table__menu-list doc"
       >
         <li
+          className="table__menu-list-item"
+          id="deleteBtn"
+          onClick={[Function]}
+          role="presentation"
+        >
+          <img
+            alt="rename-icon"
+            className="menu-icon"
+            src="document-delete.svg"
+          />
+          Delete
+        </li>
+        <li
           className="table__menu-list-item rename"
           id="docRenameBtn"
           onClick={[Function]}

@@ -4,14 +4,17 @@ import PageHeader from '../PageHeader';
 import './DocumentsHeader.scss';
 
 class DocumentsHeader extends PureComponent {
-  render() {
+  openAddModal = () => {
     const { openModal } = this.props;
+    openModal('add document');
+  };
+  render() {
     return (
       <div className="document-panel-header">
         <PageHeader
           title="DOCUMENTS"
           actionBtn="Add File"
-          openModal={openModal}
+          openModal={this.openAddModal}
         />
       </div>
     );

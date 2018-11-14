@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 import DocumentAPI from '../DocumentAPI';
-import { updateDocument } from '../../redux/actionCreator/documentActions';
 import { resolveBaseUrl } from '../index';
+import { updateDocument } from '../../redux/actionCreator/documentActions';
 import { documentData } from '../../redux/__mocks__/documentMockData';
 
 const baseUrl = resolveBaseUrl();
@@ -12,6 +12,20 @@ describe('DocumentsAPI', () => {
   });
   afterEach(() => {
     moxios.uninstall();
+  });
+
+  it('should send a DELETE request to delete a document', async () => {
+    const documentId = '3';
+
+    moxios.stubRequest(`${baseUrl}/documents/${documentId}`, {
+      status: 200,
+      response: 'Document deleted successfully'
+    });
+
+    const response = await DocumentAPI.deleteDocument(documentId);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/documents/${documentId}`);
+    expect(response.data).toEqual('Document deleted successfully');
   });
 
   it('should send a GET request to fetch user documents', async () => {

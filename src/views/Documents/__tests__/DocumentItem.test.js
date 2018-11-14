@@ -14,6 +14,12 @@ describe('<DocumentItem />', () => {
         createdAt: '2018-08-16 012:11:52.181+01',
         updatedAt: '2018-08-16 012:11:52.181+01',
       },
+      menuOpen: {
+        open: true
+      },
+      toggleMenu: jest.fn(),
+      openModal: jest.fn(),
+      setItemToDelete: jest.fn()
     };
     const wrapper = shallow(<DocumentItem {...props} />);
     expect(wrapper.find('img').length).toBe(1);

@@ -5,7 +5,7 @@ import { throwError } from 'redux-saga-test-plan/providers';
 import * as  matchers from 'redux-saga-test-plan/matchers';
 import toast from 'toastr';
 import DocumentAPI from '../../../services/DocumentAPI';
-import { watchFetchDocuments, watchUpdateDocument, watchCreateDocument } from '../DocumentSaga';
+import { watchFetchDocuments, watchUpdateDocument, watchDeleteDocument, watchCreateDocument } from '../DocumentSaga';
 import {
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
@@ -67,6 +67,54 @@ describe('Document saga', () => {
     });
   });
 
+  describe('Delete document', () => {
+    const documentId = '23ErGDS6';
+    const response = {
+      data: {
+        deletedDocument: {
+          id: '32ejr28e',
+          name: 'visa'
+        }
+      }
+    };
+    it('deletes a document successfully', () => {
+      return expectSaga(watchDeleteDocument)
+        .provide([[
+          call(DocumentAPI.deleteDocument, documentId),
+          response
+        ]])
+        .put({
+          type: 'DELETE_DOCUMENT_SUCCESS',
+          documentId,
+          deletedDocument: response.data.deletedDocument
+        })
+        .dispatch({
+          type: 'DELETE_DOCUMENT',
+          documentId,
+          deletingDocument: true
+        })
+        .run();
+    });
+    it('handles failed document deletion', () => {
+      const error = new Error('Server error, try again');
+      error.response = { status: 500 };
+      return expectSaga(watchDeleteDocument)
+        .provide([[
+          call(DocumentAPI.deleteDocument, documentId),
+          throwError(error)
+        ]])
+        .put({
+          type: 'DELETE_DOCUMENT_FAILURE',
+          error: error.message
+        })
+        .dispatch({
+          type: 'DELETE_DOCUMENT',
+          documentId,
+          deletingDocument: true
+        })
+        .run();
+    })
+  })
   describe('Update document saga', () => {
     toast.success = jest.fn();
     toast.error = jest.fn();

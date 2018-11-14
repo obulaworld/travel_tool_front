@@ -9,6 +9,10 @@ class DocumentAPI {
     return axios.get(`${baseUrl}/documents`);
   }
 
+  static deleteDocument(documentId){
+    return axios.delete(`${baseUrl}/documents/${documentId}`);
+  }
+
   static updateDocument(documentId, updatedDocument) {
     return axios.put(`${baseUrl}/documents/${documentId}`, updatedDocument);
   }

@@ -1,4 +1,4 @@
-import documentsReducer, { initialState } from '../documents';
+import documentsReducer from '../documents';
 import {
   editDocument,
   updateDocumentOnEdit,
@@ -6,14 +6,174 @@ import {
   updateDocument,
   updateDocumentFailure,
   updateDocumentSuccess,
-  createDocument, 
-  createDocumentSuccessfully, 
+  createDocument,
+  createDocumentSuccessfully,
   createDocumentFailure
 } from '../../actionCreator/documentActions';
 import documentsMockData from '../../../mockData/documentsMockData';
+// import documents from '../../../mockData/documentsMockData';
 import { documentData, response } from '../../__mocks__/documentMockData';
 
-describe('Documents reducder', () => {
+describe('Documents Reducer', () => {
+  let action, newState, expectedState, error, mockComments;
+  let initialState = {
+    isLoading: false,
+    document: '',
+    updatingDocument: false,
+    documents: [],
+    documentOnEdit: null,
+    error: '',
+    documentItem: {},
+    isUploading: false
+  };
+  describe('Fetch documents Reducer', () => {
+    it('should return initial state', () => {
+      expect(documentsReducer(undefined, {})).toEqual(initialState);
+    });
+
+    it('should handle FETCH_DOCUMENTS', () => {
+      action = {
+        type: 'FETCH_DOCUMENTS',
+      };
+
+      newState = documentsReducer(initialState, action);
+      expectedState = {
+        isLoading: true,
+        documentOnEdit: null,
+        updatingDocument: false,
+        document: '',
+        documents: [],
+        error: '',
+        documentItem: {},
+        isUploading: false
+      };
+
+      expect(newState).toEqual(expectedState);
+    });
+
+    it('should handle FETCH_DOCUMENTS_SUCCESS', () => {
+      action = {
+        type: 'FETCH_DOCUMENTS_SUCCESS',
+        documents: ['user documents']
+      };
+
+      newState = documentsReducer(initialState, action);
+      expectedState = {
+        isLoading: false,
+        documentOnEdit: null,
+        updatingDocument: false,
+        document: '',
+        documents: ['user documents'],
+        error: '',
+        documentItem: {},
+        isUploading: false
+      };
+      expect(newState).toEqual(expectedState);
+    });
+
+    it('should handle FETCH_DOCUMENTS_FAILURE', () => {
+      error = 'failed to fetch documents';
+      action = {
+        type: 'FETCH_DOCUMENTS_FAILURE',
+        error
+      };
+
+      newState = documentsReducer(initialState, action);
+      expectedState = {
+        isLoading: false,
+        updatingDocument: false,
+        document: '',
+        documents: [],
+        error: 'failed to fetch documents'
+      };
+      expect(newState).toMatchObject(expectedState);
+    });
+  });
+  describe('Delete documents Reducer', () => {
+    const currentState = {
+      ...initialState,
+      documents: [
+        {
+          id: '12ewr45s',
+          name: 'visa'
+        }
+      ]
+    };
+    it('should return initial state', () => {
+      expect(documentsReducer(undefined, {})).toEqual(initialState);
+    });
+
+    it('should handle DELETE_DOCUMENT', () => {
+      action = {
+        type: 'DELETE_DOCUMENT',
+        deletingDocument: true,
+        documentId: '12ewr45s',
+      };
+
+      newState = documentsReducer(currentState, action);
+      expectedState = {
+        isLoading: false,
+        updatingDocument: false,
+        deletingDocument: true,
+        documentOnEdit: null,
+        document: '',
+        documents: [
+          {
+            id: '12ewr45s',
+            name: 'visa'
+          }
+        ],
+        error: '',
+        documentItem: {},
+        isUploading: false
+      };
+
+      expect(newState).toEqual(expectedState);
+    });
+
+    it('should handle DELETE_DOCUMENT_SUCCESS', () => {
+      action = {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        documentId: '12ewr45s',
+        deletedDocument: {
+          id: '12ewr45s',
+          name: 'visa'
+        }
+      };
+
+      newState = documentsReducer(currentState, action);
+      expectedState = {
+        isLoading: false,
+        updatingDocument: false,
+        documentOnEdit: null,
+        deletingDocument: false,
+        document: '',
+        documents: [],
+        error: '',
+        documentItem: {},
+        isUploading: false
+      };
+      expect(newState).toEqual(expectedState);
+    });
+
+    it('should handle DELETE_DOCUMENT_FAILURE', () => {
+      error = 'Document not found';
+      action = {
+        type: 'DELETE_DOCUMENT_FAILURE',
+        error
+      };
+
+      newState = documentsReducer(initialState, action);
+      expectedState = {
+        isLoading: false,
+        document: '',
+        documents: [],
+        error: 'Document not found'
+      };
+      expect(newState).toMatchObject(expectedState);
+    });
+  });
+
   describe('Update Document', () => {
     it('should return default state for unknown action type', (done) => {
       const newState= documentsReducer(initialState, { type: 'UNKNOWN' });
@@ -104,82 +264,12 @@ describe('Documents reducder', () => {
       const error = 'Server Error';
       const action = updateDocumentFailure(error);
       const newState = documentsReducer(currentState, action);
-  
+
       expect(newState.documentOnEdit).toMatchObject(documentsMockData[0]);
       expect(newState.updatingDocument).toBe(false);
       expect(newState.error).toEqual('Server Error');
       expect(newState.message).toEqual('');
       done();
-    });
-  });
-
-  describe('Fetch Reducer', () => {
-
-    let action, newState, expectedState, error;
-
-    it('should return initial state', () => {
-      expect(documentsReducer(undefined, {})).toEqual(initialState);
-    });
-
-    it('should handle FETCH_DOCUMENTS', () => {
-      action = {
-        type: 'FETCH_DOCUMENTS',
-      };
-
-      newState = documentsReducer(initialState, action);
-      expectedState = {
-        updatingDocument: false,
-        isLoading: true,
-        document: '',
-        documents: [],
-        documentOnEdit: null,
-        error: '',
-        documentItem: {},
-        isUploading: false
-      };
-
-      expect(newState).toEqual(expectedState);
-    });
-
-    it('should handle FETCH_DOCUMENTS_SUCCESS', () => {
-      action = {
-        type: 'FETCH_DOCUMENTS_SUCCESS',
-        documents: ['user documents']
-      };
-
-      newState = documentsReducer(initialState, action);
-      expectedState = {
-        updatingDocument: false,
-        isLoading: false,
-        document: '',
-        documents: ['user documents'],
-        documentOnEdit: null,
-        error: '',
-        documentItem: {},
-        isUploading: false
-      };
-      expect(newState).toEqual(expectedState);
-    });
-
-    it('should handle FETCH_DOCUMENTS_FAILURE', () => {
-      error = 'failed to fetch documents';
-      action = {
-        type: 'FETCH_DOCUMENTS_FAILURE',
-        error
-      };
-
-      newState = documentsReducer(initialState, action);
-      expectedState = {
-        updatingDocument: false,
-        isLoading: false,
-        document: '',
-        documents: [],
-        documentOnEdit: null,
-        documentItem: {},
-        isUploading: false,
-        error: 'failed to fetch documents'
-      };
-      expect(newState).toMatchObject(expectedState);
     });
   });
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DocumentTable from '../DocumentTable';
+import DeleteModal from '../DeleteModal';
 
-describe('<DocumentTable />', () => {
+describe('<DeleteModal />', () => {
   const props = {
     documents: [
       {
@@ -24,21 +24,21 @@ describe('<DocumentTable />', () => {
         updatedAt: '2018-08-16 012:11:52.181+01',
       }
     ],
-    menuOpen: {
-      open: true
-    },
-    toggleMenu: jest.fn(),
-    openModal: jest.fn(),
-    setItemToDelete: jest.fn()
+    closeModal: jest.fn(),
+    shouldOpen: false,
+    modalType: '',
+    deleteUserDocument: jest.fn(),
+    documentName: ''
   };
-  it('should render correctly with documents', () => {
-    const wrapper = shallow(<DocumentTable {...props} />);
+  it('should render correctly', () => {
+    const wrapper = shallow(<DeleteModal {...props} />);
     expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find('.table__body').length).toBe(1);
   });
-  it('should render DocumentItem', () => {
-
-    const wrapper = shallow(<DocumentTable {...props} />);
-    expect(wrapper.find('DocumentItem').length).toBe(2);
+  it('should render the modal', () => {
+    const wrapper = shallow(<DeleteModal {...props} />);
+    wrapper.setProps({ shouldOpen: true, modalType: 'delete document' });
+    expect(wrapper.find('button').length).toBe(2);
+    expect(wrapper.props().children.props.visibility).toBe('visible');
+    expect(wrapper.props().children.props.title).toBe('Delete document');
   });
 });

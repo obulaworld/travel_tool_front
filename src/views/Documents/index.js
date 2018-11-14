@@ -3,41 +3,61 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from '../../components/modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
-import {
-  fetchDocuments,
-  editDocument,
-  updateDocumentOnEdit,
-  updateDocument,
-  removeDocumentFromEdit,
-  createDocument
+import { fetchDocuments, editDocument, updateDocumentOnEdit, updateDocument,
+  deleteDocument, removeDocumentFromEdit, createDocument
 } from '../../redux/actionCreator/documentActions';
 import DocumentsHeader from '../../components/DocumentsHeader';
 import NewDocumentForm from '../../components/Forms/NewDocumentForm';
 import DocumentTable from './DocumentTable';
-import Preloader from '../../components/Preloader/Preloader';
 import './Documents.scss';
+import DeleteModal from './DeleteModal';
+import Preloader from '../../components/Preloader/Preloader';
 
 export class Documents extends Component {
   state = {
-    menuOpen: { open: false, id: null }
+    menuOpen: { open: false, id: null },
+    documentId: null,
+    documentToDelete: '',
   };
-
   componentDidMount() {
     const { fetchDocuments } = this.props;
     fetchDocuments();
   }
-
+  setItemToDelete = (documentId, documentToDelete) => () => {
+    let { openModal } = this.props;
+    openModal(true, 'delete document');
+    this.setState({ documentId, documentToDelete });
+  }
+  deleteUserDocument = () => {
+    const { deleteDocument } = this.props;
+    const { documentId } = this.state;
+    deleteDocument(documentId);
+  }
+  handleCloseModal = () => {
+    const { closeModal } = this.props;
+    const { menuOpen } = this.state;
+    menuOpen.open && this.setState(
+      { menuOpen: { open: false, id: null } }
+    );
+    return closeModal();
+  }
+  toggleMenu = (document) => {
+    const { menuOpen } = this.state;
+    const { id } = document;
+    if (id && (menuOpen.id !== id)) {
+      return this.setState({ menuOpen: { open: true, id } });
+    }
+    this.setState({ menuOpen: { open: false, id: null } });
+  }
   openAddModal = () => {
     let{ openModal } = this.props;
     openModal(true, 'add document');
   }
-
   handleOpenModal = (modalType) => {
     let { openModal } = this.props;
     openModal(true, modalType);
     this.setState({ menuOpen: { open: false, id: null } });
   }
-
   handleCloseEditModal = () => {
     const { closeModal, removeDocumentFromEdit } = this.props;
     const { menuOpen } = this.state;
@@ -50,16 +70,6 @@ export class Documents extends Component {
     const { documentOnEdit, updateDocument } = this.props;
     updateDocument(documentOnEdit);
   }
-
-  toggleMenu = (document) => {
-    const { menuOpen } = this.state;
-    const { id } = document;
-    if (id && (menuOpen.id !== id)) return this
-      .setState({ menuOpen: { open: true, id } });
-
-    this.setState({ menuOpen: { open: false, id: null } });
-  }
-
   handleInputChange = (event) => {
     const { value } = event.target;
     const { documentOnEdit, updateDocumentOnEdit } = this.props;
@@ -121,9 +131,7 @@ export class Documents extends Component {
         modalId="edit-document-modal"
         modalContentId="edit-document-modal-content"
         visibility={
-          (shouldOpen && modalType === 'rename document')
-            ? 'visible'
-            : 'invisible'
+          (shouldOpen && modalType === 'rename document') ? 'visible' : 'invisible'
         }
         title="Rename File"
       >
@@ -168,19 +176,19 @@ export class Documents extends Component {
   }
 
   renderDocumentsPage() {
-    const { isLoading, documents, editDocument } = this.props;
-    const { menuOpen } = this.state;
-    const currentDocuments = (documents.length) ? (
+    const { isLoading, documents, closeModal, shouldOpen, modalType, editDocument } = this.props;
+    const { menuOpen, documentToDelete } = this.state;
+    const currentDocuments = (documents.length !== 0) ? (
       <DocumentTable
         documents={documents}
         menuOpen={menuOpen}
         toggleMenu={this.toggleMenu}
         openModal={this.handleOpenModal}
+        setItemToDelete={this.setItemToDelete}
         editDocument={editDocument}
       />
     ):
       this.renderNoDocumentMessage();
-
     return (
       <Fragment>
         {this.renderDocumentsForm()}
@@ -188,6 +196,13 @@ export class Documents extends Component {
         <div className="document__table">
           {isLoading ? <Preloader /> : currentDocuments }
         </div>
+        <DeleteModal
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
+          deleteUserDocument={this.deleteUserDocument}
+          documentName={documentToDelete}
+        />
         {this.renderDocumentEditModal()}
       </Fragment>
     );
@@ -206,8 +221,8 @@ export const mapStateToProps = ({ modal, user, documents }) => ({
   ...modal.modal,
   user: user.getUserData,
   documents: documents.documents,
+  isLoading: documents.isLoading,
   documentOnEdit: documents.documentOnEdit,
-  isLoading: documents.fetchingDocuments,
 });
 
 const matchDispatchToProps = {
@@ -215,6 +230,7 @@ const matchDispatchToProps = {
   closeModal,
   createDocument,
   fetchDocuments,
+  deleteDocument,
   editDocument,
   updateDocumentOnEdit,
   updateDocument,
@@ -229,6 +245,7 @@ Documents.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   fetchDocuments: PropTypes.func.isRequired,
+  deleteDocument: PropTypes.func.isRequired,
   documents: PropTypes.array.isRequired,
   editDocument: PropTypes.func.isRequired,
   documentOnEdit: PropTypes.object,

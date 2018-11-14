@@ -2,6 +2,9 @@ import {
   FETCH_DOCUMENTS,
   FETCH_DOCUMENTS_SUCCESS,
   FETCH_DOCUMENTS_FAILURE,
+  DELETE_DOCUMENT_FAILURE,
+  DELETE_DOCUMENT,
+  DELETE_DOCUMENT_SUCCESS,
   EDIT_DOCUMENT,
   REMOVE_DOCUMENT_FROM_EDIT,
   UPDATE_DOCUMENT_ON_EDIT,
@@ -25,6 +28,23 @@ export const fetchDocumentsSuccess = (data) => ({
 
 export const fetchDocumentsFailure = (error) => ({
   type: FETCH_DOCUMENTS_FAILURE,
+  error,
+});
+
+export const deleteDocument = (documentId) => ({
+  type: DELETE_DOCUMENT,
+  deletingDocument: true,
+  documentId
+});
+
+export const deleteDocumentSuccess = (documentId, deletedDocument) => ({
+  type: DELETE_DOCUMENT_SUCCESS,
+  documentId,
+  deletedDocument,
+});
+
+export const deleteDocumentFailure = (error) => ({
+  type: DELETE_DOCUMENT_FAILURE,
   error,
 });
 

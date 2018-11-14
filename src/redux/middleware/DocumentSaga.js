@@ -1,11 +1,14 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
-import { FETCH_DOCUMENTS, UPDATE_DOCUMENT, CREATE_DOCUMENT  } from '../constants/actionTypes';
+
+import { FETCH_DOCUMENTS, DELETE_DOCUMENT, UPDATE_DOCUMENT, CREATE_DOCUMENT } from '../constants/actionTypes';
 import DocumentAPI from '../../services/DocumentAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
   fetchDocumentsSuccess,
   fetchDocumentsFailure,
+  deleteDocumentSuccess,
+  deleteDocumentFailure,
   updateDocumentFailure,
   updateDocumentSuccess,
   createDocumentSuccessfully, 
@@ -27,6 +30,25 @@ export function* fetchDocumentsAsync(action) {
 
 export function* watchFetchDocuments() {
   yield takeLatest(FETCH_DOCUMENTS, fetchDocumentsAsync);
+}
+
+export function* deleteDocumentAsync(action) {
+  try{
+    const { documentId } = action;
+    const response = yield call(DocumentAPI.deleteDocument, documentId);
+    yield put(deleteDocumentSuccess(documentId, response.data.deletedDocument));
+    toast.success(response.data.message);
+    yield put(closeModal());
+  }
+  catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(deleteDocumentFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchDeleteDocument() {
+  yield takeLatest(DELETE_DOCUMENT, deleteDocumentAsync);
 }
 
 export function* watchUpdateDocument() {

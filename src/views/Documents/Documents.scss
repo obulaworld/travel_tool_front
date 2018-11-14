@@ -46,14 +46,14 @@
 
     #deleted-item {
       height: 18px;
-      width: 283px;
-      color: #999999;
-      font-family: "DIN Pro";
-      font-size: 14px;
+      width: 283px;	
+      color: #999999;	
+      font-family: "DIN Pro";	
+      font-size: 14px;	
       line-height: 18px;
       margin-left: 30px;
     }
-
+  
     #edit-btn {
       margin-left: auto;
       height: 18px;
@@ -164,13 +164,15 @@
               .doc-rename-input {
                 width: 96%;
                 margin: 5px 0px;
-                padding-left: 10px;
+                padding-left: 15px;
                 font-size: 15px;
                 border-radius: 2px;
                 border: 1px solid #D4D4D4;
                 color:#4F4F4F;
                 height: 36px;
                 outline: none;
+                font-family: "DIN Pro";
+                font-weight: 300;
               }
             }
           }
@@ -197,7 +199,7 @@
         }
      }
    }
-}
+ }
 
 $primary-color: #4F4F4F;
 $border-color: #e4e4e4;
@@ -236,6 +238,15 @@ $border-color: #e4e4e4;
         flex-direction: column;
       }
     }
+  }
+}
+
+.delete-document {
+  min-height: 250px;
+
+  .delete-document-button {
+    background-color: #FF5359;
+    border: none;
   }
 }
 

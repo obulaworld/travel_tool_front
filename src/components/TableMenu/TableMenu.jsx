@@ -78,7 +78,6 @@ class TableMenu extends PureComponent {
       requestStatus,
       menuOpen } = this.props;
     const openMenu = menuOpen.id === request.id && menuOpen.open;
-
     return (
       <div>
         {this.handleIconOpentoggle(toggleMenu, request.id)}

@@ -1,9 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import editIcon from '../../images/edit.svg';
 import cancelIcon from '../../images/cancel.svg';
+import deleteIcon from '../../images/document-delete.svg';
+import editIcon from '../../images/edit.svg';
 
 class DocumentTableMenu extends PureComponent {
+  openDeleteModal = (documentId) => () => {
+    const { toggleMenu, setItemToDelete, document } = this.props;
+    setItemToDelete(documentId, document.name)();
+    toggleMenu(document);
+  }
+
   handleOpenRenameModal = () => {
     const { document, editDocument, openModal } = this.props;
     editDocument(document);
@@ -35,6 +42,21 @@ class DocumentTableMenu extends PureComponent {
     );
   };
 
+  renderDocumentDeleteBtn = () => {
+    const { document } = this.props;
+    return (
+      <li
+        className="table__menu-list-item"
+        id="deleteBtn"
+        onClick={this.openDeleteModal(document.id)}
+        role="presentation"
+      >
+        <img src={deleteIcon} alt="rename-icon" className="menu-icon" />
+        Delete
+      </li>
+    );
+  }
+
   renderDocumentRenameBtn = () => {
     return (
       <li
@@ -58,6 +80,7 @@ class DocumentTableMenu extends PureComponent {
         {this.renderEllipsis(toggleMenu, document)}
         <div className={`table__menu-container ${openMenu ? 'open' : ''}`}>
           <ul className="table__menu-list doc">
+            {this.renderDocumentDeleteBtn()}
             {this.renderDocumentRenameBtn()}
             {this.closeMenu(toggleMenu, document)}
           </ul>
@@ -81,6 +104,7 @@ const propTypes = {
   toggleMenu: PropTypes.func.isRequired,
   menuOpen: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
+  setItemToDelete: PropTypes.func.isRequired,
 };
 
 DocumentTableMenu.propTypes = { ...propTypes };

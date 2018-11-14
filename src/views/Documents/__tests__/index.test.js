@@ -6,9 +6,12 @@ import DocumentsHeader from '../../../components/DocumentsHeader';
 describe('<Documents />', () => {
   const props = {
     openModal: jest.fn(),
-    fetchDocuments: jest.fn(),
-    isLoading: false,
     closeModal: jest.fn(),
+    fetchDocuments: jest.fn(),
+    deleteDocument: jest.fn(),
+    shouldOpen: false,
+    modalType: '',
+    isLoading: false,
     editDocument: jest.fn(),
     documentOnEdit: {
       id: '1',
@@ -22,7 +25,6 @@ describe('<Documents />', () => {
     updateDocumentOnEdit: jest.fn(),
     removeDocumentFromEdit: jest.fn(),
     updateDocument: jest.fn(),
-    shouldOpen: false,
     documents: [
       {
         id: '1',
@@ -59,6 +61,11 @@ describe('<Documents />', () => {
     const currentProps = { ...props, documents: [] };
     const wrapper = shallow(<Documents {...currentProps} />);
     expect(wrapper.find('DocumentTable').length).toBe(0);
+  });
+  it('should render submit area', () => {
+    const currentProps = { ...props, documents: [] };
+    const wrapper = shallow(<Documents {...currentProps} />);
+    expect(wrapper.find('button').length).toBe(2);
   });
 
   it('should render correctly when fetching documents', () => {
@@ -156,6 +163,41 @@ describe('<Documents />', () => {
     wrapper.instance().openAddModal();
     expect(handleOpenModalSpy).toHaveBeenCalled();
     done();
+  });
+
+  it('should call setItemToDelete', () => {
+    const wrapper = shallow(<Documents {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'setItemToDelete');
+    wrapper.instance().setItemToDelete(1, 'visa')();
+    expect(spy).toHaveBeenCalledTimes(1);
+    const { openModal } = props;
+    expect(openModal).toBeCalledWith(true, 'delete document');
+    expect(wrapper.state('documentId')).toBe(1);
+  });
+  it('should call deleteUserDocument', () => {
+    const wrapper = shallow(<Documents {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'deleteUserDocument');
+    wrapper.instance().deleteUserDocument();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+  it('should call handleCloseModal', () => {
+    const wrapper = shallow(<Documents {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'handleCloseModal');
+    wrapper.instance().handleCloseModal();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+  it('should call toggleMenu', () => {
+    const wrapper = shallow(<Documents {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'toggleMenu');
+    wrapper.instance().toggleMenu({
+      id: 1
+    });
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(wrapper.state('menuOpen')).toEqual({ open: true, id: 1 });
+    wrapper.instance().toggleMenu({
+      id: null
+    });
+    expect(wrapper.state('menuOpen')).toEqual({ open: false, id: null });
   });
 
   test('should correctly map state to props', () => {

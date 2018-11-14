@@ -5,16 +5,21 @@ import documentsMockData from '../../../mockData/documentsMockData';
 
 describe('DocumentTableMenu Component', () => {
   let props = {
-    document: documentsMockData[0],
+    document: {
+      id: '1',
+      name: 'Passport',
+      cloudinary_url: 'https://image.jpg',
+      createdAt: '2018-08-16 012:11:52.181+01',
+      updatedAt: '2018-08-16 012:11:52.181+01',
+    },
     editDocument: jest.fn(),
     toggleMenu: jest.fn(),
     menuOpen: { open: true, id: '1' },
-    openModal: jest.fn()
+    openModal: jest.fn(),
+    setItemToDelete: jest.fn(),
   };
-
   it ('should render the component', (done) => {
     const wrapper = shallow(<DocumentTableMenu {...props} />);
-
     expect(wrapper).toMatchSnapshot();
     done();
   });

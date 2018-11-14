@@ -10,6 +10,9 @@ import {
   fetchDocuments,
   fetchDocumentsSuccess,
   fetchDocumentsFailure,
+  deleteDocumentFailure,
+  deleteDocumentSuccess,
+  deleteDocument,
   editDocument,
   updateDocumentOnEdit,
   removeDocumentFromEdit,
@@ -50,6 +53,36 @@ describe('Documents Actions', () => {
     };
     const newAction = fetchDocumentsFailure('No documents found');
     expect(newAction).toEqual(expectedAction);
+  });
+
+  describe('Delete document Actions', () => {
+    it('should return action of type DELETE_DOCUMENT', () => {
+      const expectedAction = {
+        type: 'DELETE_DOCUMENT',
+        documentId: 'zdy6fs77sq',
+        deletingDocument: true,
+      };
+      const newAction = deleteDocument('zdy6fs77sq');
+      expect(newAction).toEqual(expectedAction);
+    });
+
+    it('should return action of type DELETE_DOCUMENT_SUCCESS', () => {
+      const expectedAction = {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        documentId: 'zdy6fs77sq',
+      };
+      const newAction = deleteDocumentSuccess('zdy6fs77sq');
+      expect(newAction).toEqual(expectedAction);
+    });
+
+    it('should return action of type DELETE_DOCUMENT_FAILURE', () => {
+      const expectedAction = {
+        type: 'DELETE_DOCUMENT_FAILURE',
+        error: 'Document not found'
+      };
+      const newAction = deleteDocumentFailure('Document not found');
+      expect(newAction).toEqual(expectedAction);
+    });
   });
 
   describe('Update documents actions', () => {

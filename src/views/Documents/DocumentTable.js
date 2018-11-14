@@ -4,7 +4,6 @@ import DocumentItem from './DocumentItem';
 import './Documents.scss';
 
 class DocumentTable extends Component {
-
   renderTableHead() {
     return (
       <tr>
@@ -25,10 +24,10 @@ class DocumentTable extends Component {
   render() {
     const {
       documents, menuOpen, toggleMenu,
-      openModal, editDocument
+      openModal, editDocument, setItemToDelete
     } = this.props;
     return (
-      <table className="mdl-data-table mdl-js-data-table table__requests table__documents">
+      <table className="mdl-data-table mdl-js-data-table table__requests">
         <thead>
           {this.renderTableHead()}
         </thead>
@@ -41,6 +40,7 @@ class DocumentTable extends Component {
                 menuOpen={menuOpen}
                 toggleMenu={toggleMenu}
                 openModal={openModal}
+                setItemToDelete={setItemToDelete}
                 editDocument={editDocument}
               />
             ))}
@@ -53,6 +53,7 @@ class DocumentTable extends Component {
 const documentTablePropTypes = {
   documents: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
+  setItemToDelete: PropTypes.func.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   editDocument: PropTypes.func.isRequired,
   menuOpen: PropTypes.object.isRequired,
