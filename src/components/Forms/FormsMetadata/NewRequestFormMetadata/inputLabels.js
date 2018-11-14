@@ -17,8 +17,7 @@ const inputLabels = {
   },
 
   manager: {
-    label: 'Your Direct Report',
-    note: '(Manager)'
+    label: 'Your Manager',
   },
 
   origin: {
