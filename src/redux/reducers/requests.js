@@ -122,13 +122,13 @@ const requests = (state = initialState, action) => {
       requestData: {
         ...state.requestData,
         comments: [
-          action.comment.comment,
           ...state.comments,
+          action.comment.comment
         ],
       },
       comments: [
-        action.comment.comment,
         ...state.comments,
+        action.comment.comment
       ],
     };
   case EDIT_COMMENT_SUCCESS:
