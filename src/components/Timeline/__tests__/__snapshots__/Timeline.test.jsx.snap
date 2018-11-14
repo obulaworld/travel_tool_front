@@ -66,7 +66,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="6"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="8"
         key="7"
       />
@@ -76,7 +76,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="8"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="10"
         key="9"
       />
@@ -86,7 +86,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="10"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="12"
         key="11"
       />
@@ -96,7 +96,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="12"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="14"
         key="13"
       />
@@ -183,7 +183,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-10-31T23:00:00.000Z"}
+        timelineStartDate={"2018-10-31T21:00:00.000Z"}
         timelineViewType="month"
         tripDayWidth={0}
       />
@@ -286,7 +286,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-10-31T23:00:00.000Z"}
+        timelineStartDate={"2018-10-31T21:00:00.000Z"}
         timelineViewType="week"
         tripDayWidth={0}
       />
@@ -414,7 +414,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       <RoomsGeomWrapper
         handleChangeRoomModal={[Function]}
         rooms={Array []}
-        timelineStartDate={"2018-10-31T23:00:00.000Z"}
+        timelineStartDate={"2018-10-31T21:00:00.000Z"}
         timelineViewType="year"
         tripDayWidth={0}
       />

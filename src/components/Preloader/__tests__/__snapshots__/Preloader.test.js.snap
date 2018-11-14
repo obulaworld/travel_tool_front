@@ -5,7 +5,7 @@ exports[`Preloader renders correctly 1`] = `
   className="preloader"
 >
   <div
-    className="spinner"
+    className="spinner "
   />
 </div>
 `;

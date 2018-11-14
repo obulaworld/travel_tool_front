@@ -277,6 +277,7 @@ exports[`<Requests> renders as expected 1`] = `
             "manager": "Ezrqn Kiptanui",
             "name": "Amarachukwo Agbo",
             "role": "Learning Facilitator",
+            "status": "Open",
             "tripType": "oneWay",
             "trips": Array [
               Object {
@@ -294,6 +295,7 @@ exports[`<Requests> renders as expected 1`] = `
             "manager": "Ezrqn Kiptanui",
             "name": "Amarachukwo Agbo",
             "role": "Learning Facilitator",
+            "status": "Approved",
             "tripType": "oneWay",
             "trips": Array [
               Object {

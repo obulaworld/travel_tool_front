@@ -106,7 +106,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                 handleDate={[Function]}
                 label="Depart"
                 labelNote=""
-                minDate={"2018-11-09T18:11:23.962Z"}
+                minDate={"2018-11-14T13:49:56.863Z"}
                 name="departureDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -125,7 +125,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                 handleDate={[Function]}
                 label="Return"
                 labelNote=""
-                minDate={"2018-11-09T18:11:23.962Z"}
+                minDate={"2018-11-14T13:49:56.863Z"}
                 name="arrivalDate-0"
                 onChange={[Function]}
                 parentid={0}
@@ -162,7 +162,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
                     },
                   ]
                 }
-                className=""
+                className="bed-0"
                 data-parentid={0}
                 label="Available rooms"
                 labelNote=""

@@ -323,7 +323,7 @@ describe('<NewRequestForm />', () => {
     sinon.spy(shallowWrapper.instance(), 'onChangeInput');
     shallowWrapper.instance().onChangeInput(event);
     expect(shallowWrapper.instance().onChangeInput.calledOnce).toEqual(true);
-  })
+  });
 
   it('should change the radio button on click to multi ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
@@ -597,6 +597,18 @@ describe('<NewRequestForm />', () => {
     wrapper.instance().setState(defaultState);
     wrapper.instance().handlePickBed(1, 0);
     expect(wrapper.instance().state.values['bed-0']).toBe(1);
+  });
+
+  it('should update edit request', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().setState(defaultState);
+    expect(wrapper.instance().getTrips(props.requestOnEdit)['bed-0']).toBe(1);
+  });
+
+  it('should set up trips values', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    wrapper.instance().setState(defaultState);
+    expect(wrapper.instance().setTrips(props.requestOnEdit)).toEqual(props.requestOnEdit.trips);
   });
 
   it('should call localStorage when savePersonalDetails is called', () => {

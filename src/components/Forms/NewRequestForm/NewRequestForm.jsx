@@ -262,6 +262,7 @@ class NewRequestForm extends PureComponent {
     if (tripType === 'oneWay') {
       let newTrip = { ...trips[0] };
       delete newValues['arrivalDate-0'];
+      delete newValues['bed-0'];
       delete newTrip.returnDate;
       trips[0] = newTrip;
       const slicedTrips = trips.slice(0, 1);

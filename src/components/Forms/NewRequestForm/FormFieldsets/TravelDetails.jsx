@@ -158,15 +158,20 @@ class TravelDetailsFieldset extends Component {
                     })}
                   </div>
                 ) : null}
-                <div className="travel-to">
-                  {renderInput(`bed-${i}`, 'dropdown-select', {
-                    parentid: i,
-                    size: '100%',
-                    choices: bedChoices,
-                    onChange: value => handlePickBed(value, i),
-                    onFocus: () => this.fetchRoomsOnFocus(values, i, selection)
-                  })}
-                </div>
+                {
+                  selection !== 'oneWay' ? (
+                    <div className="travel-to">
+                      {renderInput(`bed-${i}`, 'dropdown-select', {
+                        parentid: i,
+                        className: `bed-${i}`,
+                        size: '100%',
+                        choices: bedChoices,
+                        onChange: value => handlePickBed(value, i),
+                        onFocus: () => this.fetchRoomsOnFocus(values, i, selection)
+                      })}
+                    </div>
+                  ) : null
+                }
               </div>
             </div>
             {selection === 'multi' &&

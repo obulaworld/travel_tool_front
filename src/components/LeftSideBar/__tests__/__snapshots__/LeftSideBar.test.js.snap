@@ -99,16 +99,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "text": "Trip Planner",
             },
             Object {
-              "activateOnLogin": true,
-              "icons": Object {
-                "active": "documents-blue.svg",
-                "inactive": "documents-grey.svg",
-              },
-              "isDropdown": false,
-              "link_to": "/documents",
-              "text": "Documents",
-            },
-            Object {
               "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
