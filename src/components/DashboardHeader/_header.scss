@@ -43,10 +43,35 @@
     .actions {
       display: flex;
       justify-content: space-between;
-      button:not(:last-child) {
+      button:nth-child(1) {
         margin-right: 19px;
         width: 127px;
         justify-content: space-between;
+      }
+      button:nth-child(2) {
+        margin-right: 19px;
+        width: 220px;
+        justify-content: space-between;
+      }
+    }
+
+    .calender-range {
+      position: absolute;
+      top: 110%;
+      right: 0%;
+      border-radius: 4px;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.15);
+      z-index: 100;
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(0,1);
+      transition: 0.5s ease;
+
+      &.open {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1,1);
       }
     }
 }

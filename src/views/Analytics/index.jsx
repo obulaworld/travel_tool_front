@@ -1,59 +1,72 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import { fetchAnalytics } from '../../redux/actionCreator/analyticsActions';
+import PieChartAnalytics from '../../components/PieChartAnalytics';
 import flightTakeoff from '../../images/icons/flight_takeoff.svg';
-import pencdingIcon from '../../images/icons/pending_icon.svg';
+import pendingIcon from '../../images/icons/pending_icon.svg';
+import StatsAnalytics from '../../components/StatsAnalytics';
 import flightLand from '../../images/icons/flight_land.svg';
 import AnalyticsCard from '../../components/AnalyticsCard';
 import flightIcon from '../../images/icons/flight.svg';
+import Spinner from '../../components/Spinner';
 import './index.scss';
 
 export class Analytics extends Component {
-  city = 'Nairobi';
   componentDidMount() {
     const { fetchAnalytics, context } = this.props;
     const { start, end } = context.state.range;
-    const query =`?dateFrom=${start}&dateTo=${end}`;
+    const query = `?location=${context.state.city}&dateFrom=${start}&dateTo=${end}`;
     fetchAnalytics(query);
   }
 
   componentWillReceiveProps(nextProps) {
     const {context, fetchAnalytics} = this.props;
-    if(nextProps.context.state.filter !== context.state.filter) {
-      const { start, end } = nextProps.context.state.range;
-      const query =`?dateFrom=${start}&dateTo=${end}`;
+    const {range} = nextProps.context.state;
+    if(range.start !== context.state.range.start || range.end !== context.state.range.end) {
+      const { start, end } = range;
+      const query = `?location=${context.state.city}&dateFrom=${start}&dateTo=${end}`;
       fetchAnalytics(query);
     }
   }
 
+  renderCards = (title, props) => (
+    <AnalyticsCard title={title}>
+      {props.chart ? <PieChartAnalytics {...props} /> : <StatsAnalytics {...props} />}
+    </AnalyticsCard>
+  );
+
   render() {
-    const { analytics } = this.props;
+    const { analytics, context } = this.props;
     const {
-      total_requests,
-      people_leaving,
-      people_visiting,
-      pending_requests,
-      travel_duration_breakdown,
-      travel_lead_time_breakdown
+      totalRequests,
+      peopleLeaving,
+      peopleVisiting,
+      pendingRequests,
+      travelDurationBreakdown,
+      travelLeadTimeBreakdown
     } = analytics.payload;
 
     return (
-      <div className="analytics">
-        <AnalyticsCard stats={total_requests} title="Total No. of Travel Requests" icon={flightIcon} />
-        <AnalyticsCard stats={pending_requests} title="Total Number of Pending Requests" icon={pencdingIcon} />
-        <AnalyticsCard title="Average Travel Duration" data={analytics.success && travel_duration_breakdown.durations} chart />
-        <AnalyticsCard stats={people_leaving} title={`No. of People leaving ${this.city} Center`} icon={flightLand} color="green" />
-        <AnalyticsCard
-          stats={people_visiting}
-          title={`No. of People visiting ${this.city} Center`}
-          icon={flightTakeoff}
-          color="brown-orange"
-        />
-        <AnalyticsCard title="Average Travel RequestLead Time" data={analytics.success && travel_lead_time_breakdown.lead_times} chart />
-      </div>
+      <Fragment>
+        {analytics.isLoading ? (
+          <Spinner />
+        ) : (
+          <div className="analytics">
+            {this.renderCards('Total No. of Travel Requests', {stats: totalRequests, icon: flightIcon} )}
+            {this.renderCards('Total Number of Pending Requests', {stats: pendingRequests, icon: pendingIcon})}
+            {this.renderCards('Average Travel Duration', {data: (analytics.success ? travelDurationBreakdown.durations : []), chart: true})}
+            {this.renderCards(`No. of People visiting ${context.state.city} Center`,
+              {stats: peopleVisiting, icon: flightLand, color: 'green'}
+            )}
+            {this.renderCards(`No. of People leaving ${context.state.city} Center`,
+              {stats: peopleLeaving, icon: flightTakeoff, color: 'brown-orange'}
+            )}
+            {this.renderCards('Average Travel Request Lead Time', {data: (analytics.success ? travelLeadTimeBreakdown.leadTimes : []), chart: true})}
+          </div>
+        )}
+      </Fragment>
     );
   }
 }
@@ -62,7 +75,8 @@ Analytics.propTypes = {
   fetchAnalytics: PropTypes.func.isRequired,
   analytics: PropTypes.shape({}).isRequired,
   context: PropTypes.shape({
-    state: {}
+    state: PropTypes.shape({}).isRequired,
+    handleFilter: PropTypes.func.isRequired
   }).isRequired
 };
 

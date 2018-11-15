@@ -1,20 +1,53 @@
-import React, { PureComponent,  Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
 
-import './_header.scss';
 import activeLocation from '../../images/icons/location_active.svg';
 import activeCalendar from '../../images/icons/calendar_active.svg';
 import download from '../../images/icons/download.svg';
-import InputRenderer, { Input, FormContext } from '../Forms/FormsAPI';
-import availableRooms from '../../redux/reducers/availableRooms';
-import SelectDropDown from '../SelectDropDown/SelectDropDown';
-import TimelineDropdown from '../TimelineDropdown';
+import CalendarRange from '../CalendarRange';
+import './_header.scss';
+import './index.scss';
 
-class DashboardHeader extends PureComponent {
-  renderButton = (icon, text) => {
-    const { downloadCsv } = this.props;
+export default class DashboardHeader extends PureComponent {
+  state = {
+    isDropdownOpen: false,
+    range: {
+      start: format(startOfISOWeek(new Date()), 'DD MMM, YY'),
+      end: format(endOfISOWeek(new Date()), 'DD MMM, YY')
+    }
+  }
+
+  showCalendar  = () => {
+    const {isDropdownOpen} = this.state;
+    this.setState({
+      isDropdownOpen: !isDropdownOpen
+    });
+  };
+
+  hideCalendar = () => {
+    this.setState({
+      isDropdownOpen: false
+    });
+  };
+
+  handleChange = (ranges) => {
+    const {context} = this.props;
+    context.handleFilter(ranges);
+    const range = {
+      start: format(ranges.start, 'DD MMM, YY'),
+      end: format(ranges.end,  'DD MMM, YY')
+    };
+    this.setState((prevState) => ({...prevState, range}));
+    if(range.start !== range.end) {
+      this.hideCalendar();
+    }
+  }
+
+  renderButton = (icon, text, method) => {
+    const { downloadCsv, context } = this.props;
     return (
-      <button type="button" className="action-btn" onClick={!text && (() => downloadCsv('?type=file'))}>
+      <button type="button" className="action-btn" id={!text ? 'download' : ''} onClick={!text ? (() => downloadCsv(`?location=${context.state.city}&type=file`)) : method}>
         {text}
         <img src={icon} alt={text} />
       </button>
@@ -22,17 +55,19 @@ class DashboardHeader extends PureComponent {
   };
 
   render() {
-    const selectedChoice = 'This Week';
+    const {context} = this.props;
+    const {isDropdownOpen, range} = this.state;
     return (
       <div className="DashboardHeader">
         <h2 className="title">Dashboard</h2>
         <div className="actions">
-          {this.renderButton(activeLocation, 'Lagos')}
-          <TimelineDropdown
-            icon={activeCalendar}
-            dropDownItems={['Today', 'Tomorrow','This Week', 'This Month', 'Pick a date']}
-          />
+          {this.renderButton(activeLocation, context.state.city)}
+          {this.renderButton(activeCalendar, `${range.start} - ${range.end}`, this.showCalendar)}
           {this.renderButton(download)}
+        </div>
+
+        <div className={`calender-range ${isDropdownOpen ? 'open' : ''}`}>
+          <CalendarRange context={context} handleChange={this.handleChange} />
         </div>
       </div>
     );
@@ -40,7 +75,6 @@ class DashboardHeader extends PureComponent {
 }
 
 DashboardHeader.propTypes = {
-  downloadCsv: PropTypes.func.isRequired
+  downloadCsv: PropTypes.func.isRequired,
+  context: PropTypes.shape({}).isRequired
 };
-
-export default DashboardHeader;

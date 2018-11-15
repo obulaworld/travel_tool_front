@@ -5,8 +5,11 @@ const baseUrl = resolveBaseUrl();
 
 export default class AnalyticsAPI {
   static getAnalytics(query) {
-    const responseType = (query === '?type=file') ? 'blob' : 'json';
-    return axios.get(`${baseUrl}/analytics${query}`, { responseType });
+    return axios.get(`${baseUrl}/analytics${query}`);
+  }
+
+  static exportAnalytics(query) {
+    return axios.get(`${baseUrl}/analytics${query}`, { responseType: 'blob' });
   }
 
   static getDepartmentTrips(query) {

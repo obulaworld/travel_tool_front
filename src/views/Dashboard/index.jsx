@@ -1,32 +1,34 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
-import { fetchAnalytics } from '../../redux/actionCreator/analyticsActions';
+import { downloadAnalytics } from '../../redux/actionCreator/analyticsActions';
 import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
-import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
-import ConnectedAnalytics from '../Analytics';
 import TravelCalendar from '../TravelCalendar';
+import ConnectedAnalytics from '../Analytics';
+import './index.scss';
 
 export class Dashboard extends Component {
 
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
-      fetchAnalytics, history, getCurrentUserRole, isLoaded, exportReadiness } = this.props;
+      history, getCurrentUserRole, isLoaded, exportReadiness, downloadAnalytics, } = this.props;
     if (isLoaded) {
       const allowedRoles = ['Travel Administrator', 'Super Administrator'];
       checkUserPermission(history, allowedRoles, getCurrentUserRole );
     }
     return (
-      <Fragment>
+      <div id="dashboard">
         <FilterContext>
           <Consumer>
             {(context) => (
               <Fragment>
-                <DashboardHeader downloadCsv={fetchAnalytics} context={context} />
+                <DashboardHeader downloadCsv={downloadAnalytics} context={context} />
                 <ConnectedAnalytics context={context} />
               </Fragment>
             )}
@@ -40,13 +42,13 @@ export class Dashboard extends Component {
           readiness={readiness}
         />
         <TravelCalendar />
-      </Fragment>
+      </div>
     );
   }
 }
 
 const actions = {
-  fetchDepartmentTrips, fetchReadiness, fetchAnalytics, exportReadiness
+  fetchDepartmentTrips, fetchReadiness, downloadAnalytics, exportReadiness
 };
 
 export const mapStateToProps = ({user, analytics, readiness}) => ({
@@ -58,12 +60,12 @@ export const mapStateToProps = ({user, analytics, readiness}) => ({
 
 Dashboard.propTypes = {
   history: PropTypes.shape({}).isRequired,
-  fetchAnalytics: PropTypes.func.isRequired,
+  downloadAnalytics: PropTypes.func.isRequired,
   getCurrentUserRole: PropTypes.array.isRequired,
   departmentTrips: PropTypes.shape({}).isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
   fetchReadiness: PropTypes.func.isRequired,
-  readiness: PropTypes.func.isRequired,
+  readiness:  PropTypes.shape({}).isRequired,
   isLoaded: PropTypes.bool.isRequired,
   exportReadiness: PropTypes.func.isRequired,
 };

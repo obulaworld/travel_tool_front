@@ -1,21 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AnalyticsCard from '..';
+import StatsAnalytics from '..';
 
 const props = {
-  stats: 30,
-  color: 'green',
-  title: 'Test title',
-  children: []
+  color: '#000',
+  stats: 40,
+  icon: 'sfdhd.d'
 };
 
 describe('<Dashboard />', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(<AnalyticsCard {...props} />);
-  });
-
   it('renders correctly', () => {
+    const wrapper = shallow(<StatsAnalytics {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

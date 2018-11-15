@@ -13,11 +13,12 @@ import activeDocumentsIcon from '../../../images/icons/documents-blue.svg';
 import inactiveDocumentsIcon from '../../../images/icons/documents-grey.svg';
 
 const NavItemsMetadata = [
-  // Dashboard
+  // Dashboard`
   {
     text: 'Dashboard',
     link_to: '/dashboard',
     activateOnLogin: true,
+    exact: true,
     onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
     icons: {
       active: activeDashboardIcon,
@@ -102,7 +103,7 @@ const NavItemsMetadata = [
     dropdownItems: [
       {
         link_to: '/settings/roles',
-        exact: '/settings/roles',
+        exact: true,
         text: 'User Roles',
         onlyVisibleTo: ['Super Administrator']
       },
@@ -112,7 +113,7 @@ const NavItemsMetadata = [
       },
       {
         link_to: '/settings/roles/339458',
-        exact: '/settings/roles/:roleId',
+        exact: true,
         text: 'Travel team',
         onlyVisibleTo: ['Travel Administrator','Super Administrator' ]
       }

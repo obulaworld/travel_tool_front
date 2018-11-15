@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Dashboard /> renders correctly 1`] = `
-<Fragment>
+<div
+  id="dashboard"
+>
   <FilterContext>
     <ContextConsumer>
       <Component />
@@ -14,6 +16,7 @@ exports[`<Dashboard /> renders correctly 1`] = `
         "report": Array [],
       }
     }
+    exportReadiness={[Function]}
     fetchDepartmentTrips={[Function]}
     fetchReadiness={[Function]}
     readiness={
@@ -23,5 +26,5 @@ exports[`<Dashboard /> renders correctly 1`] = `
     }
   />
   <Connect(TravelCalendar) />
-</Fragment>
+</div>
 `;

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard /> render customized label correctly 1`] = `
+<g>
+  <path
+    d="M16.963460753897365,3.209269421232376L13.97076860311789,2.1629223150704964L15.97076860311789,2.1629223150704964"
+    fill="none"
+    stroke="#4F4F4F"
+    strokeDasharray="5,1"
+  />
+  <circle
+    cx={15.97076860311789}
+    cy={2.1629223150704964}
+    fill="#4F4F4F"
+    r={2}
+    stroke="none"
+  />
+  <text
+    className="label"
+    fill="#4F4F4F"
+    textAnchor="start"
+    x={19.97076860311789}
+    y={2.1629223150704964}
+  >
+    23.00% [hello]
+  </text>
+</g>
+`;
+
+exports[`<Dashboard /> renders correctly 1`] = `
+<Fragment>
+  <div
+    className="chart-data"
+  >
+    <p
+      className="no-chart"
+    >
+      No data to display
+    </p>
+  </div>
+</Fragment>
+`;

@@ -42,7 +42,7 @@ describe('Test suite for trips Analytics Saga', () => {
           type: FETCH_DEPARTMENT_TRIPS_ANALYTICS,
           query
         })
-        .run();
+        .silentRun();
     });
 
     it('should throw an error if request failed', () => {
@@ -66,7 +66,7 @@ describe('Test suite for trips Analytics Saga', () => {
           type: FETCH_DEPARTMENT_TRIPS_ANALYTICS,
           query
         })
-        .run();
+        .silentRun();
     });
 
     it('should call FileSaver.saveAs function if request was successful and action type is file', () => {
@@ -82,7 +82,7 @@ describe('Test suite for trips Analytics Saga', () => {
           type: FETCH_DEPARTMENT_TRIPS_ANALYTICS,
           query
         })
-        .run()
+        .silentRun()
         .then(() => {
           expect(FileSaver.saveAs).toHaveBeenCalled();
         });

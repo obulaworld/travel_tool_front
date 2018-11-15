@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { format } from 'date-fns';
 
 export const { Consumer, Provider } = React.createContext();
 
@@ -9,41 +10,15 @@ export default class FilterContext extends Component {
     super(props);
     const start = moment().startOf('isoWeek').format('YYYY-MM-DD');
     const end = moment().endOf('isoWeek').format('YYYY-MM-DD');
+    const [city] = localStorage.getItem('location').split(',');
     this.state = {
-      filter: 'This Week',
-      range: {start, end}
+      range: {start, end},
+      city
     };
   }
 
-  updateDateFilter = (start, end=start) => {
-    return this.setState({range: {start, end} });
-  }
-
   handleFilter = filter => {
-    this.setState({filter});
-    switch (filter) {
-    case 'Today': {
-      const date = moment().format('YYYY-MM-DD');
-      this.updateDateFilter(date);
-      break;
-    }
-    case 'Tomorrow': {
-      const date = moment(new Date()).add(1,'days').format('YYYY-MM-DD');
-      this.updateDateFilter(date);
-      break;
-    }
-    case 'This Month': {
-      const start = moment().startOf('month').format('YYYY-MM-DD');
-      const end = moment().endOf('month').format('YYYY-MM-DD');
-      this.updateDateFilter(start, end);
-      break;
-    }
-    default: {
-      const start = moment().startOf('isoWeek').format('YYYY-MM-DD');
-      const end = moment().endOf('isoWeek').format('YYYY-MM-DD');
-      this.updateDateFilter(start, end);
-      break;
-    }}
+    this.setState({range: { ...filter }});
   }
 
   render() {
@@ -52,7 +27,6 @@ export default class FilterContext extends Component {
       state: {...this.state},
       handleFilter: this.handleFilter
     };
-
     return (
       <Provider value={{ ...context }}>
         { children }

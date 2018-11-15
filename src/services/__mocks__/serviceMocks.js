@@ -206,6 +206,37 @@ export const fetchDepartmentsTripsResponse = {
     }
   ]
 };
+
+export const fetchAnalyticsResponse = {
+  dats: {
+    total_requests: 1,
+    pending_requests: 1,
+    people_visiting: 0,
+    people_leaving: 1,
+    travel_duration_breakdown: {
+      durations: [
+        {
+          name: '4 days',
+          value: 1
+        }
+      ],
+      total: 1
+    },
+    travel_lead_time_breakdown: {
+      lead_times: [
+        {
+          name: '1 days',
+          value: 1
+        }
+      ],
+      total: 1
+    }
+  },
+  error: {},
+  isLoading: false,
+  success: true,
+};
+
 export const fetchReadinessResponse = {
   sucess:true,
   readiness: [
@@ -221,32 +252,32 @@ export const fetchReadinessResponse = {
 };
 
 export const fetchTravelCalendarResponse = {
-  "data": [{
-    "name": "Barrison Waina",
-    "department": "Apprenticeship Department",
-    "role": "Product designer",
-    "flights": {
-      "arrival": {
-        "destination": "Lagos",
-        "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+  'data': [{
+    'name': 'Barrison Waina',
+    'department': 'Apprenticeship Department',
+    'role': 'Product designer',
+    'flights': {
+      'arrival': {
+        'destination': 'Lagos',
+        'airline': 'Kenya Airways',
+        'flight_no': 'KQ5752',
+        'arrival_time': '24/10/2018 13:23:33',
+        'depature_time': '24/10/2018 13:23:33'
       },
-      "depature": {
-        "destination": "Nairobi",
-        "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+      'depature': {
+        'destination': 'Nairobi',
+        'airline': 'Kenya Airways',
+        'flight_no': 'KQ5752',
+        'arrival_time': '24/10/2018 13:23:33',
+        'depature_time': '24/10/2018 13:23:33'
       }
     }
   }],
-  "pagination": {
-    "total": 30,
-    "current_page": 1,
-    "limit": 13,
-    "nextPage": 2,
-    "prevPage": null
+  'pagination': {
+    'total': 30,
+    'current_page': 1,
+    'limit': 13,
+    'nextPage': 2,
+    'prevPage': null
   }
-}
+};

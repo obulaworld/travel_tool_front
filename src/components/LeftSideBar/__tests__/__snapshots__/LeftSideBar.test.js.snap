@@ -16,6 +16,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
           Array [
             Object {
               "activateOnLogin": true,
+              "exact": true,
               "icons": Object {
                 "active": "dashboard.svg",
                 "inactive": "dashboard_inactive.svg",
@@ -102,7 +103,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "activateOnLogin": false,
               "dropdownItems": Array [
                 Object {
-                  "exact": "/settings/roles",
+                  "exact": true,
                   "link_to": "/settings/roles",
                   "onlyVisibleTo": Array [
                     "Super Administrator",
@@ -114,7 +115,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "text": "User Profile",
                 },
                 Object {
-                  "exact": "/settings/roles/:roleId",
+                  "exact": true,
                   "link_to": "/settings/roles/339458",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",

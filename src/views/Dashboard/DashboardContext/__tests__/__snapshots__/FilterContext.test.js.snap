@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FilterContext /> should render without crushing 1`] = `
+exports[`<FilterContext /> should render without crashing 1`] = `
 <ContextProvider
   value={
     Object {
       "handleFilter": [Function],
       "state": Object {
-        "filter": "This Week",
+        "city": "Nairobi",
         "range": Object {
           "end": "2018-11-18",
           "start": "2018-11-12",

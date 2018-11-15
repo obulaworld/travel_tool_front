@@ -29,24 +29,18 @@ const props = {
   },
   fetchDepartmentTrips: jest.fn(),
   fetchReadiness: jest.fn(),
+  exportReadiness: jest.fn(),
+  downloadCsv: jest.fn(),
+  downloadAnalytics: jest.fn(),
+
   readiness: {
     isLoading: false,
   },
   isLoaded: false,
 };
 
+localStorage.setItem('location', 'Nairobi, Kenya');
 jest.mock('../../../helper/permissions', () => jest.fn());
-
-const mockStore = configureStore();
-const store = mockStore(initialState);
-
-const wrapper = mount(
-  <Provider store={store}>
-    <MemoryRouter>
-      <Dashboard {...props} />
-    </MemoryRouter>
-  </Provider>
-);
 
 describe('<Dashboard />', () => {
   let wrapper;

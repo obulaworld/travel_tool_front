@@ -9,24 +9,5 @@ exports[`<Dashboard /> renders correctly 1`] = `
   >
     Test title
   </h3>
-  <div
-    className="analytics-card__stats green"
-  >
-    <div
-      className="analytics-card__icon"
-    >
-      <img
-        alt=""
-        src=""
-      />
-    </div>
-    <div
-      className="analytics-card__stat"
-    >
-      <h4>
-        30
-      </h4>
-    </div>
-  </div>
 </div>
 `;
