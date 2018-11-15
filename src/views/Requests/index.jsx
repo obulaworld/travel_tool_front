@@ -128,7 +128,7 @@ export class Requests extends Base {
     const {
       history, location, openModal, closeModal, shouldOpen, modalType ,
       travelChecklists, fetchSubmission, postSubmission, submissionInfo,
-      isFetching } = this.props;
+      isFetching, requestData } = this.props;
     const { requestId } = this.state;
     return (
       <div className="rp-table">
@@ -155,6 +155,7 @@ export class Requests extends Base {
           postSubmission={postSubmission}
           submissionInfo={submissionInfo}
           isFetching={isFetching}
+          requestData={requestData}
         />
       </div>
     );

@@ -215,7 +215,7 @@ export class Table extends Component {
   }
 
   renderDetailsModal() {
-    const { closeModal, shouldOpen, modalType, requestId, page } = this.props;
+    const { closeModal, shouldOpen, modalType, requestId, page, requestData } = this.props;
     return (
       <Modal
         requestId={requestId}
@@ -229,7 +229,9 @@ export class Table extends Component {
             : 'invisible'
         }
         title={`#${requestId} Request Details`}
-        modalBar={<div className="table__modal-bar-text">Manager stage</div>}
+        modalBar={
+          <div className="table__modal-bar-text">{(requestData.status === 'Approved') ? 'Travel stage' : 'Manager Stage'}</div>
+        }
       >
         <RequestsModal navigatedPage={page} requestId={requestId} />
       </Modal>
@@ -325,6 +327,7 @@ Table.propTypes = {
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
   requestId: PropTypes.string,
+  requestData: PropTypes.object,
   message: PropTypes.string,
   page: PropTypes.string,
   editRequest: PropTypes.func.isRequired,
@@ -351,6 +354,7 @@ Table.defaultProps = {
   message: '',
   page: '',
   requestId: '',
+  requestData: {}
 };
 
 export default withLoading(Table);

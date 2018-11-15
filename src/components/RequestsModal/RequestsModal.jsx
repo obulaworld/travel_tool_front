@@ -215,7 +215,7 @@ export class RequestDetailsModal extends Component {
         <ConnectedCommentBox requestId={requestId} />
         {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
         <div id="comments">
-          <ConnectedUserComments comments={comments.slice(0).reverse()} email={email.result && email.result.email} />
+          <ConnectedUserComments comments={comments ? comments.slice(0).reverse(): []} email={email.result && email.result.email} />
         </div>
       </Fragment>
     );
