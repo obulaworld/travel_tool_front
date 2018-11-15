@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cancelIcon from '../../images/cancel.svg';
 import deleteIcon from '../../images/document-delete.svg';
+import downloadIcon from '../../images/save_alt_24px.svg';
 import editIcon from '../../images/edit.svg';
 
 class DocumentTableMenu extends PureComponent {
@@ -15,6 +16,11 @@ class DocumentTableMenu extends PureComponent {
     const { document, editDocument, openModal } = this.props;
     editDocument(document);
     openModal('rename document');
+  }
+
+  handleOpenDownloadModal = () => {
+    const { openModal, document } = this.props;
+    openModal('download document', document);
   }
 
   renderEllipsis = (toggleMenu, document) => {
@@ -57,6 +63,20 @@ class DocumentTableMenu extends PureComponent {
     );
   }
 
+  downloadDocument = () => {
+    return (
+      <li
+        className="table__menu-list-item"
+        id="docDownloadBtn"
+        onClick={this.handleOpenDownloadModal}
+        role="presentation"
+      >
+        <img src={downloadIcon} alt="rename-icon" className="menu-icon" />
+        Download
+      </li>
+    );
+  }
+
   renderDocumentRenameBtn = () => {
     return (
       <li
@@ -81,6 +101,7 @@ class DocumentTableMenu extends PureComponent {
         <div className={`table__menu-container ${openMenu ? 'open' : ''}`}>
           <ul className="table__menu-list doc">
             {this.renderDocumentDeleteBtn()}
+            {this.downloadDocument()}
             {this.renderDocumentRenameBtn()}
             {this.closeMenu(toggleMenu, document)}
           </ul>

@@ -44,4 +44,25 @@ describe('DocumentTableMenu Component', () => {
     expect(props.toggleMenu).toHaveBeenCalledTimes(2);
     done();
   });
+
+  it ('should handle download button click', (done) => {
+    const wrapper = mount(<DocumentTableMenu {...props} />);
+    const downloadBtn = wrapper.find('#docDownloadBtn');
+    const cancelBtn = wrapper.find('.table__menu-list-item.cancel');
+    const ellipsis = wrapper.find('.fa-ellipsis-v');
+    const handleOpenDownloadModalSpy = jest
+      .spyOn(wrapper.instance(), 'handleOpenDownloadModal');
+      
+     expect(downloadBtn.length).toBe(1);
+    expect(cancelBtn.length).toBe(1);
+    expect(ellipsis.length).toBe(1);
+    downloadBtn.simulate('click');
+    wrapper.instance().handleOpenDownloadModal();
+    expect(handleOpenDownloadModalSpy).toHaveBeenCalled();
+    cancelBtn.simulate('click');
+    expect(props.toggleMenu).toHaveBeenCalledTimes(3);
+    ellipsis.simulate('click');
+    expect(props.toggleMenu).toHaveBeenCalledTimes(4);
+    done();
+  });
 });

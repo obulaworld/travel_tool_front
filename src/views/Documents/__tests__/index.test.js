@@ -25,6 +25,8 @@ describe('<Documents />', () => {
     updateDocumentOnEdit: jest.fn(),
     removeDocumentFromEdit: jest.fn(),
     updateDocument: jest.fn(),
+    downloadDocuments: jest.fn(),
+    
     documents: [
       {
         id: '1',
@@ -65,7 +67,7 @@ describe('<Documents />', () => {
   it('should render submit area', () => {
     const currentProps = { ...props, documents: [] };
     const wrapper = shallow(<Documents {...currentProps} />);
-    expect(wrapper.find('button').length).toBe(2);
+    expect(wrapper.find('button').length).toBe(4);
   });
 
   it('should render correctly when fetching documents', () => {
@@ -86,7 +88,8 @@ describe('<Documents />', () => {
     };
     const wrapper = shallow(<Documents {...props} />);
     wrapper.instance().state = {
-      menuOpen: { open: true, id: 1 }
+      menuOpen: { open: true, id: 1 },
+      documentToDownlod: ''
     };
     const toggleMenuSpy = jest.spyOn(wrapper.instance(), 'toggleMenu');
     wrapper.instance().toggleMenu(document);
@@ -107,7 +110,8 @@ describe('<Documents />', () => {
 
     const wrapper = shallow(<Documents {...props} />);
     wrapper.instance().state = {
-      menuOpen: { open: true, id: 1 }
+      menuOpen: { open: true, id: 1 },
+      documentToDownlod: ''
     };
     const toggleMenuSpy = jest.spyOn(wrapper.instance(), 'toggleMenu');
     wrapper.instance().toggleMenu(document);
@@ -132,7 +136,7 @@ describe('<Documents />', () => {
 
   it('should call `handleCloseEditModal method', (done) => {
     const wrapper = shallow(<Documents {...props} />);
-    wrapper.instance().state = { menuOpen: { open: true, id: null } };
+    wrapper.instance().state = { menuOpen: { open: true, id: null },  documentToDownlod: '' };
     const handleCloseEditModalSpy = jest.spyOn(wrapper.instance(), 'handleCloseEditModal');
     wrapper.instance().handleCloseEditModal();
     expect(handleCloseEditModalSpy).toHaveBeenCalled();
@@ -151,6 +155,7 @@ describe('<Documents />', () => {
 
   it('should call `handleOpenModal method', (done) => {
     const wrapper = shallow(<Documents {...props} />);
+    wrapper.instance().state = { menuOpen: { open: false, id: null }, documentToDownlod: '' };
     const handleOpenModalSpy = jest.spyOn(wrapper.instance(), 'handleOpenModal');
     wrapper.instance().handleOpenModal();
     expect(handleOpenModalSpy).toHaveBeenCalled();
@@ -159,12 +164,20 @@ describe('<Documents />', () => {
 
   it('should call `handleOpenModal method', (done) => {
     const wrapper = shallow(<Documents {...props} />);
+    wrapper.instance().state = { menuOpen: { open: false, id: null }, documentToDownlod: '' };
     const handleOpenModalSpy = jest.spyOn(wrapper.instance(), 'openAddModal');
     wrapper.instance().openAddModal();
     expect(handleOpenModalSpy).toHaveBeenCalled();
     done();
   });
-
+  it('should call `handleDownloadDocuments method', (done) => {
+    const wrapper = shallow(<Documents {...props} />);
+    wrapper.instance().state = {  documentToDownlod: '' };
+    const handleDownloadDocumentsSpy = jest.spyOn(wrapper.instance(), 'handleDownloadDocuments');
+    wrapper.instance().handleDownloadDocuments();
+    expect(handleDownloadDocumentsSpy).toHaveBeenCalled();
+    done();
+  });
   it('should call setItemToDelete', () => {
     const wrapper = shallow(<Documents {...props} />);
     const spy = jest.spyOn(wrapper.instance(), 'setItemToDelete');

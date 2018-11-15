@@ -1,7 +1,13 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
+import FileSaver from 'file-saver';
 
-import { FETCH_DOCUMENTS, DELETE_DOCUMENT, UPDATE_DOCUMENT, CREATE_DOCUMENT } from '../constants/actionTypes';
+import { FETCH_DOCUMENTS,
+  DELETE_DOCUMENT,
+  UPDATE_DOCUMENT,
+  CREATE_DOCUMENT,
+  DOWNLOAD_DOCUMENTS 
+} from '../constants/actionTypes';
 import DocumentAPI from '../../services/DocumentAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
@@ -13,7 +19,8 @@ import {
   updateDocumentSuccess,
   createDocumentSuccessfully, 
   createDocumentFailure,
-  fetchDocuments
+  fetchDocuments,
+  downloadDocumentsFailure
 } from '../actionCreator/documentActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -67,6 +74,17 @@ export function* updateDocumentAsync(action) {
     yield put(updateDocumentFailure(errorMessage));
     toast.error(errorMessage);
   }
+}
+
+export function* downloadDocumentsAsync(action) {
+  const { url, name  } = action;
+  yield FileSaver.saveAs(url, name);
+  yield put(closeModal());  
+  toast.success('Download Successful!');
+}
+
+export function* watchDownloadDocuments() {
+  yield takeLatest(DOWNLOAD_DOCUMENTS, downloadDocumentsAsync);
 }
 export function* createDocumentSaga(action) {
   try {

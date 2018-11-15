@@ -79,7 +79,8 @@ import {
   watchFetchDocuments,
   watchDeleteDocument,
   watchUpdateDocument,
-  watchCreateDocument
+  watchCreateDocument,
+  watchDownloadDocuments
 } from './DocumentSaga';
 import{
   watchPostSubmission,
@@ -139,7 +140,8 @@ function* rootSaga() {
     watchCreateDocument(),
     watchExportReadiness(),
     watchPostSubmission(),
-    watchFetchSubmission()
+    watchFetchSubmission(),
+    watchDownloadDocuments()
   ]);
 }
 

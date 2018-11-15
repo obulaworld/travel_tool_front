@@ -13,7 +13,10 @@ import {
   UPDATE_DOCUMENT_SUCCESS,
   CREATE_DOCUMENT, 
   CREATE_DOCUMENT_SUCCESS, 
-  CREATE_DOCUMENT_FAILURE
+  CREATE_DOCUMENT_FAILURE,
+  DOWNLOAD_DOCUMENTS,
+  DOWNLOAD_DOCUMENTS_SUCCESS,
+  DOWNLOAD_DOCUMENTS_FAILURE
 } from '../constants/actionTypes';
 
 
@@ -45,6 +48,22 @@ export const deleteDocumentSuccess = (documentId, deletedDocument) => ({
 
 export const deleteDocumentFailure = (error) => ({
   type: DELETE_DOCUMENT_FAILURE,
+  error,
+});
+
+export const downloadDocuments = (url, name) => ({
+  type: DOWNLOAD_DOCUMENTS,
+  url,
+  name
+});
+
+export const downloadDocumentsSuccess = (response) => ({
+  type: DOWNLOAD_DOCUMENTS_SUCCESS,
+  response,
+});
+
+export const downloadDocumentsFailure = (error) => ({
+  type: DOWNLOAD_DOCUMENTS_FAILURE,
   error,
 });
 

@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Modal from '../../components/modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchDocuments, editDocument, updateDocumentOnEdit, updateDocument,
-  deleteDocument, removeDocumentFromEdit, createDocument
+  deleteDocument, removeDocumentFromEdit, createDocument,   downloadDocuments
+
 } from '../../redux/actionCreator/documentActions';
 import DocumentsHeader from '../../components/DocumentsHeader';
 import NewDocumentForm from '../../components/Forms/NewDocumentForm';
@@ -18,6 +19,7 @@ export class Documents extends Component {
     menuOpen: { open: false, id: null },
     documentId: null,
     documentToDelete: '',
+    documentToDownlod: ''
   };
   componentDidMount() {
     const { fetchDocuments } = this.props;
@@ -41,6 +43,11 @@ export class Documents extends Component {
     );
     return closeModal();
   }
+  handleDownloadDocuments = () => {
+    const { downloadDocuments } = this.props;
+    const { documentToDownlod: { cloudinary_url, name } } = this.state;
+    downloadDocuments(cloudinary_url, name);
+  }
   toggleMenu = (document) => {
     const { menuOpen } = this.state;
     const { id } = document;
@@ -53,10 +60,10 @@ export class Documents extends Component {
     let{ openModal } = this.props;
     openModal(true, 'add document');
   }
-  handleOpenModal = (modalType) => {
+  handleOpenModal = (modalType, document = '') => {
     let { openModal } = this.props;
     openModal(true, modalType);
-    this.setState({ menuOpen: { open: false, id: null } });
+    this.setState({ menuOpen: { open: false, id: null }, documentToDownlod: document });
   }
   handleCloseEditModal = () => {
     const { closeModal, removeDocumentFromEdit } = this.props;
@@ -76,25 +83,52 @@ export class Documents extends Component {
     documentOnEdit && updateDocumentOnEdit(value);
   }
 
-  renderDocumentRenameForm = () => {
-    const { documentOnEdit } = this.props;
-    return (
-      <div className="doc-rename">
-        <label htmlFor="doc-rename-input">
-            Name
-          <span className="asterick">*</span>
-          <br />
-          <input
-            type="text"
-            className="doc-rename-input"
-            onChange={this.handleInputChange}
-            value={documentOnEdit ? documentOnEdit.name : ''}
-          />
-        </label>
+
+  
+  handleSubmitDownload = () => {
+    const { documentToDownlod: { name } } = this.state; return (
+      <div className="download-document-body">
+        <div className="download-document-align">
+          <span className="delete-checklist-item__disclaimer restore-checklist-items_span">
+            <span>
+              {' '}
+              Are you sure you want to download this document
+              {' '}
+              <strong>{name}</strong>
+              ?
+            </span>
+          </span>
+        </div>
+
+        <div className="download-document-hr" />
+        <div className="delete-checklist-item__footer delete-checklist-item__right">
+          <button type="button" className="delete-checklist-item__footer--cancel" onClick={this.handleCloseEditModal}>Cancel</button>
+          <button type="button" className="bg-btn bg-btn--active" onClick={this.handleDownloadDocuments}>
+            Download
+          </button>
+        </div>
       </div>
     );
   }
-
+  
+  renderDocumentEditModal = () => {
+    const { shouldOpen, modalType } = this.props;
+    return (
+      <Modal
+        closeModal={this.handleCloseEditModal}
+        width="480px"
+        modalId="edit-document-modal"
+        modalContentId="edit-document-modal-content"
+        visibility={
+          (shouldOpen && modalType === 'rename document') ? 'visible' : 'invisible'
+        }
+        title="Rename File"
+      >
+        {this.renderDocumentRenameForm()}
+        {this.renderSubmitArea()}
+      </Modal>
+    );
+  }
   renderSubmitArea = () => {
     const { documentOnEdit } = this.props;
     return (
@@ -122,7 +156,27 @@ export class Documents extends Component {
     );
   }
 
-  renderDocumentEditModal = () => {
+
+  renderDocumentRenameForm = () => {
+    const { documentOnEdit } = this.props;
+    return (
+      <div className="doc-rename">
+        <label htmlFor="doc-rename-input">
+            Name
+          <span className="asterick">*</span>
+          <br />
+          <input
+            type="text"
+            className="doc-rename-input"
+            onChange={this.handleInputChange}
+            value={documentOnEdit ? documentOnEdit.name : ''}
+          />
+        </label>
+      </div>
+    );
+  }
+
+  renderDocumentDownloadModal = () => {
     const { shouldOpen, modalType } = this.props;
     return (
       <Modal
@@ -131,16 +185,16 @@ export class Documents extends Component {
         modalId="edit-document-modal"
         modalContentId="edit-document-modal-content"
         visibility={
-          (shouldOpen && modalType === 'rename document') ? 'visible' : 'invisible'
+          shouldOpen && modalType.match('download document')
+            ? 'visible'
+            : 'invisible'
         }
-        title="Rename File"
+        title="Download File"
       >
-        {this.renderDocumentRenameForm()}
-        {this.renderSubmitArea()}
+        {this.handleSubmitDownload()}
       </Modal>
     );
   }
-
   renderDocumentsHeader() {
     return (
       <div>
@@ -193,6 +247,7 @@ export class Documents extends Component {
       <Fragment>
         {this.renderDocumentsForm()}
         {this.renderDocumentsHeader()}
+        
         <div className="document__table">
           {isLoading ? <Preloader /> : currentDocuments }
         </div>
@@ -204,6 +259,7 @@ export class Documents extends Component {
           documentName={documentToDelete}
         />
         {this.renderDocumentEditModal()}
+        {this.renderDocumentDownloadModal()}
       </Fragment>
     );
   }
@@ -234,7 +290,8 @@ const matchDispatchToProps = {
   editDocument,
   updateDocumentOnEdit,
   updateDocument,
-  removeDocumentFromEdit
+  removeDocumentFromEdit,
+  downloadDocuments
 };
 
 Documents.propTypes = {
@@ -246,6 +303,7 @@ Documents.propTypes = {
   modalType: PropTypes.string,
   fetchDocuments: PropTypes.func.isRequired,
   deleteDocument: PropTypes.func.isRequired,
+  downloadDocuments: PropTypes.func.isRequired,
   documents: PropTypes.array.isRequired,
   editDocument: PropTypes.func.isRequired,
   documentOnEdit: PropTypes.object,

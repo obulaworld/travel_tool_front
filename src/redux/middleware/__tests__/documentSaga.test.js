@@ -3,16 +3,25 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import * as  matchers from 'redux-saga-test-plan/matchers';
+import FileSaver from 'file-saver';
 import toast from 'toastr';
 import DocumentAPI from '../../../services/DocumentAPI';
-import { watchFetchDocuments, watchUpdateDocument, watchDeleteDocument, watchCreateDocument } from '../DocumentSaga';
+import { watchFetchDocuments,
+  watchUpdateDocument,
+  watchDeleteDocument,
+  watchCreateDocument,
+  watchDownloadDocuments,
+
+} from '../DocumentSaga';
 import {
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
   UPDATE_DOCUMENT_SUCCESS,
   CREATE_DOCUMENT, 
   CREATE_DOCUMENT_SUCCESS, 
-  CREATE_DOCUMENT_FAILURE
+  CREATE_DOCUMENT_FAILURE,
+  DOWNLOAD_DOCUMENTS,
+  DOWNLOAD_DOCUMENTS_FAILURE
 } from '../../constants/actionTypes';
 import { documentData, response } from '../../__mocks__/documentMockData';
 
@@ -162,6 +171,33 @@ describe('Document saga', () => {
         .dispatch({
           type: UPDATE_DOCUMENT,
           document: newDocumentName
+        })
+        .run();
+    });
+  });
+
+  describe('download document saga', () => {
+    toast.success = jest.fn();
+    toast.error = jest.fn();
+    jest.mock('file-saver', ()=>({saveAs: jest.fn()}));
+    const { cloudinary_url, name } = documentData;
+    const download = {
+      url: cloudinary_url,
+      name: name
+    };
+
+    it('dowloads document successfully', () => {
+     
+      return expectSaga(watchDownloadDocuments)
+        .provide([[call(FileSaver.saveAs, {...download}),
+        ]])
+        .put({
+          type: 'CLOSE_MODAL',
+        })
+        .dispatch({
+          type: DOWNLOAD_DOCUMENTS,
+          url: cloudinary_url,
+          name: name
         })
         .run();
     });

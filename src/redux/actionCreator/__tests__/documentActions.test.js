@@ -5,6 +5,9 @@ import {
   UPDATE_DOCUMENT,
   UPDATE_DOCUMENT_FAILURE,
   UPDATE_DOCUMENT_SUCCESS,
+  DOWNLOAD_DOCUMENTS,
+  DOWNLOAD_DOCUMENTS_SUCCESS,
+  DOWNLOAD_DOCUMENTS_FAILURE
 } from '../../constants/actionTypes';
 import {
   fetchDocuments,
@@ -19,6 +22,9 @@ import {
   updateDocument,
   updateDocumentFailure,
   updateDocumentSuccess,
+  downloadDocuments,
+  downloadDocumentsSuccess,
+  downloadDocumentsFailure
 } from '../documentActions';
 import documentsMockData from '../../../mockData/documentsMockData';
 
@@ -53,6 +59,46 @@ describe('Documents Actions', () => {
     };
     const newAction = fetchDocumentsFailure('No documents found');
     expect(newAction).toEqual(expectedAction);
+  });
+  describe('Download Documents Actions', () => {
+    const url = documentsMockData[0].cloudinary_url;
+    const name = documentsMockData[0].name;
+    it('should return action type DOWNLOAD_DOCUMENTS', (done) => {
+      const expectedAction = {
+        type: DOWNLOAD_DOCUMENTS,
+        url,
+        name
+      };
+      const newAction = downloadDocuments(url, name);
+
+      expect(newAction).toMatchObject(expectedAction);
+      done();
+    });
+
+    it('should return action type DOWNLOAD_DOCUMENTS_FAILURE', (done) => {
+      const expectedAction = {
+        type: DOWNLOAD_DOCUMENTS_FAILURE,
+        error: 'Server Error'
+      };
+      const newAction = downloadDocumentsFailure('Server Error');
+
+      expect(newAction).toMatchObject(expectedAction);
+      done();
+    });
+
+    it('should return action type DOWNLOAD_DOCUMENTS_SUCCESS', (done) => {
+      const response = {
+        url,
+        name
+      };
+      const expectedAction = {
+        type: DOWNLOAD_DOCUMENTS_SUCCESS,
+        response: { ...response }
+      };
+      const newAction = downloadDocumentsSuccess(response);
+      expect(newAction).toMatchObject(expectedAction);
+      done();
+    });
   });
 
   describe('Delete document Actions', () => {

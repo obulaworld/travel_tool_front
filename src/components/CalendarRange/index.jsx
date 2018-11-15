@@ -1,7 +1,7 @@
-import { DateRangePicker } from 'react-date-range';
-import 'react-date-range/dist/theme/default.css';
-import { format, addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { DateRangePicker } from 'react-date-range';
+import { format, addDays } from 'date-fns';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 

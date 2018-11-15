@@ -213,8 +213,25 @@ $border-color: #e4e4e4;
   }
 }
 
+.download-document-body {
+  padding: 4px 15px;
+}
+
+.download-document-align {
+  padding-left: 15px; 
+}
+
 .data_cell {
   border-right: 1px solid $border-color;
+}
+
+.download-document-hr {
+  box-sizing:
+      border-box;
+    height: 1px !important;
+    width: 479.6px;
+    border: 1px solid #F8F8F8;
+    margin: 70px -30px 11px -15px !important;
 }
 
 .table {
