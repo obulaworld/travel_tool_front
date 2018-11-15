@@ -27,7 +27,6 @@ describe('TravelChecklistAPI', () => {
     expect(response.status).toEqual(200);
     expect(response.data)
       .toEqual({ travelChecklists: [] });
-    // done();
   });
 
   it(`should send 'GET' request to

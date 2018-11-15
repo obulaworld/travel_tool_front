@@ -1,10 +1,11 @@
 const travelChecklists = [
   {
-    destination: 'Lagos, Nigeria',
+    destinationName: 'Lagos, Nigeria',
     checklist:[
       {
         'id': 3434343,
         'name': 'Visa Application',
+        destinationName: 'Lagos, Nigeria',
         'resources': [
           {
             'label': 'Application guide',
@@ -23,12 +24,14 @@ const travelChecklists = [
       {
         'id': 432331,
         'name': 'Travel stipend',
+        destinationName: 'Lagos, Nigeria',
         'resources': [],
         'submissions': []
       },
       {
         'id': 432334,
         'name': 'Travel Ticket Details',
+        destinationName: 'Default',
         'resources': [
           {
             'label': 'Flight application guide',

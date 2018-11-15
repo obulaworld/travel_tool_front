@@ -86,7 +86,7 @@ import{
   watchPostSubmission,
   watchFetchSubmission,
 } from './checklistSubmissionSaga';
-
+import { watchFileUpload } from './fileUploadSaga';
 
 function* rootSaga() {
   yield all([
@@ -141,7 +141,8 @@ function* rootSaga() {
     watchExportReadiness(),
     watchPostSubmission(),
     watchFetchSubmission(),
-    watchDownloadDocuments()
+    watchDownloadDocuments(),
+    watchFileUpload()
   ]);
 }
 

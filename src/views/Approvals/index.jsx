@@ -31,7 +31,9 @@ export class Approvals extends Base {
   }
 
   renderApprovalsTable(){
-    const { approvals, history, location, openModal, closeModal, shouldOpen, modalType } = this.props;
+    const { 
+      approvals, history, location, openModal, submissionInfo,
+      closeModal, shouldOpen, modalType } = this.props;
     const {requestId} = this.state;
     const requestData = approvals.approvals ? approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
     return(
@@ -48,6 +50,7 @@ export class Approvals extends Base {
         openModal={openModal}
         shouldOpen={shouldOpen}
         modalType={modalType}
+        submissionInfo={submissionInfo}
         page="Approvals"
         requestData={requestData}
       />
@@ -111,7 +114,8 @@ export class Approvals extends Base {
 
 const mapStateToProps = (state) => ({
   approvals: state.approvals,
-  ...state.modal.modal
+  ...state.modal.modal,
+  submissionInfo: state.submissions,
 });
 
 const actionCreators = {

@@ -7,16 +7,24 @@ import {
   FETCH_SUBMISSION_FAILURE,
 } from '../constants/actionTypes';
   
-export const postSubmission = ({ formData, checklistId }) => ({
+export const postSubmission = (
+  { formData, checklistItemId }, checkId, requestId
+) => ({
   type: POST_SUBMISSION,
   formData,
-  checklistId
+  checklistItemId,
+  checkId,
+  requestId
 });
   
-export const postSubmissionSuccess = ({submission, message, success}) => ({
+export const postSubmissionSuccess = (
+  {submission, message, percentageCompleted, success}, checkId
+) => ({
   type: POST_SUBMISSION_SUCCESS,
   submission,
+  checkId,
   message,
+  percentageCompleted,
   success
 });
   
@@ -25,14 +33,18 @@ export const postSubmissionFailure = (error) => ({
   error
 });
 
-export const fetchSubmission = ({ requestId }) => ({
+export const fetchSubmission = ({ requestId, tripType }) => ({
   type: FETCH_SUBMISSION,
-  requestId
+  requestId,
+  tripType
 });
     
-export const fetchSubmissionSuccess = ({submissions, message, success}) => ({
+export const fetchSubmissionSuccess = (
+  { submissions, percentageCompleted, message, success }
+) => ({
   type: FETCH_SUBMISSION_SUCCESS,
   submissions,
+  percentageCompleted,
   message,
   success
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Table } from '../index';
+import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
 
 const props = {
   requests: [
@@ -74,7 +75,8 @@ const props = {
   editRequest: jest.fn(),
   travelChecklists: [],
   showTravelChecklist: jest.fn(),
-  fetchSubmission: jest.fn()
+  fetchSubmission: jest.fn(),
+  submissionInfo
 };
 
 const wrapper = shallow(<Table {...props} />);
@@ -126,11 +128,11 @@ describe('<Requests />', () => {
       .find('div')
       .at(0);
     requestId.simulate('click');
-    expect(wrapper.find('Modal').length).toEqual(5);
+    expect(wrapper.find('Modal').length).toEqual(3);
   });
   it('should spy on toggleMenu method ', () => {
     const wrapper = mount(<Table {...props} />);
-    wrapper.instance().toggleMenu('xDh20btGz')
+    wrapper.instance().toggleMenu('xDh20btGz');
     expect(wrapper.state().menuOpen.id).toBe('xDh20btGz');
   });
 });

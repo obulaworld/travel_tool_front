@@ -30,20 +30,16 @@ class TableMenu extends PureComponent {
     );
   };
 
-  handleClickChecklist = () => {
-    const { request, fetchTravelChecklist, uploadTripSubmissions, toggleMenu } = this.props;
-    uploadTripSubmissions(request);
-    toggleMenu(request.id);
-    fetchTravelChecklist(request.id);
-  }
-
   renderTravelCheckListBtn = () => {
-    const { showTravelChecklist, request } = this.props;
+    const { showTravelChecklist, request, toggleMenu } = this.props;
     return (
       <li
         className="table__menu-list-item"
         id="travelChecklistBtn"
-        onClick={() => showTravelChecklist(request.id)}
+        onClick={() => {
+          showTravelChecklist(request, 'travel checklist');
+          toggleMenu(request.id);
+        }}
         role="presentation"
       >
         <img src={checkListIcon} alt="cancel-icon" className="menu-icon" />
@@ -53,13 +49,19 @@ class TableMenu extends PureComponent {
   }
 
   renderCheckListSubmissionBtn = () => {
-    const { requestStatus } = this.props;
+    const { 
+      requestStatus, showTravelChecklist, 
+      request, toggleMenu 
+    } = this.props;
     return (
       requestStatus === 'Approved' && (
         <li
           className="table__menu-list-item"
           id="checklistSubmission"
-          onClick={this.handleClickChecklist}
+          onClick={() => {
+            showTravelChecklist(request, 'upload submissions');
+            toggleMenu(request.id);
+          }}
           role="presentation"
         >
           <img src={checkListIcon} alt="list-icon" className="menu-icon" />
@@ -121,13 +123,11 @@ class TableMenu extends PureComponent {
 TableMenu.propTypes = {
   editRequest: PropTypes.func.isRequired,
   showTravelChecklist: PropTypes.func.isRequired,
-  fetchTravelChecklist: PropTypes.func.isRequired,
   request: PropTypes.object.isRequired,
   requestStatus: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   menuOpen: PropTypes.object.isRequired,
-  uploadTripSubmissions: PropTypes.func.isRequired
 };
 
 export default TableMenu;

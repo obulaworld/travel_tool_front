@@ -5,6 +5,8 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import { Approvals } from '..';
+import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
+
 
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
@@ -49,7 +51,8 @@ const props = {
     params: {
       requestId: 'sgdgdg'
     }
-  }
+  },
+  submissionInfo
 };
 
 const initialState = {
