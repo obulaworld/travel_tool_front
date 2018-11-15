@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
+<Fragment>
+  <div
+    className="calendar-header"
+  >
+    <p
+      className="title"
+    >
+      Travel Calendar
+    </p>
+    <div
+      className="actions"
+    >
+      <button
+        className="action-btn--calender"
+        onClick={[Function]}
+        type="button"
+      >
+        <div
+          className="filterLabel"
+        >
+          This week
+        </div>
+        <img
+          alt="Pick a date"
+          className="actions__btn--icon"
+          src="calendar_active.svg"
+        />
+      </button>
+      <div
+        className="calendar "
+      >
+        <CalendarRange
+          handleChange={[Function]}
+        />
+      </div>
+      <button
+        className="actions__btn"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Export"
+          className="actions__btn--icon"
+          src="download.svg"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <TravelCalendarDetails
+      calendar={
+        Object {
+          "department": "Apprenticeship Department",
+          "flights": Object {
+            "arrival": Object {
+              "airline": "Kenya Airways",
+              "arrival_time": "24/10/2018 13:23:33",
+              "depature_time": "24/10/2018 13:23:33",
+              "destination": "Lagos",
+              "flight_no": "KQ5752",
+            },
+            "depature": Object {
+              "airline": "Kenya Airways",
+              "arrival_time": "24/10/2018 13:23:33",
+              "depature_time": "24/10/2018 13:23:33",
+              "destination": "Nairobi",
+              "flight_no": "KQ5752",
+            },
+          },
+          "name": "Barrison Waina",
+          "role": "Product designer",
+        }
+      }
+    />
+  </div>
+</Fragment>
+`;

@@ -5,8 +5,9 @@ import {resolveBaseUrl} from '.';
 
 class CalendarAnalyticsAPI{
   static getCalendarAnalytics = (query)=>{
+    const location = localStorage.getItem('location');
     const responseType = (query.type === 'file') ? 'blob' : 'json';
-    return axios.get(`https://d2f8644c-5c61-4a5f-8fc7-7c0aa26c50eb.mock.pstmn.io/analytics/calendar?type=${query.type}&${query.filter}`, {
+    return axios.get(`https://9037dd44-1f6b-49d6-b704-55a8200ca229.mock.pstmn.io/analytics/calendar?type=${query.type}&location=${location}&${query.filter}`, {
       responseType
     });
   }

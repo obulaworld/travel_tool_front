@@ -45,8 +45,10 @@ class TravelCalendarDetails extends PureComponent{
   }
 
   renderFlightDetails=(flightType, flightDetails)=>{
-    const headerAttrs = ['Airline', 'Flight No.', 'Arrival Time', 'Destination'];
-    const dataAttrs = ['airline', 'flight_no', 'arrival_time', 'destination'];
+    const {timeHeader, time} = flightType==='Arrival'? {timeHeader:'Arrival Time', time:'arrivalTime'}
+      :{timeHeader:'Departure Time', time:'departureTime'};
+    const headerAttrs = ['Airline', 'Flight No.', timeHeader, 'Destination'];
+    const dataAttrs = ['airline', 'flightNo', time, 'destination'];
     const{hideDetails} = this.state;
     const icon = flightType==='Arrival'?flightLand: flightTakeoff;
 
@@ -70,9 +72,10 @@ class TravelCalendarDetails extends PureComponent{
 
   renderTravelCalendarDetails= () => {
     const {calendar} = this.props;
+
     if(calendar){
       const {flights, name, role, department} = calendar;
-      const {arrival, depature} = flights;
+      const {arrival, departure} = flights;
 
       return (
         <Fragment>
@@ -80,7 +83,7 @@ class TravelCalendarDetails extends PureComponent{
             {this.renderUserBio(name, role, department)}
             <div className="flight-details">
               {this.renderFlightDetails('Arrival', arrival)}
-              {this.renderFlightDetails('Departure', depature)}
+              {this.renderFlightDetails('Departure', departure)}
             </div>
           </div>
         </Fragment>

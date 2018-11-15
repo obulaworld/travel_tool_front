@@ -1,9 +1,10 @@
 .container{
   display: flex;
   flex-direction: column;
+  min-height: 100px;
 
   &:last-child{
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 }
 
@@ -26,6 +27,7 @@
     border: 1px solid #D4D4D4;
     border-radius: 2px;
     background-color: #FFFFFF;
+    cursor: pointer;
     display: flex;
     padding: 0 12.5px;
     align-items: center;
@@ -44,26 +46,34 @@
 
   .action-btn--calender {
     height: 36px;
-    width: 127px;
+    min-width: 100px;
     border: 1px solid #D4D4D4;
     border-radius: 1px;
     background-color: #ffffff;
+    padding: 0 10px;
     cursor: pointer;
     outline: none !important;
-    color: #3359db;
+    color: #4F4F4F;
     font-family: "DIN Pro";
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 18px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
 
-      &:hover,
-      &:active ,
-      &:visited {
-        border: 1px solid #3359DB;
+    &:hover,
+    &:active ,
+    &:visited {
+      border: 1px solid #3359DB;
     }
+
+    .filterLabel{
+      margin-right: 8px;
+      flex-grow: 2;
+    }
+
+
   }
 }
 .title{
@@ -71,4 +81,40 @@
   font-size: 18px;
   font-weight: 500;
   margin: 0;
+}
+
+.calendar {
+  position: absolute;
+  top: 110%;
+  right: 0%;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.15);
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0,1);
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1,1);
+  }
+}
+
+.errorMsg{
+  padding: 30px 50px !important;
+  text-align: center;
+
+  &__text{
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 0;
+  }
 }

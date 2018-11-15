@@ -1,20 +1,21 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import FileSaver from 'file-saver';
+import toast from 'toastr';
 
-import {FETCH_CALENDAR_ANALYTICS} from '../constants/actionTypes';
+import {FETCH_CALENDAR_ANALYTICS, DOWNLOAD_CALENDAR_ANALYTICS} from '../constants/actionTypes';
 import CalendarAnalyticsAPI from '../../services/TravelCalendarAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
-import {fetchCalendarAnalyticsSuccess, fetchCalendarAnalyticsFailure} from '../actionCreator/travelCalendarActions';
+import {
+  fetchCalendarAnalyticsSuccess,
+  fetchCalendarAnalyticsFailure,
+  downloadCalendarAnalyticsFailure} from '../actionCreator/travelCalendarActions';
 
 export function* fetchCalendarAnalyticsSaga(action) {
   try {
-    const response = yield call(CalendarAnalyticsAPI.getCalendarAnalytics, action.query);
-    if (action.query.type === 'file') {
-      yield FileSaver.saveAs(response.data, 'Travel Calendar Analytics');
-    } else {
-      yield put(fetchCalendarAnalyticsSuccess(response.data));
-    }
+    const {query} = action;
+    const response = yield call(CalendarAnalyticsAPI.getCalendarAnalytics, query);
+    yield put(fetchCalendarAnalyticsSuccess(response.data));
   }
   catch(error) {
     const errorMessage = apiErrorHandler(error);
@@ -23,5 +24,21 @@ export function* fetchCalendarAnalyticsSaga(action) {
 }
 
 export function* watchFetchCalendarAnalytics() {
-  yield takeEvery(FETCH_CALENDAR_ANALYTICS, fetchCalendarAnalyticsSaga);
+  yield takeLatest(FETCH_CALENDAR_ANALYTICS, fetchCalendarAnalyticsSaga);
+}
+
+export function* downloadCalendarAnalyticsSaga(action) {
+  try {
+    const response = yield call(CalendarAnalyticsAPI.getCalendarAnalytics, action.query);
+    yield FileSaver.saveAs(response.data, 'Travel Calendar Analytics');
+  }
+  catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(downloadCalendarAnalyticsFailure(errorMessage));
+    toast.error('Download Unsuccessful');
+  }
+}
+
+export function* watchDownloadCalendarAnalytics() {
+  yield takeLatest(DOWNLOAD_CALENDAR_ANALYTICS, downloadCalendarAnalyticsSaga);
 }

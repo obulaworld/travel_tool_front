@@ -1,39 +1,41 @@
-import {fetchCalendarAnalytics, fetchCalendarAnalyticsSuccess, fetchCalendarAnalyticsFailure } from '../travelCalendarActions';
+import {
+  fetchCalendarAnalytics,
+  fetchCalendarAnalyticsSuccess,
+  fetchCalendarAnalyticsFailure,
+  downloadCalendarAnalytics,
+  downloadCalendarAnalyticsFailure
+ } from '../travelCalendarActions';
 
 describe('Travel Calendar Actions', ()=>{
-  const expectedResults = {
-      fetchCalendarAnalytics: {
-        type: 'FETCH_CALENDAR_ANALYTICS',
-        query: ''
-      },
-      fetchCalendarAnalyticsSuccess: {
-        type: 'FETCH_CALENDAR_ANALYTICS_SUCCESS',
-        data: {}
-      },
-      fetchCalendarAnalyticsFailure: {
-        type: 'FETCH_CALENDAR_ANALYTICS_FAILURE',
-        error: ''
-      }
-  };
+  const resultsFactory=(type, payload)=>{
+    return {
+      type: type,
+      ...payload
+    }
+  }
 
-  const params = {
-    query: '',
-    data: {},
-    error: ''
-  };
-
-  const {query, data, error} = params;
+  const query = (type) => ({type:type, filter:''});
+  const data = {};
+  const error = '';
 
   it('should return type FETCH_CALENDAR_ANALYTICS', ()=>{
-    const res = fetchCalendarAnalytics(query);
-    expect(res).toEqual(expectedResults.fetchCalendarAnalytics);
+    const res = fetchCalendarAnalytics(query('json'));
+    expect(res).toEqual(resultsFactory('FETCH_CALENDAR_ANALYTICS', {query:query('json')}));
   });
   it('should return type FETCH_CALENDAR_ANALYTICS_SUCCESS', ()=>{
     const res = fetchCalendarAnalyticsSuccess(data);
-    expect(res).toEqual(expectedResults.fetchCalendarAnalyticsSuccess);
+    expect(res).toEqual(resultsFactory('FETCH_CALENDAR_ANALYTICS_SUCCESS', {data}));
   });
   it('should return type FETCH_CALENDAR_ANALYTICS_FAILURE', ()=>{
     const res = fetchCalendarAnalyticsFailure(error);
-    expect(res).toEqual(expectedResults.fetchCalendarAnalyticsFailure);
+    expect(res).toEqual(resultsFactory('FETCH_CALENDAR_ANALYTICS_FAILURE', {error}));
+  });
+  it('should return type DOWNLOAD_CALENDAR_ANALYTICS', ()=>{
+    const res = downloadCalendarAnalytics(query('file'));
+    expect(res).toEqual(resultsFactory('DOWNLOAD_CALENDAR_ANALYTICS', {query:query('file')}));
+  });;
+  it('should return type DOWNLOAD_CALENDAR_ANALYTICS_FAILURE', ()=>{
+    const res = downloadCalendarAnalyticsFailure(error);
+    expect(res).toEqual(resultsFactory('DOWNLOAD_CALENDAR_ANALYTICS_FAILURE', {error}));
   });
 });

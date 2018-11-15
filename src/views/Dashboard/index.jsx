@@ -5,19 +5,21 @@ import PropTypes from 'prop-types';
 import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
 import { downloadAnalytics } from '../../redux/actionCreator/analyticsActions';
+import {fetchCalendarAnalytics, downloadCalendarAnalytics} from '../../redux/actionCreator/travelCalendarActions';
 import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
 import checkUserPermission from '../../helper/permissions';
-import TravelCalendar from '../TravelCalendar';
 import ConnectedAnalytics from '../Analytics';
+import TravelCalendar from '../../components/TravelCalendar';
 import './index.scss';
 
 export class Dashboard extends Component {
 
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
-      history, getCurrentUserRole, isLoaded, exportReadiness, downloadAnalytics, } = this.props;
+      history, getCurrentUserRole, isLoaded, exportReadiness, travelCalendar, fetchCalendarAnalytics,
+      downloadCalendarAnalytics, downloadAnalytics } = this.props;
     if (isLoaded) {
       const allowedRoles = ['Travel Administrator', 'Super Administrator'];
       checkUserPermission(history, allowedRoles, getCurrentUserRole );
@@ -41,21 +43,27 @@ export class Dashboard extends Component {
           exportReadiness={exportReadiness}
           readiness={readiness}
         />
-        <TravelCalendar />
+        <TravelCalendar
+          fetchCalendarAnalytics={fetchCalendarAnalytics}
+          downloadCalendarAnalytics={downloadCalendarAnalytics}
+          travelCalendar={travelCalendar} />
       </div>
     );
   }
 }
 
 const actions = {
-  fetchDepartmentTrips, fetchReadiness, downloadAnalytics, exportReadiness
+  fetchDepartmentTrips, fetchReadiness, downloadAnalytics,
+  fetchCalendarAnalytics, downloadCalendarAnalytics,
+  exportReadiness
 };
 
-export const mapStateToProps = ({user, analytics, readiness}) => ({
+export const mapStateToProps = ({user, analytics, readiness, travelCalendar}) => ({
   getCurrentUserRole: user.getCurrentUserRole,
   departmentTrips: analytics.departmentTrips,
   readiness,
-  isLoaded: user.isLoaded
+  isLoaded: user.isLoaded,
+  travelCalendar: travelCalendar
 });
 
 Dashboard.propTypes = {
@@ -68,6 +76,9 @@ Dashboard.propTypes = {
   readiness:  PropTypes.shape({}).isRequired,
   isLoaded: PropTypes.bool.isRequired,
   exportReadiness: PropTypes.func.isRequired,
+  fetchCalendarAnalytics: PropTypes.func.isRequired,
+  downloadCalendarAnalytics: PropTypes.func.isRequired,
+  travelCalendar: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

@@ -12,19 +12,19 @@ describe('Travel Calendar Details', () => {
       "arrival": {
         "destination": "Lagos",
         "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+        "flightNo": "KQ5752",
+        "arrivalTime": "24/10/2018 13:23:33",
+        "departureTime": "24/10/2018 13:23:33"
       },
-      "depature": {
+      "departure": {
         "destination": "Nairobi",
         "airline": "Kenya Airways",
-        "flight_no": "KQ5752",
-        "arrival_time": "24/10/2018 13:23:33",
-        "depature_time": "24/10/2018 13:23:33"
+        "flightNo": "KQ5752",
+        "arrivalTime": "24/10/2018 13:23:33",
+        "departureTime": "24/10/2018 13:23:33"
       }
     }
-  }
+  };
 
   it('should render TravelCalendarDetails', ()=>{
     const wrapper = shallow(<TravelCalendarDetails calendar={calendar}/>);

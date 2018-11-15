@@ -31,7 +31,9 @@ import {
 import {
   fetchCalendarAnalytics,
   fetchCalendarAnalyticsSuccess,
-  fetchCalendarAnalyticsFailure
+  fetchCalendarAnalyticsFailure,
+  downloadCalendarAnalytics,
+  downloadCalendarAnalyticsFailure
 } from './travelCalendarActions';
 
 export {
@@ -58,5 +60,7 @@ export {
   // Trave Calendar Analytics
   fetchCalendarAnalytics,
   fetchCalendarAnalyticsSuccess,
-  fetchCalendarAnalyticsFailure
+  fetchCalendarAnalyticsFailure,
+  downloadCalendarAnalytics,
+  downloadCalendarAnalyticsFailure
 };

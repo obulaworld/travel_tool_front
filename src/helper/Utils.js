@@ -1,6 +1,9 @@
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
+import  {format, isEqual} from 'date-fns';
+
+import definedRanges from './constants';
 
 class Utils {
   static getRegex(query) {
@@ -152,31 +155,22 @@ class Utils {
       }
     );
   }
-  static manageTimelineDropdownActions = (timeline) => {
-    let nextDate;
-    let currentDate;
-    let startDate;
-    let endDate;
-    switch(timeline){
-    case 'Today':
-      currentDate = moment().format('D/M/YYYY');
-      return {query: `date_from=${currentDate}&date_to=${currentDate}`};
-    case 'Tomorrow':
-      nextDate = moment().add(1, 'days').format('D/M/YYYY');
-      return {query: `date_from=${nextDate}&date_to=${nextDate}`};
-    case 'This week':
-      startDate = moment().startOf('week').format('D/M/YYYY');
-      endDate = moment().endOf('week').format('D/M/YYYY');
-      return {query: `date_from=${startDate}&date_to=${endDate}`};
-    case 'This month':
-      startDate = moment().startOf('month').format('D/M/YYYY');
-      endDate = moment().endOf('month').format('D/M/YYYY');
-      return {query: `date_from=${startDate}&date_to=${endDate}`};
-    default:
-      return '';
-    }
+  static manageRangeFilter (range) {
+    const {start, end} = range;
+    return `dateFrom=${start}&dateTo=${end}`;
   }
 
+  static manageFilterBtnLabel (range) {
+    const {start, end} = range;
+    let label = `${format(start, 'MMM DD, YYYY')} - ${format(end, 'MMM DD, YYYY')}`;
+    Object.keys(definedRanges).map(definedRange=>{
+      const {from, to} = definedRanges[definedRange];
+      if(isEqual(start, format(from, 'YYYY-MM-DD')) && isEqual(end, format(to, 'YYYY-MM-DD'))){
+        label = definedRange;
+      }
+    });
+    return label;
+  }
 }
 
 export default Utils;

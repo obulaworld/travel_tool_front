@@ -35,7 +35,6 @@ export default class CalendarRange extends Component {
       start: format(startDate, 'YYYY-MM-DD'),
       end: format(endDate, 'YYYY-MM-DD')
     };
-
     handleChange(range);
   }
 
@@ -59,4 +58,3 @@ export default class CalendarRange extends Component {
 CalendarRange.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
-

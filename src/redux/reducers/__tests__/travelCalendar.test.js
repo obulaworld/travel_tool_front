@@ -2,20 +2,25 @@ import travelCalendarReducer from '../travelCalendar';
 import {
   FETCH_CALENDAR_ANALYTICS,
   FETCH_CALENDAR_ANALYTICS_SUCCESS,
-  FETCH_CALENDAR_ANALYTICS_FAILURE
+  FETCH_CALENDAR_ANALYTICS_FAILURE,
+  DOWNLOAD_CALENDAR_ANALYTICS_FAILURE
 } from '../../constants/actionTypes';
 import { fetchTravelCalendarResponse } from '../../__mocks__/mocks'
 
 
 
 describe('Travel Calendar Reducer', ()=>{
-  const initialState = {};
+  const initialState = {
+    isLoading: false,
+    travelCalendarData: {data:[], pagination:{}},
+    travelCalendarError: ''
+  };
 
   it('should return empty object as initial state', () => {
     expect(travelCalendarReducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should update state isLoading to true FETCH_CALENDAR_ANALYTICS', () => {
+  it('should update isLoading to true', () => {
     const action = {
       type: FETCH_CALENDAR_ANALYTICS
     };
@@ -25,7 +30,7 @@ describe('Travel Calendar Reducer', ()=>{
     });
   });
 
-  it('should return FETCH_CALENDAR_ANALYTICS_SUCCESS', () => {
+  it('should update isLoading to false and the store with Travel calendar data', () => {
     const action = {
       type: FETCH_CALENDAR_ANALYTICS_SUCCESS,
       data: fetchTravelCalendarResponse
@@ -37,7 +42,7 @@ describe('Travel Calendar Reducer', ()=>{
     });
   });
 
-  it('should return FETCH_CALENDAR_ANALYTICS_FAILURE', () => {
+  it('should update isLoading to false and the store with error message ', () => {
     const action = {
       type: FETCH_CALENDAR_ANALYTICS_FAILURE,
       error: 'Possible network error, please reload the page'
@@ -46,6 +51,17 @@ describe('Travel Calendar Reducer', ()=>{
       ...initialState,
       isLoading: false,
       travelCalendarError: 'Possible network error, please reload the page'
+    });
+  });
+
+  it('should update isDownloading to false and the store with error message ', () => {
+    const action = {
+      type: DOWNLOAD_CALENDAR_ANALYTICS_FAILURE,
+      error: 'Download Unsuccessful'
+    };
+    expect(travelCalendarReducer(initialState, action)).toEqual({
+      ...initialState,
+      downloadError: 'Download Unsuccessful'
     });
   });
 });

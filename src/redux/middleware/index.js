@@ -59,7 +59,10 @@ import {
   watchFetchDeletedChecklistItems,
 } from './travelChecklistSaga';
 
-import {watchFetchCalendarAnalytics} from './travelCalendarSaga';
+import {
+  watchFetchCalendarAnalytics,
+  watchDownloadCalendarAnalytics
+} from './travelCalendarSaga';
 
 import {
   watchFetchCenters,
@@ -128,6 +131,7 @@ function* rootSaga() {
     watchFetchDepartmentTrips(),
     watchFetchReadiness(),
     watchFetchCalendarAnalytics(),
+    watchDownloadCalendarAnalytics(),
     watchdownloadAnalytics(),
     watchFetchDocuments(),
     watchDeleteDocument(),
@@ -135,8 +139,7 @@ function* rootSaga() {
     watchCreateDocument(),
     watchExportReadiness(),
     watchPostSubmission(),
-    watchFetchSubmission(),
-
+    watchFetchSubmission()
   ]);
 }
 
