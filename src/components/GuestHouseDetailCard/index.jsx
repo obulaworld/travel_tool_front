@@ -11,7 +11,7 @@ class GuestHouseDetailCard extends PureComponent {
           <div className="description-type">
             {label}
           </div>
-          <div>
+          <div className="time-font">
             Today
           </div>
         </div>

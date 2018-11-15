@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import Timeline from '../../../components/Timeline';
@@ -20,6 +20,7 @@ import './FullGuestHouseDetails.scss';
 import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
 import { updateTripRoom } from '../../../redux/actionCreator/tripActions';
 import { fetchAvailableRooms } from '../../../redux/actionCreator/availableRoomsActions';
+import Preloader from '../../../components/Preloader/Preloader';
 
 export class GuestHouseDetails extends PureComponent {
   handleOnEdit = () => {
@@ -137,30 +138,36 @@ export class GuestHouseDetails extends PureComponent {
   render() {
     const { guestHouse, updateRoomState, availableBeds,
       fetchAvailableRooms, loadingBeds, openModal,
-      closeModal, modal, loading } = this.props;
+      closeModal, modal, loading, isLoading } = this.props;
     const { shouldOpen, modalType } = modal;
     return (
       <div className="guesthouse-details-wrapper">
         {this.renderEditAccommodationForm()}
-        <div>
-          {this.renderGuestHouseDetailsNameBar()}
-          <div className="guesthouse-details-wrapper--key-details">
-            <GuestHouseDetailCard
-              label="Bed Capacity "
-              value={this.getBedCount(guestHouse.rooms)}
-            />
-            <GuestHouseDetailCard
-              label="No. of rooms"
-              value={guestHouse.rooms.length}
-            />
-            <GuestHouseDetailCard
-              label="Vacant spaces"
-              value={this.getAvailableBedsCount(guestHouse.rooms)} />
-            <GuestHouseDetailCard
-              label="Unavailable"
-              value={this.getUnavailableBedCount(guestHouse.rooms)}
-            />
-          </div>
+        <div className="set-details">
+          { isLoading ? (
+            <Preloader />
+          ) : (
+            <Fragment>
+              {this.renderGuestHouseDetailsNameBar()}
+              <div className="guesthouse-details-wrapper--key-details">
+                <GuestHouseDetailCard
+                  label="Bed Capacity "
+                  value={this.getBedCount(guestHouse.rooms)}
+                />
+                <GuestHouseDetailCard
+                  label="No. of rooms"
+                  value={guestHouse.rooms.length}
+                />
+                <GuestHouseDetailCard
+                  label="Vacant spaces"
+                  value={this.getAvailableBedsCount(guestHouse.rooms)} />
+                <GuestHouseDetailCard
+                  label="Unavailable"
+                  value={this.getUnavailableBedCount(guestHouse.rooms)}
+                />
+              </div>
+            </Fragment>
+          )}
         </div>
         <Timeline
           rooms={guestHouse.rooms}
@@ -197,7 +204,8 @@ GuestHouseDetails.propTypes = {
   availableBeds: PropTypes.array.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   loadingBeds: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 GuestHouseDetails.defaultProps = {
@@ -207,6 +215,7 @@ GuestHouseDetails.defaultProps = {
 
 const mapStateToProps = (state) => ({
   guestHouse: state.accommodation.guestHouse,
+  isLoading: state.accommodation.isLoading,
   user: state.auth.user.UserInfo,
   modal: state.modal.modal,
   availableBeds: state.availableRooms.beds,

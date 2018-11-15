@@ -12,7 +12,9 @@ exports[`<GuestHouseDetailCard /> renders properly 1`] = `
     >
       Vacant Spaces
     </div>
-    <div>
+    <div
+      className="time-font"
+    >
       Today
     </div>
   </div>

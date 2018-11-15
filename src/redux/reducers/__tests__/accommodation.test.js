@@ -202,6 +202,7 @@ describe('Accommodation Reducer', () => {
       const action = { type: 'INIT_FETCH_TIMELINE_DATA' };
       const expectedState = {
         ...initialState,
+        guestHouse: { rooms: []},
         isLoading: true
       };
       expect(accommodation(initialState, action)).toEqual(expectedState);

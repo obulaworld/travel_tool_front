@@ -63,7 +63,9 @@ exports[`<Accommodation /> should render correctly 1`] = `
       modalType={null}
     />
   </Modal>
-  <div>
+  <div
+    className="set-details"
+  >
     <div
       className="guesthouse-details-wrapper--top"
     >
