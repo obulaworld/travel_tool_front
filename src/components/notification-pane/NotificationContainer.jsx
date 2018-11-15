@@ -53,7 +53,7 @@ export default class NotificationContainer extends PureComponent {
 
   renderNotifications = (notifications) => {
     const displayViewDetails =
-      ['approved your request', 'posted a comment', 'rejected your request'];
+      ['approved your request', 'posted a comment', 'rejected your request', 'updated your travel residence record.'];
     return notifications.length && notifications.map(
       notification => {
         const {
