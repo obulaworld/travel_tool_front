@@ -81,7 +81,7 @@ export default class TripDetails extends Component {
     const checkInDate = trip.checkInDate
       ? moment(trip.checkInDate, 'YYYY-MM-DD').format('DD MMM YYYY')
       : 'n/a';
-    const checkOutDate = trip.checkOutDate
+    const  checkOutDate = trip.checkOutDate
       ? moment(trip.checkOutDate, 'YYYY-MM-DD').format('DD MMM YYYY')
       : 'n/a';
     const { handleChangeRoomModal } = this.props;
@@ -108,17 +108,21 @@ export default class TripDetails extends Component {
           <span>Origin</span>
           <span>{trip.origin}</span>
         </div>
-        <div>
-          <span>
-            <button
-              type="button"
-              className="trip-booking-details__button"
-              onClick={() => handleChangeRoomModal(trip)}
-            >
+        {
+          (trip.checkStatus !== 'Checked Out') && (
+            <div>
+              <span>
+                <button
+                  type="button"
+                  className="trip-booking-details__button"
+                  onClick={() => handleChangeRoomModal(trip)}
+                >
           Change Room
-            </button>
-          </span>
-        </div>
+                </button>
+              </span>
+            </div>
+          )}
+        
       </div>
     );
   }

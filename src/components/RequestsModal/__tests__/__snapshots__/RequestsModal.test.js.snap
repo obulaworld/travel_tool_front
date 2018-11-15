@@ -25,7 +25,7 @@ exports[` 1`] = `
       Date submitted: 
     </span>
     <b>
-      14 Nov 2018
+      15 Nov 2018
     </b>
   </span>
 </div>
@@ -357,18 +357,18 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       comments={
         Array [
           Object {
-            "comment": "This is a comment",
-            "createdAt": "2018-09-04T10:38:12.141Z",
-            "id": 1,
-            "picture": "http://my-image",
-            "userName": "Random User",
-          },
-          Object {
             "comment": "This is another comment",
             "createdAt": "2018-10-04T10:38:12.141Z",
             "id": 2,
             "picture": "http://my-image",
             "userName": "Random User Two",
+          },
+          Object {
+            "comment": "This is a comment",
+            "createdAt": "2018-09-04T10:38:12.141Z",
+            "id": 1,
+            "picture": "http://my-image",
+            "userName": "Random User",
           },
         ]
       }
