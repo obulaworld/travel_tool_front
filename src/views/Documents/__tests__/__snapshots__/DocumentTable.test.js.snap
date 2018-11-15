@@ -14,10 +14,10 @@ exports[`<DocumentTable /> should render correctly with documents 1`] = `
       <th
         className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
       >
-        Data Added
+        Date Added
       </th>
       <th
-        className="mdl-data-table__cell--non-numeric table__head table__head--last freeze-text"
+        className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
       >
         Last Modified
       </th>

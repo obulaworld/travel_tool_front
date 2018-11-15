@@ -10,7 +10,7 @@ class AccommodationPanelHeader extends PureComponent {
     return (
       <div className="accommodation">
         <PageHeader
-          title="ACCOMMODATION"
+          title="RESIDENCE"
           actionBtn="Add Guest House"
           openModal={modalStatus}
         />

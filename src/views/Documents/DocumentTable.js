@@ -11,9 +11,9 @@ class DocumentTable extends Component {
           Name
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">
-          Data Added
+          Date Added
         </th>
-        <th className="mdl-data-table__cell--non-numeric table__head table__head--last freeze-text">
+        <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">
           Last Modified
         </th>
         <th className="mdl-data-table__cell--non-numeric table__head table__head--last" />
