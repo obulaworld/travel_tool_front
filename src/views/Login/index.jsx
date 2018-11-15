@@ -117,27 +117,31 @@ export class Login extends Component {
       <div className="mdl-layout mdl-js-layout login-page">
         <div className="mdl-layout__content">
           <div className="mdl-grid mdl-grid--no-spacing">
-            <div className="mdl-cell mdl-cell--5-col mdl-cell--5-col-tablet">
-              <img
-                src={travelaLogo}
-                alt="Andela Logo"
-                className="login-page__andela-logo"
-              />
-              <p className="login-page__travel-request-text">
-                Travel Requests Made Easier
-              </p>
-              <Button
-                id="login"
-                onClick={this.login}
-                textClass="login-page__login-to-get-started-text"
-                text="Login to Get Started"
-                imageSrc={symbolG}
-                altText="Google Symbol"
-                imageClass="login-page__google-white"
-                buttonType="button"
-                buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn"
-              />
-              {this.renderLinks()}
+            <div className="mdl-cell mdl-cell--5-col mdl-cell--5-col-tablet hero">
+              <div className="hero__main">
+                <img
+                  src={travelaLogo}
+                  alt="Andela Logo"
+                  className="login-page__andela-logo"
+                />
+                <p className="login-page__travel-request-text">
+                  Travel Requests Made Easier
+                </p>
+                <Button
+                  id="login"
+                  onClick={this.login}
+                  textClass="login-page__login-to-get-started-text"
+                  text="Login to Get Started"
+                  imageSrc={symbolG}
+                  altText="Google Symbol"
+                  imageClass="login-page__google-white"
+                  buttonType="button"
+                  buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn"
+                />
+              </div>
+              <div className="hero__links">
+                {this.renderLinks()}
+              </div>
             </div>
             {this.renderLandPageImage()}
           </div>

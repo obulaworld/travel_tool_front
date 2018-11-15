@@ -14,7 +14,7 @@ exports[`Render SearchBar component should match snapshot 1`] = `
     src="image"
   />
   <span
-    className=" label"
+    className=""
   />
   <span
     className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"

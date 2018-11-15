@@ -38,6 +38,7 @@
     background-color: #3359db !important;
     margin: 0px 0px 250px 80px;
     text-transform: none;
+    box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.2);
   }
 
   &__login-to-get-started-text {
@@ -69,13 +70,19 @@
     margin: -7px 19px 0px 0px;
   }
 
+  @media screen and (max-width: 480px) {
+    &__login-to-get-started-text.mdl-cell--hide-tablet {
+      display: none;
+    }
+  }
+
   @media screen and (max-width: 450px) {
     &__andela-logo {
       margin: 50.46px 0px 0px 30px;
     }
 
     &__travel-request-text {
-      padding: 100px 30px 0px;
+      padding: 50px 30px 0px;
       font-size: 35px;
     }
 
@@ -90,7 +97,7 @@
 
     &__link-text {
       font-size: 15px;
-      padding: 0px 0px 100px 0px;
+      padding: 0;
     }
 
     &__link {
@@ -109,6 +116,12 @@
 
     &__google-white {
       margin: -2px 19px 0px 0px;
+    }
+
+    .hero {
+      &__links {
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -144,7 +157,12 @@
     }
   }
 
-  @media screen and (min-width: 2560px) {
+  @media screen and (min-width: 2200px) {
+    &__landing-page-map {
+      width: auto;
+      height: 100%;
+    }
+
     &__andela-logo {
       width: 25%;
     }
@@ -187,5 +205,22 @@
       font-size: 25px;
       padding-left: 20px;
     }
+  }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+
+  &__main {
+    button {
+      margin-bottom: 0;
+    }
+  }
+
+  &__links {
+    margin-bottom: 50px;
   }
 }

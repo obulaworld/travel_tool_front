@@ -38,7 +38,7 @@ class Button extends PureComponent {
     return (
       <button type="button" disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
         { !reverseText && imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
-        <span className={`${textClass} label`}>
+        <span className={`${textClass}`}>
           {text}
         </span>
         { reverseText && imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
