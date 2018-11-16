@@ -4,6 +4,10 @@
 
   .room-status-bar {
     width: 100%;
+    .maintainance-bar.inner {
+      padding-left: 20px;
+      color: #ffffff;
+    }
   }
 
   &:not(:first-child) {

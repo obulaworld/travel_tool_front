@@ -11,7 +11,6 @@ export function* updateRoomStatusSaga(action) {
     const roomResponse = yield call(RoomApi.markRoomAsFaulty, action.data, action.roomId);
     yield put(initFetchTimelineData(action.guestHouseId, action.startDate, action.endDate));
     const message = roomResponse.data.message;
-    toast.success(message);
   } catch (error) { /* istanbul ignore next */
     return error;
   }

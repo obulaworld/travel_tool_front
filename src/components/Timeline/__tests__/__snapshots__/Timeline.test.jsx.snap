@@ -5,8 +5,12 @@ exports[`<Timeline /> renders correctly 1`] = `
   className="timeline"
 >
   <TimelineVerticalAxis
+    closeModal={[Function]}
     guestHouseId="guest-house-id-1"
+    modalType="change-room-modal"
+    openModal={[Function]}
     rooms={Array []}
+    shouldOpen={true}
     timelineDateRange={
       Array [
         "2018-11-01",
@@ -223,8 +227,12 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
   className="timeline"
 >
   <TimelineVerticalAxis
+    closeModal={[Function]}
     guestHouseId="guest-house-id-1"
+    modalType="change-room-modal"
+    openModal={[Function]}
     rooms={Array []}
+    shouldOpen={true}
     timelineDateRange={
       Array [
         "2018-11-01",
@@ -326,8 +334,12 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
   className="timeline"
 >
   <TimelineVerticalAxis
+    closeModal={[Function]}
     guestHouseId="guest-house-id-1"
+    modalType="change-room-modal"
+    openModal={[Function]}
     rooms={Array []}
+    shouldOpen={true}
     timelineDateRange={
       Array [
         "2018-11-01",

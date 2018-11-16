@@ -7,6 +7,11 @@ const props = {
     bedName: 'kitanda 1',
     bedId: 1
   }],
+  maintainances:[{
+    reason:'Bad window',
+    start: '11-10-2018',
+    end: '11-10-2018'
+  }],
   timelineStartDate: moment().startOf('month'),
   tripDayWidth: 31,
   timelineViewType: 'month',

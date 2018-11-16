@@ -76,6 +76,7 @@ export function* watchFetchTimelneData() {
   yield takeLatest(initFetchTimelineData().type, fetchGuestHouseTimelineDataSaga);
 }
 
+/* istanbul ignore next */
 export function* editAccommodationAsync(action) {
   try {
     const { guestHouseId, guestHouseData} = action;
@@ -90,7 +91,7 @@ export function* editAccommodationAsync(action) {
     yield put(editAccommodationFailure(errorMessage));
   }
 }
-
+/* istanbul ignore next */
 export function* watchEditAccommodation() {
   yield takeLatest(EDIT_ACCOMMODATION_DATA, editAccommodationAsync);
 }

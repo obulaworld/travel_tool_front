@@ -1,5 +1,5 @@
 import moment from 'moment';
-import getAveDaysPerMonth from '../../helpers';
+import getAveDaysPerMonth from '../helpers';
 
 class TripGeomHelper {
   constructor({timelineStartDate, tripDayWidth, timelineViewType}) {

@@ -1,23 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TripGeometry /> renders correctly 1`] = `
-<div
-  className="timeline-trip-geometry"
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onKeyUp={[Function]}
-  role="presentation"
-  style={
+<TimelineBarWrapper
+  setBookingDetailsAbsolutePos={[Function]}
+  toggleBookingDetails={[Function]}
+  tripStats={
     Object {
       "left": "-10044px",
     }
   }
-  tabIndex="-1"
 >
-  <div
-    className="geom-trip geom-trip--outer"
-    style={
+  <TimelineBar
+    customStyle={
       Object {
         "background": "hsl(164,53%,65%)",
         "minHeight": "20px",
@@ -37,7 +31,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
     <span>
       John Doe  (M)
     </span>
-  </div>
+  </TimelineBar>
   <TripDetails
     bookingDetailsPos={0}
     detailsVariantClass="hidden"
@@ -54,5 +48,5 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       }
     }
   />
-</div>
+</TimelineBarWrapper>
 `;

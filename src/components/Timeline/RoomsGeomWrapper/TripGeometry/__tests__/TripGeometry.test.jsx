@@ -28,45 +28,39 @@ describe('<TripGeometry />', () => {
     wrapper = shallow(<TripGeometry {...props} />);
   });
 
+
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
   describe('timeline trip geometry', () => {
-    let timelineTripGeom, blurFocusSpy;
+    let timelineBarWrapper, blurFocusSpy;
     beforeEach(() => {
-      timelineTripGeom = wrapper.find('.timeline-trip-geometry');
+      timelineBarWrapper = wrapper.find('TimelineBarWrapper');
       blurFocusSpy = jest.spyOn(wrapper.instance(), 'toggleBookingDetails');
     });
 
     it('renders the timeline trip geometry', () => {
-      expect(timelineTripGeom).toHaveLength(1);
-    });
-
-    it('ignore tab focus on trip bar to prevent distorted positioning', () => {
-      expect(timelineTripGeom.prop('tabIndex')).toEqual('-1');
+      expect(timelineBarWrapper).toHaveLength(1);
     });
 
     describe('booking details toggling', () => {
       let onFocusHandler, onBlurHandler, bookingDetailsPosHandler;
       beforeEach(() => {
-        onFocusHandler = timelineTripGeom.prop('onFocus');
-        onBlurHandler = timelineTripGeom.prop('onBlur');
-        bookingDetailsPosHandler = timelineTripGeom.prop('onClick');
+        onFocusHandler = timelineBarWrapper
+          .dive()
+          .find('.timeline-trip-geometry')
+          .prop('onFocus');
+        onBlurHandler = timelineBarWrapper
+          .dive()
+          .find('.timeline-trip-geometry')
+          .prop('onBlur');
+        bookingDetailsPosHandler = timelineBarWrapper
+          .prop('setBookingDetailsAbsolutePos');
       });
 
       it('lauches with booking details hidden', () => {
         expect(wrapper.state().bookingDetailsVisible).toBe(false);
-      });
-
-      it('calls booking details toggler on mouse focus with right arg(s)', () => {
-        onFocusHandler();
-        expect(blurFocusSpy).toHaveBeenCalledWith('open');
-      });
-
-      it('calls booking details toggler on blur with right arg(s)', () => {
-        onBlurHandler();
-        expect(blurFocusSpy).toHaveBeenCalledWith('close');
       });
 
       describe('toggle booking details handler works properly', () => {

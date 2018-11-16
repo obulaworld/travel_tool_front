@@ -1,0 +1,55 @@
+
+.maintainance-form{
+  padding-left: 2px;
+  padding-top: 25px;
+  margin: 3px;
+  height: 360px;
+  width: 600px;
+  border-radius: 2px;
+}
+.maintainence-line{
+  box-sizing: border-box;
+  height: 1px;
+  width: 440px;
+  border: 1px solid #F8F8F8;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.maintainence-submit-area{
+  margin-left: 100px;
+}
+.maintainence-submit-area_false{
+  margin-left: 150px;
+}
+
+form.maintainance-form{
+  fieldset {
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: 400px;
+    }
+    input{
+      border-radius: 2px;
+      width: 400px;
+      background-color: #F8F8F8;
+    }
+    label{
+      color: #4F4F4F;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+}
+.msg-maintainence{
+  height: 18px;
+  width: 420px;
+  color: #4F4F4F;
+  font-family: "DIN Pro";
+  font-size: 14px;
+  line-height: 18px;
+}
+.img_error{
+  margin-right: 8px;
+}

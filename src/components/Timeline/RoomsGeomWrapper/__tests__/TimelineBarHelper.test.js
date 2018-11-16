@@ -1,5 +1,5 @@
 import moment from 'moment';
-import TripGeomHelper from '../TripGeomHelper';
+import TimelineBarHelper from '../TimelineBarHelper';
 
 const values = {
   timelineStartDate: moment('2018-01-01').startOf('month'),
@@ -11,7 +11,7 @@ const values = {
 describe('TripGeomHelper', () => {
   let helper;
   beforeEach(() => {
-    helper = new TripGeomHelper(values);
+    helper = new TimelineBarHelper(values);
   });
 
   it('returns the correct trip statistics', () => {
