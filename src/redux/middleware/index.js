@@ -6,7 +6,8 @@ import {
   watchCreateNewRequestAsync,
   watchFetchUserRequestsDetails,
   watchEditRequest,
-  watchDeleteRequest
+  watchDeleteRequest,
+  watchEditRequest
 } from './requestsSaga';
 import {
   watchPostUserDataSagaAsync,
