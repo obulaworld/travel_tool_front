@@ -1,8 +1,13 @@
+.modal .modal-content#request-details-modal-content {
+    padding-right: 30px !important;
+}
+.modal#request-details-modal {
+    max-width: 760px !important;
+}
 .modal {
   &__user-info {
     display: flex;
     margin: 10px 0 0;
-
     .user-role {
       font-weight: 100;
       color: #999999;

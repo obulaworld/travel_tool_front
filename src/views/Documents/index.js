@@ -5,7 +5,6 @@ import Modal from '../../components/modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchDocuments, editDocument, updateDocumentOnEdit, updateDocument,
   deleteDocument, removeDocumentFromEdit, createDocument,   downloadDocuments
-
 } from '../../redux/actionCreator/documentActions';
 import DocumentsHeader from '../../components/DocumentsHeader';
 import NewDocumentForm from '../../components/Forms/NewDocumentForm';

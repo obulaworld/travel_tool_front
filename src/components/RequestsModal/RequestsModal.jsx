@@ -6,6 +6,7 @@ import { fetchUserRequestDetails } from '../../redux/actionCreator/requestAction
 import { updateRequestStatus } from '../../redux/actionCreator/approvalActions';
 import './RequestsModal.scss';
 import AddComment from './CommentBox/AddComment';
+import FileAttachment from '../../views/Attachments';
 import RequestApproval from './CommentBox/RequestApproval';
 import ConnectedUserComments from './UserComments/UserComments';
 import UserInfo from './UserInfo/UserInfo';
@@ -192,6 +193,7 @@ export class RequestDetailsModal extends Component {
     const { status, comments, id } = requestData;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
+
     return (
       <Fragment>
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
@@ -211,6 +213,7 @@ export class RequestDetailsModal extends Component {
           {this.renderRequestDetailsHeader(requestData)}
           {this.getRequestTripsDetails(requestData)}
         </div>
+        {status === 'Approved' ? <FileAttachment requestId={requestId} /> : '' }
         <AddComment image={picture} />
         <ConnectedCommentBox requestId={requestId} />
         {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
