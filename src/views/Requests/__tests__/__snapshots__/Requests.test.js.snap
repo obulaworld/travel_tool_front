@@ -15,7 +15,7 @@ exports[`<Requests> renders as expected 1`] = `
     showOverlay={true}
     title="New Travel Request"
     visibility="invisible"
-    width="81.25%"
+    width="81.95%"
   >
     <NewRequestForm
       availableRooms={

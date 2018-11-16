@@ -24,22 +24,33 @@ form {
         align-items: center;
         height: 71px;
 
-      button {
-        margin: 0;
-
-        &:disabled {
-          background-color: rgba(51,89,219,0.3);
-          border: none;
-          color: #FFFFFF;
-          cursor: not-allowed;
+        @mixin btn($margin-right) {
+          button {
+            margin-right: $margin-right;
+    
+            &:disabled {
+              background-color: rgba(51,89,219,0.3);
+              border: none;
+              color: #FFFFFF;
+              cursor: not-allowed;
+            }
+          }
         }
-      }
+
+        @include btn(-37.5px);
+
+        &--multi {
+          @include btn(-50px);
+        }
 
       button:not(:last-child) {
         margin-right: 20px;
       }
     }
     }
+  }
+  .submitarea-multi {
+    margin-right: 1095px !important;
   }
 
   select {

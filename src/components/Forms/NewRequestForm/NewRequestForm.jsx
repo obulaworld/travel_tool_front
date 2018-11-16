@@ -445,7 +445,7 @@ class NewRequestForm extends PureComponent {
   };
 
   renderForm = () => {
-    const { errors, values, hasBlankFields } = this.state;
+    const { errors, values, hasBlankFields, selection } = this.state;
     const { modalType, creatingRequest } = this.props;
     return (
       <FormContext
@@ -467,6 +467,7 @@ class NewRequestForm extends PureComponent {
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
+            selection={selection}
             send={
               modalType === 'edit request' ? 'Update Request' : 'Send Request'
             }

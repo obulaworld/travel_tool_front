@@ -162,7 +162,7 @@ export class Requests extends Base {
     return (
       <Modal
         closeModal={closeModal}
-        width="81.25%"
+        width="81.95%"
         visibility={(shouldOpen && (modalType === 'edit request' || modalType === 'new model')) ? 'visible' : 'invisible'}
         title={modalType === 'edit request' ? 'Edit Travel Request' : 'New Travel Request'}
       >
