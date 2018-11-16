@@ -148,6 +148,19 @@ h1 {
 }
 .travel-input-area {
   display: flex;
+  &__spinner {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #385BD3;
+    border-radius: 50%;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    animation: spin 2s linear infinite;
+    z-index: 2;
+    top: 40px;
+    left: 10px;
+  }
 }
 .rec-div {
   height: 100px;

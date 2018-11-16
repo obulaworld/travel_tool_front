@@ -4,10 +4,12 @@ import {
   FETCH_AVAILABLE_ROOMS_FAILURE
 } from '../constants/actionTypes';
 
-export const fetchAvailableRooms = action => ({
-  type: FETCH_AVAILABLE_ROOMS,
-  action
-});
+export const fetchAvailableRooms = action => {
+  return {
+    type: FETCH_AVAILABLE_ROOMS,
+    action
+  };
+};
 
 export const fetchAvailableRoomsSuccess = ({ beds }) => ({
   type: FETCH_AVAILABLE_ROOMS_SUCCESS,

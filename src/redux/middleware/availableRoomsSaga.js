@@ -10,7 +10,7 @@ import apiErrorHandler from '../../services/apiErrorHandler';
 
 export function* fetchAvailableRoomsSaga(action) {
   try {
-    delete action.type; 
+    delete action.type;
     const response = yield call(AvailableRoomsAPI.getAvailableRooms, action);
     const { data } = response;
     yield put(fetchAvailableRoomsSuccess(data));

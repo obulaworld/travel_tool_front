@@ -7,8 +7,10 @@ import RadioButton from '../../../RadioButton';
 import location from '../../../../images/location.svg';
 import addMultipleCityBtn from '../../../../images/add.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
+import TravelDetailsItem from './TravelDetailsItem';
 
 class TravelDetailsFieldset extends Component {
+
   componentDidMount = () => {
     this.get_details();
   };
@@ -82,7 +84,8 @@ class TravelDetailsFieldset extends Component {
           ? values[`arrivalDate-${i}`].format('YYYY-MM-DD')
           : '',
         departureDate: values[`departureDate-${i}`].format('YYYY-MM-DD'),
-        tripType: selection
+        tripType: selection,
+        rowId: i
       };
       fetchAvailableRooms(data);
     }
@@ -106,87 +109,30 @@ class TravelDetailsFieldset extends Component {
       removeTrip,
       parentIds,
       existingTrips,
-      availableRooms
+      availableRooms,
+      modalType,
+      requestOnEdit
     } = this.props;
 
     const { renderInput } = this.inputRenderer;
-    
-    let bedChoices = availableRooms.beds || ['Fetching beds...'];
-    if (availableRooms.beds.length < 1) {
-      bedChoices = [{ label: 'No beds found', value: [null] }];
-    } else {
-      bedChoices = bedChoices.map(choice => ({
-        label: `${choice.rooms.roomName}, ${choice.bedName}`,
-        value: choice.id
-      }));
-    }
 
     return (
-      <Fragment>
-        <div className="travel-input-area">
-          <div className="input-group" id={`trip${i}`}>
-            <div className={`rectangle ${selection}`}>
-              <div className="style-details">
-                <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`origin-${i}`, 'text', { parentid: i })}
-                  <img src={location} alt="icn" className="location-icon" />
-                </div>
-
-                <div className="travel-to" onChange={onChangeInput}>
-                  {renderInput(`destination-${i}`, 'text', { parentid: i })}
-                  <img src={location} alt="icn" className="location-icon" />
-                </div>
-
-                <div className="others-width" role="presentation">
-                  {renderInput(`departureDate-${i}`, 'date', {
-                    ...this.customPropsForDeparture(values),
-                    parentid: i,
-                    handleDate,
-                    onChange: handleDate
-                  })}
-                </div>
-                {selection !== 'oneWay' ? (
-                  <div className="others-width" role="presentation">
-                    {renderInput(`arrivalDate-${i}`, 'date', {
-                      ...this.customPropsForArrival(
-                        values,
-                        `departureDate-${i}`
-                      ),
-                      parentid: i,
-                      handleDate,
-                      onChange: handleDate
-                    })}
-                  </div>
-                ) : null}
-                {
-                  selection !== 'oneWay' ? (
-                    <div className="travel-to">
-                      {renderInput(`bed-${i}`, 'dropdown-select', {
-                        parentid: i,
-                        className: `bed-${i}`,
-                        size: '100%',
-                        choices: bedChoices,
-                        onChange: value => handlePickBed(value, i),
-                        onFocus: () => this.fetchRoomsOnFocus(values, i, selection)
-                      })}
-                    </div>
-                  ) : null
-                }
-              </div>
-            </div>
-            {selection === 'multi' &&
-              i >= 2 && (
-              <button
-                type="button"
-                className="delete-icon"
-                onClick={() => removeTrip(i)}
-              >
-                <img src={deleteBtnRed} alt="clicked" className="addsvg" />
-              </button>
-            )}
-          </div>
-        </div>
-      </Fragment>
+      <TravelDetailsItem
+        itemId={i}
+        selection={selection}
+        values={values}
+        handleDate={handleDate}
+        handlePickBed={handlePickBed}
+        removeTrip={removeTrip}
+        availableRooms={availableRooms}
+        onChangeInput={onChangeInput}
+        renderInput={renderInput}
+        customPropsForDeparture={this.customPropsForDeparture}
+        customPropsForArrival={this.customPropsForArrival}
+        fetchRoomsOnFocus={this.fetchRoomsOnFocus}
+        modalType={modalType}
+        requestOnEdit={requestOnEdit}
+      />
     );
   };
 
@@ -235,6 +181,8 @@ const existingTrips = PropTypes.func;
 const handlePickBed = PropTypes.func;
 const fetchAvailableRooms = PropTypes.func;
 const availableRooms = PropTypes.object;
+const modalType = PropTypes.string;
+const requestOnEdit = PropTypes.object;
 
 TravelDetailsFieldset.propTypes = {
   values: values.isRequired,
@@ -248,7 +196,9 @@ TravelDetailsFieldset.propTypes = {
   existingTrips: existingTrips,
   handlePickBed: handlePickBed.isRequired,
   fetchAvailableRooms: fetchAvailableRooms.isRequired,
-  availableRooms: availableRooms.isRequired
+  availableRooms: availableRooms.isRequired,
+  modalType: modalType.isRequired,
+  requestOnEdit: requestOnEdit.isRequired
 };
 
 TravelDetailsFieldset.defaultProps = {

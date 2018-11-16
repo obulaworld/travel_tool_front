@@ -55,10 +55,12 @@ class NewRequestForm extends PureComponent {
   }
 
   componentWillUnmount() {
-    const { fetchUserRequests} = this.props;
+    const { fetchUserRequests, fetchAvailableRoomsSuccess } = this.props;
     fetchUserRequests();
     this.handleClearForm();
+    fetchAvailableRoomsSuccess({ beds: [] });
   }
+
 
   getPersonalDetails = (modalType, detailsSource) => {
     const { userData } = this.props;
@@ -391,11 +393,11 @@ class NewRequestForm extends PureComponent {
     );
   };
 
-  handlePickBed = (bedId, tripIndex) => {
+  handlePickBed = (bedId, tripIndex, updateTrip = true) => {
     const fieldName = `bed-${tripIndex}`;
     this.setState(prevState => {
       const { trips } = prevState;
-      trips[tripIndex].bedId = bedId;
+      if (updateTrip) trips[tripIndex].bedId = bedId;
       return {
         ...prevState,
         values: {
@@ -409,7 +411,6 @@ class NewRequestForm extends PureComponent {
     });
   }
 
-
   savePersonalDetails(name, gender, department, role, manager) {
     // save to localstorage
     localStorage.setItem('name', name);
@@ -421,7 +422,8 @@ class NewRequestForm extends PureComponent {
 
   renderTravelDetailsFieldset = () => {
     const { selection, parentIds, values } = this.state;
-    const { fetchAvailableRooms, availableRooms } = this.props;
+    const { fetchAvailableRooms, availableRooms, modalType, requestOnEdit } = this.props;
+
     return (
       <TravelDetailsFieldset
         fetchAvailableRooms={fetchAvailableRooms}
@@ -436,6 +438,8 @@ class NewRequestForm extends PureComponent {
         addNewTrip={this.addNewTrip}
         removeTrip={this.removeTrip}
         availableRooms={availableRooms}
+        modalType={modalType}
+        requestOnEdit={requestOnEdit}
       />
     );
   };
@@ -494,6 +498,7 @@ NewRequestForm.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired,
   availableRooms: PropTypes.func.isRequired,
   occupations: PropTypes.array.isRequired,
+  fetchAvailableRoomsSuccess: PropTypes.func.isRequired
 };
 
 NewRequestForm.defaultProps = {

@@ -7,14 +7,8 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
-import { fetchAvailableRooms } from '../../redux/actionCreator/availableRoomsActions';
-import {
-  fetchUserRequests,
-  createNewRequest,
-  editRequest,
-  fetchEditRequest,
-  fetchUserRequestDetails,
-} from '../../redux/actionCreator/requestActions';
+import {fetchUserRequests,createNewRequest,editRequest,fetchEditRequest,fetchUserRequestDetails,} from '../../redux/actionCreator/requestActions';
+import { fetchAvailableRooms, fetchAvailableRoomsSuccess } from '../../redux/actionCreator/availableRoomsActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
@@ -162,7 +156,8 @@ export class Requests extends Base {
   }
   renderNewRequestForm() {
     const {updateUserProfile,userData, getUserData, user,createNewRequest,loading,errors,closeModal,shouldOpen,
-      modalType,managers,requestOnEdit,editRequest,fetchUserRequests,occupations, fetchAvailableRooms,  availableRooms} = this.props;
+      modalType,managers,requestOnEdit,editRequest,fetchUserRequests,occupations,
+      fetchAvailableRooms,  availableRooms, fetchAvailableRoomsSuccess} = this.props;
     const { url } = this.state;
     return (
       <Modal
@@ -187,7 +182,9 @@ export class Requests extends Base {
           fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms}
           occupations={occupations}
-          getUserData={getUserData} />
+          getUserData={getUserData}
+          fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
+        />
       </Modal>
     );
   }
@@ -236,6 +233,7 @@ Requests.propTypes = {
   fetchSubmission: PropTypes.func.isRequired,
   postSubmission: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  fetchAvailableRoomsSuccess: PropTypes.func.isRequired
 };
 Requests.defaultProps = {
   url: '',
@@ -274,7 +272,8 @@ const actionCreators = {
   fetchTravelChecklist,
   fetchAvailableRooms,
   fetchSubmission,
-  postSubmission
+  postSubmission,
+  fetchAvailableRoomsSuccess
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

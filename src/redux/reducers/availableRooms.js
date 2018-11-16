@@ -7,13 +7,15 @@ import {
 const initialState = {
   isLoading: false,
   beds: [],
-  bedsError: []
+  bedsError: [],
+  rowId: 0
 };
 
 const availableRooms = (state = initialState, action) => {
+  const rowId = (action.action) ? action.action.rowId : 0;
   switch (action.type) {
   case FETCH_AVAILABLE_ROOMS:
-    return { ...state, isLoading: true };
+    return { ...state, isLoading: true, rowId };
   case FETCH_AVAILABLE_ROOMS_SUCCESS:
     return {
       ...state,

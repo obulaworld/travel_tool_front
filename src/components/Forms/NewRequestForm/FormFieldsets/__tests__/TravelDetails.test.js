@@ -47,27 +47,4 @@ describe('<TravelDetails />', () => {
     const wrapper = setup(props);
     expect(wrapper.length).toBe(1);
   });
-
-  it('should render properly if selection is oneWay', () => {
-    const newProps = {...props};
-    newProps.selection = 'oneWay';
-    delete newProps.values['arrivalDate-1'];
-    delete newProps.values['bed-1'];
-    const wrapper = setup(newProps);
-    expect(wrapper.length).toBe(1);
-    expect(wrapper.find('.bed-0').length).toBe(0);
-  });
-  it('should render properly if selection is return', () => {
-    const newProps = {...props};
-    newProps.selection = 'return';
-    const values = props.values;
-    newProps.values = {...values, ['arrivalDate-1']: moment('2019-10-30'), ['bed-1']: 1};
-    const wrapper = setup(props);
-    wrapper.setProps(newProps);
-    expect(wrapper.length).toBe(1);
-    const handleOnFocus = jest.spyOn(wrapper.instance(), 'fetchRoomsOnFocus');
-    wrapper.find('.bed-0').simulate('change');
-    wrapper.find('.bed-0').simulate('focus');
-    expect(handleOnFocus).toHaveBeenCalledTimes(1);
-  });
 });

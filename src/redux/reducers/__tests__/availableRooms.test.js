@@ -10,7 +10,8 @@ describe('Fetch available rooms reducer', () => {
   const initialState = {
     isLoading: false,
     beds: [],
-    bedsError: []
+    bedsError: [],
+    rowId: 0
   };
   const error = 'Error occured while fetching available rooms';
   it('should return correct initial state', () => {

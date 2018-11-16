@@ -92,6 +92,7 @@ describe('<NewRequestForm />', () => {
     handleEditRequest: jest.fn(() => {}),
     fetchUserRequests: jest.fn(() => {}),
     fetchAvailableRooms: jest.fn(() => {}),
+    fetchAvailableRoomsSuccess: jest.fn(() => {}),
     choices: ['director', 'chef'],
     managers: [
       {
