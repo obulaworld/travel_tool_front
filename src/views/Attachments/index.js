@@ -36,8 +36,7 @@ class FileAttachments extends Component {
       destination.checklist.map(checklistItem => {
         if (
           checklistItem.requiresFiles &&
-          checklistItem.submissions.length !== 0 &&
-          checklistItem.id !== '1'
+          checklistItem.submissions.length !== 0
         ) {
           files.push(checklistItem.submissions[0].value);
         }
