@@ -91,14 +91,14 @@ describe('Test Suite for <TravelDetailsItem />', () => {
     const newProps = {...props};
     newProps.selection = 'oneWay';
     const wrapper = setup(newProps);
-    expect(props.renderInput).toHaveBeenCalledTimes(72);
+    expect(props.renderInput).toHaveBeenCalledTimes(82);
   });
 
   it('should render properly if selection is return', () => {
     const newProps = {...props};
     newProps.selection = 'return';
     const wrapper = setup(newProps);
-    expect(props.renderInput).toHaveBeenCalledTimes(87);
+    expect(props.renderInput).toHaveBeenCalledTimes(97);
   });
 });
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Analytics /> should render the connected component correctly 1`] = `
+exports[`<Analytics /> should render the connected component without crashing 1`] = `
 <div
   className="analytics"
 >

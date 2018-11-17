@@ -54,6 +54,15 @@ class NewRequestForm extends PureComponent {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { values, trips, selection } = this.state;
+    if ((prevState.values.gender !== values.gender) && selection !== 'oneWay') {
+      trips.map((trip, index) => {
+        this.handlePickBed(null, index, false);
+      });
+    }
+  }
+
   componentWillUnmount() {
     const { fetchUserRequests, fetchAvailableRoomsSuccess } = this.props;
     fetchUserRequests();
@@ -221,6 +230,10 @@ class NewRequestForm extends PureComponent {
         }),
         this.validate
       );
+      const { selection } = this.state;
+      if ( selection !== 'oneWay'){
+        this.handlePickBed(null, getId, false);
+      }
     });
   };
 

@@ -9,7 +9,8 @@ class TravelDetailsItem extends Component {
     choices: [],
     bedOnEdit: null,
     gender: null,
-    trip: null
+    trip: null,
+    missingRequiredFields: true
   }
 
   componentDidMount() {
@@ -18,11 +19,12 @@ class TravelDetailsItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { itemId, availableRooms, values, modalType } = nextProps;
+    const { itemId, selection, availableRooms, values, modalType } = nextProps;
     const rowId = availableRooms.rowId || 0;
     if (rowId === itemId) {
       this.setBedChoices(modalType, values, availableRooms.beds);
     }
+    this.validateTripDetails(values, itemId, selection);
   }
 
   validateTripRecord = (values, itemId) => {
@@ -73,17 +75,23 @@ class TravelDetailsItem extends Component {
   }
 
   handleChangeInput = event => {
-    const { onChangeInput, handlePickBed, selection } = this.props;
+    const { onChangeInput, handlePickBed, selection, values } = this.props;
     const { itemId } = this.state;
     onChangeInput(event);
-    if (selection !== 'oneWay') handlePickBed(null, itemId, false);
+    if (selection !== 'oneWay') {
+      this.validateTripDetails(values, itemId, selection);
+      handlePickBed(null, itemId, false);
+    }
   }
 
   handleDate = (date, event) => {
-    const { handleDate, handlePickBed, selection } = this.props;
+    const { handleDate, handlePickBed, selection, values } = this.props;
     const { itemId } = this.state;
     handleDate(date, event);
-    if (selection !== 'oneWay') handlePickBed(null, itemId, false);
+    if (selection !== 'oneWay') {
+      this.validateTripDetails(values, itemId, selection);
+      handlePickBed(null, itemId, false);
+    }
   }
 
   renderLocation = (locationType) => {
@@ -155,22 +163,61 @@ class TravelDetailsItem extends Component {
       fetchRoomsOnFocus
     } = this.props;
 
-    const { choices } = this.state;
+    const { choices, missingRequiredFields } = this.state;
     return (
       <div className="travel-to">
         {(availableRooms.isLoading && availableRooms.rowId === itemId) ? (
           <div className="travel-input-area__spinner" />)
           : null}
-        {renderInput(`bed-${itemId}`, 'dropdown-select', {
-          className: 'room-dropdown',
-          parentid: itemId,
-          size: '100%',
-          choices: choices,
-          onChange: value => handlePickBed(value, itemId),
-          onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
-        })}
+        {
+          missingRequiredFields ? (
+            <div>
+              {
+                renderInput(`bed-${itemId}`, 'text', {
+                  className: 'room-dropdown',
+                  placeholder: 'Choose rooms',
+                  disabled: missingRequiredFields,
+                  choices: [],
+                })
+              }
+              <img
+                style={{ top: '43px', position: 'absolute', right: '15px' }}
+                src="/static/media/form_select_dropdown.d19986d7.svg"
+                alt="icn"
+              />
+            </div>
+          )
+            :
+            renderInput(`bed-${itemId}`, 'dropdown-select', {
+              className: 'room-dropdown',
+              parentid: itemId,
+              size: '100%',
+              choices: choices,
+              onChange: value => handlePickBed(value, itemId),
+              onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
+            })
+        }
       </div>
     );
+  }
+
+  validateTripDetails(values, i, selection) {
+    const isValid =
+      values.gender &&
+      values[`destination-${i}`] &&
+      values[`departureDate-${i}`];
+
+    if (selection === 'oneWay') {
+      this.setState({
+        missingRequiredFields: true
+      });
+    }
+    
+    if (isValid && values[`arrivalDate-${i}`]) {
+      this.setState({
+        missingRequiredFields: false
+      });
+    }
   }
 
   render() {
@@ -238,4 +285,3 @@ TravelDetailsItem.propTypes = {
   modalType: modalType.isRequired,
   requestOnEdit: requestOnEdit.isRequired
 };
-
