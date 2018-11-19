@@ -32,14 +32,41 @@ $font-normal: 'DIN Pro';
       position: initial;
     }
   }
+  &__data__roomName {
+    border-color: #e4e4e4 !important;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 20px;
+    color: $table-font-color;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    @media (max-width: 479px) {
+      padding-left: 14px !important;
+      border-color: #e4e4e4 !important;
+    }
+  }
   &__data {
-    padding: 13px 30px !important;
     border-color: #e4e4e4 !important;
     cursor: pointer;
     font-size: 15px;
     font-weight: 500;
     line-height: 20px;
     color: $table-font-color;
+    @media (max-width: 479px) {
+      padding-left: 14px !important;
+      border-color: #e4e4e4 !important;
+    }
+  }
+  &__data__column {
+    padding-right: 50px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-color: #e4e4e4 !important;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: $table-font-color;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
     @media (max-width: 479px) {
       padding-left: 14px !important;
       border-color: #e4e4e4 !important;
@@ -75,9 +102,6 @@ $font-normal: 'DIN Pro';
     border-collapse: separate;
     border-spacing: 0 6px;
     background-color: #f8f8f8;
-    @media (max-width: 839px) {
-      position: inherit;
-    }
     &--empty {
       display: flex;
       justify-content: center;
@@ -105,6 +129,7 @@ $font-normal: 'DIN Pro';
     font-weight: 500;
     line-height: 20px;
     border-style: none;
+    float: right;
     &:hover {
       cursor: pointer;
     }
@@ -120,6 +145,7 @@ $font-normal: 'DIN Pro';
     font-weight: 500;
     line-height: 20px;
     border-style: none;
+    float: right;
     &:hover {
       cursor: pointer;
     }
@@ -135,6 +161,7 @@ $font-normal: 'DIN Pro';
     font-weight: 500;
     line-height: 20px;
     border-style: none;
+    float: right;
     &:hover {
       cursor: pointer;
     }
@@ -146,4 +173,8 @@ $font-normal: 'DIN Pro';
 
 .padding-top {
   padding-top: 25px;
+}
+
+.residence__text {
+  font-family: "DIN Pro medium";
 }

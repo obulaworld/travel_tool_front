@@ -12,15 +12,16 @@ export class CheckInTable extends Component {
 
   }
   renderCheckIns(trip) {
+    const { residenceClassName } = this.props;
     return (
       <tr key={trip.id} className="checkInTable__row">
-        <td className="mdl-data-table__cell--non-numeric checkInTable__data">
+        <td className={`mdl-data-table__cell--non-numeric checkInTable__data__roomName ${residenceClassName}`}>
           {Utils.generateTripRoomName(trip)}
         </td>
-        <td className="mdl-data-table__cell--non-numeric checkInTable__data">
+        <td className={`mdl-data-table__cell--non-numeric checkInTable__data ${residenceClassName}`}>
           {Utils.generateTripDuration(trip)}
         </td>
-        <td className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column">
+        <td className="mdl-data-table__cell--non-numeric checkInTable__data__column table__button-column">
           {trip.checkStatus === 'Not Checked In' && (
             <button 
               id="btnCheck"
@@ -59,7 +60,7 @@ export class CheckInTable extends Component {
     const { trips, tripError } = this.props;
     return (
       <Fragment>
-        <div className="table__container padding-top">
+        <div className="table__container table__resize padding-top">
           {tripError && this.renderError(tripError)}
           {trips &&
             trips.length > 0 && (
@@ -80,7 +81,8 @@ export class CheckInTable extends Component {
 CheckInTable.propTypes = {
   trips: PropTypes.array,
   tripError: PropTypes.string,
-  handleCheckStatus: PropTypes.func.isRequired
+  handleCheckStatus: PropTypes.func.isRequired,
+  residenceClassName: PropTypes.string.isRequired
 };
 
 CheckInTable.defaultProps = {

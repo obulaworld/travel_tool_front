@@ -37,6 +37,7 @@ export class CheckIn extends Base {
           <Table
             trips={trips.filter((trip) => trip.checkStatus !== 'Checked Out')}
             tripError={tripError}
+            residenceClassName="residence__text"
             handleCheckStatus={this.handleCheckStatus} />
         </div>
         <div>

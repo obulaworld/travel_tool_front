@@ -99,3 +99,9 @@ $border-color: #e4e4e4;
     position: fixed;
   }
 }
+
+@media only screen and (max-width: 839px) {
+  .table__resize {
+    position: inherit;
+  }
+}
