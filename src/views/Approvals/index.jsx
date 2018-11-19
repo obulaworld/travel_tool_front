@@ -33,6 +33,7 @@ export class Approvals extends Base {
   renderApprovalsTable(){
     const { approvals, history, location, openModal, closeModal, shouldOpen, modalType } = this.props;
     const {requestId} = this.state;
+    const requestData = approvals.approvals ? approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -48,6 +49,7 @@ export class Approvals extends Base {
         shouldOpen={shouldOpen}
         modalType={modalType}
         page="Approvals"
+        requestData={requestData}
       />
     );
   }

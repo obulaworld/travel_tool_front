@@ -230,7 +230,7 @@ export class Table extends Component {
         }
         title={`#${requestId} Request Details`}
         modalBar={
-          <div className="table__modal-bar-text">{(requestData.status === 'Approved') ? 'Travel stage' : 'Manager Stage'}</div>
+          <div className="table__modal-bar-text">{(requestData.status && requestData.status === 'Approved') ? 'Travel stage' : 'Manager Stage'}</div>
         }
       >
         <RequestsModal navigatedPage={page} requestId={requestId} />
