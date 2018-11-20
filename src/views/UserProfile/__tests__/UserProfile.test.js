@@ -20,7 +20,10 @@ const props = {
   },
   errors: [],
   shouldOpen: false,
-  onNotificationToggle: jest.fn()
+  onNotificationToggle: jest.fn(),
+  occupations: [],
+  getOccupation: jest.fn()
+
 };
 
 const initialState = {

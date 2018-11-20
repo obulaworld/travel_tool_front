@@ -4,32 +4,42 @@ import DropdownOptions from './DropdownOptions';
 
 export default class filterDropdownSelect extends Component  {
   static propTypes = {
-    className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     choices: PropTypes.arrayOf(PropTypes.string),
     value: PropTypes.string.isRequired,
     size:  PropTypes.string.isRequired,
-  }
+  };
 
   // default props
   static defaultProps = {
-    className: '',
     choices: [],
-  }
+  };
 
   state = {
     dropdownOpen: false,
-    dropdownClass: '',
-  }
+    dropdownClass: ''
+  };
 
-  componentWillReceiveProps(){
-    const {value} = this.props;
-    this.setState({role: value});
+  componentWillReceiveProps(nextProps, state){
+    const { value } = this.props;
+    const mutateState = (value) => {
+      this.setState(state => {
+        return {
+          ...state,
+          role: value
+        };
+      });
+    };
+    if (value !== nextProps.value) {
+      mutateState(nextProps.value);
+    }
+    else {
+      mutateState(value);
+    }
   }
-
 
   // presents the matching options on the dropdown and their onClick events
-  //and limit them to five options
+  //and limits them to five options
   getSelectOptions(choices) {
     let filteredChoices = [null, null];
     const {role} = this.state;
@@ -77,14 +87,13 @@ export default class filterDropdownSelect extends Component  {
      const {choices} = this.props;
      this.setState({[e.target.name]: e.target.value});
      this.getSelectOptions(choices);
-     this.setState(() => ({dropdownClass: 'select-dropdown',
-     }));
+     this.setState(() => ({dropdownClass: 'select-dropdown'}));
    }
 
    render(){
-     const {choices, value, className, size} = this.props;
-     const options = this.getSelectOptions(choices);
+     const {choices, size} = this.props;
      const {role, dropdownClass} = this.state;
+     const options = this.getSelectOptions(choices);
      return (
        <div style={{position:'relative'}}>
          <div className="value" style={{width: size}}>

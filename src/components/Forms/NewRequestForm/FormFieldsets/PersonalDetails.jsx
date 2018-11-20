@@ -36,18 +36,20 @@ class PersonalDetailsFieldset extends Component {
               <div className="spaces">
                 {renderInput('gender', 'button-toggler')}
               </div>
-              {renderInput('department', 'dropdown-select', { size: value })}
+              {renderInput('department', 'dropdown-select', { size: value, className: 'request_dropdown'})}
             </div>
             <div className={`input-group ${disabled}`}>
               <div className="spaces">
                 {renderInput('role', 'filter-dropdown-select', {
                   choices: occupationsNames,
-                  size: value
+                  size: value,
+                  className: 'request_dropdown'
                 })}
               </div>
               {renderInput('manager', 'dropdown-select', {
                 choices: managerChoices,
-                size: value
+                size: value,
+                className: 'request_dropdown'
               })}
             </div>
             <div className="input-group">

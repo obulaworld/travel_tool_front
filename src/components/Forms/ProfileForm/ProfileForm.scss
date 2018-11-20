@@ -23,6 +23,48 @@
     width: 65%;
 }
 
+.bg-btn{
+  margin-right: 20px;
+}
+
+.bg-btn:disabled {
+  cursor: auto;
+}
+.profile-bg-btn {
+  background: #3359DB !important;
+  opacity: 0.5 !important;
+}
+form .form-input .profile_dropdown .select-menu {
+  top: 30px;
+}
+
+form .form-input .request_dropdown .select-menu{
+  top: 26px
+}
+
+.spaces .request_dropdown .select-menu{
+  top: 35px
+}
+
+form .form-input .select-menu{
+  position: absolute;
+  left: -0.05px;
+  top: 40px;
+  width: calc(100% + -1px);
+  color: #4F4F4F;
+  font-family: 'DIN Pro';
+}
+
+
+#btn-cancel{
+  color: #3359DB;
+  border: 1px solid #3359DB;
+  font-weight: 500;
+}
+
+.profile-submit-area{
+  justify-content: flex-start;
+}
 form{
     fieldset {
       .input-group {

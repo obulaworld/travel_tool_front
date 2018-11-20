@@ -74,23 +74,27 @@ class ProfileForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { managers } = this.props;
+    const { managers, occupations } = this.props;
 
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={this.submitProfileForm} className="new-profile">
-          <ProfileDetails values={values} managers={managers} hasBlankFields={hasBlankFields} />
+          <ProfileDetails
+            values={values}
+            managers={managers}
+            hasBlankFields={hasBlankFields}
+            occupations={occupations} />
           {hasBlankFields ? (
             <div className="submit-area">
               <button
                 type="submit"
                 disabled={hasBlankFields}
-                className="bg-btn bg-btn--inactive">
+                className="profile-bg-btn bg-btn bg-btn--inactive">
                 Save Changes
               </button>
             </div>
           ) : (
-            <div className="submit-area">
+            <div className="submit-area ">
               <button type="submit" className="bg-btn bg-btn--active">
                 Save Changes
               </button>
@@ -110,10 +114,12 @@ ProfileForm.propTypes = {
   managers: PropTypes.array,
   userData: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  getUserData: PropTypes.func.isRequired
+  getUserData: PropTypes.func.isRequired,
+  occupations: PropTypes.array
 };
 ProfileForm.defaultProps = {
-  managers: []
+  managers: [],
+  occupations: []
 };
 
 export default ProfileForm;

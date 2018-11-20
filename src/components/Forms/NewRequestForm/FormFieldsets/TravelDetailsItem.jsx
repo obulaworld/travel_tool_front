@@ -158,6 +158,7 @@ class TravelDetailsItem extends Component {
           <div className="travel-input-area__spinner" />)
           : null}
         {renderInput(`bed-${itemId}`, 'dropdown-select', {
+          className: 'room-dropdown',
           parentid: itemId,
           size: '100%',
           choices: choices,

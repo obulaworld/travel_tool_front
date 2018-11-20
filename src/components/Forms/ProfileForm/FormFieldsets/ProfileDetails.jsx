@@ -5,13 +5,16 @@ import * as formMetadata from '../../FormsMetadata/NewProfileMetadata';
 
 class ProfileDetailsFieldSets extends Component {
   render() {
-    const { managers } = this.props;
+    const { managers, occupations } = this.props;
+
+
+    const occupationsNames = occupations.map(occupation =>
+      occupation.occupationName);
+
     const managerNames = managers.map(manager => manager.fullName);
     formMetadata.dropdownSelectOptions.manager = managerNames;
-
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
-    const { hasBlankFields } = this.props;
 
     return (
       <fieldset className="personal-details">
@@ -26,9 +29,9 @@ class ProfileDetailsFieldSets extends Component {
         <div className="input-group profile-input">
           {renderInput('name', 'text')}
           {renderInput('gender', 'button-toggler')}
-          {renderInput('role', 'dropdown-select')}
-          {renderInput('department', 'dropdown-select')}
-          {renderInput('manager', 'dropdown-select')}
+          {renderInput('role', 'filter-dropdown-select')}
+          {renderInput('department', 'dropdown-select', {className: 'profile_dropdown'})}
+          {renderInput('manager', 'dropdown-select', {className: 'profile_dropdown'})}
         </div>
       </fieldset>
     );
@@ -36,10 +39,11 @@ class ProfileDetailsFieldSets extends Component {
 }
 ProfileDetailsFieldSets.propTypes = {
   managers: PropTypes.array,
-  hasBlankFields: PropTypes.bool.isRequired,
+  occupations: PropTypes.array,
 };
 ProfileDetailsFieldSets.defaultProps = {
   managers: [],
+  occupations: []
 };
 
 export default ProfileDetailsFieldSets;

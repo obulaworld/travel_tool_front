@@ -103,6 +103,7 @@ h1 {
         .submit-area {
           margin: 20px 0;
           width: 100%;
+          justify-content: flex-start;
         }
       }
     }
@@ -130,6 +131,7 @@ h1 {
           .input-group.profile-input {
             width: 700px;
             margin-top: 30px;
+            overflow-y: visible;
           }
         }
         .submit-area {

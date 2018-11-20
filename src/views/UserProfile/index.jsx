@@ -10,19 +10,21 @@ import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import ProfileForm from '../../components/Forms/ProfileForm';
 import Base from '../Base';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
+import { getOccupation } from '../../redux/actionCreator/occupationActions';
+
 
 class UserProfile extends Base {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    const { fetchRoleUsers } = this.props;
+    const { fetchRoleUsers, occupations, getOccupation } = this.props;
     fetchRoleUsers(53019);
+    if (!occupations.length) {
+      getOccupation();
+    }
   }
 
   render() {
-    const { manager, updateUserProfile, user, fetchUserData, getUserData } = this.props;
+    const { manager, updateUserProfile, user, fetchUserData, getUserData, occupations } = this.props;
     return (
       <Fragment>
         <h1>PROFILE</h1>
@@ -34,6 +36,7 @@ class UserProfile extends Base {
               userData={fetchUserData && fetchUserData.result}
               user={user}
               getUserData={getUserData}
+              occupations={occupations}
             />
           </div>
         </div>
@@ -46,14 +49,16 @@ UserProfile.defaultProps = {
   manager: []
 };
 
-export const mapStateToProps = ({ user, role }) => ({
+export const mapStateToProps = ({ user, role, occupations}) => ({
   ...role,
+  ...occupations,
   fetchUserData: user.getUserData
 });
 
 const actionCreators = {
   updateUserProfile,
   fetchRoleUsers,
+  getOccupation
 };
 export default connect(
   mapStateToProps,
