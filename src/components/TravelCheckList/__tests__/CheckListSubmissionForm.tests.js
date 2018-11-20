@@ -66,7 +66,7 @@ let props = {
 jest.useFakeTimers();
 
 describe('<CheckListSubmissionFormSets />', () => {
-  const setsProps = {  
+  const setsProps = {
     submissionInfo: {
       submissions: [{
         'value': '{"url":"http://res.cloudinary.com/travela/raw/upload/v1540191551/w26o4c86mw4047ttwfld","secureUrl":"https://res.cloudinary.com/travela/raw/upload/v1540191551/w26o4c86mw4047ttwfld","publicId":"w26o4c86mw4047ttwfld","fileName":"airticket.pdf"}',
@@ -134,7 +134,8 @@ describe('<CheckListSubmissionFormSets />', () => {
       }};
     const state = {
         ticket : 'KG 435K',
-        arrivalTime : '10:00'
+        arrivalTime : '10:00',
+        departureTime : '10:00'
       },
       wrapper = mount(
         <CheckListSubmissionForm store={store} {...props} trips={[]} postSubmission={postSubmission} />);
@@ -158,9 +159,11 @@ describe('<CheckListSubmissionFormSets />', () => {
     const state = {
         ticket : 'KG 435K',
         arrivalTime : '10:00',
+        departureTime : '10:00',
         returnFlightNumber: 'KRT 435K',
         returnAirline: 'Kenya Airways',
-        returnArrivalTime: '23:00'
+        returnArrivalTime: '23:00',
+        returnDepartureTime: '23:00'
       },
       wrapper = mount(
         <CheckListSubmissionForm store={store} {...props} postSubmission={postSubmission} />);

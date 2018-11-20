@@ -32,7 +32,7 @@ class SubmissionFormSets extends Component {
   handleSubmit = (data) => {
     const { postSubmission } = this.props;
     postSubmission(data);
-  }
+  };
 
   findTripId = () => {
     const { destination, trips, } = this.props;
@@ -43,7 +43,7 @@ class SubmissionFormSets extends Component {
       }
     });
     return newTrip;
-  }
+  };
 
   handleBlur = (e) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ class SubmissionFormSets extends Component {
     };
     this.setState({ uploadSuccess: 'start' });
     this.handleSubmit(finalData);
-  }
+  };
 
   handleDownLoad = async (e) =>{
     e.preventDefault();
@@ -75,7 +75,7 @@ class SubmissionFormSets extends Component {
     const fileUrl = value.secureUrl;
     delete axios.defaults.headers.common['Authorization'];
     const fileData = await axios.get(fileUrl);
-    const file = new Blob([fileData.data], {type: fileType}); 
+    const file = new Blob([fileData.data], {type: fileType});
     if (window.navigator.msSaveOrOpenBlob) // handles IE10+
       window.navigator.msSaveOrOpenBlob(file, value.fileName);
     else { // handles others Others
@@ -87,10 +87,10 @@ class SubmissionFormSets extends Component {
       fileElement.click();
       setTimeout(function() {
         document.body.removeChild(fileElement);
-        window.URL.revokeObjectURL(url);  
-      }, 0); 
+        window.URL.revokeObjectURL(url);
+      }, 0);
     }
-  }
+  };
 
   handleUpload = (e) => {
     e.preventDefault();
@@ -117,7 +117,7 @@ class SubmissionFormSets extends Component {
       };
       this.handleSubmit(data);
     };
-  }
+  };
 
   findSubmission = (submissions, item) => {
     let finalSubmission;
@@ -133,7 +133,7 @@ class SubmissionFormSets extends Component {
         }
       );}
     return finalSubmission;
-  }
+  };
 
   renderTextInput = () => {
     const { item, submissionInfo, isLoading } = this.props;
@@ -151,20 +151,22 @@ class SubmissionFormSets extends Component {
     visible = value === undefined ? '__hidden' : '' ;
     return (
       <div>
-        <div className="travelCheckList--item__item">
-          <textarea
-            placeholder={holder}
-            name={name}
-            rows="4"
-            cols="80"
-            type="submit" 
-            className="" disabled={false} defaultValue={holder} readOnly={false} onBlur={this.handleBlur} />
-          <img src={check} alt="check_icon" className={`travelCheckList--input__check-image__text${visible}`} />
-          {uploadSuccess === 'start' ? (<div id="progress-bar__text">Uploading content... </div>) : null}
+        <div className="travelCheckList--item__item__textarea">
+          <div>
+            <textarea
+              placeholder={holder}
+              name={name}
+              rows="4"
+              cols="80"
+              type="submit"
+              className="" disabled={false} defaultValue={holder} readOnly={false} onBlur={this.handleBlur} />
+            <img src={check} alt="check_icon" className={`travelCheckList--input__check-image__text${visible}`} />
+          </div>
+          {uploadSuccess === 'start' && (<div className="progress-bar text">Uploading content... </div>)}
         </div>
       </div>
     );
-  }
+  };
 
   renderUploadField = () => {
     const { uploadSuccess, uploadPresent } = this.state;
@@ -177,12 +179,12 @@ class SubmissionFormSets extends Component {
               <span id="file-upload" role="presentation">Upload file</span>
             </div>
             <input type="file" name="file" onChange={this.handleUpload} />
-            { uploadSuccess==='done' ? (<div id="progress-bar__success">Done</div>):
-              uploadSuccess==='start' ? (<div id="progress-bar">Uploading file...</div>) : null}
+            { uploadSuccess==='done' ? (<div className="progress-bar success">Done</div>):
+              uploadSuccess=== 'start' ? (<div className="progress-bar file">Uploading file...</div>) : null}
           </div>
         </div>
       ));
-  }
+  };
   renderDownloadField = () => {
     const { submissionInfo, item, requestData } = this.props;
     const { tempFileName } = this.state;
@@ -201,15 +203,15 @@ class SubmissionFormSets extends Component {
           <img src={check} alt="check_icon" className="travelCheckList--input__check-image" />
           <input id={`download-file${'__'+visible}`} type="button" name="button" onClick={this.handleDownLoad} />
         </div>
-      </div>                 
+      </div>
     );
-  }
+  };
 
   renderField = () => {
     const { item } = this.props;
     return (
       !item.requiresFiles && this.renderTextInput() || this.renderUploadField());
-  }
+  };
   render(){
     const { item } = this.props;
     const { resources, name } = item;
@@ -220,21 +222,22 @@ class SubmissionFormSets extends Component {
         <div className="travelCheckList--item__item">
           <div className="travelCheckList--item__input-label">
             <label htmlFor={name}>
-              <span className="travelCheckList--item__visa-application">{name}</span>
-              {
-                resources.length > 0 && resources.map(resource => (
-                  <a
-                    key={item.id}
-                    href={resource.link}
-                    className="travelCheckList--item__visa-application-gu"
-                  >
-                    {resource.label ? `(${resource.label})` : ''}
-                  </a>
-                ))
-              }
+              <p className="travelCheckList--item__visa-application">
+                {name}
+                {
+                  resources.length > 0 && resources.map(resource => (
+                    <a
+                      key={item.id}
+                      href={resource.link}
+                      className="travelCheckList--item__visa-application-gu"
+                    >
+                      {resource.label ? `(${resource.label})` : ''}
+                    </a>
+                  ))
+                }
+              </p>
             </label>
           </div>
-          <br />
           {this.renderField()}
         </div>
       </div>

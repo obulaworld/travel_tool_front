@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import countryUtils from '../../helper/countryUtils';
 import check from '../../images/check.svg';
 import './travelSubmission.scss';
 import WithLoadingSubmission from './SubmissionFormSets';
-import withLoading from '../Hoc/withLoading';
 
 class CheckListSubmissionForm extends Component {
   constructor(props) {
@@ -51,17 +50,17 @@ class CheckListSubmissionForm extends Component {
     setTimeout(() => {
       this.setState({uploadSuccess: 'start'});
       postSubmission(finalData);}, 2000);
-  }
+  };
 
   handleChange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
     const tripType = e.target.id.split(' ')[1];
     const ticketFields = {
-      oneWay: [ 'airline', 'arrivalTime', 'ticket' ],
+      oneWay: [ 'airline', 'arrivalTime', 'departureTime', 'ticket' ],
       return: [
-        'returnAirline', 'airline', 
-        'returnFlightNumber', 'arrivalTime',
+        'returnAirline', 'airline', 'departureTime',
+        'returnFlightNumber', 'arrivalTime', 'returnDepartureTime',
         'returnArrivalTime', 'ticket' ]
     };
     const listOf = tripType !== 'return' ? ticketFields['oneWay']:undefined;
@@ -86,35 +85,38 @@ class CheckListSubmissionForm extends Component {
     }
 
     const tripId = e.target.className;
-    if (count === 3) {
-      const { airline, ticket, arrivalTime } = this.state;
+    if (count === 4) {
+      const { airline, ticket, departureTime, arrivalTime } = this.state;
       const data = {
         'airline': airline,
         'flightNumber': ticket,
+        'departureTime': departureTime,
         'arrivalTime': arrivalTime,
       };
       this.handleSubmitTicket(data, tripId);
     } else { count = 0; }
 
-    if (countReturn === 6) {
-      const { 
+    if (countReturn === 8) {
+      const {
         returnFlightNumber,
         returnAirline, airline, ticket, arrivalTime,
-        returnArrivalTime } = this.state;
+        returnArrivalTime, departureTime, returnDepartureTime } = this.state;
 
       const data = {
         'airline': airline,
         'flightNumber': ticket,
+        'departureTime': departureTime,
         'arrivalTime': arrivalTime,
         'returnFlightNumber': returnFlightNumber,
         'returnAirline': returnAirline,
+        'returnDepartureTime': returnDepartureTime,
         'returnArrivalTime': returnArrivalTime
       };
 
       this.handleSubmitTicket(data, tripId);
     }else{ countReturn = 0; }
-    
-  }
+
+  };
 
   findTripId = (data) => {
     const { destination, trips } = data;
@@ -125,7 +127,7 @@ class CheckListSubmissionForm extends Component {
       }
     });
     return newTrip;}
-  }
+  };
 
   findSubmission = (submissions, data) => {
     let finalSubmission;
@@ -142,31 +144,31 @@ class CheckListSubmissionForm extends Component {
         }
       );}
     return finalSubmission;
-  }
+  };
 
   renderTicketInput= (type, placeholder, label, name, id, data, tripType, pattern) =>{
     const holder = placeholder || '';
     const tripId = this.findTripId(data).id;
-    pattern = pattern || null; 
+    pattern = pattern || null;
     return (
       <div className="airline-name">
         <label htmlFor={id}>
           <span id="label">{label}</span>
           <input
-            id={`airline-name ${tripType}`} type={type} onChange={this.handleChange} 
+            id={`airline-name ${tripType}`} type={type} onChange={this.handleChange}
             name={name} placeholder={holder}
             className={tripId} readOnly={false} pattern={pattern} />
         </label>
       </div>
     );
-  }
+  };
 
   renderTicketFieldset = (data) => {
     const { submissionInfo, requestId, requests } = this.props;
     const { uploadSuccess, uploadPresent } = this.state;
     const submission = this.findSubmission(submissionInfo.submissions, data);
-    let airline, ticket, arrivalTime, tripType, fields, returnTrip,
-      value, visible, returnAirline, returnFlightNumber, returnArrivalTime;
+    let airline, ticket, departureTime, arrivalTime, tripType, fields, returnTrip,
+      value, visible, returnAirline, returnFlightNumber, returnDepartureTime, returnArrivalTime;
     const link = 'https://github.com/\
     yannickcr/eslint-plugin-react/tree/master/docs/rules/jsx-key.md';
     const id = requestId;
@@ -182,6 +184,7 @@ class CheckListSubmissionForm extends Component {
       value = JSON.parse(submission.value);
       airline = value.airline || '  e.g Kenya Airways';
       ticket = value.flightNumber || '  e.g KG 435K';
+      departureTime = value.departureTime || '10:00';
       arrivalTime = value.arrivalTime || '10:00';
       returnAirline = value.returnAirline || '  e.g Kenya Airways';
       returnFlightNumber = value.returnFlightNumber || '  e.g KG 435K';
@@ -189,9 +192,11 @@ class CheckListSubmissionForm extends Component {
     } else {
       airline = '  e.g Kenya Airways';
       ticket = '  e.g KG 435K';
+      departureTime = '10:00';
       arrivalTime = '10:00';
       returnAirline = '  e.g Kenya Airways';
       returnFlightNumber = '  e.g KG 435K';
+      returnDepartureTime = '10:00';
       returnArrivalTime = '10:00';
     }
     if (tripType === 'return') {
@@ -199,47 +204,53 @@ class CheckListSubmissionForm extends Component {
       returnTrip = '__return';
     }
     fields = fields ? 'travel-submission-fields' : '';
-    returnTrip = returnTrip ? '__return' : ''; 
+    returnTrip = returnTrip ? '__return' : '';
     visible = value === undefined ? '__hidden' : '';
     return (
       <div className="travelCheckList--item__item">
         <div className="travelCheckList--item__input-label">
-          <span className="travelCheckList--item__visa-application">
+          <p className="travelCheckList--item__visa-application">
           Travel Ticket Details
-          </span>
-          <a
-            key={id}
-            href={link}
-            className="travelCheckList--item__visa-application-gu__ticket"
-          >
+            <a
+              key={id}
+              href={link}
+              className="travelCheckList--item__visa-application-gu__ticket"
+            >
               (Flight application guide)
-          </a>
+            </a>
+          </p>
         </div>
         <form className="ticket-submission" onSubmit={this.handleSubmit}>
           <div className={`${fields}`}>
-            <div className={`travel-submission-details${returnTrip}`} id="departure-fields">
-              {this.renderTicketInput('text', airline, 'Airline', 'airline', id, data, tripType)}
-              {this.renderTicketInput('text', ticket, 'Ticket Number', 'ticket', id, data, tripType)}
-              {this.renderTicketInput('text', arrivalTime, 'Arrival Time', 'arrivalTime', id, data,
-                tripType, pattern)}
-              <img src={check} alt="check_icon" className={`travelCheckList--input__check-image__ticket${visible}`} />
+            <div>
+              <div className={`travel-submission-details${returnTrip}`} id="departure-fields">
+                {this.renderTicketInput('text', departureTime, 'Departure Time', 'departureTime', id, data,
+                  tripType, pattern)}
+                {this.renderTicketInput('text', arrivalTime, 'Arrival Time', 'arrivalTime', id, data,
+                  tripType, pattern)}
+                {this.renderTicketInput('text', airline, 'Airline', 'airline', id, data, tripType)}
+                {this.renderTicketInput('text', ticket, 'Flight Number', 'ticket', id, data, tripType)}
+              </div>
+              {tripType === 'return' ? (
+                <div className="travel-submission-details__return" id="return-fields">
+                  {this.renderTicketInput('text', returnDepartureTime, 'Return Departure Time',
+                    'returnDepartureTime', id, data, tripType, pattern)}
+                  {this.renderTicketInput('text', returnArrivalTime, 'Return Arrival Time',
+                    'returnArrivalTime', id, data, tripType, pattern)}
+                  {this.renderTicketInput('text', returnAirline, 'Return Airline',
+                    'returnAirline', id, data, tripType)}
+                  {this.renderTicketInput('text', returnFlightNumber, 'Return Flight Number',
+                    'returnFlightNumber', id, data, tripType)}
+                </div>):null}
             </div>
-            {tripType === 'return' ? (
-              <div className="travel-submission-details__return" id="return-fields">
-                {this.renderTicketInput('text', returnAirline, 'Return Airline',
-                  'returnAirline', id, data, tripType)}
-                {this.renderTicketInput('text', returnFlightNumber, 'Return Ticket Number',
-                  'returnFlightNumber', id, data, tripType)}
-                {this.renderTicketInput('text', returnArrivalTime, 'Return Arrival Time',
-                  'returnArrivalTime', id, data, tripType, pattern)}
-              </div>):null}
+            <img src={check} alt="check_icon" className={`travelCheckList--input__check-image__ticket${visible}`} />
           </div>
           {uploadPresent ? (<img src={check} alt="check_icon" className="travelCheckList--input__check-image__ticket" />) : null}
-          {uploadSuccess === 'start' ? (<div id="progress-bar__ticket">Uploading content... </div>) : null}
         </form>
+        {uploadSuccess === 'start' && (<div className="progress-bar ticket">Uploading content... </div>)}
       </div>
     );
-  }
+  };
 
   renderCheckListITems = (destination) => {
     const { requestData, requests, isLoading,
@@ -282,7 +293,7 @@ class CheckListSubmissionForm extends Component {
         </div>
       </div>
     );
-  }
+  };
   renderDestinations (destination, index) {
     const countryFlagUrl = countryUtils.getCountryFlagUrl(destination.destination);
     return (
@@ -290,7 +301,7 @@ class CheckListSubmissionForm extends Component {
         <div className="travelCheckList__destination">
           <div className="travelCheckList__destination-name">
             <div
-              className="travelCheckList__destination-flag" 
+              className="travelCheckList__destination-flag"
               alt="country flag" style={{ backgroundImage: `url(${countryFlagUrl})` }} />
             {destination.destination}
           </div>
@@ -309,7 +320,7 @@ class CheckListSubmissionForm extends Component {
               .renderDestinations(destination, index))}
       </div>
     );
-  }
+  };
 
   render() {
     return (
