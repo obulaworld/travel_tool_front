@@ -57,7 +57,7 @@ class AccommodationDetails extends Component {
             </div>
           </div>
         </div>
-        {i >= 1 ? (
+        {i >= 0 ? (
           <img
             src={deleteRoomIcon}
             alt="clicked"

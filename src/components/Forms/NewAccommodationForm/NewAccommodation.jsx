@@ -226,7 +226,8 @@ class NewAccommodation extends PureComponent {
     }};
 
   render() {
-    const { values, errors, hasBlankFields, documentId } = this.state;
+    const { values, errors, hasBlankFields, documentId, rooms } = this.state;
+    const currentHasBlankFields = (rooms.length !== 0) ? hasBlankFields : !hasBlankFields;  
     const { modalType } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
@@ -247,7 +248,7 @@ class NewAccommodation extends PureComponent {
           <SubmitArea
             onCancel={this.handleFormCancel}
             onEditCancel={this.handleEditFormCancel}
-            hasBlankFields={hasBlankFields}
+            hasBlankFields={currentHasBlankFields}
             send={modalType === 'edit accommodation' ? 'Save changes' : 'Save'}
             modalType={modalType} />
         </form>
