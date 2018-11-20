@@ -22,7 +22,7 @@
                     <mask id="mask-3" fill="white">
                         <use xlink:href="#path-2"></use>
                     </mask>
-                    <use id="icon/action/input_24px" fill="#D4D4D4" fill-rule="nonzero" transform="translate(7.333333, 9.993333) scale(-1, 1) translate(-7.333333, -9.993333) " xlink:href="#path-2"></use>
+                    <use id="icon/action/input_24px" fill="#969696" fill-rule="nonzero" transform="translate(7.333333, 9.993333) scale(-1, 1) translate(-7.333333, -9.993333) " xlink:href="#path-2"></use>
                 </g>
             </g>
         </g>

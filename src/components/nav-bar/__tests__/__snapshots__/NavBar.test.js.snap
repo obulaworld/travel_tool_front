@@ -107,30 +107,36 @@ exports[`Render NavBar component should match snapshot 1`] = `
                 }
               }
             >
-              <Link
-                id="profile"
-                replace={false}
-                role="presentation"
-                to="/settings/profile"
+              <div
+                className="navbar__link"
               >
-                <img
-                  alt="profile"
-                  className="navbar__navbar-account"
-                  src="account_circle.svg"
-                />
-                Profile
-              </Link>
+                <Link
+                  className="navbar__link"
+                  id="profile"
+                  replace={false}
+                  role="presentation"
+                  to="/settings/profile"
+                >
+                  <img
+                    alt="profile"
+                    className="navbar__navbar-account"
+                    src="account_circle.svg"
+                  />
+                  Profile
+                </Link>
+              </div>
               <div
                 className="border-line"
               />
               <div
+                className="navbar__link"
                 id="logout"
                 onClick={[Function]}
                 role="presentation"
               >
                 <img
                   alt="profile"
-                  className="navbar__navbar-account"
+                  className="navbar__navbar--account"
                   src="logout.svg"
                 />
                 Logout

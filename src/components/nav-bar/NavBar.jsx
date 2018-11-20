@@ -58,7 +58,6 @@ export class NavBar extends PureComponent {
     history.push(`${location.pathname}${queryString}`);
   }
 
-
   handleClick = () => {
     const {hideLogoutDropdown} = this.state;
     this.setState({ hideLogoutDropdown: !hideLogoutDropdown});
@@ -79,7 +78,7 @@ export class NavBar extends PureComponent {
     const {hideLogoutDropdown} = this.state;
     const logoutDropdownStyle = hideLogoutDropdown ? 'none' : 'block';
     return (
-      <span>
+      <span className="dropdown-arrow">
         <Button
           onClick={this.handleClick}
           imageSrc={icon}
@@ -90,20 +89,20 @@ export class NavBar extends PureComponent {
           buttonClass="mdl-button mdl-js-button mdl-button--icon mdl-Icons"
         />
         <div className="navbar__mdl-list" style={{display: `${logoutDropdownStyle}`}}>
-          <Link id="profile" role="presentation" to="/settings/profile">
-            <img
-              src={account}
-              alt="profile"
-              className="navbar__navbar-account"
-            />
-            Profile
-          </Link>
+          <div className="navbar__link">
+            <Link className="navbar__link" id="profile" role="presentation" to="/settings/profile">
+              <img
+                src={account} alt="profile" className="navbar__navbar-account"
+              />
+              Profile
+            </Link>
+          </div>
           <div className="border-line" />
-          <div onClick={this.logout} id="logout" role="presentation">
+          <div className="navbar__link" onClick={this.logout} id="logout" role="presentation">
             <img
               src={logout}
               alt="profile"
-              className="navbar__navbar-account"
+              className="navbar__navbar--account"
             />
             Logout
           </div>
@@ -151,7 +150,7 @@ export class NavBar extends PureComponent {
   renderUserIcons() {
     const { avatar, user } = this.props;
     return (
-      <div>
+      <div className="profile-sec">
         <span className="navbar__mdl-icons">
           <ImageLink
             imageSrc={user ? user.UserInfo.picture : avatar}
