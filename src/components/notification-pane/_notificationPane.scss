@@ -1,6 +1,6 @@
 .nav-pane {
   font-family: "DIN Pro";
-  height: 100vh;
+  height: calc(100vh - 64px);
   width: 100%;
   border: 1px solid #E4E4E4;
   border-top: none;
@@ -28,13 +28,14 @@
 }
 
 .notification {
-  position: absolute;
+  position: fixed;
   width: 359px;
+  top: 65px;
   right: 0;
-  top: 0;
+  bottom: 0;
   @media (max-width: 839px) and (min-width: 480px){
     width: 359px;
-    top: 0px;
+    top: 0;
   }
   @media (max-width: 479px){
     position: absolute;
