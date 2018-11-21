@@ -4,7 +4,10 @@ import {
   fetchUserRequestsSuccess,
   createNewRequest,
   createNewRequestSuccess,
-  createNewRequestFailure
+  createNewRequestFailure,
+  deleteRequest,
+  deleteRequestSuccess,
+  deleteRequestFailure
 } from '../requestActions';
 import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
@@ -93,6 +96,40 @@ describe('Requests Actions', () => {
         error: 'Could not create a new request'
       };
       const newAction = createNewRequestFailure(error);
+      expect(newAction).toEqual(receivedAction);
+    });
+  });
+
+  describe('Delete Request Actions', () => {
+    it('should return action of type DELETE_REQUEST', () => {
+      const requestId = '34hTHY';
+
+      const receivedAction = {
+        type: 'DELETE_REQUEST',
+        requestId: '34hTHY'
+      };
+      const newAction = deleteRequest(requestId);
+      expect(newAction).toEqual(receivedAction);
+    });
+
+    it('should return action of type DELETE_REQUEST_SUCCESS', () => {
+      const message = 'Request 34hTHY was successfully deleted';
+
+      const receivedAction = {
+        type: 'DELETE_REQUEST_SUCCESS',
+        deleteMessage: 'Request 34hTHY was successfully deleted'
+      };
+      const newAction = deleteRequestSuccess(message);
+      expect(newAction).toEqual(receivedAction);
+    });
+
+    it('should return action of type DELETE_REQUEST_FAILURE', () => {
+      const error = 'Request is not found';
+      const receivedAction = {
+        type: 'DELETE_REQUEST_FAILURE',
+        error: 'Request is not found'
+      };
+      const newAction = deleteRequestFailure(error);
       expect(newAction).toEqual(receivedAction);
     });
   });

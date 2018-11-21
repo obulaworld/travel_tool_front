@@ -6,6 +6,7 @@ import {
   watchCreateNewRequestAsync,
   watchFetchUserRequestsDetails,
   watchEditRequest,
+  watchDeleteRequest
 } from './requestsSaga';
 import {
   watchPostUserDataSagaAsync,
@@ -150,7 +151,8 @@ function* rootSaga() {
     watchFileUpload(),
     watchAddMainteinanceAsync(),
     watchDownloadDocuments(),
-    watchAddRoleSaga()
+    watchAddRoleSaga(),
+    watchDeleteRequest()
   ]);
 }
 

@@ -6,7 +6,8 @@ import './Documents.scss';
 class DeleteModal extends Component {
 
   renderDeleteModal() {
-    const { closeModal, shouldOpen, modalType, deleteUserDocument, documentName } = this.props;
+    const { closeModal, shouldOpen,
+      title, modalType, handleDelete, documentName } = this.props;
     return (
       <Modal
         closeModal={closeModal}
@@ -15,16 +16,24 @@ class DeleteModal extends Component {
         visibility={
           shouldOpen && modalType === 'delete document' ? 'visible' : 'invisible'
         }
-        title="Delete document"
+        title={title}
       >
         <span className="delete-checklist-item__disclaimer restore-checklist-items_span">
-          Are you sure you want to delete your
+          Are you sure you want to delete
           <strong>{documentName}</strong>
         </span>
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
-          <button type="button" className="bg-btn bg-btn--active delete-document-button" onClick={deleteUserDocument}>
+          <button 
+            type="button" 
+            className="delete-checklist-item__footer--cancel" 
+            onClick={closeModal}>
+            Cancel
+          </button>
+          <button 
+            type="button" 
+            className="bg-btn bg-btn--active delete-document-button" 
+            onClick={handleDelete}>
             Delete
           </button>
         </div>

@@ -45,8 +45,8 @@ describe('<TableMenu />', () => {
     wrapper = shallow(<TableMenu {...props} />);
 
     expect(wrapper.find('ul').length).toBe(1);
-    expect(wrapper.find('li').length).toBe(3);
-    expect(wrapper.find('img').length).toBe(3);
+    expect(wrapper.find('li').length).toBe(4);
+    expect(wrapper.find('img').length).toBe(4);
   });
 
   it('should render Onclick request works as exepected', () => {
@@ -109,5 +109,33 @@ describe('<TableMenu />', () => {
     travelChecklistSubmission.simulate('click');
     expect(showTravelChecklist).toHaveBeenCalled();
     expect(wrapper.find('#checklistSubmission').length).toBe(1);
+  });
+
+  it('should call `showDeleteModal` on click', () => {
+    let newProps = {
+      ...props,
+      requestStatus: 'Open',
+      openModal: jest.fn(),
+    };
+    wrapper = shallow(<TableMenu {...newProps} />);
+    const deleteRequest = wrapper.find('li#deleteRequest');
+    deleteRequest.simulate('click');
+    expect(wrapper.instance().props.openModal).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call `confirmDeleteRequest` on click', () => {
+    let newProps = {
+      ...props,
+      deleteRequest: jest.fn(),
+      fetchUserRequests: jest.fn(),
+      requestStatus: 'Open',
+      openModal: jest.fn(),
+    };
+    const event = { preventDefault: jest.fn() };
+    wrapper = shallow(<TableMenu {...newProps} />);
+    const deleteRequest = wrapper.find('DeleteModal')
+      .dive().find('.delete-document-button');
+    deleteRequest.simulate('click', event);
+    expect(wrapper.instance().props.deleteRequest).toHaveBeenCalledTimes(1);
   });
 });

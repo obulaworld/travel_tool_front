@@ -14,7 +14,10 @@ import {
   FETCH_EDIT_REQUEST,
   CREATE_COMMENT_SUCCESS,
   DELETE_COMMENT_SUCCESS,
-  EDIT_COMMENT_SUCCESS
+  EDIT_COMMENT_SUCCESS,
+  DELETE_REQUEST,
+  DELETE_REQUEST_SUCCESS,
+  DELETE_REQUEST_FAILURE
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -29,6 +32,25 @@ const initialState = {
 let editedRequestIndex, comments;
 const requests = (state = initialState, action) => {
   switch (action.type) {
+  case DELETE_REQUEST:
+    return {
+      ...state,
+      isDeleting: true,
+    };
+  case DELETE_REQUEST_SUCCESS:
+    return {
+      ...state,
+      isDeleting: false,
+      message: action.message,
+      requests: state.requests.filter(request => 
+        request.id !== action.requestId) 
+    };
+  case DELETE_REQUEST_FAILURE:
+    return {
+      ...state,
+      isDeleting: false,
+      error: action.error
+    };
   case FETCH_USER_REQUESTS:
     return {
       ...state,

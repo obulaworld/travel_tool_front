@@ -105,4 +105,22 @@ describe('RequestAPI', () => {
       destination: 'Nairobi'
     });
   });
+
+  it('should send an DELETE request to delete an existing travel-request', async () => {
+    const requestId = '12FADS';
+
+    moxios.stubRequest(`${baseUrl}/requests/${requestId}`, {
+      status: 200,
+      response: {
+        message: 'Request 12FADS successfully deleted'
+      }
+    });
+
+    const response = await RequestAPI.deleteRequest(requestId);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/requests/${requestId}`);
+    expect(response.data).toEqual({
+      message: 'Request 12FADS successfully deleted'
+    });
+  });
 });

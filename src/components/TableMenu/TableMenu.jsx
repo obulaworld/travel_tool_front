@@ -3,8 +3,23 @@ import PropTypes from 'prop-types';
 import editIcon from '../../images/edit.svg';
 import checkListIcon from '../../images/checklisticon.svg';
 import cancelIcon from '../../images/cancel.svg';
+import deleteIcon from '../../images/deleted.svg';
+import DeleteModal from '../../views/Documents/DeleteModal';
 
 class TableMenu extends PureComponent {
+
+  showDeleteModal = () => {
+    let { openModal } = this.props;
+    openModal(true, 'delete document');
+  }
+
+  confirmDeleteRequest = (e) => {
+    e.preventDefault();
+    const { deleteRequest, request } = this.props;
+    const requestId = request.id;
+    deleteRequest(requestId);
+  }
+  
   handleIconOpentoggle = (toggleMenu, requestId) => {
     return (
       <i
@@ -71,6 +86,29 @@ class TableMenu extends PureComponent {
     );
   }
 
+  renderDelete = () => {
+    const { shouldOpen, closeModal, modalType, request } = this.props;
+    return (
+      <li
+        className="table__menu-list-item"
+        id="deleteRequest"
+        onClick={this.showDeleteModal}
+        role="presentation"
+      >
+        <img src={deleteIcon} alt="delete-icon" className="menu-icon" />
+        Delete
+        <DeleteModal
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
+          handleDelete={this.confirmDeleteRequest}
+          documentName={request.id}
+          title="Delete Request"
+        />
+      </li>
+    );
+  }
+
   renderToggle = () => {
     const {
       toggleMenu,
@@ -103,6 +141,7 @@ class TableMenu extends PureComponent {
                 requestStatus === 'Open' && this.renderTravelCheckListBtn()
               }
               {this.renderCheckListSubmissionBtn()}
+              {requestStatus === 'Open' && this.renderDelete()}
               {this.handleIconClosetoggle(toggleMenu, request.id)}
             </ul>
           )}
@@ -128,6 +167,11 @@ TableMenu.propTypes = {
   type: PropTypes.string.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   menuOpen: PropTypes.object.isRequired,
+  deleteRequest: PropTypes.func.isRequired,
+  shouldOpen: PropTypes.bool.isRequired,
+  modalType: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default TableMenu;

@@ -128,7 +128,7 @@ describe('<Requests />', () => {
       .find('div')
       .at(0);
     requestId.simulate('click');
-    expect(wrapper.find('Modal').length).toEqual(3);
+    expect(wrapper.find('Modal').length).toEqual(4);
   });
   it('should spy on toggleMenu method ', () => {
     const wrapper = mount(<Table {...props} />);

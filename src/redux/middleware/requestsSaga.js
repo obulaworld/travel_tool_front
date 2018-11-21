@@ -4,7 +4,8 @@ import {
   FETCH_USER_REQUESTS,
   CREATE_NEW_REQUEST,
   FETCH_USER_REQUEST_DETAILS,
-  EDIT_REQUEST
+  EDIT_REQUEST,
+  DELETE_REQUEST
 } from '../constants/actionTypes';
 import RequestAPI from '../../services/RequestAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -16,7 +17,9 @@ import {
   fetchUserRequestDetailsSuccess,
   fetchUserRequestDetailsFailure,
   editRequestSuccess,
-  editRequestFailure
+  editRequestFailure,
+  deleteRequestSuccess,
+  deleteRequestFailure
 } from '../actionCreator/requestActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -88,3 +91,19 @@ export function* editRequest(action) {
 export function* watchEditRequest() {
   yield takeLatest(EDIT_REQUEST, editRequest);
 }
+
+export function* watchDeleteRequest() {
+  yield takeLatest(DELETE_REQUEST, deleteRequestSaga);
+}
+
+export function* deleteRequestSaga(action) {
+  try {
+    const response = yield call(RequestAPI.deleteRequest, action.requestId);
+    yield put(deleteRequestSuccess(response.data.message, action.requestId));
+
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(deleteRequestFailure(errorMessage));
+  }
+}
+

@@ -36,7 +36,8 @@ describe('<DeleteModal />', () => {
   });
   it('should render the modal', () => {
     const wrapper = shallow(<DeleteModal {...props} />);
-    wrapper.setProps({ shouldOpen: true, modalType: 'delete document' });
+    wrapper.setProps({ shouldOpen: true,
+      modalType: 'delete document', title: 'Delete document' });
     expect(wrapper.find('button').length).toBe(2);
     expect(wrapper.props().children.props.visibility).toBe('visible');
     expect(wrapper.props().children.props.title).toBe('Delete document');

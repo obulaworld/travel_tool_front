@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {resolveBaseUrl} from '.';
-import testResponse from './__mocks__/mockApprovals';
 
 const baseUrl = resolveBaseUrl();
 
@@ -19,6 +18,10 @@ class RequestAPI {
 
   static editRequest(requestId, requestData) {
     return axios.put(`${baseUrl}/requests/${requestId}`, requestData);
+  }
+
+  static deleteRequest(requestId) {
+    return axios.delete(`${baseUrl}/requests/${requestId}`);
   }
 }
 
