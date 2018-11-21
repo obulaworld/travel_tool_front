@@ -17,12 +17,13 @@ describe('Readiness API', () => {
     const query = {
       page: '1',
       limit: '5',
-      type: 'json'
+      type: 'json',
+      travelFlow: 'inflow'
     };
     moxios.stubRequest(
       `${baseUrl}/analytics/readiness?page=${query.page}&limit=${
         query.limit
-      }&type=${query.type}`,
+      }&type=${query.type}&travelFlow=${query.travelFlow}`,
       {
         status: 200,
         response: fetchReadinessResponse
@@ -32,23 +33,24 @@ describe('Readiness API', () => {
     expect(moxios.requests.mostRecent().url).toEqual(
       `${baseUrl}/analytics/readiness?page=${query.page}&limit=${
         query.limit
-      }&type=${query.type}`
+      }&type=${query.type}&travelFlow=${query.travelFlow}`
     );
     expect(response.data).toEqual(fetchReadinessResponse);
   });
   it('should make a get request to export travel readiness', async () => {
     const query = {
-      type: 'file'
+      type: 'file',
+      travelFlow: 'inflow'
     };
     moxios.stubRequest(
-      `${baseUrl}/analytics/readiness?type=${query.type}`,
+      `${baseUrl}/analytics/readiness?type=${query.type}&travelFlow=${query.travelFlow}`,
       {
         status: 200,
       }
     );
     const response = await ReadinessAPI.exportTravelReadiness(query);
     expect(moxios.requests.mostRecent().url).toEqual(
-      `${baseUrl}/analytics/readiness?type=${query.type}`
+      `${baseUrl}/analytics/readiness?type=${query.type}&travelFlow=${query.travelFlow}`
     );
     expect(response.status).toEqual(200);
   });

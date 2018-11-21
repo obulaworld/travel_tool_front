@@ -254,6 +254,7 @@ exports[`<Requests> renders as expected 1`] = `
       fetchSubmission={[Function]}
       fetchUserRequests={[Function]}
       fileUploads={Object {}}
+      handleCloseSubmissionModal={[Function]}
       history={
         Object {
           "push": [Function],
@@ -446,7 +447,6 @@ exports[`<Requests> renders as expected 1`] = `
         }
       }
       type="requests"
-      uploadTripSubmissions={[Function]}
     />
   </div>
   <div

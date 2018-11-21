@@ -33,13 +33,26 @@ const setup = (props) => {
 };
 describe('Test suite for Travel Readiness Component', () => {
   let wrapper;
-  beforeAll(() => {
+  beforeEach(() => {
     wrapper = setup();
   });
 
-  it('should render the component properly', () => {
+  it('should render the component properly when inflow or during first render', () => {
     const analyticsReport = wrapper.find('.analyticsReport__row');
+    const getTravelFlowSpy = jest.spyOn(wrapper.instance(), 'getTravelFlow');
+    wrapper.find('.travel-readiness-toggle-button-0').simulate('click');
+    expect(getTravelFlowSpy).toHaveBeenCalledTimes(1);
     expect(wrapper.length).toBe(1);
+    expect(wrapper.find('#active-travel-flow-button').length).toBe(1);
+    expect(analyticsReport.length).toBe(3);
+  });
+  it('should render component properly when outflow travel readiness is requested', () => {
+    const analyticsReport = wrapper.find('.analyticsReport__row');
+    const getTravelFlowSpy = jest.spyOn(wrapper.instance(), 'getTravelFlow');
+    wrapper.find('.travel-readiness-toggle-button-1').simulate('click');
+    expect(getTravelFlowSpy).toHaveBeenCalledTimes(1);
+    expect(wrapper.length).toBe(1);
+    expect(wrapper.find('#active-travel-flow-button').length).toBe(1);
     expect(analyticsReport.length).toBe(3);
   });
 
