@@ -29,7 +29,7 @@ export default class TripDetails extends PureComponent {
       <div id="return-date">
         { tripType !== 'oneWay' ?
           (<TripDetail
-            label="Return date"
+            label={tripType === 'multi' ? 'Leaving' : 'Return date'}
             value={generateDynamicDate(tripDetails, returnDate)} />
           )  : ''
         }

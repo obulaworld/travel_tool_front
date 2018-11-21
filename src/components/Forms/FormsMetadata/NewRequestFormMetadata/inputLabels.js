@@ -40,6 +40,10 @@ const inputLabels = {
     label: 'Return'
   },
 
+  leavingDate: {
+    label: 'Leaving'
+  },
+
   bed: {
     label: 'Available rooms'
   },
