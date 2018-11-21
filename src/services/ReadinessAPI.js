@@ -11,7 +11,7 @@ class ReadinessAPI {
   }
 
   static exportTravelReadiness(query) {
-    return axios.get(`${baseUrl}/analytics/readiness?page=${query.page}&limit=${query.limit}&type=${query.type}`, {responseType: 'blob'});
+    return axios.get(`${baseUrl}/analytics/readiness?type=${query.type}`, {responseType: 'blob'});
   }
 }
 

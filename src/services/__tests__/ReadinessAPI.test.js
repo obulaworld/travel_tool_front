@@ -38,23 +38,17 @@ describe('Readiness API', () => {
   });
   it('should make a get request to export travel readiness', async () => {
     const query = {
-      page: '1',
-      limit: '5',
       type: 'file'
     };
     moxios.stubRequest(
-      `${baseUrl}/analytics/readiness?page=${query.page}&limit=${
-        query.limit
-      }&type=${query.type}`,
+      `${baseUrl}/analytics/readiness?type=${query.type}`,
       {
         status: 200,
       }
     );
     const response = await ReadinessAPI.exportTravelReadiness(query);
     expect(moxios.requests.mostRecent().url).toEqual(
-      `${baseUrl}/analytics/readiness?page=${query.page}&limit=${
-        query.limit
-      }&type=${query.type}`
+      `${baseUrl}/analytics/readiness?type=${query.type}`
     );
     expect(response.status).toEqual(200);
   });

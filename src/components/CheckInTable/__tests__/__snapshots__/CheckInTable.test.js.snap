@@ -3,7 +3,7 @@
 exports[`Test Suite for Accommodation Component renders as expected 1`] = `
 <Fragment>
   <div
-    className="table__container padding-top"
+    className="table__container table__resize padding-top"
   >
     <table
       className="mdl-data-table mdl-js-data-table checkInTable__trips"
@@ -16,18 +16,18 @@ exports[`Test Suite for Accommodation Component renders as expected 1`] = `
           key="3"
         >
           <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data"
+            className="mdl-data-table__cell--non-numeric checkInTable__data__roomName undefined"
           >
             Mini flat, big cutter,
                   bed 1
           </td>
           <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data"
+            className="mdl-data-table__cell--non-numeric checkInTable__data undefined"
           >
             27th Sep - 4th Oct 2018
           </td>
           <td
-            className="mdl-data-table__cell--non-numeric checkInTable__data table__button-column"
+            className="mdl-data-table__cell--non-numeric checkInTable__data__column table__button-column"
           >
             <button
               className="checkInTable__button-checkin"

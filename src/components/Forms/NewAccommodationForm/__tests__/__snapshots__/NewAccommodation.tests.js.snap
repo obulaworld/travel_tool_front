@@ -389,6 +389,13 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
             </div>
           </div>
         </div>
+        <img
+          alt="clicked"
+          className="cancel-button"
+          onClick={[Function]}
+          role="presentation"
+          src="delete.svg"
+        />
       </div>
     </div>
     <div

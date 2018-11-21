@@ -23,7 +23,7 @@ export function* watchFetchReadiness(){
 export function* exportReadinessSaga(action){
   try{
     const response = yield call(ReadinessAPI.exportTravelReadiness, action.query);
-    yield FileSaver.saveAs(response.data, 'Travel readiness for all travelers');
+    yield FileSaver.saveAs(response.data, 'Travel readiness for all travelers.csv');
     yield put(exportReadinessSuccess());
   }catch(error){
     let errorMessage = apiErrorHandler(error);

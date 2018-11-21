@@ -26,7 +26,7 @@ class TravelReadiness extends Component {
   }
   getReadinessCSV = () => {
     const { exportReadiness } = this.props;
-    exportReadiness({ page: '1', limit:'6', type: 'file', });
+    exportReadiness({ type: 'file', });
   
   }
   
