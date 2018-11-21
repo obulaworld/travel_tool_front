@@ -7,9 +7,9 @@ form .form-input {
     @media (max-width: 450px) {
     width: 100%;
     .arrival-date {
-      width: calc(100% - 10px) !important;
+      width: calc(100% - 0px) !important;
       .calendar-icon {
-        right: 20px !important;
+        right: 12px !important;
       }
     }
   }
@@ -96,6 +96,9 @@ form .form-input {
 
     &::placeholder {
       color: #999999;
+      @media(max-width: 450px) {
+        font-size: 10.5px;
+      }
     }
     .value {
       position: relative;
@@ -224,6 +227,7 @@ form .form-input {
     box-shadow: 0.5px 0px 1px 0px rgba(0, 0, 0, 0.1);
     margin: 0;
     position: absolute;
+    z-index: 10;
   }
   .react-datepicker-popper[data-placement^="top"] {
     margin: 0;

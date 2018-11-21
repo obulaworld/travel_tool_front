@@ -1,5 +1,6 @@
 form.new-request {
   fieldset {
+    display: flex;
     div {
       div.disable-details {
         pointer-events: none;
@@ -11,6 +12,42 @@ form.new-request {
       width: 100%;
       display: flex;
       justify-content: flex-start;
+      @media (max-width: 1405px) {
+        width: 1000px;
+      }
+      @media (max-width: 1320px) {
+        width: 1000px;
+      }
+      @media (max-width: 1270px) {
+        width: 950px;
+      }
+      @media (max-width: 1220px) {
+        width: 900px;
+      }
+      @media (max-width: 1150px) {
+        width: 850px;
+      }
+      @media (max-width: 1120px) {
+        width: 800px;
+      }
+      @media (max-width: 1024px) {
+        width: 700px;
+      }
+      @media (max-width: 916px) {
+        width: 600px;
+      }
+      @media (max-width: 788px) {
+        width: 500px;
+      }
+      @media (max-width: 668px) {
+        width: 400px;
+      }
+      @media (max-width: 540px) {
+        width: 300px;
+      }
+      @media (max-width: 420px) {
+        width: 200px;
+      }
     }
     .spaces {
       margin-right: 30px;
@@ -25,7 +62,7 @@ form.new-request {
       padding-bottom: 11px;
     }
     .style-h5 {
-      display: 'flex';
+      display: flex;
       justify-content: 'center';
       font-family: 'DIN Pro';
     }
@@ -48,7 +85,6 @@ form.new-request {
 
     .rectangle {
       box-shadow: 0 0 0 1px #e4e4e4;
-      height: 90px;
       border: 1px solid #e4e4e4;
       border-radius: 2px;
       background-color: #f8f8f8;
@@ -56,15 +92,14 @@ form.new-request {
       color: gray;
       &.multi {
         border-left: 10px solid #FFAF30;
-        width: 1095px;
+        width: 100%;
       }
     }
     .style-details {
       display: flex;
       flex-wrap: wrap;
-      width: 1096px;
       padding: 10px;
-      margin-left: 20px;
+      margin-left: 10px;
       box-sizing: border-box;
     }
 
@@ -119,11 +154,47 @@ h1 {
 
 .add-multi-trip-area{
   height: 50px;
-  width: 1105px;
+  width: 100%;
   border: 1px solid  #D4D4D4;
   border-style: dashed;
   border-radius: 2px;
   background-color: #FFFFFF;
+  @media (max-width: 1405px) {
+    width: 1000px;
+  }
+  @media (max-width: 1320px) {
+    width: 1000px;
+  }
+  @media (max-width: 1270px) {
+    width: 950px;
+  }
+  @media (max-width: 1220px) {
+    width: 900px;
+  }
+  @media (max-width: 1150px) {
+    width: 850px;
+  }
+  @media (max-width: 1120px) {
+    width: 800px;
+  }
+  @media (max-width: 1024px) {
+    width: 700px;
+  }
+  @media (max-width: 916px) {
+    width: 600px;
+  }
+  @media (max-width: 788px) {
+    width: 500px;
+  }
+  @media (max-width: 668px) {
+    width: 400px;
+  }
+  @media (max-width: 540px) {
+    width: 300px;
+  }
+  @media (max-width: 420px) {
+    width: 200px;
+  }
 }
 .another-trip{
   height: 21px;
