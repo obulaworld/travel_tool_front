@@ -84,7 +84,7 @@ export class Documents extends Component {
   }
 
 
-  
+
   handleSubmitDownload = () => {
     const { documentToDownlod: { name } } = this.state; return (
       <div className="download-document-body">
@@ -110,7 +110,7 @@ export class Documents extends Component {
       </div>
     );
   }
-  
+
   renderDocumentEditModal = () => {
     const { shouldOpen, modalType } = this.props;
     return (
@@ -130,7 +130,7 @@ export class Documents extends Component {
     );
   }
   renderSubmitArea = () => {
-    const { documentOnEdit } = this.props;
+    const { isUpdating } = this.props;
     return (
       <div className="submit-area">
         <p>
@@ -140,13 +140,13 @@ export class Documents extends Component {
             id="oncancel"
             onClick={this.handleCloseEditModal}
           >
-            Cancel
+            Cancels
           </button>
           <button
             type="button"
             className="bg-btn bg-btn--inactive doc-btn-save"
             id="cancel"
-            disabled={documentOnEdit && !documentOnEdit.name}
+            disabled={isUpdating}
             onClick={this.handleRenameDocument}
           >
             Save
@@ -163,7 +163,7 @@ export class Documents extends Component {
       <div className="doc-rename">
         <label htmlFor="doc-rename-input">
             Name
-          <span className="asterick">*</span>
+          <span className="asterisk">*</span>
           <br />
           <input
             type="text"
@@ -217,7 +217,7 @@ export class Documents extends Component {
   renderDocumentsForm() {
     const { closeModal, shouldOpen, modalType, user, createDocument } = this.props;
     return (
-      <Modal 
+      <Modal
         customModalStyles="add-document-item" closeModal={closeModal} width="480px" height="375px"
         visibility={
           shouldOpen && (modalType === 'add document') ? 'visible' : 'invisible'
@@ -247,7 +247,7 @@ export class Documents extends Component {
       <Fragment>
         {this.renderDocumentsForm()}
         {this.renderDocumentsHeader()}
-        
+
         <div className="document__table">
           {isLoading ? <Preloader /> : currentDocuments }
         </div>
@@ -279,6 +279,7 @@ export const mapStateToProps = ({ modal, user, documents }) => ({
   documents: documents.documents,
   isLoading: documents.isLoading,
   documentOnEdit: documents.documentOnEdit,
+  isUpdating: documents.updatingDocument,
 });
 
 const matchDispatchToProps = {
@@ -311,6 +312,7 @@ Documents.propTypes = {
   removeDocumentFromEdit: PropTypes.func.isRequired,
   updateDocument: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
 };
 
 
