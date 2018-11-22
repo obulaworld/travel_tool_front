@@ -9,6 +9,10 @@
   margin-bottom: 10px;
 }
 
+form fieldset:last-child .submit-area {
+  width: 91%;
+}
+
 .document-input {
   box-sizing: border-box;
   height: 61px;
@@ -16,7 +20,18 @@
   border: 1px solid #D4D4D4;
   border-radius: 2px;
   background-color: #F8F8F8;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
+  border-style: dashed;
+  font-weight: 300;
+  
+  .file-errors {
+    margin-top: 70px;
+    color: #999999;
+    font-size: 12px;
+    display:flex;
+    justify-content: space-between;
+    
+  }
 
   input[type=file] {
     height: 59px;

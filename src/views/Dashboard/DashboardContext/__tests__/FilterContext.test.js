@@ -2,7 +2,7 @@ import React from 'react';
 import FilterContext from '../FilterContext';
 
 const props = {
-  children: []
+  children: [],
 };
 
 describe('<FilterContext />', () => {

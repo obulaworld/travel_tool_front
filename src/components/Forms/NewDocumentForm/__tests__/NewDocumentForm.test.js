@@ -13,6 +13,16 @@ describe('<NewDocumentForm />', () => {
     onCancel: jest.fn,
   };
 
+  const file = {
+    name: 'file.jpg',
+    lastModified: 1517684494000,
+    lastModifiedDate:
+        'Sat Feb 03 2018 20:01:34 GMT+0100 (West Africa Standard Time)',
+    webkitRelativePath: '',
+    size: 212919,
+    type: 'application/pdf'
+  };
+
   beforeEach(() => {
     wrapper = mount(<NewDocumentForm {...props} />);
   });
@@ -25,6 +35,7 @@ describe('<NewDocumentForm />', () => {
   FileReader.prototype.readAsDataURL = function(file) {
     this.result = this.fakeData;
   };
+  FileReader.prototype.onload = jest.fn();
 
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
@@ -42,14 +53,7 @@ describe('<NewDocumentForm />', () => {
       preventDefault: jest.fn(),
       target: {
         files: [
-          {
-            name: '57f556259d75538-a-nw-p.jpg',
-            lastModified: 1517684494000,
-            lastModifiedDate:
-              'Sat Feb 03 2018 20:01:34 GMT+0100 (West Africa Standard Time)',
-            webkitRelativePath: '',
-            size: 212919
-          }
+          file
         ]
       }
     };

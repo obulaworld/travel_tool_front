@@ -260,4 +260,17 @@ describe('Render RequestsModal component', () => {
     const headerWrapper = shallow(<RequestDetailsHeader requestData={requestData} />);
     expect(headerWrapper).toMatchSnapshot();
   });
+
+  describe('Connected RequestDetailsModal component', () => {
+    it('tests that the component successfully rendered', () => {
+      const requestData = {
+        tripType: {
+          return: '',
+          oneWay: ''
+        }
+      };
+      const headerWrapper = shallow(<RequestDetailsHeader requestData={requestData} />);
+      expect(headerWrapper).toMatchSnapshot();
+    });
+  });
 });

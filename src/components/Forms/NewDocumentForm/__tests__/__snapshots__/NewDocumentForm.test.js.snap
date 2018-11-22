@@ -28,6 +28,18 @@ exports[`<NewDocumentForm /> renders correctly 1`] = `
       onChange={[Function]}
       type="file"
     />
+    <div
+      className="file-errors"
+    >
+      <span>
+        Allowed files: *jpeg, *pdf, *png
+      </span>
+      <span
+        id="size"
+      >
+        Max size: 10mb
+      </span>
+    </div>
   </div>
   <div
     className="form-input  "
@@ -59,7 +71,6 @@ exports[`<NewDocumentForm /> renders correctly 1`] = `
       className="error"
     />
   </div>
-  <hr />
   <fieldset>
     <div
       className="submit-area"
