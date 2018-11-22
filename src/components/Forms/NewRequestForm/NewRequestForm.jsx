@@ -73,13 +73,15 @@ class NewRequestForm extends PureComponent {
       'manager'
     ];
     personalDetailsAttributes.map(attrb => {
-      if (modalType === 'edit request')
-        return (personalDetails[attrb] = detailsSource[attrb]);
-      userData.name = userData.passportName;
-      userData.role = userData.occupation;
-      let value = userData[attrb];
-      value = !/^null|undefined$/.test(value) ? value : '';
-      return (personalDetails[attrb] = value);
+      if(userData)  {
+        if (modalType === 'edit request')
+          return (personalDetails[attrb] = detailsSource[attrb]);
+        userData.name = userData.passportName;
+        userData.role = userData.occupation;
+        let value = userData[attrb];
+        value = !/^null|undefined$/.test(value) ? value : '';
+        return (personalDetails[attrb] = value);
+      }
     });
     return personalDetails;
   };
