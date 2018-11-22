@@ -121,6 +121,9 @@ class NewRequestForm extends PureComponent {
     const dateName = dateWrapperId.split('_')[0];
     const getId = dateName.split('-')[1];
     const dateStartsWithDeparture = dateName.startsWith('departure');
+    const dateStartsWithArrival = dateName.startsWith('arrival');
+
+
     if (trips[getId]) {
       if (dateStartsWithDeparture) {
         trips[getId].departureDate = dateFormat;
@@ -131,6 +134,26 @@ class NewRequestForm extends PureComponent {
       trips.push({
         [dateName.split('-')[0]]: dateFormat
       });
+    }
+
+    if (dateStartsWithArrival && selection === 'multi' ) {
+      const targetFieldId = Number(getId) + 1;
+      this.setState(
+        prevState => {
+          const { trips } = prevState;
+          const newTrips = [...trips];
+
+          if (targetFieldId < newTrips.length) { newTrips[targetFieldId].departureDate = dateFormat; }
+          return {
+            targetFieldId,
+            values: {
+              ...prevState.values,
+              [`departureDate-${targetFieldId}`]: date
+            },
+            trips: [...newTrips]
+          };
+        }
+      );
     }
 
     const onPickDate =
@@ -327,13 +350,19 @@ class NewRequestForm extends PureComponent {
     return this.setState(prevState => {
       const { parentIds, values, trips } = prevState;
       const addedTripStateValues = this.getDefaultTripStateValues(parentIds);
+      const nextDepartureField = `departureDate-${parentIds}`;
+      const lastArrivalValue = values[`arrivalDate-${parentIds - 1}`];
+      addedTripStateValues[nextDepartureField] = lastArrivalValue;
+      const newTripDepartureDate = lastArrivalValue && lastArrivalValue.format('YYYY-MM-DD');
+
       return {
         parentIds: parentIds + 1,
-        trips: trips.concat([{}]),
+        trips: trips.concat([{departureDate: newTripDepartureDate}]),
         values: { ...values, ...addedTripStateValues }
       };
     }, this.validate);
   }
+
   removeTrip = (i) => {
     const tripProps = ['origin', 'destination', 'arrivalDate', 'departureDate', 'bed'];
     this.setState((prevState) => {

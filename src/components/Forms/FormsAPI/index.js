@@ -29,11 +29,15 @@ class InputRenderer {
   }
 
   renderInput = (name, type, customProps) => {
+    const selection = customProps && customProps.selection;
+    const labelKey = name.split('-')[0];
+    const fieldName = (labelKey.match('arrivalDate') && (selection && !selection.match('return')))
+      ? 'leavingDate' : labelKey;
     let inputProps = {
       name,
       type,
-      label: this.formMetadata.inputLabels[name.split('-')[0]].label,
-      labelNote: this.formMetadata.inputLabels[name.split('-')[0]].note,
+      label: this.formMetadata.inputLabels[fieldName].label,
+      labelNote: this.formMetadata.inputLabels[fieldName].note,
       autoComplete: 'off'
     };
     customProps ? inputProps['data-parentid'] = customProps.parentid : null;

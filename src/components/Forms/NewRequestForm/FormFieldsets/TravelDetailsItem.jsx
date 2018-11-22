@@ -104,7 +104,8 @@ class TravelDetailsItem extends Component {
       itemId,
       values,
       renderInput,
-      customPropsForDeparture
+      customPropsForDeparture,
+      selection,
     } = this.props;
     return (
       <div className="others-width" role="presentation">
@@ -112,7 +113,8 @@ class TravelDetailsItem extends Component {
           ...customPropsForDeparture(values),
           parentid: itemId,
           handleDate: this.handleDate,
-          onChange: this.handleDate
+          onChange: this.handleDate,
+          selection
         })}
       </div>
     );
@@ -124,6 +126,7 @@ class TravelDetailsItem extends Component {
       values,
       renderInput,
       customPropsForArrival,
+      selection,
     } = this.props;
     return(
       <div className="others-width" role="presentation">
@@ -134,7 +137,8 @@ class TravelDetailsItem extends Component {
           ),
           parentid: itemId,
           handleDate: this.handleDate,
-          onChange: this.handleDate
+          onChange: this.handleDate,
+          selection
         })}
       </div>
     );
