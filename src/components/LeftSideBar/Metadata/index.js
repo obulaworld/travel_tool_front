@@ -40,6 +40,11 @@ const NavItemsMetadata = [
       {
         link_to: '/requests/my-approvals',
         text: 'My Approvals'
+      },
+      {
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
+        link_to: '/requests/my-verifications',
+        text: 'My Verifications'
       }
     ],
     icons: {

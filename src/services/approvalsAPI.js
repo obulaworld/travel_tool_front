@@ -9,7 +9,11 @@ class ApprovalsApi {
   }
 
   static updateRequestStatus(data) {
-    return axios.put(`${baseUrl}/approvals/${data.requestId}`, data);
+    let url = `${baseUrl}/approvals/${data.requestId}`;
+    if (data.newStatus === 'Verified') {
+      url = `${baseUrl}/requests/${data.requestId}/verify`;
+    }
+    return axios.put(url, data);
   }
 }
 

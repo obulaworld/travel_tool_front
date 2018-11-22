@@ -53,4 +53,25 @@ describe('ApprovalAPI', () => {
       status: 'Approved'
     });
   });
+  it('should send a PUT request to update a request status to verified', async () => {
+    const statusUpdateData = {
+      requestId: 1,
+      newStatus: 'Verified'
+    };
+
+    moxios.stubRequest(`${baseUrl}/requests/1/verify`, {
+      status: 200,
+      response: {
+        status: 'Verified'
+      }
+    });
+
+    const response = await ApprovalAPI.updateRequestStatus(statusUpdateData);
+    const request = moxios.requests.mostRecent();
+    expect(request.url).toEqual(`${baseUrl}/requests/1/verify`);
+    expect(request.config.method).toEqual('put');
+    expect(response.data).toEqual({
+      status: 'Verified'
+    });
+  });
 });

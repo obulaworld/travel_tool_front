@@ -27,6 +27,15 @@ export class Table extends Component {
     );
     return `${duration + 1} days`;
   }
+
+  getRequestStatusClassName(status) {
+    let newStatus = 'request__status--approved';
+    newStatus = (status === 'Open') ? 'request__status--open' : newStatus;
+    newStatus = (status === 'Rejected') ? 'request__status--rejected' : newStatus;
+    newStatus = (status === 'Verified') ? 'request__status--verified' : newStatus;
+    return newStatus;
+  }
+
   toggleMenu = requestId => {
     const { menuOpen } = this.state;
     if (menuOpen.id !== requestId) {
@@ -68,6 +77,14 @@ export class Table extends Component {
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
   }
 
+  retrieveStatusTag = (requestData, type) => {
+    let tag = 'Travel stage';
+    if (requestData.status && requestData.status === 'Approved') {
+      tag = 'Manager Stage';
+    }
+    return tag;
+  }
+
   fetchRequestChecklist(trips){
     const destinations=trips.map(trip=>{return this.fetchChecklistData(trip.destination);});
     return destinations;
@@ -92,13 +109,7 @@ export class Table extends Component {
         <div className="table__menu">
           <div
             id={`status-${request.id}`}
-            className={
-              request.status === 'Open'
-                ? 'request__status--open'
-                : request.status === 'Rejected'
-                  ? 'request__status--rejected'
-                  : 'request__status--approved'
-            }
+            className={this.getRequestStatusClassName(request.status)}
           >
             {request.status}
           </div>
@@ -131,21 +142,31 @@ export class Table extends Component {
     );
   }
 
+  renderName(type, request) {
+    return type === 'approvals' && (
+      <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
+        {request.name}
+      </td>
+    );
+  }
+
+  renderTravelCompletion(type, travelCompletion) {
+    return (type === 'requests' || type === 'verifications') && (
+      <td className="mdl-data-table__cell--non-numeric table__data">
+        {travelCompletion || '0% complete'}
+      </td>
+    );
+  }
+
   renderRequest(request, type) {
     const { trips, travelCompletion } = request;
     const tripTypeFormatted = this.formatTripType(request.tripType);
     const travelDuration =
-      request.tripType !== 'oneWay'
-        ? this.getDuration(trips)
-        : 'Not applicable';
+      request.tripType !== 'oneWay' ? this.getDuration(trips) : 'Not applicable';
     return (
       <tr key={request.id} className="table__row">
         {this.renderApprovalsIdCell(request)}
-        {type === 'approvals' && (
-          <td className="mdl-data-table__cell--non-numeric table__data pl-sm-100">
-            {request.name}
-          </td>
-        )}
+        {this.renderName(type, request)}
         <td
           className={`mdl-data-table__cell--non-numeric table__data ${
             type === 'requests' ? 'pl-sm-100' : ''
@@ -162,11 +183,7 @@ export class Table extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">
           {moment(request.departureDate).format('DD MMM YYYY')}
         </td>
-        { type === 'requests' && (
-          <td className="mdl-data-table__cell--non-numeric table__data">
-            {travelCompletion || '0% complete'}
-          </td>
-        )}
+        { this.renderTravelCompletion(type, travelCompletion)}
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
           {this.renderRequestStatus(request)}
         </td>
@@ -201,7 +218,7 @@ export class Table extends Component {
         <th className="mdl-data-table__cell--non-numeric table__head">
           Date Created
         </th>
-        { type === 'requests' && (
+        { (type === 'requests' || type === 'verifications') && (
           <th className="mdl-data-table__cell--non-numeric table__head">
             Travel checklist
           </th>
@@ -213,8 +230,9 @@ export class Table extends Component {
     );
   }
 
+
   renderDetailsModal() {
-    const { closeModal, shouldOpen, modalType, requestId, page, requestData } = this.props;
+    const { closeModal, shouldOpen, modalType, requestId, page, requestData, type } = this.props;
     return (
       <Modal
         requestId={requestId}
@@ -229,10 +247,15 @@ export class Table extends Component {
         }
         title={`#${requestId} Request Details`}
         modalBar={
-          <div className="table__modal-bar-text">{(requestData.status && requestData.status === 'Approved') ? 'Travel stage' : 'Manager Stage'}</div>
+          <div className="table__modal-bar-text">{this.retrieveStatusTag(requestData, type)}</div>
         }
       >
-        <RequestsModal navigatedPage={page} requestId={requestId} />
+        {(type === 'verifications') &&
+          <RequestsModal navigatedPage={page} requestId={requestId} />
+        }
+        {(type !== 'verifications') &&
+          <RequestsModal navigatedPage={page} requestId={requestId} />
+        }
       </Modal>
     );
   }

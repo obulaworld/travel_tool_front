@@ -6,6 +6,7 @@ import ConnectedRequests from '../views/Requests';
 import ConnectedGuestHouseDetails from '../views/Accommodation/FullGuestHouseDetails';
 import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
+import ConnectedVerifications from '../views/Verifications';
 import ConnectedRole from '../views/Role';
 import ConnectedUserProfile from '../views/UserProfile';
 import LayoutShell from '../hoc/Layout';
@@ -40,6 +41,16 @@ const Routes = () => (
             path="/requests/my-approvals"
             exact
             component={RequireAuth(ConnectedApprovals)}
+          />
+          <Route
+            path="/requests/my-verifications"
+            exact
+            component={RequireAuth(ConnectedVerifications)}
+          />
+          <Route
+            path="/requests/my-verifications/:requestId"
+            exact
+            component={RequireAuth(ConnectedVerifications)}
           />
           <Route
             path="/requests"
