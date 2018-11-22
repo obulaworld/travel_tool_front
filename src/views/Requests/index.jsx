@@ -7,14 +7,20 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
-import {fetchUserRequests,createNewRequest,editRequest,fetchEditRequest,fetchUserRequestDetails,} from '../../redux/actionCreator/requestActions';
-import { fetchAvailableRooms, fetchAvailableRoomsSuccess } from '../../redux/actionCreator/availableRoomsActions';
+import { 
+  fetchAvailableRooms, fetchAvailableRoomsSuccess 
+} from '../../redux/actionCreator/availableRoomsActions';
+import {
+  fetchUserRequests, createNewRequest, editRequest,
+  fetchEditRequest, fetchUserRequestDetails,
+} from '../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
 import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
 import { fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
+import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 
 
 export class Requests extends Base {
@@ -30,7 +36,9 @@ export class Requests extends Base {
   };
 
   componentDidMount() {
-    const {openModal, fetchUserRequests, fetchAvailableRooms, getOccupation, fetchRoleUsers, page,
+    const {
+      openModal, fetchUserRequests, fetchAvailableRooms, 
+      getOccupation, fetchRoleUsers, page,
       match: {
         params: { requestId }
       }
@@ -52,21 +60,19 @@ export class Requests extends Base {
     openModal(true, 'edit request');
   }
 
-  handleShowTravelChecklist = (requestId) => {
-    const { fetchTravelChecklist, openModal } = this.props;
-    fetchTravelChecklist(requestId);
-    openModal(true, 'travel checklist');
+  handleShowTravelChecklist = (request, modalType) => {
+    const { fetchTravelChecklist, openModal, fetchSubmission } = this.props;
+    const { id: requestId, tripType } = request;
+    modalType.match('travel checklist') && fetchTravelChecklist(requestId);
+    modalType.match('upload submissions') && 
+      fetchSubmission({ requestId, tripType });
+    openModal(true, modalType);
   }
   
   handleUploadSubmissionModal = (request) => {
     const {openModal, fetchEditRequest } = this.props;
     fetchUserRequestDetails(request.id);
     openModal(true, 'upload submissions');
-  }
-
-  handleFetchTravelChecklist = (requestId) => {
-    const { fetchTravelChecklist } = this.props;
-    fetchTravelChecklist(requestId);
   }
 
   fetchRequests = query => {
@@ -98,7 +104,10 @@ export class Requests extends Base {
   };
 
   renderRequestPanelHeader() {
-    const {openRequestsCount,requests,pastRequestsCount,openModal,shouldOpen,modalType} = this.props;
+    const {
+      openRequestsCount, requests, pastRequestsCount, openModal, 
+      shouldOpen,modalType
+    } = this.props;
     const { url, activeStatus } = this.state;
     return (
       <div className="rp-requests__header">
@@ -122,74 +131,67 @@ export class Requests extends Base {
     const {
       history, location, openModal, closeModal, shouldOpen, modalType ,
       travelChecklists, fetchSubmission, postSubmission, submissionInfo,
-      isFetching, requestData } = this.props;
-    const { requestId } = this.state;
+      isFetching, requestData, uploadFile, fileUploads, fetchUserRequests
+    } = this.props;
+    const { url, requestId } = this.state;
     return (
       <div className="rp-table">
         <WithLoadingTable
-          type="requests"
-          editRequest={this.handleEditRequest}
+          type="requests" editRequest={this.handleEditRequest}
           travelChecklists={travelChecklists}
-          fetchTravelChecklist={this.handleFetchTravelChecklist}
           showTravelChecklist={this.handleShowTravelChecklist}
           uploadTripSubmissions={this.handleUploadSubmissionModal}
-          location={location}
-          history={history}
-          requestId={requestId}
-          requests={requests}
-          isLoading={isLoading}
-          fetchRequestsError={error}
-          closeModal={closeModal}
-          openModal={openModal}
-          shouldOpen={shouldOpen}
-          modalType={modalType}
-          message={message}
-          page="Requests"
-          fetchSubmission={fetchSubmission}
-          postSubmission={postSubmission}
-          submissionInfo={submissionInfo}
-          isFetching={isFetching}
-          requestData={requestData}
+          location={location} history={history}
+          fetchUserRequests={() => fetchUserRequests(url)}
+          requestId={requestId} requests={requests}
+          isLoading={isLoading} fetchRequestsError={error}
+          closeModal={closeModal} openModal={openModal}
+          shouldOpen={shouldOpen} modalType={modalType}
+          message={message} page="Requests" fileUploads={fileUploads}
+          fetchSubmission={fetchSubmission} postSubmission={postSubmission}
+          submissionInfo={submissionInfo} isFetching={isFetching}
+          requestData={requestData} uploadFile={uploadFile}
         />
       </div>
     );
   }
   renderNewRequestForm() {
-    const {updateUserProfile,userData, getUserData, user,createNewRequest,loading,errors,closeModal,shouldOpen,
-      modalType,managers,requestOnEdit,editRequest,fetchUserRequests,occupations,
-      fetchAvailableRooms,  availableRooms, fetchAvailableRoomsSuccess} = this.props;
+    const {
+      updateUserProfile, userData, getUserData, 
+      user, createNewRequest, 
+      loading,errors,closeModal,shouldOpen,
+      modalType,managers,requestOnEdit,editRequest,
+      fetchUserRequests,occupations,
+      fetchAvailableRooms,  availableRooms, fetchAvailableRoomsSuccess
+    } = this.props;
     const { url } = this.state;
     return (
       <Modal
         closeModal={closeModal}
         width="81.95%"
-        visibility={(shouldOpen && (modalType === 'edit request' || modalType === 'new model')) ? 'visible' : 'invisible'}
+        visibility={(shouldOpen && (modalType === 'edit request' || modalType === 'new model'))
+          ? 'visible' : 'invisible'
+        }
         title={modalType === 'edit request' ? 'Edit Travel Request' : 'New Travel Request'}
       >
         <NewRequestForm
-          updateUserProfile={updateUserProfile}
-          userData={userData && userData.result}
-          user={user}
+          updateUserProfile={updateUserProfile} user={user} errors={errors}
+          userData={userData && userData.result} occupations={occupations}
           handleCreateRequest={createNewRequest}
-          handleEditRequest={editRequest}
-          loading={loading}
-          errors={errors}
-          closeModal={closeModal}
-          managers={managers}
-          availableRooms={availableRooms}
-          modalType={modalType}
-          requestOnEdit={requestOnEdit}
-          fetchUserRequests={() => fetchUserRequests(url)}
-          fetchAvailableRooms={fetchAvailableRooms}
-          occupations={occupations}
-          getUserData={getUserData}
+          handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
+          managers={managers} availableRooms={availableRooms} modalType={modalType}
+          requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
+          fetchAvailableRooms={fetchAvailableRooms} getUserData={getUserData}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
         />
       </Modal>
     );
   }
   renderRequestPage() {
-    const { isLoading,requests,pagination,fetchRequestsError,message} = this.props;
+    const { 
+      isLoading, requests, pagination, 
+      fetchRequestsError, message
+    } = this.props;
     return (
       <Fragment>
         {this.renderRequestPanelHeader()}
@@ -229,11 +231,14 @@ Requests.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   openModal: PropTypes.func.isRequired,
+  travelChecklists: PropTypes.object,
   fetchAvailableRooms: PropTypes.func.isRequired,
   fetchSubmission: PropTypes.func.isRequired,
   postSubmission: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  fetchAvailableRoomsSuccess: PropTypes.func.isRequired
+  fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
+  submissionInfo: PropTypes.object.isRequired,
+  fileUploads: PropTypes.object.isRequired,
 };
 Requests.defaultProps = {
   url: '',
@@ -249,15 +254,16 @@ Requests.defaultProps = {
   user: {}
 };
 export const mapStateToProps = ({requests, modal, role, user, occupations,
-  travelChecklist, availableRooms, submissions }) => ({
+  travelChecklist, availableRooms, submissions, fileUploads }) => ({
   ...requests,
   ...modal.modal,
   ...role,
   ...occupations,
-  travelChecklists: travelChecklist.checklistItems,
+  travelChecklists: travelChecklist,
   userData: user.getUserData,
   availableRooms,
-  submissionInfo: submissions
+  submissionInfo: submissions,
+  fileUploads
 });
 const actionCreators = {
   fetchUserRequests,
@@ -273,7 +279,8 @@ const actionCreators = {
   fetchAvailableRooms,
   fetchSubmission,
   postSubmission,
-  fetchAvailableRoomsSuccess
+  fetchAvailableRoomsSuccess,
+  uploadFile
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

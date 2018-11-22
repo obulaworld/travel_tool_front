@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import { Requests, mapStateToProps } from '..';
 import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 import beds from '../../AvailableRooms/__mocks__/mockData/availableRooms';
+import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
 
 const props = {
   requests: [
@@ -148,7 +149,10 @@ const props = {
   match: {
     params: { requestId: 'sgjdgljgd' }
   },
-  editRequest: jest.fn()
+  editRequest: jest.fn(),
+  submissionInfo,
+  fileUploads: {},
+  fetchSubmission: jest.fn()
 };
 
 const initialState = {
@@ -373,12 +377,15 @@ describe('<Requests>', () => {
       getUserData: {}
     };
 
-    const travelChecklist = { checklistItems: travelChecklistMockData };
+    const travelChecklist = { 
+      checklistItems: travelChecklistMockData, 
+      isLoading: false 
+    };
     const props = mapStateToProps({requests, modal, user, travelChecklist});
     expect(props).toEqual({
       ...requests, ...modal.modal,
       userData: user.getUserData,
-      travelChecklists: travelChecklist.checklistItems
+      travelChecklists: travelChecklist
     });
   });
 
@@ -390,7 +397,7 @@ describe('<Requests>', () => {
     );
     const mountWrapper = wrapper.find('li#checklistSubmission');
     mountWrapper.simulate('click');
-    expect(props.fetchTravelChecklist.called).toBe(true);
+    expect(props.fetchSubmission).toHaveBeenCalled();
   });
 
   it('should handle show travel checklist', () => {

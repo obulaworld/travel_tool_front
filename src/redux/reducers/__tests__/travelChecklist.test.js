@@ -11,7 +11,11 @@ import {
   fetchDeletedChecklistItemsFailure
 } from '../../actionCreator/travelChecklistActions';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
-import { DELETE_TRAVEL_CHECKLIST_FAILURE, DELETE_TRAVEL_CHECKLIST_SUCCESS, DELETE_TRAVEL_CHECKLIST } from '../../constants/actionTypes';
+import { 
+  DELETE_TRAVEL_CHECKLIST_FAILURE,
+  DELETE_TRAVEL_CHECKLIST_SUCCESS,
+  DELETE_TRAVEL_CHECKLIST
+} from '../../constants/actionTypes';
 
 describe('Travel checklists reducer', () => {
   describe('Fetch travel checklists reducer', () => {

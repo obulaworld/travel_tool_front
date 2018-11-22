@@ -19,6 +19,7 @@ import readiness from './readiness';
 import travelCalendar from './travelCalendar';
 import documents from './documents';
 import submissions from './checklistSubmission';
+import fileUploads from './fileUploads';
 
 
 const rootReducer = combineReducers({
@@ -41,8 +42,8 @@ const rootReducer = combineReducers({
   analytics,
   readiness,
   documents,
-  submissions
-
+  submissions,
+  fileUploads
 });
 
 export default rootReducer;

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import axios from 'axios';
 import RequestsModal from '../RequestsModal/RequestsModal';
-import { CheckListSubmissionForm } from '../Forms';
-import { travelChecklists } from '../TravelCheckList/travelChecklistMockData';
+import  CheckListSubmissions  from '../TravelCheckList/CheckListSubmissions';
 import Modal from '../modal/Modal';
 import './Table.scss';
 import withLoading from '../Hoc/withLoading';
@@ -53,6 +53,7 @@ export class Table extends Component {
       .toUpperCase()
       .concat(tripType.toLowerCase().slice(1));
   };
+
   handleClickRequest = requestId => {
     const {
       history,
@@ -61,9 +62,10 @@ export class Table extends Component {
     history.push(`${pathname}/${requestId}`);
   };
 
-  fetchChecklistData(destination){
-    // handles fetched trip details. Awaiting endpoint
-    return travelChecklists;
+  handleFileUpload = async (file, checklistItemId, tripId, checkId, requestId) => {
+    const { uploadFile } = this.props;
+    delete axios.defaults.headers.common['Authorization'];
+    uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
   }
 
   fetchRequestChecklist(trips){
@@ -80,8 +82,9 @@ export class Table extends Component {
   }
 
   renderRequestStatus(request) {
-    const { editRequest, type, showTravelChecklist,
-      fetchTravelChecklist, uploadTripSubmissions } = this.props;
+    const { 
+      editRequest, type, showTravelChecklist, uploadTripSubmissions
+    } = this.props;
 
     const { menuOpen } = this.state;
     return (
@@ -100,7 +103,7 @@ export class Table extends Component {
             {request.status}
           </div>
           <TableMenu
-            fetchTravelChecklist={fetchTravelChecklist}
+            // fetchTravelChecklist={fetchTravelChecklist}
             editRequest={editRequest}
             showTravelChecklist={showTravelChecklist}
             uploadTripSubmissions={uploadTripSubmissions}
@@ -170,7 +173,6 @@ export class Table extends Component {
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
           {this.renderRequestStatus(request)}
         </td>
-        {this.renderUploadSubmissions(request)}
       </tr>
     );
   }
@@ -260,34 +262,37 @@ export class Table extends Component {
     );
   }
 
-  renderUploadSubmissions(requestData) {
-    const { closeModal, postSubmission, submissionInfo, requests, isLoading,
-      shouldOpen, modalType, travelChecklists, fetchSubmission, isFetching } = this.props;
+  renderSubmissionsModal() {
+    const { 
+      closeModal, shouldOpen, modalType, fileUploads,
+      submissionInfo, fetchSubmission, postSubmission, fetchUserRequests
+    } = this.props;
+    const { 
+      submissions, isFetching, isUploading, percentageCompleted,
+      itemsToCheck, postSuccess, tripType,
+    } = submissionInfo;
     const { menuOpen: { id } } = this.state;
     return (
       <Modal
         closeModal={closeModal}
-        width="607px"
+        width="900px"
         customModalStyles="custom-overlay"
         modalId="checklist-submission-modal"
         modalContentId="checklist-submission-modal-content"
-        visibility={shouldOpen && modalType === 'upload submissions'?'visible':'invisible'}
-        title={modalType === 'upload submissions' ? 'Travel Checklist' : ''}
+        visibility={shouldOpen && modalType === 'upload submissions'
+          ?'visible'
+          :'invisible'
+        }
+        title="Travel Checklist"
         modalBar={<div className="table__modal-bar-text">{id}</div>}
       >
-        <CheckListSubmissionForm
-          requestId={id}
-          requestData={requestData}
-          checklistsData={travelChecklists}
-          shouldOpen={shouldOpen}
-          closeModal={closeModal}
-          modalType={modalType}
-          postSubmission={postSubmission}
-          fetchSubmission={fetchSubmission}
-          submissionInfo={submissionInfo}
-          requests={requests}
-          isLoading={isFetching}
-          isFetching={isFetching}
+        <CheckListSubmissions
+          requestId={id || ''} shouldOpen={shouldOpen} closeModal={closeModal}
+          modalType={modalType} postSubmission={postSubmission} tripType={tripType}
+          fetchSubmission={fetchSubmission} fetchUserRequests={fetchUserRequests}
+          percentageCompleted={percentageCompleted} submissions={submissions}
+          itemsToCheck={itemsToCheck} isLoading={isFetching} handleFileUpload={this.handleFileUpload}
+          fileUploads={fileUploads} postSuccess={postSuccess} isUploadingStage2={isUploading}
         />
       </Modal>
     );
@@ -313,6 +318,7 @@ export class Table extends Component {
             this.renderNoRequests(message)}
           {this.renderDetailsModal()}
           {this.renderTravelCheckListModal()}
+          {this.renderSubmissionsModal()}
         </div>
       </Fragment>
     );
@@ -330,18 +336,18 @@ Table.propTypes = {
   requestData: PropTypes.object,
   message: PropTypes.string,
   page: PropTypes.string,
-  editRequest: PropTypes.func.isRequired,
-  travelChecklists: PropTypes.array.isRequired,
-  showTravelChecklist: PropTypes.func.isRequired,
-  fetchTravelChecklist: PropTypes.func.isRequired,
+  editRequest: PropTypes.func,
+  travelChecklists: PropTypes.object,
+  showTravelChecklist: PropTypes.func,
+  fetchUserRequests: PropTypes.func,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  uploadTripSubmissions: PropTypes.func.isRequired,
-  fetchSubmission: PropTypes.func.isRequired,
-  postSubmission: PropTypes.func.isRequired,
+  uploadTripSubmissions: PropTypes.func,
+  fetchSubmission: PropTypes.func,
+  postSubmission: PropTypes.func,
   submissionInfo: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  uploadFile: PropTypes.func,
+  fileUploads: PropTypes.object
 };
 
 Table.defaultProps = {
@@ -354,7 +360,16 @@ Table.defaultProps = {
   message: '',
   page: '',
   requestId: '',
-  requestData: {}
+  requestData: {},
+  travelChecklists: {},
+  editRequest: () => {},
+  showTravelChecklist: () => {},
+  uploadTripSubmissions: () => {},
+  uploadFile: () => {},
+  postSubmission: () => {},
+  fetchSubmission: () => {},
+  fetchUserRequests: () => {},
+  fileUploads: {},
 };
 
 export default withLoading(Table);

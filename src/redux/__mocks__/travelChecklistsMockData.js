@@ -162,4 +162,14 @@ const travelCheckList = [
   }
 ];
 
+export const submission = {
+  'value': 'https:andela.com',
+  'id': '-zwIZ2rZV',
+  'tripId': 'QDrPTkJlJG',
+  'checklistItemId': '8',
+  'updatedAt': '2018-11-16T11:18:14.407Z',
+  'createdAt': '2018-11-16T11:18:14.407Z',
+  'deletedAt': null
+};
+
 export default travelCheckList;
