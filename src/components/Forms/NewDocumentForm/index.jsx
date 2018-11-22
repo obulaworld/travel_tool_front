@@ -21,8 +21,28 @@ class NewDocumentForm extends PureComponent {
       hasBlankFields: true,
     };
     this.state = {...this.defaultState};
-    this.validate = getDefaultBlanksValidatorFor(this);
   }
+
+  validate = (field = 'name') => {
+    let { values, errors } = this.state;
+    [errors, values] = [{ ...errors }, { ...values }];
+    let hasBlankFields = false;
+    !values[field]
+      ? (errors[field] = 'This field is required')
+      : (errors[field] = '');
+
+    hasBlankFields = Object.keys(values).some(key => !values[key]);
+    const fileNameRegex = /(^[A-Za-z])(.+)$/;
+    if(values[field] && !fileNameRegex.test(values[field])) {
+      errors[field] = 'File name must start with an alphabet';
+      // set to true to disable 'save' button
+      hasBlankFields = true;
+    }
+    this.setState(prevState => {
+      return { ...prevState, errors, hasBlankFields };
+    });
+    return !hasBlankFields;
+  };
 
   handleCancel = () => {
     const { closeModal } = this.props;
@@ -43,8 +63,8 @@ class NewDocumentForm extends PureComponent {
     }
     fileReader.onload = () => {
       this.setState(
-        prevState => 
-          ({ values: 
+        prevState =>
+          ({ values:
             {
               ...prevState.values,
               name: (file.name).replace(/\.[^/.]+$/, ''),
