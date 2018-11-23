@@ -40,25 +40,30 @@ exports[`<Analytics /> should render the connected component without crashing 1`
     >
       Total Number of Pending Requests
     </h3>
-    <div
-      className="analytics-card__stats "
+    <a
+      href="/requests/my-verifications"
+      onClick={[Function]}
     >
       <div
-        className="analytics-card__icon"
+        className="analytics-card__stats "
       >
-        <img
-          alt=""
-          src="pending_icon.svg"
-        />
+        <div
+          className="analytics-card__icon"
+        >
+          <img
+            alt=""
+            src="pending_icon.svg"
+          />
+        </div>
+        <div
+          className="analytics-card__stat"
+        >
+          <h4>
+            0
+          </h4>
+        </div>
       </div>
-      <div
-        className="analytics-card__stat"
-      >
-        <h4>
-          0
-        </h4>
-      </div>
-    </div>
+    </a>
   </div>
   <div
     className="analytics-card"

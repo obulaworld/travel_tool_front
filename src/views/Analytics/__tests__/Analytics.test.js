@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 
 import ConnectedAnalytics, {mapStateToProps, Analytics} from '..';
@@ -42,12 +43,20 @@ beforeEach(() => {
 
 describe('<Analytics />', () => {
   it('calls ComponentDidMount', () => {
-    wrapper = shallow(<Analytics {...props} />);
+    wrapper = shallow(
+      <MemoryRouter>
+        <Analytics {...props} />
+      </MemoryRouter>
+    ).dive().dive();
     expect(props.fetchAnalytics).toHaveBeenCalled();
   });
 
   it('call componentWillReceiveProps', () => {
-    wrapper = shallow(<Analytics {...props} />);
+    wrapper = shallow(
+      <MemoryRouter>
+        <Analytics {...props} />
+      </MemoryRouter>
+    ).dive().dive();
     wrapper.setProps({
       context: {
         state: {
@@ -65,7 +74,9 @@ describe('<Analytics />', () => {
   it('should render the connected component without crashing', () => {
     wrapper = mount(
       <Provider store={store}>
-        <ConnectedAnalytics {...props} />
+        <MemoryRouter>
+          <ConnectedAnalytics {...props} />
+        </MemoryRouter>
       </Provider>
     );
 
