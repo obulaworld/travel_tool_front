@@ -41,6 +41,7 @@ describe('<Checklist> component', () => {
     fetchTravelChecklist: jest.fn(),
     deleteTravelChecklist: jest.fn(),
     updateTravelChecklist: jest.fn(),
+    restoreChecklist: jest.fn(),
     handleInputChange: jest.fn(),
     fetchDeletedChecklistItems: jest.fn(),
     shouldOpen: false,
@@ -114,7 +115,7 @@ describe('<Checklist> component', () => {
   it('should call the renderNoMessage function', () => {
     const wrapper = shallowWrapper;
     wrapper.setProps({ checklistItems: []});
-    expect(wrapper.find('.checkInTable__trips--empty').text())
+    expect(wrapper.find('.checkInTable__trips--empty').at(1).text())
       .toBe('No new checklist item added yet');
   });
 
@@ -133,7 +134,7 @@ describe('<Checklist> component', () => {
     wrapperInstance.deleteChecklistItem(event);
     expect(deleteTravelChecklist).toBeCalledWith(state.checklistItemId, state);
   });
-  it('should call the updateTravelChecklist function', () => {
+  it('should call the restoreTravelChecklist function', () => {
     const state = {
       checklistItemId: '',
       restoreItemData: {},
@@ -143,9 +144,9 @@ describe('<Checklist> component', () => {
     };
     const wrapper = shallowWrapper;
     const wrapperInstance = wrapper.instance();
-    const { updateTravelChecklist } = props;
+    const { restoreChecklist } = props;
     wrapperInstance.restoreChecklistItem();
-    expect(updateTravelChecklist).toBeCalledWith(state.checklistItemId, state.restoreItemData);
+    expect(restoreChecklist).toBeCalledWith(state.checklistItemId, state.restoreItemData);
   });
 
   it('should call handleInputChange function', () => {
@@ -246,6 +247,6 @@ describe('<Checklist> component without created or deleted travel checklist item
   });
   it('should show two error messages for travel checlist items',() => {
     const wrapper = shallowWrapper;
-    expect(wrapper.find('.checkInTable__trips--empty').length).toBe(2);
+    expect(wrapper.find('.checkInTable__trips--empty').length).toBe(3);
   });
 });

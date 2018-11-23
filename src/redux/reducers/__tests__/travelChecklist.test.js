@@ -8,7 +8,10 @@ import {
   createChecklistSuccess,
   fetchDeletedChecklistItems,
   fetchDeletedChecklistItemsSuccess,
-  fetchDeletedChecklistItemsFailure
+  fetchDeletedChecklistItemsFailure,
+  restoreChecklist,
+  restoreChecklistSuccess,
+  restoreChecklistFailure
 } from '../../actionCreator/travelChecklistActions';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
 import { 
@@ -73,8 +76,12 @@ describe('Travel checklists reducer', () => {
     const initialState = {
       updatingChecklist: false,
       checklistItems: [
-        {name: 'Yellow Fever', id: 'sd343f4'},
-        {name: 'Passport', id: '34ffr4'}
+        {
+          checklist: [
+            {name: 'Tax clearance', id: 'sd343f4'},
+            {name: 'Passport', id: '34ffr4'}
+          ]
+        }
       ],
       error: ''
     };
@@ -85,16 +92,23 @@ describe('Travel checklists reducer', () => {
     it('should handle UPDATE_TRAVEL_CHECKLIST', () => {
       action = {
         type: 'UPDATE_TRAVEL_CHECKLIST',
-        checklistItemId: 'sj3934sa',
-        checklistItemData: {name: 'newItem'}
+        checklistItems: [
+          {
+            checklist: [
+              {name: 'Tax clearance', id: 'sd343f4'},
+              {name: 'Passport', id: '34ffr4'}
+            ]
+          }
+        ],
       };
 
       newState = travelChecklistReducer(initialState, action);
       expectedState = {
         updatingChecklist: true,
         checklistItems: [
-          {name: 'Yellow Fever', id: 'sd343f4'},
-          {name: 'Passport', id: '34ffr4'}
+          {
+            checklist: [{id: 'sd343f4', name: 'Tax clearance'}, {id: '34ffr4', name: 'Passport'}]
+          }
         ],
         error: ''
       };
@@ -109,15 +123,17 @@ describe('Travel checklists reducer', () => {
       };
 
       newState = travelChecklistReducer(initialState, action);
-
       expectedState = {
-        updatingChecklist: false,
         checklistItems: [
-          {name: 'Tax clearance', id: 'sd343f4'},
-          {name: 'Passport', id: '34ffr4'}
+          {
+            checklist: [
+              {name: 'Tax clearance', id: 'sd343f4'},
+              {name: 'Passport', id: '34ffr4'}
+            ]
+          }
         ],
-        error: ''
-      };
+        updatingChecklist: false
+      },
 
       expect(newState).toMatchObject(expectedState);
     });
@@ -132,8 +148,9 @@ describe('Travel checklists reducer', () => {
       expectedState = {
         updatingChecklist: false,
         checklistItems: [
-          {name: 'Yellow Fever', id: 'sd343f4'},
-          {name: 'Passport', id: '34ffr4'}
+          {
+            checklist: [{id: 'sd343f4', name: 'Tax clearance'}, {id: '34ffr4', name: 'Passport'}]
+          }
         ],
         error: {message: 'Something went wrong'}
       };
@@ -173,17 +190,39 @@ describe('Travel checklists reducer', () => {
     });
 
     it('should handle DELETE_TRAVEL_CHECKLIST_SUCCESS', () => {
+      const currentState = {
+        ...initialState,
+        isLoading: false,
+        checklistItems: [{
+          checklist: [
+            { name: 'Tax clearance', id: 'sd343f4' },
+            { name: 'Green Card', id: 'sb879f4' }
+          ]
+        }]
+      };
       action = {
         type: DELETE_TRAVEL_CHECKLIST_SUCCESS,
         checklistItemId: 'wsis45cUe',
+        disabledChecklistItem: { 
+          resources: []
+        },
       };
 
-      newState = travelChecklistReducer(initialState, action);
+      newState = travelChecklistReducer(currentState, action);
 
       expectedState = {
-        checklistItems: [],
+        checklistItems: [{
+          checklist: [
+            { name: 'Tax clearance', id: 'sd343f4' },
+            { name: 'Green Card', id: 'sb879f4' }
+          ]
+        }],
         creatingChecklist: false,
-        deletedCheckListItems: [],
+        deletedCheckListItems: [
+          {
+            resources: []
+          }
+        ],
         deletingChecklist: false,
         error: '',
         fetchingChecklists: false,
@@ -229,7 +268,9 @@ describe('Travel checklists reducer', () => {
         const currentState = {
           ...initialState,
           creatingChecklist: true,
-          checklistItems: travelChecklistMockData
+          checklistItems: [{
+            checklist: []
+          }]
         };
         const checklist = {
           name: 'name',
@@ -242,8 +283,7 @@ describe('Travel checklists reducer', () => {
         const newState = travelChecklistReducer(currentState, action);
 
         expect(newState.creatingChecklist).toBe(false);
-        expect(newState.checklistItem).toBe(checklist);
-        expect(newState.checklistItems).toMatchObject(travelChecklistMockData);
+        expect(newState.checklistItems).toEqual([{checklist: [checklist]}]);
       });
 
     it('should handle CREATE_TRAVEL_CHECKLIST_FAILURE',
@@ -301,5 +341,145 @@ describe('Travel checklists reducer', () => {
         expect(newState.error).toEqual(error);
         done();
       });
+  });
+
+  describe('Restore travel checklist reducer', () => {
+    const initialState = {
+      updatingChecklist: false,
+      checklistItems: [
+        {
+          checklist: [
+            {name: 'Tax clearance', id: 'sd343f4'},
+            {name: 'Passport', id: '34ffr4'}
+          ]
+        }
+      ],
+      error: ''
+    };
+
+    let action, newState, expectedState;
+
+
+    it('should handle RESTORE_TRAVEL_CHECKLIST', () => {
+      action = {
+        type: 'RESTORE_TRAVEL_CHECKLIST',
+        checklistItems: [
+          {
+            checklist: [
+              {name: 'Tax clearance', id: 'sd343f4'},
+              {name: 'Passport', id: '34ffr4'}
+            ]
+          }
+        ],
+      };
+
+      newState = travelChecklistReducer(initialState, action);
+      expectedState = {
+        updatingChecklist: true,
+        checklistItems: [
+          {
+            checklist: [{id: 'sd343f4', name: 'Tax clearance'}, {id: '34ffr4', name: 'Passport'}]
+          }
+        ],
+        error: ''
+      };
+
+      expect(newState).toEqual(expectedState);
+    });
+    it('should handle RESTORE_TRAVEL_CHECKLIST_SUCCESS', () => {
+      const currentState = {
+        ...initialState,
+        deletedCheckListItems: [
+          {id: 'sd343f4', name: 'Tax clearance'},
+          {id: '34ffr4', name: 'Passport'}
+        ],
+        checklistItems: []
+      };
+
+      action = {
+        type: 'RESTORE_TRAVEL_CHECKLIST_SUCCESS',
+        updatedChecklistItem: { name: 'Tax clearance', id: 'sd343f4', deletedAt: null },
+        checklistItemId: 'sd343f4'
+      };
+
+      newState = travelChecklistReducer(currentState, action);
+      expectedState = {
+        checklistItems: [
+          {
+            checklist: [
+              { name: 'Tax clearance', id: 'sd343f4', deletedAt: null }
+            ]
+          },
+        ],
+        deletedCheckListItems: [ 
+          {id: '34ffr4', name: 'Passport'}
+        ],
+        updatingChecklist: false,
+        error: ''
+      },
+
+      expect(newState).toMatchObject(expectedState);
+    });
+    it('should handle RESTORE_TRAVEL_CHECKLIST_SUCCESS and update the state', () => {
+      const currentState = {
+        ...initialState,
+        deletedCheckListItems: [
+          {id: 'sd343f4', name: 'Tax clearance'},
+          {id: '34ffr4', name: 'Passport'},
+        ],
+        checklistItems: [
+          {
+            checklist: [
+              { name: 'Green Card', id: '2d390d5', deletedAt: null }
+            ]
+          }
+        ]
+      };
+
+      action = {
+        type: 'RESTORE_TRAVEL_CHECKLIST_SUCCESS',
+        updatedChecklistItem: { name: 'Tax clearance', id: 'sd343f4', deletedAt: null },
+        checklistItemId: 'sd343f4'
+      };
+
+      newState = travelChecklistReducer(currentState, action);
+      expectedState = {
+        checklistItems: [
+          {
+            checklist: [
+              { name: 'Tax clearance', id: 'sd343f4', deletedAt: null },
+              { name: 'Green Card', id: '2d390d5', deletedAt: null }
+            ]
+          },
+        ],
+        deletedCheckListItems: [ 
+          {id: '34ffr4', name: 'Passport'}
+        ],
+        updatingChecklist: false,
+        error: ''
+      },
+
+      expect(newState).toMatchObject(expectedState);
+    });
+    it('should handle RESTORE_TRAVEL_CHECKLIST_FAILURE', () => {
+      action = {
+        type: 'RESTORE_TRAVEL_CHECKLIST_FAILURE',
+        error: {message: 'Something went wrong'}
+      };
+
+      newState = travelChecklistReducer(initialState, action);
+
+      expectedState = {
+        updatingChecklist: false,
+        checklistItems: [
+          {
+            checklist: [{id: 'sd343f4', name: 'Tax clearance'}, {id: '34ffr4', name: 'Passport'}]
+          }
+        ],
+        error: {message: 'Something went wrong'}
+      };
+
+      expect(newState).toEqual(expectedState);
+    });
   });
 });

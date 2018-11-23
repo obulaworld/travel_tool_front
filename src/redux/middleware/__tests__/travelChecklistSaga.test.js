@@ -1,5 +1,6 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
+import toast from 'toastr';
 import { throwError } from 'redux-saga-test-plan/providers';
 import * as  matchers from 'redux-saga-test-plan/matchers';
 import {
@@ -7,7 +8,8 @@ import {
   watchDeleteChecklist,
   watchUpdateChecklist,
   watchCreateChecklist,
-  watchFetchDeletedChecklistItems
+  watchFetchDeletedChecklistItems,
+  watchRestoreChecklist
 } from '../travelChecklistSaga';
 import TravelChecklistAPI from '../../../services/travelChecklistAPI';
 import {
@@ -25,9 +27,15 @@ import {
   CREATE_TRAVEL_CHECKLIST_FAILURE,
   FETCH_DELETED_CHECKLISTITEMS,
   FETCH_DELETED_CHECKLISTITEMS_SUCCESS,
-  FETCH_DELETED_CHECKLISTITEMS_FAILURE
+  FETCH_DELETED_CHECKLISTITEMS_FAILURE,
+  RESTORE_TRAVEL_CHECKLIST,
+  RESTORE_TRAVEL_CHECKLIST_SUCCESS,
+  RESTORE_TRAVEL_CHECKLIST_FAILURE
 } from '../../constants/actionTypes';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
+
+toast.error = jest.fn();
+toast.success = jest.fn();
 
 describe('Travel Checklist Saga test', () => {
   describe('Delete travel checklist item', () => {
@@ -35,7 +43,7 @@ describe('Travel Checklist Saga test', () => {
     const deleteReason = 'Hello world';
     const response = {
       data: {
-        travelChecklists: travelChecklistMockData
+        checklistItem: {name: 'My new visa and green card'}
       }
     };
 
@@ -49,6 +57,7 @@ describe('Travel Checklist Saga test', () => {
         ]])
         .put({
           type: DELETE_TRAVEL_CHECKLIST_SUCCESS,
+          disabledChecklistItem: {name: 'My new visa and green card'},
           checklistItemId
         })
         .dispatch({
@@ -156,12 +165,12 @@ describe('Travel Checklist Saga test', () => {
             'link': 'https://google.com/application-guide'
           }
         ],
-      }
+      },
     };
 
     const response = {
       data: {
-        travelChecklist: action.checklist
+        checklistItem: action.checklist
       }
     };
 
@@ -173,7 +182,7 @@ describe('Travel Checklist Saga test', () => {
         ]])
         .put({
           type: CREATE_TRAVEL_CHECKLIST_SUCCESS,
-          checklistItem: response.data
+          checklistItem: response.data.checklistItem
         })
         .dispatch({
           type: CREATE_TRAVEL_CHECKLIST,
@@ -240,10 +249,6 @@ describe('Travel Checklist Saga test', () => {
           updatedChecklistItem: { name: 'updatedItem'},
           checklistItemId: '20'
         })
-        .put({
-          type: FETCH_TRAVEL_CHECKLIST,
-          requestId: undefined,
-        })
         .dispatch({
           type: UPDATE_TRAVEL_CHECKLIST,
           checklistItemId: '20',
@@ -308,6 +313,63 @@ describe('Travel Checklist Saga test', () => {
         .dispatch({
           type: FETCH_DELETED_CHECKLISTITEMS,
           destinationName
+        })
+        .run();
+    });
+  });
+
+  describe('Restore disabled travel checklist item', () => {
+    const data = {
+      checklistItemId: '20',
+      checklistItemData: {name: 'ItemRestores'}
+    };
+
+    const response = {
+      data: {
+        updatedChecklistItem: { deletedAt: null}
+      }
+    };
+    const error = {
+      response: {
+        status: 422,
+        data: {
+          errors: ['update error']
+        }
+      }
+    };
+
+
+    it('restores a disabled travel checklist item successfully', () => {
+      return expectSaga(watchRestoreChecklist)
+        .provide([[
+          call(TravelChecklistAPI.updateChecklistItem, data.checklistItemId, data.checklistItemData),
+          response
+        ]])
+        .put({
+          type: RESTORE_TRAVEL_CHECKLIST_SUCCESS,
+          updatedChecklistItem: { deletedAt: null },
+          checklistItemId: '20'
+        })
+        .dispatch({
+          type: RESTORE_TRAVEL_CHECKLIST,
+          checklistItemId: '20',
+          checklistItemData: {name: 'ItemRestores'}
+        })
+        .run();
+    });
+    it('throws an error when item restore fails', () => {
+      expectSaga(watchRestoreChecklist)
+        .provide([
+          [call(TravelChecklistAPI.updateChecklistItem, data.checklistItemId, data.checklistItemData), throwError(error)]
+        ])
+        .put({
+          type: UPDATE_TRAVEL_CHECKLIST_FAILURE,
+          error: 'Bad Request. ',
+        })
+        .dispatch({
+          type: UPDATE_TRAVEL_CHECKLIST,
+          checklistItemId: '20',
+          checklistItemData: {deletedAt: '2018-11-26T08:33:16.139Z'}
         })
         .run();
     });
