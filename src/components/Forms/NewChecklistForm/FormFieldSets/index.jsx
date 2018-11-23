@@ -7,7 +7,7 @@ export default class ChecklistFieldSet extends Component {
   render() {
     const formMetadata = {
       inputLabels
-    }
+    };
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
     return (
