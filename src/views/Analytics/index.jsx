@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -32,9 +33,15 @@ export class Analytics extends Component {
     }
   }
 
-  renderCards = (title, props) => (
+  renderCards = (title, props, link) => (
     <AnalyticsCard title={title}>
-      {props.chart ? <PieChartAnalytics {...props} /> : <StatsAnalytics {...props} />}
+      {
+        link ? (
+          <Link to={link}><StatsAnalytics {...props} /></Link>
+        ) : (
+          props.chart ? <PieChartAnalytics {...props} /> : <StatsAnalytics {...props} />
+        )
+      }
     </AnalyticsCard>
   );
 
@@ -69,7 +76,7 @@ export class Analytics extends Component {
         ) : (
           <div className="analytics">
             {this.renderCards('Total No. of Travel Requests', {stats: totalRequests, icon: flightIcon} )}
-            {this.renderCards('Total Number of Pending Requests', {stats: pendingRequests, icon: pendingIcon})}
+            {this.renderCards('Total Number of Pending Requests', {stats: pendingRequests, icon: pendingIcon}, '/requests/my-verifications')}
             {this.renderCards('Average Travel Duration', {data: (analytics.success ? travelDurationBreakdown.durations : []), chart: true})}
             {this.renderCards(`No. of People visiting ${context.state.city} Center`,
               {stats: peopleVisiting, icon: flightLand, color: 'green'}
