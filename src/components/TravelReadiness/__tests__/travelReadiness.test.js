@@ -42,21 +42,18 @@ describe('Test suite for Travel Readiness Component', () => {
     expect(wrapper.length).toBe(1);
     expect(analyticsReport.length).toBe(3);
   });
+
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
+
   it('should render NotFound when there are ro records to display', () => {
     const newProps = {...defaultProps };
     newProps.readiness.readiness = [];
     const newWrapper = setup(newProps);
     expect(newProps.renderNotFound).toHaveBeenCalled();
   });
-  it('should render Spinner when generating a report', () => {
-    const newProps = {...defaultProps }; 
-    newProps.readiness.isLoading = true;
-    const newWrapper = setup(newProps);
-    expect(newProps.renderSpinner).toHaveBeenCalled();
-  });
+
   it('should call export readiness action when export button is clicked', () => {
     const newWrapper = mount(<TravelReadiness {...defaultProps} />);
     const exportBtn = newWrapper.find('#btnExportReadinessCSV').first();

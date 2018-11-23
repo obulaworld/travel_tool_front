@@ -40,7 +40,6 @@ exports[`<RoomLabel /> renders properly 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="Mark Ndovu Unavailable"

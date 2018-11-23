@@ -4,6 +4,7 @@ import './index.scss';
 import errorIcon from '../../images/error_24px.svg';
 import download from '../../images/icons/save_alt_24px.svg';
 import TravelReadiness   from '../TravelReadiness';
+import TripsPerMonthPlaceholder from '../Placeholders/TripsPerMonthPlaceholder';
 
 export default class AnalyticsReport extends Component {
 
@@ -77,26 +78,26 @@ export default class AnalyticsReport extends Component {
           exportReadiness={exportReadiness}
           renderSpinner={this.renderSpinner} />
         <div className="analyticsReport__card">
-          <div className="analyticsReport__row analyticsReport__header">
-            <p>Number of Trips/Month</p>
-            {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
-          </div>
-          <div className="analyticsReport__row analyticsReport__report-header">
-            <div>
-              <p>Numbers</p>
-            </div>
-            <div>
-              <p>Departments</p>
-            </div>
-          </div>
-          {loading &&
-            this.renderSpinner()
-          }
-          {report && report.length > 0 && !loading &&
-            report.map(item => this.renderTripsDetails(item))}
-          {report && !report.length &&
-            this.renderNotFound()
-          }
+          {loading ? <TripsPerMonthPlaceholder /> : (
+            <Fragment>
+              <div className="analyticsReport__row analyticsReport__header">
+                <p>Number of Trips/Month</p>
+                {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
+              </div>
+              <div className="analyticsReport__row analyticsReport__report-header">
+                <div>
+                  <p>Numbers</p>
+                </div>
+                <div>
+                  <p>Departments</p>
+                </div>
+              </div>
+              {report && report.length > 0 && !loading &&
+              report.map(item => this.renderTripsDetails(item))}
+              {report && !report.length &&
+              this.renderNotFound()}
+            </Fragment>
+          )}
         </div>
       </div>
     );

@@ -62,7 +62,7 @@ describe('<Analytics />', () => {
     expect(wrapper.instance().props.context.state.range.start).toBe('2018-12-01');
   });
 
-  it('should render the connected component correctly', () => {
+  it('should render the connected component without crashing', () => {
     wrapper = mount(
       <Provider store={store}>
         <ConnectedAnalytics {...props} />

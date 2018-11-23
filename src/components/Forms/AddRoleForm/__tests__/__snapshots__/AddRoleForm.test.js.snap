@@ -85,6 +85,9 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
           />
         </div>
       </div>
+      <span
+        className="role-description--margin"
+      />
     </div>
   </fieldset>
   <hr />
