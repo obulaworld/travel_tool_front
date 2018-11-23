@@ -79,7 +79,6 @@ class NewAccommodation extends PureComponent {
 
   handleImageChange = event => {
     event.preventDefault();
-    const { values } = this.state;
     const reader = new FileReader();
     if (event.target.files[0]) {
       const file = event.target.files[0];

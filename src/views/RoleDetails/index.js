@@ -34,10 +34,10 @@ export class RoleDetails extends Component {
   }
 
   handleDeleteUserRole = (user) => {
-    const travelTeamMembersRoleId = 339458;
+    const { deleteUserRole, match: { params } } = this.props;
+    const roleId = params.roleId;
     const { id, fullName } = user;
-    const { deleteUserRole } = this.props;
-    deleteUserRole(id, fullName, travelTeamMembersRoleId);
+    deleteUserRole(id, fullName, roleId);
   }
 
   handleAddUser = () => {
@@ -58,17 +58,22 @@ export class RoleDetails extends Component {
   }
 
   renderUserRolePanelHeader() {
-    const { roleName, hideDeleteRoleModal } = this.props;
+    const { roleName, hideDeleteRoleModal, getCurrentUserRole } = this.props;
+    const isSuperAdmin = getCurrentUserRole.includes('Super Administrator');
     return (
       <div className="rp-role__header">
         <div className="role-panel-header">
           { roleName && (
-            <PageHeader
-              title={`${roleName}s`}
-              actionBtn="Add User"
-              hideDeleteRoleModal={hideDeleteRoleModal}
-              openModal={this.handleAddUser}
-            />
+            <div className="role-details__header">
+              <PageHeader
+                addLink={isSuperAdmin}
+                iconLink="/settings/roles"
+                title={`${roleName}s`}
+                actionBtn="Add User"
+                hideDeleteRoleModal={hideDeleteRoleModal}
+                openModal={this.handleAddUser}
+              />
+            </div>
           ) }
         </div>
       </div>
@@ -78,7 +83,7 @@ export class RoleDetails extends Component {
   renderRoles() {
     const {
       error, roleName,
-      isFetching, travelTeamMembers,
+      isFetching, roleUsers,
       deleteModalState, deleteModalRoleId,
       hideDeleteRoleModal, showDeleteRoleModal
     } = this.props;
@@ -86,7 +91,7 @@ export class RoleDetails extends Component {
       <div className="rp-table">
         <WithLoadingRoleDetailsTable
           isLoading={isFetching}
-          travelTeamMembers={travelTeamMembers}
+          roleUsers={roleUsers}
           error={error}
           roleName={roleName}
           handleEditCenter={this.handleEditCenter}
@@ -108,6 +113,7 @@ export class RoleDetails extends Component {
     return (
       <Modal
         closeModal={closeModal}
+        customModalStyles="add-user"
         width="480px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
@@ -116,6 +122,7 @@ export class RoleDetails extends Component {
       >
         <NewUserRoleForm
           role={roleName}
+          roleId={roleId}
           errors={error}
           closeModal={closeModal}
           getRoleData={() => fetchRoleUsers(roleId)}
@@ -162,7 +169,7 @@ export const mapStateToProps = ({ modal, role, user, centers }) => ({
 });
 
 RoleDetails.propTypes = {
-  travelTeamMembers: PropTypes.array.isRequired,
+  roleUsers: PropTypes.array.isRequired,
   closeModal: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
   error: PropTypes.string,

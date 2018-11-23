@@ -4,6 +4,18 @@ import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewUserRoleForm';
 
 class PersonalDetailsFiedset extends Component {
+  renderCenterField(roleName, renderInput) {
+    if (roleName.toLowerCase() === 'travel team member') {
+      return renderInput('center', 'dropdown-select',
+        { required: true, className: 'request_dropdown' });
+    }
+    return renderInput('center', 'dropdown-select',
+      {
+        labelNote: '(Optional)',
+        required: false,
+        className: 'request_dropdown'
+      });
+  }
   render() {
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
@@ -18,8 +30,7 @@ class PersonalDetailsFiedset extends Component {
           <div style={{ paddingTop: '14px' }}>
             {renderInput('email', 'text', { disabled: checkStatus })}
           </div>
-          <div>{centers && renderInput('center', 'dropdown-select')}</div>
-          <div>{!roleName && renderInput('roleName', 'dropdown-select')}</div>
+          <div>{centers && this.renderCenterField(roleName, renderInput)}</div>
         </div>
       </fieldset>
     );

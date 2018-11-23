@@ -9,7 +9,7 @@ export default class CheckBox extends Component {
     const { value } = this.props;
     this.state = { condition: value };
   }
-  
+
   handleChange = ({ target: { checked }}) => {
     const { onChange } = this.props;
     this.setState({

@@ -6,6 +6,9 @@ exports[`should render approvals header correctly 1`] = `
 >
   <PageHeader
     actionBtn=""
+    addLink={false}
+    icon="back-icon.svg"
+    iconLink=""
     location=""
     openModal={[Function]}
     title="APPROVALS"

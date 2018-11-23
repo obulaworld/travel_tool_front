@@ -12,9 +12,12 @@ import {
   DELETE_USER_ROLE_SUCCESS,
   DELETE_USER_ROLE_FAILURE,
   HIDE_DELETE_ROLE_MODAL,
-  SHOW_DELETE_ROLE_MODAL
+  SHOW_DELETE_ROLE_MODAL,
+  ADD_ROLE,
+  ADD_ROLE_SUCCESS,
+  ADD_ROLE_FAILURE
 } from '../constants/actionTypes';
-import Utils from '../../helper/Utils';
+
 
 const initialState = {
   putRoleData: [],
@@ -24,15 +27,16 @@ const initialState = {
   deleteModalState: 'invisible',
   deleteModalRoleId: '',
   roleMessage: '',
-  travelTeamMembers: []
+  roleUsers: [],
+  roles: []
 };
-let roleName;
+
 const role = (state = initialState, action) => {
   switch (action.type) {
   case GET_ROLE_DATA:
     return { ...state, isLoading: true };
   case GET_ROLE_DATA_SUCCESS:
-    return { ...state, getRole: action.response, isLoading: false };
+    return { ...state, roles: action.response.result, isLoading: false };
   case GET_ROLE_DATA_FAILURE:
     return { ...state, isLoading: false, roleErrors: action.error };
   case PUT_ROLE_DATA:
@@ -42,11 +46,9 @@ const role = (state = initialState, action) => {
   case PUT_ROLE_DATA_FAILURE:
     return { ...state, updatingRole: false, putRoleData: action.response, roleErrors: action.error };
   case FETCH_ROLE_USERS:
-    return { ...state, isFetching: true };
+    return { ...state, isFetching: true, roleName: '', roleUsers: [] };
   case FETCH_ROLE_USERS_SUCCESS:
-    roleName = action.roleName;
-    state[`${Utils.toCamelCase(roleName)}s`] = action.users;
-    return { ...state, isFetching: false, roleName: action.roleName , error: ''};
+    return { ...state, isFetching: false, roleUsers: action.users, roleName: action.roleName , error: ''};
   case FETCH_ROLE_USERS_FAILURE:
     return { ...state, isFetching: false, error: action.error };
   case DELETE_USER_ROLE:
@@ -55,10 +57,10 @@ const role = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      travelTeamMembers: [...state.travelTeamMembers]
-        .filter(member => member.id !== action.userId),
       roleMessage: action.message,
-      roleErrors: ''
+      roleErrors: '',
+      roleUsers: [...state.roleUsers]
+        .filter(user => user.id !== action.userId),
     };
   case DELETE_USER_ROLE_FAILURE:
     return {
@@ -71,6 +73,22 @@ const role = (state = initialState, action) => {
     return { ...state, deleteModalState: 'visible', deleteModalRoleId: action.roleId};
   case HIDE_DELETE_ROLE_MODAL:
     return { ...state, deleteModalState: 'invisible', deleteModalRoleId: ''};
+  case ADD_ROLE:
+    return {
+      ...state,
+      isAddingRole: true,
+    };
+  case ADD_ROLE_SUCCESS:
+    return {
+      ...state,
+      isAddingRole: false,
+      roles: [action.role, ...state.roles]
+    };
+  case ADD_ROLE_FAILURE:
+    return {
+      isAddingRole: false,
+      addRoleError: action.error
+    };
   default: return state;
   }
 };

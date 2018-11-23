@@ -36,6 +36,11 @@ const res = {
   ]
 };
 
+const newRole = {
+  roleName: 'Some role',
+  description: 'A new role'
+}
+
 const role = {
   email: 'hulk.smash@andela.com',
   roleName: 'Super Admin'
@@ -50,7 +55,8 @@ describe('Role Reducer', () => {
     roleMessage: '',
     deleteModalState: 'invisible',
     deleteModalRoleId: '',
-    travelTeamMembers: []
+    roleUsers: [],
+    roles: []
   };
 
   it('should return proper initial state', done => {
@@ -73,7 +79,7 @@ describe('Role Reducer', () => {
       response: res
     };
     const newState = roleReducer(initialState, action);
-    expect(newState.getRole).toEqual(res);
+    expect(newState.roles).toEqual(res.result);
     done();
   });
 
@@ -122,7 +128,7 @@ describe('Role Reducer', () => {
     done();
   });
 
-  it('should delete travel team member on success', (done) => {
+  it('should handle delete travel team member', (done) => {
     const action = deleteUserRole(1, 2);
     const newState = roleReducer(initialState, action);
     expect(newState.isLoading).toBe(true);
@@ -133,26 +139,26 @@ describe('Role Reducer', () => {
     const currentState = {
       ...initialState,
       isLoading: true,
-      travelTeamMembers: travelTeamMembersMockData
+      roleUsers: travelTeamMembersMockData
     };
     const action = deleteUserRoleSuccess('Delete Successful', 2);
     const newState = roleReducer(currentState, action);
     expect(newState.isLoading).toBe(false);
-    expect(newState.travelTeamMembers.length).toEqual(1);
+    expect(newState.roleUsers.length).toEqual(1);
     expect(newState.roleMessage).toEqual('Delete Successful');
     done();
   });
 
-  it('should delete travel team member on failure', (done) => {
+  it('should handle delete travel team member failure', (done) => {
     const currentState = {
       ...initialState,
       isLoading: true,
-      travelTeamMembers: travelTeamMembersMockData
+      roleUsers: travelTeamMembersMockData
     };
     const action = deleteUserRoleFailure('Server Error');
     const newState = roleReducer(currentState, action);
     expect(newState.isLoading).toBe(false);
-    expect(newState.travelTeamMembers.length).toEqual(2);
+    expect(newState.roleUsers.length).toEqual(2);
     expect(newState.roleErrors).toEqual('Server Error');
     done();
   });
@@ -177,45 +183,83 @@ describe('Role Reducer', () => {
     expect(newState.deleteModalState).toEqual('invisible');
     done();
   });
+  describe('Fetch role  Reducer', () => {
+    const initialState = {};
 
-  describe('Requests Reducer', () => {
-    describe('Fetch role  Reducer', () => {
+    it('returns the correct state for FETCH_ROLE_USERS action', () => {
+      const action = {
+        type: actionTypes.FETCH_ROLE_USERS,
+        roleId: 53098
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isFetching: true,
+        roleName: '',
+        roleUsers: []
+      });
+    });
+
+    it('returns the correct state for FETCH_ROLE_USERS_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.FETCH_ROLE_USERS_SUCCESS,
+        roleName: fetchRoleUsersResponse.roleName,
+        users: fetchRoleUsersResponse.users
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isFetching: false,
+        roleUsers: fetchRoleUsersResponse.users,
+        roleName: 'Manager',
+        error: ''
+      });
+    });
+
+    it('returns the correct state for FETCH_ROLE_USERS_FAILURE action', () => {
       const initialState = {};
-
-      it('returns the correct state for FETCH_ROLE_USERS action', () => {
-        const action = {
-          type: actionTypes.FETCH_ROLE_USERS,
-          roleId: 53098
-        };
-        expect(roleReducer(initialState, action)).toEqual({
-          isFetching: true
-        });
+      const action = {
+        type: actionTypes.FETCH_ROLE_USERS_FAILURE,
+        error: 'An error occurred'
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isFetching: false,
+        error: 'An error occurred'
       });
+    });
+  });
 
-      it('returns the correct state for FETCH_ROLE_USERS_SUCCESS action', () => {
-        const action = {
-          type: actionTypes.FETCH_ROLE_USERS_SUCCESS,
-          roleName: fetchRoleUsersResponse.roleName,
-          users: fetchRoleUsersResponse.users
-        };
-        expect(roleReducer(initialState, action)).toEqual({
-          isFetching: false,
-          managers: fetchRoleUsersResponse.users,
-          roleName: 'Manager',
-          error: ''
-        });
+  describe('Add role  Reducer', () => {
+    const initialState = {
+      roles: []
+    };
+
+    it('returns the correct state for ADD_ROLE action', () => {
+      const action = {
+        type: actionTypes.ADD_ROLE,
+        roleData: newRole
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isAddingRole: true,
+        roles: []
       });
+    });
 
-      it('returns the correct state for FETCH_ROLE_USERS_FAILURE action', () => {
-        const initialState = {};
-        const action = {
-          type: actionTypes.FETCH_ROLE_USERS_FAILURE,
-          error: 'An error occurred'
-        };
-        expect(roleReducer(initialState, action)).toEqual({
-          isFetching: false,
-          error: 'An error occurred'
-        });
+    it('returns the correct state for ADD_ROLE_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.ADD_ROLE_SUCCESS,
+        role: newRole
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isAddingRole: false,
+        roles:  [newRole]
+      });
+    });
+
+    it('returns the correct state for ADD_ROLE_FAILURE action', () => {
+      const action = {
+        type: actionTypes.ADD_ROLE_FAILURE,
+        error: 'An error occurred'
+      };
+      expect(roleReducer(initialState, action)).toEqual({
+        isAddingRole: false,
+        addRoleError: 'An error occurred',
       });
     });
   });

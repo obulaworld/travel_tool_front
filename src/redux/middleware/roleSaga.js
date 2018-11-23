@@ -8,7 +8,9 @@ import {
   fetchRoleUsersFailure,
   deleteUserRoleFailure,
   deleteUserRoleSuccess,
-  hideDeleteRoleModal
+  hideDeleteRoleModal,
+  addRoleFailure,
+  addRoleSuccess
 } from '../actionCreator/roleActions';
 
 export function* watchFetchRoleUsers() {
@@ -42,3 +44,4 @@ export function* deleteUserRoleSaga(action) {
     toast.error(errorMessage);
   }
 }
+

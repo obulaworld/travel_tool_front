@@ -39,7 +39,7 @@ describe('<NewChecklistForm />', () => {
     expect(props.closeModal).toHaveBeenCalledTimes(1);
     wrapper.unmount();
   });
-    
+
   it('should handle creation of a checklist', () => {
     const submitBtn = wrapper.find('#submit');
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');

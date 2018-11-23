@@ -6,7 +6,7 @@ import PersonalDetails from '../FormFieldsets/PersonalDetails';
 describe('<NewUserRoleForm />', () => {
   let wrapper, onSubmit;
   onSubmit = jest.fn();
-  
+
   const props = {
     user: {
       UserInfo: {
@@ -26,7 +26,9 @@ describe('<NewUserRoleForm />', () => {
       centers: [{
         location: 'New York, USA'
       }]
-    }
+    },
+    centers: [{location: 'Kigali, Rwanda'}],
+    roleId: '33589',
   };
 
   beforeEach(() => {

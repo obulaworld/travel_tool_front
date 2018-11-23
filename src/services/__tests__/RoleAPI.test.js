@@ -5,8 +5,17 @@ import expectedResponse from '../__mocks__/mocks';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 const id = 'JFENDVNDK';
+const newRole = {
+  roleName: 'A new role',
+  description: 'Some role'
+};
 
-describe('UserAPI', () => {
+const newRoleResponse = {
+  message: 'Role created successfully',
+  result: newRole
+};
+
+describe('RoleAPI', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -68,7 +77,7 @@ describe('UserAPI', () => {
       .toEqual({ travelTeamMembers: [] });
   });
 
-  describe('RequestAPI', () => {
+  describe('Fetch role users', () => {
     beforeEach(() => {
       moxios.install();
     });
@@ -77,7 +86,7 @@ describe('UserAPI', () => {
       moxios.uninstall();
     });
 
-    it('should send a GET request to get users requests with a particular role', async () => {
+    it('should send a GET request to get users with a particular role', async () => {
       const roleId = 53908;
       moxios.stubRequest(`${baseUrl}/user/roles/${roleId}`, {
         status: 200,
@@ -88,6 +97,28 @@ describe('UserAPI', () => {
       expect(request.url).toEqual(`${baseUrl}/user/roles/${roleId}`);
       expect(request.config.method).toEqual('get');
       expect(response.data).toEqual(expectedResponse);
+    });
+  });
+
+  describe('Add new role', () => {
+    beforeEach(() => {
+      moxios.install();
+    });
+
+    afterEach(() => {
+      moxios.uninstall();
+    });
+
+    it('should send a POST request to add a new role', async () => {
+      moxios.stubRequest(`${baseUrl}/user/role`, {
+        status: 201,
+        response: { ...newRoleResponse }
+      });
+      const response = await RoleAPI.addRole(newRole);
+      const request = moxios.requests.mostRecent();
+      expect(request.url).toEqual(`${baseUrl}/user/role`);
+      expect(request.config.method).toEqual('post');
+      expect(response.data).toEqual(newRoleResponse);
     });
   });
 });

@@ -10,7 +10,6 @@ exports[`<Requests> renders as expected 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="New Travel Request"

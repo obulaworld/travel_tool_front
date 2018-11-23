@@ -10,7 +10,6 @@ exports[`<DeleteModal /> should render correctly 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="Delete document"

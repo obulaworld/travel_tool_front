@@ -66,7 +66,9 @@ exports[`Render NavBar component should match snapshot 1`] = `
       <div
         className="navbar__user-icon navbar__nav-size mdl-cell--hide-tablet mdl-cell--hide-phone"
       >
-        <div>
+        <div
+          className="profile-sec"
+        >
           <span
             className="navbar__mdl-icons"
           >
@@ -81,7 +83,9 @@ exports[`Render NavBar component should match snapshot 1`] = `
               Tomato Jos
             </span>
           </span>
-          <span>
+          <span
+            className="dropdown-arrow"
+          >
             <Button
               altText="Dropdown Icon"
               badge={null}

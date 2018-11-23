@@ -1,34 +1,36 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
+import { FormContext } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
+import { getUserRoleCenter } from '../../../helper/userDetails';
 
 class NewUserRoleForm extends PureComponent {
   constructor(props) {
     super(props);
-    const { role, userDetail } = this.props;
-    const defaultValues = {
+    const { role, userDetail, roleId } = this.props;
+    let defaultValues = {
       email: userDetail ? userDetail.email : '',
       roleName: role,
+      roleId,
+      center: getUserRoleCenter(userDetail, null)
     };
-    const initialValues = role &&
-    role.toLowerCase() === 'travel team member' ? {
+    if (role.toLowerCase() === 'travel team member') {
+      defaultValues = {
         ...defaultValues,
-        center: userDetail ? userDetail.centers[0].location : ''
-      } : defaultValues;
+        center: getUserRoleCenter(userDetail, '')
+      };
+    }
     this.defaultState = {
-      values: initialValues,
+      values: defaultValues,
       errors: {},
       hasBlankFields: true
     };
     this.state = { ...this.defaultState };
   }
   componentDidMount() {
-    const { role, fetchCenters } = this.props;
-    if (role && role.toLowerCase() === 'travel team member') {
-      fetchCenters();
-    }
+    const { fetchCenters } = this.props;
+    fetchCenters();
   }
 
   componentWillUnmount() {
@@ -43,8 +45,9 @@ class NewUserRoleForm extends PureComponent {
     const { values } = this.state;
     if (this.validate()) {
       let data = values;
-      myTitle === 'Add User' ?  
-        handleUpdateRole(data): 
+      if (!values.center) delete values.center;
+      myTitle === 'Add User' ?
+        handleUpdateRole(data):
         updateUserCenter(userDetail.id, data);
     }
   };
@@ -60,7 +63,7 @@ class NewUserRoleForm extends PureComponent {
     !values[field]
       ? (errors[field] = 'This field is required')
       : (errors[field] = '');
-    hasBlankFields = Object.keys(values).some(key => !values[key]);
+    hasBlankFields = Object.keys(values).some(key => values[key] === '');
     this.setState(prevState => {
       return { ...prevState, errors, hasBlankFields };
     });
@@ -107,6 +110,7 @@ NewUserRoleForm.propTypes = {
   fetchCenters: PropTypes.func,
   role: PropTypes.string.isRequired,
   userDetail:  PropTypes.object,
+  roleId: PropTypes.string.isRequired
 };
 
 NewUserRoleForm.defaultProps = {
@@ -114,7 +118,6 @@ NewUserRoleForm.defaultProps = {
   updateUserCenter: ()=> {},
   fetchCenters: ()=> {},
   userDetail: {},
-
 };
 
 export default NewUserRoleForm;

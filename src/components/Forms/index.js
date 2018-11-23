@@ -5,6 +5,7 @@ import NewUserRoleForm from './NewUserRoleForm/NewUserRoleForm';
 import NewAccommodationForm from './NewAccommodationForm/NewAccommodation';
 import NewChecklistForm from './NewChecklistForm';
 import ProfileForm from './ProfileForm';
+import AddRoleForm from './AddRoleForm';
 import './index.scss';
 
 
@@ -14,4 +15,5 @@ export {
   ProfileForm,
   NewAccommodationForm,
   NewChecklistForm,
+  AddRoleForm
 };

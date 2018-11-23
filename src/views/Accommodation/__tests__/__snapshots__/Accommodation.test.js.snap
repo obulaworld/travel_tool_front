@@ -17,7 +17,6 @@ exports[`<Accommodation /> renders correctly 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={true}
     title="Add Guest House"

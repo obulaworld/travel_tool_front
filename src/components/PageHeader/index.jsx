@@ -1,16 +1,25 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './_header.scss';
+import headerIcon from '../../images/back-icon.svg';
+
 
 class PageHeader extends PureComponent {
   render() {
     const {
       title, actionBtn, openModal, titleClassName, location,
+      icon, iconLink, addLink
     } = this.props;
 
     return (
       <div className="PageHeader">
         <div>
+          { addLink && (
+            <Link to={iconLink}>
+              <img src={icon} className="header__link" alt="icon" />
+            </Link>
+          )}
           <span className={titleClassName}>
             {title}
           </span>
@@ -30,9 +39,7 @@ class PageHeader extends PureComponent {
               {actionBtn}
             </button>
           </div>
-        ) : (
-          ''
-        )}
+        ) : ''}
       </div>
     );
   }
@@ -46,11 +53,17 @@ PageHeader.propTypes = {
   openModal: PropTypes.func,
   location: PropTypes.string,
   titleClassName: PropTypes.string,
+  icon: PropTypes.string,
+  iconLink: PropTypes.string,
+  addLink: PropTypes.bool,
 };
 
 PageHeader.defaultProps = {
   actionBtn: '',
   location: '',
   titleClassName: 'title',
+  icon: headerIcon,
+  iconLink: '',
+  addLink: false,
   openModal: () => {}
 };

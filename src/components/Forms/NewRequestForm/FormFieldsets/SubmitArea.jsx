@@ -2,7 +2,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields, onCancel, send, cancel, modalType, onEditCancel, selection } = props;
+  const { hasBlankFields, onCancel, send, modalType, onEditCancel, selection } = props;
 
   return (
     <fieldset>
@@ -13,7 +13,7 @@ const SubmitArea = (props) => {
           </button>)
           : (
             <button type="button" className="bg-btn bg-btn--inactive" onClick={onCancel} id="cancel">
-              {cancel ? cancel : 'Clear'}
+              Cancel
             </button>
           )}
         <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--active" id="submit">
@@ -28,14 +28,15 @@ SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   hasBlankFields: PropTypes.bool.isRequired,
   send: PropTypes.string.isRequired,
-  selection: PropTypes.string,
-  cancel: PropTypes.string.isRequired,
-  modalType: PropTypes.string.isRequired,
-  onEditCancel: PropTypes.func.isRequired
+  modalType: PropTypes.string,
+  onEditCancel: PropTypes.func,
+  selection: PropTypes.string
 };
 
 SubmitArea.defaultProps = {
-  selection: ''
+  modalType: '',
+  selection: '',
+  onEditCancel: () => {}
 };
 
 export default SubmitArea;

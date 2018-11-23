@@ -20,9 +20,6 @@ class InputRenderer {
     case 'button-toggler':
       inputProps.choices = (formMetadata.buttonToggleOptions || {})[name];
       return inputProps;
-    // case 'checkbox':
-    //   // inputProps.checked = true;
-    //   return inputProps;
     default:
       return inputProps;
     }
@@ -37,7 +34,8 @@ class InputRenderer {
       name,
       type,
       label: this.formMetadata.inputLabels[fieldName].label,
-      labelNote: this.formMetadata.inputLabels[fieldName].note,
+      labelNote: customProps ? customProps.labelNote :
+        this.formMetadata.inputLabels[fieldName].note,
       autoComplete: 'off'
     };
     customProps ? inputProps['data-parentid'] = customProps.parentid : null;

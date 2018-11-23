@@ -115,7 +115,7 @@ const NavItemsMetadata = [
         link_to: '/settings/roles/339458',
         exact: true,
         text: 'Travel team',
-        onlyVisibleTo: ['Travel Administrator','Super Administrator' ]
+        onlyVisibleTo: ['Travel Administrator']
       }
 
     ],

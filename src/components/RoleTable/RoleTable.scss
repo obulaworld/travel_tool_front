@@ -8,6 +8,10 @@
   }
 }
 
+.table__data--link {
+  color: #3359DB;
+}
+
 .delete {
   @media (max-width: 479px) {
   padding-right: 26px !important;
@@ -38,7 +42,7 @@
   .freeze-head {
   @media (max-width: 479px) {
     width: 41vw !important;
-  } 
+  }
   @media (max-width: 320px) {
     width: 45vw !important;
 

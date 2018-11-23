@@ -51,7 +51,7 @@ export class RoleDetailsTable extends PureComponent {
           {roleUser.fullName}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data pl-sm-120">
-          {roleUser.centers[0].location}
+          {roleUser.centers[0] ? roleUser.centers[0].location : 'N/A'}
         </td>
         <td
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
@@ -88,7 +88,7 @@ export class RoleDetailsTable extends PureComponent {
     return <div className="table__requests--error">{error}</div>;
   }
 
-  renderTableHead() {
+  renderTableHead(roleName) {
     return (
       <tr>
         <th className="mdl-data-table__cell--non-numeric bb-md-0 table__head freeze freeze-head ">
@@ -105,23 +105,23 @@ export class RoleDetailsTable extends PureComponent {
   }
 
   render() {
-    const { travelTeamMembers, error, roleName } = this.props;
+    const { roleUsers, error, roleName } = this.props;
     return (
       <Fragment>
         <div className="table__container">
           {error && this.renderError(error)}
-          {travelTeamMembers &&
-            travelTeamMembers.length > 0 ? (
+          {roleUsers &&
+            roleUsers.length > 0 ? (
               <table className="mdl-data-table mdl-js-data-table table__requests">
                 <thead>
-                  {this.renderTableHead()}
+                  {this.renderTableHead(roleName)}
                 </thead>
                 <tbody className="table__body">
-                  {travelTeamMembers.map(user => this.renderRoleUser(user))}
+                  {roleUsers.map(user => this.renderRoleUser(user, roleName))}
                 </tbody>
               </table>
             ) : null}
-          { !error && travelTeamMembers.length === 0
+          { !error && roleUsers.length === 0
             && this.renderNoUsers(roleName)}
         </div>
       </Fragment>
@@ -130,7 +130,7 @@ export class RoleDetailsTable extends PureComponent {
 }
 
 RoleDetailsTable.propTypes = {
-  travelTeamMembers: PropTypes.array,
+  roleUsers: PropTypes.array,
   handleEditCenter: PropTypes.func,
   handleDeleteUserRole: PropTypes.func,
   error: PropTypes.string,
@@ -142,7 +142,7 @@ RoleDetailsTable.propTypes = {
 };
 
 RoleDetailsTable.defaultProps = {
-  travelTeamMembers: [],
+  roleUsers: [],
   error: '',
   roleName: '',
   handleEditCenter: ()=> {},

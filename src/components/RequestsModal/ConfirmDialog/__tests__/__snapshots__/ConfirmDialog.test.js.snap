@@ -10,7 +10,6 @@ exports[`ConfirmDialog component should match snapshot 1`] = `
     modalBar={<div />}
     modalContentId=""
     modalId=""
-    params=""
     requestId=""
     showOverlay={false}
     title="false Request?"

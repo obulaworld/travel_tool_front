@@ -295,10 +295,6 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           >
             *
           </span>
-          <span>
-             
-            (Manager)
-          </span>
         </label>
         <div
           style={

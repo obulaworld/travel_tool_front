@@ -8,7 +8,7 @@ import ConnectedRoleDetails, { RoleDetails } from '../index';
 
 let wrapper;
 const props = {
-  travelTeamMembers: [
+  roleUsers: [
     {
       fullName: 'A user',
       centers: [

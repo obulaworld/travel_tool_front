@@ -6,7 +6,7 @@ const inputLabels = {
     label: 'Role'
   },
   center: {
-    label: 'Center'
+    label: 'Center',
   },
 };
 

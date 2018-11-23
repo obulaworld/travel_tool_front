@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import ConnectedRole, { Role } from '../index';
 
 const props = {
-  getRole: {
+  roles: {
     result: [
       {
         id: 401938,
@@ -34,7 +34,7 @@ const props = {
     }
   },
   isLoaded: true,
-  getCurrentUserRole: ['Travel Administrator', 'Requester'],
+  getCurrentUserRole: ['Super Administrator', 'Requester'],
   getRoleData: sinon.spy(() => Promise.resolve()),
   isLoading: false,
   history: {
@@ -105,7 +105,7 @@ describe('<RolePage>', () => {
     wrapper.unmount();
   });
 
-  it('should not redirect the user when the user is an the admin', () => {
+  it('should not redirect the user when the user is an admin', () => {
     const { history } = props;
     const wrapper = mount(
       <Provider store={store}>
@@ -135,4 +135,6 @@ describe('<RolePage>', () => {
         .props().visibility
     ).toEqual('visible');
   });
+
+  it('should ')
 });
