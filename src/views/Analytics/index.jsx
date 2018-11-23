@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import AnalyticsCardPlaceholder from '../../components/Placeholders/AnalyticsCardPlaceholder';
+import ChartCardPlaceholder from '../../components/Placeholders/ChartCardPlaceholder';
 import { fetchAnalytics } from '../../redux/actionCreator/analyticsActions';
 import PieChartAnalytics from '../../components/PieChartAnalytics';
 import flightTakeoff from '../../images/icons/flight_takeoff.svg';
@@ -10,7 +12,6 @@ import StatsAnalytics from '../../components/StatsAnalytics';
 import flightLand from '../../images/icons/flight_land.svg';
 import AnalyticsCard from '../../components/AnalyticsCard';
 import flightIcon from '../../images/icons/flight.svg';
-import Spinner from '../../components/Spinner';
 import './index.scss';
 
 export class Analytics extends Component {
@@ -37,6 +38,17 @@ export class Analytics extends Component {
     </AnalyticsCard>
   );
 
+  renderPlaceholders = () => (
+    <Fragment>
+      <AnalyticsCardPlaceholder />
+      <AnalyticsCardPlaceholder />
+      <ChartCardPlaceholder />
+      <AnalyticsCardPlaceholder />
+      <AnalyticsCardPlaceholder />
+      <ChartCardPlaceholder />
+    </Fragment>
+  );
+
   render() {
     const { analytics, context } = this.props;
     const {
@@ -51,7 +63,9 @@ export class Analytics extends Component {
     return (
       <Fragment>
         {analytics.isLoading ? (
-          <Spinner />
+          <div className="analytics">
+            {this.renderPlaceholders()}
+          </div>
         ) : (
           <div className="analytics">
             {this.renderCards('Total No. of Travel Requests', {stats: totalRequests, icon: flightIcon} )}

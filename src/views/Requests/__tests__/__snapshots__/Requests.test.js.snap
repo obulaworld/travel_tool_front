@@ -250,7 +250,9 @@ exports[`<Requests> renders as expected 1`] = `
       closeModal={[Function]}
       editRequest={[Function]}
       fetchRequestsError={null}
-      fetchTravelChecklist={[Function]}
+      fetchSubmission={[Function]}
+      fetchUserRequests={[Function]}
+      fileUploads={Object {}}
       history={
         Object {
           "push": [Function],
@@ -326,6 +328,122 @@ exports[`<Requests> renders as expected 1`] = `
       }
       shouldOpen={false}
       showTravelChecklist={[Function]}
+      submissionInfo={
+        Object {
+          "fetchFailureMessage": "",
+          "fetchSuccessMessage": "",
+          "isFetching": false,
+          "isLoading": false,
+          "isUploading": Array [],
+          "itemsToCheck": Array [
+            "NumC5-pK7G-9",
+            "NumC5-pK7G-8",
+            "NumC5-pK7G-3",
+          ],
+          "percentageCompleted": 0,
+          "postFail": false,
+          "postSuccess": Array [],
+          "requestId": "",
+          "submissions": Array [
+            Object {
+              "checklist": Array [
+                Object {
+                  "deleteReason": null,
+                  "destinationName": "Lagos, Nigeria",
+                  "id": "9",
+                  "name": "yellow card",
+                  "requiresFiles": false,
+                  "resources": Array [],
+                  "submissions": Array [
+                    Object {
+                      "checklistItemId": "9",
+                      "checklistSubmissions": Object {
+                        "id": "9",
+                      },
+                      "createdAt": "2018-11-18T22:03:26.442Z",
+                      "deletedAt": null,
+                      "id": "JGLqrmBEd",
+                      "tripId": "NumC5-pK7G",
+                      "updatedAt": "2018-11-18T23:53:59.297Z",
+                      "value": "I submitted yellow card",
+                    },
+                  ],
+                },
+                Object {
+                  "deleteReason": null,
+                  "destinationName": "Lagos, Nigeria",
+                  "id": "8",
+                  "name": "visa application",
+                  "requiresFiles": true,
+                  "resources": Array [],
+                  "submissions": Array [
+                    Object {
+                      "checklistItemId": "8",
+                      "checklistSubmissions": Object {
+                        "id": "8",
+                      },
+                      "createdAt": "2018-11-18T22:03:50.071Z",
+                      "deletedAt": null,
+                      "id": "wY4s9r-29",
+                      "tripId": "NumC5-pK7G",
+                      "updatedAt": "2018-11-18T22:26:25.322Z",
+                      "value": Object {
+                        "fileName": "test.pdf",
+                        "url": "image.com",
+                      },
+                    },
+                  ],
+                },
+                Object {
+                  "deleteReason": null,
+                  "destinationName": "Lagos, Nigeria",
+                  "id": "7",
+                  "name": "travel stipend",
+                  "requiresFiles": true,
+                  "resources": Array [],
+                  "submissions": Array [],
+                },
+                Object {
+                  "deleteReason": null,
+                  "destinationName": "Default",
+                  "id": "3",
+                  "name": "Travel Ticket Details",
+                  "requiresFiles": false,
+                  "resources": Array [],
+                  "submissions": Array [
+                    Object {
+                      "checklistItemId": "3",
+                      "checklistSubmissions": Object {
+                        "id": "3",
+                      },
+                      "createdAt": "2018-11-18T22:04:32.606Z",
+                      "deletedAt": null,
+                      "id": "yRCCSp0Oy",
+                      "tripId": "NumC5-pK7G",
+                      "updatedAt": "2018-11-18T22:04:32.606Z",
+                      "value": Object {
+                        "airline": "Arik Airways",
+                        "arrivalTime": "2018-11-20T01:00",
+                        "departureTime": "2018-11-20T01:00",
+                        "returnAirline": "",
+                        "returnDepartureTime": "2018-11-20T01:00",
+                        "returnTicketNumber": "LG 555",
+                        "returnTime": "2018-11-20T01:00",
+                        "ticketNumber": "LG 777",
+                      },
+                    },
+                  ],
+                },
+              ],
+              "destinationName": "Lagos, Nigeria",
+              "tripId": "NumC5-pK7G",
+            },
+          ],
+          "successMessage": "",
+          "successStatus": false,
+          "tripType": "",
+        }
+      }
       type="requests"
       uploadTripSubmissions={[Function]}
     />

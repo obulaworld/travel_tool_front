@@ -32,14 +32,6 @@ describe('Test suite for Analytics Report Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should display the loading spinner', () => {
-    const newProps = { ...defaultProps };
-    newProps.departmentTrips.loading = true;
-    const wrapper = setup(newProps);
-    const spinnerDiv = wrapper.find('.analyticsReport__spinner');
-    expect(spinnerDiv.length).toBe(1);
-  });
-
   it('should display no records found when there\'s no record', () => {
     const newProps = { ...defaultProps };
     newProps.departmentTrips.report = [];
@@ -54,6 +46,7 @@ describe('Test suite for Analytics Report Component', () => {
     button.simulate('click');
     expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
   });
+
   it('should call fetchReadiness when export button is clicked', () => {
     const mountWrapper = mount(<AnalyticsReport {...defaultProps} />);
     const button = mountWrapper.find('.analyticsReport__export-button').first();

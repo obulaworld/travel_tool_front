@@ -9,6 +9,7 @@ import TravelCalendarDetails from '../TravelCalendarDetails';
 import activeCalendar from '../../images/icons/calendar_active.svg';
 import download from '../../images/icons/download.svg';
 import CalendarRange from '../CalendarRange';
+import TravelCalendarPlaceholder from '../Placeholders/TravelCalendarPlaceholder';
 
 class TravelCalendar extends Base {
   state = {
@@ -87,14 +88,14 @@ class TravelCalendar extends Base {
   renderTravelCalendarDetails () {
     const {travelCalendar:{travelCalendarData, travelCalendarError}} = this.props;
     let calendarData;
-    if(travelCalendarData.data.length){
+    if(travelCalendarData.data.length) {
       const data = travelCalendarData.data;
       calendarData = data.map(calender => (
         <Fragment key={calender.name}>
           <TravelCalendarDetails calendar={calender} />
         </Fragment>
       ));
-    }else if(travelCalendarError){
+    } else if(travelCalendarError){
       return (
         <div className="demo-card-wide mdl-card mdl-shadow--2dp errorMsg">
           <p className="errorMsg__text">Records Not Found</p>
@@ -121,7 +122,19 @@ class TravelCalendar extends Base {
     return (
       <Fragment>
         {this.renderCalendarHeader()}
-        {isLoading ? this.renderSpinner():(
+        {isLoading ? (
+          <div className="container">
+            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
+              <TravelCalendarPlaceholder />
+            </div>
+            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
+              <TravelCalendarPlaceholder />
+            </div>
+            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
+              <TravelCalendarPlaceholder />
+            </div>
+          </div>
+        ) : (
           <div className="container">
             {this.renderTravelCalendarDetails()}
           </div>
