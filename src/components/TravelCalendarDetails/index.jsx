@@ -11,21 +11,18 @@ import flightTakeoff from '../../images/flightTakeoff.svg';
 import flightLand from '../../images/flightLand.svg';
 
 class TravelCalendarDetails extends PureComponent{
-  constructor(props) {
-    super(props);
+  state = {
+    hideDetails: false,
+    hideBtnLabel: 'Hide Details'
+  };
 
-    this.state = {
-      hideDetails: true,
-      hideBtnLabel: 'Show Details'
-    };
-  }
-  renderUserBio= (name, role, department) => {
+  renderUserBio= (name, role, department, picture) => {
     const {hideDetails, hideBtnLabel} = this.state;
     return (
       <Fragment>
         <div className="user">
           <ImageLink
-            imageSrc={upic}
+            imageSrc={picture}
             altText="Andela Logo"
             imageClass="navbar__mdl-upic"
           />
@@ -60,10 +57,16 @@ class TravelCalendarDetails extends PureComponent{
             <p className="flight__title">{flightType}</p>
           </div>
           <table>
-            {headerAttrs.map(attr => (<th key={attr}>{attr}</th>))}
-            <tr>
-              {dataAttrs.map(attr => (<td key={attr}>{flightDetails[attr]}</td>))}
-            </tr>
+            <thead>
+              <tr>
+                {headerAttrs.map(attr => (<th key={attr}>{attr}</th>))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {dataAttrs.map(attr => (<td key={attr}>{flightDetails[attr]}</td>))}
+              </tr>
+            </tbody>
           </table>
         </div>
       </Fragment>
@@ -72,15 +75,14 @@ class TravelCalendarDetails extends PureComponent{
 
   renderTravelCalendarDetails= () => {
     const {calendar} = this.props;
-
     if(calendar){
-      const {flights, name, role, department} = calendar;
-      const {arrival, departure} = flights;
+      const {flight, name, role, department, picture} = calendar;
+      const {arrival, departure} = flight;
 
       return (
         <Fragment>
           <div className="demo-card-wide mdl-card mdl-shadow--2dp">
-            {this.renderUserBio(name, role, department)}
+            {this.renderUserBio(name, role, department, picture)}
             <div className="flight-details">
               {this.renderFlightDetails('Arrival', arrival)}
               {this.renderFlightDetails('Departure', departure)}

@@ -22,11 +22,13 @@ const travelCalendar= (state = initialState, action) => {
       ...state,
       isLoading: false,
       travelCalendarData: action.data,
+      travelCalendarError: ''
     };
   case FETCH_CALENDAR_ANALYTICS_FAILURE:
     return {
       ...state,
       isLoading: false,
+      travelCalendarData: {data:[], pagination:{}},
       travelCalendarError: action.error
     };
   case DOWNLOAD_CALENDAR_ANALYTICS_FAILURE:
