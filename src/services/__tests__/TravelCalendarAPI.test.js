@@ -1,8 +1,9 @@
 import moxios from 'moxios';
 import TravelCalendarAPI from '../TravelCalendarAPI';
 import { fetchTravelCalendarResponse } from '../__mocks__/serviceMocks';
+import {resolveBaseUrl} from '../index';
 
-const baseUrl = 'https://9037dd44-1f6b-49d6-b704-55a8200ca229.mock.pstmn.io';
+const baseUrl = resolveBaseUrl();
 
 
 describe('Travel Calendar API', () => {
@@ -20,7 +21,7 @@ describe('Travel Calendar API', () => {
     const query = {type: 'json', filter: ''};
     const location = localStorage.getItem('location')
 
-    moxios.stubRequest(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}`, {
+    moxios.stubRequest(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=1`, {
       status: 200,
       response: fetchTravelCalendarResponse
     });
@@ -28,7 +29,7 @@ describe('Travel Calendar API', () => {
     const response = await TravelCalendarAPI.getCalendarAnalytics(query);
 
     expect(moxios.requests.mostRecent().url)
-      .toEqual(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}`);
+      .toEqual(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=1`);
     expect(response.data).toEqual(fetchTravelCalendarResponse);
   });
 });

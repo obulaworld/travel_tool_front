@@ -1,8 +1,7 @@
-import React, {Fragment } from 'react';
+import React, {Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {startOfWeek, endOfWeek, format} from 'date-fns';
 
-import Base from '../../views/Base';
 import './TravelCalendar.scss';
 import Utils from '../../helper/Utils';
 import TravelCalendarDetails from '../TravelCalendarDetails';
@@ -11,7 +10,7 @@ import download from '../../images/icons/download.svg';
 import CalendarRange from '../CalendarRange';
 import TravelCalendarPlaceholder from '../Placeholders/TravelCalendarPlaceholder';
 
-class TravelCalendar extends Base {
+class TravelCalendar extends PureComponent {
   state = {
     filter:
       `dateFrom=${format(startOfWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfWeek(new Date()), 'YYYY-MM-DD')}`,
@@ -27,9 +26,10 @@ class TravelCalendar extends Base {
 
   handleChange = (range) => {
     const {fetchCalendarAnalytics} = this.props;
+    const {filter} = this.state;
     const query = Utils.manageRangeFilter(range);
     const label = Utils.manageFilterBtnLabel(range);
-    if(query !== this.state.filter){
+    if(query !== filter){
       this.setState(prevState => ({
         ...prevState,
         filter: query,
@@ -85,20 +85,24 @@ class TravelCalendar extends Base {
     );
   }
 
+  renderCalendar (calender, index) {
+    return (
+      <Fragment key={`calendar-${index}`}>
+        <TravelCalendarDetails calendar={calender} />
+      </Fragment>
+    );
+  }
+
   renderTravelCalendarDetails () {
     const {travelCalendar:{travelCalendarData, travelCalendarError}} = this.props;
     let calendarData;
     if(travelCalendarData.data.length) {
       const data = travelCalendarData.data;
-      calendarData = data.map(calender => (
-        <Fragment key={calender.name}>
-          <TravelCalendarDetails calendar={calender} />
-        </Fragment>
-      ));
+      calendarData = data.map((calender, index) => this.renderCalendar(calender, index));
     } else if(travelCalendarError){
       return (
-        <div className="demo-card-wide mdl-card mdl-shadow--2dp errorMsg">
-          <p className="errorMsg__text">Records Not Found</p>
+        <div className="demo-card-wide mdl-card mdl-shadow--2dp error-msg">
+          <p className="error-msg__text">No records found</p>
         </div>
       );
     }

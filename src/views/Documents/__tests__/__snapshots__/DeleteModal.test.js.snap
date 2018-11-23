@@ -12,14 +12,14 @@ exports[`<DeleteModal /> should render correctly 1`] = `
     modalId=""
     requestId=""
     showOverlay={true}
-    title="Delete document"
+    title=""
     visibility="invisible"
     width="480px"
   >
     <span
       className="delete-checklist-item__disclaimer restore-checklist-items_span"
     >
-      Are you sure you want to delete your
+      Are you sure you want to delete
       <strong />
     </span>
     <div
@@ -37,7 +37,6 @@ exports[`<DeleteModal /> should render correctly 1`] = `
       </button>
       <button
         className="bg-btn bg-btn--active delete-document-button"
-        onClick={[Function]}
         type="button"
       >
         Delete

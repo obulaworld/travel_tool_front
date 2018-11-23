@@ -8,7 +8,8 @@ describe('Travel Calendar Details', () => {
     "name": "Harrison Maina",
     "department": "Apprenticeship Department",
     "role": "Product designer",
-    "flights": {
+    "picture": "",
+    "flight": {
       "arrival": {
         "destination": "Lagos",
         "airline": "Kenya Airways",
@@ -34,8 +35,8 @@ describe('Travel Calendar Details', () => {
   it('should show/hide details when button is clicked', () => {
     const wrapper = shallow(<TravelCalendarDetails calendar={calendar}/>);
     wrapper.find('button').simulate('click');
-    expect(wrapper.find('button').text()).toEqual('Hide Details');
-    wrapper.find('button').simulate('click');
     expect(wrapper.find('button').text()).toEqual('Show Details');
+    wrapper.find('button').simulate('click');
+    expect(wrapper.find('button').text()).toEqual('Hide Details');
   });
 });
