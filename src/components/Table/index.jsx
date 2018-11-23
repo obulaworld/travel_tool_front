@@ -83,9 +83,9 @@ export class Table extends Component {
 
   renderRequestStatus(request) {
     const { 
-      editRequest, type, showTravelChecklist, uploadTripSubmissions
+      editRequest, type, showTravelChecklist, uploadTripSubmissions, deleteRequest,
+      openModal, closeModal, shouldOpen, modalType
     } = this.props;
-
     const { menuOpen } = this.state;
     return (
       <div>
@@ -103,15 +103,12 @@ export class Table extends Component {
             {request.status}
           </div>
           <TableMenu
-            // fetchTravelChecklist={fetchTravelChecklist}
-            editRequest={editRequest}
-            showTravelChecklist={showTravelChecklist}
+            deleteRequest={deleteRequest} editRequest={editRequest}
+            showTravelChecklist={showTravelChecklist} closeModal={closeModal}
             uploadTripSubmissions={uploadTripSubmissions}
-            requestStatus={request.status}
-            type={type}
-            menuOpen={menuOpen}
-            request={request}
-            toggleMenu={this.toggleMenu}
+            requestStatus={request.status} type={type} modalType={modalType}
+            menuOpen={menuOpen} request={request} openModal={openModal}
+            toggleMenu={this.toggleMenu} shouldOpen={shouldOpen}
           />
         </div>
       </div>
@@ -347,7 +344,9 @@ Table.propTypes = {
   postSubmission: PropTypes.func,
   submissionInfo: PropTypes.object.isRequired,
   uploadFile: PropTypes.func,
-  fileUploads: PropTypes.object
+  fileUploads: PropTypes.object,
+  deleteRequest: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {

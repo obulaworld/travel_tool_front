@@ -346,4 +346,54 @@ describe('Requests Reducer', () => {
       });
     });
   });
+
+  describe('Delete Request Reducer', () => {
+    const initialState = {};
+    it('returns the correct state for DELETE_REQUEST', () => {
+      const action = {
+        type: 'DELETE_REQUEST'
+      };
+      expect(requests(initialState, action)).toEqual({
+        isDeleting: true,
+      });
+    });
+    it('returns the correct state for DELETE_REQUEST_SUCCESS action', () => {
+      const initialState = {
+        requestData: {
+          trips: [],
+          comments: []
+        },
+        requestOnEdit: {},
+        comments: [],
+        isDeleting: true,
+        requests: [{
+          id: '45gdtf',
+          name: 'Ademola Ariya',
+          origin: 'Lagos',
+          destination: 'New York',
+          manager: 'Samuel Kubai'
+        }]
+      };
+      const action = {
+        type: 'DELETE_REQUEST_SUCCESS',
+        message: 'Request 45gdtf has been successfully deleted',
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        isDeleting: false,
+        message: 'Request 45gdtf has been successfully deleted'
+      });
+    });
+
+    it('returns the correct state for DELETE_REQUEST_FAILURE action', () => {
+      const action = {
+        type: 'DELETE_REQUEST_FAILURE',
+        error: 'Possible network error, please reload the page',
+      };
+      expect(requests(initialState, action)).toEqual({
+        isDeleting: false,
+        error: 'Possible network error, please reload the page',
+      });
+    });
+  });
 });

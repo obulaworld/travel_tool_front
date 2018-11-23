@@ -12,6 +12,9 @@ import {
   EDIT_REQUEST,
   EDIT_REQUEST_SUCCESS,
   EDIT_REQUEST_FAILURE,
+  DELETE_REQUEST,
+  DELETE_REQUEST_SUCCESS,
+  DELETE_REQUEST_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchUserRequests = url => ({
@@ -78,6 +81,20 @@ export const editRequestSuccess = (updatedRequest) => ({
 });
 export const editRequestFailure = (error) => ({
   type: EDIT_REQUEST_FAILURE,
+  error,
+});
+
+export const deleteRequest = (requestId) => ({
+  type: DELETE_REQUEST,
+  requestId
+});
+export const deleteRequestSuccess = (deleteMessage, requestId) => ({
+  type: DELETE_REQUEST_SUCCESS,
+  deleteMessage,
+  requestId
+});
+export const deleteRequestFailure = (error) => ({
+  type: DELETE_REQUEST_FAILURE,
   error,
 });
 

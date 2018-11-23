@@ -12,7 +12,7 @@ import {
 } from '../../redux/actionCreator/availableRoomsActions';
 import {
   fetchUserRequests, createNewRequest, editRequest,
-  fetchEditRequest, fetchUserRequestDetails,
+  fetchEditRequest, deleteRequest, fetchUserRequestDetails,
 } from '../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
@@ -52,6 +52,11 @@ export class Requests extends Base {
       openModal(true, 'request details', page);
       this.storeRequestIdRequest(requestId);
     }
+  }
+
+  handleDeleteRequest = (requestId) => {
+    const { deleteRequest } = this.props;
+    deleteRequest(requestId);
   }
 
   handleEditRequest = (requestId) => {
@@ -151,9 +156,9 @@ export class Requests extends Base {
           fetchSubmission={fetchSubmission} postSubmission={postSubmission}
           submissionInfo={submissionInfo} isFetching={isFetching}
           requestData={requestData} uploadFile={uploadFile}
+          deleteRequest={this.handleDeleteRequest}
         />
-      </div>
-    );
+      </div>);
   }
   renderNewRequestForm() {
     const {
@@ -226,6 +231,7 @@ Requests.propTypes = {
   createNewRequest: PropTypes.func.isRequired,
   fetchEditRequest: PropTypes.func.isRequired,
   editRequest: PropTypes.func.isRequired,
+  deleteRequest: PropTypes.func.isRequired,
   creatingRequest: PropTypes.bool,
   errors: PropTypes.array,
   shouldOpen: PropTypes.bool.isRequired,
@@ -280,7 +286,8 @@ const actionCreators = {
   fetchSubmission,
   postSubmission,
   fetchAvailableRoomsSuccess,
-  uploadFile
+  uploadFile,
+  deleteRequest
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

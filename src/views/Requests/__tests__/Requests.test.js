@@ -121,6 +121,7 @@ const props = {
   updateUserProfile: sinon.spy(() => Promise.resolve()),
   fetchAvailableRooms: sinon.spy(() => Promise.resolve()),
   fetchTravelChecklist: sinon.spy(() => Promise.resolve()),
+  deleteRequest: sinon.spy(() => Promise.resolve()),
   fetchUserRequestsError: null,
   openRequestsCount: 1,
   pastRequestsCount: 1,
@@ -423,5 +424,22 @@ describe('<Requests>', () => {
     mountWrapper.simulate('click');
     expect(props.fetchEditRequest.called).toBe(true);
     expect(props.openModal.called).toBe(true);
+  });
+
+  it('should handle delete request', () => {
+    const event = { preventDefault: jest.fn() };
+    const newProps = {
+      ...props,
+      shouldOpen: true,
+      modalType: 'delete request'
+    };
+    const wrapper = shallow(<Requests {...newProps} />
+    );
+    const instance = wrapper.instance();
+    const spyon = jest.spyOn(instance, 'handleDeleteRequest');
+    wrapper.instance().handleDeleteRequest('xDh20btGz');
+    expect(spyon).toHaveBeenCalledTimes(1);
+    expect(instance.props.deleteRequest.called).toBe(true);
+    expect(instance.props.deleteRequest.calledWith('xDh20btGz')).toBe(true);
   });
 });

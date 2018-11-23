@@ -232,6 +232,7 @@ export class Documents extends Component {
   renderDocumentsPage() {
     const { isLoading, documents, closeModal, shouldOpen, modalType, editDocument } = this.props;
     const { menuOpen, documentToDelete } = this.state;
+    let documentForDelete = `your ${documentToDelete}`;
     const currentDocuments = (documents.length !== 0) ? (
       <DocumentTable
         documents={documents}
@@ -255,8 +256,9 @@ export class Documents extends Component {
           closeModal={closeModal}
           shouldOpen={shouldOpen}
           modalType={modalType}
-          deleteUserDocument={this.deleteUserDocument}
-          documentName={documentToDelete}
+          handleDelete={this.deleteUserDocument}
+          documentName={documentForDelete}
+          title="Delete document"
         />
         {this.renderDocumentEditModal()}
         {this.renderDocumentDownloadModal()}

@@ -7,7 +7,8 @@ import {
   watchFetchRequests,
   watchCreateNewRequestAsync,
   watchFetchUserRequestsDetails,
-  watchEditRequest
+  watchEditRequest,
+  watchDeleteRequest
 } from '../requestsSaga';
 import { fetchRequestsResponse } from '../../__mocks__/mocks';
 
@@ -195,6 +196,52 @@ describe('Requests Saga', () => {
           type: 'EDIT_REQUEST',
           requestId,
           requestData: action.requestData
+        })
+        .run();
+    });
+  });
+
+  describe('Delete request Saga', () => {
+    const action = {
+      requestId: '45TGF56'
+    };
+
+    const response = {
+      data: {
+        message: 'Request 45TGF56 has been successfully deleted',
+        requestId: 'xDh20cuGx'
+      }
+    };
+
+    it('deletes request', () => {
+      return expectSaga(watchDeleteRequest, RequestAPI)
+        .provide([
+          [matchers.call.fn(RequestAPI.deleteRequest, action.requestId), response]
+        ])
+        .put({
+          type: 'DELETE_REQUEST_SUCCESS',
+          deleteMessage: response.data.message,
+          requestId: response.data.requestId
+        })
+        .dispatch({
+          type: 'DELETE_REQUEST',
+          requestId,
+        })
+        .run();
+    });
+
+    it('throws error if there is an error deleting a user\'s requests', () => {
+      return expectSaga(watchDeleteRequest, RequestAPI)
+        .provide([
+          [matchers.call.fn(RequestAPI.deleteRequest, action.requestId), throwError(error)]
+        ])
+        .put({
+          type: 'DELETE_REQUEST_FAILURE',
+          error
+        })
+        .dispatch({
+          type: 'DELETE_REQUEST',
+          requestId
         })
         .run();
     });
