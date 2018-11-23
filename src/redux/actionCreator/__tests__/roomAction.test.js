@@ -17,7 +17,6 @@ describe('Room actions', () => {
     ]
   },];
 
-
   const data = {
     fault: true
   };

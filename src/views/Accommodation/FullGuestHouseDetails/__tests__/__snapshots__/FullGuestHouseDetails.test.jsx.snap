@@ -122,6 +122,12 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
   </div>
   <Timeline
     fetchTimelineRoomsData={[Function]}
+    modal={
+      Object {
+        "modalType": null,
+        "shouldOpen": false,
+      }
+    }
     modalType={null}
     rooms={
       Array [

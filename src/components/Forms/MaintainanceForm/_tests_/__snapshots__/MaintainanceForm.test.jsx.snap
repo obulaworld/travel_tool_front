@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MaintainanceForm /> renders correctly 1`] = `
+<FormContext
+  errors={Object {}}
+  targetForm={
+    MaintainceForm {
+      "context": Object {},
+      "defaultState": Object {
+        "errors": Object {},
+        "hasBlankFields": true,
+        "hideNotificationPane": true,
+        "hideOverlay": false,
+        "hideSideBar": false,
+        "openSearch": false,
+        "selectedLink": "settings page",
+        "values": Object {
+          "maintainanceEnd": "",
+          "maintainanceStart": "",
+          "reason": "",
+        },
+      },
+      "handleClearForm": [Function],
+      "props": Object {
+        "addmaintenanceRecord": [Function],
+        "closeModal": [Function],
+        "errors": Array [],
+        "history": Object {
+          "push": [Function],
+        },
+        "id": "1",
+        "isLoading": false,
+        "managers": Array [
+          Object {
+            "email": "test.user@andela.com",
+            "fullName": "Test User",
+          },
+        ],
+        "onChange": [Function],
+        "onNotificationToggle": [Function],
+        "shouldOpen": false,
+        "showId": [Function],
+        "size": 10,
+        "status": false,
+      },
+      "refs": Object {},
+      "setState": [Function],
+      "state": Object {
+        "errors": Object {},
+        "hasBlankFields": true,
+        "hideNotificationPane": true,
+        "hideOverlay": false,
+        "hideSideBar": false,
+        "openSearch": false,
+        "selectedLink": "settings page",
+        "values": Object {
+          "maintainanceEnd": "",
+          "maintainanceStart": "",
+          "reason": "",
+        },
+      },
+      "submitMaintainanceData": [Function],
+      "updater": Updater {
+        "_callbacks": Array [],
+        "_renderer": ReactShallowRenderer {
+          "_context": Object {},
+          "_element": <MaintainceForm
+            addmaintenanceRecord={[Function]}
+            closeModal={[Function]}
+            errors={Array []}
+            history={
+                    Object {
+                            "push": [Function],
+                          }
+            }
+            id="1"
+            isLoading={false}
+            managers={
+                    Array [
+                            Object {
+                              "email": "test.user@andela.com",
+                              "fullName": "Test User",
+                            },
+                          ]
+            }
+            onChange={[Function]}
+            onNotificationToggle={[Function]}
+            shouldOpen={false}
+            showId={[Function]}
+            size={10}
+            status={false}
+    />,
+          "_forcedUpdate": false,
+          "_instance": [Circular],
+          "_newState": null,
+          "_rendered": <FormContext
+            errors={Object {}}
+            targetForm={[Circular]}
+            validatorName="validate"
+            values={
+                    Object {
+                            "maintainanceEnd": "",
+                            "maintainanceStart": "",
+                            "reason": "",
+                          }
+            }
+    >
+            <form
+                    className="maintainance-form"
+                    onSubmit={[Function]}
+            >
+                    <MaintainanceFieldSets
+                            hasBlankFields={true}
+                            values={
+                                    Object {
+                                            "maintainanceEnd": "",
+                                            "maintainanceStart": "",
+                                            "reason": "",
+                                          }
+                            }
+                    />
+                    <div
+                            className="maintainence-line"
+                    />
+                    <div
+                            className="maintainence-submit-area"
+                    >
+                            <div
+                                    className="maintainence-submit-area_false"
+                            >
+                                    <button
+                                            className="bg-btn bg-btn--inactive"
+                                            disabled={true}
+                                            type="submit"
+                                    >
+                                            Save Changes
+                                    </button>
+                            </div>
+                    </div>
+            </form>
+    </FormContext>,
+          "_rendering": false,
+          "_updater": [Circular],
+        },
+      },
+      "validate": [Function],
+      Symbol(enzyme.__setState__): [Function],
+    }
+  }
+  validatorName="validate"
+  values={
+    Object {
+      "maintainanceEnd": "",
+      "maintainanceStart": "",
+      "reason": "",
+    }
+  }
+>
+  <form
+    className="maintainance-form"
+    onSubmit={[Function]}
+  >
+    <MaintainanceFieldSets
+      hasBlankFields={true}
+      values={
+        Object {
+          "maintainanceEnd": "",
+          "maintainanceStart": "",
+          "reason": "",
+        }
+      }
+    />
+    <div
+      className="maintainence-line"
+    />
+    <div
+      className="maintainence-submit-area"
+    >
+      <div
+        className="maintainence-submit-area_false"
+      >
+        <button
+          className="bg-btn bg-btn--inactive"
+          disabled={true}
+          type="submit"
+        >
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </form>
+</FormContext>
+`;

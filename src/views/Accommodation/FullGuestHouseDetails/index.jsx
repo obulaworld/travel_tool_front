@@ -11,6 +11,8 @@ import {
 import greyBedIcon from '../../../images/icons/accomodation_inactive.svg';
 import Modal from '../../../components/modal/Modal';
 import { NewAccommodationForm } from '../../../components/Forms';
+import  MaintainceForm  from '../../../components/Forms/MaintainanceForm';
+import addmaintenanceRecord from '../../../redux/actionCreator/maintenanceAction';
 import {
   openModal,
   closeModal
@@ -29,8 +31,7 @@ export class GuestHouseDetails extends PureComponent {
   };
 
   renderGuestHouseDetailsNameBar = () => {
-    const { match, history, guestHouse } = this.props;
-
+    const { match, history, guestHouse, userId } = this.props;
     return (
       <div className="guesthouse-details-wrapper--top">
         <div className="details-wrapper-top-right">
@@ -135,10 +136,9 @@ export class GuestHouseDetails extends PureComponent {
     );
   }
 
+
   render() {
-    const { guestHouse, updateRoomState, availableBeds,
-      fetchAvailableRooms, loadingBeds, openModal,
-      closeModal, modal, loading, isLoading } = this.props;
+    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, openModal,closeModal, modal, loading, isLoading, addmaintenanceRecord} = this.props;
     const { shouldOpen, modalType } = modal;
     return (
       <div className="guesthouse-details-wrapper">
@@ -170,18 +170,21 @@ export class GuestHouseDetails extends PureComponent {
           )}
         </div>
         <Timeline
+          modalType={modalType}
+          shouldOpen={shouldOpen}
+          openModal={openModal} 
+          modal={modal} 
+          closeModal={closeModal}
+          handleMaintainence={this.handleMaintainence}
           rooms={guestHouse.rooms}
           guestHouseId={guestHouse.id}
           fetchTimelineRoomsData={this.fetchTimelineRoomsData}
           updateRoomState={updateRoomState}
+          addmaintenanceRecord={addmaintenanceRecord}
           updateTripRoom={this.callUpdateTripRoom}
           availableBeds={availableBeds}
           fetchAvailableRooms={fetchAvailableRooms}
           loadingBeds={loadingBeds}
-          openModal={openModal}
-          closeModal={closeModal}
-          shouldOpen={shouldOpen}
-          modalType={modalType}
           loading={loading}
         />
       </div>
@@ -197,6 +200,8 @@ GuestHouseDetails.propTypes = {
   initFetchTimelineData: PropTypes.func,
   guestHouse: PropTypes.object,
   updateRoomState: PropTypes.func.isRequired,
+  addmaintenanceRecord:PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
   modal: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired,
@@ -230,6 +235,7 @@ const actionCreators = {
   closeModal,
   editAccommodation,
   fetchAccommodation,
+  addmaintenanceRecord,
   updateTripRoom,
   fetchAvailableRooms,
 };

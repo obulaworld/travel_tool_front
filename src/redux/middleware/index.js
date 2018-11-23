@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { all } from 'redux-saga/effects';
 import { userAuth } from './userAuthSagas';
 import {
@@ -87,6 +88,9 @@ import{
   watchFetchSubmission,
 } from './checklistSubmissionSaga';
 import { watchFileUpload } from './fileUploadSaga';
+import{
+  watchAddMainteinanceAsync
+} from './maintenanceSaga';
 
 function* rootSaga() {
   yield all([
@@ -142,7 +146,9 @@ function* rootSaga() {
     watchPostSubmission(),
     watchFetchSubmission(),
     watchDownloadDocuments(),
-    watchFileUpload()
+    watchFileUpload(),
+    watchAddMainteinanceAsync(),
+    watchDownloadDocuments()
   ]);
 }
 

@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {PropTypes} from 'prop-types';
 import moment from 'moment';
+import TimelineBarWrapper from '../TimelineBarWrapper';
+import TimelineBar from '../TimelineBarWrapper/TimelineBar';
 import TripDetails from './TripDetails';
-import TripGeomHelper from './TripGeomHelper';
+import TimelineBarHelper from '../TimelineBarHelper';
 import {COLOR_SPEC_RANGES, SHADE_OFFSETS} from '../../settings';
 import './TripGeometry.scss';
 
@@ -107,16 +109,15 @@ class TripGeometry extends Component {
     const {tripDayWidth} = this.props;
     const {hue, saturation, lightness} = colorSpecs;
     return (
-      <div
-        className="geom-trip geom-trip--outer"
-        style={{
-          minHeight: '20px',
+      <TimelineBar
+        tripDayWidth={tripDayWidth}
+        tripStats={tripStats}
+        customStyle={{
           background: `hsl(${hue},${saturation}%,${lightness}%)`,
-          width: `${tripDayWidth * tripStats.length}px`
         }}
       >
         {this.renderTripBarInnerElements(tripStats, colorSpecs)}
-      </div>
+      </TimelineBar>
     );
   }
 
@@ -124,20 +125,13 @@ class TripGeometry extends Component {
     const {bookingDetailsPos, translateDetailsLeft} = this.state;
     const {trip, handleChangeRoomModal} = this.props;
     const detailsVariant = this.getBookingDetailsVariant();
-    const helper = new TripGeomHelper(this.props);
+    const helper = new TimelineBarHelper(this.props);
     const tripStats = helper.getTripStats(trip);
     return (
-      <div
-        className="timeline-trip-geometry"
-        tabIndex="-1"
-        role="presentation"
-        onKeyUp={()=>{}}
-        onClick={this.setBookingDetailsAbsolutePos}
-        onFocus={() => this.toggleBookingDetails('open')}
-        onBlur={() => this.toggleBookingDetails('close')}
-        style={{
-          left: `${tripStats.tripTimelineOffsetLeft}px`
-        }}
+      <TimelineBarWrapper
+        setBookingDetailsAbsolutePos={this.setBookingDetailsAbsolutePos}
+        toggleBookingDetails={this.toggleBookingDetails}
+        tripStats={tripStats}
       >
         {this.renderTripBar(tripStats)}
         <TripDetails
@@ -148,7 +142,7 @@ class TripGeometry extends Component {
           toggleBookingDetails={this.toggleBookingDetails}
           handleChangeRoomModal={handleChangeRoomModal}
         />
-      </div>
+      </TimelineBarWrapper>
     );
   }
 }

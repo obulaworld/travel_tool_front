@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {PropTypes} from 'prop-types';
+import MaintainceForm from '../../Forms/MaintainanceForm';
 import tick from '../../../images/Tick/tick.svg';
-
+import Modal from '../../modal/Modal';
 
 class RoomLabel extends PureComponent {
   state = {
@@ -13,7 +14,6 @@ class RoomLabel extends PureComponent {
       showMarkUnavailable: !prevState.showMarkUnavailable
     }));
   }
-
 
   showId = (id, status) =>{
     const {updateRoomState, timelineDateRange, guestHouseId} = this.props;
@@ -29,16 +29,49 @@ class RoomLabel extends PureComponent {
     }
   }
 
+  renderMainteinanceForm(type){
+    const {closeModal, name, id, status,shouldOpen, addmaintenanceRecord, modalType} = this.props;
+    return(
+      <Modal
+        closeModal={closeModal}
+        width="480px"
+        visibility={shouldOpen && type === modalType ? 'visible' : 'invisible'}
+        title={`Mark ${name} Unavailable`}
+      >
+        <MaintainceForm
+          status={status}
+          showId={this.showId}
+          id={id}
+          closeModal={closeModal}
+          addmaintenanceRecord={addmaintenanceRecord}
+        />
+      </Modal>
+    );
+  }
+
   renderCheckBox = (statusClass) => {
-    const { id, status} = this.props;
+    const { id, status, openModal, name} = this.props;
     return (
-      <div
-        role="button"
-        tabIndex="0"
-        className={`container_room_${statusClass}`}
-        onClick={()=> this.showId(id, status)}
-        onKeyDown={() => this.showId(id, status)}
-      />
+      <div>
+        {status ? (
+          <div
+            role="button"
+            tabIndex="0"
+            className={`container_room_${statusClass}`}
+            onClick={() => this.showId(id, status)}
+            onKeyDown={() => this.showId(id, status)}
+          />
+        ): (
+          <div
+            role="button"
+            tabIndex="0"
+            className={`container_room_${statusClass}`}
+            onClick={() => openModal(true,  `${name}-${id}`)}
+            onKeyDown={() => openModal(true,  `${name}-${id}`)}
+          />
+
+        )}
+      </div>
     );
   }
 
@@ -62,16 +95,22 @@ class RoomLabel extends PureComponent {
             <span>Unavailable</span>
           </div>
         </div>
+        {this.renderMainteinanceForm(`${name}-${id}`)}
       </div>
     );
   }
 }
 
 RoomLabel.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  addmaintenanceRecord: PropTypes.func.isRequired,
+  shouldOpen:PropTypes.bool.isRequired,
   status: PropTypes.string.isRequired,
   timelineDateRange: PropTypes.array.isRequired,
   guestHouseId: PropTypes.string.isRequired,
+  modalType: PropTypes.string.isRequired,
   updateRoomState: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

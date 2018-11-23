@@ -12,6 +12,7 @@ class RoomsGeomWrapper extends PureComponent {
         status={room.faulty}
         key={room.id}
         beds={room.beds}
+        maintainances={room.maintainances}
         timelineStartDate={timelineStartDate}
         tripDayWidth={tripDayWidth}
         timelineViewType={timelineViewType}

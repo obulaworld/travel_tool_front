@@ -18,17 +18,43 @@ exports[`<RoomLabel /> should match snapshot 1`] = `
     <div
       className="mark-unavailable is-hidden"
     >
-      <div
-        className="container_room_fine"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="button"
-        tabIndex="0"
-      />
+      <div>
+        <div
+          className="container_room_fine"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+        />
+      </div>
       <span>
         Unavailable
       </span>
     </div>
   </div>
+  <Modal
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles=""
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    params=""
+    requestId=""
+    showOverlay={true}
+    title="Mark qwetu Unavailable"
+    visibility="invisible"
+    width="480px"
+  >
+    <MaintainceForm
+      addmaintenanceRecord={[Function]}
+      closeModal={[Function]}
+      id="thjfsndj12"
+      managers={Array []}
+      showId={[Function]}
+      status={false}
+    />
+  </Modal>
 </div>
 `;

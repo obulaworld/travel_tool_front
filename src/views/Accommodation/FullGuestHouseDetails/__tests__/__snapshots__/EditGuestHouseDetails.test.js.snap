@@ -143,6 +143,12 @@ exports[`<Accommodation /> should render correctly 1`] = `
     closeModal={[Function]}
     fetchTimelineRoomsData={[Function]}
     guestHouseId="zNnGJAJH5"
+    modal={
+      Object {
+        "modalType": null,
+        "shouldOpen": false,
+      }
+    }
     modalType={null}
     openModal={[Function]}
     rooms={
