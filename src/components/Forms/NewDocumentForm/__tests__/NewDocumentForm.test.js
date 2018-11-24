@@ -1,6 +1,9 @@
 import React from 'react';
 import { stub } from 'sinon';
+import toast from 'toastr';
 import NewDocumentForm from '..';
+
+toast.error = jest.fn();
 
 describe('<NewDocumentForm />', () => {
   let wrapper;
@@ -13,7 +16,7 @@ describe('<NewDocumentForm />', () => {
     onCancel: jest.fn,
   };
 
-  const file = {
+  const file = new Blob([{
     name: 'file.jpg',
     lastModified: 1517684494000,
     lastModifiedDate:
@@ -21,21 +24,13 @@ describe('<NewDocumentForm />', () => {
     webkitRelativePath: '',
     size: 212919,
     type: 'application/pdf'
-  };
+  }], {type : 'application/pdf'});
+
+  const invalidFileType = new Blob(['invalid file'], {type : 'text/plain'});
 
   beforeEach(() => {
     wrapper = mount(<NewDocumentForm {...props} />);
   });
-
-  global.FileReader = function(spy, fakeData) {
-    this.fakeData = fakeData;
-    this.spy = spy;
-  };
-
-  FileReader.prototype.readAsDataURL = function(file) {
-    this.result = this.fakeData;
-  };
-  FileReader.prototype.onload = jest.fn();
 
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
@@ -68,4 +63,39 @@ describe('<NewDocumentForm />', () => {
     uploadComponent.simulate('submit');
     expect(onSubmit).toBeCalled;
   });
+
+  it('shows a toaster if file type is invalid', () => {
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        files: [
+          invalidFileType
+        ]
+      }
+    };
+    wrapper.find('#upload-btn').simulate('change', event);
+    expect(toast.error).toHaveBeenCalledWith('Incorrect file type uploaded');
+  });
+
+  describe('NewDocumentForm.validate', () => {
+    it('validates filename', () => {
+      const instance = wrapper.instance();
+      jest.spyOn(instance, 'validate');
+      expect(instance.validate).toBeCalled;
+    });
+
+    it('validates required field', () => {
+      wrapper.instance().validate();
+      expect(wrapper.state('errors')).toEqual({ name: 'This field is required' });
+    });
+
+    it('validates filename', () => {
+      wrapper.state('values').name = '12filename'; // set name field value to string starting with digits
+      wrapper.instance().validate();
+      expect(wrapper.state('errors')).toEqual({
+        name: 'File name must start with an alphabet'
+      });
+    });
+  });
+
 });
