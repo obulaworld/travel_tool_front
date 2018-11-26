@@ -18,10 +18,10 @@ describe('Travel Calendar API', () => {
 
 
   it('should make get request to get travel calendar analytics', async () => {
-    const query = {type: 'json', filter: ''};
+    const query = {type: 'json', filter: '', page: 1};
     const location = localStorage.getItem('location')
 
-    moxios.stubRequest(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=1`, {
+    moxios.stubRequest(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=${query.page}`, {
       status: 200,
       response: fetchTravelCalendarResponse
     });
@@ -29,7 +29,7 @@ describe('Travel Calendar API', () => {
     const response = await TravelCalendarAPI.getCalendarAnalytics(query);
 
     expect(moxios.requests.mostRecent().url)
-      .toEqual(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=1`);
+      .toEqual(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=${query.page}`);
     expect(response.data).toEqual(fetchTravelCalendarResponse);
   });
 });

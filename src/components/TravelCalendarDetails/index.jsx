@@ -1,5 +1,6 @@
 import React, {PureComponent, Fragment} from 'react';
 import { PropTypes } from 'prop-types';
+import moment from 'moment';
 
 import './index.scss';
 
@@ -42,6 +43,13 @@ class TravelCalendarDetails extends PureComponent{
   }
 
   renderFlightDetails=(flightType, flightDetails)=>{
+    if (flightDetails.departureTime && flightDetails.departureTime !== '--'){
+      flightDetails.departureTime = moment(new Date(flightDetails.departureTime)).format('lll');
+    }
+
+    if (flightDetails.arrivalTime && flightDetails.arrivalTime !== '--'){
+      flightDetails.arrivalTime = moment(new Date(flightDetails.arrivalTime)).format('lll');
+    }
     const {timeHeader, time} = flightType==='Arrival'? {timeHeader:'Arrival Time', time:'arrivalTime'}
       :{timeHeader:'Departure Time', time:'departureTime'};
     const headerAttrs = ['Airline', 'Flight No.', timeHeader, 'Destination'];
