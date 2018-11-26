@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cookies from 'cookies-js';
 import Utils from '../helper/Utils';
+import API from '../services/AccommodationAPI';
 import { getUserData } from '../redux/actionCreator/userActions';
 import { logoutUser } from '../helper/userDetails';
 
@@ -18,6 +19,7 @@ export default function(ComposedComponent) {
       const token = Cookies.get('jwt-token');
       const { history } = this.props;
       if(token) {
+        API.setToken();
         this.verifyToken(token);
       } else {
         return logoutUser(history, 'Session Expired. Login to continue');

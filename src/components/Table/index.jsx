@@ -76,7 +76,7 @@ export class Table extends Component {
     delete axios.defaults.headers.common['Authorization'];
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
   }
-
+  
   retrieveStatusTag = (requestData, type) => {
     let tag = 'Travel stage';
     if (requestData.status && requestData.status === 'Approved') {
@@ -284,7 +284,7 @@ export class Table extends Component {
 
   renderSubmissionsModal() {
     const { 
-      closeModal, shouldOpen, modalType, fileUploads,
+      closeModal, shouldOpen, modalType, fileUploads, handleCloseSubmissionModal,
       submissionInfo, fetchSubmission, postSubmission, fetchUserRequests
     } = this.props;
     const { 
@@ -294,7 +294,7 @@ export class Table extends Component {
     const { menuOpen: { id } } = this.state;
     return (
       <Modal
-        closeModal={closeModal}
+        closeModal={handleCloseSubmissionModal}
         width="900px"
         customModalStyles="custom-overlay"
         modalId="checklist-submission-modal"
@@ -370,6 +370,7 @@ Table.propTypes = {
   fileUploads: PropTypes.object,
   deleteRequest: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
+  handleCloseSubmissionModal: PropTypes.func,
 };
 
 Table.defaultProps = {
@@ -392,6 +393,7 @@ Table.defaultProps = {
   fetchSubmission: () => {},
   fetchUserRequests: () => {},
   fileUploads: {},
+  handleCloseSubmissionModal: () => {}
 };
 
 export default withLoading(Table);
