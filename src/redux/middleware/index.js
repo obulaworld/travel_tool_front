@@ -1,4 +1,4 @@
-/* eslint-disable */ 
+/* eslint-disable */
 import { all } from 'redux-saga/effects';
 import { userAuth } from './userAuthSagas';
 import {
@@ -23,10 +23,7 @@ import {
   watchEditComment,
   watchDeleteComment
 } from './commentsSaga';
-import {
-  watchFetchApprovals,
-  watchUpdateRequestStatus
-} from './approvalsSaga';
+import { watchFetchApprovals, watchUpdateRequestStatus } from './approvalsSaga';
 import {
   watchFetchNotifications,
   watchAddNotification,
@@ -40,7 +37,7 @@ import {
   watchCreateAccommodationSagaAsync,
   watchFetchAccommodation,
   watchFetchTimelneData,
-  watchEditAccommodation,
+  watchEditAccommodation
 } from './accommodationSaga';
 
 import { watchFetchOccupations } from './occupationSaga';
@@ -59,7 +56,7 @@ import {
   watchFetchAllChecklists,
   watchUpdateChecklist,
   watchDeleteChecklist,
-  watchFetchDeletedChecklistItems,
+  watchFetchDeletedChecklistItems
 } from './travelChecklistSaga';
 
 import {
@@ -67,16 +64,14 @@ import {
   watchDownloadCalendarAnalytics
 } from './travelCalendarSaga';
 
-import {
-  watchFetchCenters,
-  watchUpdateUserCenterAsync
-} from './centersSaga';
+import { watchFetchCenters, watchUpdateUserCenterAsync } from './centersSaga';
 import { watchFetchAnalytics, watchdownloadAnalytics } from './analyticsSaga';
-import { watchFetchReadiness, watchExportReadiness } from './travelReadinessSaga';
-
 import {
-  watchFetchDepartmentTrips
-} from './tripsAnalyticsSaga';
+  watchFetchReadiness,
+  watchExportReadiness
+} from './travelReadinessSaga';
+
+import { watchFetchDepartmentTrips } from './tripsAnalyticsSaga';
 
 import {
   watchFetchDocuments,
@@ -85,14 +80,18 @@ import {
   watchCreateDocument,
   watchDownloadDocuments
 } from './DocumentSaga';
-import{
+import {
   watchPostSubmission,
-  watchFetchSubmission,
+  watchFetchSubmission
 } from './checklistSubmissionSaga';
 import { watchFileUpload } from './fileUploadSaga';
 import{
   watchAddMainteinanceAsync
 } from './maintenanceSaga';
+import {
+  watchFetchAttachments,
+  watchdownloadAttachments
+} from './attachmentsSaga';
 
 function* rootSaga() {
   yield all([
@@ -152,7 +151,9 @@ function* rootSaga() {
     watchAddMainteinanceAsync(),
     watchDownloadDocuments(),
     watchAddRoleSaga(),
-    watchDeleteRequest()
+    watchDeleteRequest(),
+    watchFetchAttachments(),
+    watchdownloadAttachments()
   ]);
 }
 

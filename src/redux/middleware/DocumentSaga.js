@@ -6,7 +6,7 @@ import { FETCH_DOCUMENTS,
   DELETE_DOCUMENT,
   UPDATE_DOCUMENT,
   CREATE_DOCUMENT,
-  DOWNLOAD_DOCUMENTS 
+  DOWNLOAD_DOCUMENTS
 } from '../constants/actionTypes';
 import DocumentAPI from '../../services/DocumentAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -17,7 +17,7 @@ import {
   deleteDocumentFailure,
   updateDocumentFailure,
   updateDocumentSuccess,
-  createDocumentSuccessfully, 
+  createDocumentSuccessfully,
   createDocumentFailure,
   fetchDocuments,
   downloadDocumentsFailure
@@ -79,7 +79,7 @@ export function* updateDocumentAsync(action) {
 export function* downloadDocumentsAsync(action) {
   const { url, name  } = action;
   yield FileSaver.saveAs(url, name);
-  yield put(closeModal());  
+  yield put(closeModal());
   toast.success('Download Successful!');
 }
 

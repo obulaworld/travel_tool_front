@@ -36,6 +36,15 @@ import {
   downloadCalendarAnalyticsFailure
 } from './travelCalendarActions';
 
+import {
+  fetchAttachments,
+  fetchAttachmentsSuccess,
+  fetchAttachmentsFailure,
+  downloadAttachments,
+  downloadAttachmentsSuccess,
+  downloadAttachmentsFailure
+} from './attachmentActions';
+
 export {
   setCurrentUser,
   setCurrentUserSuccess,
@@ -62,5 +71,12 @@ export {
   fetchCalendarAnalyticsSuccess,
   fetchCalendarAnalyticsFailure,
   downloadCalendarAnalytics,
-  downloadCalendarAnalyticsFailure
+  downloadCalendarAnalyticsFailure,
+  // File Attachments
+  fetchAttachments,
+  fetchAttachmentsSuccess,
+  fetchAttachmentsFailure,
+  downloadAttachments,
+  downloadAttachmentsSuccess,
+  downloadAttachmentsFailure
 };

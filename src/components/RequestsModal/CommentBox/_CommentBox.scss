@@ -1,6 +1,5 @@
 .quill-contents {
-  margin: 0 5px 40px 0;
-  // padding: 2px;
+  margin: 0 -5px 40px -5px;
   height: 120px;
 }
 
@@ -19,7 +18,7 @@ p {
     margin: 5px 0 10px 0;
   }
   &__btn-size {
-    margin: 0 10px 20px 0px;
+    margin: 0 10px 20px -5px;
   }
   &__post-btn {
     box-sizing: border-box;
@@ -47,7 +46,7 @@ p {
 
 .edit-buttons {
   margin-right: 25px;
-} 
+}
 .button-color {
   background-color: #d8d4d4;
   color: white;
