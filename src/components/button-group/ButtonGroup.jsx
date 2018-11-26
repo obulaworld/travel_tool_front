@@ -86,6 +86,39 @@ class ButtonGroup extends PureComponent {
     );
   }
 
+  renderVerificationButton () {
+    const { approvedApprovalsCount, verifiedApprovalsCount, activeStatus } = this.props;
+    return (
+      <Fragment>
+        <Button
+          buttonClass={`bg-btn ${activeStatus === 'all' ? 'bg-btn--active' : ''}`}
+          text="All"
+          buttonId="all-button"
+          onClick={() => this.filterEntries('approvals', '')}
+        />
+        <Button
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'approved' ? 'bg-btn--active' : ''}`}
+          responsiveText="Pending"
+          disabled={approvedApprovalsCount === 0}
+          badge={approvedApprovalsCount}
+          showBadge={approvedApprovalsCount > 0}
+          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+          buttonId="open-button"
+          onClick={() => this.filterEntries('approvals', '&status=approved')}
+          text="Pending Verifications"
+        />
+        <Button
+          buttonClass={`bg-btn ${activeStatus === 'verified' ? 'bg-btn--active' : ''}`}
+          responsiveText="Past"
+          buttonId="past-button"
+          text="Past Verifications"
+          disabled={verifiedApprovalsCount === 0}
+          onClick={() => this.filterEntries('approvals', '&status=verified')}
+        />
+      </Fragment>
+    );
+  }
+
   render() {
     const { buttonsType, openRequestsCount, pastRequestsCount } = this.props;
     return (
@@ -93,6 +126,7 @@ class ButtonGroup extends PureComponent {
         { buttonsType === 'approvals' && this.renderApprovalsButton()}
         { buttonsType === 'requests' &&
           this.renderRequestsButton(openRequestsCount, pastRequestsCount) }
+        { buttonsType === 'verifications' && this.renderVerificationButton()}
       </div>
     );
   }
@@ -103,6 +137,8 @@ ButtonGroup.propTypes = {
   pastRequestsCount: PropTypes.number,
   pastApprovalsCount: PropTypes.number,
   openApprovalsCount: PropTypes.number,
+  approvedApprovalsCount: PropTypes.number,
+  verifiedApprovalsCount: PropTypes.number,
   fetchApprovals: PropTypes.func,
   fetchRequests: PropTypes.func,
   url: PropTypes.string,
@@ -115,6 +151,8 @@ ButtonGroup.defaultProps = {
   pastRequestsCount: null,
   pastApprovalsCount: null,
   openApprovalsCount: null,
+  approvedApprovalsCount: null,
+  verifiedApprovalsCount: null,
   fetchApprovals: null,
   fetchRequests: null,
   url: '',

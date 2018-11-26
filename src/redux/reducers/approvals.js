@@ -32,6 +32,8 @@ const approvals = (state = initState, action) => {
       message: action.message,
       openApprovalsCount: action.meta.count.open,
       pastApprovalsCount: action.meta.count.past,
+      approvedApprovalsCount: action.meta.count.approved,
+      verifiedApprovalsCount: action.meta.count.verified,
       pagination: action.meta.pagination
     };
   case FETCH_USER_APPROVALS_FAILURE:

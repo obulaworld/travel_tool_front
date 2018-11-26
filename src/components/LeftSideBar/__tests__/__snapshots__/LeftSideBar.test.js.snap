@@ -40,6 +40,15 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "link_to": "/requests/my-approvals",
                   "text": "My Approvals",
                 },
+                Object {
+                  "link_to": "/requests/my-verifications",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                    "Travel Team Member",
+                  ],
+                  "text": "My Verifications",
+                },
               ],
               "icons": Object {
                 "active": "bookmark_active.svg",

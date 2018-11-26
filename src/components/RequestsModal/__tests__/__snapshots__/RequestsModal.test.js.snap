@@ -157,7 +157,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
               Object {
                 "backgroundColor": "#49AAAF",
                 "color": "white",
-                "cursor": "default",
+                "cursor": "Pointer",
               }
             }
             type="button"
@@ -181,7 +181,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
               Object {
                 "backgroundColor": "white",
                 "color": "black",
-                "cursor": "default",
+                "cursor": "Pointer",
               }
             }
             type="button"
@@ -192,7 +192,6 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       </span>
     </div>
     <ConfirmDialog
-      buttonSelected={false}
       closeDeleteModal={[Function]}
       handleApprove={[Function]}
       handleReject={[Function]}

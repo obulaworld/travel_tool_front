@@ -16,6 +16,10 @@ import requestData from '../__mocks__/requestData';
 import testRequestDetailsResp from '../../../services/__mocks__/mockApprovals';
 import rootSaga from '../../../redux/middleware';
 import RequestDetailsHeader from '../RequestDetailsHeader';
+import RequestModalHelper from '../RequestModalHelper';
+
+const getRequestTripsDetailsSpy = jest.spyOn(RequestModalHelper, 'getRequestTripsDetails');
+const renderStatusAsBadgeSpy = jest.spyOn(RequestModalHelper, 'renderStatusAsBadge');
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 
@@ -172,9 +176,7 @@ describe('Render RequestsModal component', () => {
   });
 
   it('should call getRequestTripsDetails', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'getRequestTripsDetails');
-    wrapper.instance().getRequestTripsDetails('2jhd13');
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(getRequestTripsDetailsSpy).toHaveBeenCalled();
   });
 
   it('should render approveTextColor when button is clicked', () => {
@@ -190,13 +192,9 @@ describe('Render RequestsModal component', () => {
   });
 
   it('should call renderStatusAsBadge function', () => {
-    const action = wrapper.instance();
-    const renderStatusAsBadge = jest.spyOn(
-      wrapper.instance(),
-      'renderStatusAsBadge'
-    );
-    action.renderStatusAsBadge('Approved');
-    expect(renderStatusAsBadge).toBeCalled();
+    const newProps = { ...props, navigatedPage: 'Requests' };
+    shallow(<RequestDetailsModal {...newProps} />);
+    expect(renderStatusAsBadgeSpy).toHaveBeenCalled();
   });
 
   it('should call changeButtonColor for approval function', () => {

@@ -66,6 +66,9 @@ $font-normal: 'DIN Pro';
   &--approved {
     @include request__status(#49aaaf);
   }
+  &--verified {
+    @include request__status(#08c75e);
+  }
 }
 .freeze {
   @media (max-width: 839px) {
