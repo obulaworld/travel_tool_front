@@ -37,11 +37,11 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
     };
     return expectSaga(watchFetchReadiness, ReadinessAPI)
       .provide([
-        [call(ReadinessAPI.getTravelReadiness, query), response]
+        [call(ReadinessAPI.getTravelReadiness, query), response.data]
       ])
       .put({
         type: FETCH_TRAVEL_READINESS_SUCCESS,
-        response: fetchReadinessResponse.readiness
+        response: fetchReadinessResponse.data
       })
       .dispatch({
         type: FETCH_TRAVEL_READINESS,

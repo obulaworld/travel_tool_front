@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import AnalyticsReport from '../index';
 import tripsPerMonthData from '../__mocks__/analyticsReportMockData';
 
+
 const defaultProps = {
   departmentTrips: {
     report: tripsPerMonthData,
@@ -12,8 +13,9 @@ const defaultProps = {
   fetchReadiness: jest.fn(),
   exportReadiness: jest.fn(),
   readiness: {
-    isLoading: false
-  }
+    isLoading: false,
+  },
+  
 };
 
 const setup = (props) => {
@@ -45,12 +47,5 @@ describe('Test suite for Analytics Report Component', () => {
     const button = wrapper.find('#btnExportTripsPerMonth');
     button.simulate('click');
     expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
-  });
-
-  it('should call fetchReadiness when export button is clicked', () => {
-    const mountWrapper = mount(<AnalyticsReport {...defaultProps} />);
-    const button = mountWrapper.find('.analyticsReport__export-button').first();
-    button.simulate('click');
-    expect(defaultProps.fetchReadiness).toHaveBeenCalled();
   });
 });

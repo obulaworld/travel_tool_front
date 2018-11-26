@@ -5,9 +5,10 @@ import {
   EXPORT_TRAVEL_READINESS_FAILURE } from '../constants/actionTypes';
 
 const initialState = { 
-  readiness: {}, 
+  readiness: [], 
   isLoading:false, 
-  error: {} 
+  error: {} ,
+  pagination: {}
 };
 
 const readiness = (state = initialState, action) => {
@@ -16,7 +17,9 @@ const readiness = (state = initialState, action) => {
   case FETCH_TRAVEL_READINESS:
     return {...state, isLoading: true };
   case FETCH_TRAVEL_READINESS_SUCCESS:
-    return { ...state, readiness: response, isLoading: false, error: {} };
+    return { ...state, 
+      readiness: response.readiness, 
+      pagination:response.pagination, isLoading: false, error: {} };
   case FETCH_TRAVEL_READINESS_FAILURE:
     return { ...state, error, isLoading: false, readiness: {} };
   case EXPORT_TRAVEL_READINESS:

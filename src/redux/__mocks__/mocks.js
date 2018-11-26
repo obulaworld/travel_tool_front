@@ -329,17 +329,24 @@ export const fetchDepartmentsTripsError = {
   ]
 };
 export const fetchReadinessResponse = {
-  sucess:true,
-  readiness: [
-    {
-      departureDate: '2018-10-04',
-      request: {
-        name: 'Lazuli Doe'
+  readiness: {
+    sucess:true,
+    readiness: [
+      {
+        departureDate: '2018-10-04',
+        request: {
+          name: 'Lazuli Doe'
+        },
+        travelReadiness: '0% complete',
+        arrivalDate: '2018-10-05T00:00:00.000Z'
       },
-      travelReadiness: '0% complete',
-      arrivalDate: '2018-10-05T00:00:00.000Z'
-    },
-  ]
+    ],
+    pagination: {
+      pageCount: 1,
+      currentPage: 1,
+      dataCount:13
+    }
+  }
 };
 
 export const fetchTravelCalendarResponse = {

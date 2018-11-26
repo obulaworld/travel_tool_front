@@ -88,5 +88,17 @@ exports[`Test suite for Travel Readiness Component should match the snapshot 1`]
       </p>
     </div>
   </div>
+  <AnalyticsPagination
+    handlePagination={[Function]}
+    pagination={
+      Object {
+        "currentPage": 2,
+        "dataCount": 13,
+        "nextPage": 3,
+        "pageCount": 3,
+        "prevPage": 1,
+      }
+    }
+  />
 </div>
 `;

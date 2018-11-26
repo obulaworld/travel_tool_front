@@ -1,12 +1,17 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+
+import React, { PureComponent, Fragment } from 'react';
+import { PropTypes } from 'prop-types';
+import { read } from 'fs';
 import generateDynamicDate from '../../helper/generateDynamicDate';
 import download from '../../images/icons/save_alt_24px.svg';
 import Button from '../buttons/Buttons';
 import TravelReadinessPlaceholder from '../Placeholders/TravelReadinessPlaceholder';
 import './TravelReadiness.scss';
+import AnalyticsPagination from '../Pagination/AnalyticsPagination';
 
-class TravelReadiness extends Component {
+const limit = 9;
+
+class TravelReadiness extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { travelFlow: 'inflow' };
@@ -28,8 +33,20 @@ class TravelReadiness extends Component {
         </div>
       </div>
     );
-  };
+  }
 
+  renderPagination = (readiness) => {
+    if(readiness){
+      const {pagination} = readiness;
+      return (
+        <AnalyticsPagination 
+          pagination={pagination}
+          handlePagination={this.handlePagination}
+        />
+      );
+    }
+
+  }
   getReadinessCSV = () => {
     const { exportReadiness } = this.props;
     const { travelFlow } = this.state;
@@ -41,8 +58,8 @@ class TravelReadiness extends Component {
     this.setState({
       travelFlow: travelArgument
     });
-    fetchReadiness({page: '1', limit: '6', type:'json', travelFlow: travelArgument});
-  };
+    fetchReadiness({page: '1', limit, type:'json', travelFlow: travelArgument});
+  }
 
   travelFlowButton = () => {
     const { travelFlow } = this.state;
@@ -64,6 +81,25 @@ class TravelReadiness extends Component {
     );
     return travelButton;
   };
+  findPages = readiness => {
+    if (readiness.pagination) {
+      const {currentPage, pageCount} = readiness.pagination;
+      return { currentPage, pageCount};
+    }
+    return {};
+  }
+  handlePagination = direction => {
+    const { readiness, fetchReadiness } = this.props;
+    if(readiness){
+      const { currentPage, pageCount, limit, prevPage, nextPage } = readiness.pagination;
+      if(direction==='Next' && currentPage <= pageCount){
+        fetchReadiness({page: nextPage, limit, type:'json', travelFlow: 'inflow'});
+      }else if(direction === 'Previous' && prevPage > 0){
+        fetchReadiness({page: prevPage, limit, type:'json', travelFlow: 'inflow'});
+      }
+
+    }
+  }
 
   renderReadinessTitles = () => {
     const { travelFlow } = this.state;
@@ -87,6 +123,7 @@ class TravelReadiness extends Component {
     const { readiness, renderNotFound } = this.props;
     const { isLoading} = readiness;
     const { travelFlow } = this.state;
+    const pages = this.findPages(readiness);
     return (
       <div className="analyticsReport__card" id="travel-readiness" style={{marginRight: '30px'}}>
         { isLoading ?
@@ -107,15 +144,17 @@ class TravelReadiness extends Component {
               {readiness.readiness && !readiness.readiness.length && renderNotFound()}
             </Fragment>
           )}
+        {this.renderPagination(readiness, pages.currentPage, pages.pageCount)}
       </div>
     );
   }
 }
 TravelReadiness.propTypes = {
+  fetchReadiness: PropTypes.func.isRequired,
   readiness: PropTypes.object.isRequired,
   exportReadiness:PropTypes.func.isRequired,
-  fetchReadiness: PropTypes.func.isRequired,
-  renderNotFound: PropTypes.func.isRequired
+  renderNotFound: PropTypes.func.isRequired,
+
 };
 
 export default TravelReadiness;
