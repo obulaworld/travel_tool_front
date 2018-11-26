@@ -35,7 +35,8 @@ export class Accommodation extends Component {
       modalType,
       createAccommodation,
       fetchAccommodation,
-      editAccommodation
+      editAccommodation,
+      createAccommodationLoading,
     } = this.props;
     return (
       <Modal
@@ -53,6 +54,7 @@ export class Accommodation extends Component {
           createAccommodation={createAccommodation}
           fetchAccommodation={fetchAccommodation}
           editAccommodation={editAccommodation}
+          createAccommodationLoading={createAccommodationLoading}
         />
       </Modal>
     );
@@ -86,6 +88,7 @@ Accommodation.propTypes = {
   getCurrentUserRole: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
   createAccommodation: PropTypes.func.isRequired,
+  createAccommodationLoading: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   guestHouses: PropTypes.arrayOf(

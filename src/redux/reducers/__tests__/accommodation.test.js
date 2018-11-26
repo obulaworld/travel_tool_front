@@ -13,6 +13,7 @@ describe('Accommodation Reducer', () => {
   describe('Fetch Accommodation Reducer', () => {
     const initialState = {
       postAccommodationData: [],
+      createAccommodationLoading: false,
       errors: [],
       editAccommodationData: {},
       editingAccommodation: false,
@@ -108,6 +109,7 @@ describe('Accommodation Reducer', () => {
       const expectedState = {
         postAccommodationData: [],
         errors: [],
+        createAccommodationLoading: false,
         editAccommodationData: {},
         editingAccommodation: true,
         guestHouses: [],
@@ -158,6 +160,7 @@ describe('Accommodation Reducer', () => {
       const expectedState = {
         postAccommodationData: [],
         errors: [],
+        createAccommodationLoading: false,
         editAccommodationData: {},
         editingAccommodation: false,
         guestHouses: [],

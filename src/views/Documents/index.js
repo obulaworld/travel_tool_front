@@ -12,6 +12,7 @@ import DocumentTable from './DocumentTable';
 import './Documents.scss';
 import DeleteModal from './DeleteModal';
 import Preloader from '../../components/Preloader/Preloader';
+import ButtonLoadingIcon from '../../components/Forms/ButtonLoadingIcon';
 
 export class Documents extends Component {
   state = {
@@ -148,7 +149,7 @@ export class Documents extends Component {
             disabled={isUpdating}
             onClick={this.handleRenameDocument}
           >
-            Save
+            <ButtonLoadingIcon isLoading={isUpdating} buttonText="Save" />
           </button>
         </p>
       </div>
@@ -223,7 +224,11 @@ export class Documents extends Component {
         }
         title="Add File"
       >
-        <NewDocumentForm closeModal={closeModal} user={user} createDocument={createDocument} />
+        <NewDocumentForm
+          closeModal={closeModal}
+          user={user}
+          createDocument={createDocument}
+        />
       </Modal>
     );
   }
