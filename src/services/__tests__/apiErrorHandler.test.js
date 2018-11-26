@@ -8,7 +8,7 @@ describe('Api Error Handler', () => {
       response: {
         status: 0,
         data: {
-          errors: ['name is required', 'destination is required'],
+          errors: ['Name is required', 'Destination is required'],
           message: ['errors', 'fix it']
         }
       }
@@ -59,13 +59,13 @@ describe('Api Error Handler', () => {
         status: 422,
         data: {
           'errors': [
-            { 'name': 'name', 'msg': 'name is required' },
-            { 'name': 'destination', 'msg': 'destination is required' },
+            { 'name': 'name', 'msg': 'Name is required' },
+            { 'name': 'destination', 'msg': 'Destination is required' },
           ]
         }
       }
     };
-    expect(apiErrorHandler(error)).toEqual('Bad request. name is required, destination is required');
+    expect(apiErrorHandler(error)).toEqual('Name is required, Destination is required');
   });
 
   it('should handle a case when the server returns 404 status code', () => {

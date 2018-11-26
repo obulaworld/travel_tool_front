@@ -49,7 +49,7 @@ describe('Comments saga', () => {
         ])
         .put({
           type: 'CREATE_COMMENT_FAILURE',
-          error: 'Bad request. '
+          error: ''
         })
         .dispatch({
           type: 'CREATE_COMMENT',

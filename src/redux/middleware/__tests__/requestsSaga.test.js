@@ -76,7 +76,7 @@ describe('Requests Saga', () => {
       response: {
         status: 422,
         data: {
-          errors: [{msg: 'name is required'}, {msg: 'destination is required'}]
+          errors: [{msg: 'Name is required'}, {msg: 'Destination is required'}]
         }
       }
     };
@@ -104,7 +104,7 @@ describe('Requests Saga', () => {
         ])
         .put({
           type: 'CREATE_NEW_REQUEST_FAILURE',
-          error: 'Bad request. name is required, destination is required'
+          error: 'Name is required, Destination is required'
         })
         .dispatch({
           type: 'CREATE_NEW_REQUEST',

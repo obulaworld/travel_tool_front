@@ -13,17 +13,16 @@ export default function apiErrorHandler(error) {
       errorMessage = 'Server error, try again';
       break;
     case 422:
-      errorMessage = 'Bad request';
       validationErrors = error.response.data.errors
         .map(error => error.msg || error.message)
         .join(', ');
-      errorMessage = `${errorMessage}. ${validationErrors}`;
+      errorMessage = `${validationErrors}`;
       break;
     default:
       errorMessage = error.response.data.error || error.response.data.message;
     }
   } else {
-    // if server is down, client won't get a response
+    //  if server is down, client won't get a response
     errorMessage = 'Possible network error, please reload the page';
   }
   return errorMessage;

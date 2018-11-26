@@ -199,7 +199,7 @@ describe('Travel Checklist Saga test', () => {
         ]])
         .put({
           type: CREATE_TRAVEL_CHECKLIST_FAILURE,
-          error: 'Bad request. '
+          error: ''
         })
         .dispatch({
           type: CREATE_TRAVEL_CHECKLIST,

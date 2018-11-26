@@ -101,7 +101,7 @@ describe('Test suite for Trips Saga', () => {
         response: {
           status: 422,
           data: {
-            errors: [{msg: 'checkType must be "checkIn" or "checkOut"'}]
+            errors: [{msg: 'CheckType must be "checkIn" or "checkOut"'}]
           }
         }
       };
@@ -111,7 +111,7 @@ describe('Test suite for Trips Saga', () => {
         ])
         .put({
           type: UPDATE_TRIP_FAILURE,
-          error: 'Bad request. checkType must be "checkIn" or "checkOut"'
+          error: 'CheckType must be "checkIn" or "checkOut"'
         })
         .dispatch({
           type: UPDATE_TRIP,
@@ -175,7 +175,7 @@ describe('Test suite for Trips Saga', () => {
         ])
         .put({
           type: UPDATE_TRIP_ROOM_FAILURE,
-          error: 'Bad request. Reason for change is required'
+          error: 'Reason for change is required'
         })
         .dispatch({
           type: UPDATE_TRIP_ROOM,

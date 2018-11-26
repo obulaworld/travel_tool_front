@@ -50,7 +50,7 @@ describe('Test suite for trips Analytics Saga', () => {
         response: {
           status: 422,
           data: {
-            errors: [{message: 'type must be "json" or "file"'}]
+            errors: [{message: 'Type must be "json" or "file"'}]
           }
         }
       };
@@ -60,7 +60,7 @@ describe('Test suite for trips Analytics Saga', () => {
         ])
         .put({
           type: FETCH_DEPARTMENT_TRIPS_ANALYTICS_FAILURE,
-          error: 'Bad request. type must be "json" or "file"'
+          error: 'Type must be "json" or "file"'
         })
         .dispatch({
           type: FETCH_DEPARTMENT_TRIPS_ANALYTICS,

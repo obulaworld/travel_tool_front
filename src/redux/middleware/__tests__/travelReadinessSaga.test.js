@@ -55,7 +55,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       response: {
         status: 422,
         data: {
-          errors: [{message: 'type must be "json" or "file"'}]
+          errors: [{message: 'Type must be "json" or "file"'}]
         }
       }
     };
@@ -65,7 +65,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       ])
       .put({
         type: FETCH_TRAVEL_READINESS_FAILURE,
-        error: 'Bad request. type must be "json" or "file"'
+        error: 'Type must be "json" or "file"'
       })
       .dispatch({
         type: FETCH_TRAVEL_READINESS,
@@ -78,7 +78,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       response: {
         status: 422,
         data: {
-          errors: [{message: 'type must be "json" or "file"'}]
+          errors: [{message: 'Type must be "json" or "file"'}]
         }
       }
     };
@@ -88,7 +88,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       ])
       .put({
         type: EXPORT_TRAVEL_READINESS_FAILURE,
-        error: 'Bad request. type must be "json" or "file"'
+        error: 'Type must be "json" or "file"'
       })
       .dispatch({
         type: EXPORT_TRAVEL_READINESS,

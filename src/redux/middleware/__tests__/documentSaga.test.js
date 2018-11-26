@@ -238,7 +238,7 @@ describe('Document saga', () => {
         ]])
         .put({
           type: CREATE_DOCUMENT_FAILURE,
-          error: 'Bad request. '
+          error: ''
         })
         .dispatch({
           type: CREATE_DOCUMENT,
