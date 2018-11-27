@@ -14,7 +14,12 @@ import {
   FETCH_DELETED_CHECKLISTITEMS,
   FETCH_DELETED_CHECKLISTITEMS_SUCCESS,
   FETCH_DELETED_CHECKLISTITEMS_FAILURE,
+  RESTORE_TRAVEL_CHECKLIST,
+  RESTORE_TRAVEL_CHECKLIST_SUCCESS,
+  RESTORE_TRAVEL_CHECKLIST_FAILURE
 } from '../constants/actionTypes';
+
+let checklistUpdate, disabledListsUpdate, destination;
 
 export const initialState = {
   isLoading: false,
@@ -26,7 +31,7 @@ export const initialState = {
   error: ''
 };
 const traveChecklist = (state = initialState, action) => {
-  let checklistItems;
+  let update;
   switch (action.type) {
   case FETCH_TRAVEL_CHECKLIST:
     return { ...state, isLoading: true };
@@ -37,10 +42,17 @@ const traveChecklist = (state = initialState, action) => {
   case CREATE_TRAVEL_CHECKLIST:
     return { ...state, creatingChecklist: true };
   case CREATE_TRAVEL_CHECKLIST_SUCCESS:
+    checklistUpdate = state.checklistItems.length 
+      ? [{ ...action.checklistItem }, ...state.checklistItems[0].checklist]
+      : [{ ...action.checklistItem }];
     return {
       ...state,
       creatingChecklist: false,
-      checklistItem: action.checklistItem,
+      checklistItems: [
+        {
+          checklist: checklistUpdate
+        }
+      ],
       error: ''
     };
   case CREATE_TRAVEL_CHECKLIST_FAILURE:
@@ -48,8 +60,19 @@ const traveChecklist = (state = initialState, action) => {
   case UPDATE_TRAVEL_CHECKLIST:
     return { ...state, updatingChecklist: true };
   case UPDATE_TRAVEL_CHECKLIST_SUCCESS:
-    checklistItems = state.checklistItems.map(item => action.checklistItemId === item.id && action.updatedChecklistItem || item);
-    return { ...state, checklistItems: [...checklistItems], updatingChecklist: false };
+    destination = state.checklistItems[0].destinationName;
+    action.updatedChecklistItem.id = action.checklistItemId;
+    checklistUpdate = state.checklistItems[0].checklist.map(list => action.checklistItemId === list.id && action.updatedChecklistItem || list);
+
+    return {
+      ...state,
+      checklistItems: [
+        {
+          destinationName: destination,
+          checklist: [...checklistUpdate]
+        }
+      ],
+      updatingChecklist: false };
   case UPDATE_TRAVEL_CHECKLIST_FAILURE:
     return { ...state, updatingChecklist: false, error: action.error };
   case DELETE_TRAVEL_CHECKLIST:
@@ -59,9 +82,23 @@ const traveChecklist = (state = initialState, action) => {
       error: ''
     };
   case DELETE_TRAVEL_CHECKLIST_SUCCESS:
+    action.disabledChecklistItem.resources = [];
+
+    disabledListsUpdate = state.deletedCheckListItems.length 
+      ? [{ ...action.disabledChecklistItem }, ...state.deletedCheckListItems]
+      : [{ ...action.disabledChecklistItem }];
+  
+    checklistUpdate = state.checklistItems[0].checklist
+      .filter(list => action.checklistItemId !== list.id);
     return {
       ...state,
       deletingChecklist: false,
+      checklistItems: [
+        {
+          checklist: [...checklistUpdate]
+        }
+      ],
+      deletedCheckListItems: [...disabledListsUpdate],
       error: ''
     };
   case DELETE_TRAVEL_CHECKLIST_FAILURE:
@@ -89,6 +126,28 @@ const traveChecklist = (state = initialState, action) => {
       deletedCheckListItems: [],
       error: action.error
     };
+  case RESTORE_TRAVEL_CHECKLIST:
+    return { ...state, updatingChecklist: true };
+  case RESTORE_TRAVEL_CHECKLIST_SUCCESS:
+    action.updatedChecklistItem.id = action.checklistItemId;
+    checklistUpdate = state.checklistItems.length 
+      ? [{ ...action.updatedChecklistItem }, ...state.checklistItems[0].checklist]
+      : [{ ...action.updatedChecklistItem }];
+  
+    disabledListsUpdate = state.deletedCheckListItems
+      .filter(list => action.checklistItemId !== list.id);
+
+    return {
+      ...state,
+      checklistItems: [
+        {
+          checklist: [...checklistUpdate]
+        }
+      ],
+      deletedCheckListItems: [...disabledListsUpdate],
+      updatingChecklist: false };
+  case RESTORE_TRAVEL_CHECKLIST_FAILURE:
+    return { ...state, updatingChecklist: false, error: action.error };
   default: return state;
   }
 };

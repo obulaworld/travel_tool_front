@@ -23,15 +23,6 @@ describe('<NewChecklistForm />', () => {
     wrapper.unmount();
   });
 
-  it('should clear the form when the component unmounts', () => {
-    const componentWillUnmount = jest.spyOn(
-      wrapper.instance(),
-      'componentWillUnmount'
-    );
-    wrapper.unmount();
-    expect(componentWillUnmount).toHaveBeenCalledTimes(1);
-  });
-
   it('handles handleCancel method', () => {
     wrapper = mount(<NewChecklistForm {...props} />);
     const cancelBtn = wrapper.find('#cancel');

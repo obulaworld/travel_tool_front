@@ -33,12 +33,7 @@ export default class NewChecklistForm extends PureComponent {
   componentDidMount() {
     this.handleBlanksOnEditing();
   }
-
-  componentWillUnmount() {
-    const { currentUser, fetchTravelChecklist, closeModal } = this.props;
-    fetchTravelChecklist(null, currentUser.location);
-  }
-
+  
   handleCancel = () => {
     const { closeModal } = this.props;
     this.setState({ ...this.defaultState });
@@ -126,10 +121,8 @@ export default class NewChecklistForm extends PureComponent {
 
 NewChecklistForm.propTypes = {
   createTravelChecklist: PropTypes.func.isRequired,
-  fetchTravelChecklist: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   updateTravelChecklist: PropTypes.func.isRequired,
   modalType: PropTypes.string.isRequired,
   checklistItem: PropTypes.object.isRequired,
-  currentUser: PropTypes.object.isRequired,
 };

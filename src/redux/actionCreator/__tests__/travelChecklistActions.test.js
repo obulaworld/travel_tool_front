@@ -7,7 +7,10 @@ import {
   UPDATE_TRAVEL_CHECKLIST_FAILURE,
   CREATE_TRAVEL_CHECKLIST,
   CREATE_TRAVEL_CHECKLIST_FAILURE,
-  CREATE_TRAVEL_CHECKLIST_SUCCESS
+  CREATE_TRAVEL_CHECKLIST_SUCCESS,
+  RESTORE_TRAVEL_CHECKLIST,
+  RESTORE_TRAVEL_CHECKLIST_SUCCESS,
+  RESTORE_TRAVEL_CHECKLIST_FAILURE
 } from '../../constants/actionTypes';
 
 import {
@@ -22,7 +25,10 @@ import {
   updateChecklistFailure,
   createTravelChecklist,
   createChecklistSuccess,
-  createChecklistFailure
+  createChecklistFailure,
+  restoreChecklist,
+  restoreChecklistSuccess,
+  restoreChecklistFailure
 } from '../travelChecklistActions';
 import travelChecklistMockData from '../../__mocks__/travelChecklistsMockData';
 
@@ -123,7 +129,7 @@ describe('Travel checklists actions test', () => {
     it('should return action of type DELETE_TRAVEL_CHECKLIST_SUCCESS', () => {
       const expectedAction = {
         type: 'DELETE_TRAVEL_CHECKLIST_SUCCESS',
-        checklistItemId: 'zdy6fs77sq',
+        disabledChecklistItem: 'zdy6fs77sq',
       };
       const newAction = deleteChecklistSuccess('zdy6fs77sq');
       expect(newAction).toEqual(expectedAction);
@@ -169,6 +175,40 @@ describe('Travel checklists actions test', () => {
       };
       const newAction = createChecklistFailure('error');
       expect(newAction).toEqual(expectedAction);
+    });
+  });
+
+  describe('Restore Disabled TravelChecklist actions', () => {
+    it('should return action of type RESTORE_TRAVEL_CHECKLIST', (done) => {
+      const expectedAction = {
+        type: RESTORE_TRAVEL_CHECKLIST,
+        checklistItemId: '5',
+        checklistItemData: {name: 'my visa'}
+      };
+      const newAction = restoreChecklist('5', {name: 'my visa'});
+      expect(newAction).toEqual(expectedAction);
+      done();
+    });
+
+    it('should return action of type RESTORE_TRAVEL_CHECKLIST_SUCCESS', (done) => {
+      const expectedAction = {
+        type: RESTORE_TRAVEL_CHECKLIST_SUCCESS,
+        updatedChecklistItem: {name: 'my visa'},
+        checklistItemId: '5',
+      };
+      const newAction = restoreChecklistSuccess({name: 'my visa'}, '5');
+      expect(newAction).toEqual(expectedAction);
+      done();
+    });
+
+    it('should return action of type RESTORE_TRAVEL_CHECKLIST_FAILURE', (done) => {
+      const expectedAction = {
+        type: RESTORE_TRAVEL_CHECKLIST_FAILURE,
+        error: {name: 'not restored'},
+      };
+      const newAction = restoreChecklistFailure({name: 'not restored'});
+      expect(newAction).toEqual(expectedAction);
+      done();
     });
   });
 });
