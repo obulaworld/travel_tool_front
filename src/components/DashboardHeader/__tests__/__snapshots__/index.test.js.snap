@@ -247,7 +247,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Nov 29, 2018"
+                value="Dec 1, 2018"
               />
             </span>
             <span
@@ -256,7 +256,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Nov 29, 2018"
+                value="Dec 1, 2018"
               />
             </span>
           </div>
@@ -280,7 +280,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <select
                 onChange={[Function]}
-                value={10}
+                value={11}
               >
                 <option
                   key="0"
@@ -1097,7 +1097,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1112,7 +1112,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1124,7 +1123,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1139,7 +1138,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span

@@ -184,9 +184,9 @@ describe('<NewAccommodation />', () => {
   });
 
   it('validates input on blur', () => {
-    wrapper.find('input[name="location"]').simulate('blur');
+    wrapper.find('input[name="roomName-0"]').simulate('blur');
     wrapper.update();
-    expect(wrapper.state().errors.location).toBe('This field is required');
+    expect(wrapper.state().errors['roomName-0']).toBe('This field is required');
   });
 
   it('validates form before sending data', () => {

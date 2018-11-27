@@ -35,6 +35,7 @@ class NewRequestForm extends PureComponent {
       trips: requestTrips,
       errors: {},
       hasBlankFields: true,
+      sameOriginDestination: true,
       checkBox: 'notClicked',
       selection: 'return',
       collapse: false,
@@ -515,14 +516,14 @@ class NewRequestForm extends PureComponent {
   };
 
   renderForm = () => {
-    const { errors, values, hasBlankFields, selection } = this.state;
+    const { errors, values, hasBlankFields, selection, sameOriginDestination} = this.state;
     const { modalType, creatingRequest } = this.props;
     return (
       <FormContext
         targetForm={this}
         values={values}
         errors={errors}
-        validatorNam="validate"
+        validatorName="validate"
       >
         {creatingRequest && <h5 className="style-h5">Creating request...</h5>}
         <form onSubmit={this.handleSubmit} className="new-request">
@@ -537,6 +538,7 @@ class NewRequestForm extends PureComponent {
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
+            sameOriginDestination={sameOriginDestination}
             selection={selection}
             loading={creatingRequest}
             send={
