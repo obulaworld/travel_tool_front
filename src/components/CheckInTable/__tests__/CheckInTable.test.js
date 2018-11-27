@@ -7,6 +7,7 @@ const props = {
   handleCheckStatus: jest.fn(),
   trips: notCheckInTrips.trips,
   tripError: '',
+  dateToday: '2018-09-27'
 };
 
 const setup = (props) => {

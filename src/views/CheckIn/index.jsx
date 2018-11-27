@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import WithLoadingTable from '../../components/Table';
 import PageHeader from '../../components/PageHeader';
 import Table from '../../components/CheckInTable';
@@ -30,6 +31,7 @@ export class CheckIn extends Base {
   }
   render() {
     const { trips, tripError } = this.props;
+    const dateToday = moment(new Date().toISOString(), 'YYYY-MM-DD').format('Y-M-D');
     return (
       <Fragment>
         <div>
@@ -38,6 +40,7 @@ export class CheckIn extends Base {
             trips={trips.filter((trip) => trip.checkStatus !== 'Checked Out')}
             tripError={tripError}
             residenceClassName="residence__text"
+            dateToday={dateToday}
             handleCheckStatus={this.handleCheckStatus} />
         </div>
         <div>

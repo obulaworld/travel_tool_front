@@ -133,6 +133,12 @@ $font-normal: 'DIN Pro';
     &:hover {
       cursor: pointer;
     }
+    &:disabled{
+      background-color: rgba(51, 89, 219, 0.3);
+      border: none;
+      color: #FFFFFF;
+      cursor: not-allowed;
+    }
   }
   &__button-checkout {
     height: 36px;

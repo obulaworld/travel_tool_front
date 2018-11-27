@@ -177,7 +177,7 @@ export const notCheckInTrips = {
       origin: 'New York',
       destination: 'Nairobi',
       departureDate: '2018-09-27',
-      returnDate: '2018-10-04',
+      returnDate: '2025-10-04',/* Extend date to some far away date */
       checkStatus: 'Not Checked In',
       checkInDate: null,
       checkOutDate: null,
@@ -375,4 +375,3 @@ export const fetchTravelCalendarResponse = {
     prevPage: null
   }
 };
-

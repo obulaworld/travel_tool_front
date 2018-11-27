@@ -15,7 +15,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
   <TimelineBar
     customStyle={
       Object {
-        "background": "hsl(102,45%,69%)",
+        "background": "hsl(188,68%,66%)",
       }
     }
     tripDayWidth={31}
@@ -31,7 +31,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       className="geom-trip geom-trip--inner"
       style={
         Object {
-          "background": "hsl(102,55%,49%)",
+          "background": "hsl(188,78%,46%)",
           "width": "100%",
         }
       }
