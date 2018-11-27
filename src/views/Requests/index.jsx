@@ -38,7 +38,7 @@ export class Requests extends Base {
 
   componentDidMount() {
     const {
-      openModal, fetchUserRequests, fetchAvailableRooms, 
+      openModal, fetchUserRequests, fetchAvailableRooms,
       getOccupation, fetchRoleUsers, page,
       match: {
         params: { requestId }
@@ -70,7 +70,7 @@ export class Requests extends Base {
     const { fetchTravelChecklist, openModal, fetchSubmission } = this.props;
     const { id: requestId, tripType } = request;
     modalType.match('travel checklist') && fetchTravelChecklist(requestId);
-    modalType.match('upload submissions') && 
+    modalType.match('upload submissions') &&
       fetchSubmission({ requestId, tripType });
     openModal(true, modalType);
   }
@@ -109,9 +109,9 @@ export class Requests extends Base {
     this.setState({ requestId: requestId });
   };
 
-  renderRequestPanelHeader() {
+  renderRequestPanelHeader(isFetching) {
     const {
-      openRequestsCount, requests, pastRequestsCount, openModal, 
+      openRequestsCount, requests, pastRequestsCount, openModal,
       shouldOpen,modalType
     } = this.props;
     const { url, activeStatus } = this.state;
@@ -128,6 +128,7 @@ export class Requests extends Base {
           openModal={openModal}
           shouldOpen={shouldOpen}
           modalType={modalType}
+          loading={isFetching}
         />
       </div>
     );
@@ -150,7 +151,7 @@ export class Requests extends Base {
           location={location} history={history}
           fetchUserRequests={() => fetchUserRequests(url)}
           requestId={requestId} requests={requests}
-          isLoading={isLoading} fetchRequestsError={error}
+          isLoading={isFetching} fetchRequestsError={error}
           closeModal={closeModal} openModal={openModal}
           shouldOpen={shouldOpen} modalType={modalType}
           message={message} page="Requests" fileUploads={fileUploads}
@@ -196,15 +197,15 @@ export class Requests extends Base {
   }
   renderRequestPage() {
     const {
-      isLoading, requests, pagination,
+      isFetching, requests, pagination,
       fetchRequestsError, message
     } = this.props;
     return (
       <Fragment>
-        {this.renderRequestPanelHeader()}
+        {this.renderRequestPanelHeader(isFetching)}
         {requests &&
-          this.renderRequests(requests, isLoading, fetchRequestsError, message)}
-        {!isLoading && requests.length > 0 && this.renderPagination(pagination)}
+          this.renderRequests(requests, isFetching, fetchRequestsError, message)}
+        {!isFetching && requests.length > 0 && this.renderPagination(pagination)}
       </Fragment>
     );
   }

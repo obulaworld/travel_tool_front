@@ -22,7 +22,7 @@ export class Verifications extends Base {
     // check if ? exists in searchQuery then append &verified=true
     const prefix = (searchQuery.indexOf('?') < 0) ? '?' : '&';
     fetchUserApprovals(`${searchQuery}${prefix}verified=true`);
-    if(requestId){  
+    if(requestId){
       openModal(true, 'request details', page);
       this.storeRequestIdApproval(requestId);
     }
@@ -81,7 +81,7 @@ export class Verifications extends Base {
     this.getEntriesWithLimit(limit, searchQuery, approvals.pagination, this.fetchFilteredApprovals);
   }
 
-  renderVerificationsPaneHeader(){
+  renderVerificationsPaneHeader(loading){
     const { activeStatus, searchQuery } = this.state;
     const { approvals } = this.props;
     const { approvedApprovalsCount, verifiedApprovalsCount } = approvals;
@@ -96,6 +96,7 @@ export class Verifications extends Base {
           getApprovalsWithLimit={this.getApprovalsWithLimit}
           activeStatus={activeStatus}
           approvalsLength={approvals.approvals.length}
+          loading={loading}
         />
       </div>
     );
@@ -105,7 +106,7 @@ export class Verifications extends Base {
     const {approvals} = this.props;
     return (
       <Fragment>
-        {this.renderVerificationsPaneHeader()}
+        {this.renderVerificationsPaneHeader(approvals.isLoading )}
         {approvals.approvals && this.renderApprovalsTable()}
         {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
       </Fragment>

@@ -32,12 +32,12 @@ class ApprovalsPanelHeader extends PureComponent {
   };
 
   render() {
-    const { url, approvalsLength, getApprovalsWithLimit } = this.props;
+    const { url, approvalsLength, getApprovalsWithLimit, loading } = this.props;
     return (
       <div className="request-panel-header">
         <PageHeader title="VERIFICATIONS" />
         {
-          approvalsLength > 0 && (
+          approvalsLength > 0 && !loading && (
             <div className="open-requests">
               {this.renderButtonGroup()}
               <HeaderPagination getRequestsWithLimit={getApprovalsWithLimit} url={url} />
@@ -55,6 +55,7 @@ ApprovalsPanelHeader.propTypes = {
   verifiedApprovalsCount: PropTypes.number,
   fetchApprovals: PropTypes.func.isRequired,
   activeStatus: PropTypes.string,
+  loading: PropTypes.bool,
   approvalsLength: PropTypes.number,
   url: PropTypes.string.isRequired,
   getApprovalsWithLimit: PropTypes.func.isRequired
@@ -66,7 +67,8 @@ ApprovalsPanelHeader.defaultProps = {
   pastApprovalsCount: null,
   approvedApprovalsCount: null,
   verifiedApprovalsCount: null,
-  approvalsLength: null
+  approvalsLength: null,
+  loading: false
 };
 
 export default ApprovalsPanelHeader;
