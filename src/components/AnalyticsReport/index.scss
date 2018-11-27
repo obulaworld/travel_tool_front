@@ -1,8 +1,10 @@
 $grey-color: #4F4F4F;
 $white: #FFFFFF;
 
+@import 'smallMobileScreen';
+
 .analyticsReport {
-  margin-top: 5%; 
+  margin-top: 2%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -34,7 +36,7 @@ $white: #FFFFFF;
   }
 
   &__card {
-    width: 525px;
+    width: 100%;
     border-radius: 2px;
     background-color: $white;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
@@ -76,3 +78,5 @@ $white: #FFFFFF;
     animation: spin 2s linear infinite;
   }
 }
+@import 'mediumScreen';
+@import 'screens';

@@ -14,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 20px 0;
+  margin-right: 3px !important;
 }
 .actions{
   display: flex;
@@ -80,8 +81,7 @@
   font-family: "DIN Pro";
   font-size: 18px;
   font-weight: 500;
-  margin: 0;
-}
+  margin-left: 2px;}
 
 .calendar {
   position: absolute;
@@ -122,3 +122,5 @@
 .calender-placeholder:not(:last-child) {
   margin-bottom: 10px;
 }
+
+@import 'screens';
