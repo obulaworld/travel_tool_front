@@ -1,6 +1,5 @@
-
 import React, { Component, Fragment } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import generateDynamicDate from '../../helper/generateDynamicDate';
 import download from '../../images/icons/save_alt_24px.svg';
 import Button from '../buttons/Buttons';
@@ -26,33 +25,33 @@ class TravelReadiness extends Component {
         </div>
       </div>
     );
-  }
-  
+  };
+
   getReadinessCSV = () => {
     const { exportReadiness } = this.props;
-    const { travelFlow } = this.state; 
+    const { travelFlow } = this.state;
     exportReadiness({ type: 'file', travelFlow: travelFlow});
-  }
-  
+  };
+
   getTravelFlow = travelArgument => {
     const { fetchReadiness } = this.props;
     this.setState({
       travelFlow: travelArgument
     });
     fetchReadiness({page: '1', limit: '6', type:'json', travelFlow: travelArgument});
-  }
+  };
 
   travelFlowButton = () => {
     const { travelFlow } = this.state;
     const travelButton = (
       <Fragment>
-        <button 
-          className="travel-readiness-toggle-button-0" type="button" 
-          id={travelFlow !== 'outflow' ? 'active-travel-flow-button' : null} 
+        <button
+          className="travel-readiness-toggle-button-0" type="button"
+          id={travelFlow !== 'outflow' ? 'active-travel-flow-button' : null}
           onClick={() => this.getTravelFlow('inflow')}>
         Inflow
         </button>
-        <button 
+        <button
           className="travel-readiness-toggle-button-1" type="button"
           id={travelFlow === 'outflow' ? 'active-travel-flow-button' : null}
           onClick={() => this.getTravelFlow('outflow')}>
@@ -61,15 +60,15 @@ class TravelReadiness extends Component {
       </Fragment>
     );
     return travelButton;
-  }
+  };
 
   render() {
-    const { readiness, renderNotFound, renderButton } = this.props;
+    const { readiness, renderNotFound } = this.props;
     const { isLoading} = readiness;
     const { travelFlow } = this.state;
     return (
-      <div className="analyticsReport__card" style={{marginRight: '30px'}}>
-        {isLoading ? 
+      <div className="analyticsReport__card" id="travel-readiness" style={{marginRight: '30px'}}>
+        { isLoading ?
           <TravelReadinessPlaceholder /> : (
             <Fragment>
               <p>Travel Readiness</p>
@@ -77,8 +76,8 @@ class TravelReadiness extends Component {
                 {this.travelFlowButton()}
                 <Button
                   buttonClass="analyticsReport__export-button"
-                  reverseText buttonId="btnExportReadinessCSV" 
-                  text="Export" imageSrc={download} 
+                  reverseText buttonId="btnExportReadinessCSV"
+                  text="Export" imageSrc={download}
                   onClick={travelFlow === 'outflow' ? () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
               </div>
               <div className="analyticsReport__row analyticsReport__report-header">
@@ -105,7 +104,6 @@ TravelReadiness.propTypes = {
   readiness: PropTypes.object.isRequired,
   exportReadiness:PropTypes.func.isRequired,
   fetchReadiness: PropTypes.func.isRequired,
-  renderButton: PropTypes.func.isRequired,
   renderNotFound: PropTypes.func.isRequired
 };
 
