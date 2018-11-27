@@ -4,18 +4,23 @@ import FilterDropdownSelect from '../filterDropdownSelect';
 
 describe('<filterDropdownSelect/>', () => {
   const choices = ['manager', 'associate'];
+  const props = {
+    onChange: jest.fn(),
+    value: 'manager',
+    size: 'medium'
+  };
 
   it('shows receives error class name', () => {
-    const wrapper = shallow( <FilterDropdownSelect /> );
+    const wrapper = shallow( <FilterDropdownSelect {...props} /> );
     expect(wrapper).toMatchSnapshot();
   });
   it('input responds to onChange event', () => {
-    const wrapper = shallow(<FilterDropdownSelect />);
+    const wrapper = shallow(<FilterDropdownSelect {...props} />);
     wrapper.find('input').simulate('change', {target: {value: 'Your new Value'}});
     expect (wrapper.state('dropdownClass')).toBe('select-dropdown');
   });
   it('test onClick event of choices in dropdown', () => {
-    const wrapper = mount(<FilterDropdownSelect choices={choices} />);
+    const wrapper = mount(<FilterDropdownSelect {...props} choices={choices} />);
     wrapper.find('input').simulate('change', {target: {name:'role', value: 'manager'}});
     wrapper.find('li').simulate('click', { preventDefault() {} });
     expect (wrapper.state('dropdownClass')).toBe('select-dropdown');

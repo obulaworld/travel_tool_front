@@ -438,7 +438,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Save
+        <undefined />
       </button>
     </div>
   </fieldset>

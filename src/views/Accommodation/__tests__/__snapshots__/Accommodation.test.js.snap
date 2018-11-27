@@ -26,6 +26,7 @@ exports[`<Accommodation /> renders correctly 1`] = `
     <NewAccommodation
       closeModal={[Function]}
       createAccommodation={[Function]}
+      editAccommodation={[Function]}
       fetchAccommodation={[Function]}
       modalType={null}
     />

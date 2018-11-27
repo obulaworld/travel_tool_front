@@ -109,7 +109,7 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Add Role
+        <undefined />
       </button>
     </div>
   </fieldset>

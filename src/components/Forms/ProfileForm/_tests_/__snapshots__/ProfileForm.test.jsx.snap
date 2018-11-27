@@ -106,7 +106,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input  "
+        className="form-input profile_role_dropdown "
       >
         <label
           htmlFor="role"
@@ -139,10 +139,15 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           >
             <input
               autoComplete="off"
+              choices={Array []}
               className="occupationInput"
+              label="Role"
+              labelNote=""
               name="role"
+              onBlur={[Function]}
               onChange={[Function]}
               type="text"
+              value=""
             />
           </div>
         </div>
