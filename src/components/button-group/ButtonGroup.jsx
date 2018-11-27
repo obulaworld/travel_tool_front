@@ -102,7 +102,7 @@ class ButtonGroup extends PureComponent {
           disabled={approvedApprovalsCount === 0}
           badge={approvedApprovalsCount}
           showBadge={approvedApprovalsCount > 0}
-          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+          badgeClass={activeStatus === 'approved' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
           buttonId="open-button"
           onClick={() => this.filterEntries('approvals', '&status=approved')}
           text="Pending Verifications"
