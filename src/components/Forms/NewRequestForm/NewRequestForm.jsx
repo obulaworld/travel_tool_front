@@ -234,6 +234,26 @@ class NewRequestForm extends PureComponent {
       if ( selection !== 'oneWay'){
         this.handlePickBed(null, getId, false);
       }
+
+      if (name.startsWith('destination') && selection === 'multi' ) {
+        const targetFieldId = Number(getId) + 1;
+        this.setState(
+          prevState => {
+            const { trips } = prevState;
+            const newTrips = [...trips];
+
+            if (targetFieldId < newTrips.length) { newTrips[targetFieldId].origin = places; }
+            return {
+              targetFieldId,
+              values: {
+                ...prevState.values,
+                [`origin-${targetFieldId}`]: places
+              },
+              trips: [...newTrips]
+            };
+          }
+        );
+      }
     });
   };
 
@@ -365,12 +385,18 @@ class NewRequestForm extends PureComponent {
       const addedTripStateValues = this.getDefaultTripStateValues(parentIds);
       const nextDepartureField = `departureDate-${parentIds}`;
       const lastArrivalValue = values[`arrivalDate-${parentIds - 1}`];
+      const nextOriginField = `origin-${parentIds}`;
+      const lastDepartureLocation = values[`destination-${parentIds - 1}`];
       addedTripStateValues[nextDepartureField] = lastArrivalValue;
+      addedTripStateValues[nextOriginField] = lastDepartureLocation;
       const newTripDepartureDate = lastArrivalValue && lastArrivalValue.format('YYYY-MM-DD');
 
       return {
         parentIds: parentIds + 1,
-        trips: trips.concat([{departureDate: newTripDepartureDate}]),
+        trips: trips.concat([{
+          departureDate: newTripDepartureDate,
+          origin: lastDepartureLocation
+        }]),
         values: { ...values, ...addedTripStateValues }
       };
     }, this.validate);
