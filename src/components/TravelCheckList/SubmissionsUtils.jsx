@@ -39,7 +39,6 @@ class SubmissionsUtils extends Component {
           type="submit" 
           className="textArea"
           value={submissionText}
-          disabled={isUploading}
           onChange={handleInputChange}
           onBlur={handleTextAreaSubmit}
         />

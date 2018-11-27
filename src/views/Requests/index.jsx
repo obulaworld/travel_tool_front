@@ -7,6 +7,7 @@ import Utils from '../../helper/Utils';
 import Modal from '../../components/modal/Modal';
 import Base from '../Base';
 import { NewRequestForm } from '../../components/Forms';
+import API from '../../services/AccommodationAPI';
 import {
   fetchAvailableRooms, fetchAvailableRoomsSuccess
 } from '../../redux/actionCreator/availableRoomsActions';
@@ -74,10 +75,10 @@ export class Requests extends Base {
     openModal(true, modalType);
   }
 
-  handleUploadSubmissionModal = (request) => {
-    const {openModal, fetchEditRequest } = this.props;
-    fetchUserRequestDetails(request.id);
-    openModal(true, 'upload submissions');
+  handleCloseSubmissionModal = () => {
+    const { closeModal } = this.props;
+    API.setToken();
+    closeModal();
   }
 
   fetchRequests = query => {
@@ -157,6 +158,7 @@ export class Requests extends Base {
           submissionInfo={submissionInfo} isFetching={isFetching}
           requestData={requestData} uploadFile={uploadFile}
           deleteRequest={this.handleDeleteRequest}
+          handleCloseSubmissionModal={this.handleCloseSubmissionModal}
         />
       </div>);
   }

@@ -442,4 +442,13 @@ describe('<Requests>', () => {
     expect(instance.props.deleteRequest.called).toBe(true);
     expect(instance.props.deleteRequest.calledWith('xDh20btGz')).toBe(true);
   });
+  
+  it('should handle close travel checklist submission modal', () => {
+    const wrapper = shallow(<Requests {...props} />
+    );
+    const instance = wrapper.instance();
+    const handleCloseSubmissionModalSpy = jest.spyOn(instance, 'handleCloseSubmissionModal');
+    wrapper.instance().handleCloseSubmissionModal();
+    expect(handleCloseSubmissionModalSpy).toHaveBeenCalledTimes(1);
+  });
 });
