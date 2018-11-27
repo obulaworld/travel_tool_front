@@ -432,7 +432,7 @@ class NewRequestForm extends PureComponent {
         line={line}
         managers={managers}
         occupations={occupations}
-        value="232px"
+        value="245px"
       />
     );
   };

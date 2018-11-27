@@ -46,11 +46,12 @@ class PersonalDetailsFieldset extends Component {
                   className: 'request_dropdown'
                 })}
               </div>
-              {renderInput('manager', 'dropdown-select', {
-                choices: managerChoices,
-                size: value,
-                className: 'request_dropdown'
-              })}
+              <div className="spaces">
+                {renderInput('manager', 'dropdown-select', {
+                  choices: managerChoices,
+                  size: value
+                })}
+              </div>
             </div>
             <div className="input-group">
               <Checkbox

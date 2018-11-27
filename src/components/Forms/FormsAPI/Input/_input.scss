@@ -67,7 +67,7 @@ form .form-input {
       cursor: text;
     }
     button {
-      width: 128px;
+      width: 130px;
       margin: 0;
       &.bg-btn {
         &--inactive {
@@ -115,6 +115,9 @@ form .form-input {
         width: 100% !important;
       }
     }
+  }
+  .input.select.manager-select {
+    width: 260px !important;
   }
 
   .novisibility{
