@@ -49,7 +49,8 @@ class AccommodationDetails extends Component {
             <div className="room">
               {renderInput(`roomType-${i}`, 'dropdown-select', {
                 parentid: i,
-                handleDropDown
+                handleDropDown,
+                className: 'add_room_type'
               })}
             </div>
             <div className="room remove" onChange={handleInputChange}>
