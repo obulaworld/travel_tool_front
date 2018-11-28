@@ -56,7 +56,7 @@ describe('<CentreGrid />', () => {
       bathrooms: 4,
       beds: 4,
       cardImage:'http://images/guest-house.jpg',
-      countryFlagImage: 'https://www.countryflags.io/KE/flat/64.png',
+      countryFlagImage: 'https://www.countryflags.io/NG/flat/64.png',
       guestHouseLocation: 'Lagos, Nigeria',
       guestHouseName: 'Guest House 3',
       imageAlt: 'Guest House 3 image',
