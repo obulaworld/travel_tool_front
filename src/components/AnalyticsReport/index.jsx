@@ -11,7 +11,8 @@ export default class AnalyticsReport extends Component {
   componentDidMount() {
     const { fetchDepartmentTrips, fetchReadiness } = this.props;
     fetchDepartmentTrips({filterBy: 'month', type: 'json'});
-    fetchReadiness({page: '1', limit: '6', type:'json'});
+    // fetch inflow travel flow on mount
+    fetchReadiness({page: '1', limit: '6', type:'json', travelFlow: 'inflow'});
   }
 
   getDepartmentTripsCSV = () => {

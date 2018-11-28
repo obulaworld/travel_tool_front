@@ -34,19 +34,3 @@ export function* exportReadinessSaga(action){
 export function* watchExportReadiness(){
   yield takeEvery(EXPORT_TRAVEL_READINESS, exportReadinessSaga);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -230,7 +230,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
               className="room"
             >
               <div
-                className="form-input  "
+                className="form-input add_room_type "
               >
                 <label
                   htmlFor="roomType-0"
@@ -261,7 +261,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                         "Non-Ensuite",
                       ]
                     }
-                    className="input select  "
+                    className="input select  add_room_type"
                     data-parentid={0}
                     error=""
                     handleDropDown={[Function]}

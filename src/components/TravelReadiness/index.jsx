@@ -5,10 +5,12 @@ import generateDynamicDate from '../../helper/generateDynamicDate';
 import download from '../../images/icons/save_alt_24px.svg';
 import Button from '../buttons/Buttons';
 import TravelReadinessPlaceholder from '../Placeholders/TravelReadinessPlaceholder';
+import './TravelReadiness.scss';
 
 class TravelReadiness extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
   renderReadinessDetails = (item, index) => {
     return (
@@ -25,27 +27,59 @@ class TravelReadiness extends Component {
       </div>
     );
   }
+  
   getReadinessCSV = () => {
     const { exportReadiness } = this.props;
-    exportReadiness({ type: 'file', });
+    const { travelFlow } = this.state; 
+    exportReadiness({ type: 'file', travelFlow: travelFlow});
+  }
+  
+  getTravelFlow = travelArgument => {
+    const { fetchReadiness } = this.props;
+    this.setState({
+      travelFlow: travelArgument
+    });
+    fetchReadiness({page: '1', limit: '6', type:'json', travelFlow: travelArgument});
+  }
 
+  travelFlowButton = () => {
+    const { travelFlow } = this.state;
+    const travelButton = (
+      <Fragment>
+        <button 
+          className="travel-readiness-toggle-button-0" type="button" 
+          id={travelFlow !== 'outflow' ? 'active-travel-flow-button' : null} 
+          onClick={() => this.getTravelFlow('inflow')}>
+        Inflow
+        </button>
+        <button 
+          className="travel-readiness-toggle-button-1" type="button"
+          id={travelFlow === 'outflow' ? 'active-travel-flow-button' : null}
+          onClick={() => this.getTravelFlow('outflow')}>
+        Ouflow
+        </button>
+      </Fragment>
+    );
+    return travelButton;
   }
 
   render() {
-    const { readiness, renderNotFound, renderButton, renderSpinner } = this.props;
+    const { readiness, renderNotFound, renderButton } = this.props;
     const { isLoading} = readiness;
+    const { travelFlow } = this.state;
     return (
       <div className="analyticsReport__card" style={{marginRight: '30px'}}>
-        { isLoading ?
+        {isLoading ? 
           <TravelReadinessPlaceholder /> : (
             <Fragment>
+              <p>Travel Readiness</p>
               <div className="analyticsReport__row analyticsReport__header">
-                <p>Travel Readiness</p>
+                {this.travelFlowButton()}
                 <Button
                   buttonClass="analyticsReport__export-button"
-                  reverseText buttonId="btnExportReadinessCSV"
-                  text="Export" imageSrc={download}
-                  onClick={this.getReadinessCSV} />
+                  reverseText buttonId="btnExportReadinessCSV" 
+                  text="Export" imageSrc={download} 
+                  onClick={travelFlow === 'outflow' ? () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
               </div>
               <div className="analyticsReport__row analyticsReport__report-header">
                 <div>
@@ -60,9 +94,7 @@ class TravelReadiness extends Component {
               </div>
               {readiness.readiness && readiness.readiness.length > 0 && !readiness.isLoading &&
             readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))}
-              {readiness.readiness && !readiness.readiness.length &&
-            renderNotFound()
-              }
+              {readiness.readiness && !readiness.readiness.length && renderNotFound()}
             </Fragment>
           )}
       </div>
@@ -72,10 +104,9 @@ class TravelReadiness extends Component {
 TravelReadiness.propTypes = {
   readiness: PropTypes.object.isRequired,
   exportReadiness:PropTypes.func.isRequired,
+  fetchReadiness: PropTypes.func.isRequired,
   renderButton: PropTypes.func.isRequired,
-  renderNotFound: PropTypes.func.isRequired,
-  renderSpinner: PropTypes.func.isRequired
+  renderNotFound: PropTypes.func.isRequired
 };
 
 export default TravelReadiness;
-
