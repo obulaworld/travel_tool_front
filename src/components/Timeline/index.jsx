@@ -7,6 +7,8 @@ import TimelineVerticalAxis from './TimelineVerticalAxis';
 import {getViewTypeProperties} from './helpers';
 import {calendarConstants} from './settings';
 import Utils from '../../helper/Utils';
+import MaintenanceForm from '../Forms/MaintainanceForm';
+import SubmitArea from '../Forms/MaintainanceForm/FormFieldsets/SubmitArea';
 import './Timeline.scss';
 import Modal from '../modal/Modal';
 import ChangeBedForm from '../Forms/ChangeBedForm';
@@ -27,7 +29,8 @@ class Timeline extends PureComponent {
       tripId: 0,
       bedId: 0,
       requesterName: '',
-      bedChoices: []
+      bedChoices: [],
+      maintenance: {}
     };
   }
 
@@ -236,6 +239,68 @@ class Timeline extends PureComponent {
     );
   }
 
+  handleDeleteMaintenance = roomId => {
+    const { deleteMaintenanceRecord, rooms, updateRoomState, guestHouseId } = this.props;
+    deleteMaintenanceRecord(roomId);
+    const [startDateString, endDateString] = this.getTimelineRange();
+    const data = { fault: false };
+    updateRoomState(data, roomId, startDateString, endDateString, guestHouseId);
+  };
+
+  renderEditMaintenanceModal = () => {
+    const {shouldOpen, closeModal, modalType, editMaintenance, updateMaintenanceRecord } = this.props;
+    const { maintenance } = this.state;
+    return (
+      <Modal
+        closeModal={closeModal}
+        customModalStyles="change-room-modal"
+        visibility={
+          shouldOpen &&
+          (modalType === 'edit-maintenance') ? 'visible' : 'invisible'
+        }
+        closeDeleteCommentModal={this.toggleEditMaintenanceModal}
+        title="Edit Maintenance"
+        showOverlay={false}
+      >
+        <MaintenanceForm 
+          maintenance={maintenance} 
+          modalType={modalType} 
+          editMaintenance={editMaintenance}
+          updateMaintenanceRecord={updateMaintenanceRecord} 
+        />
+      </Modal>
+    );
+  }
+
+  renderDeleteModal = () => {
+    const {shouldOpen, closeModal, modalType} = this.props;
+    const { maintenance } = this.state;
+    return (
+      <Modal
+        closeModal={closeModal}
+        customModalStyles="delete-maintenance-modal"
+        visibility={
+          shouldOpen &&
+          (modalType === 'delete-maintenance') ? 'visible' : 'invisible'
+        }
+        closeDeleteCommentModal={this.toggleDeleteMaintenanceModal}
+        title="Delete Maintenance"
+        showOverlay={false}
+      >
+        <div>
+          <div className="delete-maintenance-text">
+                Are you sure you want to delete this maintenance schedule
+          </div>
+          <hr />
+          <SubmitArea 
+            onCancel={closeModal} 
+            handleDelete={() => this.handleDeleteMaintenance(maintenance.roomId)} 
+          />
+        </div>
+      </Modal>
+    );
+  }
+
   handleChangeRoomModal = (trip) => {
     const { modalInvisible } = this.state;
     const { fetchAvailableRooms, openModal } = this.props;
@@ -256,6 +321,28 @@ class Timeline extends PureComponent {
       tripId: trip.id,
       requesterName: trip.request.name
     }));
+  }
+
+  handleEditMaintenanceModal = (maintenance) => {
+    this.setState(prevState => ({ ...prevState, maintenance}));
+    const {openModal} = this.props;
+    openModal(true, 'edit-maintenance');
+  }
+
+  handleDeleteMaintenanceModal = (maintenance) => {
+    this.setState(prevState => ({ ...prevState, maintenance}));
+    const {openModal} = this.props;
+    openModal(true, 'delete-maintenance');
+  }
+
+  toggleEditMaintenanceModal = () => {
+    const {closeModal} = this.props;
+    closeModal(true, 'edit-maintenance');
+  }
+
+  toggleDeleteMaintenanceModal = () => {
+    const {closeModal} = this.props;
+    closeModal(true, 'delete-maintenance');
   }
 
   toggleChangeRoomModal = () => {
@@ -296,7 +383,8 @@ class Timeline extends PureComponent {
       timelineViewType,
       periodOffset
     } = this.state;
-    const {rooms, updateRoomState, guestHouseId,openModal,shouldOpen, addmaintenanceRecord, closeModal, modalType} = this.props;
+    const {rooms, updateRoomState, guestHouseId,openModal,shouldOpen, 
+      addmaintenanceRecord, closeModal, modalType, maintenanceDetails} = this.props;
     const { timelineDayWidth, noOfSegments } = this.getTimelineViewTypeProperties();
     return (
       <div className="timeline">
@@ -329,10 +417,15 @@ class Timeline extends PureComponent {
               tripDayWidth={timelineDayWidth}
               rooms={rooms}
               handleChangeRoomModal={this.handleChangeRoomModal}
+              handleEditMaintenanceModal={this.handleEditMaintenanceModal}
+              handleDeleteMaintenanceModal={this.handleDeleteMaintenanceModal}
+              deletedMaintenance={maintenanceDetails}
             />
           </div>
         </div>
         {this.renderChangeRoomModal()}
+        {this.renderEditMaintenanceModal()}
+        {this.renderDeleteModal()}
       </div>
     );
   }
@@ -340,11 +433,15 @@ class Timeline extends PureComponent {
 
 
 Timeline.propTypes = {
+  editMaintenance: PropTypes.object,
+  maintenanceDetails: PropTypes.object,
   rooms: PropTypes.array,
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
   addmaintenanceRecord: PropTypes.func.isRequired,
+  deleteMaintenanceRecord: PropTypes.func.isRequired,
+  updateMaintenanceRecord: PropTypes.func.isRequired,
   fetchTimelineRoomsData: PropTypes.func.isRequired,
   updateRoomState: PropTypes.func.isRequired,
   guestHouseId: PropTypes.string.isRequired,
@@ -356,7 +453,9 @@ Timeline.propTypes = {
 };
 
 Timeline.defaultProps = {
-  rooms: []
+  rooms: [],
+  editMaintenance: {},
+  maintenanceDetails: {}
 };
 
 export default Timeline;

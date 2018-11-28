@@ -185,7 +185,11 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="29"
       />
       <RoomsGeomWrapper
+        deletedMaintenance={Object {}}
+        editMaintenance={Object {}}
         handleChangeRoomModal={[Function]}
+        handleDeleteMaintenanceModal={[Function]}
+        handleEditMaintenanceModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-10-31T23:00:00.000Z"}
         timelineViewType="month"
@@ -217,6 +221,55 @@ exports[`<Timeline /> renders correctly 1`] = `
       requesterName=""
       toggleChangeRoomModal={[Function]}
     />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Edit Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <MaintainceForm
+      editMaintenance={Object {}}
+      maintenance={Object {}}
+      modalType="change-room-modal"
+    />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="delete-maintenance-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Delete Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <div>
+      <div
+        className="delete-maintenance-text"
+      >
+        Are you sure you want to delete this maintenance schedule
+      </div>
+      <hr />
+      <SubmitArea
+        handleDelete={[Function]}
+        onCancel={[Function]}
+      />
+    </div>
   </Modal>
 </div>
 `;
@@ -291,7 +344,11 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         key="6"
       />
       <RoomsGeomWrapper
+        deletedMaintenance={Object {}}
+        editMaintenance={Object {}}
         handleChangeRoomModal={[Function]}
+        handleDeleteMaintenanceModal={[Function]}
+        handleEditMaintenanceModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-10-31T23:00:00.000Z"}
         timelineViewType="week"
@@ -323,6 +380,55 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       requesterName=""
       toggleChangeRoomModal={[Function]}
     />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Edit Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <MaintainceForm
+      editMaintenance={Object {}}
+      maintenance={Object {}}
+      modalType="change-room-modal"
+    />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="delete-maintenance-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Delete Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <div>
+      <div
+        className="delete-maintenance-text"
+      >
+        Are you sure you want to delete this maintenance schedule
+      </div>
+      <hr />
+      <SubmitArea
+        handleDelete={[Function]}
+        onCancel={[Function]}
+      />
+    </div>
   </Modal>
 </div>
 `;
@@ -422,7 +528,11 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
         key="11"
       />
       <RoomsGeomWrapper
+        deletedMaintenance={Object {}}
+        editMaintenance={Object {}}
         handleChangeRoomModal={[Function]}
+        handleDeleteMaintenanceModal={[Function]}
+        handleEditMaintenanceModal={[Function]}
         rooms={Array []}
         timelineStartDate={"2018-10-31T23:00:00.000Z"}
         timelineViewType="year"
@@ -454,6 +564,55 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       requesterName=""
       toggleChangeRoomModal={[Function]}
     />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="change-room-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Edit Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <MaintainceForm
+      editMaintenance={Object {}}
+      maintenance={Object {}}
+      modalType="change-room-modal"
+    />
+  </Modal>
+  <Modal
+    closeDeleteCommentModal={[Function]}
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="delete-maintenance-modal"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={false}
+    title="Delete Maintenance"
+    visibility="invisible"
+    width=""
+  >
+    <div>
+      <div
+        className="delete-maintenance-text"
+      >
+        Are you sure you want to delete this maintenance schedule
+      </div>
+      <hr />
+      <SubmitArea
+        handleDelete={[Function]}
+        onCancel={[Function]}
+      />
+    </div>
   </Modal>
 </div>
 `;

@@ -49,8 +49,10 @@ exports[`<RoomLabel /> should match snapshot 1`] = `
     <MaintainceForm
       addmaintenanceRecord={[Function]}
       closeModal={[Function]}
+      editMaintenance={Object {}}
       id="thjfsndj12"
-      managers={Array []}
+      maintenance={Object {}}
+      modalType=""
       showId={[Function]}
       status={false}
     />

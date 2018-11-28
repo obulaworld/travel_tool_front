@@ -6,8 +6,9 @@ import availableRooms from '../__mocks__/availableRooms';
 import Utils from '../../../helper/Utils';
 
 const props = {
-  rooms: [],
+  rooms: [{faulty: false}],
   fetchAvailableRooms: jest.fn(),
+  deleteMaintenanceRecord: jest.fn(),
   fetchTimelineRoomsData: jest.fn(),
   updateRoomState: jest.fn(),
   guestHouseId: 'guest-house-id-1',
@@ -83,9 +84,24 @@ describe('<Timeline />', () => {
     expect(wrapper.state().timelineChoicesOpen).toBe(true);
   });
 
+  it('should call deleteMaintenanceRecord method when delete is clicked', () => {
+    wrapper.instance().handleDeleteMaintenance();
+    expect(props.deleteMaintenanceRecord).toHaveBeenCalled();
+  });
+
   it('should call updateTripRoom method when handleRoomSubmit is clicked', () => {
     wrapper.instance().handleRoomSubmit();
     expect(props.updateTripRoom).toHaveBeenCalled();
+  });
+
+  it('should call closeModal when toggleEditMaintenanceModal is called', () => {
+    wrapper.instance().toggleEditMaintenanceModal();
+    expect(props.closeModal).toHaveBeenCalled();
+  });
+
+  it('should call closeModal when toggleDeleteMaintenanceModal is called', () => {
+    wrapper.instance().toggleDeleteMaintenanceModal();
+    expect(props.closeModal).toHaveBeenCalled();
   });
 
   it('should call closeModal when toggleChangeRoomModal is called', () => {
@@ -101,6 +117,30 @@ describe('<Timeline />', () => {
     expect(wrapper.state().bedChoices[0].value).toBe(bedId);
   });
   
+  it('should update maintenance state with handleEditMaintenanceModal call', () => {
+    const maintenance = {
+      departureDate: '10/28/2018',
+      arrivalDate: '10/30/2018',
+      reason: 'To fix the beds'
+    };
+    wrapper.instance().handleEditMaintenanceModal(maintenance);
+    expect(wrapper.state().maintenance.departureDate).toBe(maintenance.departureDate);
+    expect(wrapper.state().maintenance.arrivalDate).toBe(maintenance.arrivalDate);
+    expect(wrapper.state().maintenance.reason).toBe(maintenance.reason);
+  });
+
+  it('should update maintenance state with handleDeleteMaintenanceModal call', () => {
+    const maintenance = {
+      departureDate: '10/28/2018',
+      arrivalDate: '10/30/2018',
+      reason: 'To fix the beds'
+    };
+    wrapper.instance().handleDeleteMaintenanceModal(maintenance);
+    expect(wrapper.state().maintenance.departureDate).toBe(maintenance.departureDate);
+    expect(wrapper.state().maintenance.arrivalDate).toBe(maintenance.arrivalDate);
+    expect(wrapper.state().maintenance.reason).toBe(maintenance.reason);
+  });
+
   it('should update state with trip id, requester name and modal status', () => {
     const trip = {
       id: 1,

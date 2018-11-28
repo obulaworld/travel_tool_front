@@ -24,24 +24,28 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
       "props": Object {
         "addmaintenanceRecord": [Function],
         "closeModal": [Function],
+        "editMaintenance": Object {},
         "errors": Array [],
         "history": Object {
           "push": [Function],
         },
         "id": "1",
         "isLoading": false,
+        "maintenance": Object {},
         "managers": Array [
           Object {
             "email": "test.user@andela.com",
             "fullName": "Test User",
           },
         ],
+        "modalType": "",
         "onChange": [Function],
         "onNotificationToggle": [Function],
         "shouldOpen": false,
         "showId": [Function],
         "size": 10,
         "status": false,
+        "updateMaintenanceRecord": [Function],
       },
       "refs": Object {},
       "setState": [Function],
@@ -56,9 +60,10 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         "values": Object {
           "maintainanceEnd": "",
           "maintainanceStart": "",
-          "reason": "",
+          "reason": undefined,
         },
       },
+      "submitEditedMaintenanceData": [Function],
       "submitMaintainanceData": [Function],
       "updater": Updater {
         "_callbacks": Array [],
@@ -67,6 +72,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
           "_element": <MaintainceForm
             addmaintenanceRecord={[Function]}
             closeModal={[Function]}
+            editMaintenance={Object {}}
             errors={Array []}
             history={
                     Object {
@@ -75,6 +81,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
             }
             id="1"
             isLoading={false}
+            maintenance={Object {}}
             managers={
                     Array [
                             Object {
@@ -83,16 +90,31 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                             },
                           ]
             }
+            modalType=""
             onChange={[Function]}
             onNotificationToggle={[Function]}
             shouldOpen={false}
             showId={[Function]}
             size={10}
             status={false}
+            updateMaintenanceRecord={[Function]}
     />,
           "_forcedUpdate": false,
           "_instance": [Circular],
-          "_newState": null,
+          "_newState": Object {
+            "errors": Object {},
+            "hasBlankFields": true,
+            "hideNotificationPane": true,
+            "hideOverlay": false,
+            "hideSideBar": false,
+            "openSearch": false,
+            "selectedLink": "settings page",
+            "values": Object {
+              "maintainanceEnd": "",
+              "maintainanceStart": "",
+              "reason": undefined,
+            },
+          },
           "_rendered": <FormContext
             errors={Object {}}
             targetForm={[Circular]}
@@ -101,7 +123,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                     Object {
                             "maintainanceEnd": "",
                             "maintainanceStart": "",
-                            "reason": "",
+                            "reason": undefined,
                           }
             }
     >
@@ -110,12 +132,13 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                     onSubmit={[Function]}
             >
                     <MaintainanceFieldSets
+                            editMaintenance={Object {}}
                             hasBlankFields={true}
                             values={
                                     Object {
                                             "maintainanceEnd": "",
                                             "maintainanceStart": "",
-                                            "reason": "",
+                                            "reason": undefined,
                                           }
                             }
                     />
@@ -152,7 +175,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
     Object {
       "maintainanceEnd": "",
       "maintainanceStart": "",
-      "reason": "",
+      "reason": undefined,
     }
   }
 >
@@ -161,12 +184,13 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
     onSubmit={[Function]}
   >
     <MaintainanceFieldSets
+      editMaintenance={Object {}}
       hasBlankFields={true}
       values={
         Object {
           "maintainanceEnd": "",
           "maintainanceStart": "",
-          "reason": "",
+          "reason": undefined,
         }
       }
     />

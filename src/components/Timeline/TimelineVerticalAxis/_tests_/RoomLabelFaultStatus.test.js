@@ -68,23 +68,6 @@ describe('<RoomLabel />', ()=> {
     expect(checkbox.length).toBe(1);
   });
 
-  it('calls update room status when clicked with status of true', () => {
-    const shallowWrapper = shallow(<RoomLabel {...props2} />);
-    const spy = sinon.spy(shallowWrapper.instance(), 'showId');
-    const checkboxBlue = shallowWrapper.find('.container_room_fault');
-    checkboxBlue.simulate('click');
-    checkboxBlue.simulate('keyDown');
-    expect(spy.calledTwice).toBe(true);
-  });
-
-  it('calls update room status when clicked with status of false', () => {
-    const spy = sinon.spy(shallowWrapper.instance(), 'showId');
-    const checkbox = shallowWrapper.find('.container_room_fine');
-    checkbox.simulate('click');
-    checkbox.simulate('keyDown');
-    expect(spy.calledOnce).toBe(false);
-  });
-
   it('changes the state of the elipses when clicked', () => {
     const wrapper = shallow(<RoomLabel {...props} />);
     const elipses = wrapper.find('.ellipsis');

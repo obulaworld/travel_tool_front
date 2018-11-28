@@ -140,6 +140,8 @@ exports[`<Accommodation /> should render correctly 1`] = `
   </div>
   <Timeline
     closeModal={[Function]}
+    deletedMaintenance={Object {}}
+    editMaintenance={Object {}}
     fetchTimelineRoomsData={[Function]}
     guestHouseId="zNnGJAJH5"
     modal={

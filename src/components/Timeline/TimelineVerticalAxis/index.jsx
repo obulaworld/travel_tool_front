@@ -7,7 +7,8 @@ import './TimelineVerticalAxis.scss';
 
 class TimelineVerticalAxis extends PureComponent {
   render() {
-    const {rooms, updateRoomState, timelineDateRange, guestHouseId,closeModal, openModal, shouldOpen, addmaintenanceRecord, modalType} = this.props;
+    const {rooms, updateRoomState, timelineDateRange, guestHouseId,
+      closeModal, openModal, shouldOpen, addmaintenanceRecord, modalType} = this.props;
     const roomAxisLabels = rooms.map(room => (
       <div key={room.id} className="room-axis-wrapper">
         <RoomLabel
@@ -52,4 +53,3 @@ TimelineVerticalAxis.propTypes = {
 };
 
 export default TimelineVerticalAxis;
-

@@ -1,13 +1,9 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import InputRenderer, { FormContext } from '../FormsAPI';
+import moment from 'moment';
+import { FormContext } from '../FormsAPI';
 import MaintainanceFieldSets from './FormFieldsets/maintaince';
-import Validator from '../../../validator';
 import './maintainance.scss';
-
-// TODO: Create your own meta data.
-import * as formMetadata from '../FormsMetadata/NewProfileMetadata/index';
-
 
 class MaintainceForm extends PureComponent {
   constructor(props) {
@@ -30,18 +26,40 @@ class MaintainceForm extends PureComponent {
     this.state = { ...this.defaultState };
   }
 
+  componentDidMount() {
+    const { maintenance } = this.props;
+    const { departureDate, returnDate, reason } = maintenance;
+    const startDate = departureDate ? moment(departureDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
+    const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';  
+
+    // eslint-disable-next-line react/no-did-mount-set-state
+    this.setState(prevState => ({...prevState, values : {maintainanceStart: startDate, maintainanceEnd: endDate, reason }}));
+  }
+
   submitMaintainanceData = event => {
     event.preventDefault();
     const { values } = this.state;
-    const {addmaintenanceRecord, id, closeModal, showId, status} = this.props;
+    const {addmaintenanceRecord, id, closeModal, timelineDateRange, guestHouseId} = this.props;
+    const [startDateString, endDateString] = timelineDateRange;
     if (this.validate) {
       let data = { ...values };
       data.start = data.maintainanceStart;
       data.end = data.maintainanceEnd;
-      addmaintenanceRecord(data, id);
-      showId(id, status);
+      addmaintenanceRecord(data, id, startDateString, endDateString, guestHouseId);
       closeModal(true, 'new model');
     }
+  };
+
+  submitEditedMaintenanceData = event => {
+    event.preventDefault();
+    const { values } = this.state;
+    const record = {
+      reason: values.reason,
+      start: values.maintainanceStart,
+      end: values.maintainanceEnd
+    };
+    const { maintenance, updateMaintenanceRecord } = this.props;
+    updateMaintenanceRecord(record, maintenance.roomId);
   };
 
   handleClearForm = () => {
@@ -64,12 +82,14 @@ class MaintainceForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { managers } = this.props;
-
+    const { modalType, editMaintenance } = this.props;
+    const onSubmit = (modalType === 'edit-maintenance') 
+      ? this.submitEditedMaintenanceData 
+      : this.submitMaintainanceData;
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
-        <form onSubmit={this.submitMaintainanceData} className="maintainance-form">
-          <MaintainanceFieldSets values={values} hasBlankFields={hasBlankFields} />
+        <form onSubmit={onSubmit} className="maintainance-form">
+          <MaintainanceFieldSets values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
           <div className="maintainence-line" />
           <div className="maintainence-submit-area">
             {hasBlankFields ? (
@@ -97,15 +117,23 @@ class MaintainceForm extends PureComponent {
 }
 
 MaintainceForm.propTypes = {
-  managers: PropTypes.array,
+  modalType: PropTypes.string,
+  editMaintenance: PropTypes.object,
+  maintenance: PropTypes.object,
   addmaintenanceRecord: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
-  showId: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
+  updateMaintenanceRecord: PropTypes.func.isRequired,
+  timelineDateRange: PropTypes.array,
+  guestHouseId: PropTypes.string
 };
+
 MaintainceForm.defaultProps = {
-  managers: [],
+  modalType: '',
+  maintenance: {},
+  editMaintenance: {},
+  timelineDateRange: [],
+  guestHouseId: ''
 };
 
 export default MaintainceForm;
