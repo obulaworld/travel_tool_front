@@ -12,7 +12,8 @@ export class CheckInTable extends Component {
 
   }
   renderCheckIns(trip) {
-    const { residenceClassName } = this.props;
+    const { residenceClassName, dateToday } = this.props;
+    const enforceCheckIn = (dateToday >= trip.departureDate) ? false : true;
     return (
       <tr key={trip.id} className="checkInTable__row">
         <td className={`mdl-data-table__cell--non-numeric checkInTable__data__roomName ${residenceClassName}`}>
@@ -26,10 +27,11 @@ export class CheckInTable extends Component {
             <button 
               id="btnCheck"
               className="checkInTable__button-checkin"
+              disabled={enforceCheckIn}
               onClick={() => {this.handleCheck(trip.id, 'checkIn');}} type="button">
               Check-in
             </button>
-          )}
+          )} 
           {trip.checkStatus === 'Checked In' && (
             <button
               id="btnCheckOut"
@@ -71,7 +73,7 @@ export class CheckInTable extends Component {
             </table>
           )}
           {!trips.length &&
-            this.renderNoCheckIn('You have no check-in record yet')}
+            this.renderNoCheckIn('You have no check-in record')}
         </div>
       </Fragment>
     );
@@ -81,13 +83,16 @@ export class CheckInTable extends Component {
 CheckInTable.propTypes = {
   trips: PropTypes.array,
   tripError: PropTypes.string,
+  dateToday: PropTypes.string,
   handleCheckStatus: PropTypes.func.isRequired,
-  residenceClassName: PropTypes.string.isRequired
+  residenceClassName: PropTypes.string
 };
 
 CheckInTable.defaultProps = {
   trips: [],
-  tripError: ''
+  tripError: '',
+  dateToday: '',
+  residenceClassName: ''
 };
 
 export default withLoading(CheckInTable);
