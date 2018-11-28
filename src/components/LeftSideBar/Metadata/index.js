@@ -19,7 +19,7 @@ const NavItemsMetadata = [
     link_to: '/dashboard',
     activateOnLogin: true,
     exact: true,
-    onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
+    onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
     icons: {
       active: activeDashboardIcon,
       inactive: inactiveDashboardIcon

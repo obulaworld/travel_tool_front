@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,8 +22,8 @@ export class Dashboard extends Component {
       history, getCurrentUserRole, isLoaded, exportReadiness, travelCalendar, fetchCalendarAnalytics,
       downloadCalendarAnalytics, downloadAnalytics } = this.props;
     if (isLoaded) {
-      const allowedRoles = ['Travel Administrator', 'Super Administrator'];
-      checkUserPermission(history, allowedRoles, getCurrentUserRole );
+      const allowedRoles = ['Travel Administrator', 'Super Administrator', 'Travel Team Member'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole);
     }
     return (
       <div id="dashboard">
