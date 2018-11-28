@@ -20,7 +20,7 @@ export class Approvals extends Base {
     const { fetchUserApprovals, match: {params: {requestId}}, openModal, page} = this.props;
     const { searchQuery } = this.state;
     fetchUserApprovals(searchQuery);
-    if(requestId){  
+    if(requestId){
       openModal(true, 'request details', page);
       this.storeRequestIdApproval(requestId);
     }
@@ -31,7 +31,7 @@ export class Approvals extends Base {
   }
 
   renderApprovalsTable(){
-    const { 
+    const {
       approvals, history, location, openModal, submissionInfo,
       closeModal, shouldOpen, modalType } = this.props;
     const {requestId} = this.state;
@@ -80,7 +80,7 @@ export class Approvals extends Base {
     this.getEntriesWithLimit(limit, searchQuery, approvals.pagination, this.fetchFilteredApprovals);
   }
 
-  renderApprovalsPanelHeader(){
+  renderApprovalsPanelHeader(loading){
     const { activeStatus, searchQuery } = this.state;
     const { approvals } = this.props;
     const { openApprovalsCount, pastApprovalsCount } = approvals;
@@ -95,6 +95,7 @@ export class Approvals extends Base {
           getApprovalsWithLimit={this.getApprovalsWithLimit}
           activeStatus={activeStatus}
           approvalsLength={approvals.approvals.length}
+          loading={loading}
         />
       </div>
     );
@@ -104,7 +105,7 @@ export class Approvals extends Base {
     const {approvals} = this.props;
     return (
       <Fragment>
-        {this.renderApprovalsPanelHeader()}
+        {this.renderApprovalsPanelHeader(approvals.isLoading)}
         {approvals.approvals && this.renderApprovalsTable()}
         {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
       </Fragment>

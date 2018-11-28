@@ -234,6 +234,7 @@ exports[`<Requests> renders as expected 1`] = `
       activeStatus="all"
       fetchRequests={[Function]}
       getRequestsWithLimit={[Function]}
+      loading={false}
       modalType={null}
       openModal={[Function]}
       openRequestsCount={1}

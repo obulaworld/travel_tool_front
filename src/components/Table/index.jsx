@@ -9,6 +9,7 @@ import './Table.scss';
 import withLoading from '../Hoc/withLoading';
 import TableMenu from '../TableMenu/TableMenu';
 import TravelChecklist from '../TravelCheckList';
+import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
 
 export class Table extends Component {
   state = {
@@ -76,7 +77,7 @@ export class Table extends Component {
     delete axios.defaults.headers.common['Authorization'];
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
   }
-  
+
   retrieveStatusTag = (requestData, type) => {
     let tag = 'Manager Stage';
     if (requestData.status && requestData.status === 'Approved') {
@@ -99,7 +100,7 @@ export class Table extends Component {
   }
 
   renderRequestStatus(request) {
-    const { 
+    const {
       editRequest, type, showTravelChecklist, uploadTripSubmissions, deleteRequest,
       openModal, closeModal, shouldOpen, modalType
     } = this.props;
@@ -283,11 +284,11 @@ export class Table extends Component {
   }
 
   renderSubmissionsModal() {
-    const { 
+    const {
       closeModal, shouldOpen, modalType, fileUploads, handleCloseSubmissionModal,
       submissionInfo, fetchSubmission, postSubmission, fetchUserRequests
     } = this.props;
-    const { 
+    const {
       submissions, isFetching, isUploading, percentageCompleted,
       itemsToCheck, postSuccess, tripType,
     } = submissionInfo;
@@ -396,4 +397,4 @@ Table.defaultProps = {
   handleCloseSubmissionModal: () => {}
 };
 
-export default withLoading(Table);
+export default withLoading(Table, RequestPlaceholder);
