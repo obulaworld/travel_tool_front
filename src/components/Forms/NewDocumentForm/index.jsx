@@ -19,6 +19,7 @@ class NewDocumentForm extends PureComponent {
       },
       errors: {},
       hasBlankFields: true,
+      isSubmitting: false,
     };
     this.state = {...this.defaultState};
   }
@@ -79,7 +80,7 @@ class NewDocumentForm extends PureComponent {
 
   handleSubmit = async event => {
     const { values } = this.state;
-    this.setState({ hasBlankFields: true });
+    this.setState({ hasBlankFields: true, isSubmitting: true });
     const { user, createDocument } = this.props;
     event.preventDefault();
     const formData = new FormData();
@@ -110,7 +111,7 @@ class NewDocumentForm extends PureComponent {
   }
 
   render() {
-    const { errors, values, hasBlankFields } = this.state;
+    const { errors, values, hasBlankFields, isSubmitting } = this.state;
     return (
       <FormContext
         targetForm={this}
@@ -134,7 +135,7 @@ class NewDocumentForm extends PureComponent {
             name="name"
             label="Name"
           />
-          <SubmitArea hasBlankFields={hasBlankFields} onCancel={this.handleCancel} />
+          <SubmitArea hasBlankFields={hasBlankFields} onCancel={this.handleCancel} loading={isSubmitting} />
         </form>
       </FormContext>
     );

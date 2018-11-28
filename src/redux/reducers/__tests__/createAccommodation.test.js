@@ -8,6 +8,7 @@ describe('Accommodation Reducer', () => {
   const initialState = {
     postAccommodationData: [],
     errors: [],
+    createAccommodationLoading: false,
     editAccommodationData: {},
     editingAccommodation: false,
     guestHouses: [],
@@ -28,7 +29,10 @@ describe('Accommodation Reducer', () => {
       type: actionTypes.CREATE_ACCOMMODATION_DATA
     };
     const newState = accommodationReducer(initialState, action);
-    expect(newState).toEqual(initialState);
+    expect(newState).toEqual({
+      ...initialState,
+      createAccommodationLoading: true,
+    });
     done();
   });
 
@@ -41,7 +45,7 @@ describe('Accommodation Reducer', () => {
     expect(newState.postAccommodationData).toEqual(response);
     done();
   });
-  
+
   it('dispatches action CREATE_ACCOMMODATION_DATA_FAILURE', done => {
     const action = {
       type: actionTypes.CREATE_ACCOMMODATION_DATA_FAILURE,

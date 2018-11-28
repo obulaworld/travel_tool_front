@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   postAccommodationData: [],
+  createAccommodationLoading: false,
   errors: [],
   guestHouses: [],
   editAccommodationData: {},
@@ -26,16 +27,14 @@ const initialState = {
   isLoading: false
 };
 
-let editedDataIndex;
-
 const accommodation = (state = initialState, action) => {
   switch (action.type) {
   case CREATE_ACCOMMODATION_DATA:
-    return { ...state };
+    return { ...state, createAccommodationLoading: true };
   case CREATE_ACCOMMODATION_DATA_SUCCESS:
-    return { ...state, postAccommodationData: action.accommodationData, };
+    return { ...state, createAccommodationLoading: false,  postAccommodationData: action.accommodationData, };
   case CREATE_ACCOMMODATION_DATA_FAILURE:
-    return { ...state, errors: action.error };
+    return { ...state, createAccommodationLoading: false, errors: action.error, };
   case FETCH_ACCOMMODATION_CENTRES:
     return { ...state, isLoading: true };
   case FETCH_ACCOMMODATION_CENTRES_SUCCESS:

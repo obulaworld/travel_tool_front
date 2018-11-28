@@ -538,6 +538,7 @@ class NewRequestForm extends PureComponent {
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
             selection={selection}
+            loading={creatingRequest}
             send={
               modalType === 'edit request' ? 'Update Request' : 'Send Request'
             }

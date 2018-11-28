@@ -170,7 +170,7 @@ export class Requests extends Base {
       loading,errors,closeModal,shouldOpen,
       modalType, roleUsers,requestOnEdit,editRequest,
       fetchUserRequests,occupations,
-      fetchAvailableRooms,  availableRooms, fetchAvailableRoomsSuccess
+      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest
     } = this.props;
     const { url } = this.state;
     return (
@@ -191,6 +191,7 @@ export class Requests extends Base {
           requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms} getUserData={getUserData}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
+          creatingRequest={creatingRequest}
         />
       </Modal>
     );

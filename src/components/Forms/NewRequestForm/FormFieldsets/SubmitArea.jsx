@@ -1,8 +1,9 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields, onCancel, send, modalType, onEditCancel, selection } = props;
+  const { hasBlankFields, onCancel, send, modalType, onEditCancel, selection, loading } = props;
 
   return (
     <fieldset>
@@ -16,8 +17,8 @@ const SubmitArea = (props) => {
               Cancel
             </button>
           )}
-        <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--active" id="submit">
-          { send }
+        <button type="submit" disabled={hasBlankFields || loading} className="bg-btn bg-btn--active" id="submit">
+          <ButtonLoadingIcon isLoading={loading} buttonText={send} />
         </button>
       </div>
     </fieldset>
@@ -30,12 +31,14 @@ SubmitArea.propTypes = {
   send: PropTypes.string.isRequired,
   modalType: PropTypes.string,
   onEditCancel: PropTypes.func,
-  selection: PropTypes.string
+  selection: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 SubmitArea.defaultProps = {
   modalType: '',
   selection: '',
+  loading: false,
   onEditCancel: () => {}
 };
 

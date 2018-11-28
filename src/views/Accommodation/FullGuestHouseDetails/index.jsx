@@ -110,7 +110,8 @@ export class GuestHouseDetails extends PureComponent {
       guestHouse,
       initFetchTimelineData,
       fetchAccommodation,
-      editAccommodation
+      editAccommodation,
+      editingAccommodation,
     } = this.props;
     const { shouldOpen, modalType } = modal;
     return (
@@ -129,6 +130,7 @@ export class GuestHouseDetails extends PureComponent {
           modalType={modalType}
           fetchAccommodation={fetchAccommodation}
           editAccommodation={editAccommodation}
+          editingAccommodation={editingAccommodation}
           guestHouse={guestHouse}
           initFetchTimelineData={initFetchTimelineData}
         />
@@ -172,8 +174,8 @@ export class GuestHouseDetails extends PureComponent {
         <Timeline
           modalType={modalType}
           shouldOpen={shouldOpen}
-          openModal={openModal} 
-          modal={modal} 
+          openModal={openModal}
+          modal={modal}
           closeModal={closeModal}
           handleMaintainence={this.handleMaintainence}
           rooms={guestHouse.rooms}
@@ -205,6 +207,7 @@ GuestHouseDetails.propTypes = {
   modal: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired,
+  editingAccommodation: PropTypes.bool.isRequired,
   updateTripRoom: PropTypes.func.isRequired,
   availableBeds: PropTypes.array.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
@@ -225,7 +228,8 @@ const mapStateToProps = (state) => ({
   modal: state.modal.modal,
   availableBeds: state.availableRooms.beds,
   loadingBeds: state.availableRooms.isLoading,
-  loading: state.trips.loading
+  loading: state.trips.loading,
+  editingAccommodation: state.accommodation.editingAccommodation,
 });
 
 const actionCreators = {

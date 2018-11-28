@@ -10,7 +10,6 @@ import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 import AccommodationDetails from './FormFieldsets/AccommodationDetails';
 import addPhoto from '../../../images/add_photo_alternate_24px.svg';
 
-
 class NewAccommodation extends PureComponent {
   constructor(props) {
     super(props);
@@ -23,7 +22,7 @@ class NewAccommodation extends PureComponent {
       values: { houseName, location, bathRooms, image: imageUrl ,
         preview: imageUrl, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
       rooms: isEdit ? guestHouse.rooms : [{}],
-      errors: {},
+      errors: {}, isSubmitting: false,
       documentId: isEdit ? guestHouse.rooms.length: 1,
       hasBlankFields: isEdit ? false : true };
     this.state = { ...this.defaultState };
@@ -75,7 +74,6 @@ class NewAccommodation extends PureComponent {
   defaultRoom = index => ({
     [`roomName-${index}`]: '',  [`roomType-${index}`]: '',  [`bedCount-${index}`]: ''
   });
-
 
   handleImageChange = event => {
     event.preventDefault();
@@ -184,14 +182,8 @@ class NewAccommodation extends PureComponent {
 
   handleInputSubmit = async event => {
     event.preventDefault();
-    this.setState({ hasBlankFields: true });
-    const {
-      createAccommodation,
-      editAccommodation,
-      guestHouse,
-      editAccommodationData,
-      modalType
-    } = this.props;
+    this.setState({ hasBlankFields: true, isSubmitting: true });
+    const { createAccommodation, editAccommodation, guestHouse, modalType } = this.props;
     const { values, rooms } = this.state;
     const fd = new FormData();
     fd.append('file', values.image);
@@ -225,8 +217,8 @@ class NewAccommodation extends PureComponent {
     }};
 
   render() {
-    const { values, errors, hasBlankFields, documentId, rooms } = this.state;
-    const currentHasBlankFields = (rooms.length !== 0) ? hasBlankFields : !hasBlankFields;  
+    const { values, errors, hasBlankFields, documentId, rooms, isSubmitting } = this.state;
+    const currentHasBlankFields = (rooms.length !== 0) ? hasBlankFields : !hasBlankFields;
     const { modalType } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
@@ -249,7 +241,9 @@ class NewAccommodation extends PureComponent {
             onEditCancel={this.handleEditFormCancel}
             hasBlankFields={currentHasBlankFields}
             send={modalType === 'edit accommodation' ? 'Save changes' : 'Save'}
-            modalType={modalType} />
+            modalType={modalType}
+            loading={isSubmitting}
+          />
         </form>
       </FormContext>
     );
@@ -259,11 +253,15 @@ class NewAccommodation extends PureComponent {
 NewAccommodation.propTypes = {
   createAccommodation: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
-  editAccommodationData: PropTypes.func.isRequired,
   initFetchTimelineData: PropTypes.func.isRequired,
   guestHouse: PropTypes.object.isRequired,
   modalType: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  editAccommodation: PropTypes.func,
+};
+
+NewAccommodation.defaultProps = {
+  editAccommodation: () => {},
 };
 
 export default NewAccommodation;
