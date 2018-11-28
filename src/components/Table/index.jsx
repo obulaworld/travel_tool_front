@@ -78,9 +78,9 @@ export class Table extends Component {
   }
   
   retrieveStatusTag = (requestData, type) => {
-    let tag = 'Travel stage';
+    let tag = 'Manager Stage';
     if (requestData.status && requestData.status === 'Approved') {
-      tag = 'Manager Stage';
+      tag = 'Travel Stage';
     }
     return tag;
   }

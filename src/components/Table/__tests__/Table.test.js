@@ -135,4 +135,10 @@ describe('<Requests />', () => {
     wrapper.instance().toggleMenu('xDh20btGz');
     expect(wrapper.state().menuOpen.id).toBe('xDh20btGz');
   });
+
+  it('should display Stage based on the request status', () => {
+    const wrapper = mount(<Table {...props} />);
+    expect(wrapper.instance().retrieveStatusTag({ status: 'Open',}, '')).toEqual('Manager Stage');
+    expect(wrapper.instance().retrieveStatusTag({ status: 'Approved',}, '')).toEqual('Travel Stage');
+  });
 });
