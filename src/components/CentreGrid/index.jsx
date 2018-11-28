@@ -1,17 +1,11 @@
 import React, {Fragment, PureComponent } from 'react';
-import { lookup } from 'country-data';
 import { PropTypes } from 'prop-types';
+import countryUtils from '../../helper/countryUtils';
 import withLoading from '../Hoc/withLoading';
 import CentreCard from './CentreCard';
 import './CentreGrid.scss';
 
 export class CentreGrid extends PureComponent {
-  getCountryFlag(guestHouseLocation) {
-    const country = guestHouseLocation.split(', ')[1];
-    const countryCode = 'KE'; //const countryCode = lookup.countries({name: country})[0].alpha2;
-    return `https://www.countryflags.io/${countryCode}/flat/64.png`;
-  }
-
   getBedCount(rooms) {
     const bedCount = rooms.reduce((room, value) => room + value.bedCount, 0);
     return bedCount;
@@ -45,7 +39,7 @@ export class CentreGrid extends PureComponent {
               guesthouseId={guestHouse.id}
               cardImage={guestHouse.imageUrl}
               imageAlt={`${guestHouse.houseName} image`}
-              countryFlagImage={this.getCountryFlag(guestHouse.location)}
+              countryFlagImage={countryUtils.getCountryFlagUrl(guestHouse.location)}
               guestHouseName={guestHouse.houseName}
               guestHouseLocation={guestHouse.location}
               beds={this.getBedCount(guestHouse.rooms)}
