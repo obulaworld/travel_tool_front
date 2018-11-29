@@ -1,4 +1,4 @@
-import React, {Fragment, PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {startOfWeek, endOfWeek, format} from 'date-fns';
 
@@ -9,19 +9,21 @@ import activeCalendar from '../../images/icons/calendar_active.svg';
 import download from '../../images/icons/download.svg';
 import CalendarRange from '../CalendarRange';
 import TravelCalendarPlaceholder from '../Placeholders/TravelCalendarPlaceholder';
+import AnalyticsPagination from '../Pagination/AnalyticsPagination';
 
 class TravelCalendar extends PureComponent {
   state = {
     filter:
       `dateFrom=${format(startOfWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfWeek(new Date()), 'YYYY-MM-DD')}`,
     isCalendarOpen: false,
-    filterBtnLabel: 'This week'
+    filterBtnLabel: 'This week',
+    page: 1
   };
 
   componentDidMount(){
     const {fetchCalendarAnalytics} = this.props;
-    const {filter} = this.state;
-    fetchCalendarAnalytics({type: 'json', filter});
+    const {filter, page} = this.state;
+    fetchCalendarAnalytics({type: 'json', filter, page});
   }
 
   handleChange = (range) => {
@@ -33,11 +35,12 @@ class TravelCalendar extends PureComponent {
       this.setState(prevState => ({
         ...prevState,
         filter: query,
-        filterBtnLabel: label
+        filterBtnLabel: label,
+        page: 1
       }));
-      fetchCalendarAnalytics({type:'json', filter:query});
+      fetchCalendarAnalytics({type:'json', filter:query, page: 1});
     }
-    range.start !== range.end && this.handleCalendar();
+    (range.start !== range.end) && this.handleCalendar();
   }
 
   handleCalendar = () => {
@@ -45,6 +48,21 @@ class TravelCalendar extends PureComponent {
       const {isCalendarOpen} = prevState;
       return {...prevState, isCalendarOpen: !isCalendarOpen};
     });
+  }
+
+  handlePagination = (direction) => {
+    const { travelCalendar:{ travelCalendarData }, fetchCalendarAnalytics } = this.props;
+    const { filter } = this.state;
+    if(travelCalendarData) {
+      const { pagination: { prevPage, nextPage, currentPage, pageCount } } = travelCalendarData;
+      if(direction === 'Previous' && prevPage > 0) {
+        this.setState(prevState => ({ ...prevState, page: prevPage }));
+        fetchCalendarAnalytics({type: 'json', filter, page: prevPage});
+      } else if(direction === 'Next' && currentPage <= pageCount) {
+        this.setState(prevState => ({ ...prevState, page: nextPage }));
+        fetchCalendarAnalytics({type: 'json', filter, page: nextPage});
+      }
+    }
   }
 
   getTravelCalendarCSV = () => {
@@ -88,7 +106,7 @@ class TravelCalendar extends PureComponent {
   renderCalendar (calender, index) {
     return (
       <Fragment key={`calendar-${index}`}>
-        <TravelCalendarDetails calendar={calender} />
+        <TravelCalendarDetails id="calendar" calendar={calender} />
       </Fragment>
     );
   }
@@ -106,7 +124,15 @@ class TravelCalendar extends PureComponent {
         </div>
       );
     }
-    return calendarData;
+    return (
+      <Fragment>
+        {calendarData}
+        <AnalyticsPagination
+          pagination={travelCalendarData.pagination}
+          handlePagination={this.handlePagination}
+        />
+      </Fragment>
+    );
   }
 
   renderCalendarHeader () {
@@ -121,6 +147,14 @@ class TravelCalendar extends PureComponent {
     );
   }
 
+  renderLoader () {
+    return(
+      <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
+        <TravelCalendarPlaceholder />
+      </div>
+    );
+  }
+
   render(){
     const {travelCalendar:{isLoading}} = this.props;
     return (
@@ -128,15 +162,9 @@ class TravelCalendar extends PureComponent {
         {this.renderCalendarHeader()}
         {isLoading ? (
           <div className="container">
-            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
-              <TravelCalendarPlaceholder />
-            </div>
-            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
-              <TravelCalendarPlaceholder />
-            </div>
-            <div className="demo-card-wide mdl-card mdl-shadow--2dp calender-placeholder">
-              <TravelCalendarPlaceholder />
-            </div>
+            {this.renderLoader()}
+            {this.renderLoader()}
+            {this.renderLoader()}
           </div>
         ) : (
           <div className="container">

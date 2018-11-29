@@ -6,8 +6,10 @@ const baseUrl = resolveBaseUrl();
 class CalendarAnalyticsAPI{
   static getCalendarAnalytics = (query)=>{
     const location = localStorage.getItem('location');
-    const responseType = (query.type === 'file') ? 'blob' : 'json';
-    return axios.get(`${baseUrl}/analytics/calendar?type=${query.type}&location=${location}&${query.filter}&limit=3&page=1`, {
+    const limit = 3;
+    const {filter, page, type} = query;
+    const responseType = (type === 'file') ? 'blob' : 'json';
+    return axios.get(`${baseUrl}/analytics/calendar?type=${type}&location=${location}&${filter}&limit=${limit}&page=${page}`, {
       responseType
     });
   }

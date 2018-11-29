@@ -1,11 +1,7 @@
 import React from 'react';
+import {startOfWeek, endOfWeek, format} from 'date-fns';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import configureStore from 'redux-mock-store';
 import TravelCalendar from '../index';
-import TravelCalendarDetails from '../../TravelCalendarDetails';
 
 const props = {
   travelCalendar: {
@@ -15,29 +11,31 @@ const props = {
         name: 'Barrison Waina',
         department: 'Apprenticeship Department',
         role: 'Product designer',
-        flights: {
+        picture: '',
+        flight: {
           arrival: {
             destination: 'Lagos',
             airline: 'Kenya Airways',
-            flight_no: 'KQ5752',
-            arrival_time: '24/10/2018 13:23:33',
-            depature_time: '24/10/2018 13:23:33'
+            flightNo: 'KQ5752',
+            arrivalTime: '24/10/2018 13:23:33',
+            departureTime: '24/10/2018 13:23:33'
           },
-          depature: {
+          departure: {
             destination: 'Nairobi',
             airline: 'Kenya Airways',
-            flight_no: 'KQ5752',
-            arrival_time: '24/10/2018 13:23:33',
-            depature_time: '24/10/2018 13:23:33'
+            flightNo: 'KQ5752',
+            arrivalTime: '24/10/2018 13:23:33',
+            departureTime: '24/10/2018 13:23:33'
           }
         }
       }],
       pagination: {
-        total: 30,
-        current_page: 1,
-        limit: 13,
+        pageCount: 2,
+        currentPage: 1,
+        dataCount: 5,
+        limit: 3,
         nextPage: 2,
-        prevPage: null
+        prevPage: 0
       }
     }
   },
@@ -46,13 +44,11 @@ const props = {
   handleFilterBtn: jest.fn()
 };
 
-const {fetchCalendarAnalytics,downloadCalendarAnalytics,travelCalendar} = props;
+const filter = `dateFrom=${format(startOfWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfWeek(new Date()), 'YYYY-MM-DD')}`
+
 const wrapper = shallow(
-  <TravelCalendar
-    fetchCalendarAnalytics={fetchCalendarAnalytics}
-    downloadCalendarAnalytics={downloadCalendarAnalytics}
-    travelCalendar={travelCalendar}
-  />);
+  <TravelCalendar {...props} />
+);
 
 describe('Travel Calendar', ()=>{
   it('should render Travel Calendar Correctly', async () => {
@@ -74,5 +70,28 @@ describe('Travel Calendar', ()=>{
     const btn = wrapper.find('.actions__btn');
     btn.simulate('click');
     expect(props.downloadCalendarAnalytics).toHaveBeenCalled();
+  });
+
+  describe('test handlePagination', () => {
+    const wrapper = mount(
+      <TravelCalendar {...props} />
+    );
+    it('should have state remain the same when prevState is 0', () => {
+      wrapper.find('#Previous').simulate('click');
+      expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 1});
+      expect(wrapper.state().page).toEqual(1);
+    });
+    it('should change page in state to nextPage', () => {
+      wrapper.find('#Next').simulate('click');
+      expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 2});
+      expect(wrapper.state().page).toEqual(2);
+    });
+    it('should change page in state to prevPage', () => {
+      props.travelCalendar.travelCalendarData.pagination.prevPage = 1;
+      wrapper.find('#Previous').simulate('click');
+      const wrap = shallow(<TravelCalendar {...props} />)
+      expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 1});
+      expect(wrap.state().page).toEqual(1);
+    });
   });
 });

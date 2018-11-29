@@ -56,24 +56,39 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
       calendar={
         Object {
           "department": "Apprenticeship Department",
-          "flights": Object {
+          "flight": Object {
             "arrival": Object {
               "airline": "Kenya Airways",
-              "arrival_time": "24/10/2018 13:23:33",
-              "depature_time": "24/10/2018 13:23:33",
+              "arrivalTime": "24/10/2018 13:23:33",
+              "departureTime": "24/10/2018 13:23:33",
               "destination": "Lagos",
-              "flight_no": "KQ5752",
+              "flightNo": "KQ5752",
             },
-            "depature": Object {
+            "departure": Object {
               "airline": "Kenya Airways",
-              "arrival_time": "24/10/2018 13:23:33",
-              "depature_time": "24/10/2018 13:23:33",
+              "arrivalTime": "24/10/2018 13:23:33",
+              "departureTime": "24/10/2018 13:23:33",
               "destination": "Nairobi",
-              "flight_no": "KQ5752",
+              "flightNo": "KQ5752",
             },
           },
           "name": "Barrison Waina",
+          "picture": "",
           "role": "Product designer",
+        }
+      }
+      id="calendar"
+    />
+    <AnalyticsPagination
+      handlePagination={[Function]}
+      pagination={
+        Object {
+          "currentPage": 1,
+          "dataCount": 5,
+          "limit": 3,
+          "nextPage": 2,
+          "pageCount": 2,
+          "prevPage": 0,
         }
       }
     />
