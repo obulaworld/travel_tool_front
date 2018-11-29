@@ -29,7 +29,7 @@ export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadi
 const PieChartAnalytics = ({data}) => (
   <Fragment>
     {(data.length > 0 && data[0].name !== '') ? (
-      <PieChart width={800} height={400}>
+      <PieChart width={250} height={200}>
         <Pie
           isAnimationActive={false}
           data={data} cx={145} cy={75}

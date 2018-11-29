@@ -7,9 +7,25 @@
     height: 36px;
     margin-bottom: 46px;
 
-    @media (max-width: 479px) {
+    @media screen and (min-width: 320px) and (max-width: 426px){
+      height: 100%;
+      margin-bottom: 25px !important;
+    }
+
+    @media (max-width: 480px) {
       top: 19px;
       margin-bottom: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .title{
+        margin: 0 0 15px 2px;
+      }
+    }
+
+    @media (min-width: 320px) and (max-width: 855px){
+      margin-bottom: 78px;
+      margin-right: 3px;
     }
 
     .title {
@@ -33,6 +49,10 @@
       align-items: center;
       justify-content: center;
 
+      @media screen and (min-width: 320px) and (max-width: 426px){
+        margin-bottom: 5px;
+      }
+
       &:hover,
       &:active ,
       &:visited {
@@ -43,6 +63,15 @@
     .actions {
       display: flex;
       justify-content: space-between;
+
+      @media (min-width: 320px) and (max-width: 855px){
+        margin-left: 2px;
+      }
+
+      @media screen and (min-width: 320px) and (max-width: 426px){
+        flex-direction: column;
+      }
+
       button:nth-child(1) {
         margin-right: 19px;
         width: 127px;

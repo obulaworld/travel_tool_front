@@ -15,7 +15,7 @@
   box-sizing: border-box;
   font-family: "DIN Pro";
   background-color: #FFFFFF;
-  width: 340px;
+  width: 100% !important;
   border-radius: 2px;
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
 
@@ -23,3 +23,7 @@
     margin-right: 10px;
   }
 }
+
+@import 'smallScreens';
+@import 'mediumScreens';
+@import 'screens';
