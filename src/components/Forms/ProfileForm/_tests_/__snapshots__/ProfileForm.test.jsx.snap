@@ -144,7 +144,6 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               label="Role"
               labelNote=""
               name="role"
-              onBlur={[Function]}
               onChange={[Function]}
               type="text"
               value=""

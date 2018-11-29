@@ -8,7 +8,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
     Object {
       "length": 7,
       "stayPercentage": "100%",
-      "tripTimelineOffsetLeft": -10261,
+      "tripTimelineOffsetLeft": -10292,
     }
   }
 >
@@ -23,7 +23,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       Object {
         "length": 7,
         "stayPercentage": "100%",
-        "tripTimelineOffsetLeft": -10261,
+        "tripTimelineOffsetLeft": -10292,
       }
     }
   >

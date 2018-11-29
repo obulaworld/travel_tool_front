@@ -9,9 +9,12 @@ import './TravelReadiness.scss';
 class TravelReadiness extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { travelFlow: 'inflow' };
   }
   renderReadinessDetails = (item, index) => {
+    const { travelFlow } = this.state;
+    const { arrivalDate, departureDate } = item;
+    const date = travelFlow.match('inflow') ? arrivalDate : departureDate;
     return (
       <div className="analyticsReport__row analyticsReport__report-details" key={`item${index}`}>
         <div>
@@ -21,7 +24,7 @@ class TravelReadiness extends Component {
           <p>{item.travelReadiness}</p>
         </div>
         <div>
-          <p>{generateDynamicDate({}, item.arrivalDate)}</p>
+          <p>{generateDynamicDate({}, date)}</p>
         </div>
       </div>
     );
@@ -62,6 +65,24 @@ class TravelReadiness extends Component {
     return travelButton;
   };
 
+  renderReadinessTitles = () => {
+    const { travelFlow } = this.state;
+    const readinessTitles = (
+      <div className="analyticsReport__row analyticsReport__report-header">
+        <div>
+          <p>Name</p>
+        </div>
+        <div>
+          <p>% Complete</p>
+        </div>
+        <div>
+          {travelFlow && travelFlow === 'outflow' ? <p>Expected Departure Date</p> : <p>Expected Arrival Date</p>}
+        </div>
+      </div>
+    );
+    return readinessTitles;
+  }
+
   render() {
     const { readiness, renderNotFound } = this.props;
     const { isLoading} = readiness;
@@ -80,19 +101,9 @@ class TravelReadiness extends Component {
                   text="Export" imageSrc={download}
                   onClick={travelFlow === 'outflow' ? () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
               </div>
-              <div className="analyticsReport__row analyticsReport__report-header">
-                <div>
-                  <p>Name</p>
-                </div>
-                <div>
-                  <p>% Complete</p>
-                </div>
-                <div>
-                  <p>Expected Arrival Date</p>
-                </div>
-              </div>
+              {this.renderReadinessTitles()}
               {readiness.readiness && readiness.readiness.length > 0 && !readiness.isLoading &&
-            readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))}
+                readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))}
               {readiness.readiness && !readiness.readiness.length && renderNotFound()}
             </Fragment>
           )}
