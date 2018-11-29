@@ -116,7 +116,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input  "
+                        className="form-input profile_role_dropdown "
                     >
                         <label
                             htmlFor="role"
@@ -149,11 +149,23 @@ Array [
                             >
                                 <input
                                     autoComplete="off"
+                                    choices={Array []}
                                     className="occupationInput"
+                                    label="Role"
+                                    labelNote=""
                                     name="role"
+                                    onBlur={[Function]}
                                     onChange={[Function]}
                                     type="text"
+                                    value="Software Developer"
                                 />
+                                <div
+                                    className="hide"
+                                >
+                                    <ul
+                                        className="select-menu select-menu--inactive"
+                                    />
+                                </div>
                             </div>
                         </div>
                         <span

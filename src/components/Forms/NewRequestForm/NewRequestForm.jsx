@@ -550,7 +550,6 @@ class NewRequestForm extends PureComponent {
 
   render() {
     const { managers, creatingRequest, occupations } = this.props;
-
     return <div>{this.renderForm()}</div>;
   }
 }

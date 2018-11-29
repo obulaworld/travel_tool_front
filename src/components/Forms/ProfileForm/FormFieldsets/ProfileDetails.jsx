@@ -30,7 +30,8 @@ class ProfileDetailsFieldSets extends Component {
           {renderInput('name', 'text')}
           {renderInput('gender', 'button-toggler')}
           {renderInput('role', 'filter-dropdown-select', {
-            choices: occupationsNames
+            choices: occupationsNames,
+            className: 'profile_role_dropdown'
           })}
           {renderInput('department', 'dropdown-select', {className: 'profile_dropdown'})}
           {renderInput('manager', 'dropdown-select', {className: 'profile_dropdown'})}

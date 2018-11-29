@@ -30,8 +30,14 @@ export function getDateHandler(targetForm, validate, targetField) {
 }
 
 export function getDropdownHandler(targetForm, validate, targetField) {
-  return selectedOpt =>
-    updateFormValues.call(targetForm, selectedOpt, targetField, validate);
+  return value =>
+    updateFormValues.call(targetForm, value, targetField, validate);
+}
+
+export function getFilterDropdownSelect(targetForm, validate, targetField) {
+  return value => {
+    updateFormValues.call(targetForm, value, targetField, validate);
+  };
 }
 
 export function getOnBlurHandler(targetForm, validate, targetField) {

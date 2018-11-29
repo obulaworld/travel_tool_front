@@ -36,7 +36,7 @@ class ProfileForm extends PureComponent {
 
   static getDerivedStateFromProps(props, state){
     const { userData } = props;
-    if(userData !== undefined && state.values.name === ''){
+    if(userData !== undefined && state.values.department === ''){
       const { passportName, gender, department, occupation, manager } = userData;
       return  {
         ...state,

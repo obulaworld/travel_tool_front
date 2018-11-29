@@ -19,6 +19,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     width="800px"
   >
     <NewAccommodation
+      editAccommodation={[Function]}
       guestHouse={
         Object {
           "houseName": "Ndovu",

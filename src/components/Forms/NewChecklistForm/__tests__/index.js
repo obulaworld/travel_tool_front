@@ -10,7 +10,7 @@ describe('<NewChecklistForm />', () => {
     updateTravelChecklist: jest.fn(),
     modalType: 'new checklist',
     checklistItem: {},
-    currentUser: {},
+    currentUser: {}
   };
 
   beforeEach(() => {
