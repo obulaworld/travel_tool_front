@@ -225,10 +225,11 @@ describe('SubmissionItem Component', () => {
       utilsType: 'uploadField'
     });
 
-    const uploadDone = wrapper.find('.submission-progress__success');
+    const uploadedField = wrapper.find('.uploadedFile');
+    const uploadedFileName = wrapper.find('.uploadedFileName');
 
-    expect(uploadDone.length).toBe(1);
-    expect(uploadDone.text()).toBe('test.png');
+    expect(uploadedField.length).toBe(1);
+    expect(uploadedFileName.text()).toBe('test.png');
   });
 
   it ('should render `Done` when text is successfully uploaded',  () => {
@@ -284,12 +285,5 @@ describe('SubmissionItem Component', () => {
     expect(wrapper.state().type).toBe('success');
     expect(wrapper.state().info).toBe('Done');
     expect(wrapper.state().uploadedFileName).toBe('');
-  });
-
-  xit ('should render spinner if loading is true', () => {
-    const wrapper = setup({ ...props, isLoading: true });
-
-    const spinner = wrapper.find('.loader');
-    expect(spinner.length).toBe(1);
   });
 });
