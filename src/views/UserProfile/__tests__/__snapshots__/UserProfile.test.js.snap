@@ -154,7 +154,6 @@ Array [
                                     label="Role"
                                     labelNote=""
                                     name="role"
-                                    onBlur={[Function]}
                                     onChange={[Function]}
                                     type="text"
                                     value="Software Developer"

@@ -23,6 +23,7 @@ const defaultProps = {
   },
   fetchDepartmentTrips: jest.fn(),
   exportReadiness: jest.fn(),
+  getReadinessCSV: jest.fn(),
   renderNotFound: jest.fn(),
   renderSpinner: jest.fn()
 
