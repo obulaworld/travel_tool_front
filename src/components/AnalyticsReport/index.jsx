@@ -82,7 +82,7 @@ export default class AnalyticsReport extends Component {
           {loading ? <TripsPerMonthPlaceholder /> : (
             <Fragment>
               <div className="analyticsReport__row analyticsReport__header">
-                <p>Number of Trips/Month</p>
+                <p>Number of Trips per Department</p>
                 {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
               </div>
               <div className="analyticsReport__row analyticsReport__report-header">
