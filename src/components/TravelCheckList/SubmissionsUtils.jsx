@@ -4,14 +4,15 @@ import check from '../../images/check.svg';
 import uploadIcon from '../../images/uploadIcon.svg';
 
 class SubmissionsUtils extends Component {
+  state = { showUploadedField: false }
+
   componentDidMount() {
     this.getItemValue();
   }
 
-  handleUploading = (e) => {
-    const { handleUpload, setUtilsType } = this.props;
-    setUtilsType('uploadField');
-    handleUpload(e);
+  componentWillReceiveProps(nextProps) {
+    const { postSuccess, checkId } = nextProps;
+    postSuccess.includes(checkId) && this.setState({ showUploadedField: true });
   }
 
   getItemValue = () => {
@@ -54,7 +55,7 @@ class SubmissionsUtils extends Component {
     );
   }
   renderUploadField = () => {
-    const { fileUploadData, itemsToCheck, checkId } = this.props;
+    const { fileUploadData, itemsToCheck, checkId, handleUpload } = this.props;
     const { isUploading } = fileUploadData;
     return (
       <div className="travelSubmission--input__upload-field">
@@ -70,7 +71,7 @@ class SubmissionsUtils extends Component {
             type="file" 
             name="file"
             className="uploadFile"
-            onChange={this.handleUploading} 
+            onChange={handleUpload} 
             disabled={isUploading}
           />
         </div>
@@ -88,7 +89,7 @@ class SubmissionsUtils extends Component {
   }
 
   renderUploadedField = () => {
-    const { itemsToCheck, checkId, uploadedFileName,
+    const { itemsToCheck, checkId, uploadedFileName, handleUpload,
       fileUploadData: { isUploading }, uploadProcess } = this.props;
     const fileName = (!uploadProcess || uploadProcess.match('success'))
       && uploadedFileName;
@@ -96,7 +97,7 @@ class SubmissionsUtils extends Component {
       <div className="travelSubmission--input__upload-field__">
         <div className="travelSubmission--input__input-field__">
           <div role="presentation" className="travelSubmission--input__btn--">
-            <span id="file-upload" role="presentation">{fileName}</span>
+            <span id="file-upload" role="presentation" className="uploadedFileName">{fileName}</span>
             <img
               src={uploadIcon} alt="upload_icon"
               className="travelSubmission--input__image"
@@ -106,7 +107,7 @@ class SubmissionsUtils extends Component {
             type="file" 
             name="file"
             className="uploadedFile"
-            onChange={this.handleUploading} 
+            onChange={handleUpload} 
             disabled={isUploading}
           />
         </div>
@@ -211,11 +212,14 @@ class SubmissionsUtils extends Component {
 
   renderSubmissionsUtils = () => {
     const { utilsType, checklistItem: { submissions: [item] } } = this.props;
+    const { showUploadedField } = this.state;
     return (
       <Fragment>
         {utilsType && utilsType.match('ticketFieldset') && this.renderTicketFieldset()}
-        {utilsType && utilsType.match('uploadField') && !item && this.renderUploadField()}
-        {utilsType && utilsType.match('uploadField') && item && this.renderUploadedField()}
+        {(utilsType && utilsType.match('uploadField') && !item && !showUploadedField)
+          && this.renderUploadField()}
+        {utilsType && utilsType.match('uploadField') && (item || showUploadedField)
+          && this.renderUploadedField()}
         {utilsType && utilsType.match('textarea') && this.renderTextarea()}
       </Fragment>
     );
@@ -235,7 +239,7 @@ SubmissionsUtils.propTypes = {
   returnTime: PropTypes.string.isRequired, ticketNumber: PropTypes.string.isRequired,
   returnTicketNumber: PropTypes.string.isRequired, airline: PropTypes.string.isRequired,
   returnAirline: PropTypes.string.isRequired, handleUpload: PropTypes.func.isRequired,
-  setUtilsType: PropTypes.func.isRequired, setTextArea: PropTypes.func.isRequired,
+  setTextArea: PropTypes.func.isRequired, postSuccess: PropTypes.array.isRequired,
   setTicketFields: PropTypes.func.isRequired, setUploadedFileName: PropTypes.func.isRequired,
   handleInputChange: PropTypes.func.isRequired, handleTextAreaSubmit: PropTypes.func.isRequired,
   handleTicketSubmit: PropTypes.func.isRequired, fileUploadData: PropTypes.object.isRequired,

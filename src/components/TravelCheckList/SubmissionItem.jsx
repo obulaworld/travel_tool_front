@@ -6,7 +6,7 @@ import SubmissionsUtils from './SubmissionsUtils';
 
 class SubmissionItem extends Component {
   state = { 
-    info: '', type: '', utilsType: '', fileName: '', submissionText: '', 
+    info: '', type: '', fileName: '', submissionText: '', 
     departureTime: '', arrivalTime: '', ticketNumber: '', airline: '',
     returnDepartureTime: '', returnTime: '', returnTicketNumber: '',
     returnAirline: '', validTicket: true, uploadedFileName: '', validInput: true
@@ -37,10 +37,6 @@ class SubmissionItem extends Component {
       return true;
     }
     return false; // if no file
-  }
-
-  setUtilsType = (utilsType) => {
-    this.setState({ utilsType });
   }
 
   setTextArea = (value, id) => {
@@ -187,17 +183,13 @@ class SubmissionItem extends Component {
   }
 
   renderUploadDone = () => {
-    const { fileName, utilsType } = this.state;
     const { postSuccess, checkId, checklistItem} = this.props;
     const { requiresFiles, submissions: [item] } = checklistItem;
-    const displayInfo = (requiresFiles && !item) || (!requiresFiles);
-    const info = utilsType === 'uploadField'
-      ? fileName : 'Done';
     return (
       <Fragment>
-        { postSuccess.includes(checkId) && displayInfo && (
+        { postSuccess.includes(checkId) && !requiresFiles && (
           <div className="submission-progress__">
-            <div className="submission-progress__success">{info}</div>
+            <div className="submission-progress__success">Done</div>
           </div>
         )}
       </Fragment>
@@ -211,7 +203,8 @@ class SubmissionItem extends Component {
       returnDepartureTime, returnTicketNumber, airline, returnAirline,
     } = this.state;
     const { 
-      checklistItem, fileUploadData, itemsToCheck, tripType, checkId
+      checklistItem, fileUploadData, itemsToCheck, tripType, checkId,
+      postSuccess
     } = this.props;
     const { requiresFiles, name, submissions: [item] } = checklistItem;
     let utilsType = requiresFiles ? 'uploadField' : 'textarea';
@@ -223,7 +216,7 @@ class SubmissionItem extends Component {
         <SubmissionsUtils
           checklistItem={checklistItem} utilsType={utilsType} checkId={checkId}
           handleUpload={this.handleUpload} fileUploadData={fileUploadData}
-          setUtilsType={this.setUtilsType} setTextArea={this.setTextArea}
+          setTextArea={this.setTextArea} postSuccess={postSuccess}
           setTicketFields={this.setTicketFields} arrivalTime={arrivalTime}
           uploadedFileName={uploadedFileName || fileName} uploadProcess={type}
           itemsToCheck={itemsToCheck} handleInputChange={this.handleInputChange}
@@ -270,7 +263,8 @@ SubmissionItem.propTypes = {
   postSubmission: PropTypes.func.isRequired, fileUploadData: PropTypes.object.isRequired,
   tripId: PropTypes.string.isRequired, itemsToCheck: PropTypes.array.isRequired,
   postSuccess: PropTypes.array.isRequired, isUploadingStage2: PropTypes.array.isRequired,
-  requestId: PropTypes.string.isRequired, tripType: PropTypes.string.isRequired, checkId: PropTypes.string.isRequired
+  requestId: PropTypes.string.isRequired, tripType: PropTypes.string.isRequired,
+  checkId: PropTypes.string.isRequired
 };
 
 export default SubmissionItem;
