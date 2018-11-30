@@ -9,7 +9,7 @@ import { fetchReadinessSuccess, fetchReadinessFailure, exportReadinessFailure, e
 export function* fetchReadinessSaga(action){
   try{
     const response = yield call(ReadinessAPI.getTravelReadiness, action.query);
-    yield put(fetchReadinessSuccess(response.data.readiness));
+    yield put(fetchReadinessSuccess(response.data));
   }catch(error){
     let errorMessage = apiErrorHandler(error);
     yield put(fetchReadinessFailure(errorMessage));

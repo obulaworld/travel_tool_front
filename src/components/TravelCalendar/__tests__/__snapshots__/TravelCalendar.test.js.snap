@@ -59,15 +59,15 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
           "flight": Object {
             "arrival": Object {
               "airline": "Kenya Airways",
-              "arrivalTime": "24/10/2018 13:23:33",
-              "departureTime": "24/10/2018 13:23:33",
+              "arrivalTime": "Invalid date",
+              "departureTime": "Invalid date",
               "destination": "Lagos",
               "flightNo": "KQ5752",
             },
             "departure": Object {
               "airline": "Kenya Airways",
-              "arrivalTime": "24/10/2018 13:23:33",
-              "departureTime": "24/10/2018 13:23:33",
+              "arrivalTime": "Invalid date",
+              "departureTime": "Invalid date",
               "destination": "Nairobi",
               "flightNo": "KQ5752",
             },

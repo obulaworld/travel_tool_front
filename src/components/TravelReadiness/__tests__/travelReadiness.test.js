@@ -15,6 +15,13 @@ const defaultProps = {
       travelReadiness: '0% complete',
       arrivalDate: '2018-10-05T00:00:00.000Z'
     }],
+    pagination:  {
+      pageCount: 3,
+      currentPage: 2,
+      dataCount: 13,
+      prevPage: 1,
+      nextPage: 3
+    },
   },
   fetchReadiness: jest.fn(),
   renderButton: jest.fn(),
@@ -25,7 +32,6 @@ const defaultProps = {
   exportReadiness: jest.fn(),
   getReadinessCSV: jest.fn(),
   renderNotFound: jest.fn(),
-  renderSpinner: jest.fn()
 
 };
 const setup = (props) => {
@@ -73,5 +79,24 @@ describe('Test suite for Travel Readiness Component', () => {
     const exportBtn = newWrapper.find('#btnExportReadinessCSV').first();
     exportBtn.simulate('click');
     expect(defaultProps.exportReadiness).toHaveBeenCalled();
+  });
+  
+  it('should obtain next page when handlePagination is called', () => {
+    const newWrapper = mount(<TravelReadiness {...defaultProps} />);
+    const nextbtn = newWrapper.find('#Next');
+    nextbtn.simulate('click');
+    expect(defaultProps.fetchReadiness).toHaveBeenCalled();
+  });
+  it('should obtain previous page when handlePagination is called', () => {
+    const newWrapper = mount(<TravelReadiness {...defaultProps} />);
+    const nextbtn = newWrapper.find('#Previous');
+    nextbtn.simulate('click');
+    expect(defaultProps.fetchReadiness).toHaveBeenCalled();
+  });
+  it('should load the Travel Placeholder when isLoading is true', () => {
+    const newProps = {...defaultProps };
+    newProps.readiness.isLoading = true;
+    wrapper.setProps({newProps});
+    expect(wrapper.find('TravelReadinessPlaceholder').length).toBe(1);
   });
 });

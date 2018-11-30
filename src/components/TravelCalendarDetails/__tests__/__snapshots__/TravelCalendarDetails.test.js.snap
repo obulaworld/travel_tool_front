@@ -110,7 +110,7 @@ exports[`Travel Calendar Details should render TravelCalendarDetails 1`] = `
                 <td
                   key="arrivalTime"
                 >
-                  24/10/2018 13:23:33
+                  Invalid date
                 </td>
                 <td
                   key="destination"
@@ -177,7 +177,7 @@ exports[`Travel Calendar Details should render TravelCalendarDetails 1`] = `
                 <td
                   key="departureTime"
                 >
-                  24/10/2018 13:23:33
+                  Invalid date
                 </td>
                 <td
                   key="destination"

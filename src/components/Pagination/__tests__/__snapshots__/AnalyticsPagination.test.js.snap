@@ -12,11 +12,11 @@ exports[`Analytics Pagination should render travel calendar 1`] = `
   >
     Previous
   </button>
-  <p
+  <span
     className="pg--text"
   >
     Showing page 1 of 2 pages
-  </p>
+  </span>
   <button
     className="pg--button false"
     id="Next"

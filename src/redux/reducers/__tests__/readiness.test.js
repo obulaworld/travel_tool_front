@@ -10,9 +10,10 @@ import { fetchReadinessFailure, fetchReadinessSuccess, fetchReadiness, exportRea
 
 describe('Test suite for readiness reducer', () => {
   const initialState = {
-    readiness: {}, 
+    readiness: [], 
     isLoading:false, 
-    error: {} 
+    error: {},
+    pagination: {}
   };
   it('should return initial state', () => {
     expect(readiness(undefined, {})).toEqual({
@@ -49,14 +50,17 @@ describe('Test suite for readiness reducer', () => {
     (done) => {
       const currentState = {
         ...initialState,
-        isLoading: true,
-        readiness: {}
+        readiness: {
+          isLoading: true,
+          readiness: {},
+          pagination: {}
+        }
       };
 
       const action = fetchReadinessSuccess(fetchReadinessResponse);
       const newState = readiness(currentState, action);
       expect(newState.isLoading).toBe(false);      
-      expect(newState.readiness).toMatchObject(fetchReadinessResponse);
+      expect(newState).toMatchObject(fetchReadinessResponse);
       done();
     });
 

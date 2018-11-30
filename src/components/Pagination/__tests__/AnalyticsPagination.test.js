@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import AnalyticsPagination from '../AnalyticsPagination';
 
 const props = {
@@ -13,8 +12,7 @@ const props = {
     prevPage: 0
   },
   handlePagination: jest.fn()
-}
-
+};
 describe('Analytics Pagination', () => {
   const { pagination, handlePagination } = props;
   it('should render travel calendar', () => {
@@ -46,8 +44,8 @@ describe('Analytics Pagination', () => {
       expect(wrapper.find('#Previous').props()).toHaveProperty('className', 'pg--button false');
     });
     it('should call handlePagination when Previous button is clicked', () => {
-      wrapper.find('#Previous').simulate('click');
-      expect(handlePagination).toHaveBeenCalledWith("Previous");
+      wrapper.find('#Previous').simulate('click', { target: { id: 'Previous' , classList: { contains: jest.fn(() => false )}}});
+      expect(handlePagination).toHaveBeenCalledWith('Previous');
     });
   });
   describe('When nextPage < pageCount', () => {
@@ -56,8 +54,8 @@ describe('Analytics Pagination', () => {
       expect(wrapper.find('#Next').props()).toHaveProperty('className', 'pg--button false');
     });
     it('should call handlePagination when Next button is clicked', () => {
-      wrapper.find('#Next').simulate('click');
-      expect(handlePagination).toHaveBeenCalledWith("Next");
+      wrapper.find('#Next').simulate('click', { target: { id: 'Next' , classList: { contains: jest.fn(() => false )}}});
+      expect(handlePagination).toHaveBeenCalledWith('Next');
     });
   });
-})
+});
