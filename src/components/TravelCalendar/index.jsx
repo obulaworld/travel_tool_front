@@ -58,7 +58,7 @@ class TravelCalendar extends PureComponent {
       if(direction === 'Previous' && prevPage > 0) {
         this.setState(prevState => ({ ...prevState, page: prevPage }));
         fetchCalendarAnalytics({type: 'json', filter, page: prevPage});
-      } else if(direction === 'Next' && currentPage <= pageCount) {
+      } else if(direction === 'Next' && (currentPage + 1) <= pageCount) {
         this.setState(prevState => ({ ...prevState, page: nextPage }));
         fetchCalendarAnalytics({type: 'json', filter, page: nextPage});
       }

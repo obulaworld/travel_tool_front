@@ -19,7 +19,8 @@ export class Documents extends Component {
     menuOpen: { open: false, id: null },
     documentId: null,
     documentToDelete: '',
-    documentToDownlod: ''
+    documentToDownlod: '',
+    hasBlankFields: true
   };
   componentDidMount() {
     const { fetchDocuments } = this.props;
@@ -75,15 +76,21 @@ export class Documents extends Component {
 
   handleRenameDocument = () => {
     const { documentOnEdit, updateDocument } = this.props;
+    this.setState({ hasBlankFields: true});
     updateDocument(documentOnEdit);
   }
   handleInputChange = (event) => {
     const { value } = event.target;
     const { documentOnEdit, updateDocumentOnEdit } = this.props;
+    this.setState({ hasBlankFields: this.textValidator(value)});
     documentOnEdit && updateDocumentOnEdit(value);
   }
-
-
+   textValidator = (value) => {
+     const isString = typeof(value) === 'string' &&
+     (value.replace(/\s+/, '')).length > 0 ;
+     if (isString) return false;
+     return true;
+   }
 
   handleSubmitDownload = () => {
     const { documentToDownlod: { name } } = this.state; return (
@@ -131,6 +138,7 @@ export class Documents extends Component {
   }
   renderSubmitArea = () => {
     const { isUpdating } = this.props;
+    const { hasBlankFields } = this.state;
     return (
       <div className="submit-area">
         <p>
@@ -146,7 +154,7 @@ export class Documents extends Component {
             type="button"
             className="bg-btn bg-btn--inactive doc-btn-save"
             id="cancel"
-            disabled={isUpdating}
+            disabled={hasBlankFields}
             onClick={this.handleRenameDocument}
           >
             <ButtonLoadingIcon isLoading={isUpdating} buttonText="Save" />
