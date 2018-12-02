@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields, onCancel, send, modalType, onEditCancel, selection, loading } = props;
+  const { hasBlankFields,sameOriginDestination, onCancel, send, modalType, onEditCancel, selection, loading } = props;
 
   return (
     <fieldset>
@@ -17,7 +17,7 @@ const SubmitArea = (props) => {
               Cancel
             </button>
           )}
-        <button type="submit" disabled={hasBlankFields || loading} className="bg-btn bg-btn--active" id="submit">
+        <button type="submit" disabled={hasBlankFields || loading || sameOriginDestination} className="bg-btn bg-btn--active" id="submit">
           <ButtonLoadingIcon isLoading={loading} buttonText={send} />
         </button>
       </div>
@@ -28,6 +28,7 @@ const SubmitArea = (props) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   hasBlankFields: PropTypes.bool.isRequired,
+  sameOriginDestination: PropTypes.bool.isRequired,
   send: PropTypes.string.isRequired,
   modalType: PropTypes.string,
   onEditCancel: PropTypes.func,

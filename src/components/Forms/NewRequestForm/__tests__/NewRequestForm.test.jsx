@@ -70,7 +70,7 @@ describe('<NewRequestForm />', () => {
       trips: [
         {
           id: '1',
-          origin: 'Abuja Nigeria',
+          origin: 'Nairobi Kenya',
           destination: 'Lagos Nigeria',
           departureDate: '2018-09-30',
           returnDate: '2018-09-30',
@@ -174,9 +174,9 @@ describe('<NewRequestForm />', () => {
   });
 
   it('validates input on blur', () => {
-    wrapper.find('input[name="name"]').simulate('blur');
+    wrapper.find('input[name="arrivalDate-0"]').simulate('blur');
     wrapper.update();
-    expect(wrapper.state().errors.name).toBe('This field is required');
+    expect(wrapper.state().errors['arrivalDate-0']).toBe('This field is required');
   });
 
   it('validates form before sending data', () => {
