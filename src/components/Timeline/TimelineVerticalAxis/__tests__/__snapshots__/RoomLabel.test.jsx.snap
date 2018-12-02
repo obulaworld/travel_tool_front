@@ -47,8 +47,10 @@ exports[`<RoomLabel /> renders properly 1`] = `
     width="480px"
   >
     <MaintainceForm
+      editMaintenance={Object {}}
       id="room-id-1"
-      managers={Array []}
+      maintenance={Object {}}
+      modalType=""
       showId={[Function]}
       status={true}
     />

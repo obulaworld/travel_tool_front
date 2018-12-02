@@ -13,6 +13,8 @@ exports[`<RoomsGeomWrapper /> renders properly 1`] = `
         },
       ]
     }
+    deletedMaintenance={Object {}}
+    editMaintenance={Object {}}
     key="room-id-1"
     status={false}
     timelineStartDate={"2018-10-31T23:00:00.000Z"}

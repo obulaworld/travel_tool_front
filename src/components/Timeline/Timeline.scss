@@ -225,3 +225,34 @@ $table-font-color: #4f4f4f !important;
     }
   }
 }
+
+.delete-maintenance-text {
+  position: relative;
+  margin: 35px 25px;
+  font-weight: 10px;
+}
+
+.delete-maintenance-modal {
+  height: 220px;
+  width: 480px;
+  border-radius: 2px;
+  background-color: $white-color;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
+  margin-top: 150px;
+}
+
+.modal {
+  hr {
+    width: 450px !important;
+    margin-bottom: 10px !important;
+  }
+}
+
+.delete-maintenance-submit-area {
+  margin-left: 207px;
+
+  #submit {
+    background-color: rgb(255, 83, 89);
+    border-color: rgb(255, 83, 89);
+  }
+}

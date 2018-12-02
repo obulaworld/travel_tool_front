@@ -12,7 +12,8 @@ import greyBedIcon from '../../../images/icons/accomodation_inactive.svg';
 import Modal from '../../../components/modal/Modal';
 import { NewAccommodationForm } from '../../../components/Forms';
 import  MaintainceForm  from '../../../components/Forms/MaintainanceForm';
-import addmaintenanceRecord from '../../../redux/actionCreator/maintenanceAction';
+import addmaintenanceRecord, 
+{ deleteMaintenanceRecord, updateMaintenanceRecord } from '../../../redux/actionCreator/maintenanceAction';
 import {
   openModal,
   closeModal
@@ -72,11 +73,9 @@ export class GuestHouseDetails extends PureComponent {
     const { initFetchTimelineData, match } = this.props;
     initFetchTimelineData(match.params.guestHouseId, startDate, endDate);
   };
-
   getBedCount = rooms => {
     return rooms.reduce((currSum, room) => currSum + room.bedCount, 0);
   };
-
   getAvailableBedsCount = rooms => {
     if (rooms.length !== 0) {
       const room = (rooms.map(room => room.faulty? [] : room.beds));
@@ -84,13 +83,11 @@ export class GuestHouseDetails extends PureComponent {
     }
     return 0;
   };
-
   getUnavailableBedCount = rooms => {
     const allBeds = this.getBedCount(rooms);
     const availableBeds = this.getAvailableBedsCount(rooms);
     return allBeds - availableBeds;
   };
-
   callUpdateTripRoom = (tripId, bedId, reason, startDate, endDate) => {
     const { updateTripRoom, match } = this.props;
     const data = {
@@ -138,9 +135,10 @@ export class GuestHouseDetails extends PureComponent {
     );
   }
 
-
   render() {
-    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, openModal,closeModal, modal, loading, isLoading, addmaintenanceRecord} = this.props;
+    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, 
+      loadingBeds, maintenance, openModal,closeModal, modal, loading, isLoading, 
+      addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails } = this.props;
     const { shouldOpen, modalType } = modal;
     return (
       <div className="guesthouse-details-wrapper">
@@ -183,11 +181,15 @@ export class GuestHouseDetails extends PureComponent {
           fetchTimelineRoomsData={this.fetchTimelineRoomsData}
           updateRoomState={updateRoomState}
           addmaintenanceRecord={addmaintenanceRecord}
+          deleteMaintenanceRecord={deleteMaintenanceRecord}
           updateTripRoom={this.callUpdateTripRoom}
           availableBeds={availableBeds}
           fetchAvailableRooms={fetchAvailableRooms}
           loadingBeds={loadingBeds}
           loading={loading}
+          editMaintenance={maintenance}
+          updateMaintenanceRecord={updateMaintenanceRecord}
+          maintenanceDetails={maintenanceDetails}
         />
       </div>
     );
@@ -195,6 +197,7 @@ export class GuestHouseDetails extends PureComponent {
 }
 
 GuestHouseDetails.propTypes = {
+  maintenance: PropTypes.object,
   match: PropTypes.object.isRequired,
   history: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
@@ -203,6 +206,8 @@ GuestHouseDetails.propTypes = {
   guestHouse: PropTypes.object,
   updateRoomState: PropTypes.func.isRequired,
   addmaintenanceRecord:PropTypes.func.isRequired,
+  deleteMaintenanceRecord:PropTypes.func.isRequired,
+  updateMaintenanceRecord:PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
   modal: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
@@ -214,11 +219,14 @@ GuestHouseDetails.propTypes = {
   loadingBeds: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  maintenanceDetails: PropTypes.object,
 };
 
 GuestHouseDetails.defaultProps = {
   initFetchTimelineData: () => { },
   guestHouse: {},
+  maintenance: {},
+  maintenanceDetails: {},
 };
 
 const mapStateToProps = (state) => ({
@@ -230,6 +238,8 @@ const mapStateToProps = (state) => ({
   loadingBeds: state.availableRooms.isLoading,
   loading: state.trips.loading,
   editingAccommodation: state.accommodation.editingAccommodation,
+  maintenance: state.maintenance,
+  maintenanceDetails: state.maintenance
 });
 
 const actionCreators = {
@@ -240,11 +250,10 @@ const actionCreators = {
   editAccommodation,
   fetchAccommodation,
   addmaintenanceRecord,
+  deleteMaintenanceRecord,
   updateTripRoom,
   fetchAvailableRooms,
+  updateMaintenanceRecord
 };
 
-export default connect(
-  mapStateToProps,
-  actionCreators
-)(GuestHouseDetails);
+export default connect(mapStateToProps, actionCreators)(GuestHouseDetails);

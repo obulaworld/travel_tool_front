@@ -15,22 +15,9 @@ class RoomLabel extends PureComponent {
     }));
   }
 
-  showId = (id, status) =>{
-    const {updateRoomState, timelineDateRange, guestHouseId} = this.props;
-    const [startDateString, endDateString] = timelineDateRange;
-    let data;
-    if (status == true){
-      data = { fault: false };
-      updateRoomState(data, id, startDateString, endDateString, guestHouseId);
-    }
-    else{
-      data = { fault: true };
-      updateRoomState(data, id, startDateString, endDateString, guestHouseId);
-    }
-  }
-
   renderMainteinanceForm(type){
-    const {closeModal, name, id, status,shouldOpen, addmaintenanceRecord, modalType} = this.props;
+    const {closeModal, name, id, status, shouldOpen, addmaintenanceRecord, 
+      modalType, timelineDateRange, guestHouseId} = this.props;
     return(
       <Modal
         closeModal={closeModal}
@@ -40,10 +27,11 @@ class RoomLabel extends PureComponent {
       >
         <MaintainceForm
           status={status}
-          showId={this.showId}
           id={id}
           closeModal={closeModal}
           addmaintenanceRecord={addmaintenanceRecord}
+          timelineDateRange={timelineDateRange}
+          guestHouseId={guestHouseId}
         />
       </Modal>
     );
@@ -58,8 +46,6 @@ class RoomLabel extends PureComponent {
             role="button"
             tabIndex="0"
             className={`container_room_${statusClass}`}
-            onClick={() => this.showId(id, status)}
-            onKeyDown={() => this.showId(id, status)}
           />
         ): (
           <div
@@ -69,7 +55,6 @@ class RoomLabel extends PureComponent {
             onClick={() => openModal(true,  `${name}-${id}`)}
             onKeyDown={() => openModal(true,  `${name}-${id}`)}
           />
-
         )}
       </div>
     );
@@ -109,7 +94,6 @@ RoomLabel.propTypes = {
   timelineDateRange: PropTypes.array.isRequired,
   guestHouseId: PropTypes.string.isRequired,
   modalType: PropTypes.string.isRequired,
-  updateRoomState: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,

@@ -21,6 +21,7 @@ import documents from './documents';
 import submissions from './checklistSubmission';
 import fileUploads from './fileUploads';
 import attachments from './attachments';
+import maintenance from './maintenance';
 
 
 const rootReducer = combineReducers({
@@ -45,7 +46,8 @@ const rootReducer = combineReducers({
   documents,
   submissions,
   fileUploads,
-  attachments
+  attachments,
+  maintenance
 });
 
 export default rootReducer;

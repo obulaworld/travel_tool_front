@@ -87,7 +87,7 @@ import {
 } from './checklistSubmissionSaga';
 import { watchFileUpload } from './fileUploadSaga';
 import{
-  watchAddMainteinanceAsync
+  watchAddMainteinanceAsync, watchUpdateMaintenance, watchDeleteMaintenance
 } from './maintenanceSaga';
 import {
   watchFetchAttachments,
@@ -155,7 +155,9 @@ function* rootSaga() {
     watchAddRoleSaga(),
     watchDeleteRequest(),
     watchFetchAttachments(),
-    watchdownloadAttachments()
+    watchdownloadAttachments(),
+    watchUpdateMaintenance(),
+    watchDeleteMaintenance()
   ]);
 }
 
