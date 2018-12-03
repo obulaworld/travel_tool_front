@@ -12,6 +12,7 @@ import './index.scss';
 import RestoreChecklistItem from '../../components/modal/RestoreChecklistModal/RestoreChecklistModal';
 import DeleteRequestForm from '../../components/Forms/DeleteRequestForm/DeleteRequestForm';
 import Preloader from '../../components/Preloader/Preloader';
+import checkUserPermission from '../../helper/permissions';
 
 
 export class Checklist extends Component {
@@ -219,6 +220,11 @@ export class Checklist extends Component {
   }
   
   render() {
+    const { isLoading, getCurrentUserRole, history } = this.props;
+    if (!isLoading && getCurrentUserRole.length > 0) {
+      const allowedRoles = ['Super Administrator', 'Travel Administrator'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole);
+    }
     return (
       <Fragment>
         {this.renderChecklistForm()}
@@ -234,6 +240,7 @@ export const mapStateToProps = ({ modal, travelChecklist, user }) => ({
   ...modal.modal,
   checklistItems: travelChecklist.checklistItems,
   currentUser: user.currentUser,
+  getCurrentUserRole: user.getCurrentUserRole,
   isLoading: travelChecklist.isLoading,
   deletedChecklistItems: travelChecklist.deletedCheckListItems,
 });
@@ -251,11 +258,13 @@ Checklist.propTypes = {
   modalType: PropTypes.string, checklistItems: PropTypes.array.isRequired,
   deletedChecklistItems: PropTypes.array, currentUser: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  getCurrentUserRole: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 Checklist.defaultProps = {
   deleteTravelChecklist: () => {}, updateTravelChecklist: () => {}, restoreChecklist: () => {},
-  deletedChecklistItems: [], modalType: ''
+  deletedChecklistItems: [], modalType: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checklist);

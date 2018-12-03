@@ -40,7 +40,7 @@ const approvals = (state = initState, action) => {
     return {
       ...state,
       isLoading: false,
-      fetchApprovalsError: action.error,
+      fetchApprovalsError: action.error.response.data.error,
     };
   case UPDATE_REQUEST_STATUS:
     return {

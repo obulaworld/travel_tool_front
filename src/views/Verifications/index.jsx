@@ -6,6 +6,7 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
+import checkUserPermission from '../../helper/permissions';
 
 export class Verifications extends Base {
 
@@ -17,11 +18,13 @@ export class Verifications extends Base {
   }
 
   componentDidMount () {
-    const { fetchUserApprovals, match: {params: {requestId}}, openModal, page} = this.props;
+    const { fetchUserApprovals, match: {params: {requestId}}, openModal, page, getCurrentUserRole} = this.props;
     const { searchQuery } = this.state;
     // check if ? exists in searchQuery then append &verified=true
-    const prefix = (searchQuery.indexOf('?') < 0) ? '?' : '&';
-    fetchUserApprovals(`${searchQuery}${prefix}verified=true`);
+    if (getCurrentUserRole.length > 0) {
+      const prefix = (searchQuery.indexOf('?') < 0) ? '?' : '&';
+      fetchUserApprovals(`${searchQuery}${prefix}verified=true`);
+    }
     if(requestId){
       openModal(true, 'request details', page);
       this.storeRequestIdApproval(requestId);
@@ -101,9 +104,14 @@ export class Verifications extends Base {
       </div>
     );
   }
-
+  
   render() {
-    const {approvals} = this.props;
+    const {approvals, getCurrentUserRole, history} = this.props;
+    const { isLoading } = approvals;
+    if (!isLoading && getCurrentUserRole.length > 0) {
+      const allowedRoles = ['Travel Administrator', 'Super Administrator', 'Travel Team Member'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole);
+    }
     return (
       <Fragment>
         {this.renderVerificationsPaneHeader(approvals.isLoading )}
@@ -118,6 +126,7 @@ const mapStateToProps = (state) => ({
   approvals: state.approvals,
   ...state.modal.modal,
   submissionInfo: state.submissions,
+  getCurrentUserRole: state.user.getCurrentUserRole
 });
 
 const actionCreators = {

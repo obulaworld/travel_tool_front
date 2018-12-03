@@ -44,6 +44,7 @@ describe('<Checklist> component', () => {
     restoreChecklist: jest.fn(),
     handleInputChange: jest.fn(),
     fetchDeletedChecklistItems: jest.fn(),
+    getCurrentUserRole: ['Travel Administrator'],
     shouldOpen: false,
     modalType: 'edit cheklistItem',
     checklistItems: travelChecklistMockData,
@@ -51,7 +52,7 @@ describe('<Checklist> component', () => {
     currentUser: {
       location: 'Nairobi'
     },
-    isLoading: false
+    isLoading: false,
   };
   beforeEach(() => {
     shallowWrapper = mount( <Checklist {...props} />);
@@ -226,6 +227,7 @@ describe('<Checklist> component without created or deleted travel checklist item
     fetchTravelChecklist: jest.fn(),
     deleteTravelChecklist: jest.fn(),
     fetchDeletedChecklistItems: jest.fn(),
+    getCurrentUserRole: ['Travel Administrator'],
     shouldOpen: false,
     modalType: '',
     checklistItems: [],
