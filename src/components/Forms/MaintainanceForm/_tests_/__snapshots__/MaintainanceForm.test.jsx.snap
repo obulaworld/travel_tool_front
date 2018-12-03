@@ -26,6 +26,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         "closeModal": [Function],
         "editMaintenance": Object {},
         "errors": Array [],
+        "guestHouseId": "",
         "history": Object {
           "push": [Function],
         },
@@ -45,6 +46,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         "showId": [Function],
         "size": 10,
         "status": false,
+        "timelineDateRange": Array [],
         "updateMaintenanceRecord": [Function],
       },
       "refs": Object {},
@@ -74,6 +76,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
             closeModal={[Function]}
             editMaintenance={Object {}}
             errors={Array []}
+            guestHouseId=""
             history={
                     Object {
                             "push": [Function],
@@ -97,6 +100,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
             showId={[Function]}
             size={10}
             status={false}
+            timelineDateRange={Array []}
             updateMaintenanceRecord={[Function]}
     />,
           "_forcedUpdate": false,

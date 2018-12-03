@@ -15,7 +15,10 @@ import {
   SHOW_DELETE_ROLE_MODAL,
   ADD_ROLE,
   ADD_ROLE_SUCCESS,
-  ADD_ROLE_FAILURE
+  ADD_ROLE_FAILURE,
+  UPDATE_ROLE,
+  UPDATE_ROLE_SUCCESS,
+  UPDATE_ROLE_FAILURE
 } from '../constants/actionTypes';
 
 
@@ -28,7 +31,8 @@ const initialState = {
   deleteModalRoleId: '',
   roleMessage: '',
   roleUsers: [],
-  roles: []
+  roles: [],
+  role: {}
 };
 
 const role = (state = initialState, action) => {
@@ -88,6 +92,20 @@ const role = (state = initialState, action) => {
     return {
       isAddingRole: false,
       addRoleError: action.error
+    };
+  case UPDATE_ROLE:
+    return { ...state, isLoading: true };
+  case UPDATE_ROLE_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      role: action.role,
+    };
+  case UPDATE_ROLE_FAILURE:
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error
     };
   default: return state;
   }

@@ -24,5 +24,9 @@ class RoleAPI {
   static addRole(roleData) {
     return axios.post(`${baseUrl}/user/role`, roleData);
   }
+
+  static updateRole(roleId, newRoleData) {
+    return axios.patch(`${baseUrl}/user/role/${roleId}`, newRoleData);
+  }
 }
 export default RoleAPI;

@@ -2,6 +2,7 @@ import moxios from 'moxios';
 import RoleAPI from '../RoleAPI';
 import { roleResponses } from '../__mocks__/serviceMocks';
 import expectedResponse from '../__mocks__/mocks';
+import { decorators } from 'handlebars';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 const id = 'JFENDVNDK';
@@ -13,6 +14,16 @@ const newRole = {
 const newRoleResponse = {
   message: 'Role created successfully',
   result: newRole
+};
+
+const updateRole = {
+  roleName: 'Update a new role',
+  description: 'This is updated role'
+};
+
+const updateRoleResponse = {
+  message: 'User role updated successfully.',
+  result: updateRole
 };
 
 describe('RoleAPI', () => {
@@ -119,6 +130,28 @@ describe('RoleAPI', () => {
       expect(request.url).toEqual(`${baseUrl}/user/role`);
       expect(request.config.method).toEqual('post');
       expect(response.data).toEqual(newRoleResponse);
+    });
+  });
+
+  describe('Update role', () => {
+    beforeEach(() => {
+      moxios.install();
+    });
+    afterEach(() => {
+      moxios.uninstall();
+    });
+
+    it('should send a PATCH request to update role', async() => {
+      const roleId = 1;
+      moxios.stubRequest(`${baseUrl}/user/role/${roleId}`, {
+        status: 200,
+        response: { ...updateRoleResponse }
+      });
+      const response = await RoleAPI.updateRole(roleId, updateRole);
+      const request = moxios.requests.mostRecent();
+      expect(request.url).toEqual(`${baseUrl}/user/role/1`);
+      expect(request.config.method).toEqual('patch');
+      expect(response.data).toEqual(updateRoleResponse);
     });
   });
 });

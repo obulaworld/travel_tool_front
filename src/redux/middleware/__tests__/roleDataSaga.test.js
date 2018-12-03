@@ -6,7 +6,8 @@ import RoleAPI from '../../../services/RoleAPI';
 import {
   watchPutRoleDataSagaAsync,
   watchGetRoleDataSagaAsync,
-  watchAddRoleSaga
+  watchAddRoleSaga,
+  watchUpdateRoleSaga
 } from '../roleDataSaga';
 import roles from '../../__mocks__/role';
 
@@ -19,13 +20,22 @@ const response = {
 const newRole = {
   roleName: 'A new role',
   description: 'Some role'
-}
+};
+
+const updateRole = {
+  roleName: 'Updated role',
+  description: 'This is updated role'
+};
+
+const updateRoleResponse = {
+  data: { updateRole }
+};
 
 const addRoleResponse = {
   data: {
     result: newRole
   }
-}
+};
 
 const action = {
   roleData: {
@@ -120,6 +130,37 @@ describe('Role Saga', () => {
         .dispatch({
           type: 'ADD_ROLE',
           newRole
+        })
+        .run();
+    });
+    it('updates a role', () => {
+      const response = updateRoleResponse;
+      return expectSaga(watchUpdateRoleSaga, RoleAPI)
+        .provide([
+          [matchers.call.fn(RoleAPI.updateRole, updateRole), response]
+        ])
+        .put({
+          type: 'UPDATE_ROLE_SUCCESS',
+          role: response.data
+        })
+        .dispatch({
+          type: 'UPDATE_ROLE',
+          updateRole
+        })
+        .run();
+    });
+    it('throws an error if it exist when updating roles', () => {
+      return expectSaga(watchUpdateRoleSaga, RoleAPI)
+        .provide([
+          [matchers.call.fn(RoleAPI.updateRole), throwError(error)]
+        ])
+        .put({
+          type: 'UPDATE_ROLE_FAILURE',
+          error
+        })
+        .dispatch({
+          type: 'UPDATE_ROLE',
+          updateRole
         })
         .run();
     });

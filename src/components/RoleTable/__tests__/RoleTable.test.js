@@ -54,7 +54,8 @@ const props = {
         }
       ]
     }
-  ]
+  ],
+  handleEditRole: jest.fn()
 };
 
 const wrapper = shallow(<RoleTable {...props} />);

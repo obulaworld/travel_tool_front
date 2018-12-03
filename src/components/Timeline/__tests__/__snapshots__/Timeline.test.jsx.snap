@@ -9,7 +9,13 @@ exports[`<Timeline /> renders correctly 1`] = `
     guestHouseId="guest-house-id-1"
     modalType="change-room-modal"
     openModal={[Function]}
-    rooms={Array []}
+    rooms={
+      Array [
+        Object {
+          "faulty": false,
+        },
+      ]
+    }
     shouldOpen={true}
     timelineDateRange={
       Array [
@@ -35,7 +41,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="1"
         key="0"
       />
@@ -45,7 +51,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="3"
         key="2"
       />
@@ -195,7 +201,13 @@ exports[`<Timeline /> renders correctly 1`] = `
         handleChangeRoomModal={[Function]}
         handleDeleteMaintenanceModal={[Function]}
         handleEditMaintenanceModal={[Function]}
-        rooms={Array []}
+        rooms={
+          Array [
+            Object {
+              "faulty": false,
+            },
+          ]
+        }
         timelineStartDate={"2018-11-30T21:00:00.000Z"}
         timelineViewType="month"
         tripDayWidth={0}
@@ -244,8 +256,10 @@ exports[`<Timeline /> renders correctly 1`] = `
   >
     <MaintainceForm
       editMaintenance={Object {}}
+      guestHouseId=""
       maintenance={Object {}}
       modalType="change-room-modal"
+      timelineDateRange={Array []}
     />
   </Modal>
   <Modal
@@ -288,7 +302,13 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
     guestHouseId="guest-house-id-1"
     modalType="change-room-modal"
     openModal={[Function]}
-    rooms={Array []}
+    rooms={
+      Array [
+        Object {
+          "faulty": false,
+        },
+      ]
+    }
     shouldOpen={true}
     timelineDateRange={
       Array [
@@ -314,7 +334,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current week-view"
+        className="timeline__segment  week-view"
         data-segment-label="Sat 12/1"
         key="0"
       />
@@ -324,7 +344,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  week-view"
+        className="timeline__segment current week-view"
         data-segment-label="Mon 12/3"
         key="2"
       />
@@ -354,7 +374,13 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         handleChangeRoomModal={[Function]}
         handleDeleteMaintenanceModal={[Function]}
         handleEditMaintenanceModal={[Function]}
-        rooms={Array []}
+        rooms={
+          Array [
+            Object {
+              "faulty": false,
+            },
+          ]
+        }
         timelineStartDate={"2018-11-30T21:00:00.000Z"}
         timelineViewType="week"
         tripDayWidth={0}
@@ -403,8 +429,10 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
   >
     <MaintainceForm
       editMaintenance={Object {}}
+      guestHouseId=""
       maintenance={Object {}}
       modalType="change-room-modal"
+      timelineDateRange={Array []}
     />
   </Modal>
   <Modal
@@ -447,7 +475,13 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
     guestHouseId="guest-house-id-1"
     modalType="change-room-modal"
     openModal={[Function]}
-    rooms={Array []}
+    rooms={
+      Array [
+        Object {
+          "faulty": false,
+        },
+      ]
+    }
     shouldOpen={true}
     timelineDateRange={
       Array [
@@ -538,7 +572,13 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
         handleChangeRoomModal={[Function]}
         handleDeleteMaintenanceModal={[Function]}
         handleEditMaintenanceModal={[Function]}
-        rooms={Array []}
+        rooms={
+          Array [
+            Object {
+              "faulty": false,
+            },
+          ]
+        }
         timelineStartDate={"2018-11-30T21:00:00.000Z"}
         timelineViewType="year"
         tripDayWidth={0}
@@ -587,8 +627,10 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
   >
     <MaintainceForm
       editMaintenance={Object {}}
+      guestHouseId=""
       maintenance={Object {}}
       modalType="change-room-modal"
+      timelineDateRange={Array []}
     />
   </Modal>
   <Modal

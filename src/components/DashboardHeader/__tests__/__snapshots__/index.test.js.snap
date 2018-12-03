@@ -29,9 +29,9 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
       onClick={[Function]}
       type="button"
     >
-      26 Nov, 18 - 02 Dec, 18
+      03 Dec, 18 - 09 Dec, 18
       <img
-        alt="26 Nov, 18 - 02 Dec, 18"
+        alt="03 Dec, 18 - 09 Dec, 18"
         src="calendar_active.svg"
       />
     </button>
@@ -247,7 +247,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Dec 1, 2018"
+                value="Dec 3, 2018"
               />
             </span>
             <span
@@ -256,7 +256,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Dec 1, 2018"
+                value="Dec 3, 2018"
               />
             </span>
           </div>
@@ -1149,7 +1149,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1164,7 +1164,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1176,7 +1175,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1191,7 +1190,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span

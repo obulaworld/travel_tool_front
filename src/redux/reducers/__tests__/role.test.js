@@ -56,7 +56,8 @@ describe('Role Reducer', () => {
     deleteModalState: 'invisible',
     deleteModalRoleId: '',
     roleUsers: [],
-    roles: []
+    roles: [],
+    role: {}
   };
 
   it('should return proper initial state', done => {
@@ -261,6 +262,39 @@ describe('Role Reducer', () => {
         isAddingRole: false,
         addRoleError: 'An error occurred',
       });
+    });
+  });
+
+  describe('Update role reducer', () => {
+
+    it('should return correct state for UPDATE_ROLE action', () => {
+      const action = {
+        type: actionTypes.UPDATE_ROLE,
+        newRoleData: newRole,
+        isLoading: true
+      };
+      const newState = roleReducer(initialState, action)
+      expect(newState.isLoading).toEqual(true);
+    });
+
+    it('should return correct state for UPDATE_ROLE_SUCCESS', () => {
+      const action = {
+        type: actionTypes.UPDATE_ROLE_SUCCESS,
+        role: newRole
+      };
+      const newState = roleReducer(initialState, action);
+      expect(newState.role).toEqual(newRole);
+      expect(newState.isLoading).toEqual(false);
+    });
+
+    it('should return correct state for UPDATE_ROLE_FAILURE', () => {
+      const action = {
+        type: actionTypes.UPDATE_ROLE_FAILURE,
+        error: 'An error occurred'
+      };
+      const newState = roleReducer(initialState, action);
+      expect(newState.isLoading).toEqual(false);
+      expect(newState.error).toEqual('An error occurred');
     });
   });
 });

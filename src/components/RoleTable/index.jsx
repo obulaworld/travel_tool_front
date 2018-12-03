@@ -9,6 +9,7 @@ const testColor = {
 };
 export class RoleTable extends PureComponent {
   renderRoles(role) {
+    const { handleEditRole } = this.props;
     return (
       <tr key={role.id} className="table__row">
         <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze-role-table">
@@ -24,7 +25,9 @@ export class RoleTable extends PureComponent {
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
           style={testColor}
         >
-          Edit &ensp; &ensp;  &ensp;  &ensp; &ensp;  Delete
+          <span onClick={() => handleEditRole(role)} id="editRole" role="presentation" onKeyDown={this.key}>Edit</span>
+          &ensp; &ensp;  &ensp;  &ensp; &ensp;  
+          Delete
         </td>
       </tr>
     );
@@ -72,11 +75,13 @@ export class RoleTable extends PureComponent {
 }
 
 RoleTable.propTypes = {
-  roles: PropTypes.array
+  roles: PropTypes.array,
+  handleEditRole: PropTypes.func
 };
 
 RoleTable.defaultProps = {
-  roles: []
+  roles: [],
+  handleEditRole: () => {}
 };
 
 export default withLoading(RoleTable);

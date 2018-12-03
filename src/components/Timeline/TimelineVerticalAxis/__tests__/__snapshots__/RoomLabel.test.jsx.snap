@@ -21,8 +21,6 @@ exports[`<RoomLabel /> renders properly 1`] = `
       <div>
         <div
           className="container_room_fault"
-          onClick={[Function]}
-          onKeyDown={[Function]}
           role="button"
           tabIndex="0"
         />
@@ -48,11 +46,17 @@ exports[`<RoomLabel /> renders properly 1`] = `
   >
     <MaintainceForm
       editMaintenance={Object {}}
+      guestHouseId="guest-house-id-1"
       id="room-id-1"
       maintenance={Object {}}
       modalType=""
-      showId={[Function]}
       status={true}
+      timelineDateRange={
+        Array [
+          "2018-01-01",
+          "2018-01-31",
+        ]
+      }
     />
   </Modal>
 </div>

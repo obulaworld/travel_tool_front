@@ -121,9 +121,9 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     </div>
   </div>
   <Timeline
-    deletedMaintenance={Object {}}
     editMaintenance={Object {}}
     fetchTimelineRoomsData={[Function]}
+    maintenanceDetails={Object {}}
     modal={
       Object {
         "modalType": null,

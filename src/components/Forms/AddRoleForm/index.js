@@ -7,9 +7,10 @@ import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 class AddRoleForm extends PureComponent {
   constructor(props) {
     super(props);
-    const defaultValues = {
-      roleName: '',
-      description: ''
+    const { roleDetail } = this.props;
+    let defaultValues = {
+      roleName: roleDetail ? roleDetail.roleName: '',
+      description: roleDetail ? roleDetail.description : ''
     };
     this.defaultState = {
       values: defaultValues,
@@ -20,11 +21,13 @@ class AddRoleForm extends PureComponent {
   }
 
   handleSubmit = event => {
+    event.preventDefault();
     const { values } = this.state;
     event.preventDefault();
-    const { addRole } = this.props;
+    const { addRole, myTitle, roleDetail, updateRole } = this.props;
     if (this.validate()) {
-      addRole(values);
+      let data = values;
+      myTitle === 'Add Role' ? addRole(data) : updateRole(roleDetail.id, data);
     }
   };
 
@@ -50,7 +53,7 @@ class AddRoleForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { addingRole } = this.props;
+    const { addingRole, myTitle } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         {addingRole && (
@@ -69,7 +72,7 @@ class AddRoleForm extends PureComponent {
           <SubmitArea
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
-            send="Add Role"
+            send={myTitle}
           />
         </form>
       </FormContext>
@@ -80,10 +83,16 @@ class AddRoleForm extends PureComponent {
 AddRoleForm.propTypes = {
   addRole: PropTypes.func.isRequired,
   addingRole: PropTypes.bool,
+  myTitle: PropTypes.string,
+  roleDetail: PropTypes.object,
+  updateRole: PropTypes.func
 };
 
 AddRoleForm.defaultProps = {
   addingRole: false,
+  myTitle: '',
+  roleDetail: '',
+  updateRole: () => {}
 };
 
 export default AddRoleForm;

@@ -15,7 +15,10 @@ import {
   HIDE_DELETE_ROLE_MODAL,
   ADD_ROLE,
   ADD_ROLE_SUCCESS,
-  ADD_ROLE_FAILURE
+  ADD_ROLE_FAILURE,
+  UPDATE_ROLE,
+  UPDATE_ROLE_SUCCESS,
+  UPDATE_ROLE_FAILURE
 } from '../constants/actionTypes';
 
 export const getRoleData  = () => ({
@@ -102,5 +105,21 @@ export const addRoleSuccess = (role) => ({
 
 export const addRoleFailure = (error) => ({
   type: ADD_ROLE_FAILURE,
+  error
+});
+
+export const updateRole = (roleId, newRoleData) => ({
+  type: UPDATE_ROLE,
+  roleId,
+  newRoleData
+});
+
+export const updateRoleSuccess = (role) => ({
+  type: UPDATE_ROLE_SUCCESS,
+  role
+});
+
+export const updateRoleFailure = (error) => ({
+  type: UPDATE_ROLE_FAILURE,
   error
 });

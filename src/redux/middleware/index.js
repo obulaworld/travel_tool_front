@@ -15,7 +15,8 @@ import {
 import {
   watchGetRoleDataSagaAsync,
   watchPutRoleDataSagaAsync,
-  watchAddRoleSaga
+  watchAddRoleSaga,
+  watchUpdateRoleSaga
 } from './roleDataSaga';
 import { watchFetchRoleUsers, watchDeleteUserRoleAsync } from './roleSaga';
 import {
@@ -153,6 +154,7 @@ function* rootSaga() {
     watchAddMainteinanceAsync(),
     watchDownloadDocuments(),
     watchAddRoleSaga(),
+    watchUpdateRoleSaga(),
     watchDeleteRequest(),
     watchFetchAttachments(),
     watchdownloadAttachments(),

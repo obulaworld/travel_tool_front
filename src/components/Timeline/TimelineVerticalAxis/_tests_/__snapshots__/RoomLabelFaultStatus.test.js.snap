@@ -50,11 +50,17 @@ exports[`<RoomLabel /> should match snapshot 1`] = `
       addmaintenanceRecord={[Function]}
       closeModal={[Function]}
       editMaintenance={Object {}}
+      guestHouseId="fhdj212"
       id="thjfsndj12"
       maintenance={Object {}}
       modalType=""
-      showId={[Function]}
       status={false}
+      timelineDateRange={
+        Array [
+          "12/12/2018",
+          "17/12/2018",
+        ]
+      }
     />
   </Modal>
 </div>

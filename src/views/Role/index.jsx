@@ -9,22 +9,41 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import {
   getRoleData,
   putRoleData,
-  addRole
+  addRole,
+  updateRole
 } from '../../redux/actionCreator/roleActions';
 import './Role.scss';
 import checkUserPermission from '../../helper/permissions';
 
 export class Role extends Component {
+  state = {
+    headTitle: 'Add Role',
+    roleDetail: ''
+  }
   componentDidMount() {
     const { getRoleData } = this.props;
     getRoleData();
   }
 
+  handleAddRole = () => {
+    const {openModal} = this.props;
+    this.setState({headTitle: 'Add Role', roleDetail: ''});
+    openModal(true, 'new model');
+  }
+
+  handleEditRole = (role) => {
+    let {openModal} = this.props;
+    openModal(true, 'new model');
+    this.setState({
+      headTitle: 'Edit Role',
+      roleDetail: role
+    });
+  }
+
   renderUserRolePanelHeader() {
-    const { openModal } = this.props;
     return (
       <div className="rp-role__header">
-        <RolePanelHeader openModal={openModal} />
+        <RolePanelHeader openModal={this.handleAddRole} />
       </div>
     );
   }
@@ -37,13 +56,15 @@ export class Role extends Component {
           isLoading={isLoading}
           roles={roles}
           fetchRoleError={roleErrors}
+          handleEditRole={this.handleEditRole}
         />
       </div>
     );
   }
 
   renderRoleForm() {
-    const { roleErrors, closeModal, shouldOpen, modalType, addRole, isAddingRole } = this.props;
+    const { roleErrors, closeModal, shouldOpen, modalType, addRole, isAddingRole, updateRole } = this.props;
+    const { headTitle, roleDetail } = this.state;
     return (
       <Modal
         closeModal={closeModal}
@@ -52,13 +73,16 @@ export class Role extends Component {
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
         }
-        title="Add Role"
+        title={headTitle}
       >
         <AddRoleForm
           addRole={addRole}
           errors={roleErrors}
           closeModal={closeModal}
           addingRole={isAddingRole}
+          roleDetail={roleDetail}
+          myTitle={headTitle}
+          updateRole={updateRole}
         />
       </Modal>
     );
@@ -107,7 +131,8 @@ Role.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   isLoaded: PropTypes.bool,
-  isAddingRole: PropTypes.bool
+  isAddingRole: PropTypes.bool,
+  updateRole: PropTypes.func.isRequired
 };
 
 Role.defaultProps = {
@@ -123,7 +148,8 @@ const actionCreators = {
   putRoleData,
   openModal,
   closeModal,
-  addRole
+  addRole,
+  updateRole,
 };
 
 export default connect(
