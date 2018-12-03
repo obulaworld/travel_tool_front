@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { PieChart, Pie } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 import PropTypes from 'prop-types';
 
 export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name }) => {
@@ -26,7 +26,7 @@ export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadi
   );
 };
 
-const PieChartAnalytics = ({data}) => (
+const PieChartAnalytics = ({data, color}) => (
   <Fragment>
     {(data.length > 0 && data[0].name !== '') ? (
       <PieChart width={250} height={200}>
@@ -37,7 +37,26 @@ const PieChartAnalytics = ({data}) => (
           label={renderCustomizedLabel}
           labelLine={false}
           dataKey="value"
-        />
+        >
+          {
+            data.map((entry, index) => {
+              const maxLightness = 90;
+              const minLightness = 50;
+              const lightnessRange = maxLightness - minLightness;
+
+              const entries = data.slice().sort((a, b) => b.value - a.value);
+              const maxEntryValue = entries[0].value;
+              const minEntryValue = entries[entries.length - 1].value;
+
+              let lightnessDiff = lightnessRange / (maxEntryValue - minEntryValue);
+              lightnessDiff = isFinite(lightnessDiff) ? lightnessDiff : 0;
+              const lightness = ((maxEntryValue - entry.value) * lightnessDiff) + 50;
+              return color === 'orange' ?
+                <Cell fill={`hsl(226, 70%, ${lightness}%)`} /> :
+                <Cell fill={`hsl(37, 99%, ${lightness}%)`} />;
+            })
+          }
+        </Pie>
       </PieChart>
     ) : (
       <div className="chart-data">
@@ -69,10 +88,12 @@ renderCustomizedLabel.defaultProps = {
 
 PieChartAnalytics.propTypes = {
   data: PropTypes.array,
+  color: PropTypes.string,
 };
 
 PieChartAnalytics.defaultProps = {
-  data: []
+  data: [],
+  color: '',
 };
 
 export default  PieChartAnalytics;

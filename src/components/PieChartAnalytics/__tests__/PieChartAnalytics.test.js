@@ -3,7 +3,20 @@ import { shallow } from 'enzyme';
 import PieChartAnalytics, { renderCustomizedLabel } from '..';
 
 const props = {
-  data: []
+  data: [
+    {
+      name: '2 days',
+      value: 3,
+    },
+    {
+      name: '3 days',
+      value: 2,
+    },
+    {
+      name: '5 days',
+      value: 1,
+    },
+  ]
 };
 
 describe('<Dashboard />', () => {
