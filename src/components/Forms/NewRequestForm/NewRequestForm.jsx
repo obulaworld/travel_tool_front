@@ -348,7 +348,6 @@ class NewRequestForm extends PureComponent {
       getUserData,
       user
     } = this.props;
-    console.log(userData);
     const { values, selection, trips } = this.state;
     userData.name = userData.passportName;
     userData.role = userData.occupation;
