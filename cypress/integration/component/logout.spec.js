@@ -18,7 +18,7 @@ describe('Logout User', () => {
   });
 
   it('should check the Url', () => {
-    cy.url().should('eq', 'http://localhost:3000/');     
+    cy.url().should('eq', 'http://localhost:3000/');
     cy.get('.toast-message').should('be.visible');
   });
 
