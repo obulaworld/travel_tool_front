@@ -222,12 +222,19 @@ describe('<Documents />', () => {
     expect(mapper.documents).toEqual(['user documents']);
   });
 
-  it('should should render documents editmodal', (done) => {
+  it('should render documents editmodal', (done) => {
     const currentProps = { ...props, modalType: 'rename document' };
     const wrapper = mount(<Documents {...currentProps} />);
     const toggleIcons = wrapper.find('#toggleIcon');
     const toggleMenuSpy = jest.spyOn(wrapper.instance(), 'toggleMenu');
     expect(toggleIcons.length).toBe(2);
     done();
+  });
+  describe('textValidator',() => {
+    it('should return true when a non string is passed as an argument',() => {
+      const wrapper = shallow(<Documents {...props} />);
+      const resultValue = wrapper.instance().textValidator('    ');
+      expect(resultValue).toBe(true);
+    });
   });
 });
