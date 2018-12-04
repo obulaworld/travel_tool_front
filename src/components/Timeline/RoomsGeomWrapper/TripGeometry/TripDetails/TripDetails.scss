@@ -94,7 +94,24 @@
       transform-origin: top;
     }
   }
-  &:last-child {
+  &:last-child, &:nth-last-child(2) {
+    .trip-booking-details {
+      transform-origin: bottom;
+      &.details-visible {
+        transform: translateY(-110%) scaleY(1);
+        &.translateX {
+          transform: translateY(-110%) scaleY(1) translateX(-100%);
+        }
+      }
+      &.details-hidden {
+        transform: translateY(-110%) scaleY(0);
+        &.translateX {
+          transform: translateY(-110%) scaleY(0) translateX(-90%);
+        }
+      }
+    }
+  }
+  &:first-child {
     .trip-booking-details {
       transform-origin: bottom;
       &.details-visible {
