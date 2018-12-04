@@ -6,6 +6,7 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
+import checkUserPermission from '../../helper/permissions';
 
 export class Approvals extends Base {
 
@@ -102,7 +103,12 @@ export class Approvals extends Base {
   }
 
   render() {
-    const {approvals} = this.props;
+    const {approvals, getCurrentUserRole, history} = this.props;
+    const { isLoading } = approvals;
+    if (!isLoading && getCurrentUserRole.length > 0) {
+      const allowedRoles = ['Super Administrator', 'Manager'];
+      checkUserPermission(history, allowedRoles, getCurrentUserRole);
+    }
     return (
       <Fragment>
         {this.renderApprovalsPanelHeader(approvals.isLoading)}
@@ -117,6 +123,7 @@ const mapStateToProps = (state) => ({
   approvals: state.approvals,
   ...state.modal.modal,
   submissionInfo: state.submissions,
+  getCurrentUserRole: state.user.getCurrentUserRole
 });
 
 const actionCreators = {

@@ -15,6 +15,7 @@ const props = {
   onClickItem: jest.fn(),
   fetchUserApprovals: jest.fn(),
   openModal: jest.fn(),
+  getCurrentUserRole: ['Travel Team Member'],
   approvals: {
     approvals: [
       {

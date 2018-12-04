@@ -38,6 +38,7 @@ const NavItemsMetadata = [
         exact: true
       },
       {
+        onlyVisibleTo: ['Super Administrator', 'Manager'],
         link_to: '/requests/my-approvals',
         text: 'My Approvals'
       },

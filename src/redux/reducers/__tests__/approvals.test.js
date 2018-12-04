@@ -29,10 +29,16 @@ describe('Approvals Reducer', () => {
   it('updates the error with a fetch failure', () => {
     const errorAction = {
       type: FETCH_USER_APPROVALS_FAILURE,
-      error: 'Server error'
+      error: {
+        response: {
+          data: {
+            error: 'Server error'
+          }
+        }
+      }
     };
     expect(approvals(initState, errorAction).fetchApprovalsError)
-      .toBe(errorAction.error);
+      .toBe(errorAction.error.response.data.error);
   });
 
   it('updates to loading when fetching response', () => {
