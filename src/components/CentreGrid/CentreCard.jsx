@@ -1,6 +1,7 @@
 import React, { PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '../buttons/Buttons';
 import bedIcon from '../../images/icons/accomodation-grey.svg';
 import bathroomIcon from '../../images/icons/hot_tub_24px.svg';
 import defaultImage from '../../images/default-image.jpg';
@@ -8,6 +9,24 @@ import Utils from '../../helper/Utils';
 import './CentreCard.scss';
 
 class CentreCard extends PureComponent {
+
+  static propTypes = {
+    cardImage: PropTypes.string.isRequired,
+    imageAlt: PropTypes.string.isRequired,
+    countryFlagImage: PropTypes.string.isRequired,
+    guestHouseName: PropTypes.string.isRequired,
+    guestHouseLocation: PropTypes.string.isRequired,
+    beds: PropTypes.number.isRequired,
+    bathrooms: PropTypes.number.isRequired,
+    guesthouseId: PropTypes.string.isRequired,
+    disabledGuestHouse: PropTypes.object.isRequired,
+    handleOnRestore: PropTypes.func.isRequired
+  };
+
+  handleClick(e) {
+    e.preventDefault();
+  }
+  
   renderCentreFacilities(icon, facility, facilityNumber) {
     return (
       <div className="centre__icon-container">
@@ -51,21 +70,31 @@ class CentreCard extends PureComponent {
     );
   }
 
-  render() {
-    const {
-      cardImage,
-      imageAlt,
-      countryFlagImage,
-      guestHouseName,
-      guestHouseLocation,
-      beds,
-      bathrooms,
-      guesthouseId
-    } = this.props;
+  renderRestoreButton() {
+    const { handleOnRestore, guesthouseId } = this.props;
     return (
-      <div className="mdl-cell mdl-cell--4 mdl-card centre-card">
-        <Link to={`/residence/manage/guest-houses/${guesthouseId}`}>
+      <Button
+        buttonClass="restore-acc-btn"
+        onClick={() => handleOnRestore(guesthouseId)}
+        text="Restore"
+      />
+    );
+  }
+
+  render() {
+    const { cardImage, imageAlt, countryFlagImage, guestHouseName, guestHouseLocation, beds,
+      bathrooms, guesthouseId, disabledGuestHouse } = this.props;
+    return (
+      <div className={disabledGuestHouse ? 
+        'mdl-cell mdl-cell--4 mdl-card centre-card-disabled' 
+        : 'mdl-cell mdl-cell--4 mdl-card centre-card'}>
+        <Link 
+          to={`/residence/manage/guest-houses/${guesthouseId}`} 
+          onClick={disabledGuestHouse ? this.handleClick : ''}
+          id="thisGuesthouseLink"
+        >
           { this.renderCentreImage(cardImage, imageAlt)}
+          { disabledGuestHouse ? this.renderRestoreButton() : '' }
           <div className="mdl-card__supporting-text centre-info">
             <div className="centre-info__container">
               {this.renderCentreFlag(guestHouseLocation, countryFlagImage)}
@@ -84,16 +113,5 @@ class CentreCard extends PureComponent {
     );
   }
 }
-
-CentreCard.propTypes = {
-  cardImage: PropTypes.string.isRequired,
-  imageAlt: PropTypes.string.isRequired,
-  countryFlagImage: PropTypes.string.isRequired,
-  guestHouseName: PropTypes.string.isRequired,
-  guestHouseLocation: PropTypes.string.isRequired,
-  beds: PropTypes.number.isRequired,
-  bathrooms: PropTypes.number.isRequired,
-  guesthouseId: PropTypes.string.isRequired
-};
 
 export default CentreCard;

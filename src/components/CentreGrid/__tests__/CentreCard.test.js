@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import CentreCard from '../CentreCard';
 
 const props = {
@@ -9,7 +10,8 @@ const props = {
   guestHouseName: 'Guest House',
   guestHouseLocation: 'Kigali, Rwanda',
   beds: 5,
-  bathrooms: 4
+  bathrooms: 4,
+  handleOnRestore: jest.fn(),
 };
 
 describe('<CentreCard />', () => {
@@ -36,5 +38,39 @@ describe('<CentreCard />', () => {
       backgroundImage: 'url(https://countryimage.png)'
     });
     expect(wrapper.find('.centre__flag').prop('alt')).toEqual('Kigali, Rwanda flag');
+  });
+
+  it('should call preventDefault when the button is clicked', () => {
+    const newProps = {
+      ...props,
+      disabledGuestHouse: {}
+    };
+
+    const mockedEvent = { preventDefault: jest.fn() };
+    wrapper = shallow(<CentreCard {...newProps} />);
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'handleClick');
+
+    const link = wrapper.find('#thisGuesthouseLink');
+    link.simulate('click', mockedEvent);
+    expect(instance.handleClick).toBeCalled;
+  });
+
+  it('should call handleOnRestore when the button is clicked', () => {
+    const newProps = {
+      ...props,
+      disabledGuestHouse: {}
+    };
+
+    // wrapper = shallow(<CentreCard {...newProps} />);
+    wrapper = mount(
+      <Router>
+        <CentreCard {...newProps} />
+      </Router>
+    );
+    const { handleOnRestore } = props;
+    const button = wrapper.find('.restore-acc-btn');
+    button.simulate('click');
+    expect(handleOnRestore).toBeCalled;
   });
 });

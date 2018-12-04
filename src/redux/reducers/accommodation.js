@@ -11,7 +11,18 @@ import {
   EDIT_ACCOMMODATION_DATA,
   EDIT_ACCOMMODATION_DATA_SUCCESS,
   EDIT_ACCOMMODATION_DATA_FAILURE,
+  DISABLE_ACCOMMODATION,
+  DISABLE_ACCOMMODATION_SUCCESS,
+  DISABLE_ACCOMMODATION_FAILURE,
+  FETCH_DISABLED_ACCOMMODATION,
+  FETCH_DISABLED_ACCOMMODATION_SUCCESS,
+  FETCH_DISABLED_ACCOMMODATION_FAILURE,
+  RESTORE_DISABLED_ACCOMMODATION,
+  RESTORE_DISABLED_ACCOMMODATION_SUCCESS,
+  RESTORE_DISABLED_ACCOMMODATION_FAILURE
 } from '../constants/actionTypes';
+
+import { disableGuestHouseSuccessState, restoreGuestHouseSuccessState } from '../../helper/accommodationReducer';
 
 const initialState = {
   postAccommodationData: [],
@@ -24,6 +35,9 @@ const initialState = {
   guestHouse: {
     rooms: []
   },
+  disabledGuestHouses: [],
+  disabling: false,
+  restoring: false,
   isLoading: false
 };
 
@@ -58,6 +72,24 @@ const accommodation = (state = initialState, action) => {
       guestHouseData: action.guestHouseData };
   case EDIT_ACCOMMODATION_DATA_FAILURE:
     return { ...state, editingAccommodation: false, error: action.error };
+  case DISABLE_ACCOMMODATION:
+    return { ...state, disabling: true };
+  case DISABLE_ACCOMMODATION_SUCCESS:
+    return disableGuestHouseSuccessState(state, action);
+  case DISABLE_ACCOMMODATION_FAILURE:
+    return { ...state, disabling: false, error: action.error };
+  case FETCH_DISABLED_ACCOMMODATION:
+    return { ...state, isLoading: true };
+  case FETCH_DISABLED_ACCOMMODATION_SUCCESS:
+    return { ...state, isLoading: false, disabledGuestHouses: action.disabledGuestHouses };
+  case FETCH_DISABLED_ACCOMMODATION_FAILURE:
+    return {  ...state, isLoading: false, error: action.error };
+  case RESTORE_DISABLED_ACCOMMODATION:
+    return { ...state, restoring: true, disabledguestHouse: action.guestHouseData };
+  case RESTORE_DISABLED_ACCOMMODATION_SUCCESS:
+    return restoreGuestHouseSuccessState(state, action);
+  case RESTORE_DISABLED_ACCOMMODATION_FAILURE:
+    return { ...state, restoring: false, error: action.error };
   default:
     return state;
   }

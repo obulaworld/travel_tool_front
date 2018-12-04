@@ -3,7 +3,9 @@ import { PropTypes } from 'prop-types';
 import countryUtils from '../../helper/countryUtils';
 import withLoading from '../Hoc/withLoading';
 import CentreCard from './CentreCard';
+
 import './CentreGrid.scss';
+
 
 export class CentreGrid extends PureComponent {
   getBedCount(rooms) {
@@ -36,6 +38,7 @@ export class CentreGrid extends PureComponent {
           { guestHouses.map(guestHouse => (
             <CentreCard
               key={guestHouse.id}
+              guestHouse={guestHouse}
               guesthouseId={guestHouse.id}
               cardImage={guestHouse.imageUrl}
               imageAlt={`${guestHouse.houseName} image`}
@@ -51,12 +54,46 @@ export class CentreGrid extends PureComponent {
     }
   }
 
+  renderDisabledGuesthouses(disabledGuestHouses) {
+    const { modal, openModal, handleOnRestore } = this.props;
+    if (disabledGuestHouses && disabledGuestHouses.length > 0) {
+      return (
+        <div>
+          <hr />
+          <div className="disabled-title">DISABLED GUESTHOUSES</div>
+          <div className="mdl-grid disabled-accommodation">
+            { disabledGuestHouses.map(disabledGuestHouse => (
+              <CentreCard
+                key={disabledGuestHouse.id}
+                guestHouse={disabledGuestHouse}
+                guesthouseId={disabledGuestHouse.id}
+                cardImage={disabledGuestHouse.imageUrl}
+                imageAlt={`${disabledGuestHouse.houseName} image`}
+                countryFlagImage={countryUtils.getCountryFlagUrl(disabledGuestHouse.location)}
+                guestHouseName={disabledGuestHouse.houseName}
+                guestHouseLocation={disabledGuestHouse.location}
+                beds={this.getBedCount(disabledGuestHouse.rooms)}
+                bathrooms={disabledGuestHouse.bathRooms}
+                disabledGuestHouse={disabledGuestHouse}
+                modal={modal}
+                openModal={openModal}
+                handleOnRestore={handleOnRestore}
+              />
+            ))
+            }
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    const { guestHouses, error } = this.props;
+    const { guestHouses, error, disabledGuestHouses } = this.props;
     return(
       <Fragment>
         { this.renderNoGuestHouse(guestHouses) }
         { this.renderGuesthouses(guestHouses) }
+        { this.renderDisabledGuesthouses(disabledGuestHouses) }
         { error && this.renderError(error) }
       </Fragment>
     );
@@ -72,11 +109,16 @@ CentreGrid.propTypes = {
     rooms: PropTypes.array.isRequired,
     bathRooms: PropTypes.number.isRequired
   })),
-  error: PropTypes.string
+  error: PropTypes.string,
+  disabledGuestHouses: PropTypes.array,
+  modal: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+  handleOnRestore: PropTypes.func.isRequired
 };
 
 CentreGrid.defaultProps = {
   guestHouses: [],
+  disabledGuestHouses: [],
   error: '',
 };
 

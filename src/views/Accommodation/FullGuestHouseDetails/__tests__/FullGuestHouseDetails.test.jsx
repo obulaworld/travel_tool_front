@@ -8,7 +8,8 @@ const props = {
     }
   },
   history: {
-    goBack: jest.fn()
+    goBack: jest.fn(),
+    push: jest.fn()
   },
   initFetchTimelineData: jest.fn(),
   guestHouse: {
@@ -28,7 +29,10 @@ const props = {
   modal: {
     shouldOpen: false,
     modalType: null
-  }
+  },
+  openModal: jest.fn(),
+  disableAccommodation: jest.fn(),
+  fetchAccommodation: jest.fn(),
 };
 
 const newProps = {
@@ -57,5 +61,21 @@ describe('<GuestHouseDetails />', () => {
 
   it('returns zero when there are no guest rooms', () => {
     const zeroWrapper = shallow(<GuestHouseDetails {...newProps} />);
+  });
+
+  it('should call handleOnDisable', () => { 
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'handleOnDisable');
+    const button = wrapper.find('#handleOnDisableId');
+    button.simulate('click');
+    expect(instance.handleOnDisable).toBeCalled;
+  });
+
+  it('should call disableGuestHouse when the button is clicked', () => { 
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'disableGuestHouse');
+    const button = wrapper.find('#disableGuestHouseId');
+    button.simulate('click');
+    expect(instance.disableGuestHouse).toBeCalled;
   });
 });

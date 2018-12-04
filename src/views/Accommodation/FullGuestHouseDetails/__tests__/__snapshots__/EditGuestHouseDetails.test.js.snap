@@ -62,6 +62,51 @@ exports[`<Accommodation /> should render correctly 1`] = `
       modalType={null}
     />
   </Modal>
+  <Modal
+    closeDeleteModal={null}
+    closeModal={[Function]}
+    customModalStyles="delete-checklist-item restore-model-content"
+    customOverlayStyle=""
+    modalBar={<div />}
+    modalContentId=""
+    modalId=""
+    requestId=""
+    showOverlay={true}
+    title="Disable Bukoto heights"
+    visibility="invisible"
+    width=""
+  >
+    <span
+      className="delete-checklist-item__disclaimer restore-checklist-items_span"
+    >
+      Are you sure you want to disable
+      <strong>
+        Bukoto heights
+      </strong>
+    </span>
+    <div
+      className="delete-checklist-item__hr delete-checklist-item__left"
+    />
+    <div
+      className="delete-checklist-item__footer delete-checklist-item__right"
+    >
+      <button
+        className="delete-checklist-item__footer--cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="restore-checklist-items__footer--delete"
+        id="disableGuestHouseId"
+        onClick={[Function]}
+        type="button"
+      >
+        Disable
+      </button>
+    </div>
+  </Modal>
   <div
     className="set-details"
   >
@@ -102,26 +147,45 @@ exports[`<Accommodation /> should render correctly 1`] = `
           </div>
         </div>
       </div>
-      <div>
-        <img
-          alt="Edit Link"
-          className="edit-icon"
-          src="edit_icon.svg"
-        />
-        <button
-          className="edit-btn"
-          onClick={[Function]}
-          type="button"
-        >
-          Edit Guest House
-        </button>
+      <div
+        className="guest-house-action-div"
+      >
+        <div>
+          <img
+            alt="Edit Link"
+            className="edit-icon"
+            src="edit_icon.svg"
+          />
+          <button
+            className="edit-btn"
+            onClick={[Function]}
+            type="button"
+          >
+            Edit Guest House
+          </button>
+        </div>
+        <div>
+          <img
+            alt="Edit Link"
+            className="edit-icon"
+            src="disabled.svg"
+          />
+          <button
+            className="edit-btn"
+            id="handleOnDisableId"
+            onClick={[Function]}
+            type="button"
+          >
+            Disable Guest House
+          </button>
+        </div>
       </div>
     </div>
     <div
       className="guesthouse-details-wrapper--key-details"
     >
       <GuestHouseDetailCard
-        label="Bed Capacity "
+        label="Bed Capacity"
         value="01"
       />
       <GuestHouseDetailCard

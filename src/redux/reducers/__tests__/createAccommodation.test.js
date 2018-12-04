@@ -16,6 +16,9 @@ describe('Accommodation Reducer', () => {
     guestHouse: {
       rooms: []
     },
+    disabledGuestHouses: [],
+    disabling: false,
+    restoring: false,
     isLoading: false
   };
 

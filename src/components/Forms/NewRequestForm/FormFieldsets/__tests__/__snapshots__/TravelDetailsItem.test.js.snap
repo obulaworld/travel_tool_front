@@ -45,21 +45,7 @@ exports[`Test Suite for <TravelDetailsItem /> should match snapshot 1`] = `
           />
           <div
             className="travel-to"
-          >
-            <div>
-              <img
-                alt="icn"
-                src="/static/media/form_select_dropdown.d19986d7.svg"
-                style={
-                  Object {
-                    "position": "absolute",
-                    "right": "15px",
-                    "top": "43px",
-                  }
-                }
-              />
-            </div>
-          </div>
+          />
         </div>
       </div>
     </div>

@@ -25,6 +25,14 @@ class AccommodationAPI {
       .join('&');
     return axios.get(`${baseUrl}/guesthouses/${guestHouseId}?${queryString}`);
   }
+
+  static disableOrRestoreAccommodation(guestHouseId) {
+    return axios.put(`${baseUrl}/guesthouse/${guestHouseId}`);
+  }
+
+  static getDisabledAccommodations() {
+    return axios.get(`${baseUrl}/disabledguesthouses`);
+  }
 }
 
 export default AccommodationAPI;

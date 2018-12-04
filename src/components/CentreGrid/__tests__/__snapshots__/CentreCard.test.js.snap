@@ -5,6 +5,8 @@ exports[`<CentreCard /> renders correctly 1`] = `
   className="mdl-cell mdl-cell--4 mdl-card centre-card"
 >
   <Link
+    id="thisGuesthouseLink"
+    onClick=""
     replace={false}
     to="/residence/manage/guest-houses/undefined"
   >
