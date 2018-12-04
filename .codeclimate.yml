@@ -22,3 +22,4 @@ exclude_patterns:
   - "src/redux/store/__test__/"
   - "src/**/__mocks__/"
   - "scripts/"
+  - "cypress/integration/"

@@ -11,6 +11,8 @@
 
 .env
 
+#end-to-end
+cypress.env.json
 
 # misc
 .env
@@ -29,3 +31,4 @@ yarn-error.log*
 package-lock.json
 deploy
 .vscode
+
