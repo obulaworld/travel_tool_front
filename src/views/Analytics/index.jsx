@@ -77,14 +77,14 @@ export class Analytics extends Component {
           <div className="analytics">
             {this.renderCards('Total No. of Travel Requests', {stats: totalRequests, icon: flightIcon} )}
             {this.renderCards('Total Number of Pending Requests', {stats: pendingRequests, icon: pendingIcon}, '/requests/my-verifications')}
-            {this.renderCards('Average Travel Duration', {data: (analytics.success ? travelDurationBreakdown.durations : []), chart: true})}
+            {this.renderCards('Average Travel Duration', {data: (analytics.success ? travelDurationBreakdown.durations : []), chart: true, color: 'blue'})}
             {this.renderCards(`No. of People visiting ${context.state.city} Center`,
               {stats: peopleVisiting, icon: flightLand, color: 'green'}
             )}
             {this.renderCards(`No. of People leaving ${context.state.city} Center`,
               {stats: peopleLeaving, icon: flightTakeoff, color: 'brown-orange'}
             )}
-            {this.renderCards('Average Travel Request Lead Time', {data: (analytics.success ? travelLeadTimeBreakdown.leadTimes : []), chart: true})}
+            {this.renderCards('Average Travel Request Lead Time', {data: (analytics.success ? travelLeadTimeBreakdown.leadTimes : []), chart: true, color: 'orange'})}
           </div>
         )}
       </Fragment>
