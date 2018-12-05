@@ -52,7 +52,7 @@ export default class TripDetails extends PureComponent {
       origin,
       tripType
     } = tripDetails;
-    let accomodationDetails='None';
+    let accomodationDetails='Hotel Booking';
     if(beds){
       const {rooms:{roomName, guestHouses:{houseName}}, bedName } = beds;
       accomodationDetails = `${houseName}, ${roomName}, ${bedName}`;
