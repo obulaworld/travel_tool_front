@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import error from '../../../../images/error.svg';
@@ -10,18 +11,19 @@ class MaintainanceFieldSets extends Component {
     const { renderInput } = this.inputRenderer;
     const { values: { maintainanceStart, maintainanceEnd, reason }, editMaintenance } = this.props;
     const {maintenance} = editMaintenance;
+
     return (
       <fieldset className="maintainance-details">
         <div className="input-group">
-          {renderInput('maintainanceStart', 'date', 
+          {renderInput('maintainanceStart', 'date',
             {
               value: (maintenance && maintenance.start) ? maintenance.start : maintainanceStart,
               minDate: new Date()
             })}
-          {renderInput('maintainanceEnd', 'date', 
+          {renderInput('maintainanceEnd', 'date',
             {
               value: (maintenance && maintenance.end) ? maintenance.end : maintainanceEnd,
-              minDate: new Date()
+              minDate: moment(new Date(maintainanceStart))
             })}
           {renderInput('reason', 'text', {value: (maintenance && maintenance.reason) ? maintenance.reason : reason })}
         </div>

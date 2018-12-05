@@ -152,17 +152,21 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                     <div
                             className="maintainence-submit-area"
                     >
-                            <div
-                                    className="maintainence-submit-area_false"
+                            <button
+                                    className="bg-btn bg-btn--inactive btn-cancel"
+                                    onClick={[Function]}
+                                    type="button"
                             >
-                                    <button
-                                            className="bg-btn bg-btn--inactive"
-                                            disabled={true}
-                                            type="submit"
-                                    >
-                                            Save Changes
-                                    </button>
-                            </div>
+                                    Cancel
+                            </button>
+                            <button
+                                    className="bg-btn bg-btn--active"
+                                    disabled={true}
+                                    id="submit"
+                                    type="submit"
+                            >
+                                    Save Changes
+                            </button>
                     </div>
             </form>
     </FormContext>,
@@ -204,17 +208,21 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
     <div
       className="maintainence-submit-area"
     >
-      <div
-        className="maintainence-submit-area_false"
+      <button
+        className="bg-btn bg-btn--inactive btn-cancel"
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          className="bg-btn bg-btn--inactive"
-          disabled={true}
-          type="submit"
-        >
-          Save Changes
-        </button>
-      </div>
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        id="submit"
+        type="submit"
+      >
+        Save Changes
+      </button>
     </div>
   </form>
 </FormContext>

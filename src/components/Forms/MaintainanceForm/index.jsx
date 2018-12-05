@@ -30,7 +30,7 @@ class MaintainceForm extends PureComponent {
     const { maintenance } = this.props;
     const { departureDate, returnDate, reason } = maintenance;
     const startDate = departureDate ? moment(departureDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
-    const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';  
+    const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
 
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState(prevState => ({...prevState, values : {maintainanceStart: startDate, maintainanceEnd: endDate, reason }}));
@@ -83,8 +83,8 @@ class MaintainceForm extends PureComponent {
   render() {
     const { values, errors, hasBlankFields } = this.state;
     const { modalType, editMaintenance } = this.props;
-    const onSubmit = (modalType === 'edit-maintenance') 
-      ? this.submitEditedMaintenanceData 
+    const onSubmit = (modalType === 'edit-maintenance')
+      ? this.submitEditedMaintenanceData
       : this.submitMaintainanceData;
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
@@ -92,24 +92,13 @@ class MaintainceForm extends PureComponent {
           <MaintainanceFieldSets values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
           <div className="maintainence-line" />
           <div className="maintainence-submit-area">
-            {hasBlankFields ? (
-              <div className="maintainence-submit-area_false">
-                <button type="submit" disabled={hasBlankFields} className="bg-btn bg-btn--inactive">
-                Save Changes
-                </button>
-              </div>) :
-              (
-                <div className="maintainence-submit-area">
-                  <button type="button" className="bg-btn bg-btn--inactive btn-cancel" onClick={this.handleClearForm} id="btn-cancel">
-                Cancel
-                  </button>
-                  <button type="submit" className="bg-btn bg-btn--active">
-                Save Changes
-                  </button>
-                </div>
-              )}
+            <button type="button" className="bg-btn bg-btn--inactive btn-cancel" onClick={this.handleClearForm}>
+              Cancel
+            </button>
+            <button type="submit" className="bg-btn bg-btn--active" id="submit" disabled={hasBlankFields}>
+              Save Changes
+            </button>
           </div>
-
         </form>
       </FormContext>
     );
