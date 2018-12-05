@@ -17,7 +17,7 @@ class AccommodationAPI {
   static setToken () {
     const token = Cookies.get('jwt-token');
     axios.defaults.headers.common['Authorization'] = token;
-  } 
+  }
   static fetchTimelineData(guestHouseId, startDate, endDate) {
     const queryObj = { startDate, endDate };
     const queryString = Object.keys(queryObj)

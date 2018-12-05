@@ -31,15 +31,21 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
         >
           <button
             className="action-btn btn-new-request"
+            id="myBtn"
             type="button"
           >
-            upload
+            Upload
           </button>
           <input
             name="myfile"
             onChange={[Function]}
             type="file"
           />
+          <div
+            className="image-type"
+          >
+            Only *jpg or *png files are allowed
+          </div>
         </div>
       </div>
     </div>

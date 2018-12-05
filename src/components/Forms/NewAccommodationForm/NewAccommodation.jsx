@@ -3,6 +3,7 @@ import moment from 'moment';
 import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
 import axios from 'axios';
+import toast from 'toastr';
 import AccommodationAPI from '../../../services/AccommodationAPI';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import { errorMessage } from '../../../helper/toast';
@@ -24,16 +25,14 @@ class NewAccommodation extends PureComponent {
       rooms: isEdit ? guestHouse.rooms : [{}],
       errors: {}, isSubmitting: false,
       documentId: isEdit ? guestHouse.rooms.length: 1,
-      hasBlankFields: isEdit ? false : true };
+      hasBlankFields: isEdit ? false : true, loaded: 0, progress: false };
     this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
   componentDidMount() {
     const { modalType } = this.props;
-    if (modalType === 'new model') {
-      this.addRoomOnClick();
-    } return null;
+    if (modalType === 'new model') { this.addRoomOnClick(); } return null;
   }
 
   componentWillUnmount() {
@@ -80,17 +79,26 @@ class NewAccommodation extends PureComponent {
     const reader = new FileReader();
     if (event.target.files[0]) {
       const file = event.target.files[0];
-      reader.onloadend = () => {
-        this.setState(
-          prevState => ({
-            values: { ...prevState.values, preview: reader.result, image: file, }
-          }), this.validate );}; reader.readAsDataURL(file);
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+        toast.error('Kindly change this image, you can only upload a jpeg or png image');
+      } else {
+        reader.onloadend = () => {
+          this.setState(
+            prevState => ({
+              values: { ...prevState.values, preview: reader.result, image: file, }
+            }), this.validate );
+        };
+        reader.readAsDataURL(file);
+      }
     }};
 
   displayImage = () => {
-    const { values } = this.state;
+    const { values, loaded, progress } = this.state;
     return values.preview ? (
-      <img src={values.preview} alt="ImagePreview" className="imgPre" />
+      <div className="upload-image">
+        <img src={values.preview} alt="ImagePreview" className="imgPre" />
+        { progress && <progress className="progress-bar" value={loaded} max="1" /> }
+      </div>
     ) : (
       <div className="image-rectangle">
         <img src={addPhoto} alt="ImagePreview" className="add-photo" />
@@ -104,8 +112,7 @@ class NewAccommodation extends PureComponent {
     const autocomplete = new google.maps.places.Autocomplete(target, options);
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace().address_components;
-      const countryIndex = place.findIndex(addr =>
-        addr.types.includes('country'));
+      const countryIndex = place.findIndex(addr => addr.types.includes('country'));
       const places = place[0].long_name + ', ' + place[countryIndex].long_name;
       this.setState({ values: { ...values, location: places } });
     }); };
@@ -123,9 +130,8 @@ class NewAccommodation extends PureComponent {
         rooms[parentid].bedCount = value;}
     } else { rooms.push({ [name.split('-')[0]]: value });}
     this.setState(
-      prevState => ({ values: { ...prevState.values, [rooms]: value } }),
-      this.validate
-    ); };
+      prevState => ({ values: { ...prevState.values, [rooms]: value } }), this.validate);
+  };
 
   handleDropDown = (data, choice) => {
     const { rooms } = this.state;
@@ -136,9 +142,7 @@ class NewAccommodation extends PureComponent {
       } else {
         rooms.push({ [name.split('-')[0]]: choice });}
       this.setState(
-        prevState => ({ values: { ...prevState.values, [rooms]: choice } }),
-        this.validate
-      );
+        prevState => ({ values: { ...prevState.values, [rooms]: choice } }), this.validate);
     }
   };
 
@@ -166,18 +170,15 @@ class NewAccommodation extends PureComponent {
     const roomsProps = ['roomName', 'roomType', 'bedCount'];
     this.setState(prevState => {
       let { documentId, rooms, values, errors } = prevState;
-      rooms.splice(i, 1);
-      documentId--;
+      rooms.splice(i, 1); documentId--;
       roomsProps.map(prop => {
         let start = i;
         while (start < documentId) {
-          values[`${prop}-${start}`] = values[`${prop}-${start + 1}`];
-          start++; }
+          values[`${prop}-${start}`] = values[`${prop}-${start + 1}`]; start++; }
         delete values[`${prop}-${documentId}`];
         delete errors[`${prop}-${i}`];
       });
-      return { rooms, values, documentId, errors };
-    }, this.validate);
+      return { rooms, values, documentId, errors }; }, this.validate);
   };
 
   handleInputSubmit = async event => {
@@ -192,7 +193,9 @@ class NewAccommodation extends PureComponent {
       let imageUrl;
       delete axios.defaults.headers.common['Authorization'];
       if(typeof values.image !== 'string') {
-        const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd);
+        const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd, {
+          onUploadProgress:(e) => {this.setState({loaded: e.loaded/e.total, progress: true});
+          }});
         imageUrl = imageData.data.secure_url;
       } else {
         imageUrl = values.image;
@@ -242,8 +245,7 @@ class NewAccommodation extends PureComponent {
             hasBlankFields={currentHasBlankFields}
             send={modalType === 'edit accommodation' ? 'Save changes' : 'Save'}
             modalType={modalType}
-            loading={isSubmitting}
-          />
+            loading={isSubmitting} />
         </form>
       </FormContext>
     );

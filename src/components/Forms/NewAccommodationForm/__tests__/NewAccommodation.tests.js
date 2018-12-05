@@ -1,5 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
+import { mount, shallow } from 'enzyme';
 import NewAccommodation from '../NewAccommodation';
 
 describe('<NewAccommodation />', () => {
@@ -40,8 +41,19 @@ describe('<NewAccommodation />', () => {
     fetchAccommodation: jest.fn(() => {}),
     closeModal: jest.fn(),
     editAccommodation: jest.fn(),
-    populateRoomsDefaultStateValues: {},
-    map: jest.fn(),
+    guestHouse: {
+      rooms: [
+        {
+          roomName: 'victoria',
+          roomType: 'ensuite',
+          bedCount: 1
+        }
+      ],
+      houseName: 'Qwetu',
+      location: 'Nairobi, Kenya',
+      bathRooms: 2,
+      image: 'image.com'
+    }
   };
 
   global.FileReader = function(spy, fakeData) {
@@ -291,13 +303,12 @@ describe('<NewAccommodation />', () => {
   });
 
   it('should call populateRoomsDefaultStateValues', () => {
-    wrapper = mount(<NewAccommodation {...props} rooms={[{ roomName: 'victoria', roomType: 'ensuite', bedCount: 1}]} />)
-    wrapper.setProps({
-      modalType: 'edit accomodation'
-    });
-    const rooms = [{ roomName: 'victoria', roomType: 'ensuite', bedCount: 1}];
-    const spy = jest.spyOn(wrapper.instance(), 'populateRoomsDefaultStateValues');
-    wrapper.instance().populateRoomsDefaultStateValues(rooms);
-    expect(spy).toHaveBeenCalledTimes(1);
+    const newProps = {...props, modalType: 'edit accommodation'}
+    wrapper = shallow(
+      <NewAccommodation
+        {...newProps}
+      />
+    );
+    expect(wrapper.instance().state.values['roomName-0']).toBe('victoria');
   });
 });

@@ -94,14 +94,19 @@ class AccommodationDetails extends Component {
       <div className="aline-box">
         {displayImage()}
         <div className="image-space">
-          { modalType === 'edit accomodation' ? (
-            <p className="upload">Change guest house image</p> )
-            : <p className="upload">Upload guest house image</p> }
+          {modalType === 'edit accomodation' ? (
+            <p className="upload">Change guest house image</p>
+          ) : (
+            <p className="upload">Upload guest house image</p>
+          )}
           <div className="upload-btn-wrapper">
-            <button type="button" className="action-btn btn-new-request">
-              upload
+            <button type="button" id="myBtn" className="action-btn btn-new-request">
+                Upload
             </button>
             <input type="file" name="myfile" onChange={handleImageChange} />
+            <div className="image-type">
+                Only *jpg or *png files are allowed
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +122,7 @@ class AccommodationDetails extends Component {
       documentId,
       handleInputChange,
       handleLocation,
-      handleDropDown
+      handleDropDown,
     } = this.props;
     return (
       <fieldset>
@@ -131,15 +136,15 @@ class AccommodationDetails extends Component {
   }
 }
 
-const  handleImageChange = PropTypes.func;
+const handleImageChange = PropTypes.func;
 const displayImage = PropTypes.func;
 const addRoomOnClick = PropTypes.func;
 const handleInputChange = PropTypes.func;
 const handleLocation = PropTypes.func;
 const removeRoom = PropTypes.func;
 const documentId = PropTypes.string;
-const handleDropDown =PropTypes.string;
-const modalType =PropTypes.string;
+const handleDropDown = PropTypes.string;
+const modalType = PropTypes.string;
 
 AccommodationDetails.propTypes = {
   handleImageChange: handleImageChange.isRequired,
@@ -150,7 +155,7 @@ AccommodationDetails.propTypes = {
   removeRoom: removeRoom.isRequired,
   documentId: documentId.isRequired,
   handleDropDown: handleDropDown.isRequired,
-  modalType: modalType.isRequired,
+  modalType: modalType.isRequired
 };
 
 export default AccommodationDetails;
