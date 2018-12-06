@@ -39,6 +39,10 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                 },
                 Object {
                   "link_to": "/requests/my-approvals",
+                  "onlyVisibleTo": Array [
+                    "Super Administrator",
+                    "Manager",
+                  ],
                   "text": "My Approvals",
                 },
                 Object {
