@@ -55,23 +55,32 @@ class TravelDetailsItem extends Component {
       pendingState.bedOnEdit = trip.beds;
       pendingState.trip = {...trip};
       pendingState.gender = request.gender;
+      pendingState.missingRequiredFields = false;
     }
     this.setState({ ...pendingState }, () => this.setBedChoices(modalType, values, []));
   }
 
+  setValues = (values, itemId, id, modalType) => {
+    if(modalType === 'edit request' ){
+      values[`bed-${itemId}`] = values[`bed-${itemId}`] || id || null;
+    }
+  }
+
   setBedChoices = (modalType, values, beds) => {
+    const { itemId } = this.props;
     let bedChoices = this.getRawBedChoices(modalType, values, beds);
     if (bedChoices.length < 1) {
-      bedChoices = [{ label: 'No beds found', value: -1 }];
+      this.setValues(values, itemId, ' ', modalType);
+      bedChoices = [{ label: 'No beds found', value: values[`bed-${itemId}`] || ' ' }];
     } else {
-      bedChoices = bedChoices.map(choice => ({
-        label: `${choice.rooms.roomName}, ${choice.bedName}`,
-        value: choice.id
-      }));
+      bedChoices = bedChoices.map(choice => {
+        this.setValues(values, itemId, choice.id, modalType);
+        return ({
+          label: `${choice.rooms.roomName}, ${choice.bedName}`,
+          value: choice.id
+        });});
     }
-    this.setState({
-      choices: bedChoices
-    });
+    this.setState({ choices: bedChoices });
   }
 
   handleChangeInput = event => {

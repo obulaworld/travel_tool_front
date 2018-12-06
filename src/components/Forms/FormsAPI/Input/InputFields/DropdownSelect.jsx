@@ -75,10 +75,11 @@ export default class DropdownSelect extends Component {
   };
 
   valueToChoiceLabel = (choices, value) => {
-    const choice =
+    let choice =
       choices.filter(choice => {
         return (choice.value || choice) === value;
       })[0] || '';
+    choice = !choice ? ' ' : choice;
     return choice.label || choice || value;
   };
 
