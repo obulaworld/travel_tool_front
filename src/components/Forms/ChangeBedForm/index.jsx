@@ -28,7 +28,7 @@ class ChangeBedForm extends PureComponent {
     }, () => this.validate('changeReason'));
   }
   render() {
-    const {values, errors, hasBlankFields} = this.state;   
+    const {values, errors, hasBlankFields} = this.state;
     const { requesterName, bedChoices, handleRoomSubmit,
       loadingBeds, toggleChangeRoomModal, loading } = this.props;
     const formMetadata = {
@@ -56,7 +56,7 @@ class ChangeBedForm extends PureComponent {
             {!loadingBeds && bedChoices.length > 0 &&
              renderInput('newBed', 'dropdown-select', {
                size: '100%',
-               choices: bedChoices,
+               choices: [...bedChoices, {label: 'Hotel Booking', value: -1}],
              })}
           </p>
           <p className="change-room-modal__reason">

@@ -71,7 +71,7 @@ class TravelDetailsItem extends Component {
     let bedChoices = this.getRawBedChoices(modalType, values, beds);
     if (bedChoices.length < 1) {
       this.setValues(values, itemId, ' ', modalType);
-      bedChoices = [{ label: 'No beds found', value: values[`bed-${itemId}`] || ' ' }];
+      bedChoices = [{ label: 'Hotel Booking', value: values[`bed-${itemId}`] || ' ' }];
     } else {
       bedChoices = bedChoices.map(choice => {
         this.setValues(values, itemId, choice.id, modalType);
@@ -79,6 +79,7 @@ class TravelDetailsItem extends Component {
           label: `${choice.rooms.roomName}, ${choice.bedName}`,
           value: choice.id
         });});
+      bedChoices.push({ label: 'Hotel Booking', value: -1 });
     }
     this.setState({ choices: bedChoices });
   }
@@ -221,7 +222,7 @@ class TravelDetailsItem extends Component {
         missingRequiredFields: true
       });
     }
-    
+
     if (isValid && values[`arrivalDate-${i}`]) {
       this.setState({
         missingRequiredFields: false
