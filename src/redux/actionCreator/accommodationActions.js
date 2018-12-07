@@ -10,7 +10,16 @@ import {
   FETCH_TIMELINE_DATA_FAILURE,
   EDIT_ACCOMMODATION_DATA,
   EDIT_ACCOMMODATION_DATA_SUCCESS, 
-  EDIT_ACCOMMODATION_DATA_FAILURE
+  EDIT_ACCOMMODATION_DATA_FAILURE,
+  DISABLE_ACCOMMODATION,
+  DISABLE_ACCOMMODATION_SUCCESS,
+  DISABLE_ACCOMMODATION_FAILURE,
+  FETCH_DISABLED_ACCOMMODATION,
+  FETCH_DISABLED_ACCOMMODATION_SUCCESS,
+  FETCH_DISABLED_ACCOMMODATION_FAILURE,
+  RESTORE_DISABLED_ACCOMMODATION,
+  RESTORE_DISABLED_ACCOMMODATION_SUCCESS,
+  RESTORE_DISABLED_ACCOMMODATION_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchAccommodation = () => ({
@@ -75,5 +84,49 @@ export const editAccommodationSuccess = guestHouseData => ({
 
 export const editAccommodationFailure = error => ({
   type: EDIT_ACCOMMODATION_DATA_FAILURE,
+  error,
+});
+
+export const disableAccommodation  = (guestHouseId) => ({
+  type: DISABLE_ACCOMMODATION,
+  guestHouseId,
+});
+
+export const disableAccommodationSuccess = disabledGuestHouseData => ({
+  type: DISABLE_ACCOMMODATION_SUCCESS,
+  disabledGuestHouseData,
+});
+
+export const disableAccommodationFailure = error => ({
+  type: DISABLE_ACCOMMODATION_FAILURE,
+  error,
+});
+
+export const fetchDisabledAccommodation = () => ({
+  type: FETCH_DISABLED_ACCOMMODATION,
+});
+
+export const fetchDisabledAccommodationSuccess = (disabledGuestHouses) => ({
+  type: FETCH_DISABLED_ACCOMMODATION_SUCCESS,
+  disabledGuestHouses,
+});
+
+export const fetchDisabledAccommodationFailure = (error) => ({
+  type: FETCH_DISABLED_ACCOMMODATION_FAILURE,
+  error
+});
+
+export const restoreDisabledAccommodation  = (guestHouseId) => ({
+  type: RESTORE_DISABLED_ACCOMMODATION,
+  guestHouseId,
+});
+
+export const restoreDisabledAccommodationSuccess = restoredGuestHouseData => ({
+  type: RESTORE_DISABLED_ACCOMMODATION_SUCCESS,
+  restoredGuestHouseData,
+});
+
+export const restoreDisabledAccommodationFailure = error => ({
+  type: RESTORE_DISABLED_ACCOMMODATION_FAILURE,
   error,
 });

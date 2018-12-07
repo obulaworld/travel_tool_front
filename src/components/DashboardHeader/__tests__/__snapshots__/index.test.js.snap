@@ -1279,7 +1279,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1294,7 +1294,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span

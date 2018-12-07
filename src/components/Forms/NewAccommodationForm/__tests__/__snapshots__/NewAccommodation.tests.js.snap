@@ -290,6 +290,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                         }
                       }
                     >
+                       
                       <div
                         className="select-dropdown inactive"
                       >

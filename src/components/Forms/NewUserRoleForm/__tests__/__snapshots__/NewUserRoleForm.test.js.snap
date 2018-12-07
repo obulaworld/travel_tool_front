@@ -146,7 +146,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                   }
                 }
               >
-                New York, USA
+                 
                 <div
                   className="select-dropdown inactive"
                 >

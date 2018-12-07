@@ -38,7 +38,10 @@ import {
   watchCreateAccommodationSagaAsync,
   watchFetchAccommodation,
   watchFetchTimelneData,
-  watchEditAccommodation
+  watchEditAccommodation,
+  watchDisableAccommodation,
+  watchFetchDisabledAccommodation,
+  watchRestoreDisabledAccommodation
 } from './accommodationSaga';
 
 import { watchFetchOccupations } from './occupationSaga';
@@ -159,7 +162,10 @@ function* rootSaga() {
     watchFetchAttachments(),
     watchdownloadAttachments(),
     watchUpdateMaintenance(),
-    watchDeleteMaintenance()
+    watchDeleteMaintenance(),
+    watchDisableAccommodation(),
+    watchFetchDisabledAccommodation(),
+    watchRestoreDisabledAccommodation()
   ]);
 }
 

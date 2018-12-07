@@ -1,6 +1,7 @@
 import moxios from 'moxios';
 import AccommodationAPI from '../AccommodationAPI';
 import guestHouses from '../../views/Accommodation/__mocks__/mockData/guestHouses';
+import disabledGuestHouses from '../../views/Accommodation/__mocks__/mockData/disabledGuestHouses';
 
 const baseUrl = 'http://127.0.0.1:5000/api/v1';
 const expectedResponse = {
@@ -157,5 +158,40 @@ describe('AccommodationAPI', () => {
       endDate
     );
     expect(response.data).toEqual(expectedFullDetailsResponse);
+  });
+
+  it('should send a PUT request to disable or restore guesthouse', async () => {
+    const guestHouseId = 'juhiuhoji0';
+
+    moxios.stubRequest(`${baseUrl}/guesthouse/${guestHouseId}`, {
+      status: 201,
+    });
+
+    const response = await AccommodationAPI.disableOrRestoreAccommodation(guestHouseId);
+    const request = moxios.requests.mostRecent();
+    expect(request.url).toEqual(`${baseUrl}/guesthouse/${guestHouseId}`);
+    expect(request.config.method).toEqual('put');
+  });
+
+  it('should send a PUT request to disable or restore guesthouse', async () => {
+    const Response = {
+      success: true,
+      message: 'Disabled guesthouses retrieved successfully',
+      guestHouses: disabledGuestHouses
+    };
+
+    moxios.stubRequest(`${baseUrl}/disabledguesthouses`, {
+      status: 200,
+      response: {
+        ...Response
+      }
+    });
+
+    const response = await AccommodationAPI.getDisabledAccommodations();
+    const request = moxios.requests.mostRecent();
+
+    expect(request.url).toEqual(`${baseUrl}/disabledguesthouses`);
+    expect(request.config.method).toEqual('get');
+    expect(response.data).toEqual(Response);
   });
 });
