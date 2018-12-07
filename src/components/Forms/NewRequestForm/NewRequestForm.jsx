@@ -518,6 +518,13 @@ class NewRequestForm extends PureComponent {
   renderForm = () => {
     const { errors, values, hasBlankFields, selection, sameOriginDestination} = this.state;
     const { modalType, creatingRequest } = this.props;
+    const { requestOnEdit } = this.props;
+    const { name, gender, department, role, manager, trips } = requestOnEdit;
+    const { name: stateName, manager: stateManager, gender: stateGender, 
+      department: stateDepartment, role: stateRole} = values;
+    const disableOnChangeProfile = (name === stateName && gender === stateGender && department === stateDepartment 
+     && role === stateRole && manager === stateManager)
+      ? true : false;
     return (
       <FormContext
         targetForm={this}
@@ -541,6 +548,7 @@ class NewRequestForm extends PureComponent {
             sameOriginDestination={sameOriginDestination}
             selection={selection}
             loading={creatingRequest}
+            disableOnChangeProfile={disableOnChangeProfile}
             send={
               modalType === 'edit request' ? 'Update Request' : 'Send Request'
             }
