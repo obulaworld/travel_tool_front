@@ -15,6 +15,7 @@ import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedDocuments from '../views/Documents';
+import NotFound from '../views/ErrorPages';
 
 
 const Routes = () => (
@@ -107,6 +108,7 @@ const Routes = () => (
             exact
             component={RequireAuth(ConnectedDocuments)}
           />
+          <Route component={NotFound} />
         </Switch>
       </LayoutShell>
     </Route>

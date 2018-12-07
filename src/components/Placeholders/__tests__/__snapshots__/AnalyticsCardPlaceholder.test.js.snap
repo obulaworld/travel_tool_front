@@ -4,7 +4,7 @@ exports[`<AnalyticsCardPlaceholder /> should render without crashing 1`] = `
 <div
   className="analytics-card"
 >
-  <ContentLoader
+  <Holder
     height={350}
     primaryColor="#dfdfdf"
     secondaryColor="#ffffff"
@@ -35,6 +35,6 @@ exports[`<AnalyticsCardPlaceholder /> should render without crashing 1`] = `
       x="205.72"
       y="17.61"
     />
-  </ContentLoader>
+  </Holder>
 </div>
 `;
