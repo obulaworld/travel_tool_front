@@ -12,22 +12,32 @@ exports[`<NewDocumentForm /> renders correctly 1`] = `
   <div
     className="document-input"
   >
-    <img
-      alt="Document Upload"
-      className="document-upload-icon"
-      src="document-upload.svg"
-    />
     <div
-      className="upload-file"
+      className="document-input__input-container"
     >
-      Upload File
+      <label
+        className="document-input__input-container__prompts"
+        htmlFor="select-file"
+      >
+        <img
+          alt="Document Upload"
+          className="document-input__input-container__prompts__img"
+          src="document-upload.svg"
+        />
+        <div
+          className="document-input__input-container__prompts__text"
+        >
+          <p>
+            Upload File
+          </p>
+        </div>
+        <input
+          id="select-file"
+          onChange={[Function]}
+          type="file"
+        />
+      </label>
     </div>
-    <input
-      id="upload-btn"
-      name="file"
-      onChange={[Function]}
-      type="file"
-    />
     <div
       className="file-errors"
     >

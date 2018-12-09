@@ -30,12 +30,12 @@ export class Documents extends Component {
     let { openModal } = this.props;
     openModal(true, 'delete document');
     this.setState({ documentId, documentToDelete });
-  }
+  };
   deleteUserDocument = () => {
     const { deleteDocument } = this.props;
     const { documentId } = this.state;
     deleteDocument(documentId);
-  }
+  };
   handleCloseModal = () => {
     const { closeModal } = this.props;
     const { menuOpen } = this.state;
@@ -43,12 +43,12 @@ export class Documents extends Component {
       { menuOpen: { open: false, id: null } }
     );
     return closeModal();
-  }
+  };
   handleDownloadDocuments = () => {
     const { downloadDocuments } = this.props;
     const { documentToDownlod: { cloudinary_url, name } } = this.state;
     downloadDocuments(cloudinary_url, name);
-  }
+  };
   toggleMenu = (document) => {
     const { menuOpen } = this.state;
     const { id } = document;
@@ -56,41 +56,41 @@ export class Documents extends Component {
       return this.setState({ menuOpen: { open: true, id } });
     }
     this.setState({ menuOpen: { open: false, id: null } });
-  }
+  };
   openAddModal = () => {
     let{ openModal } = this.props;
     openModal(true, 'add document');
-  }
+  };
   handleOpenModal = (modalType, document = '') => {
     let { openModal } = this.props;
     openModal(true, modalType);
     this.setState({ menuOpen: { open: false, id: null }, documentToDownlod: document });
-  }
+  };
   handleCloseEditModal = () => {
     const { closeModal, removeDocumentFromEdit } = this.props;
     const { menuOpen } = this.state;
     menuOpen.open && this.setState({ menuOpen: { open: false, id: null } });
     closeModal();
     return removeDocumentFromEdit();
-  }
+  };
 
   handleRenameDocument = () => {
     const { documentOnEdit, updateDocument } = this.props;
     this.setState({ hasBlankFields: true});
     updateDocument(documentOnEdit);
-  }
+  };
   handleInputChange = (event) => {
     const { value } = event.target;
     const { documentOnEdit, updateDocumentOnEdit } = this.props;
     this.setState({ hasBlankFields: this.textValidator(value)});
     documentOnEdit && updateDocumentOnEdit(value);
-  }
+  };
    textValidator = (value) => {
      const isString = typeof(value) === 'string' &&
      (value.replace(/\s+/, '')).length > 0 ;
      if (isString) return false;
      return true;
-   }
+   };
 
   handleSubmitDownload = () => {
     const { documentToDownlod: { name } } = this.state; return (
@@ -116,7 +116,7 @@ export class Documents extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   renderDocumentEditModal = () => {
     const { shouldOpen, modalType } = this.props;
@@ -135,7 +135,7 @@ export class Documents extends Component {
         {this.renderSubmitArea()}
       </Modal>
     );
-  }
+  };
   renderSubmitArea = () => {
     const { isUpdating } = this.props;
     const { hasBlankFields } = this.state;
@@ -162,7 +162,7 @@ export class Documents extends Component {
         </p>
       </div>
     );
-  }
+  };
 
 
   renderDocumentRenameForm = () => {
@@ -182,7 +182,7 @@ export class Documents extends Component {
         </label>
       </div>
     );
-  }
+  };
 
   renderDocumentDownloadModal = () => {
     const { shouldOpen, modalType } = this.props;
@@ -202,7 +202,7 @@ export class Documents extends Component {
         {this.handleSubmitDownload()}
       </Modal>
     );
-  }
+  };
   renderDocumentsHeader() {
     return (
       <div>
@@ -223,7 +223,7 @@ export class Documents extends Component {
   }
 
   renderDocumentsForm() {
-    const { closeModal, shouldOpen, modalType, user, createDocument } = this.props;
+    const { closeModal, shouldOpen, modalType, user, createDocument, isUploading } = this.props;
     return (
       <Modal
         customModalStyles="add-document-item" closeModal={closeModal} width="480px" height="375px"
@@ -236,6 +236,7 @@ export class Documents extends Component {
           closeModal={closeModal}
           user={user}
           createDocument={createDocument}
+          isUploading={isUploading}
         />
       </Modal>
     );
@@ -294,6 +295,7 @@ export const mapStateToProps = ({ modal, user, documents }) => ({
   isLoading: documents.isLoading,
   documentOnEdit: documents.documentOnEdit,
   isUpdating: documents.updatingDocument,
+  isUploading: documents.isUploading
 });
 
 const matchDispatchToProps = {
@@ -327,6 +329,7 @@ Documents.propTypes = {
   updateDocument: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isUpdating: PropTypes.bool.isRequired,
+  isUploading: PropTypes.bool.isRequired,
 };
 
 
