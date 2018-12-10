@@ -15,66 +15,51 @@ form fieldset:last-child .submit-area {
 
 .document-input {
   box-sizing: border-box;
-  height: 61px;
-  width: 421px;
-  border: 1px solid #D4D4D4;
-  border-radius: 2px;
-  background-color: #F8F8F8;
-  margin-bottom: 40px;
-  border-style: dashed;
-  font-weight: 300;
+  width: 100%;
+
+  &__input-container{
+    height: 61px;
+    border: 1px dashed #D4D4D4;
+    border-radius: 2px;
+    background-color: #F8F8F8;
+    font-weight: 300;
+    display: flex;
+
+    &__prompts {
+      display: inline-flex;
+      margin-left: 15.5px;
+      cursor: pointer;
+
+      input[type=file] {
+        display: none;
+      }
+
+      &__img{
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+      &__text{
+        width: max-content;
+        display: flex;
+
+        p {
+          margin: auto;
+          font-family: "DIN Pro";
+          font-size: 14px;
+          line-height: 18px;
+          color: #999999;
+        }
+      }
+    }
+  }
 
   .file-errors {
-    margin-top: 70px;
     color: #999999;
     font-size: 12px;
     display:flex;
     justify-content: space-between;
-
-  }
-
-  input[type=file] {
-    height: 59px;
-    width: 421px;
-    opacity: 0;
-    position: absolute;
-    right: 28px;
-    top: 123px;
-    z-index: 3;
-  }
-
-  .document-upload-icon {
-    height: 13.33px;
-    width: 20px;
-    position: absolute;
-    top: 143px;
-    left: 43px;
-    z-index: 2;
-  }
-
-  .upload-file {
-    height: 18px;
-    width: 72px;
-    color: #999999;
-    font-family: "DIN Pro";
-    font-size: 14px;
-    line-height: 18px;
-    position: absolute;
-    left: 67px;
-    top: 139px;
-    z-index: 2;
-  }
-}
-
-.modal {
-  hr {
-    position: relative;
-    margin-top: 10px;
-    margin-bottom: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    height: 1px;
-    width: 479.6px;
+    margin: 5px 0 10px 0;
   }
 }
 
@@ -88,4 +73,4 @@ form fieldset:last-child .submit-area {
   animation: spin .5s linear infinite;
 }
 
-@import 'responsiveness'
+@import 'responsiveness';
