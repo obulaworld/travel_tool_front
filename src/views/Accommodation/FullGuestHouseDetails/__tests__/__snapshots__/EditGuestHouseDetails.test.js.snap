@@ -194,10 +194,12 @@ exports[`<Accommodation /> should render correctly 1`] = `
       />
       <GuestHouseDetailCard
         label="Vacant spaces"
+        period="month"
         value={0}
       />
       <GuestHouseDetailCard
         label="Unavailable"
+        period="month"
         value={1}
       />
     </div>
@@ -207,6 +209,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
     editMaintenance={Object {}}
     fetchTimelineRoomsData={[Function]}
     guestHouseId="zNnGJAJH5"
+    handlePeriod={[Function]}
     maintenanceDetails={Object {}}
     modal={
       Object {

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './NotFound.scss';
 import notFoundImage from '../../../images/travela-404.png';
 
 
 class NotFound extends Component {
-  handleNaviagation = event => {
-    event.preventDefault();
-    const { history } = this.props;
-    history.push('/requests');
-  }
   render() {
+    const { redirectLink } = this.props;
     return (
       <div className="pageOverlay">
         <div className="notFoundBody">
@@ -22,10 +19,9 @@ class NotFound extends Component {
             changed or is temporarily unavailable.
           </p>
           <center>
-            <a className="button" href="/requests" onClick={this.handleNaviagation}>
-              <i className="icon-home" />
-              Click here to go back
-            </a>
+            <Link to={redirectLink} className="button" href={redirectLink}>
+                Click here to go back
+            </Link>
           </center>
         </div>
       </div>
@@ -33,7 +29,11 @@ class NotFound extends Component {
   }
 }
 NotFound.propTypes = {
-  history: PropTypes.shape({}).isRequired
+  redirectLink: PropTypes.string
+};
+
+NotFound.defaultProps = {
+  redirectLink: '/requests'
 };
 
 export default NotFound;

@@ -69,6 +69,7 @@ export function* fetchUserRequestsDetails(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchUserRequestDetailsFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
 
@@ -104,6 +105,7 @@ export function* deleteRequestSaga(action) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(deleteRequestFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
 

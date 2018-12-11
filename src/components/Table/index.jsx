@@ -320,7 +320,7 @@ export class Table extends Component {
   }
 
   render() {
-    const { requests, type, fetchRequestsError, message } = this.props;
+    const { requests, type, fetchRequestsError, message,requestId } = this.props;
     return (
       <Fragment>
         <div className="table__container">
@@ -337,7 +337,7 @@ export class Table extends Component {
           {!fetchRequestsError &&
             !requests.length &&
             this.renderNoRequests(message)}
-          {this.renderDetailsModal()}
+          {requestId && this.renderDetailsModal()}
           {this.renderTravelCheckListModal()}
           {this.renderSubmissionsModal()}
         </div>

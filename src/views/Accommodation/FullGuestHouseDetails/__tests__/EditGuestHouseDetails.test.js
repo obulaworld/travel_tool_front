@@ -40,6 +40,9 @@ const props = {
   
     ]
   },
+  accommodation: {
+    error: '',
+  },
   fetchAccommodation: sinon.spy(),
   editAccommodation: jest.fn(),
   modalType: null,
