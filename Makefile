@@ -1,11 +1,11 @@
 # Project variables
-PROJECT_NAME ?= travella-frontend
+PROJECT_NAME ?= travela-frontend
 TARGET_MAX_CHAR_NUM=10
 # File names
 DOCKER_DEV_COMPOSE_FILE := docker/dev/docker-compose.yml
+DOCKER_E2E_TESTS_COMPOSE_FILE := docker/e2e-tests/docker-compose.yml
 
 .PHONY: help
-
 
 ## Show help
 help:
@@ -60,6 +60,26 @@ test:background
 	@ ${INFO} "Running tests in docker container"
 	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) exec web yarn test
 
+## Run end-to-end tests, please provide full path to the backend; make e2e-test path/to/backend
+e2e-tests:
+ifeq ($(BACKEND),)
+	${INFO} "Please provide the absolute path to your backend, as shown below;"
+	${EXTRA} "make e2e-tests BACKEND=absolute-path/to/backend/repo"
+else
+	@ export BACKEND=$(BACKEND)
+	@ ${INFO} "Checking out to develop branch on backend and pulling latest changes"
+	@ cd $(BACKEND) && git checkout develop && git pull
+	@ ${INFO} "Building required docker images"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) build
+	@ ${INFO} "Done building required docker images"
+	@ ${INFO} "Running end-to-end tests"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d database
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d backend
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up frontend
+	@ ${INFO} "Stopping and deleting the containers"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) down
+endif
+
 ## Remove all development containers and volumes
 clean:
 	${INFO} "Cleaning your local environment"
@@ -79,8 +99,10 @@ ssh:background
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
+MAGENTA  := $(shell tput -Txterm setaf 5)
 NC := "\e[0m"
 RESET  := $(shell tput -Txterm sgr0)
 # Shell Functions
 INFO := @bash -c 'printf $(YELLOW); echo "===> $$1"; printf $(NC)' SOME_VALUE
+EXTRA := @bash -c 'printf "\n"; printf $(MAGENTA); echo "===> $$1"; printf "\n"; printf $(NC)' SOME_VALUE
 SUCCESS := @bash -c 'printf $(GREEN); echo "===> $$1"; printf $(NC)' SOME_VALUE
