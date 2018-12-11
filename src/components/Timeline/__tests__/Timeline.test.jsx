@@ -16,6 +16,7 @@ const props = {
   loadingBeds: false,
   openModal: jest.fn(),
   closeModal: jest.fn(),
+  handlePeriod: jest.fn(),
   modalType: 'change-room-modal',
   shouldOpen: true,
   loading: false

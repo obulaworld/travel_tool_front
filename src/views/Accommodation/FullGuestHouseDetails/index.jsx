@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import moment from 'moment';
 import Timeline from '../../../components/Timeline';
 import GuestHouseDetailCard from '../../../components/GuestHouseDetailCard';
 import { initFetchTimelineData } from '../../../redux/actionCreator';
@@ -28,6 +29,12 @@ import { fetchAvailableRooms } from '../../../redux/actionCreator/availableRooms
 import Preloader from '../../../components/Preloader/Preloader';
 
 export class GuestHouseDetails extends PureComponent {
+  state = {
+    period: 'month',
+    startDate: moment().startOf('month'),
+    timelineViewType: 'month'
+  }
+
   handleOnEdit = () => {
     let { openModal } = this.props;
     openModal(true, 'edit accommodation');
@@ -43,6 +50,9 @@ export class GuestHouseDetails extends PureComponent {
     const { id } = guestHouse;
     disableAccommodation(id);
     history.push('/residence/manage');
+  }
+  handlePeriod = (period, startDate, timelineViewType) => {
+    this.setState({period, startDate, timelineViewType});
   }
 
   renderGuestHouseDetailsNameBar = () => {
@@ -96,9 +106,44 @@ export class GuestHouseDetails extends PureComponent {
   getBedCount = rooms => {
     return rooms.reduce((currSum, room) => currSum + room.bedCount, 0);
   };
+
+  isUnderMaintenance = (maintainances, startDate, endDate) => {
+    const maintainanceEndDate = moment(maintainances.end);
+    const maintainanceStartDate = moment(maintainances.start);
+    let acceptableRange = maintainanceEndDate.isBetween(startDate, endDate, null, '[]') ||
+    maintainanceStartDate.isBetween(startDate, endDate, null, '[]');
+    const specialCase = startDate.isBetween(maintainanceStartDate, maintainanceEndDate, null, '[]') &&
+    endDate.isBetween(maintainanceStartDate, maintainanceEndDate, null, '[]');
+    return { specialCase, acceptableRange };
+  }
+
+  checkMaintenance = room => {
+    const { startDate, timelineViewType } = this.state;
+    const cloneStart = startDate.clone();
+    const endDate = cloneStart.add(2, 'weeks').endOf(`${timelineViewType}`);
+    const maintainances = room.maintainances[0];
+    if(maintainances){
+      let isUnderMaintenance = false;
+      const { specialCase, acceptableRange } = 
+      this.isUnderMaintenance(maintainances, startDate, endDate);
+      isUnderMaintenance = acceptableRange || specialCase;
+      if( timelineViewType==='week'){
+        const weekStartDate = cloneStart.subtract(16, 'days').startOf('week');
+        const weekEndDate = weekStartDate.clone().add(1, 'week').subtract(1, 'day');
+        const { specialCase, acceptableRange } = 
+        this.isUnderMaintenance(maintainances, weekStartDate , weekEndDate);
+        isUnderMaintenance = acceptableRange || specialCase;
+      }
+      return isUnderMaintenance;
+    }
+  }
+
   getAvailableBedsCount = rooms => {
     if (rooms.length !== 0) {
-      const room = (rooms.map(room => room.faulty? [] : room.beds));
+      const room = (rooms.map(room =>
+        room.faulty && this.checkMaintenance(room) ? 
+          [] : room.beds
+      ));
       return room.map(bed => bed? bed.filter(b => !b.booked): []).reduce((acc, val) => acc+val.length, 0);
     }
     return 0;
@@ -171,6 +216,7 @@ export class GuestHouseDetails extends PureComponent {
       modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails 
     } = this.props;
     const { shouldOpen, modalType } = modal;
+    const { period } = this.state;
     return (
       <div className="guesthouse-details-wrapper">
         {this.renderEditAccommodationForm()}
@@ -189,9 +235,13 @@ export class GuestHouseDetails extends PureComponent {
                   label="No. of rooms" value={guestHouse.rooms.length}
                 />
                 <GuestHouseDetailCard
-                  label="Vacant spaces" value={this.getAvailableBedsCount(guestHouse.rooms)} />
+                  label="Vacant spaces"
+                  value={this.getAvailableBedsCount(guestHouse.rooms)}
+                  period={period} />
                 <GuestHouseDetailCard
-                  label="Unavailable" value={this.getUnavailableBedCount(guestHouse.rooms)}
+                  label="Unavailable"
+                  value={this.getUnavailableBedCount(guestHouse.rooms)}
+                  period={period}
                 />
               </div>
             </Fragment>
@@ -203,7 +253,7 @@ export class GuestHouseDetails extends PureComponent {
           rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
           updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
           deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
-          availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms}
+          availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
           loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
           updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
         />

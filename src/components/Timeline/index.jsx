@@ -149,9 +149,11 @@ class Timeline extends PureComponent {
     };
   }
 
-  _computeSegmentDisplayValues = (segIndex, diffType, format) => {
+  _computeSegmentDisplayValues = (segIndex, diffType, format, period) => {
     const {timelineStartDate, timelineViewType} = this.state;
+    const { handlePeriod } = this.props;
     let current = moment().startOf('day');
+    handlePeriod(period, timelineStartDate, timelineViewType);
     if(timelineViewType === 'year') // counts by months
       current = current.startOf('month');
     // don't mutate the timelineStartDate in state
@@ -165,14 +167,15 @@ class Timeline extends PureComponent {
 
   getSegmentDisplayInfo = (index) => {
     const {timelineViewType} = this.state;
+    const periodDisplay = this.constructSelectedPeriodDisplay();
     switch (timelineViewType) {
     case 'week':
-      return this._computeSegmentDisplayValues(index, 'days', 'ddd M/D');
+      return this._computeSegmentDisplayValues(index, 'days', 'ddd M/D', periodDisplay);
     case 'year':
-      return this._computeSegmentDisplayValues(index, 'months', 'MMM');
+      return this._computeSegmentDisplayValues(index, 'months', 'MMM', periodDisplay);
     case 'month':
     default:
-      return this._computeSegmentDisplayValues(index, 'days', 'D');
+      return this._computeSegmentDisplayValues(index, 'days', 'D', periodDisplay);
     }
   }
 
@@ -449,7 +452,8 @@ Timeline.propTypes = {
   updateTripRoom: PropTypes.string.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   loadingBeds: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  handlePeriod: PropTypes.func.isRequired,
 };
 
 Timeline.defaultProps = {

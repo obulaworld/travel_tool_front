@@ -4,7 +4,7 @@ import './GuestHouseDetailCard.scss';
 
 class GuestHouseDetailCard extends PureComponent {
   render() {
-    const {label, value} = this.props;
+    const {label, value, period} = this.props;
     return (
       <div className="guesthouse-detail-card">
         <div className="guesthouse-detail-card__description">
@@ -12,7 +12,7 @@ class GuestHouseDetailCard extends PureComponent {
             {label}
           </div>
           <div className="time-font">
-            Today
+            {period || 'Today'}
           </div>
         </div>
         <div className="guesthouse-detail-card__value">
@@ -25,7 +25,8 @@ class GuestHouseDetailCard extends PureComponent {
 
 GuestHouseDetailCard.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
+  period:  PropTypes.string.isRequired,
 };
 
 export default GuestHouseDetailCard;

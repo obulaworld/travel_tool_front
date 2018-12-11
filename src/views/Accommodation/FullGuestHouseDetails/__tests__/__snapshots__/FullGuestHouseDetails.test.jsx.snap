@@ -6,7 +6,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
 >
   <Modal
     closeDeleteModal={null}
-    closeModal={null}
+    closeModal={[Function]}
     customModalStyles=""
     customOverlayStyle=""
     modalBar={<div />}
@@ -19,21 +19,43 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     width="800px"
   >
     <NewAccommodation
+      closeModal={[Function]}
       editAccommodation={[Function]}
       fetchAccommodation={[Function]}
       guestHouse={
         Object {
           "houseName": "Ndovu",
+          "id": "guest-house-1",
           "rooms": Array [
             Object {
               "beds": Array [
                 Object {
-                  "bed1": Object {
-                    "booked": false,
-                  },
-                  "bed2": Object {
-                    "booked": true,
-                  },
+                  "bedName": "bed1",
+                  "booked": false,
+                  "id": "bed-1",
+                  "trips": Array [
+                    Object {
+                      "arrivalDate": "2018-12-11",
+                      "checkInDate": "2018-01-01",
+                      "checkOutDate": "2018-01-10",
+                      "createdAt": "2018-08-15T11:11:52.181Z",
+                      "departureDate": "2018-12-09",
+                      "destination": "Nairobi",
+                      "id": "trip-id-1",
+                      "origin": "Lagos",
+                      "request": Object {
+                        "gender": "Female",
+                        "name": "Alice Doe",
+                      },
+                    },
+                  ],
+                },
+              ],
+              "faulty": true,
+              "maintainances": Array [
+                Object {
+                  "end": "2019-01-03",
+                  "start": "2018-12-21",
                 },
               ],
             },
@@ -46,7 +68,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
   </Modal>
   <Modal
     closeDeleteModal={null}
-    closeModal={null}
+    closeModal={[Function]}
     customModalStyles="delete-checklist-item restore-model-content"
     customOverlayStyle=""
     modalBar={<div />}
@@ -74,6 +96,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     >
       <button
         className="delete-checklist-item__footer--cancel"
+        onClick={[Function]}
         type="button"
       >
         Cancel
@@ -176,17 +199,32 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       />
       <GuestHouseDetailCard
         label="Vacant spaces"
-        value={1}
+        period="month"
+        value={0}
       />
       <GuestHouseDetailCard
         label="Unavailable"
+        period="month"
         value={NaN}
       />
     </div>
   </div>
   <Timeline
+    availableBeds={
+      Array [
+        Object {
+          "id": "bed-1",
+        },
+      ]
+    }
+    closeModal={[Function]}
     editMaintenance={Object {}}
+    fetchAvailableRooms={[Function]}
     fetchTimelineRoomsData={[Function]}
+    guestHouseId="guest-house-1"
+    handlePeriod={[Function]}
+    loading={false}
+    loadingBeds={false}
     maintenanceDetails={Object {}}
     modal={
       Object {
@@ -201,12 +239,32 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
         Object {
           "beds": Array [
             Object {
-              "bed1": Object {
-                "booked": false,
-              },
-              "bed2": Object {
-                "booked": true,
-              },
+              "bedName": "bed1",
+              "booked": false,
+              "id": "bed-1",
+              "trips": Array [
+                Object {
+                  "arrivalDate": "2018-12-11",
+                  "checkInDate": "2018-01-01",
+                  "checkOutDate": "2018-01-10",
+                  "createdAt": "2018-08-15T11:11:52.181Z",
+                  "departureDate": "2018-12-09",
+                  "destination": "Nairobi",
+                  "id": "trip-id-1",
+                  "origin": "Lagos",
+                  "request": Object {
+                    "gender": "Female",
+                    "name": "Alice Doe",
+                  },
+                },
+              ],
+            },
+          ],
+          "faulty": true,
+          "maintainances": Array [
+            Object {
+              "end": "2019-01-03",
+              "start": "2018-12-21",
             },
           ],
         },
