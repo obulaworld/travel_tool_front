@@ -34,6 +34,7 @@ describe('<NewRequestForm />', () => {
   };
 
   const props = {
+    occupations: [{occupationName: 'Software Developer'}, {occupationName: 'HR'}],
     loading: false,
     errors: [],
     user: {

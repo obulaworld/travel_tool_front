@@ -21,8 +21,12 @@ export default class filterDropdownSelect extends Component  {
     };
 
     componentDidMount(){
+      document.addEventListener('click', ()=>{
+        this.setState({dropdownClass: 'novisibility'});
+      });
       this.dataValue();
     }
+
 
     // presents the matching options on the dropdown and their onClick events
     //and limits them to five options
@@ -95,7 +99,7 @@ export default class filterDropdownSelect extends Component  {
     changeText = (e) => {
       const {onChange} = this.props;
       onChange(e.target.value);
-      this.setState({[e.target.name]: e.target.value});
+      this.setState({[e.target.name]:  e.target.value});
       this.setState(() => ({dropdownClass: 'select-dropdown'}));
     };
 

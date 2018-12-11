@@ -20,8 +20,9 @@ class NewAccommodation extends PureComponent {
     } = this.getHouseDetails(modalType, guestHouse);
     const defaultRoom = this.defaultRoom(0);
     this.defaultState = {
-      values: { houseName, location, bathRooms, image: imageUrl ,
+      values: { houseName, location, bathRooms, image: imageUrl,
         preview: imageUrl, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
+      guestHouseCenter:'',
       rooms: isEdit ? guestHouse.rooms : [{}],
       errors: {}, isSubmitting: false,
       documentId: isEdit ? guestHouse.rooms.length: 1,
@@ -29,12 +30,10 @@ class NewAccommodation extends PureComponent {
     this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
-
   componentDidMount() {
     const { modalType } = this.props;
     if (modalType === 'new model') { this.addRoomOnClick(); } return null;
   }
-
   componentWillUnmount() {
     const { fetchAccommodation, guestHouse, modalType, initFetchTimelineData } = this.props;
     this.handleFormCancel();
@@ -43,8 +42,7 @@ class NewAccommodation extends PureComponent {
       const startDate = cloneStartDate.format('YYYY-MM-DD');
       const endDate = cloneStartDate.endOf('month').format('YYYY-MM-DD');
       initFetchTimelineData(guestHouse.id, startDate, endDate);
-    }
-    fetchAccommodation();
+    }fetchAccommodation();
   }
 
   getHouseDetails = (modalType, detailsSource) => {
@@ -56,7 +54,7 @@ class NewAccommodation extends PureComponent {
       return houseDetails[attrb] = detailsSource[attrb];
     });
     return houseDetails;
-  }
+  };
 
   populateRoomsDefaultStateValues = rooms => {
     const { modalType } = this.props;
@@ -87,9 +85,7 @@ class NewAccommodation extends PureComponent {
             prevState => ({
               values: { ...prevState.values, preview: reader.result, image: file, }
             }), this.validate );
-        };
-        reader.readAsDataURL(file);
-      }
+        };reader.readAsDataURL(file);}
     }};
 
   displayImage = () => {
@@ -102,19 +98,19 @@ class NewAccommodation extends PureComponent {
     ) : (
       <div className="image-rectangle">
         <img src={addPhoto} alt="ImagePreview" className="add-photo" />
-      </div>
-    );};
+      </div>);};
 
   handleLocation = event => {
     const { target } = event;
-    const { values } = this.state;
     const options = { types: ['(cities)'] };
     const autocomplete = new google.maps.places.Autocomplete(target, options);
+    this.setState({guestHouseCenter:''});
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace().address_components;
       const countryIndex = place.findIndex(addr => addr.types.includes('country'));
       const places = place[0].long_name + ', ' + place[countryIndex].long_name;
-      this.setState({ values: { ...values, location: places } });
+      const { values } = this.state;
+      this.setState({ values: { ...values, location: places}, guestHouseCenter: places});
     }); };
 
   handleInputChange = event => {
@@ -129,8 +125,7 @@ class NewAccommodation extends PureComponent {
       } else if (name.startsWith('bedCount')) {
         rooms[parentid].bedCount = value;}
     } else { rooms.push({ [name.split('-')[0]]: value });}
-    this.setState(
-      prevState => ({ values: { ...prevState.values, [rooms]: value } }), this.validate);
+    this.setState(prevState => ({ values: { ...prevState.values, [rooms]: value } }), this.validate);
   };
 
   handleDropDown = (data, choice) => {
@@ -141,31 +136,23 @@ class NewAccommodation extends PureComponent {
         rooms[parentid].roomType = choice;
       } else {
         rooms.push({ [name.split('-')[0]]: choice });}
-      this.setState(
-        prevState => ({ values: { ...prevState.values, [rooms]: choice } }), this.validate);
-    }
-  };
-
+      this.setState(prevState => ({ values: { ...prevState.values, [rooms]: choice } }), this.validate);
+    }};
   handleFormCancel = () => {
     this.setState({ ...this.defaultState });
   };
-
   handleEditFormCancel = () => {
     let { closeModal } = this.props;
     closeModal(true, 'edit accommodation');
   };
-
   addRoomOnClick = () => {
     return this.setState(prevState => {
       const { documentId, values, rooms } = prevState;
       const addNewRoom = this.defaultRoom(documentId);
-      return {
-        documentId: documentId + 1,
-        values: { ...values, ...addNewRoom },
+      return {documentId: documentId + 1, values: { ...values, ...addNewRoom },
         rooms: rooms.concat([{}])
       };
     }, this.validate); };
-
   removeRoom = i => {
     const roomsProps = ['roomName', 'roomType', 'bedCount'];
     this.setState(prevState => {
@@ -180,25 +167,31 @@ class NewAccommodation extends PureComponent {
       });
       return { rooms, values, documentId, errors }; }, this.validate);
   };
-
   handleInputSubmit = async event => {
     event.preventDefault();
     this.setState({ hasBlankFields: true, isSubmitting: true });
     const { createAccommodation, editAccommodation, guestHouse, modalType } = this.props;
-    const { values, rooms } = this.state;
+    const { values, rooms, guestHouseCenter} = this.state;
     const fd = new FormData();
     fd.append('file', values.image);
     fd.append('upload_preset', process.env.REACT_APP_PRESET_NAME);
-    try {
-      let imageUrl;
-      delete axios.defaults.headers.common['Authorization'];
-      if(typeof values.image !== 'string') {
-        const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd, {
-          onUploadProgress:(e) => {this.setState({loaded: e.loaded/e.total, progress: true});
-          }});
-        imageUrl = imageData.data.secure_url;
-      } else {
-        imageUrl = values.image;
+    const isValid = (values.location === guestHouseCenter);
+    let imageUrl;
+    if(isValid) {
+      try {
+        delete axios.defaults.headers.common['Authorization'];
+        if(typeof values.image !== 'string') {
+          const imageData = await axios.post(process.env.REACT_APP_CLOUNDINARY_API, fd, {
+            onUploadProgress:(e) => {this.setState({loaded: e.loaded/e.total, progress: true});
+            }});
+          imageUrl = imageData.data.secure_url;
+        } else {
+          imageUrl = values.image;
+        }
+      } catch (error) {
+        errorMessage('Unable to upload Image');
+        this.setState({ hasBlankFields: false, isSubmitting: false });
+        AccommodationAPI.setToken();
       }
       AccommodationAPI.setToken();
       const guestHouseData = {
@@ -213,12 +206,12 @@ class NewAccommodation extends PureComponent {
       } else {
         createAccommodation(guestHouseData);
       }
-    } catch (error) {
-      errorMessage('Unable to upload Image');
-      this.setState({ hasBlankFields: false });
-      AccommodationAPI.setToken();
-    }};
-
+    } else {
+      errorMessage('The location you provided does not exist');
+      this.setState({ isSubmitting: false  });
+      return this.state;
+    }
+  };
   render() {
     const { values, errors, hasBlankFields, documentId, rooms, isSubmitting } = this.state;
     const currentHasBlankFields = (rooms.length !== 0) ? hasBlankFields : !hasBlankFields;
@@ -251,7 +244,6 @@ class NewAccommodation extends PureComponent {
     );
   }
 }
-
 NewAccommodation.propTypes = {
   createAccommodation: PropTypes.func.isRequired,
   fetchAccommodation: PropTypes.func.isRequired,
@@ -265,5 +257,4 @@ NewAccommodation.propTypes = {
 NewAccommodation.defaultProps = {
   editAccommodation: () => {},
 };
-
 export default NewAccommodation;

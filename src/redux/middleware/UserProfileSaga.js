@@ -14,10 +14,14 @@ export function* postUserProfileDataSagaAsync(action) {
     if (action.showToast){
       toast.success('Profile updated successfully');
     }
-  } catch (error) { /* istanbul ignore next */
+  } catch (error) {
     const errorMessage = apiErrorHandler(error);
-    /* istanbul ignore next */
-    toast.error(errorMessage);
+    if (errorMessage === 'occupation is required'){ /* istanbul ignore next */
+      toast.error('The role you entered does not exist');
+    }
+    else {
+      toast.error(errorMessage);
+    }
   }
 }
 

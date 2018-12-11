@@ -4,8 +4,10 @@ import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewProfileMetadata';
 
 class ProfileDetailsFieldSets extends Component {
+
   render() {
     const { managers, occupations } = this.props;
+
 
 
     const occupationsNames = occupations.map(occupation =>
@@ -15,6 +17,8 @@ class ProfileDetailsFieldSets extends Component {
     formMetadata.dropdownSelectOptions.manager = managerNames;
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
+
+
 
     return (
       <fieldset className="personal-details">

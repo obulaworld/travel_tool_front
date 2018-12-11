@@ -54,13 +54,15 @@ class ProfileForm extends PureComponent {
 
   submitProfileForm = event => {
     event.preventDefault();
-    const { updateUserProfile, user, getUserData } = this.props;
+    const { updateUserProfile, user, getUserData, occupations } = this.props;
+
     const userId = user.UserInfo.id;
     const { values } = this.state;
     if (this.validate) {
       let data = { ...values };
+      let isValid = occupations.some((role) => role.occupationName === data.role);
       data.passportName = data.name;
-      data.occupation = data.role;
+      data.occupation = isValid ? data.role: '';
       updateUserProfile(data, userId, true);
       getUserData(userId);
     }

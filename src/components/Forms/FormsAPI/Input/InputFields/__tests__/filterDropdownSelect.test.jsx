@@ -43,4 +43,5 @@ describe('<filterDropdownSelect/>', () => {
     wrapper.find('#choice').at(1).simulate('click');
     expect(spy).toHaveBeenCalledTimes(1);
   });
+
 });

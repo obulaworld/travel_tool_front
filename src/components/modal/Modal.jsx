@@ -21,9 +21,9 @@ class Modal extends PureComponent {
     requestId: PropTypes.string,
     customOverlayStyle: PropTypes.string,
     children: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.arrayOf(PropTypes.object)
-    ]).isRequired,
+      PropTypes.shape({}),
+      PropTypes.array
+    ])
   };
 
 
@@ -81,7 +81,6 @@ class Modal extends PureComponent {
       customOverlayStyle,
       customModalStyles
     } = this.props;
-
     const overlayStyle = `${visibility} ${customOverlayStyle}`;
 
     return (
@@ -119,6 +118,7 @@ Modal.defaultProps = {
   modalBar: <div />,
   closeModal: null,
   closeDeleteModal: null,
+  children: {}
 };
 
 export default Modal;

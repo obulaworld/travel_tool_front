@@ -6,6 +6,8 @@ import ProfileApi from '../../../services/ProfileApi';
 import {watchUpdateUserProfileAsync, postUserProfileDataSagaAsync} from '../UserProfileSaga';
 
 
+
+
 describe('Profile saga', () =>{
   const action = {
     UserProfile :{
@@ -52,5 +54,34 @@ describe('Profile saga', () =>{
       .run();
   });
 
-
+  it('should test invalid role', () => {
+    const error = {
+      response: {
+        status: 422,
+        data: {
+          message: 'The role you entered does not exist',
+        }
+      }
+    };
+    moxios.stubRequest(`${baseUrl}/user/${id}/profile`, {
+      status: 422,
+      response: {
+        status: 422,
+        errors: [{
+          message: 'The role you entered does not exist',
+        }]
+      }
+    });
+    return expectSaga(watchUpdateUserProfileAsync, ProfileApi)
+      .provide([[call(ProfileApi.updateUserProfile, action.id), throwError(error)]])
+      .dispatch({
+        type: 'UPDATE_USER_PROFILE',
+        response: action.UserProfile,
+        userId:action.userId,
+        showToast: action.showToast
+      })
+      .run();
+  });
 });
+
+

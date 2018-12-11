@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields,sameOriginDestination, onCancel, send, modalType, 
+  const { hasBlankFields,sameOriginDestination, onCancel, send, modalType,
     onEditCancel, selection, loading, disableOnChangeProfile } = props;
   return (
     <fieldset>

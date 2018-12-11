@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
 import { isEqual, pick } from 'lodash';
+import toast from 'toastr';
 import moment from 'moment';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
@@ -57,7 +58,7 @@ class NewRequestForm extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { values, trips, selection } = this.state;
-    if ((prevState.values.gender !== values.gender) && selection !== 'oneWay') {
+    if (((prevState.values.gender !== values.gender) || (prevState.values.role !== values.role)) && selection !== 'oneWay') {
       trips.map((trip, index) => {
         this.handlePickBed(null, index, false);
       });
@@ -349,6 +350,10 @@ class NewRequestForm extends PureComponent {
       user
     } = this.props;
     const { values, selection, trips } = this.state;
+    const {occupations} = this.props;
+
+    let isValid = (occupations.some((role) => role.occupationName === values.role));
+
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
@@ -362,10 +367,13 @@ class NewRequestForm extends PureComponent {
     };
 
     let data = { ...newData };
-    if (this.validate() && modalType === 'edit request') {
+    if (this.validate() && modalType === 'edit request' && isValid) {
       handleEditRequest(requestOnEdit.id, data);
-    } else {
+    } else if (isValid) {
       handleCreateRequest(data);
+    }
+    else {
+      toast.error('the role you entered is invalid');
     }
     const checkBoxState = localStorage.getItem('checkBox');
     if (checkBoxState === 'clicked') {
@@ -518,11 +526,13 @@ class NewRequestForm extends PureComponent {
   renderForm = () => {
     const { errors, values, hasBlankFields, selection, sameOriginDestination} = this.state;
     const { modalType, creatingRequest } = this.props;
+
+
     const { requestOnEdit } = this.props;
-    const { name, gender, department, role, manager, trips } = requestOnEdit;
-    const { name: stateName, manager: stateManager, gender: stateGender, 
+    const { name, gender, department, role, manager } = requestOnEdit;
+    const { name: stateName, manager: stateManager, gender: stateGender,
       department: stateDepartment, role: stateRole} = values;
-    const disableOnChangeProfile = (name === stateName && gender === stateGender && department === stateDepartment 
+    const disableOnChangeProfile = (name === stateName && gender === stateGender && department === stateDepartment
      && role === stateRole && manager === stateManager)
       ? true : false;
     return (
@@ -566,7 +576,7 @@ class NewRequestForm extends PureComponent {
 
 NewRequestForm.propTypes = {
   handleCreateRequest: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
+  userData: PropTypes.object,
   user: PropTypes.object.isRequired,
   updateUserProfile: PropTypes.func.isRequired,
   handleEditRequest: PropTypes.func.isRequired,
@@ -577,7 +587,7 @@ NewRequestForm.propTypes = {
   requestOnEdit: PropTypes.object.isRequired,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
-  availableRooms: PropTypes.func.isRequired,
+  availableRooms: PropTypes.object.isRequired,
   occupations: PropTypes.array.isRequired,
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired
 };
@@ -585,7 +595,8 @@ NewRequestForm.propTypes = {
 NewRequestForm.defaultProps = {
   creatingRequest: false,
   modalType: null,
-  managers: []
+  managers: [],
+  userData: {}
 };
 
 export default NewRequestForm;
