@@ -10,21 +10,24 @@ import './TravelCheckList.scss';
 class TravelChecklist extends PureComponent {
   renderCheckList = (list, keyIndex) => {
     const countryFlagUrl = countryUtils.getCountryFlagUrl(list.destinationName);
+    const { destinationName, checklist } = list;
+    const location = localStorage.getItem('location');
+    const newChecklist = destinationName.includes(location) ? checklist.filter(item => item.name === 'Travel Ticket Details') : checklist;
     return (
       <Fragment>
-        { 
-          list.checklist.length > 0 && (
+        {
+          checklist.length > 0 && (
             <div key={keyIndex} className="travelCheckList__destination">
               <div className="travelCheckList__destination-name">
-                <div 
+                <div
                   className="travelCheckList__destination-flag"
                   alt="country flag"
                   style={{ backgroundImage: `url(${countryFlagUrl})` }}
                 />
-                {list.destinationName}
+                {destinationName}
               </div>
               {
-                list.checklist.map((item) => (
+                newChecklist.map((item) => (
                   <TravelChecklistItem key={`${item.id}`} checklistItem={item} />
                 ))
               }
