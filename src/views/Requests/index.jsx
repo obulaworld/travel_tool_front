@@ -22,6 +22,7 @@ import { getOccupation } from '../../redux/actionCreator/occupationActions';
 import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
 import { fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
+import NotFound from '../ErrorPages';
 
 
 export class Requests extends Base {
@@ -36,10 +37,18 @@ export class Requests extends Base {
     requestId: ''
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const { openModal, requests, match: { params: { requestId } }, page } = prevProps;
+    const filteredReqId = requests.filter(request => request.id === requestId);
+    if (prevState.requestId === requestId && filteredReqId.length) {
+      openModal(true, 'request details', page);
+    }
+  }
+
   componentDidMount() {
     const {
-      openModal, fetchUserRequests, fetchAvailableRooms,
-      getOccupation, fetchRoleUsers, page,
+      fetchUserRequests, fetchAvailableRooms,
+      getOccupation, fetchRoleUsers,
       match: {
         params: { requestId }
       }
@@ -50,7 +59,6 @@ export class Requests extends Base {
     getOccupation();
     fetchAvailableRooms();
     if (requestId) {
-      openModal(true, 'request details', page);
       this.storeRequestIdRequest(requestId);
     }
   }
@@ -199,10 +207,14 @@ export class Requests extends Base {
   renderRequestPage() {
     const {
       isFetching, requests, pagination,
-      fetchRequestsError, message
+      fetchRequestsError, message, match
     } = this.props;
+    const { requestId } = this.state;
+    const filteredReqId = requests.filter(request => request.id === requestId);
+
     return (
       <Fragment>
+        {!isFetching && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests" />}
         {this.renderRequestPanelHeader(isFetching)}
         {requests &&
           this.renderRequests(requests, isFetching, fetchRequestsError, message)}

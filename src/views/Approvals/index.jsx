@@ -7,6 +7,7 @@ import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
 import checkUserPermission from '../../helper/permissions';
+import NotFound from '../ErrorPages';
 
 export class Approvals extends Base {
 
@@ -17,12 +18,19 @@ export class Approvals extends Base {
     requestId: ''
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { openModal, approvals, match: { params: { requestId } }, page } = prevProps;
+    const filteredReqId = approvals.approvals.filter(approval => approval.id === requestId);
+    if (prevState.requestId === requestId && filteredReqId.length) {
+      openModal(true, 'request details', page);
+    }
+  }
+
   componentDidMount () {
-    const { fetchUserApprovals, match: {params: {requestId}}, openModal, page} = this.props;
+    const { fetchUserApprovals, match: {params: {requestId}} } = this.props;
     const { searchQuery } = this.state;
     fetchUserApprovals(searchQuery);
     if(requestId){
-      openModal(true, 'request details', page);
       this.storeRequestIdApproval(requestId);
     }
   }
@@ -103,14 +111,18 @@ export class Approvals extends Base {
   }
 
   render() {
-    const {approvals, getCurrentUserRole, history} = this.props;
+    const {approvals, getCurrentUserRole, history, match} = this.props;
     const { isLoading } = approvals;
     if (!isLoading && getCurrentUserRole.length > 0) {
       const allowedRoles = ['Super Administrator', 'Manager'];
       checkUserPermission(history, allowedRoles, getCurrentUserRole);
     }
+    const { requestId } = this.state;
+    const filteredReqId = approvals.approvals.filter(approval => approval.id === requestId);
+
     return (
       <Fragment>
+        {!approvals.isLoading && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests/my-approvals" />}
         {this.renderApprovalsPanelHeader(approvals.isLoading)}
         {approvals.approvals && this.renderApprovalsTable()}
         {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}

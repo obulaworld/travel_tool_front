@@ -55,6 +55,9 @@ const props = {
         ]
       }]
   },
+  accommodation:{
+    error:'',
+  },
   updateRoomState: jest.fn(),
   modal: {
     shouldOpen: false,

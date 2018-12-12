@@ -61,6 +61,7 @@ export function* fetchAccommodationSaga() {
   catch(error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchAccommodationFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
 
@@ -76,9 +77,10 @@ export function * fetchGuestHouseTimelineDataSaga(action) {
     const fetchTimelineData = AccommodationAPI.fetchTimelineData;
     const response = yield call(fetchTimelineData, guestHouseId, startDate, endDate);
     yield put(fetchTimelineDataSuccess(response.data.guestHouse));
-  } catch (e) {
-    const errorMessage = apiErrorHandler(e);
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
     yield put(fetchTimelineDataFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
 

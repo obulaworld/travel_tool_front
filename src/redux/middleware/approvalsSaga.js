@@ -16,7 +16,9 @@ export function* fetchUserApprovalsSaga(action) {
     const approvals = yield call(ApprovalsApi.getUserApprovals, action.url);
     yield put(fetchUserApprovalsSuccess(approvals.data));
   } catch (error) {
+    const errorMessage = apiErrorHandler(error);
     yield put(fetchUserApprovalsFailure(error));
+    toast.error(errorMessage);
   }
 }
 

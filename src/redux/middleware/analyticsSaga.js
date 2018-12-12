@@ -14,6 +14,7 @@ export function* fetchAnalyticsSaga({query}) {
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchAnalyticsFailure(errorMessage));
+    toast.error(errorMessage);
   }
 }
 
@@ -23,12 +24,14 @@ export function* watchFetchAnalytics() {
 
 export function* downloadAnalyticsSaga({query}) {
   try {
-    const {data} = yield call(AnalyticsAPI.exportAnalytics, query);
+    const {data} = 
+    yield call(AnalyticsAPI.exportAnalytics, query);
     yield FileSaver.saveAs(data, 'Requests/Trips Analytics');
     toast.success('Download Successful');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(downloadAnalyticsFailure(errorMessage));
+    toast.error(errorMessage);
     toast.error('Download Unsuccessful');
   }
 }

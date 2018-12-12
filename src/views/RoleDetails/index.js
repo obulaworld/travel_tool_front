@@ -16,6 +16,7 @@ import {
 import { fetchCenters, updateUserCenter } from '../../redux/actionCreator/centersActions';
 import './RoleDetails.scss';
 import checkUserPermission from '../../helper/permissions';
+import NotFound from '../ErrorPages';
 
 export class RoleDetails extends Component {
   state = {
@@ -147,13 +148,20 @@ export class RoleDetails extends Component {
   }
 
   render() {
-    const { getCurrentUserRole, history, isLoaded } = this.props;
+    const {
+      getCurrentUserRole,
+      history,
+      isLoaded,
+      isFetching,
+      roleName,
+      error
+    } = this.props;
     let allowed = ['Travel Administrator', 'Super Administrator'];
     isLoaded ?
       checkUserPermission(history, allowed, getCurrentUserRole ) : null;
-
     return (
       <Fragment>
+        { !isFetching && !roleName && error &&<NotFound redirectLink="/settings/roles" /> }
         {this.renderRoleForm()}
         {this.renderUserRolePage()}
       </Fragment>

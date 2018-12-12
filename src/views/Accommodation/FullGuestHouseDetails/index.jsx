@@ -27,6 +27,7 @@ import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
 import { updateTripRoom } from '../../../redux/actionCreator/tripActions';
 import { fetchAvailableRooms } from '../../../redux/actionCreator/availableRoomsActions';
 import Preloader from '../../../components/Preloader/Preloader';
+import NotFound from '../../ErrorPages';
 
 export class GuestHouseDetails extends PureComponent {
   state = {
@@ -212,53 +213,54 @@ export class GuestHouseDetails extends PureComponent {
   }
 
   render() {
-    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, maintenance, openModal,closeModal, 
-      modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails 
-    } = this.props;
+    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, maintenance, openModal,closeModal,
+      modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails, accommodation } = this.props;
     const { shouldOpen, modalType } = modal;
     const { period } = this.state;
     return (
-      <div className="guesthouse-details-wrapper">
-        {this.renderEditAccommodationForm()}
-        {this.renderDisableAccommodationModal()}
-        <div className="set-details">
-          { isLoading ? (
-            <Preloader />
-          ) : (
-            <Fragment>
-              {this.renderGuestHouseDetailsNameBar()}
-              <div className="guesthouse-details-wrapper--key-details">
-                <GuestHouseDetailCard
-                  label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
-                />
-                <GuestHouseDetailCard
-                  label="No. of rooms" value={guestHouse.rooms.length}
-                />
-                <GuestHouseDetailCard
-                  label="Vacant spaces"
-                  value={this.getAvailableBedsCount(guestHouse.rooms)}
-                  period={period} />
-                <GuestHouseDetailCard
-                  label="Unavailable"
-                  value={this.getUnavailableBedCount(guestHouse.rooms)}
-                  period={period}
-                />
-              </div>
-            </Fragment>
-          )}
-        </div>
-        <Timeline
-          modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
-          modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
-          rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
-          updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
-          deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
-          availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
-          loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
-          updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
-        />
-      </div>
-    );
+      (accommodation.error ? (<NotFound redirectLink="/residence/manage" />) :
+        (
+          <div className="guesthouse-details-wrapper">
+            {this.renderEditAccommodationForm()}
+            {this.renderDisableAccommodationModal()}
+            <div className="set-details">
+              { isLoading ? (
+                <Preloader />
+              ) : (
+                <Fragment>
+                  {this.renderGuestHouseDetailsNameBar()}
+                  <div className="guesthouse-details-wrapper--key-details">
+                    <GuestHouseDetailCard
+                      label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
+                    />
+                    <GuestHouseDetailCard
+                      label="No. of rooms" value={guestHouse.rooms.length}
+                    />
+                    <GuestHouseDetailCard
+                      label="Vacant spaces"
+                      value={this.getAvailableBedsCount(guestHouse.rooms)}
+                      period={period} />
+                    <GuestHouseDetailCard
+                      label="Unavailable"
+                      value={this.getUnavailableBedCount(guestHouse.rooms)}
+                      period={period}
+                    />
+                  </div>
+                </Fragment>
+              )}
+            </div>
+            <Timeline
+              modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
+              modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
+              rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
+              updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
+              deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
+              availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
+              loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
+              updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
+            />
+          </div>
+        )));
   }
 }
 
@@ -278,6 +280,7 @@ GuestHouseDetails.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired, loadingBeds: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired, isLoading: PropTypes.bool.isRequired,
   maintenanceDetails: PropTypes.object, disableAccommodation: PropTypes.func.isRequired,
+  accommodation: PropTypes.object, 
 };
 
 GuestHouseDetails.defaultProps = {
@@ -285,6 +288,9 @@ GuestHouseDetails.defaultProps = {
   guestHouse: {},
   maintenance: {},
   maintenanceDetails: {},
+  accommodation: {
+    error: ''
+  }
 };
 
 const mapStateToProps = (state) => ({
@@ -297,7 +303,8 @@ const mapStateToProps = (state) => ({
   loading: state.trips.loading,
   editingAccommodation: state.accommodation.editingAccommodation,
   maintenance: state.maintenance,
-  maintenanceDetails: state.maintenance
+  maintenanceDetails: state.maintenance,
+  accommodation:state.accommodation
 });
 
 const actionCreators = {
