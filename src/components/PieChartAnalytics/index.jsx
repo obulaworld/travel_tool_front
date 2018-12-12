@@ -26,43 +26,49 @@ export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadi
   );
 };
 
-const PieChartAnalytics = ({data, color}) => (
+const PieChartAnalytics = ({data, color, error }) => (
   <Fragment>
-    {(data.length > 0 && data[0].name !== '') ? (
-      <PieChart width={250} height={200}>
-        <Pie
-          isAnimationActive={false}
-          data={data} cx={145} cy={75}
-          outerRadius={50} fill="#8884d8"
-          label={renderCustomizedLabel}
-          labelLine={false}
-          dataKey="value"
-        >
-          {
-            data.map((entry, index) => {
-              const maxLightness = 90;
-              const minLightness = 50;
-              const lightnessRange = maxLightness - minLightness;
+    {error 
+      ? (
+        <p className="dashboard-component__error-text--style">
+            Oops! An error occurred in retrieving this data
+        </p>
+      )
+      : (data.length > 0 && data[0].name !== '') ? (
+        <PieChart width={250} height={200}>
+          <Pie
+            isAnimationActive={false}
+            data={data} cx={145} cy={75}
+            outerRadius={50} fill="#8884d8"
+            label={renderCustomizedLabel}
+            labelLine={false}
+            dataKey="value"
+          >
+            {
+              data.map((entry, index) => {
+                const maxLightness = 90;
+                const minLightness = 50;
+                const lightnessRange = maxLightness - minLightness;
 
-              const entries = data.slice().sort((a, b) => b.value - a.value);
-              const maxEntryValue = entries[0].value;
-              const minEntryValue = entries[entries.length - 1].value;
+                const entries = data.slice().sort((a, b) => b.value - a.value);
+                const maxEntryValue = entries[0].value;
+                const minEntryValue = entries[entries.length - 1].value;
 
-              let lightnessDiff = lightnessRange / (maxEntryValue - minEntryValue);
-              lightnessDiff = isFinite(lightnessDiff) ? lightnessDiff : 0;
-              const lightness = ((maxEntryValue - entry.value) * lightnessDiff) + 50;
-              return color === 'orange' ?
-                <Cell fill={`hsl(226, 70%, ${lightness}%)`} /> :
-                <Cell fill={`hsl(37, 99%, ${lightness}%)`} />;
-            })
-          }
-        </Pie>
-      </PieChart>
-    ) : (
-      <div className="chart-data">
-        <p className="no-chart">No data to display</p>
-      </div>
-    )}
+                let lightnessDiff = lightnessRange / (maxEntryValue - minEntryValue);
+                lightnessDiff = isFinite(lightnessDiff) ? lightnessDiff : 0;
+                const lightness = ((maxEntryValue - entry.value) * lightnessDiff) + 50;
+                return color === 'orange' ?
+                  <Cell fill={`hsl(226, 70%, ${lightness}%)`} /> :
+                  <Cell fill={`hsl(37, 99%, ${lightness}%)`} />;
+              })
+            }
+          </Pie>
+        </PieChart>
+      ) : (
+        <div className="chart-data">
+          <p className="no-chart">No data to display</p>
+        </div>
+      )}
   </Fragment>
 );
 
@@ -89,11 +95,13 @@ renderCustomizedLabel.defaultProps = {
 PieChartAnalytics.propTypes = {
   data: PropTypes.array,
   color: PropTypes.string,
+  error: PropTypes.string,
 };
 
 PieChartAnalytics.defaultProps = {
   data: [],
   color: '',
+  error: '',
 };
 
 export default  PieChartAnalytics;

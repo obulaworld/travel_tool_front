@@ -115,4 +115,18 @@ describe('Travel Calendar', () => {
       });
     });
   });
+
+  describe('Travel Calendar error', () => {
+    it('should render Travel Calendar with error fetching data from the server', () => {
+      props.travelCalendar ={
+        travelCalendarError: 'Server error please try again',
+        travelCalendarData: {
+          data: []
+        },
+      };
+      const wrapper = shallow(<TravelCalendar {...props} />);
+      expect(wrapper.find('p.dashboard-component__error-text--style')).toHaveLength(1);
+    });
+  });
+
 });

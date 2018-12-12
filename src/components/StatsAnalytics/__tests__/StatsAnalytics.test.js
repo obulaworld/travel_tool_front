@@ -13,4 +13,10 @@ describe('<Dashboard />', () => {
     const wrapper = shallow(<StatsAnalytics {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders an error text on error with loading data', () => {
+    const error = 'Oops! An error occurred in retrieving this data';
+    const wrapper = shallow(<StatsAnalytics {...props} error={error} />);
+    expect(wrapper.find('p').text()).toEqual(error);
+  });
 });

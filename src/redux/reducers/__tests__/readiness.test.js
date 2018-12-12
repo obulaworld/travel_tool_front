@@ -12,7 +12,7 @@ describe('Test suite for readiness reducer', () => {
   const initialState = {
     readiness: [], 
     isLoading:false, 
-    error: {},
+    error: '',
     pagination: {}
   };
   it('should return initial state', () => {

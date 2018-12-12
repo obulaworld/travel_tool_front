@@ -56,17 +56,66 @@ export class Analytics extends Component {
     </Fragment>
   );
 
-  render() {
-    const { analytics, context } = this.props;
+  renderAnalyTicsDetails = ({ analytics, context }) => {
     const {
       totalRequests,
       peopleLeaving,
       peopleVisiting,
       pendingRequests,
       travelDurationBreakdown,
-      travelLeadTimeBreakdown
+      travelLeadTimeBreakdown,
     } = analytics.payload;
+    const { error } = analytics;
+    return (
+      <Fragment>
+        {this.renderCards(
+          'Total No. of Travel Requests', 
+          { 
+            stats: totalRequests, 
+            icon: flightIcon, error 
+          }
+        )}
+        {this.renderCards('Total Number of Pending Requests', 
+          { stats: pendingRequests, icon: pendingIcon, error }, 
+          '/requests/my-verifications')}
+        {this.renderCards('Average Travel Duration', 
+          {
+            data: (analytics.success ? travelDurationBreakdown.durations : []), 
+            chart: true, 
+            color: 'blue', 
+            error
+          }
+        )}
+        {this.renderCards(`No. of People visiting ${context.state.city} Center`,
+          {
+            stats: peopleVisiting, 
+            icon: flightLand, 
+            color: 'green', 
+            error 
+          }
+        )}
+        {this.renderCards(
+          `No. of People leaving ${context.state.city} Center`,
+          {
+            stats: peopleLeaving, 
+            icon: flightTakeoff, 
+            color: 'brown-orange', 
+            error 
+          }
+        )}
+        {this.renderCards(
+          'Average Travel Request Lead Time', 
+          {
+            data: (analytics.success ? travelLeadTimeBreakdown.leadTimes : []), 
+            chart: true, color: 'orange', error 
+          }
+        )}
+      </Fragment>
+    );
+  }
 
+  render() {
+    const { analytics, context } = this.props;
     return (
       <Fragment>
         {analytics.isLoading ? (
@@ -75,16 +124,9 @@ export class Analytics extends Component {
           </div>
         ) : (
           <div className="analytics">
-            {this.renderCards('Total No. of Travel Requests', {stats: totalRequests, icon: flightIcon} )}
-            {this.renderCards('Total Number of Pending Requests', {stats: pendingRequests, icon: pendingIcon}, '/requests/my-verifications')}
-            {this.renderCards('Average Travel Duration', {data: (analytics.success ? travelDurationBreakdown.durations : []), chart: true, color: 'blue'})}
-            {this.renderCards(`No. of People visiting ${context.state.city} Center`,
-              {stats: peopleVisiting, icon: flightLand, color: 'green'}
-            )}
-            {this.renderCards(`No. of People leaving ${context.state.city} Center`,
-              {stats: peopleLeaving, icon: flightTakeoff, color: 'brown-orange'}
-            )}
-            {this.renderCards('Average Travel Request Lead Time', {data: (analytics.success ? travelLeadTimeBreakdown.leadTimes : []), chart: true, color: 'orange'})}
+            {
+              this.renderAnalyTicsDetails({ analytics, context })
+            }
           </div>
         )}
       </Fragment>
