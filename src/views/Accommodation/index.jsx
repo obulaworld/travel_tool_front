@@ -14,6 +14,8 @@ import {
 } from '../../redux/actionCreator/accommodationActions';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
 import checkUserPermission from '../../helper/permissions';
+import ButtonLoadingIcon from '../../components/Forms/ButtonLoadingIcon';
+import './Accommodation.scss';
 
 export class Accommodation extends Component {
   state = {
@@ -79,11 +81,7 @@ export class Accommodation extends Component {
   }
 
   renderRestoreDisabledAccommodationModal = () => {
-    const {
-      closeModal,
-      shouldOpen,
-      modalType
-    } = this.props;
+    const { closeModal, shouldOpen, modalType, isLoading } = this.props;
     const { disabledGuestHouse } = this.state;
     return (
       <Modal
@@ -101,7 +99,8 @@ export class Accommodation extends Component {
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
           <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
-          <button type="button" id="restoreGuestHouseId" className="bg-btn bg-btn--active" onClick={() => this.restoreGuestHouse(disabledGuestHouse.id)}>
+          <button type="button" disabled={isLoading} id="restoreGuestHouseId" className="bg-btn bg-btn--active restore-guestHouse-button" onClick={() => this.restoreGuestHouse(disabledGuestHouse.id)}>
+            <ButtonLoadingIcon isLoading={isLoading} />
             Restore
           </button>
         </div>

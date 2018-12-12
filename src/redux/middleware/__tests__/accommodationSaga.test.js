@@ -162,7 +162,7 @@ describe('Accommodation Saga', () => {
         })
         .dispatch({
           type: 'RESTORE_DISABLED_ACCOMMODATION',
-          guestHouseId
+          guestHouseId,
         })
         .run();
     });
@@ -178,7 +178,7 @@ describe('Accommodation Saga', () => {
         })
         .dispatch({
           type: 'RESTORE_DISABLED_ACCOMMODATION',
-          guestHouseId: 'hinlmknk'
+          guestHouseId: 'hinlmknk',
         })
         .run();
     });

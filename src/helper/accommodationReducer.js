@@ -20,6 +20,6 @@ export const restoreGuestHouseSuccessState = (state, action) => {
   guestHousesUpdate = guestHouseLength 
     ? [{ ...action.restoredGuestHouseData, rooms:[...roomsUpdate[0].rooms] }, ...state.guestHouses]
     : [{ ...action.restoredGuestHouseData, rooms:[...roomsUpdate[0].rooms] }];
-  return { ...state, restoring: false, guestHouses: [...guestHousesUpdate], disabledGuestHouses: [...disabledGuestHousesUpdate] };
+  return { ...state, isLoading: false, restoring: false, guestHouses: [...guestHousesUpdate], disabledGuestHouses: [...disabledGuestHousesUpdate] };
 };
 
