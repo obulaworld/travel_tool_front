@@ -217,9 +217,9 @@ class TravelDetailsItem extends Component {
       values[`destination-${i}`] &&
       values[`departureDate-${i}`];
 
-    if (selection === 'oneWay') {
+    if (isValid && selection === 'oneWay') {
       this.setState({
-        missingRequiredFields: true
+        missingRequiredFields: false
       });
     }
 
@@ -242,7 +242,7 @@ class TravelDetailsItem extends Component {
                 {this.renderLocation('destination')}
                 {this.renderDeparture()}
                 {selection !== 'oneWay' ? this.renderArrival() : null}
-                {selection !== 'oneWay' ? this.renderBedDropdown() : null}
+                {this.renderBedDropdown()}
               </div>
             </div>
             {selection === 'multi' &&

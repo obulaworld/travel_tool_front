@@ -324,7 +324,6 @@ class NewRequestForm extends PureComponent {
     if (tripType === 'oneWay') {
       let newTrip = { ...trips[0] };
       delete newValues['arrivalDate-0'];
-      delete newValues['bed-0'];
       delete newTrip.returnDate;
       trips[0] = newTrip;
       const slicedTrips = trips.slice(0, 1);
@@ -365,6 +364,13 @@ class NewRequestForm extends PureComponent {
       trips,
       tripType: selection
     };
+
+    if (selection === 'oneWay') {
+      const departDate = newData.trips[0].departureDate;
+      const newdate = new Date(departDate);
+      const arrivalDate = moment(newdate);
+      newData.trips[0].returnDate  = arrivalDate.add(1, 'months').format('YYYY-MM-DD');
+    }
 
     let data = { ...newData };
     if (this.validate() && modalType === 'edit request' && isValid) {

@@ -10,10 +10,8 @@ class AvailableRoomsAPI {
       gender,
       departureDate,
       location,
+      arrivalDate
     };
-    if(tripType !== 'oneWay'){
-      availableRoomsQueryObj.arrivalDate = arrivalDate;
-    }
     const availableRoomQueryString = Object.keys(availableRoomsQueryObj)
       .map(key => `${key}=${encodeURIComponent(availableRoomsQueryObj[key])}`)
       .join('&');
