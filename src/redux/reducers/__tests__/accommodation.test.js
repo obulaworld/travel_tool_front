@@ -456,6 +456,7 @@ describe('Accommodation Reducer', () => {
       const expectedState = {
         ...initialState,
         restoring: true,
+        isLoading: true,
       };
 
       expect(newState).toEqual(expectedState);

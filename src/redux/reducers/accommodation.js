@@ -85,11 +85,11 @@ const accommodation = (state = initialState, action) => {
   case FETCH_DISABLED_ACCOMMODATION_FAILURE:
     return {  ...state, isLoading: false, error: action.error };
   case RESTORE_DISABLED_ACCOMMODATION:
-    return { ...state, restoring: true, disabledguestHouse: action.guestHouseData };
+    return { ...state, isLoading: true, restoring: true, disabledguestHouse: action.guestHouseData };
   case RESTORE_DISABLED_ACCOMMODATION_SUCCESS:
     return restoreGuestHouseSuccessState(state, action);
   case RESTORE_DISABLED_ACCOMMODATION_FAILURE:
-    return { ...state, restoring: false, error: action.error };
+    return { ...state, isLoading: false, restoring: false, error: action.error };
   default:
     return state;
   }

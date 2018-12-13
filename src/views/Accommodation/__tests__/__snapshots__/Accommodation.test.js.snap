@@ -65,11 +65,15 @@ exports[`<Accommodation /> renders correctly 1`] = `
         Cancel
       </button>
       <button
-        className="bg-btn bg-btn--active"
+        className="bg-btn bg-btn--active restore-guestHouse-button"
+        disabled={false}
         id="restoreGuestHouseId"
         onClick={[Function]}
         type="button"
       >
+        <ButtonLoadingIcon
+          isLoading={false}
+        />
         Restore
       </button>
     </div>

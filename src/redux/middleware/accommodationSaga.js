@@ -110,11 +110,12 @@ export function* watchEditAccommodation() {
 
 export function* disableAccommodationAsync(action) {
   try {
-    const { guestHouseId } = action;
+    const { guestHouseId, history } = action;
     const response = yield call(AccommodationAPI.disableOrRestoreAccommodation, guestHouseId);
     yield put(disableAccommodationSuccess(response.data.result));
     yield put(closeModal());
     toast.success(response.data.message);
+    history.push('/residence/manage');
   }
   catch(error) {
     const errorMessage = apiErrorHandler(error);

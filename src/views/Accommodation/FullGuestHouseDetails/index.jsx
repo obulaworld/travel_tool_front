@@ -27,13 +27,15 @@ import updateRoomState from '../../../redux/actionCreator/roomActionCreator';
 import { updateTripRoom } from '../../../redux/actionCreator/tripActions';
 import { fetchAvailableRooms } from '../../../redux/actionCreator/availableRoomsActions';
 import Preloader from '../../../components/Preloader/Preloader';
+import ButtonLoadingIcon from '../../../components/Forms/ButtonLoadingIcon';
 import NotFound from '../../ErrorPages';
 
 export class GuestHouseDetails extends PureComponent {
   state = {
     period: 'month',
     startDate: moment().startOf('month'),
-    timelineViewType: 'month'
+    timelineViewType: 'month',
+    disableGustHouseButtonState: false,
   }
 
   handleOnEdit = () => {
@@ -47,10 +49,10 @@ export class GuestHouseDetails extends PureComponent {
   }
 
   disableGuestHouse = () => {
+    this.setState({ disableGustHouseButtonState: true });
     const { disableAccommodation, guestHouse, history } = this.props;
     const { id } = guestHouse;
-    disableAccommodation(id);
-    history.push('/residence/manage');
+    disableAccommodation(id, history);
   }
   handlePeriod = (period, startDate, timelineViewType) => {
     this.setState({period, startDate, timelineViewType});
@@ -169,6 +171,7 @@ export class GuestHouseDetails extends PureComponent {
   renderDisableAccommodationModal() {
     const { closeModal, modal, guestHouse } = this.props;
     const { shouldOpen, modalType } = modal;
+    const { disableGustHouseButtonState } = this.state;
     return (
       <Modal
         closeModal={closeModal} customModalStyles="delete-checklist-item restore-model-content"
@@ -182,7 +185,8 @@ export class GuestHouseDetails extends PureComponent {
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
           <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
-          <button id="disableGuestHouseId" type="button" className="restore-checklist-items__footer--delete" onClick={this.disableGuestHouse}>
+          <button id="disableGuestHouseId" disabled={disableGustHouseButtonState} type="button" className="restore-checklist-items__footer--delete" onClick={this.disableGuestHouse}>
+            <ButtonLoadingIcon isLoading={disableGustHouseButtonState} />
             Disable
           </button>
         </div>

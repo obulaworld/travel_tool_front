@@ -87,9 +87,10 @@ export const editAccommodationFailure = error => ({
   error,
 });
 
-export const disableAccommodation  = (guestHouseId) => ({
+export const disableAccommodation  = (guestHouseId, history) => ({
   type: DISABLE_ACCOMMODATION,
   guestHouseId,
+  history,
 });
 
 export const disableAccommodationSuccess = disabledGuestHouseData => ({

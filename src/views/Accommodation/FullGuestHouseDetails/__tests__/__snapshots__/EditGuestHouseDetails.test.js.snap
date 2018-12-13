@@ -99,10 +99,14 @@ exports[`<Accommodation /> should render correctly 1`] = `
       </button>
       <button
         className="restore-checklist-items__footer--delete"
+        disabled={false}
         id="disableGuestHouseId"
         onClick={[Function]}
         type="button"
       >
+        <ButtonLoadingIcon
+          isLoading={false}
+        />
         Disable
       </button>
     </div>

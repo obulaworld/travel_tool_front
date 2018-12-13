@@ -205,6 +205,7 @@ class NewAccommodation extends PureComponent {
         editAccommodation(guestHouse.id, guestHouseData);
       } else {
         createAccommodation(guestHouseData);
+        this.setState({ isSubmitting: false });
       }
     } else {
       errorMessage('The location you provided does not exist');
@@ -220,12 +221,8 @@ class NewAccommodation extends PureComponent {
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         <form onSubmit={this.handleInputSubmit} className="new-request">
           <AccommodationDetails
-            values={values}
-            handleDropDown={this.handleDropDown}
-            handleImageChange={this.handleImageChange}
-            displayImage={this.displayImage}
-            addRoomOnClick={this.addRoomOnClick}
-            documentId={documentId}
+            values={values} handleDropDown={this.handleDropDown} handleImageChange={this.handleImageChange}
+            displayImage={this.displayImage} addRoomOnClick={this.addRoomOnClick} documentId={documentId}
             removeRoom={this.removeRoom}
             handleInputChange={this.handleInputChange}
             handleLocation={this.handleLocation}
