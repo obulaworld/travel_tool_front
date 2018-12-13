@@ -65,10 +65,22 @@ e2e-tests:
 ifeq ($(BACKEND),)
 	${INFO} "Please provide the absolute path to your backend, as shown below;"
 	${EXTRA} "make e2e-tests BACKEND=absolute-path/to/backend/repo"
+
+else ifeq ($(BRANCH),)
+	@ export BACKEND=$(BACKEND)
+	@ ${INFO} "Building required docker images"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) build
+	@ ${INFO} "Done building required docker images"
+	@ ${INFO} "Running end-to-end tests"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d database
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d backend
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up frontend
+	@ ${INFO} "Stopping and deleting the containers"
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) down
 else
 	@ export BACKEND=$(BACKEND)
-	@ ${INFO} "Checking out to develop branch on backend and pulling latest changes"
-	@ cd $(BACKEND) && git checkout develop && git pull
+	@ ${INFO} "Checking out to $(BRANCH) branch on backend"
+	@ cd $(BACKEND) && git checkout $(BRANCH)
 	@ ${INFO} "Building required docker images"
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) build
 	@ ${INFO} "Done building required docker images"
