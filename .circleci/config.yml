@@ -71,6 +71,11 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: Generate .env file
+          command: |
+            chmod +x .circleci/load_env_variables.sh
+            .circleci/load_env_variables.sh test
+      - run:
           name: Install code climate test reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -99,7 +104,6 @@ jobs:
           command: yarn run build
       - *persist_to_workspace
       - *send_failure_notification
-
   deployment:
     <<: *defaults
     steps:
