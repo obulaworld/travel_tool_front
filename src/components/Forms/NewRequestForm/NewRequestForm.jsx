@@ -529,7 +529,7 @@ class NewRequestForm extends PureComponent {
 
 
     const { requestOnEdit } = this.props;
-    const { name, gender, department, role, manager } = requestOnEdit;
+    const { name, gender, department, role, manager } = requestOnEdit || {};
     const { name: stateName, manager: stateManager, gender: stateGender,
       department: stateDepartment, role: stateRole} = values;
     const disableOnChangeProfile = (name === stateName && gender === stateGender && department === stateDepartment
