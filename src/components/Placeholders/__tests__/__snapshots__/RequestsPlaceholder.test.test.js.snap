@@ -9,7 +9,7 @@ exports[`<RequestsPlaceholder /> should render without crashing 1`] = `
     }
   }
 >
-  <Holder
+  <ContentLoader
     height={550}
     primaryColor="#dfdfdf"
     secondaryColor="#ffffff"
@@ -168,6 +168,6 @@ exports[`<RequestsPlaceholder /> should render without crashing 1`] = `
       x="773.63"
       y="87.61"
     />
-  </Holder>
+  </ContentLoader>
 </div>
 `;

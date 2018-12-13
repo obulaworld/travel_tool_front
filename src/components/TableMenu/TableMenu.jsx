@@ -15,11 +15,12 @@ class TableMenu extends PureComponent {
 
   confirmDeleteRequest = (e) => {
     e.preventDefault();
-    const { deleteRequest, request } = this.props;
+    const { deleteRequest, request, closeModal } = this.props;
     const requestId = request.id;
     deleteRequest(requestId);
+    closeModal(true, 'new model');
   }
-  
+
   handleIconOpentoggle = (toggleMenu, requestId) => {
     return (
       <i
@@ -64,9 +65,9 @@ class TableMenu extends PureComponent {
   }
 
   renderCheckListSubmissionBtn = () => {
-    const { 
-      requestStatus, showTravelChecklist, 
-      request, toggleMenu 
+    const {
+      requestStatus, showTravelChecklist,
+      request, toggleMenu
     } = this.props;
     return (
       requestStatus === 'Approved' && (
@@ -82,7 +83,7 @@ class TableMenu extends PureComponent {
           <img src={checkListIcon} alt="list-icon" className="menu-icon" />
           Travel Checklist
         </li>
-      ) 
+      )
     );
   }
 

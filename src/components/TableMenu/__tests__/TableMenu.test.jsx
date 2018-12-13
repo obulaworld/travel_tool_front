@@ -130,6 +130,7 @@ describe('<TableMenu />', () => {
       fetchUserRequests: jest.fn(),
       requestStatus: 'Open',
       openModal: jest.fn(),
+      closeModal: jest.fn()
     };
     const event = { preventDefault: jest.fn() };
     wrapper = shallow(<TableMenu {...newProps} />);

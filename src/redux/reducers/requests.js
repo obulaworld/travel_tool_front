@@ -42,7 +42,8 @@ const requests = (state = initialState, action) => {
       ...state,
       isDeleting: false,
       message: action.message,
-      requests: state.requests.filter(request => 
+      openRequestsCount: state.openRequestsCount > 0 ? state.openRequestsCount - 1 : state.openRequestsCount,
+      requests: state.requests.filter(request =>
         request.id !== action.requestId) 
     };
   case DELETE_REQUEST_FAILURE:
