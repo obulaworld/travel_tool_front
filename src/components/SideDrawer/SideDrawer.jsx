@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './SideDrawer.scss';
 import ConnectedLeftSideBar from '../LeftSideBar/LeftSideBar';
 import ImageLink from '../image-link/ImageLink';
+import closeBtn from '../../images/close-btn.svg';
 
 export class SideDrawer extends PureComponent {
   render() {
@@ -11,6 +12,11 @@ export class SideDrawer extends PureComponent {
     const showDrawerTransition = showDrawer === 'none'? 'side-drawer__slide-in' : 'side-drawer__slide-out';
     return ( // eslint-disable-line
       <div className={`side-drawer ${showDrawerTransition}`}>
+        <div className="side-drawer__cancel-btn">
+          <button type="button" onClick={handleShowDrawer}>
+            <img src={closeBtn} alt="close" />
+          </button>
+        </div>
         <div className="side-drawer__user-details">
           <ImageLink
             altText="User profile picture"

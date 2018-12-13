@@ -33,7 +33,7 @@ const store = mockStore(initialState);
 describe('<SideDrawer>', () => {
   const wrapper = shallow(<SideDrawer {...props} />);
   it('should render as expected', () => {
-    expect(wrapper.find('div').length).toBe(3);
+    expect(wrapper.find('div').length).toBe(4);
     expect(wrapper.find('ImageLink').length).toBe(1);
   });
 
