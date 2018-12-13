@@ -18,10 +18,8 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
         onClick={[Function]}
         type="button"
       >
-        <div
-          className="filterLabel"
-        >
-          This week
+        <div>
+          10 Dec, 18 - 16 Dec, 18
         </div>
         <img
           alt="Pick a date"
@@ -30,7 +28,7 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
         />
       </button>
       <div
-        className="calendar "
+        className="calendar  "
       >
         <CalendarRange
           handleChange={[Function]}

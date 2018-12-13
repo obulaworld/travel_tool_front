@@ -46,21 +46,21 @@
   }
 
   .action-btn--calender {
-    height: 36px;
-    min-width: 100px;
+    width: 220px;
+    height: 37px;
+    box-sizing: border-box;
     border: 1px solid #D4D4D4;
     border-radius: 1px;
     background-color: #ffffff;
-    padding: 0 10px;
+    padding: 0 12.5px;
     cursor: pointer;
     outline: none !important;
     color: #4F4F4F;
     font-family: "DIN Pro";
     font-size: 15px;
     font-weight: 500;
-    line-height: 18px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 
     &:hover,
@@ -68,13 +68,6 @@
     &:visited {
       border: 1px solid #3359DB;
     }
-
-    .filterLabel{
-      margin-right: 8px;
-      flex-grow: 2;
-    }
-
-
   }
 }
 .title{
@@ -85,7 +78,7 @@
 
 .calendar {
   position: absolute;
-  top: 110%;
+  top: -1160%;
   right: 0%;
   border-radius: 4px;
   background-color: #FFFFFF;
@@ -97,6 +90,10 @@
   transition: 0.5s ease;
   display: flex;
   flex-direction: column;
+
+  &--down {
+    top: 110%!important;
+  }
 
   &.open {
     opacity: 1;

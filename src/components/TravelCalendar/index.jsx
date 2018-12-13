@@ -1,6 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {startOfWeek, endOfWeek, format} from 'date-fns';
+import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
 
 import './TravelCalendar.scss';
 import Utils from '../../helper/Utils';
@@ -13,17 +13,21 @@ import AnalyticsPagination from '../Pagination/AnalyticsPagination';
 
 class TravelCalendar extends PureComponent {
   state = {
-    filter:
-      `dateFrom=${format(startOfWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfWeek(new Date()), 'YYYY-MM-DD')}`,
     isCalendarOpen: false,
-    filterBtnLabel: 'This week',
-    page: 1
-  };
+    page: 1,
+    filter: {
+      start: format(startOfISOWeek(new Date()), 'YYYY-MM-DD'),
+      end: format(endOfISOWeek(new Date()), 'YYYY-MM-DD')
+    }
+  }
 
   componentDidMount(){
     const {fetchCalendarAnalytics} = this.props;
     const {filter, page} = this.state;
-    fetchCalendarAnalytics({type: 'json', filter, page});
+    if(filter) {
+      const query = Utils.manageRangeFilter(filter);
+      fetchCalendarAnalytics({type: 'json', filter: query, page});
+    }
   }
 
   handleChange = (range) => {
@@ -34,8 +38,7 @@ class TravelCalendar extends PureComponent {
     if(query !== filter){
       this.setState(prevState => ({
         ...prevState,
-        filter: query,
-        filterBtnLabel: label,
+        filter: range,
         page: 1
       }));
       fetchCalendarAnalytics({type:'json', filter:query, page: 1});
@@ -44,7 +47,7 @@ class TravelCalendar extends PureComponent {
   }
 
   handleCalendar = () => {
-    this.setState(prevState=>{
+    this.setState(prevState => {
       const {isCalendarOpen} = prevState;
       return {...prevState, isCalendarOpen: !isCalendarOpen};
     });
@@ -53,14 +56,15 @@ class TravelCalendar extends PureComponent {
   handlePagination = (direction) => {
     const { travelCalendar:{ travelCalendarData }, fetchCalendarAnalytics } = this.props;
     const { filter } = this.state;
+    const query = Utils.manageRangeFilter(filter);
     if(travelCalendarData) {
       const { pagination: { prevPage, nextPage, currentPage, pageCount } } = travelCalendarData;
       if(direction === 'Previous' && prevPage > 0) {
         this.setState(prevState => ({ ...prevState, page: prevPage }));
-        fetchCalendarAnalytics({type: 'json', filter, page: prevPage});
+        fetchCalendarAnalytics({type: 'json', filter: query, page: prevPage});
       } else if(direction === 'Next' && (currentPage + 1) <= pageCount) {
         this.setState(prevState => ({ ...prevState, page: nextPage }));
-        fetchCalendarAnalytics({type: 'json', filter, page: nextPage});
+        fetchCalendarAnalytics({type: 'json', filter: query, page: nextPage});
       }
     }
   }
@@ -72,7 +76,13 @@ class TravelCalendar extends PureComponent {
   }
 
   renderButton (icon, text, onclickFunction) {
-    const {isCalendarOpen, filterBtnLabel} = this.state;
+    const {isCalendarOpen, filter} = this.state;
+    const {travelCalendar:{ travelCalendarData }} = this.props;
+    const showDown = travelCalendarData.data.length;
+    const range = {
+      start: format(filter.start, 'DD MMM, YY'),
+      end: format(filter.end, 'DD MMM, YY'),
+    };
     return (
       <Fragment>
         <button
@@ -80,12 +90,12 @@ class TravelCalendar extends PureComponent {
           className={text==='Pick a date'?'action-btn--calender':'actions__btn'}
           onClick={onclickFunction}>
           <Fragment>
-            {text==='Pick a date' && !isCalendarOpen && (<div className="filterLabel">{filterBtnLabel}</div>)}
+            {text==='Pick a date' && <div>{`${range.start} - ${range.end}`}</div>}
             <img className="actions__btn--icon" src={icon} alt={text} />
           </Fragment>
         </button>
-        {text==='Pick a date' && (
-          <div className={`calendar ${isCalendarOpen ? 'open': ''}`}>
+        {text === 'Pick a date' && (
+          <div className={`calendar ${isCalendarOpen ? 'open': ''} ${showDown >= 2 ? 'calendar--down': '' }`}>
             <CalendarRange handleChange={this.handleChange} />
           </div>
         )}

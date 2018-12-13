@@ -1,5 +1,5 @@
 import React from 'react';
-import {startOfWeek, endOfWeek, format} from 'date-fns';
+import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
 import { shallow, mount } from 'enzyme';
 import TravelCalendar from '../index';
 
@@ -44,13 +44,20 @@ const props = {
   handleFilterBtn: jest.fn()
 };
 
-const filter = `dateFrom=${format(startOfWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfWeek(new Date()), 'YYYY-MM-DD')}`
+const filter = `dateFrom=${format(startOfISOWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfISOWeek(new Date()), 'YYYY-MM-DD')}`;
+
 
 const wrapper = shallow(
   <TravelCalendar {...props} />
 );
 
-describe('Travel Calendar', ()=>{
+describe('Travel Calendar', () => {
+  afterEach(() => {
+    props.fetchCalendarAnalytics.mockReset();
+    props.downloadCalendarAnalytics.mockReset();
+    props.handleFilterBtn.mockReset();
+  });
+
   it('should render Travel Calendar Correctly', async () => {
     expect(wrapper).toMatchSnapshot();
   });
@@ -78,7 +85,7 @@ describe('Travel Calendar', ()=>{
     );
     it('should have state remain the same when prevState is 0', () => {
       wrapper.find('#Previous').simulate('click');
-      expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 1});
+      expect(props.fetchCalendarAnalytics).not.toHaveBeenCalled();
       expect(wrapper.state().page).toEqual(1);
     });
     it('should change page in state to nextPage', () => {
@@ -87,11 +94,25 @@ describe('Travel Calendar', ()=>{
       expect(wrapper.state().page).toEqual(2);
     });
     it('should change page in state to prevPage', () => {
-      props.travelCalendar.travelCalendarData.pagination.prevPage = 1;
-      wrapper.find('#Previous').simulate('click');
-      const wrap = shallow(<TravelCalendar {...props} />)
-      expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 1});
-      expect(wrap.state().page).toEqual(1);
+      props.fetchCalendarAnalytics.mockReset();
+      const newProps = {
+        ...props,
+        travelCalendar: {
+          ...props.travelCalendar,
+          travelCalendarData: {
+            ...props.travelCalendar.travelCalendarData,
+            pagination: {
+              ...props.travelCalendar.travelCalendarData.pagination,
+              prevPage: 1,
+              currentPage: 2,
+            }
+          }
+        }
+      };
+      wrapper.setProps(newProps, () => {
+        wrapper.find('#Previous').simulate('click');
+        expect(props.fetchCalendarAnalytics).toHaveBeenCalledWith({type: 'json', filter, page: 1});
+      });
     });
   });
 });
