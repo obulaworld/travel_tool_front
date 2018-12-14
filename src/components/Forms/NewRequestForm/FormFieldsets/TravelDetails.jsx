@@ -77,12 +77,14 @@ class TravelDetailsFieldset extends Component {
     let data = {};
     const { fetchAvailableRooms } = this.props;
     if (this.validateAllTripDetails(values, i, selection)) {
+      const formattedDepartureDate = new Date(values[`departureDate-${i}`].format('YYYY-MM-DD'));
+      const formattedArrivalDate = moment(formattedDepartureDate).add(1, 'months').format('YYYY-MM-DD');
       data = {
         gender: values.gender,
         location: values[`destination-${i}`],
         arrivalDate: values[`arrivalDate-${i}`]
           ? values[`arrivalDate-${i}`].format('YYYY-MM-DD')
-          : '',
+          : formattedArrivalDate,
         departureDate: values[`departureDate-${i}`].format('YYYY-MM-DD'),
         tripType: selection,
         rowId: i
