@@ -5,15 +5,15 @@ import { PropTypes } from 'prop-types';
 import SubmissionsUtils from './SubmissionsUtils';
 
 class SubmissionItem extends Component {
-  state = { 
-    info: '', type: '', fileName: '', submissionText: '', 
+  state = {
+    info: '', type: '', fileName: '', submissionText: '',
     departureTime: '', arrivalTime: '', ticketNumber: '', airline: '',
     returnDepartureTime: '', returnTime: '', returnTicketNumber: '',
     returnAirline: '', validTicket: true, uploadedFileName: '', validInput: true
   }
 
   componentWillReceiveProps(nextProps) {
-    const { 
+    const {
       fileUploadData: { isUploading, uploadSuccess }, checkId
     } = nextProps;
 
@@ -21,7 +21,7 @@ class SubmissionItem extends Component {
       return this.setState({ info: 'Uploading file...', type: 'uploading' });
     }
 
-    uploadSuccess.match(checkId) && this.setState({ 
+    uploadSuccess.match(checkId) && this.setState({
       info: 'Done', type: 'success', uploadedFileName: '' });
   }
 
@@ -59,7 +59,7 @@ class SubmissionItem extends Component {
   handleUpload = (e) => {
     e.preventDefault();
     const file = e.target;
-    const { 
+    const {
       tripId, handleFileUpload, checklistItem: { id }, checkId, requestId
     } = this.props;
     const validFileSize = this.checkFileSize(file);
@@ -74,7 +74,7 @@ class SubmissionItem extends Component {
 
   submitTextArea = () => {
     const { submissionText } = this.state;
-    const { 
+    const {
       tripId, checklistItem: { id }, postSubmission, checkId, requestId
     } = this.props;
     const formData = { tripId, file: submissionText };
@@ -95,12 +95,12 @@ class SubmissionItem extends Component {
 
   validateTicketFields = () => {
     const { tripType } = this.props;
-    const { 
+    const {
       departureTime, arrivalTime, airline, ticketNumber,
-      returnDepartureTime, returnTime, returnTicketNumber, returnAirline 
+      returnDepartureTime, returnTime, returnTicketNumber, returnAirline
     } = this.state;
     const defaultVals = [departureTime, arrivalTime, airline, ticketNumber];
-    const returnVals = [returnDepartureTime, returnTime, 
+    const returnVals = [returnDepartureTime, returnTime,
       returnTicketNumber, returnAirline];
     const valuesArr = tripType.match('return')
       ? [...defaultVals, ...returnVals] : defaultVals;
@@ -111,7 +111,7 @@ class SubmissionItem extends Component {
   }
 
   submitTicket = (valid) => {
-    const { 
+    const {
       tripId, checklistItem: { id }, postSubmission, checkId, requestId
     } = this.props;
     const {
@@ -119,7 +119,7 @@ class SubmissionItem extends Component {
       returnDepartureTime, returnTime, returnTicketNumber, returnAirline,
     } = this.state;
     const ticket = {
-      departureTime, arrivalTime, airline, ticketNumber, 
+      departureTime, arrivalTime, airline, ticketNumber,
       returnDepartureTime, returnTime, returnTicketNumber, returnAirline,
     };
     const formData = { tripId, file: ticket };
@@ -162,7 +162,7 @@ class SubmissionItem extends Component {
   }
 
   renderIsUploading = () => {
-    const { 
+    const {
       fileUploadData: { isUploading }, checkId, isUploadingStage2
     } = this.props;
     return (
@@ -197,18 +197,18 @@ class SubmissionItem extends Component {
   }
 
   renderField = () => {
-    const { 
+    const {
       type, submissionText, validTicket, fileName,
       departureTime, arrivalTime, returnTime, ticketNumber, uploadedFileName,
       returnDepartureTime, returnTicketNumber, airline, returnAirline,
     } = this.state;
-    const { 
+    const {
       checklistItem, fileUploadData, itemsToCheck, tripType, checkId,
       postSuccess
     } = this.props;
     const { requiresFiles, name, submissions: [item] } = checklistItem;
     let utilsType = requiresFiles ? 'uploadField' : 'textarea';
-    utilsType = name.toLowerCase().match('travel ticket details') 
+    utilsType = name.toLowerCase().match('travel ticket details')
       ? 'ticketFieldset'
       : utilsType;
     return (
