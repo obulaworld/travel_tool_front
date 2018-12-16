@@ -22,7 +22,7 @@ class NewAccommodation extends PureComponent {
     this.defaultState = {
       values: { houseName, location, bathRooms, image: imageUrl,
         preview: imageUrl, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
-      guestHouseCenter:'',
+      guestHouseCenter: location,
       rooms: isEdit ? guestHouse.rooms : [{}],
       errors: {}, isSubmitting: false,
       documentId: isEdit ? guestHouse.rooms.length: 1,
