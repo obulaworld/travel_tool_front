@@ -114,7 +114,7 @@ export class RoleDetails extends Component {
     return (
       <Modal
         closeModal={closeModal}
-        customModalStyles="modal--add-user"
+        customModalStyles="add-user"
         width="480px"
         visibility={
           shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'
