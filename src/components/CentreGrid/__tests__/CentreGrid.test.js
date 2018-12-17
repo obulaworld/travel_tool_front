@@ -24,6 +24,12 @@ describe('<CentreGrid />', () => {
     expect(wrapper.find('CentreCard').length).toBe(8);
   });
 
+  it('renders the placeholder when the app is loading', () => {
+    wrapper = shallow(<WithLoadingCentreGrid {...{...props, isLoading: true}} />);
+    expect(wrapper.find('ResidencePlaceholder').length).toBe(1);
+    expect(wrapper.find('CentreCard').length).toBe(0);
+  });
+
   it('renders a div with text when there are no centres', () => {
     wrapper.setProps({
       guestHouses: []
@@ -118,11 +124,5 @@ describe('<CentreGrid />', () => {
     const thirdCentre = wrapper.find('CentreCard').at(2);
     expect(secondCentre.props()).toEqual(expectedProps);
     expect(thirdCentre.props()).toEqual(secondExpectedProps);
-  });
-
-  it('renders a preloader when the accommodation is fetching', () => {
-    wrapper = shallow(<WithLoadingCentreGrid {...{...props, isLoading: true}} />);
-    expect(wrapper.find('Preloader').length).toBe(1);
-    expect(wrapper.find('CentreCard').length).toBe(0);
   });
 });

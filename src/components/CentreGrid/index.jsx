@@ -5,6 +5,7 @@ import withLoading from '../Hoc/withLoading';
 import CentreCard from './CentreCard';
 
 import './CentreGrid.scss';
+import ResidencePlaceholder from '../Placeholders/ResidencePlaceholder';
 
 
 export class CentreGrid extends PureComponent {
@@ -122,4 +123,4 @@ CentreGrid.defaultProps = {
   error: '',
 };
 
-export default withLoading(CentreGrid);
+export default withLoading(CentreGrid, ResidencePlaceholder);
