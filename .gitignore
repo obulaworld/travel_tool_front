@@ -13,6 +13,8 @@
 
 #end-to-end
 cypress.env.json
+cypress/screenshots/
+cypress/videos/
 
 # misc
 .env
