@@ -34,7 +34,7 @@ class TravelDetailsItem extends Component {
     const departureDate = (Moment(values[`departureDate-${itemId}`]).isSame(trip.departureDate));
     const arrivalDate = (Moment(values[`arrivalDate-${itemId}`]).isSame(trip.returnDate));
     const genderCheck = values.gender === gender;
-    return (origin && destination && departureDate && arrivalDate && genderCheck);
+    return (origin && destination && departureDate && genderCheck || arrivalDate);
   }
 
   getRawBedChoices = (modalType, values, beds) => {
