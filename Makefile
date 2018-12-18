@@ -65,7 +65,6 @@ e2e-tests:
 ifeq ($(BACKEND),)
 	${INFO} "Please provide the absolute path to your backend, as shown below;"
 	${EXTRA} "make e2e-tests BACKEND=absolute-path/to/backend/repo"
-
 else ifeq ($(BRANCH),)
 	@ export BACKEND=$(BACKEND)
 	@ ${INFO} "Building required docker images"
@@ -74,7 +73,20 @@ else ifeq ($(BRANCH),)
 	@ ${INFO} "Running end-to-end tests"
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d database
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d backend
-	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up frontend
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d frontend
+	@while [ "$$(docker inspect --format '{{ .State.Health.Status }}' $$(docker-compose -f docker/e2e-tests/docker-compose.yml ps -q frontend))" != "healthy" ]; do \
+		printf "    Waiting for frontend.\r"; \
+		sleep 0.5; \
+		printf "    Waiting for frontend..\r"; \
+		sleep 0.5; \
+		printf "    Waiting for frontend...\r"; \
+		sleep 0.5; \
+		printf "\r\033[K"; \
+		printf "    Waiting for frontend\r"; \
+		sleep 0.5; \
+	done; \
+	true
+	@ -docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) exec frontend yarn end2end:headless
 	@ ${INFO} "Stopping and deleting the containers"
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) down
 else
@@ -87,7 +99,20 @@ else
 	@ ${INFO} "Running end-to-end tests"
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d database
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d backend
-	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up frontend
+	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) up -d frontend
+	@while [ "$$(docker inspect --format '{{ .State.Health.Status }}' $$(docker-compose -f docker/e2e-tests/docker-compose.yml ps -q frontend))" != "healthy" ]; do \
+		printf "    Waiting for frontend.\r"; \
+		sleep 0.5; \
+		printf "    Waiting for frontend..\r"; \
+		sleep 0.5; \
+		printf "    Waiting for frontend...\r"; \
+		sleep 0.5; \
+		printf "\r\033[K"; \
+		printf "    Waiting for frontend\r"; \
+		sleep 0.5; \
+	done; \
+	true
+	@ -docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) exec frontend yarn end2end:headless
 	@ ${INFO} "Stopping and deleting the containers"
 	@ docker-compose -f $(DOCKER_E2E_TESTS_COMPOSE_FILE) down
 endif
