@@ -67,9 +67,27 @@ export default class AnalyticsReport extends Component {
     );
   }
   
+  renderTripDetailsHeader = () => {
+    return (
+      <Fragment>
+        <div className="analyticsReport__row analyticsReport__header">
+          <p>Number of Trips per Department</p>
+          {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
+        </div>
+        <div className="analyticsReport__row analyticsReport__report-header">
+          <div>
+            <p>Numbers</p>
+          </div>
+          <div>
+            <p>Departments</p>
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
   render() {
     const { departmentTrips, readiness, fetchReadiness, exportReadiness } = this.props;
-    const { report, loading } = departmentTrips;
+    const { report, loading, error } = departmentTrips;
     return(
       <div className="analyticsReport">
         <TravelReadiness
@@ -82,22 +100,19 @@ export default class AnalyticsReport extends Component {
         <div className="analyticsReport__card">
           {loading ? <TripsPerMonthPlaceholder /> : (
             <Fragment>
-              <div className="analyticsReport__row analyticsReport__header">
-                <p>Number of Trips per Department</p>
-                {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
-              </div>
-              <div className="analyticsReport__row analyticsReport__report-header">
-                <div>
-                  <p>Numbers</p>
-                </div>
-                <div>
-                  <p>Departments</p>
-                </div>
-              </div>
-              {report && report.length > 0 && !loading &&
+              {
+                this.renderTripDetailsHeader()
+              }
+              {report 
+              && report.length > 0 && !loading &&
               report.map(item => this.renderTripsDetails(item))}
-              {report && !report.length &&
-              this.renderNotFound()}
+              {error 
+                ? (
+                  <p className="dashboard-component__error-text--style">
+                    Oops! An error occurred in retrieving this data
+                  </p> 
+                )
+                : (report && !report.length && this.renderNotFound())}
             </Fragment>
           )}
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import AnalyticsReport from '../index';
 import tripsPerMonthData from '../__mocks__/analyticsReportMockData';
+import TripsPerMonthPlaceholder from '../../Placeholders/TripsPerMonthPlaceholder';
 
 
 const defaultProps = {
@@ -35,11 +36,43 @@ describe('Test suite for Analytics Report Component', () => {
   });
 
   it('should display no records found when there\'s no record', () => {
-    const newProps = { ...defaultProps };
-    newProps.departmentTrips.report = [];
+    const newProps = { 
+      ...defaultProps, 
+      departmentTrips: { 
+        report: [],
+        loading: false,
+      } 
+    };
     const wrapper = setup(newProps);
     const noRecordsDiv = wrapper.find('#no-records');
     expect(noRecordsDiv.length).toBe(1);
+  });
+
+  it('should display Oops! An error occurred in retrieving this data when server error occurs', () => {
+    const newProps = { 
+      ...defaultProps, 
+      departmentTrips: 
+        { ...defaultProps.departmentTrips, 
+          error: 'server error, try again',
+          report: [],
+        } 
+    };
+    const wrapper = setup(newProps);
+    const serverError = wrapper.find('.dashboard-component__error-text--style');
+    expect(serverError.text()).toEqual('Oops! An error occurred in retrieving this data');
+  });
+
+  it('should display TripsPerMonthPlaceholder, when the page is loading ', () => {
+    const newProps = { 
+      ...defaultProps,
+      departmentTrips: { 
+        ...defaultProps.departmentTrips, 
+        loading: true
+      }
+    };
+    newProps.departmentTrips.report = [];
+    const wrapper = setup(newProps);
+    expect(wrapper.contains(<TripsPerMonthPlaceholder />)).toBe(true);
   });
 
   it('should call fetchDepartmentTrips when export button is clicked', () => {

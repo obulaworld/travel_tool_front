@@ -67,6 +67,19 @@ describe('Test suite for Travel Readiness Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('should display Oops! An error occurred in retrieving this data when server error occurs', () => {
+    const newProps = { 
+      ...defaultProps, 
+      readiness: { 
+        error: 'server error, try again',
+        readiness: [],
+      } 
+    };
+    const wrapper = setup(newProps);
+    const serverError = wrapper.find('.dashboard-component__error-text--style');
+    expect(serverError.text()).toEqual('Oops! An error occurred in retrieving this data');
+  });
+
   it('should render NotFound when there are ro records to display', () => {
     const newProps = {...defaultProps };
     newProps.readiness.readiness = [];

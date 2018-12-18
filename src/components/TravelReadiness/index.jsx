@@ -119,9 +119,16 @@ class TravelReadiness extends PureComponent {
     return readinessTitles;
   }
 
+  renderServerError = () => {
+    return (
+      <p className="dashboard-component__error-text--style">
+        Oops! An error occurred in retrieving this data
+      </p>
+    );
+  }
   render() {
     const { readiness, renderNotFound } = this.props;
-    const { isLoading} = readiness;
+    const { isLoading, error } = readiness;
     const { travelFlow } = this.state;
     const pages = this.findPages(readiness);
     return (
@@ -139,12 +146,16 @@ class TravelReadiness extends PureComponent {
                   onClick={travelFlow === 'outflow' ? () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
               </div>
               {this.renderReadinessTitles()}
-              {readiness.readiness && readiness.readiness.length > 0 && !readiness.isLoading &&
-                readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))}
-              {readiness.readiness && !readiness.readiness.length && renderNotFound()}
+              {error && this.renderServerError()}
+              { (!error 
+                && readiness.readiness.length > 0 
+                && readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))
+              )
+              }
+              {!error && (!readiness.readiness.length && renderNotFound())}
             </Fragment>
           )}
-        {this.renderPagination(readiness, pages.currentPage, pages.pageCount)}
+        {!error && this.renderPagination(readiness, pages.currentPage, pages.pageCount)}
       </div>
     );
   }

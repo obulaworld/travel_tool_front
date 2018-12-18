@@ -128,9 +128,15 @@ class TravelCalendar extends PureComponent {
       const data = travelCalendarData.data;
       calendarData = data.map((calender, index) => this.renderCalendar(calender, index));
     } else if(travelCalendarError){
+      const notFoundError = travelCalendarError === 'No records found';
       return (
         <div className="demo-card-wide mdl-card mdl-shadow--2dp error-msg">
-          <p className="error-msg__text">No records found</p>
+          <p className={`${!notFoundError && 'dashboard-component__error-text--style'}`}>
+            {notFoundError
+              ? 'No records found' 
+              : 'Oops! An error occurred in retrieving this data'
+            }
+          </p>
         </div>
       );
     }
