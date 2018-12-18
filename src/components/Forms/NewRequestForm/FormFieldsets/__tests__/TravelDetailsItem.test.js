@@ -100,6 +100,13 @@ describe('Test Suite for <TravelDetailsItem />', () => {
     const wrapper = setup(newProps);
     expect(props.renderInput).toHaveBeenCalledTimes(106);
   });
+
+  it('should render properly if selection is multi', () => {
+    const newProps = { ...props };
+    newProps.selection = 'multi';
+    const wrapper = setup(newProps);
+    expect(props.renderInput).toHaveBeenCalled();
+  });
 });
 
 

@@ -16,6 +16,7 @@ describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {
     const initialState = {
       requestData: {
+        accommodationType: '',
         trips: [],
         comments: []
       },
