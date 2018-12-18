@@ -167,7 +167,7 @@ class SubmissionsUtils extends Component {
                 'arrivalTime', tripId, arrivalTime
               )}
               {this.renderTicketInput(
-                'text', 'e.g KQ 532', 'Ticket Number',
+                'text', 'e.g KQ 532', 'Flight Number',
                 'ticketNumber', tripId, ticketNumber
               )}
               {this.renderTicketInput(
@@ -189,7 +189,7 @@ class SubmissionsUtils extends Component {
                   'returnTime', tripId, returnTime
                 )}
                 {this.renderTicketInput(
-                  'text', 'e.g KQ 532', 'Return Ticket Number',
+                  'text', 'e.g KQ 532', 'Return Flight Number',
                   'returnTicketNumber', tripId, returnTicketNumber
                 )}
                 {this.renderTicketInput(
