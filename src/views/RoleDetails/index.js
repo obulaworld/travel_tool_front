@@ -1,21 +1,20 @@
 import React, {Component, Fragment} from 'react';
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
+import {connect} from 'react-redux';
+import {PropTypes} from 'prop-types';
 import WithLoadingRoleDetailsTable from '../../components/RoleDetailsTable';
 import PageHeader from '../../components/PageHeader';
 import Modal from '../../components/modal/Modal';
-import { NewUserRoleForm } from '../../components/Forms';
-import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
+import {NewUserRoleForm} from '../../components/Forms';
+import {closeModal, openModal} from '../../redux/actionCreator/modalActions';
 import {
-  fetchRoleUsers,
-  putRoleData,
   deleteUserRole,
+  fetchRoleUsers,
   hideDeleteRoleModal,
+  putRoleData,
   showDeleteRoleModal
 } from '../../redux/actionCreator/roleActions';
-import { fetchCenters, updateUserCenter } from '../../redux/actionCreator/centersActions';
+import {fetchCenters, updateUserCenter} from '../../redux/actionCreator/centersActions';
 import './RoleDetails.scss';
-import checkUserPermission from '../../helper/permissions';
 import NotFound from '../ErrorPages';
 
 export class RoleDetails extends Component {
@@ -149,16 +148,10 @@ export class RoleDetails extends Component {
 
   render() {
     const {
-      getCurrentUserRole,
-      history,
-      isLoaded,
       isFetching,
       roleName,
       error
     } = this.props;
-    let allowed = ['Travel Administrator', 'Super Administrator'];
-    isLoaded ?
-      checkUserPermission(history, allowed, getCurrentUserRole ) : null;
     return (
       <Fragment>
         { !isFetching && !roleName && error &&<NotFound redirectLink="/settings/roles" /> }
@@ -193,7 +186,6 @@ RoleDetails.propTypes = {
   centers: PropTypes.array,
   putRoleData: PropTypes.func.isRequired,
   updateUserCenter: PropTypes.func.isRequired,
-  isLoaded: PropTypes.bool,
   deleteModalRoleId: PropTypes.number.isRequired,
   deleteModalState: PropTypes.string.isRequired,
   showDeleteRoleModal: PropTypes.func.isRequired,
@@ -207,7 +199,6 @@ RoleDetails.defaultProps = {
   modalType: '',
   roleName: '',
   centers: [],
-  isLoaded: false
 };
 
 const actionCreators = {

@@ -13,7 +13,6 @@ import {
   updateRole
 } from '../../redux/actionCreator/roleActions';
 import './Role.scss';
-import checkUserPermission from '../../helper/permissions';
 
 export class Role extends Component {
   state = {
@@ -98,11 +97,6 @@ export class Role extends Component {
   }
 
   render() {
-    const { getCurrentUserRole, history, isLoaded } = this.props;
-    if (isLoaded) {
-      const allowedRoles = ['Super Administrator'];
-      checkUserPermission(history, allowedRoles, getCurrentUserRole );
-    }
     return (
       <Fragment>
         {this.renderRoleForm()}
@@ -125,12 +119,10 @@ Role.propTypes = {
   roleErrors: PropTypes.string,
   addRole: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  getCurrentUserRole: PropTypes.array.isRequired,
   history: PropTypes.shape({}).isRequired,
   openModal: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
-  isLoaded: PropTypes.bool,
   isAddingRole: PropTypes.bool,
   updateRole: PropTypes.func.isRequired
 };
@@ -139,7 +131,6 @@ Role.defaultProps = {
   isLoading: false,
   roleErrors: '',
   modalType: '',
-  isLoaded: false,
   isAddingRole: false
 };
 

@@ -6,7 +6,6 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
-import checkUserPermission from '../../helper/permissions';
 import NotFound from '../ErrorPages';
 
 export class Verifications extends Base {
@@ -112,12 +111,7 @@ export class Verifications extends Base {
   }
   
   render() {
-    const { approvals, getCurrentUserRole, history, match } = this.props;
-    const { isLoading } = approvals;
-    if (!isLoading && getCurrentUserRole.length > 0) {
-      const allowedRoles = ['Travel Administrator', 'Super Administrator', 'Travel Team Member'];
-      checkUserPermission(history, allowedRoles, getCurrentUserRole);
-    }
+    const { approvals, match } = this.props;
     const { requestId } = this.state;
     const filteredReqId = approvals.approvals.filter(approval => approval.id === requestId);
 

@@ -13,7 +13,6 @@ import {
   restoreDisabledAccommodation
 } from '../../redux/actionCreator/accommodationActions';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
-import checkUserPermission from '../../helper/permissions';
 import ButtonLoadingIcon from '../../components/Forms/ButtonLoadingIcon';
 import './Accommodation.scss';
 
@@ -109,11 +108,7 @@ export class Accommodation extends Component {
   }
 
   render() {
-    const { guestHouses, isLoading, accommodationError, isLoaded, getCurrentUserRole, history, disabledGuestHouses, modal } = this.props;
-    if (isLoaded) {
-      const allowedRoles = ['Travel Administrator', 'Super Administrator'];
-      checkUserPermission(history, allowedRoles, getCurrentUserRole );
-    }
+    const { guestHouses, isLoading, accommodationError, disabledGuestHouses, modal } = this.props;
     return (
       <Fragment>
         {this.renderAccommodationPanelHeader()}
@@ -137,7 +132,6 @@ export class Accommodation extends Component {
 Accommodation.propTypes = {
   history: PropTypes.shape({}).isRequired,
   shouldOpen: PropTypes.bool.isRequired,
-  getCurrentUserRole: PropTypes.array.isRequired,
   openModal: PropTypes.func.isRequired,
   createAccommodation: PropTypes.func.isRequired,
   createAccommodationLoading: PropTypes.bool.isRequired,
@@ -159,7 +153,6 @@ Accommodation.propTypes = {
   accommodationError: PropTypes.string,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired,
-  isLoaded: PropTypes.bool,
   modal: PropTypes.func.isRequired,
   restoreDisabledAccommodation: PropTypes.func.isRequired,
 };
@@ -170,7 +163,6 @@ Accommodation.defaultProps = {
   accommodationError: '',
   isLoading: false,
   modalType: '',
-  isLoaded: false
 };
 
 const actionCreators = {
