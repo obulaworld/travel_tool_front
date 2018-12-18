@@ -38,7 +38,7 @@ const initialState = {
   disabledGuestHouses: [],
   disabling: false,
   restoring: false,
-  isLoading: false
+  isLoading: false,
 };
 
 const accommodation = (state = initialState, action) => {
@@ -60,7 +60,7 @@ const accommodation = (state = initialState, action) => {
       accommodationError: action.error
     };
   case INIT_FETCH_TIMELINE_DATA:
-    return { ...state, guestHouse: { rooms: []}, isLoading: true};
+    return { ...state, guestHouse: { rooms: []}, isLoading: true };
   case FETCH_TIMELINE_DATA_SUCCESS:
     return guestHouseTimelineDataSuccessState(state, action);
   case FETCH_TIMELINE_DATA_FAILURE:

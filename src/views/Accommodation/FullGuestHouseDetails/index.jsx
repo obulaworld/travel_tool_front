@@ -221,50 +221,56 @@ export class GuestHouseDetails extends PureComponent {
       modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails, accommodation } = this.props;
     const { shouldOpen, modalType } = modal;
     const { period } = this.state;
+
+   
     return (
-      (accommodation.error ? (<NotFound redirectLink="/residence/manage" />) :
-        (
-          <div className="guesthouse-details-wrapper">
-            {this.renderEditAccommodationForm()}
-            {this.renderDisableAccommodationModal()}
-            <div className="set-details">
-              { isLoading ? (
-                <Preloader />
-              ) : (
-                <Fragment>
-                  {this.renderGuestHouseDetailsNameBar()}
-                  <div className="guesthouse-details-wrapper--key-details">
-                    <GuestHouseDetailCard
-                      label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
-                    />
-                    <GuestHouseDetailCard
-                      label="No. of rooms" value={guestHouse.rooms.length}
-                    />
-                    <GuestHouseDetailCard
-                      label="Vacant spaces"
-                      value={this.getAvailableBedsCount(guestHouse.rooms)}
-                      period={period} />
-                    <GuestHouseDetailCard
-                      label="Unavailable"
-                      value={this.getUnavailableBedCount(guestHouse.rooms)}
-                      period={period}
-                    />
-                  </div>
-                </Fragment>
-              )}
-            </div>
-            <Timeline
-              modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
-              modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
-              rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
-              updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
-              deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
-              availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
-              loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
-              updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
-            />
+      (
+      
+        <div className="guesthouse-details-wrapper">
+          {this.renderEditAccommodationForm()}
+          {this.renderDisableAccommodationModal()}
+          <div className="set-details">
+            { isLoading ? (
+              <Preloader />
+            ) : (
+
+              (!guestHouse.id && !guestHouse.houseName && !guestHouse.Location) ?
+                <NotFound redirectLink='/residence/manage' errorMessage={accommodation.error} /> :
+                (
+                  <Fragment>
+                    {this.renderGuestHouseDetailsNameBar()}
+                    <div className="guesthouse-details-wrapper--key-details">
+                      <GuestHouseDetailCard
+                        label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
+                      />
+                      <GuestHouseDetailCard
+                        label="No. of rooms" value={guestHouse.rooms.length}
+                      />
+                      <GuestHouseDetailCard
+                        label="Vacant spaces"
+                        value={this.getAvailableBedsCount(guestHouse.rooms)}
+                        period={period} />
+                      <GuestHouseDetailCard
+                        label="Unavailable"
+                        value={this.getUnavailableBedCount(guestHouse.rooms)}
+                        period={period}
+                      />
+                    </div>
+                  </Fragment>
+                ))}
           </div>
-        )));
+          <Timeline
+            modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
+            modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
+            rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
+            updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
+            deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
+            availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
+            loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
+            updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
+          />
+        </div>
+      ));
   }
 }
 

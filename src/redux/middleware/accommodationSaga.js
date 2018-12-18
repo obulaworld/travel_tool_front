@@ -71,7 +71,7 @@ export function* watchFetchAccommodation() {
     fetchAccommodationSaga);
 }
 
-export function * fetchGuestHouseTimelineDataSaga(action) {
+export function* fetchGuestHouseTimelineDataSaga(action) {
   try {
     const {guestHouseId, startDate, endDate} = action;
     const fetchTimelineData = AccommodationAPI.fetchTimelineData;
