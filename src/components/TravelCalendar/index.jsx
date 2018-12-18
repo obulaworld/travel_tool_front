@@ -133,7 +133,7 @@ class TravelCalendar extends PureComponent {
         <div className="demo-card-wide mdl-card mdl-shadow--2dp error-msg">
           <p className={`${!notFoundError && 'dashboard-component__error-text--style'}`}>
             {notFoundError
-              ? 'No records found' 
+              ? 'No data to display'
               : 'Oops! An error occurred in retrieving this data'
             }
           </p>
