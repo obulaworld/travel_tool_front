@@ -145,7 +145,7 @@ const props = {
   shouldOpen: false,
   modalType: null,
   openModal: sinon.spy(() => Promise.resolve()),
-  closeModal: jest.fn(),
+  closeModal: sinon.spy(() => Promise.resolve()),
   page: 'Requests',
   match: {
     params: { requestId: 'sgjdgljgd' }
@@ -353,16 +353,18 @@ describe('<Requests>', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it.skip('should set `shouldOpen` prop to `true` when new request button is clicked', () => {
+  it('should set `visibility` prop to `invisible` when cancel button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <Requests {...props} />
+          <Requests
+            {...{ ...props, shouldOpen: true, modalType: 'new model' }}
+          />
         </MemoryRouter>
       </Provider>
     );
-    wrapper.find('.btn-new-request').simulate('click');
-    expect(wrapper.find('Requests').props().shouldOpen).toEqual(true);
+    wrapper.find('button#cancel').simulate('click');
+    expect(props.closeModal.calledWith(true, 'create request')).toBeTruthy();
   });
 
   it('should set `visibility` prop to `visible` when new request button is clicked', () => {
@@ -401,9 +403,9 @@ describe('<Requests>', () => {
       getUserData: {}
     };
 
-    const travelChecklist = { 
-      checklistItems: travelChecklistMockData, 
-      isLoading: false 
+    const travelChecklist = {
+      checklistItems: travelChecklistMockData,
+      isLoading: false
     };
     const props = mapStateToProps({requests, modal, user, travelChecklist});
     expect(props).toEqual({
@@ -465,7 +467,7 @@ describe('<Requests>', () => {
     expect(instance.props.deleteRequest.called).toBe(true);
     expect(instance.props.deleteRequest.calledWith('xDh20btGz')).toBe(true);
   });
-  
+
   it('should handle close travel checklist submission modal', () => {
     const wrapper = shallow(<Requests {...props} />
     );
