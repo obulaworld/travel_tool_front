@@ -36,10 +36,10 @@ class TravelReadiness extends PureComponent {
   }
 
   renderPagination = (readiness) => {
-    if(readiness){
-      const {pagination} = readiness;
+    const {pagination} = readiness;
+    if(pagination && pagination.dataCount > 0){
       return (
-        <AnalyticsPagination 
+        <AnalyticsPagination
           pagination={pagination}
           handlePagination={this.handlePagination}
         />

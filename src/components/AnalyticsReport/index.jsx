@@ -12,7 +12,7 @@ export default class AnalyticsReport extends Component {
     const { fetchDepartmentTrips, fetchReadiness } = this.props;
     fetchDepartmentTrips({filterBy: 'month', type: 'json'});
     fetchReadiness({page: '1', limit: '9', type:'json', travelFlow: 'inflow'});
-  
+
   }
 
   getDepartmentTripsCSV = () => {
@@ -52,7 +52,7 @@ export default class AnalyticsReport extends Component {
     return (
       <div id="no-records" className="analyticsReport__report-details">
         <br />
-        <p className="analyticsReport__text-center">No records found</p>
+        <p className="analyticsReport__text-center">No data to display</p>
       </div>
     );
   }
@@ -66,7 +66,7 @@ export default class AnalyticsReport extends Component {
       </div>
     );
   }
-  
+
   renderTripDetailsHeader = () => {
     return (
       <Fragment>
@@ -85,6 +85,7 @@ export default class AnalyticsReport extends Component {
       </Fragment>
     );
   }
+
   render() {
     const { departmentTrips, readiness, fetchReadiness, exportReadiness } = this.props;
     const { report, loading, error } = departmentTrips;
@@ -103,14 +104,14 @@ export default class AnalyticsReport extends Component {
               {
                 this.renderTripDetailsHeader()
               }
-              {report 
+              {report
               && report.length > 0 && !loading &&
               report.map(item => this.renderTripsDetails(item))}
-              {error 
+              {error
                 ? (
                   <p className="dashboard-component__error-text--style">
                     Oops! An error occurred in retrieving this data
-                  </p> 
+                  </p>
                 )
                 : (report && !report.length && this.renderNotFound())}
             </Fragment>

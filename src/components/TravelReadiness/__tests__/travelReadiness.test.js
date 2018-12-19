@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TravelReadiness  from '../index';
 import travelReadinessData from '../__mocks__/travelReadinessMockData';
+import AnalyticsPagination from '../../Pagination/AnalyticsPagination';
 
 const defaultProps = {
   readiness: {
@@ -93,7 +94,7 @@ describe('Test suite for Travel Readiness Component', () => {
     exportBtn.simulate('click');
     expect(defaultProps.exportReadiness).toHaveBeenCalled();
   });
-  
+
   it('should obtain next page when handlePagination is called', () => {
     const newWrapper = mount(<TravelReadiness {...defaultProps} />);
     const nextbtn = newWrapper.find('#Next');
@@ -111,5 +112,12 @@ describe('Test suite for Travel Readiness Component', () => {
     newProps.readiness.isLoading = true;
     wrapper.setProps({newProps});
     expect(wrapper.find('TravelReadinessPlaceholder').length).toBe(1);
+  });
+  it('should not render the pagination component if no data exists', () => {
+    let newProps = { ...defaultProps }
+    newProps.readiness.readiness = [];
+    newProps.readiness.pagination.dataCount = 0;
+    wrapper = setup(newProps);
+    expect(wrapper.find(AnalyticsPagination).exists()).toBeFalsy();
   });
 });
