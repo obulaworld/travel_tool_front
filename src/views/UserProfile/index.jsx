@@ -8,6 +8,7 @@ import ProfileForm from '../../components/Forms/ProfileForm';
 import Base from '../Base';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
+import {getUserData} from '../../redux/actionCreator/userActions';
 
 
 class UserProfile extends Base {
@@ -56,7 +57,8 @@ export const mapStateToProps = ({ user, role, occupations}) => ({
 const actionCreators = {
   updateUserProfile,
   fetchRoleUsers,
-  getOccupation
+  getOccupation,
+  getUserData
 };
 export default connect(
   mapStateToProps,

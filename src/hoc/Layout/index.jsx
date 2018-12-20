@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import ConnectedNotificationPane from '../../components/notification-pane/NotificationPane';
 import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import upic from '../../images/upic.svg';
-import RequireAuth from '../authHoc';
 import './Layout.scss';
+import {getUserData} from '../../redux/actionCreator/userActions';
+import Preloader from '../../components/Preloader/Preloader';
 
 export class Layout extends Component {
 
@@ -16,7 +18,12 @@ export class Layout extends Component {
     hideSideBar: false,
     openSearch: false,
     hideOverlay: true,
-  }
+  };
+
+  componentDidMount = () => {
+    const { user, getUserData } = this.props;
+    getUserData(user.UserInfo.id);
+  };
 
   onNotificationToggle = () => {
     this.setState(prevState => ({
@@ -60,12 +67,9 @@ export class Layout extends Component {
     return (
       <div
         className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
-
         <div className={`sidebar ${hideClass2}`}>
           <ConnectedLeftSideBar location={location} />
         </div>
-
-
       </div>
     );
   };
@@ -109,34 +113,37 @@ export class Layout extends Component {
     );
   };
 
-  render () {
-    const {children} = this.props;
-    const { hideOverlay, openSearch } = this.state;
-    const overlayClass = hideOverlay ? 'none': 'block';
-    const { hideNotificationPane, hideSideBar } = this.state;
+  renderContent(){
+    const {children, isLoaded} = this.props;
+    const { hideNotificationPane, hideSideBar} = this.state;
     const [hideClass, leftPaddingClass] = hideNotificationPane
       ? ['hide', '']
       : ['', 'pd-left'];
+    return (
+      <div className="mdl-layout__content full-height">
+        <div className="mdl-grid mdl-grid--no-spacing full-height">
+          {this.renderLeftSideBar(hideSideBar)}
+          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div className={`rp-requests ${leftPaddingClass}`}>
+              { isLoaded &&  children }
+            </div>
+          </div>
+        </div>
+        {this.renderNotificationPane(hideClass, hideSideBar)}
+      </div>
+    );
+  }
 
+  render () {
+    const { hideOverlay, openSearch } = this.state;
+    const overlayClass = hideOverlay ? 'none': 'block';
     return (
       <div>
-        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button"
-        >
+        <div className="mdl-layout mdl-js-layout request-page mdl-layout--no-desktop-drawer-button">
           {this.renderOverlay(overlayClass)}
           {this.renderSideDrawer(overlayClass)}
           {this.renderNavBar(openSearch)}
-
-          <div className="mdl-layout__content full-height">
-            <div className="mdl-grid mdl-grid--no-spacing full-height">
-              {this.renderLeftSideBar(hideSideBar)}
-              <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
-                <div className={`rp-requests ${leftPaddingClass}`}>
-                  {children}
-                </div>
-              </div>
-            </div>
-            {this.renderNotificationPane(hideClass, hideSideBar)}
-          </div>
+          {this.renderContent()}
         </div>
       </div>
     );
@@ -146,6 +153,11 @@ export class Layout extends Component {
 Layout.propTypes = {
   location: PropTypes.object.isRequired,
   children: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
+  getUserData: PropTypes.func.isRequired,
 };
 
-export default RequireAuth(Layout);
+const mapStateToProps = ({auth, user}) => ({...user,...auth});
+
+export default withRouter(connect(mapStateToProps, { getUserData })(Layout));

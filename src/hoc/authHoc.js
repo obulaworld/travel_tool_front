@@ -5,14 +5,13 @@ import { withRouter } from 'react-router-dom';
 import Cookies from 'cookies-js';
 import Utils from '../helper/Utils';
 import API from '../services/AccommodationAPI';
-import { getUserData } from '../redux/actionCreator/userActions';
 import { logoutUser } from '../helper/userDetails';
+import checkUserPermission from '../helper/permissions';
 
 const history = PropTypes.shape({});
-const user = PropTypes.object;
 
 /* istanbul ignore next */
-export default function(ComposedComponent) {
+export default function(ComposedComponent, ...allowedRoles) {
   /* istanbul ignore next */
   class Authenticate extends Component {
     componentDidMount() {
@@ -27,26 +26,28 @@ export default function(ComposedComponent) {
     }
 
     verifyToken(token) {
-      const { history, getUserData, user } = this.props;
+      const { history } = this.props;
       const decodedToken = Utils.verifyToken(token);
       const msg = 'Session Expired. Login to continue';
       if(!decodedToken) return logoutUser(history, msg);
       const { exp } = decodedToken;
       Utils.isExpired(exp) && logoutUser(history, msg);
-      !Utils.isExpired(exp) && getUserData(user.UserInfo.id);
     }
 
     render() {
-      return <ComposedComponent {...this.props} />;
+      const { history, getCurrentUserRole, isLoaded } = this.props;
+      return isLoaded && checkUserPermission(history, allowedRoles, getCurrentUserRole)
+        ? <ComposedComponent {...this.props} />
+        : null;
     }
   }
 
   Authenticate.propTypes = {
     history: history.isRequired,
-    user: user.isRequired,
-    getUserData: PropTypes.func.isRequired
+    getCurrentUserRole: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isLoaded: PropTypes.bool.isRequired,
   };
 
-  const mapStateToProps = ({ auth }) => ({ ...auth });
-  return withRouter(connect(mapStateToProps, { getUserData })(Authenticate));
+  const mapStateToProps = ({ auth, user }) => ({ ...auth,...user });
+  return withRouter(connect(mapStateToProps, null)(Authenticate));
 }

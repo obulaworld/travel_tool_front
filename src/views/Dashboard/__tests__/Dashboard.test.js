@@ -64,11 +64,4 @@ describe('<Dashboard />', () => {
       });
     expect(mapper.getCurrentUserRole[0]).toEqual('Travel Admin');
   });
-
-  it('should call the checkUserPermission method if isLoaded is true', () => {
-    const newProps = { ...props, isLoaded: true };
-    const newWrapper = shallow(<Dashboard {...newProps} />);
-    expect(newWrapper.length).toBe(1);
-    expect(checkUserPermission).toHaveBeenCalled();
-  });
 });

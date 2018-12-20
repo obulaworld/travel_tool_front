@@ -5,6 +5,7 @@ import {MemoryRouter} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import { Layout } from '..';
+import {REQUESTER} from '../../../helper/roles';
 
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
@@ -27,52 +28,61 @@ const initialState = {
 
 const store = mockStore(initialState);
 
+const props = {
+  children: {},
+  location: {},
+  notifications: [],
+  user: {
+    UserInfo: {
+      name: 'Tomato Jos',
+      picture: 'http://picture.com/gif',
+      getCurrentUserRole: [REQUESTER]
+    }
+  },
+  getUserData: jest.fn(),
+};
+
 describe('Layout component', () => {
-  xdescribe('<Layout />', () => {
-    const props = {
-      notifications: []
-    };
+  describe('<Layout />', () => {
 
-    let wrapper;
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Layout {...props} location={{}}>
+            <div>
+              Test Content
+            </div>
+          </Layout>
+        </MemoryRouter>
+      </Provider>
+    );
 
-    beforeAll(() => {
-      wrapper = mount(
-        <Provider store={store}>
-          <MemoryRouter>
-            <Layout {...props} location={{}}>
-              <div>
-                Test Content
-              </div>
-            </Layout>
-          </MemoryRouter>
-        </Provider>
-      );
-    });
 
     it('should render all the components except the notification pane', () => {
       expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
       expect(wrapper.find('.notification').hasClass('hide')).toEqual(true);
-      wrapper.unmount();
     });
 
     it('should display the notification pane when the notification icon gets clicked', () => {
       const notificationIcon = wrapper.find('.navbar__navbar-notification');
-      notificationIcon.simulate('click');
+      if( wrapper.find('.notification.hide').exists()){
+        notificationIcon.simulate('click');
+      }
       expect(wrapper.find('.notification').exists()).toBeTruthy();
       expect(wrapper.find('.notification .hide').exists()).toBeFalsy();
       expect(wrapper.find('.sidebar').hasClass('hide')).toEqual(true);
       expect(wrapper.find('NavBar').exists()).toBeTruthy();
-      wrapper.unmount();
     });
 
     it('should close the notification pane when the close icon is clicked', () => {
       const closeIcon = wrapper.find('.notifications-header__close-btn');
       const openNotificationIcon = wrapper.find('.navbar__navbar-notification');
-      openNotificationIcon.simulate('click');
+      if( wrapper.find('.notification.hide').exists()){
+        openNotificationIcon.simulate('click');
+      }
       expect(wrapper.find('.notification.hide').exists()).toBeFalsy();
       closeIcon.simulate('click');
       expect(wrapper.find('.notification.hide').exists()).toBeTruthy();
-      wrapper.unmount();
     });
 
     it.skip('should log the user out when the logout button is clicked', () => {
@@ -84,11 +94,6 @@ describe('Layout component', () => {
   });
 
   describe('Layout Shallow', () => {
-    const props = {
-      notifications: [],
-      children: {},
-      location: {}
-    };
 
     let shallowWrapper;
 

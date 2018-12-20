@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileForm from '../index';
+import  ProfileForm  from '../index';
 
 describe ('<ProfileForm />', () =>{
   let wrapper, onSubmit;
@@ -64,4 +64,9 @@ describe ('<ProfileForm />', () =>{
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
 
+  it('submits the updated profile details', () => {
+    wrapper.setState({hasBlankFields: false});
+    wrapper.find('button').first().simulate('click');
+    expect(props.getUserData).toHaveBeenCalledTimes(1);
+  });
 });

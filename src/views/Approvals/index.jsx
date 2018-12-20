@@ -6,7 +6,6 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
-import checkUserPermission from '../../helper/permissions';
 import NotFound from '../ErrorPages';
 
 export class Approvals extends Base {
@@ -111,12 +110,7 @@ export class Approvals extends Base {
   }
 
   render() {
-    const {approvals, getCurrentUserRole, history, match} = this.props;
-    const { isLoading } = approvals;
-    if (!isLoading && getCurrentUserRole.length > 0) {
-      const allowedRoles = ['Super Administrator', 'Manager'];
-      checkUserPermission(history, allowedRoles, getCurrentUserRole);
-    }
+    const {approvals, match} = this.props;
     const { requestId } = this.state;
     const filteredReqId = approvals.approvals.filter(approval => approval.id === requestId);
 
