@@ -1,6 +1,7 @@
 form {
   fieldset.add-checklist {
     .input-group{
+      width: 100%;
       span.link-fields-divider{
         padding-left: 7px;
         padding-right: 7px;
@@ -9,6 +10,7 @@ form {
       }
 
       .form-input{
+        margin-left: 0%;
         width: 100%;
         &.link-label-field{
           max-width: 200px;
