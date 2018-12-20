@@ -37,18 +37,11 @@ export class Requests extends Base {
     requestId: ''
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { openModal, requests, match: { params: { requestId } }, page } = prevProps;
-    const filteredReqId = requests.filter(request => request.id === requestId);
-    if (prevState.requestId === requestId && filteredReqId.length) {
-      openModal(true, 'request details', page);
-    }
-  }
-
   componentDidMount() {
     const {
       fetchUserRequests, fetchAvailableRooms,
       getOccupation, fetchRoleUsers,
+      page, openModal,
       match: {
         params: { requestId }
       }
@@ -60,6 +53,7 @@ export class Requests extends Base {
     fetchAvailableRooms();
     if (requestId) {
       this.storeRequestIdRequest(requestId);
+      openModal(true, 'request details', page);
     }
   }
 
@@ -214,7 +208,7 @@ export class Requests extends Base {
 
     return (
       <Fragment>
-        {!isFetching && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests" />}
+        {/* {!isFetching && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests" />} */}
         {this.renderRequestPanelHeader(isFetching)}
         {requests &&
           this.renderRequests(requests, isFetching, fetchRequestsError, message)}

@@ -210,28 +210,6 @@ describe('<Requests>', () => {
     expect(fetchUserRequests.called).toEqual(true);
     expect(fetchUserRequests.calledWith('?page=1')).toEqual(true);
     expect(fetchRoleUsers.called).toEqual(true);
-    expect(openModal.called).toEqual(false);
-    expect(fetchRoleUsers.calledWith(53019)).toEqual(true);
-    expect(fetchAvailableRooms.called).toEqual(true);
-    wrapper.unmount();
-  });
-
-
-  it('calls the componentDidUpdate method', () => {
-    const spy = sinon.spy(Requests.prototype, 'componentDidUpdate');
-    const { fetchUserRequests, fetchRoleUsers, openModal, fetchAvailableRooms } = props;
-    props.match.params.requestId = 'xDh20btGz';
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Requests {...props} />
-        </MemoryRouter>
-      </Provider>
-    );
-    wrapper.setProps({openModal});
-    expect(spy.called).toEqual(true);
-    expect(fetchUserRequests.called).toEqual(true);
-    expect(fetchRoleUsers.called).toEqual(true);
     expect(openModal.called).toEqual(true);
     expect(fetchRoleUsers.calledWith(53019)).toEqual(true);
     expect(fetchAvailableRooms.called).toEqual(true);

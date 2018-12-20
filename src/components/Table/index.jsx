@@ -234,6 +234,7 @@ export class Table extends Component {
 
   renderDetailsModal() {
     const { closeModal, shouldOpen, modalType, requestId, page, requestData, type } = this.props;
+    const redirectLink = ['Verifications', 'Approvals'].includes(page) ? `/my-${page.toLowerCase()}` : '';
     return (
       <Modal
         requestId={requestId}
@@ -252,10 +253,10 @@ export class Table extends Component {
         }
       >
         {(type === 'verifications') &&
-          <RequestsModal navigatedPage={page} requestId={requestId} />
+          <RequestsModal navigatedPage={page} redirectLink={redirectLink} requestId={requestId} />
         }
         {(type !== 'verifications') &&
-          <RequestsModal navigatedPage={page} requestId={requestId} />
+          <RequestsModal navigatedPage={page} redirectLink={redirectLink} requestId={requestId} />
         }
       </Modal>
     );

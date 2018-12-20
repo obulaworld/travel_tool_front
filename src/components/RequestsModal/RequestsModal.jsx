@@ -14,6 +14,7 @@ import RequestDetailsHeader from './RequestDetailsHeader';
 import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
 import Preloader from '../Preloader/Preloader';
 import RequestModalHelper, { buttonTextValuePair } from './RequestModalHelper';
+import NotFound from '../../views/ErrorPages';
 
 export class RequestDetailsModal extends Component {
   state = {
@@ -56,7 +57,6 @@ export class RequestDetailsModal extends Component {
       style = RequestModalHelper.setVerifiedStatusStyle(button, style, status, this.state);
       style = RequestModalHelper.setRejectedStatusStyle(button, style, status, this.state);
     }
-
     return style;
   }
 
@@ -108,7 +108,6 @@ export class RequestDetailsModal extends Component {
     const updatedApprovalText = (navigatedPage === 'Verifications') ? 'Verify' : approvalText;
     this.setState({ navigatedPage, approvalText: updatedApprovalText });
   }
-
 
   disableButtons(status, page) {
     const { buttonSelected } = this.state;
@@ -172,7 +171,6 @@ export class RequestDetailsModal extends Component {
           </span>
         );
       });
-
     return (
       <div className="modal__button-below">{displayButtons}</div>
     );
@@ -184,18 +182,20 @@ export class RequestDetailsModal extends Component {
   }
 
   renderRequests() {
-    const { requestId, requestData, user, user: {picture}, email } = this.props;
-    const { status, comments, id } = requestData;
+    const { fetchingRequest, error, requestId, redirectLink, requestData, user, user: { picture }, email } = this.props;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
 
+    if(!fetchingRequest && !requestData.id ) {
+      return <NotFound redirectLink={`/requests${redirectLink}`} errorMessage={error} />;
+    }
     return (
       <Fragment>
         <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
           <UserInfo requestData={requestData} user={user} />
-          {this.shouldButtonsRender(status)}
+          {this.shouldButtonsRender(requestData.status)}
           <ConfirmDialog
-            id={id}
+            id={requestData.id}
             modalInvisible={modalInvisible}
             buttonSelected={buttonTextValuePair[buttonSelected]}
             renderDialogText={renderDialogText}
@@ -208,12 +208,12 @@ export class RequestDetailsModal extends Component {
           {this.renderRequestDetailsHeader(requestData)}
           {RequestModalHelper.getRequestTripsDetails(requestData)}
         </div>
-        { ['Approved', 'Verified'].includes(status) ? <FileAttachment requestId={requestId} /> : '' }
+        { ['Approved', 'Verified'].includes(requestData.status) ? <FileAttachment requestId={requestId} /> : '' }
         <AddComment image={picture} />
         <ConnectedCommentBox requestId={requestId} />
         {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
         <div id="comments">
-          <ConnectedUserComments comments={comments ? comments.slice(0).reverse(): []} email={email.result && email.result.email} />
+          <ConnectedUserComments comments={requestData.comments ? requestData.comments.slice(0).reverse(): []} email={email.result && email.result.email} />
         </div>
       </Fragment>
     );
@@ -240,6 +240,8 @@ RequestDetailsModal.propTypes = {
   navigatedPage: PropTypes.string,
   email:PropTypes.object,
   updateError: PropTypes.string,
+  error: PropTypes.string,
+  redirectLink:PropTypes.string.isRequired
 };
 
 RequestDetailsModal.defaultProps = {
@@ -252,7 +254,8 @@ RequestDetailsModal.defaultProps = {
   fetchingRequest: false,
   navigatedPage: '',
   email: {},
-  updateError: ''
+  updateError: '',
+  error: ''
 };
 
 const mapStateToProps = (state) => {
@@ -263,7 +266,8 @@ const mapStateToProps = (state) => {
     fetchingRequest: state.requests.fetchingRequest,
     email:state.user.getUserData,
     updateError: state.approvals.error,
-    ...state.modal.modal
+    ...state.modal.modal,
+    error: state.requests.errors
   };
 };
 

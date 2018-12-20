@@ -235,7 +235,7 @@ export class GuestHouseDetails extends PureComponent {
             ) : (
 
               (!guestHouse.id && !guestHouse.houseName && !guestHouse.Location) ?
-                <NotFound redirectLink='/residence/manage' errorMessage={accommodation.error} /> :
+                <NotFound redirectLink="/residence/manage" errorMessage={accommodation.error} /> :
                 (
                   <Fragment>
                     {this.renderGuestHouseDetailsNameBar()}
