@@ -1,3 +1,11 @@
+#request-details-modal-content {
+  .pageOverlay {
+    height: auto;
+    width: 100%;
+    padding-bottom: 60px;
+  }
+}
+
 .pageOverlay {
   height: 100%;
   font-size: 100%;
@@ -13,13 +21,13 @@
   overflow-y: auto;
   background: #f8f8f8;
   background: #fff;
-  border-top:1px solid #f3eeee;
+  border-top: 1px solid #f3eeee;
   transition: -webkit-transform .1s ease-out;
   transition: transform .1s ease-out;
   transition: transform .1s ease-out,
-  -webkit-transform .1s ease-out;
+    -webkit-transform .1s ease-out;
   opacity: 1;
-  min-width:300px;
+  min-width: 300px;
   margin-top: 60px;
 
   a.button {
@@ -39,7 +47,7 @@
   }
 
   a.button:hover {
-    color:#dedcdc;
+    color: #dedcdc;
     font-weight: bold;
   }
 
@@ -48,7 +56,7 @@
     text-align: center;
     font-weight: 100;
     line-height: 1.4;
-    margin-bottom:30px;
+    margin-bottom: 30px;
   }
 
   .notFoundBody {
@@ -59,10 +67,10 @@
   .bg_404 {
     max-width: 600px;
     height: 250px;
-    margin:0 auto;
+    margin: 0 auto;
 
-    img{
-      width:100%;
+    img {
+      width: 100%;
     }
   }
 }

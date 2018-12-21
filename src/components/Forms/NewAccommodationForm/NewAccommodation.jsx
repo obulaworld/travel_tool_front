@@ -205,6 +205,7 @@ class NewAccommodation extends PureComponent {
       };
       if (this.validate() && modalType === 'edit accommodation') {
         editAccommodation(guestHouse.id, guestHouseData);
+        this.setState({ isSubmitting: false });
       } else {
         createAccommodation(guestHouseData);
         this.setState({ isSubmitting: false });

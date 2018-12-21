@@ -7,7 +7,7 @@ import notFoundImage from '../../../images/travela-404.png';
 
 class NotFound extends Component {
   render() {
-    const { redirectLink } = this.props;
+    const { redirectLink, errorMessage } = this.props;
     return (
       <div className="pageOverlay">
         <div className="notFoundBody">
@@ -15,8 +15,7 @@ class NotFound extends Component {
             <img src={notFoundImage} alt="page not found" /> 
           </div>
           <p>
-            The page you are looking for might have been removed, had its name
-            changed or is temporarily unavailable.
+            {errorMessage}
           </p>
           <center>
             <Link to={redirectLink} className="button" href={redirectLink}>
@@ -29,10 +28,12 @@ class NotFound extends Component {
   }
 }
 NotFound.propTypes = {
-  redirectLink: PropTypes.string
+  redirectLink: PropTypes.string,
+  errorMessage: PropTypes.string
 };
 
 NotFound.defaultProps = {
+  errorMessage: 'The page you are looking for might have been removed, had its name changed or is temporarily unavailable.',
   redirectLink: '/requests'
 };
 
