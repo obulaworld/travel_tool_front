@@ -23,10 +23,11 @@ import {
 const initialState = {
   requestData: {
     trips: [],
-    comments: []
+    comments: [],
+    accommodationType: ''
   },
   requestOnEdit: {},
-  comments: []
+  comments: [],
 };
 
 let editedRequestIndex, comments;

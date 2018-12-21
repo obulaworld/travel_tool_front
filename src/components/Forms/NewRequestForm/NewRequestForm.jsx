@@ -52,6 +52,14 @@ class NewRequestForm extends PureComponent {
   componentDidMount() {
     const { modalType } = this.props;
     if (modalType === 'edit request') {
+      const { trips } = this.state;
+      trips.map(eachTrip => {
+        if (eachTrip.accommodationType === 'Not Required') {
+          eachTrip.bedId = -2;
+        } else if (eachTrip.accommodationType === 'Hotel Booking') {
+          eachTrip.bedId = -1;
+        }
+      });
       this.handleEditForm();
     }
   }

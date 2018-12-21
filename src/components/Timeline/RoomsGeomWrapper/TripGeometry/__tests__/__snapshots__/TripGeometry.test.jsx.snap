@@ -15,7 +15,11 @@ exports[`<TripGeometry /> renders correctly 1`] = `
   <TimelineBar
     customStyle={
       Object {
+<<<<<<< HEAD
         "background": "hsl(266,52%,73%)",
+=======
+        "background": "hsl(141,68%,59%)",
+>>>>>>> fix(requests): remove accommodation for multicity
       }
     }
     tripDayWidth={31}
@@ -31,7 +35,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       className="geom-trip geom-trip--inner"
       style={
         Object {
-          "background": "hsl(266,62%,53%)",
+          "background": "hsl(141,78%,39%)",
           "width": "100%",
         }
       }

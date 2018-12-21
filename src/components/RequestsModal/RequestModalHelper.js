@@ -15,12 +15,12 @@ export default class RequestModalHelper {
   static getRequestTripsDetails(requestData) {
     const {trips, tripType, createdAt} = requestData;
     const requestTripsDetails = trips && trips.map(trip => {
-      const tripDetails = { createdAt, tripType, ...trip, };
+      const tripDetails = { createdAt, tripType, ...trip };
       return <TripDetails key={trip.id} tripDetails={tripDetails} />;
     });
     return requestTripsDetails;
   }
-  
+
   static renderStatusAsBadge(status) {
     const style = `request__status--${!status ? '' : status.toLowerCase()}`;
     return (

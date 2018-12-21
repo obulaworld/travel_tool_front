@@ -50,13 +50,18 @@ export default class TripDetails extends PureComponent {
       returnDate,
       destination,
       origin,
-      tripType
+      tripType,
+      accommodationType,
     } = tripDetails;
-    let accomodationDetails='Hotel Booking';
+    let accomodationDetails='';
+
     if(beds){
       const {rooms:{roomName, guestHouses:{houseName}}, bedName } = beds;
       accomodationDetails = `${houseName}, ${roomName}, ${bedName}`;
+    } else {
+      accomodationDetails = accommodationType;
     }
+
     return (
       <div className={`modal__modal-trip-details ${tripType}`}>
         {this.renderTripDetails(

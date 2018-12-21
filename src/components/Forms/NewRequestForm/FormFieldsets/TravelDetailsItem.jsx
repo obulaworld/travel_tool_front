@@ -10,7 +10,8 @@ class TravelDetailsItem extends Component {
     bedOnEdit: null,
     gender: null,
     trip: null,
-    missingRequiredFields: true
+    missingRequiredFields: true,
+    accommodationType: null
   }
 
   componentDidMount() {
@@ -56,6 +57,7 @@ class TravelDetailsItem extends Component {
       pendingState.trip = {...trip};
       pendingState.gender = request.gender;
       pendingState.missingRequiredFields = false;
+      pendingState.accommodationType = trip.accommodationType;
     }
     this.setState({ ...pendingState }, () => this.setBedChoices(modalType, values, []));
   }
@@ -67,11 +69,19 @@ class TravelDetailsItem extends Component {
   }
 
   setBedChoices = (modalType, values, beds) => {
-    const { itemId } = this.props;
+    const { itemId, selection } = this.props;
+    const { accommodationType } = this.state;
     let bedChoices = this.getRawBedChoices(modalType, values, beds);
     if (bedChoices.length < 1) {
-      this.setValues(values, itemId, ' ', modalType);
-      bedChoices = [{ label: 'Hotel Booking', value: values[`bed-${itemId}`] || ' ' }];
+      if (accommodationType === 'Hotel Booking') {
+        this.setValues(values, itemId, -1, modalType);
+        bedChoices.unshift({ label: 'Hotel Booking', value: -1 });
+        bedChoices.unshift({ label: 'Not Required', value: -2 });
+      } else if (accommodationType === 'Not Required') {
+        this.setValues(values, itemId, -2, modalType);
+        bedChoices.unshift({ label: 'Not Required', value: -2 });
+        bedChoices.unshift({ label: 'Hotel Booking', value: -1 });
+      }
     } else {
       bedChoices = bedChoices.map(choice => {
         this.setValues(values, itemId, choice.id, modalType);
@@ -79,6 +89,7 @@ class TravelDetailsItem extends Component {
           label: `${choice.rooms.roomName}, ${choice.bedName}`,
           value: choice.id
         });});
+      bedChoices.unshift({ label: 'Not Required', value: -2 });
       bedChoices.push({ label: 'Hotel Booking', value: -1 });
     }
     this.setState({ choices: bedChoices });
@@ -179,7 +190,34 @@ class TravelDetailsItem extends Component {
         {(availableRooms.isLoading && availableRooms.rowId === itemId) ? (
           <div className="travel-input-area__spinner" />)
           : null}
-        {
+        {(selection === 'multi' && values['origin-0'] === values[`destination-${itemId}`] && values['origin-0'].trim() !== '') ? (
+          missingRequiredFields ? (
+            <div>
+              {
+                renderInput(`bed-${itemId}`, 'text', {
+                  className: 'room-dropdown',
+                  placeholder: 'Not Required',
+                  disabled: false,
+                  choices: [],
+                })
+              }
+              <img
+                style={{ top: '43px', position: 'absolute', right: '15px' }}
+                src="/static/media/form_select_dropdown.d19986d7.svg"
+                alt="icon"
+              />
+            </div>
+          ) : (
+            renderInput(`bed-${itemId}`, 'dropdown-select', {
+              className: 'room-dropdown',
+              parentid: itemId,
+              size: '100%',
+              choices: choices,
+              onChange: value => handlePickBed(value, itemId),
+              onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
+            })
+          )
+        ) : (
           missingRequiredFields ? (
             <div>
               {
@@ -193,7 +231,7 @@ class TravelDetailsItem extends Component {
               <img
                 style={{ top: '43px', position: 'absolute', right: '15px' }}
                 src="/static/media/form_select_dropdown.d19986d7.svg"
-                alt="icn"
+                alt="icon"
               />
             </div>
           )
@@ -206,7 +244,7 @@ class TravelDetailsItem extends Component {
               onChange: value => handlePickBed(value, itemId),
               onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
             })
-        }
+        )}
       </div>
     );
   }
@@ -231,7 +269,7 @@ class TravelDetailsItem extends Component {
   }
 
   render() {
-    const { itemId, selection, removeTrip } = this.props;
+    const { itemId, selection, removeTrip, values } = this.props;
     return (
       <Fragment>
         <div className="travel-input-area">
