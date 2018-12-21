@@ -21,7 +21,7 @@ const props = {
   openModal: jest.fn(),
   onNotificationToggle: jest.fn(),
   restoreGuestHouse: sinon.spy(),
-  closeModal: jest.fn(),
+  closeModal: sinon.spy(() => Promise.resolve()),
   getCurrentUserRole: 'Travel Administrator',
   history: {
     push: jest.fn()
@@ -59,7 +59,7 @@ describe('<Accommodation />', () => {
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
   });
-  
+
 
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
@@ -77,7 +77,7 @@ describe('<Accommodation />', () => {
     expect(fetchDisabledAccommodation.called).toEqual(true);
   });
 
-  it('should call restoreGuestHouse when the button is clicked', () => { 
+  it('should call restoreGuestHouse when the button is clicked', () => {
     const instance = wrapper.instance();
     jest.spyOn(instance, 'restoreGuestHouse');
     const button = wrapper.find('#restoreGuestHouseId');
@@ -85,7 +85,7 @@ describe('<Accommodation />', () => {
     expect(instance.restoreGuestHouse).toBeCalled;
   });
 
-  it('should call handleOnRestore', () => { 
+  it('should call handleOnRestore', () => {
     const instance = wrapper.instance();
     jest.spyOn(instance, 'handleOnRestore');
     const button = wrapper.find('#handleOnRestoreId');
@@ -112,6 +112,18 @@ describe('<Accommodation />', () => {
     wrapper.unmount();
   });
 
-
+  it('should set `visibility` prop to `invisible` when cancel button is clicked on new accomodation modal', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Accommodation
+            {...{ ...props, shouldOpen: true, modalType: 'new model' }}
+          />
+        </MemoryRouter>
+      </Provider>
+    );
+    wrapper.find('button#cancel').simulate('click');
+    expect(props.closeModal.calledWith(true, 'add accommodation')).toBeTruthy();
+  });
 
 });

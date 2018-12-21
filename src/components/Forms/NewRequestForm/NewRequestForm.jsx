@@ -439,6 +439,8 @@ class NewRequestForm extends PureComponent {
   };
   handleClearForm = () => {
     this.setState({ ...this.defaultState });
+    let { closeModal } = this.props;
+    closeModal(true, 'create request');
   };
   collapsible = () => {
     const { collapse } = this.state;
@@ -595,7 +597,8 @@ NewRequestForm.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired,
   availableRooms: PropTypes.object.isRequired,
   occupations: PropTypes.array.isRequired,
-  fetchAvailableRoomsSuccess: PropTypes.func.isRequired
+  fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 
 NewRequestForm.defaultProps = {

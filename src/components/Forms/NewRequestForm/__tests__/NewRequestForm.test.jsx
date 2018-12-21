@@ -94,6 +94,7 @@ describe('<NewRequestForm />', () => {
     fetchUserRequests: jest.fn(() => {}),
     fetchAvailableRooms: jest.fn(() => {}),
     fetchAvailableRoomsSuccess: jest.fn(() => {}),
+    closeModal: jest.fn(),
     choices: ['director', 'chef'],
     managers: [
       {
@@ -537,7 +538,7 @@ describe('<NewRequestForm />', () => {
 
   it('should call handleClearForm', () => {
     const wrapper = shallow(<NewRequestForm {...props} />);
-    wrapper.instance().handleClearForm();
+    wrapper.find('SubmitArea').dive().find('#cancel').simulate('click');
     expect(wrapper.state()).toMatchObject({});
   });
 

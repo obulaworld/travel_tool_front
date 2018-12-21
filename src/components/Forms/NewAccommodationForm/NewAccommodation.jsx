@@ -140,6 +140,8 @@ class NewAccommodation extends PureComponent {
     }};
   handleFormCancel = () => {
     this.setState({ ...this.defaultState });
+    let { closeModal } = this.props;
+    closeModal(true, 'add accommodation');
   };
   handleEditFormCancel = () => {
     let { closeModal } = this.props;
