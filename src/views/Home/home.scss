@@ -1,0 +1,148 @@
+.home {
+  margin-top: 30px;
+  &-title {
+    height: 23px;
+    width: 50px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+  }
+}
+
+.card-layout {
+	border-radius: 4px;
+	background-color: #FFFFFF;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
+
+  &--start {
+    height: 260px;
+    width: 100%;
+    display: flex;
+
+    .photo {
+      background-color: blue;
+      width: 38.89%;
+    }
+
+    .details {
+      width: 61.11%;
+      padding: 68px 40px;
+      font-family: "DIN Pro";
+
+      .ready {
+        height: 27px;
+        width: 160px;
+        color: #4F4F4F;
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 27px;
+      }
+
+      .confirm {
+        height: 42px;
+        width: 508px;
+        color: #4F4F4F;
+        font-size: 16px;
+        line-height: 21px;
+      }
+
+      & a {
+        height: 21px;
+        width: 82px;
+        color: #3359DB;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 21px;
+      }
+    }
+  }
+
+  &--team {
+    height: 296px!important;
+    width: 47%;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & p {
+    height: 20px;
+    width: 174px;
+    color: #4F4F4F;
+    font-family: "DIN Pro";
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    padding-left: 10px;
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      & img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        padding: 10px;
+      }
+    }
+  }
+
+  &--requests {
+      max-height: 280px!important;
+      width: 50%;
+      border-radius: 2px;
+      box-sizing: border-box;
+
+      &-table {
+        width: 100%;
+        border:none;
+        &__header {
+          & th {
+            height: 20px;
+            width: 74px;
+            color: #4F4F4F;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 20px;
+          }
+        }
+
+        .req-id {
+          color: #3359DB;
+        }
+
+        .table--status {
+          height: 10px;
+        }
+      }
+
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 30px 30px 10px 30px;
+
+        & p, & a {
+          height: 20px;
+          color: #4F4F4F;
+          font-family: "DIN Pro";
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 20px;
+        }
+      }
+  }
+}
+
+.overview {
+  margin-top: 38px;;
+  display: flex;
+  justify-content: space-between;
+}

@@ -25,11 +25,22 @@ const NavItemsMetadata = [
       inactive: inactiveDashboardIcon
     }
   },
+  // Home`
+  {
+    text: 'Home',
+    link_to: '/home',
+    activateOnLogin: true,
+    exact: true,
+    icons: {
+      active: activeDashboardIcon,
+      inactive: inactiveDashboardIcon
+    }
+  },
   // Requests
   {
     text: 'Requests',
     link_to: '/requests',
-    activateOnLogin: true,
+    activateOnLogin: false,
     isDropdown: true,
     dropdownItems: [
       {
