@@ -23,7 +23,7 @@ class UserProfile extends Base {
 
   render() {
     const { roleUsers, updateUserProfile, user,
-      fetchUserData, getUserData, occupations } = this.props;
+      fetchUserData, occupations } = this.props;
     return (
       <Fragment>
         <h1>PROFILE</h1>
@@ -34,7 +34,6 @@ class UserProfile extends Base {
               updateUserProfile={updateUserProfile}
               userData={fetchUserData && fetchUserData.result}
               user={user}
-              getUserData={getUserData}
               occupations={occupations}
             />
           </div>

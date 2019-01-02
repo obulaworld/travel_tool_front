@@ -35,9 +35,9 @@ function validate(field)  {
     return !hasBlankFields;
   }
 
-  !values[field] && !isOptional(field, optionalFields)
-    ? (errors[field] = 'This field is required')
-    : (errors[field] = '');
+  errors[field] = !values[field] && !isOptional(field, optionalFields)
+    && 'This field is required';
+
   targetForm.setState(prevState => ({ ...prevState, errors, hasBlankFields}));
   return !hasBlankFields;
 }
