@@ -177,5 +177,8 @@ TableMenu.propTypes = {
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
+TableMenu.defaultProps = {
+  modalType: ''
+};
 
 export default TableMenu;

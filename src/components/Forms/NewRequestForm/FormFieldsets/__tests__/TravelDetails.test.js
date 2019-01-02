@@ -18,7 +18,29 @@ const props = {
   handleDate: jest.fn(),
   handlePickBed: jest.fn(() => {props.bed = 'bed-0';}),
   removeTrip: jest.fn(),
-  availableRooms:{ beds }
+  availableRooms:{ beds },
+  handleRadioButtonChange: jest.fn(),
+  onChangeInput: jest.fn(),
+  modalType: 'edit request',
+  requestOnEdit: {
+    createdAt: '2018-12-24T18:04:30.487Z',
+    deletedAt: null,
+    department: 'Talent & Development',
+    gender: 'Male',
+    id: 'KOhl6UY8y',
+    manager: 'William Sserubiri',
+    name: 'william',
+    picture: 'https://lh6.googleusercontent.com/-JznmEmIIMek/AAAAAAAAAAI/AAAAAAAAAAc/KBISMb5Pa1E/photo.jpg?sz=50',
+    role: 'CEO',
+    status: 'Open',
+    travelCompletion: '0% complete',
+    tripType: 'multi',
+    trips: [],
+    updatedAt: '2018-12-25T18:04:30.487Z',
+    userId: '-LOYLrl_4orw7UDhj6mo',
+    selection: 'multi',
+    value: '232px'
+  }
 };
 
 const setup = (props) => shallow(<TravelDetails {...props} />);

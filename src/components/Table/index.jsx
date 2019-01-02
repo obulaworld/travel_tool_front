@@ -372,7 +372,7 @@ Table.propTypes = {
   submissionInfo: PropTypes.object.isRequired,
   uploadFile: PropTypes.func,
   fileUploads: PropTypes.object,
-  deleteRequest: PropTypes.func.isRequired,
+  deleteRequest: PropTypes.func,
   openModal: PropTypes.func.isRequired,
   handleCloseSubmissionModal: PropTypes.func,
 };
@@ -389,6 +389,7 @@ Table.defaultProps = {
   requestId: '',
   requestData: {},
   travelChecklists: {},
+  deleteRequest: () => {},
   editRequest: () => {},
   showTravelChecklist: () => {},
   uploadTripSubmissions: () => {},

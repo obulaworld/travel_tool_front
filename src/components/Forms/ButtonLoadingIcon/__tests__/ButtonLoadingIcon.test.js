@@ -5,6 +5,7 @@ describe('<ButtonLoadingIcon />', () => {
   const props = {
     loading: true,
     buttonText: 'Save',
+    isLoading: true
   };
   const wrapper = shallow(<ButtonLoadingIcon {...props} />);
 

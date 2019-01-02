@@ -126,7 +126,10 @@ class Timeline extends PureComponent {
     // ensure setState is done async after componentDidMount/componentDidUpdate
     const width = await Promise.resolve(
       this.timelineSegmentsRef.current.getBoundingClientRect().width
-    );
+    ).catch((error) => {
+      console.log('This is error');
+      return error;
+    });
     this.setState(prevState => ({
       ...prevState,
       timelineSegmentWidth: width
@@ -214,8 +217,7 @@ class Timeline extends PureComponent {
   }
 
   renderChangeRoomModal = () => {
-    const { modalInvisible, requesterName, bedId, changeReason,
-      values, value, bedIdNames, bedNames, bedChoices } = this.state;
+    const { requesterName, bedChoices } = this.state;
     const { loadingBeds, modalType, shouldOpen, closeModal, loading } = this.props;
     return (
       <Modal
@@ -243,7 +245,7 @@ class Timeline extends PureComponent {
   }
 
   handleDeleteMaintenance = roomId => {
-    const { deleteMaintenanceRecord, rooms, updateRoomState, guestHouseId } = this.props;
+    const { deleteMaintenanceRecord, updateRoomState, guestHouseId } = this.props;
     deleteMaintenanceRecord(roomId);
     const [startDateString, endDateString] = this.getTimelineRange();
     const data = { fault: false };
@@ -251,7 +253,8 @@ class Timeline extends PureComponent {
   };
 
   renderEditMaintenanceModal = () => {
-    const {shouldOpen, closeModal, modalType, editMaintenance, updateMaintenanceRecord } = this.props;
+    const { shouldOpen, closeModal, modalType, editMaintenance, guestHouseId,
+      updateMaintenanceRecord, addmaintenanceRecord } = this.props;
     const { maintenance } = this.state;
     return (
       <Modal
@@ -265,11 +268,14 @@ class Timeline extends PureComponent {
         title="Edit Maintenance"
         showOverlay={false}
       >
-        <MaintenanceForm 
-          maintenance={maintenance} 
-          modalType={modalType} 
+        <MaintenanceForm
+          id={guestHouseId}
+          maintenance={maintenance}
+          modalType={modalType}
+          closeModal={closeModal}
           editMaintenance={editMaintenance}
-          updateMaintenanceRecord={updateMaintenanceRecord} 
+          updateMaintenanceRecord={updateMaintenanceRecord}
+          addmaintenanceRecord={addmaintenanceRecord}
         />
       </Modal>
     );
@@ -383,10 +389,9 @@ class Timeline extends PureComponent {
     const {
       timelineStartDate,
       timelineChoicesOpen,
-      timelineViewType,
-      periodOffset
+      timelineViewType
     } = this.state;
-    const {rooms, updateRoomState, guestHouseId,openModal,shouldOpen, 
+    const { rooms, updateRoomState, guestHouseId, openModal, shouldOpen, updateMaintenanceRecord,
       addmaintenanceRecord, closeModal, modalType, maintenanceDetails} = this.props;
     const { timelineDayWidth, noOfSegments } = this.getTimelineViewTypeProperties();
     return (
@@ -401,6 +406,7 @@ class Timeline extends PureComponent {
           timelineDateRange={this.getTimelineRange()}
           guestHouseId={guestHouseId}
           closeModal={closeModal}
+          updateMaintenanceRecord={updateMaintenanceRecord}
         />
         <TimelineHeader
           selectedTimeDisplay={this.constructSelectedPeriodDisplay()}
@@ -448,8 +454,8 @@ Timeline.propTypes = {
   fetchTimelineRoomsData: PropTypes.func.isRequired,
   updateRoomState: PropTypes.func.isRequired,
   guestHouseId: PropTypes.string.isRequired,
-  modalType: PropTypes.string.isRequired,
-  updateTripRoom: PropTypes.string.isRequired,
+  modalType: PropTypes.string,
+  updateTripRoom: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   loadingBeds: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -459,7 +465,8 @@ Timeline.propTypes = {
 Timeline.defaultProps = {
   rooms: [],
   editMaintenance: {},
-  maintenanceDetails: {}
+  maintenanceDetails: {},
+  modalType: null,
 };
 
 export default Timeline;

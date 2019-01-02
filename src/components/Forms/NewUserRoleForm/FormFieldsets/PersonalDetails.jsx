@@ -7,13 +7,14 @@ class PersonalDetailsFiedset extends Component {
   renderCenterField(roleName, renderInput) {
     if (roleName.toLowerCase() === 'travel team member') {
       return renderInput('center', 'dropdown-select',
-        { required: true, className: 'request_dropdown' });
+        { required: true, className: 'request_dropdown',size: '' });
     }
     return renderInput('center', 'dropdown-select',
       {
         labelNote: '(Optional)',
         required: false,
-        className: 'request_dropdown'
+        className: 'request_dropdown',
+        size: ''
       });
   }
   render() {

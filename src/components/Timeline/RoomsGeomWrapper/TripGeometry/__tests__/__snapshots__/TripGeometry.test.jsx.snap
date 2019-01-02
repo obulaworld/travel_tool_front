@@ -43,6 +43,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
   <TripDetails
     bookingDetailsPos={0}
     detailsVariantClass="hidden"
+    handleChangeRoomModal={[Function]}
     toggleBookingDetails={[Function]}
     translateDetailsLeft={false}
     trip={

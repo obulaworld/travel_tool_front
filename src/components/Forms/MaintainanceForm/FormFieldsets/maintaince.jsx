@@ -11,21 +11,20 @@ class MaintainanceFieldSets extends Component {
     const { renderInput } = this.inputRenderer;
     const { values: { maintainanceStart, maintainanceEnd, reason }, editMaintenance } = this.props;
     const {maintenance} = editMaintenance;
-
     return (
       <fieldset className="maintainance-details">
         <div className="input-group">
           {renderInput('maintainanceStart', 'date',
             {
-              value: (maintenance && maintenance.start) ? maintenance.start : maintainanceStart,
+              value: maintenance ? maintenance.start : maintainanceStart,
               minDate: new Date()
             })}
           {renderInput('maintainanceEnd', 'date',
             {
-              value: (maintenance && maintenance.end) ? maintenance.end : maintainanceEnd,
+              value: maintenance ? maintenance.end : maintainanceEnd,
               minDate: moment(new Date(maintainanceStart))
             })}
-          {renderInput('reason', 'text', {value: (maintenance && maintenance.reason) ? maintenance.reason : reason })}
+          {renderInput('reason', 'text', {value: maintenance ? maintenance.reason : reason })}
         </div>
         <span className="msg-maintainence">
           <img src={error} alt="error" className="img_error" />

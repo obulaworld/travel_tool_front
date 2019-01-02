@@ -91,7 +91,7 @@ AddRoleForm.propTypes = {
 AddRoleForm.defaultProps = {
   addingRole: false,
   myTitle: '',
-  roleDetail: '',
+  roleDetail: {},
   updateRole: () => {}
 };
 

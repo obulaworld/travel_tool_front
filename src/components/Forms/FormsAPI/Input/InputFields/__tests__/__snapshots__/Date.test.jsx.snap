@@ -32,7 +32,6 @@ exports[`<Date /> renders as expected 1`] = `
     previousMonthButtonLabel="Previous Month"
     readOnly={false}
     selected={null}
-    selectedDate=""
     shouldCloseOnSelect={true}
     showTimeSelect={false}
     timeCaption="Time"

@@ -55,7 +55,7 @@ ConfirmDialog.propTypes = {
   modalInvisible: PropTypes.bool,
   buttonSelected: PropTypes.oneOfType([
     PropTypes.bool, PropTypes.string
-  ]).isRequired,
+  ]),
   renderDialogText: PropTypes.func.isRequired,
   closeDeleteModal: PropTypes.func.isRequired,
   handleApprove: PropTypes.func.isRequired,
@@ -65,6 +65,7 @@ ConfirmDialog.propTypes = {
 ConfirmDialog.defaultProps = {
   id: '',
   modalInvisible: true,
+  buttonSelected: null
 };
 
 export default ConfirmDialog;

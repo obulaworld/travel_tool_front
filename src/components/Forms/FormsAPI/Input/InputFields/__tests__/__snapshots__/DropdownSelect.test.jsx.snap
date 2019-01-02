@@ -21,13 +21,15 @@ exports[`<DropdownSelect /> renders fine 1`] = `
     onClick={[Function]}
     onKeyPress={[Function]}
     role="button"
+    size="245px"
     tabIndex="0"
+    value=""
   >
     <div
       className="value"
       style={
         Object {
-          "width": undefined,
+          "width": "245px",
         }
       }
     >

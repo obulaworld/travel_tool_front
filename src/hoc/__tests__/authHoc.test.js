@@ -33,7 +33,9 @@ describe('Component: isAuthenticated User', () => {
           name: 'John Doe'
         }
       },
-      getUserData: jest.fn()
+      getUserData: jest.fn(),
+      getCurrentUserRole:[],
+      isLoaded: false
     };
     mountedComponent = undefined;
   });

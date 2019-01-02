@@ -11,8 +11,8 @@ describe('<DeleteModal />', () => {
         cloudinary_public_id: 'e93h236FvT',
         cloudinary_url: 'https://image.jpg',
         userId: '-LMgZQKq6MXAj_41iRWi',
-        createdAt: '2018-08-16 012:11:52.181+01',
-        updatedAt: '2018-08-16 012:11:52.181+01',
+        createdAt: '2018-08-16 12:11:52.181+01',
+        updatedAt: '2018-08-16 12:11:52.181+01',
       },
       {
         id: '2',
@@ -20,8 +20,8 @@ describe('<DeleteModal />', () => {
         cloudinary_public_id: 'e93h236FvT',
         cloudinary_url: 'https://image.url',
         userId: '-LMgZQKq6MXAj_41iRWi',
-        createdAt: '2018-08-16 012:11:52.181+01',
-        updatedAt: '2018-08-16 012:11:52.181+01',
+        createdAt: '2018-08-16 12:11:52.181+01',
+        updatedAt: '2018-08-16 12:11:52.181+01',
       }
     ],
     closeModal: jest.fn(),

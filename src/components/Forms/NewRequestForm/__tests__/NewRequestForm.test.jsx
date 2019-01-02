@@ -89,19 +89,18 @@ describe('<NewRequestForm />', () => {
     getUserData: jest.fn(() => {}),
     handleCreateRequest: jest.fn(() => {}),
     updateUserProfile: jest.fn(() => {}),
-    creatingRequest: jest.fn(() => {}),
+    creatingRequest: false,
     handleEditRequest: jest.fn(() => {}),
     fetchUserRequests: jest.fn(() => {}),
     fetchAvailableRooms: jest.fn(() => {}),
     fetchAvailableRoomsSuccess: jest.fn(() => {}),
     closeModal: jest.fn(),
     choices: ['director', 'chef'],
-    managers: [
-      {
-        fullName: 'Test User',
-        email: 'test.user@andela.com'
-      }
-    ]
+    managers: [{
+      fullName: 'Test User',
+      email: 'test.user@andela.com'
+    }],
+    modalType:'new model'
   };
   const event = {
     preventDefault: jest.fn(),
@@ -138,6 +137,9 @@ describe('<NewRequestForm />', () => {
 
 
   beforeEach(() => {
+    process.env = Object.assign(process.env, { 
+      REACT_APP_CITY: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places'
+    });
     wrapper = mount(<NewRequestForm {...props} />);
   });
 
@@ -505,21 +507,6 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should not toggle the modal if request submission failed', () => {
-    wrapper.setState({
-      values: {
-        name: 'test',
-        gender: 'test',
-        department: 'test',
-        role: 'test',
-        manager: 'test',
-        origin: 'test',
-        destination: 'Nairobi',
-        otherDestination: '',
-        departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988',
-        bed: beds[0].id
-      }
-    });
     wrapper.setProps({
       errors: ['error while creating a new request']
     });

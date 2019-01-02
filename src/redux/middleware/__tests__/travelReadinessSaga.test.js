@@ -47,7 +47,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
         type: FETCH_TRAVEL_READINESS,
         query
       })
-      .run();
+      .silentRun();
   });
   
   it('should throw an error if get readiness request failed', () => {
@@ -71,7 +71,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
         type: FETCH_TRAVEL_READINESS,
         query
       })
-      .run();
+      .silentRun();
   });
   it('should throw an error if export readiness request failed', () => {
     const error = {
@@ -94,7 +94,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
         type: EXPORT_TRAVEL_READINESS,
         query
       })
-      .run();
+      .silentRun();
   });
   
   it('should call FileSaver.saveAs function if the action type is file', () => {
@@ -110,7 +110,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
         type: EXPORT_TRAVEL_READINESS,
         query
       })
-      .run()
+      .silentRun()
       .then(() => {
         expect(FileSaver.saveAs).toHaveBeenCalled();
       });

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import sinon from 'sinon';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import NotFound from '../index';
-import App from  '../../App';
 
 const initialState = {
   postAccommodationData: [],

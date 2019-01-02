@@ -17,7 +17,7 @@ import './Role.scss';
 export class Role extends Component {
   state = {
     headTitle: 'Add Role',
-    roleDetail: ''
+    roleDetail: null
   }
   componentDidMount() {
     const { getRoleData } = this.props;
@@ -26,7 +26,7 @@ export class Role extends Component {
 
   handleAddRole = () => {
     const {openModal} = this.props;
-    this.setState({headTitle: 'Add Role', roleDetail: ''});
+    this.setState({headTitle: 'Add Role', roleDetail: null});
     openModal(true, 'new model');
   }
 
@@ -113,7 +113,7 @@ export const mapStateToProps = ({ modal, role, user }) => ({
 });
 
 Role.propTypes = {
-  roles: PropTypes.object.isRequired,
+  roles: PropTypes.array.isRequired,
   closeModal: PropTypes.func.isRequired,
   getRoleData: PropTypes.func.isRequired,
   roleErrors: PropTypes.string,

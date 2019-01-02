@@ -52,7 +52,7 @@ describe('File Upload saga', () => {
         submissionData: data.submissionData,
         checkId: data.checkId,
         requestId: data.requestId
-      }).run();
+      }).silentRun();
   });
 
   it('fails to uploads file to cloudinary', () => {
@@ -71,6 +71,6 @@ describe('File Upload saga', () => {
         submissionData: data.submissionData,
         checkId: data.checkId,
         requestId: data.requestId
-      }).run();
+      }).silentRun();
   });
 });

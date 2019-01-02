@@ -12,6 +12,17 @@ describe('<NewChecklistForm />', () => {
     checklistItem: {},
     currentUser: {}
   };
+  const defaultState = {
+    values: {
+      itemName: '',
+      label: '',
+      link: '',
+      requiresFiles: ''
+    },
+    errors: {},
+    hasBlankFields: true,
+    optionalFields: ['label', 'link', 'requiresFiles']
+  };
 
   beforeEach(() => {
     wrapper = mount(<NewChecklistForm {...props} />);
@@ -37,7 +48,7 @@ describe('<NewChecklistForm />', () => {
     const event = {
       preventDefault: jest.fn()
     };
-    wrapper.setState({ values: { itemName: 'name'} });
+    wrapper.setState({...defaultState, itemName: 'passport', hasBlankFields: false });
     submitBtn.simulate('submit', event);
     expect(spy).toHaveBeenCalledTimes(1);
     wrapper.unmount();
@@ -49,7 +60,7 @@ describe('<NewChecklistForm />', () => {
     const event = {
       preventDefault: jest.fn()
     };
-    wrapper.setState({ values: { itemName: 'name'} });
+    wrapper.setState({...defaultState, itemName: 'Visa card', hasBlankFields: false });
     wrapper.setProps({ modalType: 'edit cheklistItem'});
     submitBtn.simulate('submit', event);
     expect(spy).toHaveBeenCalledTimes(1);
@@ -58,7 +69,7 @@ describe('<NewChecklistForm />', () => {
 
   it('should not enable save button with of a checklist with no value', () => {
     wrapper.setProps({ modalType: 'edit cheklistItem'});
-    wrapper.setState({ values: { itemName: ''} });
+    wrapper.setState({ ...defaultState, itemName: '' });
     expect(wrapper.state().hasBlankFields).toBe(true);
     wrapper.unmount();
   });

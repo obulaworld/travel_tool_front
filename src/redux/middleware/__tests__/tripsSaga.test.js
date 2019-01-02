@@ -51,7 +51,7 @@ describe('Test suite for Trips Saga', () => {
         .dispatch({
           type: FETCH_TRIPS
         })
-        .run();
+        .silentRun();
     });
 
     it('should throw an error if an error occurred while fetching trips', () => {
@@ -66,7 +66,7 @@ describe('Test suite for Trips Saga', () => {
         .dispatch({
           type: FETCH_TRIPS
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -93,7 +93,7 @@ describe('Test suite for Trips Saga', () => {
           tripId: action.tripId,
           tripData: action.tripData
         })
-        .run();
+        .silentRun();
     });
 
     it('should throw an error if update fails', () => {
@@ -118,7 +118,7 @@ describe('Test suite for Trips Saga', () => {
           tripId: action.tripId,
           tripData: action.tripData
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -153,7 +153,7 @@ describe('Test suite for Trips Saga', () => {
           tripId: action.tripId,
           data: action.data
         })
-        .run();
+        .silentRun();
     });
 
     it('should have called the toast success method', () => {
@@ -182,7 +182,7 @@ describe('Test suite for Trips Saga', () => {
           tripId: action.tripId,
           data: action.data
         })
-        .run();
+        .silentRun();
     });
 
     it('should have called the toast error method', () => {

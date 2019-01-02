@@ -125,7 +125,7 @@ describe('Attachments saga', () => {
           url: url,
           name: name
         })
-        .run();
+        .silentRun();
     });
   });
 });

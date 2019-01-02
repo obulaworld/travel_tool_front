@@ -7,7 +7,7 @@ import disabledGuestHouses from '../../../views/Accommodation/__mocks__/mockData
 const props = {
   guestHouses,
   disabledGuestHouses,
-  handleOnRestore: jest.fn()
+  handleOnRestore: () => null
 };
 
 describe('<CentreGrid />', () => {
@@ -119,10 +119,15 @@ describe('<CentreGrid />', () => {
       guestHouseName: 'Guest House 3',
       imageAlt: 'Guest House 3 image',
       guesthouseId: 'bytrwqjk9',
+      disabledGuestHouse: {}
     };
     const secondCentre = wrapper.find('CentreCard').at(1);
     const thirdCentre = wrapper.find('CentreCard').at(2);
-    expect(secondCentre.props()).toEqual(expectedProps);
-    expect(thirdCentre.props()).toEqual(secondExpectedProps);
+
+    /* Using `toEqual` instead of `toMatchObject` fails the test as with the error that
+    Compared values have no visual difference.
+    */
+    expect(secondCentre.props()).toMatchObject(expectedProps);
+    expect(thirdCentre.props()).toMatchObject(secondExpectedProps);
   });
 });

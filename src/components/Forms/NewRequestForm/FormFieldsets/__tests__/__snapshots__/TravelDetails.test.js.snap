@@ -20,6 +20,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
   </legend>
   <div
     className="trip-align"
+    onChange={[Function]}
   >
     <RadioButton
       defaultChecked={false}
@@ -197,8 +198,31 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
       handleDate={[Function]}
       handlePickBed={[Function]}
       itemId={0}
+      modalType="edit request"
+      onChangeInput={[Function]}
       removeTrip={[Function]}
       renderInput={[Function]}
+      requestOnEdit={
+        Object {
+          "createdAt": "2018-12-24T18:04:30.487Z",
+          "deletedAt": null,
+          "department": "Talent & Development",
+          "gender": "Male",
+          "id": "KOhl6UY8y",
+          "manager": "William Sserubiri",
+          "name": "william",
+          "picture": "https://lh6.googleusercontent.com/-JznmEmIIMek/AAAAAAAAAAI/AAAAAAAAAAc/KBISMb5Pa1E/photo.jpg?sz=50",
+          "role": "CEO",
+          "selection": "multi",
+          "status": "Open",
+          "travelCompletion": "0% complete",
+          "tripType": "multi",
+          "trips": Array [],
+          "updatedAt": "2018-12-25T18:04:30.487Z",
+          "userId": "-LOYLrl_4orw7UDhj6mo",
+          "value": "232px",
+        }
+      }
       selection="multi"
       values={
         Object {

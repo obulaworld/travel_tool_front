@@ -10,6 +10,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       beds={4}
       cardImage="http://images/guest-house.jpg"
       countryFlagImage="https://www.countryflags.io/KE/flat/64.png"
+      disabledGuestHouse={Object {}}
       guestHouse={
         Object {
           "bathRooms": 5,
@@ -38,6 +39,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       guestHouseLocation="Nairobi, Kenya"
       guestHouseName="Guest House 1"
       guesthouseId="wrtiuy56_u"
+      handleOnRestore={[Function]}
       imageAlt="Guest House 1 image"
       key="wrtiuy56_u"
     />
@@ -46,6 +48,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       beds={5}
       cardImage="http://images/guest-house.jpg"
       countryFlagImage="https://www.countryflags.io/KE/flat/64.png"
+      disabledGuestHouse={Object {}}
       guestHouse={
         Object {
           "bathRooms": 3,
@@ -74,6 +77,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       guestHouseLocation="Nairobi, Kenya"
       guestHouseName="Guest House 2"
       guesthouseId="wrtnytom_9"
+      handleOnRestore={[Function]}
       imageAlt="Guest House 2 image"
       key="wrtnytom_9"
     />
@@ -82,6 +86,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       beds={4}
       cardImage="http://images/guest-house.jpg"
       countryFlagImage="https://www.countryflags.io/NG/flat/64.png"
+      disabledGuestHouse={Object {}}
       guestHouse={
         Object {
           "bathRooms": 4,
@@ -110,6 +115,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       guestHouseLocation="Lagos, Nigeria"
       guestHouseName="Guest House 3"
       guesthouseId="bytrwqjk9"
+      handleOnRestore={[Function]}
       imageAlt="Guest House 3 image"
       key="bytrwqjk9"
     />
@@ -118,6 +124,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       beds={2}
       cardImage="http://images/guest-house.jpg"
       countryFlagImage="https://www.countryflags.io/RW/flat/64.png"
+      disabledGuestHouse={Object {}}
       guestHouse={
         Object {
           "bathRooms": 1,
@@ -139,6 +146,7 @@ exports[`<CentreGrid /> renders correctly 1`] = `
       guestHouseLocation="Kigali, Rwanda"
       guestHouseName="Guest House 4"
       guesthouseId="requntm0"
+      handleOnRestore={[Function]}
       imageAlt="Guest House 4 image"
       key="requntm0"
     />

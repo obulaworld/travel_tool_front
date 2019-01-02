@@ -93,12 +93,15 @@ exports[`<Dashboard /> renders correctly 1`] = `
     >
       <Cell
         fill="hsl(37, 99%, 50%)"
+        key=""
       />
       <Cell
         fill="hsl(37, 99%, 70%)"
+        key=""
       />
       <Cell
         fill="hsl(37, 99%, 90%)"
+        key=""
       />
     </Pie>
   </PieChart>

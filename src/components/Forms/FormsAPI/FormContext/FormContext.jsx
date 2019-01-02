@@ -30,7 +30,10 @@ const  errors = PropTypes.object;
 const values = PropTypes.object;
 const  targetForm = PropTypes.object;
 const validatorName = PropTypes.string;
-const  children = PropTypes.array;
+const children = PropTypes.oneOfType([
+  PropTypes.object,
+  PropTypes.array
+]);
 
 
 FormContext.propTypes = {

@@ -12,6 +12,7 @@ import {
   fetchDisabledAccommodation,
   restoreDisabledAccommodation
 } from '../../redux/actionCreator/accommodationActions';
+import { initFetchTimelineData } from '../../redux/actionCreator';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
 import ButtonLoadingIcon from '../../components/Forms/ButtonLoadingIcon';
 import './Accommodation.scss';
@@ -69,11 +70,13 @@ export class Accommodation extends Component {
       >
         <NewAccommodationForm
           closeModal={closeModal}
-          modalType={modalType}
+          modalType={modalType || ''}
           createAccommodation={createAccommodation}
           fetchAccommodation={fetchAccommodation}
           editAccommodation={editAccommodation}
           createAccommodationLoading={createAccommodationLoading}
+          initFetchTimelineData={initFetchTimelineData}
+          guestHouse={{}}
         />
       </Modal>
     );
@@ -99,8 +102,7 @@ export class Accommodation extends Component {
         <div className="delete-checklist-item__footer delete-checklist-item__right">
           <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
           <button type="button" disabled={isLoading} id="restoreGuestHouseId" className="bg-btn bg-btn--active restore-guestHouse-button" onClick={() => this.restoreGuestHouse(disabledGuestHouse.id)}>
-            <ButtonLoadingIcon isLoading={isLoading} />
-            Restore
+            <ButtonLoadingIcon isLoading={isLoading} buttonText="Restore" />
           </button>
         </div>
       </Modal>
@@ -108,7 +110,7 @@ export class Accommodation extends Component {
   }
 
   render() {
-    const { guestHouses, isLoading, accommodationError, disabledGuestHouses, modal } = this.props;
+    const { guestHouses, isLoading, accommodationError, disabledGuestHouses } = this.props;
     return (
       <Fragment>
         {this.renderAccommodationPanelHeader()}
@@ -121,7 +123,6 @@ export class Accommodation extends Component {
             isLoading={isLoading}
             error={accommodationError}
             disabledGuestHouses={disabledGuestHouses}
-            modal={modal}
           />
         </div>
       </Fragment>
@@ -153,7 +154,6 @@ Accommodation.propTypes = {
   accommodationError: PropTypes.string,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired,
-  modal: PropTypes.func.isRequired,
   restoreDisabledAccommodation: PropTypes.func.isRequired,
 };
 
@@ -168,9 +168,10 @@ Accommodation.defaultProps = {
 const actionCreators = {
   openModal,
   closeModal,
-  fetchAccommodation,
   createAccommodation,
   editAccommodation,
+  fetchAccommodation,
+  initFetchTimelineData,
   fetchDisabledAccommodation,
   restoreDisabledAccommodation
 };

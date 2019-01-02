@@ -19,7 +19,7 @@ const props = {
         'id': 'dtnJtaRE7Y',
         'roomName': 'Rwenzori',
         'roomType': 'non-ensuite',
-        'bedCount': '1',
+        'bedCount': 1,
         'faulty': false,
         'createdAt': '2018-10-05T00:07:22.281Z',
         'updatedAt': '2018-10-07T03:17:09.938Z',
@@ -43,8 +43,15 @@ const props = {
   accommodation: {
     error: '',
   },
+  availableBeds: [],
+  addmaintenanceRecord: sinon.spy(),
   fetchAccommodation: sinon.spy(),
+  fetchAvailableRooms: sinon.spy(),
   editAccommodation: jest.fn(),
+  editingAccommodation: false,
+  updateMaintenanceRecord: jest.fn(),
+  deleteMaintenanceRecord: jest.fn(),
+  disableAccommodation: jest.fn(),
   modalType: null,
   openModal: jest.fn(),
   initFetchTimelineData: jest.fn(),
@@ -60,7 +67,11 @@ const props = {
     shouldOpen: false,
     modalType: null
   },
-  handleOnEdit: jest.fn()
+  loading: false,
+  isLoading: false,
+  loadingBeds: false,
+  handleOnEdit: jest.fn(),
+  updateRoomState: jest.fn()
 };
 
 describe('<Accommodation />', () => {

@@ -38,7 +38,7 @@ describe('<ChangeBedForm />', () => {
         value: 'reason',
         name: 'changeReason'
       }
-    }
+    };
     wrapper.instance().handleChangeReason(event);
     expect(wrapper.state().values.changeReason).toBe(event.target.value);
   });

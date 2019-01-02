@@ -3,14 +3,18 @@ import { shallow } from 'enzyme';
 import withLoading from '../withLoading';
 import { Table } from '../../Table/index';
 import Preloader from '../../Preloader/Preloader';
+import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
 
 const props = {
   isLoading: true,
   editRequest: jest.fn(),
+  deleteRequest: jest.fn(),
+  openModal: jest.fn(),
   history: {},
   location: {},
-  travelChecklists: [],
-  showTravelChecklist: jest.fn()
+  travelChecklists: {},
+  showTravelChecklist: jest.fn(),
+  submissionInfo
 };
 
 describe('withLoading', () => {
@@ -21,7 +25,7 @@ describe('withLoading', () => {
     expect(wrapper.find('Table').length).toBe(0);
   });
 
-  it('renders does not render Preloader when the component is done loading', () => {
+  it('does not render Preloader when the component is done loading', () => {
     const WithLoadingComponent = withLoading(Table);
     const wrapper = shallow(<WithLoadingComponent {...{...props, isLoading: false}} />);
     expect(wrapper.find('Preloader').length).toBe(0);

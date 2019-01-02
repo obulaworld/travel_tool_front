@@ -47,7 +47,7 @@ describe('Role Saga', () => {
           type: 'FETCH_ROLE_USERS',
           roleId: 53098,
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching user\'s of a role', () => {
@@ -63,7 +63,7 @@ describe('Role Saga', () => {
           type: 'FETCH_ROLE_USERS',
           roleId: 53098,
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -96,7 +96,7 @@ describe('Role Saga', () => {
           userId,
           roleId
         })
-        .run();
+        .silentRun();
     });
 
     it('should call toast.success once', (done) => {
@@ -121,7 +121,7 @@ describe('Role Saga', () => {
           userId,
           roleId
         })
-        .run();
+        .silentRun();
     });
 
     it('should call toast.error once', (done) => {

@@ -66,8 +66,8 @@ describe('Approvals Reducer', () => {
       approvals: [],
       isLoading: false,
       message: '',
-      openApprovalsCount: '',
-      pastApprovalsCount: '',
+      openApprovalsCount: 0,
+      pastApprovalsCount: 0,
       pagination: '',
       fetchApprovalError: ''
     };

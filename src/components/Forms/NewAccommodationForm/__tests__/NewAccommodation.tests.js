@@ -41,6 +41,7 @@ describe('<NewAccommodation />', () => {
     fetchAccommodation: jest.fn(() => {}),
     closeModal: jest.fn(),
     editAccommodation: jest.fn(),
+    initFetchTimelineData: jest.fn(),
     guestHouse: {
       rooms: [
         {
@@ -53,7 +54,8 @@ describe('<NewAccommodation />', () => {
       location: 'Nairobi, Kenya',
       bathRooms: 2,
       image: 'image.com'
-    }
+    },
+    modalType: ''
   };
 
   global.FileReader = function(spy, fakeData) {
@@ -64,6 +66,8 @@ describe('<NewAccommodation />', () => {
   FileReader.prototype.readAsDataURL = function(file) {
     this.result = this.fakeData;
   };
+  
+  process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
 
   beforeEach(() => {
     wrapper = mount(<NewAccommodation {...props} />);
@@ -303,7 +307,7 @@ describe('<NewAccommodation />', () => {
   });
 
   it('should call populateRoomsDefaultStateValues', () => {
-    const newProps = {...props, modalType: 'edit accommodation'}
+    const newProps = {...props, modalType: 'edit accommodation'};
     wrapper = shallow(
       <NewAccommodation
         {...newProps}

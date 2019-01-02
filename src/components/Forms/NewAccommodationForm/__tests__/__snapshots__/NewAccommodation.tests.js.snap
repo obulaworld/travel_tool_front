@@ -270,7 +270,6 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                     className="input select  add_room_type"
                     data-parentid={0}
                     error=""
-                    handleDropDown={[Function]}
                     label="Room Type"
                     name="roomType-0"
                     onChange={[Function]}
@@ -278,6 +277,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                     onKeyPress={[Function]}
                     parentid={0}
                     role="button"
+                    size=""
                     tabIndex="0"
                     type="dropdown-select"
                     value=""
@@ -286,7 +286,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       className="value"
                       style={
                         Object {
-                          "width": undefined,
+                          "width": "",
                         }
                       }
                     >
@@ -445,7 +445,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        <undefined />
+        Save
       </button>
     </div>
   </fieldset>

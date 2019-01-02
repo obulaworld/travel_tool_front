@@ -3,7 +3,8 @@ import GuestHouseDetailCard from '..';
 
 const props = {
   label: 'Vacant Spaces',
-  value: '10'
+  value: 10,
+  period: 'Today'
 };
 
 describe('<GuestHouseDetailCard />', () => {
