@@ -19,7 +19,7 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
         type="button"
       >
         <div>
-          17 Dec, 18 - 23 Dec, 18
+          31 Dec, 18 - 06 Jan, 19
         </div>
         <img
           alt="Pick a date"

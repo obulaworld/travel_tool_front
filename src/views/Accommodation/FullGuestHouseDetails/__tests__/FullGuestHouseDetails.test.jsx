@@ -133,7 +133,7 @@ describe('<GuestHouseDetails />', () => {
       </Provider>);
     wrapper.setState(state);
     const unavailableGuestHouse = wrapper.find('div.time-font').last();
-    expect(unavailableGuestHouse.text()).toBe('December 2018');
+    expect(unavailableGuestHouse.text()).toBe('January 2019');
     expect(wrapper.instance().state.timelineViewType).toBe('month');
   });
 

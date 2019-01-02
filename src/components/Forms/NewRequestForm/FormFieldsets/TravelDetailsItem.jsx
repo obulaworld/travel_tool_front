@@ -73,14 +73,21 @@ class TravelDetailsItem extends Component {
     const { accommodationType } = this.state;
     let bedChoices = this.getRawBedChoices(modalType, values, beds);
     if (bedChoices.length < 1) {
-      if (accommodationType === 'Hotel Booking') {
+      switch (accommodationType) {
+      case 'Hotel Booking':
         this.setValues(values, itemId, -1, modalType);
         bedChoices.unshift({ label: 'Hotel Booking', value: -1 });
         bedChoices.unshift({ label: 'Not Required', value: -2 });
-      } else if (accommodationType === 'Not Required') {
+        break;
+      case 'Not Required':
         this.setValues(values, itemId, -2, modalType);
         bedChoices.unshift({ label: 'Not Required', value: -2 });
         bedChoices.unshift({ label: 'Hotel Booking', value: -1 });
+        break;
+      default:
+        bedChoices.unshift({ label: 'Not Required', value: -2 });
+        bedChoices.unshift({ label: 'Hotel Booking', value: -1 });
+        break;
       }
     } else {
       bedChoices = bedChoices.map(choice => {
