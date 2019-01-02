@@ -182,7 +182,7 @@ export class Table extends Component {
           {travelDuration}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
-          {moment(request.departureDate).format('DD MMM YYYY')}
+          {moment(request.updatedAt).format('DD MMM YYYY')}
         </td>
         { this.renderTravelCompletion(type, travelCompletion)}
         <td className="mdl-data-table__cell--non-numeric table__requests__status table__data">
