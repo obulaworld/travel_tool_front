@@ -29,7 +29,7 @@ describe('Accommodation Saga', () => {
           type: 'CREATE_ACCOMMODATION_DATA',
           accommodationData
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -45,7 +45,7 @@ describe('Accommodation Saga', () => {
         type: 'CREATE_ACCOMMODATION_DATA',
         accommodationData
       })
-      .run();
+      .silentRun();
   });
 
 });

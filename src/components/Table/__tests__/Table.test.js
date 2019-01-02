@@ -73,7 +73,9 @@ const props = {
     push: jest.fn()
   },
   editRequest: jest.fn(),
-  travelChecklists: [],
+  deleteRequest: jest.fn(),
+  openModal: jest.fn(),
+  travelChecklists: {},
   showTravelChecklist: jest.fn(),
   fetchSubmission: jest.fn(),
   submissionInfo
@@ -130,6 +132,7 @@ describe('<Requests />', () => {
     requestId.simulate('click');
     expect(wrapper.find('Modal').length).toEqual(3);
   });
+
   it('should spy on toggleMenu method ', () => {
     const wrapper = mount(<Table {...props} />);
     wrapper.instance().toggleMenu('xDh20btGz');

@@ -2,13 +2,13 @@
 
 exports[`<CentreCard /> renders correctly 1`] = `
 <div
-  className="mdl-cell mdl-cell--4 mdl-card centre-card"
+  className="mdl-cell mdl-cell--4 mdl-card centre-card-disabled"
 >
   <Link
     id="thisGuesthouseLink"
-    onClick=""
+    onClick={[Function]}
     replace={false}
-    to="/residence/manage/guest-houses/undefined"
+    to="/residence/manage/guest-houses/guest-house-1"
   >
     <div
       className="mdl-card__media centre-card__image"
@@ -20,6 +20,22 @@ exports[`<CentreCard /> renders correctly 1`] = `
         src="https:someimage.png"
       />
     </div>
+    <Button
+      altText=""
+      badge={null}
+      badgeClass=""
+      buttonClass="restore-acc-btn"
+      buttonId=""
+      disabled={false}
+      imageClass="mdl-Icon"
+      imageSrc=""
+      onClick={[Function]}
+      responsiveText=""
+      reverseText={false}
+      showBadge={false}
+      text="Restore"
+      textClass=""
+    />
     <div
       className="mdl-card__supporting-text centre-info"
     >

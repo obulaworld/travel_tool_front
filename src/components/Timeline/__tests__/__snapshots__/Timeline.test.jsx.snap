@@ -4,36 +4,178 @@ exports[`<Timeline /> renders correctly 1`] = `
 <div
   className="timeline"
 >
-  <TimelineVerticalAxis
-    closeModal={[Function]}
-    guestHouseId="guest-house-id-1"
-    modalType="change-room-modal"
-    openModal={[Function]}
-    rooms={
-      Array [
-        Object {
-          "faulty": false,
-        },
-      ]
-    }
-    shouldOpen={true}
-    timelineDateRange={
-      Array [
-        "2019-01-01",
-        "2019-01-31",
-      ]
-    }
-    updateRoomState={[Function]}
-  />
-  <TimelineHeader
-    changeTimelineViewType={[Function]}
-    currentTimelineViewType="month"
-    goToToday={[Function]}
-    onNavigateTime={[Function]}
-    selectedTimeDisplay="January 2019"
-    showChoices={false}
-    toggleChoices={[Function]}
-  />
+  <div
+    className="vertical-axis"
+  >
+    <div
+      className="room-axis-wrapper"
+      key="2"
+    >
+      <div
+        className="room-name item-row"
+      >
+        <div>
+          Menegagai
+        </div>
+        <div
+          className="ellipsis"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          …
+          <div
+            className="mark-unavailable is-hidden"
+          >
+            <div>
+              <div
+                className="container_room_fine"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex="0"
+              />
+            </div>
+            <span>
+              Unavailable
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bed-name item-row"
+        key="1"
+      >
+        <div>
+          Bed 2
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="timeline__body__header"
+  >
+    <div
+      className="timeline-period-selector selector"
+    >
+      <span
+        className="timeline-period value"
+      >
+        January 2019
+      </span>
+      <div
+        className="timeline-navigator"
+      >
+        <div
+          className="timeline-navigator--previous"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+        <div
+          className="timeline-navigator--next"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+      </div>
+      <div
+        className="go-to-today"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        tabIndex="-1"
+      >
+        Today
+      </div>
+    </div>
+    <div
+      className="timeline-view-type-selector selector"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyUp={[Function]}
+      role="menu"
+      tabIndex="0"
+    >
+      <span
+        className="timeline-view-type value"
+      >
+        month
+      </span>
+      <div
+        className="view-type-selector dropdown-icon"
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        style={
+          Object {
+            "cursor": "pointer",
+            "outline": "none",
+          }
+        }
+        tabIndex="0"
+      >
+        <img
+          alt="dd"
+          src="dropdown_inactive.svg"
+        />
+      </div>
+      <div
+        className="timeline-view-choices choices-inactive"
+      >
+        <div
+          className="timeline-view-choice week"
+          key="week"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Week
+        </div>
+        <div
+          className="timeline-view-choice month"
+          key="month"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Month
+        </div>
+        <div
+          className="timeline-view-choice year"
+          key="year"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Year
+        </div>
+      </div>
+    </div>
+  </div>
   <div
     className="timeline__body"
   >
@@ -214,82 +356,129 @@ exports[`<Timeline /> renders correctly 1`] = `
       />
     </div>
   </div>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Re-assign Room"
-    visibility="visible"
-    width=""
+  <div
+    className="overlay visible  overlayBackground"
+    onClick={null}
+    onKeyPress={[Function]}
+    role="button"
+    tabIndex="0"
   >
-    <ChangeBedForm
-      bedChoices={Array []}
-      closeModal={[Function]}
-      handleRoomSubmit={[Function]}
-      loading={false}
-      loadingBeds={false}
-      requesterName=""
-      toggleChangeRoomModal={[Function]}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Edit Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <MaintainceForm
-      editMaintenance={Object {}}
-      guestHouseId=""
-      maintenance={Object {}}
-      modalType="change-room-modal"
-      timelineDateRange={Array []}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="delete-maintenance-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Delete Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <div>
+    <div
+      className="modal visible change-room-modal"
+      id=""
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="button"
+      style={
+        Object {
+          "maxWidth": "",
+        }
+      }
+      tabIndex="0"
+    >
       <div
-        className="delete-maintenance-text"
+        className="modal-title-bar"
       >
-        Are you sure you want to delete this maintenance schedule
+        <div
+          className="modal-title-text"
+        >
+          <div
+            className="modal-title"
+          >
+            Re-assign Room
+          </div>
+          <div
+            className="lable-text modal-bar"
+          >
+            <div />
+          </div>
+        </div>
+        <button
+          className="modal-close"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="close"
+            src="close.svg"
+          />
+        </button>
       </div>
-      <hr />
-      <SubmitArea
-        handleDelete={[Function]}
-        onCancel={[Function]}
-      />
+      <div
+        className="modal-content"
+        id=""
+      >
+        <form
+          className="change-room-modal__form"
+        >
+          <div
+            className="change-room-modal__other-available-room"
+          >
+            <div
+              className="change-room-modal__text-center"
+            >
+              No beds are available
+            </div>
+          </div>
+          <p
+            className="change-room-modal__reason"
+          >
+            Reason
+            <span
+              className="change-room-modal__important-text"
+            >
+              *
+            </span>
+          </p>
+          <textarea
+            className="change-room-modal__input"
+            name="changeReason"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="change-room-modal__disclaimer"
+          >
+            <img
+              alt="caution icon"
+              src="error_24px.svg"
+            />
+            <span>
+              <strong>
+                Requester
+              </strong>
+               will be automatically notified of the room change.
+            </span>
+          </div>
+          <div
+            className="change-room-modal__hr"
+          />
+          <div
+            className="change-room-modal__footer"
+          >
+            <div>
+              <button
+                className="change-room-modal__footer--cancel"
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className="change-room-modal__footer--save-disabled"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </Modal>
+  </div>
 </div>
 `;
 
@@ -297,36 +486,178 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
 <div
   className="timeline"
 >
-  <TimelineVerticalAxis
-    closeModal={[Function]}
-    guestHouseId="guest-house-id-1"
-    modalType="change-room-modal"
-    openModal={[Function]}
-    rooms={
-      Array [
-        Object {
-          "faulty": false,
-        },
-      ]
-    }
-    shouldOpen={true}
-    timelineDateRange={
-      Array [
-        "2019-01-01",
-        "2019-01-05",
-      ]
-    }
-    updateRoomState={[Function]}
-  />
-  <TimelineHeader
-    changeTimelineViewType={[Function]}
-    currentTimelineViewType="week"
-    goToToday={[Function]}
-    onNavigateTime={[Function]}
-    selectedTimeDisplay="1 - 5 Jan 2019"
-    showChoices={false}
-    toggleChoices={[Function]}
-  />
+  <div
+    className="vertical-axis"
+  >
+    <div
+      className="room-axis-wrapper"
+      key="2"
+    >
+      <div
+        className="room-name item-row"
+      >
+        <div>
+          Menegagai
+        </div>
+        <div
+          className="ellipsis"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          …
+          <div
+            className="mark-unavailable is-hidden"
+          >
+            <div>
+              <div
+                className="container_room_fine"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex="0"
+              />
+            </div>
+            <span>
+              Unavailable
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bed-name item-row"
+        key="1"
+      >
+        <div>
+          Bed 2
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="timeline__body__header"
+  >
+    <div
+      className="timeline-period-selector selector"
+    >
+      <span
+        className="timeline-period value"
+      >
+        1 - 5 Jan 2019
+      </span>
+      <div
+        className="timeline-navigator"
+      >
+        <div
+          className="timeline-navigator--previous"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+        <div
+          className="timeline-navigator--next"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+      </div>
+      <div
+        className="go-to-today"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        tabIndex="-1"
+      >
+        Today
+      </div>
+    </div>
+    <div
+      className="timeline-view-type-selector selector"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyUp={[Function]}
+      role="menu"
+      tabIndex="0"
+    >
+      <span
+        className="timeline-view-type value"
+      >
+        week
+      </span>
+      <div
+        className="view-type-selector dropdown-icon"
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        style={
+          Object {
+            "cursor": "pointer",
+            "outline": "none",
+          }
+        }
+        tabIndex="0"
+      >
+        <img
+          alt="dd"
+          src="dropdown_inactive.svg"
+        />
+      </div>
+      <div
+        className="timeline-view-choices choices-inactive"
+      >
+        <div
+          className="timeline-view-choice week"
+          key="week"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Week
+        </div>
+        <div
+          className="timeline-view-choice month"
+          key="month"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Month
+        </div>
+        <div
+          className="timeline-view-choice year"
+          key="year"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Year
+        </div>
+      </div>
+    </div>
+  </div>
   <div
     className="timeline__body"
   >
@@ -387,82 +718,129 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       />
     </div>
   </div>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Re-assign Room"
-    visibility="visible"
-    width=""
+  <div
+    className="overlay visible  overlayBackground"
+    onClick={null}
+    onKeyPress={[Function]}
+    role="button"
+    tabIndex="0"
   >
-    <ChangeBedForm
-      bedChoices={Array []}
-      closeModal={[Function]}
-      handleRoomSubmit={[Function]}
-      loading={false}
-      loadingBeds={false}
-      requesterName=""
-      toggleChangeRoomModal={[Function]}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Edit Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <MaintainceForm
-      editMaintenance={Object {}}
-      guestHouseId=""
-      maintenance={Object {}}
-      modalType="change-room-modal"
-      timelineDateRange={Array []}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="delete-maintenance-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Delete Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <div>
+    <div
+      className="modal visible change-room-modal"
+      id=""
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="button"
+      style={
+        Object {
+          "maxWidth": "",
+        }
+      }
+      tabIndex="0"
+    >
       <div
-        className="delete-maintenance-text"
+        className="modal-title-bar"
       >
-        Are you sure you want to delete this maintenance schedule
+        <div
+          className="modal-title-text"
+        >
+          <div
+            className="modal-title"
+          >
+            Re-assign Room
+          </div>
+          <div
+            className="lable-text modal-bar"
+          >
+            <div />
+          </div>
+        </div>
+        <button
+          className="modal-close"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="close"
+            src="close.svg"
+          />
+        </button>
       </div>
-      <hr />
-      <SubmitArea
-        handleDelete={[Function]}
-        onCancel={[Function]}
-      />
+      <div
+        className="modal-content"
+        id=""
+      >
+        <form
+          className="change-room-modal__form"
+        >
+          <div
+            className="change-room-modal__other-available-room"
+          >
+            <div
+              className="change-room-modal__text-center"
+            >
+              No beds are available
+            </div>
+          </div>
+          <p
+            className="change-room-modal__reason"
+          >
+            Reason
+            <span
+              className="change-room-modal__important-text"
+            >
+              *
+            </span>
+          </p>
+          <textarea
+            className="change-room-modal__input"
+            name="changeReason"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="change-room-modal__disclaimer"
+          >
+            <img
+              alt="caution icon"
+              src="error_24px.svg"
+            />
+            <span>
+              <strong>
+                Requester
+              </strong>
+               will be automatically notified of the room change.
+            </span>
+          </div>
+          <div
+            className="change-room-modal__hr"
+          />
+          <div
+            className="change-room-modal__footer"
+          >
+            <div>
+              <button
+                className="change-room-modal__footer--cancel"
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className="change-room-modal__footer--save-disabled"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </Modal>
+  </div>
 </div>
 `;
 
@@ -470,36 +848,178 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
 <div
   className="timeline"
 >
-  <TimelineVerticalAxis
-    closeModal={[Function]}
-    guestHouseId="guest-house-id-1"
-    modalType="change-room-modal"
-    openModal={[Function]}
-    rooms={
-      Array [
-        Object {
-          "faulty": false,
-        },
-      ]
-    }
-    shouldOpen={true}
-    timelineDateRange={
-      Array [
-        "2019-01-01",
-        "2019-12-31",
-      ]
-    }
-    updateRoomState={[Function]}
-  />
-  <TimelineHeader
-    changeTimelineViewType={[Function]}
-    currentTimelineViewType="year"
-    goToToday={[Function]}
-    onNavigateTime={[Function]}
-    selectedTimeDisplay="2019"
-    showChoices={false}
-    toggleChoices={[Function]}
-  />
+  <div
+    className="vertical-axis"
+  >
+    <div
+      className="room-axis-wrapper"
+      key="2"
+    >
+      <div
+        className="room-name item-row"
+      >
+        <div>
+          Menegagai
+        </div>
+        <div
+          className="ellipsis"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+          …
+          <div
+            className="mark-unavailable is-hidden"
+          >
+            <div>
+              <div
+                className="container_room_fine"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex="0"
+              />
+            </div>
+            <span>
+              Unavailable
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bed-name item-row"
+        key="1"
+      >
+        <div>
+          Bed 2
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="timeline__body__header"
+  >
+    <div
+      className="timeline-period-selector selector"
+    >
+      <span
+        className="timeline-period value"
+      >
+        2019
+      </span>
+      <div
+        className="timeline-navigator"
+      >
+        <div
+          className="timeline-navigator--previous"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+        <div
+          className="timeline-navigator--next"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "outline": "none",
+            }
+          }
+          tabIndex="0"
+        >
+          <img
+            alt="dd"
+            src="dropdown_active.svg"
+          />
+        </div>
+      </div>
+      <div
+        className="go-to-today"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        tabIndex="-1"
+      >
+        Today
+      </div>
+    </div>
+    <div
+      className="timeline-view-type-selector selector"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyUp={[Function]}
+      role="menu"
+      tabIndex="0"
+    >
+      <span
+        className="timeline-view-type value"
+      >
+        year
+      </span>
+      <div
+        className="view-type-selector dropdown-icon"
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        role="button"
+        style={
+          Object {
+            "cursor": "pointer",
+            "outline": "none",
+          }
+        }
+        tabIndex="0"
+      >
+        <img
+          alt="dd"
+          src="dropdown_inactive.svg"
+        />
+      </div>
+      <div
+        className="timeline-view-choices choices-inactive"
+      >
+        <div
+          className="timeline-view-choice week"
+          key="week"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Week
+        </div>
+        <div
+          className="timeline-view-choice month"
+          key="month"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Month
+        </div>
+        <div
+          className="timeline-view-choice year"
+          key="year"
+          onClick={[Function]}
+          role="presentation"
+        >
+          Year
+        </div>
+      </div>
+    </div>
+  </div>
   <div
     className="timeline__body"
   >
@@ -585,81 +1105,128 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
       />
     </div>
   </div>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Re-assign Room"
-    visibility="visible"
-    width=""
+  <div
+    className="overlay visible  overlayBackground"
+    onClick={null}
+    onKeyPress={[Function]}
+    role="button"
+    tabIndex="0"
   >
-    <ChangeBedForm
-      bedChoices={Array []}
-      closeModal={[Function]}
-      handleRoomSubmit={[Function]}
-      loading={false}
-      loadingBeds={false}
-      requesterName=""
-      toggleChangeRoomModal={[Function]}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="change-room-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Edit Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <MaintainceForm
-      editMaintenance={Object {}}
-      guestHouseId=""
-      maintenance={Object {}}
-      modalType="change-room-modal"
-      timelineDateRange={Array []}
-    />
-  </Modal>
-  <Modal
-    closeDeleteCommentModal={[Function]}
-    closeDeleteModal={null}
-    closeModal={[Function]}
-    customModalStyles="delete-maintenance-modal"
-    customOverlayStyle=""
-    modalBar={<div />}
-    modalContentId=""
-    modalId=""
-    requestId=""
-    showOverlay={false}
-    title="Delete Maintenance"
-    visibility="invisible"
-    width=""
-  >
-    <div>
+    <div
+      className="modal visible change-room-modal"
+      id=""
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="button"
+      style={
+        Object {
+          "maxWidth": "",
+        }
+      }
+      tabIndex="0"
+    >
       <div
-        className="delete-maintenance-text"
+        className="modal-title-bar"
       >
-        Are you sure you want to delete this maintenance schedule
+        <div
+          className="modal-title-text"
+        >
+          <div
+            className="modal-title"
+          >
+            Re-assign Room
+          </div>
+          <div
+            className="lable-text modal-bar"
+          >
+            <div />
+          </div>
+        </div>
+        <button
+          className="modal-close"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="close"
+            src="close.svg"
+          />
+        </button>
       </div>
-      <hr />
-      <SubmitArea
-        handleDelete={[Function]}
-        onCancel={[Function]}
-      />
+      <div
+        className="modal-content"
+        id=""
+      >
+        <form
+          className="change-room-modal__form"
+        >
+          <div
+            className="change-room-modal__other-available-room"
+          >
+            <div
+              className="change-room-modal__text-center"
+            >
+              No beds are available
+            </div>
+          </div>
+          <p
+            className="change-room-modal__reason"
+          >
+            Reason
+            <span
+              className="change-room-modal__important-text"
+            >
+              *
+            </span>
+          </p>
+          <textarea
+            className="change-room-modal__input"
+            name="changeReason"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="change-room-modal__disclaimer"
+          >
+            <img
+              alt="caution icon"
+              src="error_24px.svg"
+            />
+            <span>
+              <strong>
+                Requester
+              </strong>
+               will be automatically notified of the room change.
+            </span>
+          </div>
+          <div
+            className="change-room-modal__hr"
+          />
+          <div
+            className="change-room-modal__footer"
+          >
+            <div>
+              <button
+                className="change-room-modal__footer--cancel"
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className="change-room-modal__footer--save-disabled"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-  </Modal>
+  </div>
 </div>
 `;

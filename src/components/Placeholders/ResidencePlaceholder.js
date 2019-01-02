@@ -7,7 +7,7 @@ class ResidencePlaceholder extends React.Component {
 
     for(let i = 0; i < 6; i++) {
       placeholders.push(
-        <div className="mdl-cell mdl-cell--4 mdl-card centre-card">
+        <div key={i} className="mdl-cell mdl-cell--4 mdl-card centre-card">
           <ContentLoader
             height={440}
             width={430}

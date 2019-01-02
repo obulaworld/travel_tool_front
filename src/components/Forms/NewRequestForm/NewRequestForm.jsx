@@ -516,7 +516,6 @@ class NewRequestForm extends PureComponent {
   renderTravelDetailsFieldset = () => {
     const { selection, parentIds, values } = this.state;
     const { fetchAvailableRooms, availableRooms, modalType, requestOnEdit } = this.props;
-
     return (
       <TravelDetailsFieldset
         fetchAvailableRooms={fetchAvailableRooms}

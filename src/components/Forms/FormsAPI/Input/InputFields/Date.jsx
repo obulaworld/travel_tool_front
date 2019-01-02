@@ -9,7 +9,7 @@ const DateInput = props => {
   const { error, value, className, name} = props;
   let selectedDate = value
     ? moment(value, 'MM-DD-YYYY')
-    : value;
+    : null;
 
 
   return (
@@ -29,23 +29,18 @@ const DateInput = props => {
 
 DateInput.propTypes = {
   value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
+    PropTypes.string
   ]),
   error: PropTypes.string,
   className: PropTypes.string,
   name:  PropTypes.string,
-  selectedDate: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ])
 };
 
 DateInput.defaultProps = {
   value: null,
   className: '',
   error: '',
-  selectedDate: '',
   name: ''
 };
 

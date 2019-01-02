@@ -72,16 +72,11 @@ describe('<NewUserRoleForm />', () => {
 
 
   it('calls on submit when all details are correct', () => {
-    wrapper.setState({
-      values: {
-        email: 'test',
-        roleName: 'Requester',
-      }
-    });
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.instance().forceUpdate();
     wrapper.find('form').simulate('submit');
     wrapper.state().values.email = 'test';
+    expect(spy).toHaveBeenCalled();
     expect(props.handleUpdateRole).toHaveBeenCalledWith(wrapper.state().values);
     expect(props.handleUpdateRole).toHaveBeenCalledTimes(2);
   });
@@ -92,6 +87,7 @@ describe('<NewUserRoleForm />', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.instance().forceUpdate();
     wrapper.find('form').simulate('submit');
+    expect(spy).toHaveBeenCalled();
     expect(props.handleUpdateRole).toHaveBeenCalledTimes(2);
   });
 

@@ -24,10 +24,11 @@ class TimelineBarWrapper extends PureComponent {
 }
 
 TimelineBarWrapper.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.object, PropTypes.array ]).isRequired,
   toggleBookingDetails: PropTypes.func.isRequired,
   setBookingDetailsAbsolutePos: PropTypes.func.isRequired,
-  tripStats: PropTypes.string.isRequired,
+  tripStats: PropTypes.object.isRequired,
 };
 
 

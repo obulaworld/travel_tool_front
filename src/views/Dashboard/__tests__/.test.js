@@ -32,7 +32,16 @@ const props = {
   exportReadiness: jest.fn(),
   downloadCsv: jest.fn(),
   downloadAnalytics: jest.fn(),
-
+  downloadCalendarAnalytics: jest.fn(),
+  fetchCalendarAnalytics: jest.fn(),
+  travelCalendar: {
+    isLoading: false,
+    travelCalendarData: {
+      data: [],
+      pagination: {},
+      travelCalendarError: 'No records found',
+    }
+  },
   readiness: {
     isLoading: false,
   },

@@ -112,7 +112,9 @@ export class Checklist extends Component {
     return (
       <div className="">
         { deletedChecklistItems.length !== 0 && deletedChecklistItems.map(deleteItem => {
-          return ( <div key={deleteItem.id}>{this.renderDeletedChecklistItem(deleteItem)}</div> );
+          return (
+            <div key={deleteItem.id}>{this.renderDeletedChecklistItem(deleteItem)}</div>
+          );
         }) }
       </div>
     );

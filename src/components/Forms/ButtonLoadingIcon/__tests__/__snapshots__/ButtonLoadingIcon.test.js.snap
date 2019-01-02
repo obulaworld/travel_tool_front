@@ -2,7 +2,9 @@
 
 exports[`<ButtonLoadingIcon /> renders 1`] = `
 <Fragment>
-   
+  <i
+    className="loading-icon"
+  />
   Save
 </Fragment>
 `;

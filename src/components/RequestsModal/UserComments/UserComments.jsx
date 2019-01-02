@@ -15,12 +15,10 @@ export class UserComments extends Component {
     activeCommentId: '',
     editReady: false,
   };
-
   editComment = (comment) => {
-    const {id}  = comment;
     localStorage.setItem('comment', comment.comment);
     this.setState ({
-      activeCommentId: id,
+      activeCommentId: comment.id,
       commentToEdit: comment.comment,
       editReady: true,
     });
@@ -28,17 +26,20 @@ export class UserComments extends Component {
 
   resetEditing = () => {
     this.setState({
-      activeCommentId: ''
-    });
+      commentToEdit: '',
+      activeCommentId: '',
+      editReady: false
+    },
+    localStorage.removeItem('comment'));
   }
 
   handleCancelClick = (event) => {
     event.preventDefault();
-    this.editComment('');
+    this.resetEditing('');
   }
 
   handleNoEdit = () => {
-    this.editComment('');
+    this.resetEditing('');
   }
 
   formatDate(date) {

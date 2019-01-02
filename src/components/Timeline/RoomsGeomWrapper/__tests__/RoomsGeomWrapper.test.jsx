@@ -9,11 +9,19 @@ const props = {
     beds: [{
       bedId: 'kitanda1',
       bedName: 'kitanda 1'
-    }]
+    }],
+    maintainances: [{
+      reason: 'Bad window',
+      start: '11-10-2018',
+      end: '11-10-2018'
+    }],
   }],
   timelineStartDate: moment().startOf('month'),
   tripDayWidth: 31,
-  timelineViewType: 'month'
+  timelineViewType: 'month',
+  handleChangeRoomModal: jest.fn(),
+  handleEditMaintenanceModal: jest.fn(),
+  handleDeleteMaintenanceModal: jest.fn()
 };
 
 describe('<RoomsGeomWrapper />', () => {

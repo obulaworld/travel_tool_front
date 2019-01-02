@@ -2,6 +2,885 @@
 
 exports[`<NewRequestForm /> renders correctly 1`] = `
 <div>
-  <undefined />
+  <form
+    className="new-request"
+    onSubmit={[Function]}
+  >
+    <fieldset
+      className="personal-details null"
+    >
+      <legend
+        style={
+          Object {
+            "borderBottom": "1px solid #E4E4E4",
+            "fontFamily": "DIN Pro Medium",
+            "fontSize": "18px",
+            "paddingTop": "12px",
+            "width": "100%",
+          }
+        }
+      >
+        Personal Details
+        <span
+          className="required-field"
+        >
+          * Required Field
+        </span>
+        <span
+          className="hide-details"
+          onClick={[Function]}
+          role="button"
+          style={
+            Object {
+              "outline": "none",
+            }
+          }
+          tabIndex={0}
+        >
+          <img
+            alt="clicked"
+            className="expand"
+            src="expand_more_24px.svg"
+            style={
+              Object {
+                "transform": "none",
+              }
+            }
+          />
+          Hide Details
+        </span>
+      </legend>
+      <div>
+        <div>
+          <div
+            className="input-group "
+          >
+            <div
+              className="spaces"
+            >
+              <div
+                className="form-input  "
+              >
+                <label
+                  htmlFor="name"
+                >
+                  Your Name
+                  <span
+                    style={
+                      Object {
+                        "color": "red",
+                      }
+                    }
+                  >
+                    *
+                  </span>
+                  <span>
+                     
+                    (As it appears on your passport)
+                  </span>
+                </label>
+                <input
+                  autoComplete="off"
+                  className=" "
+                  label="Your Name"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  type="text"
+                  value=""
+                />
+                <span
+                  className="error"
+                />
+              </div>
+            </div>
+            <div
+              className="spaces"
+            >
+              <div
+                className="form-input  "
+              >
+                <label
+                  htmlFor="gender"
+                >
+                  Gender
+                  <span
+                    style={
+                      Object {
+                        "color": "red",
+                      }
+                    }
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  className="input "
+                >
+                  <button
+                    className="bg-btn bg-btn--inactive"
+                    data-value="Female"
+                    key="Female"
+                    name="gender"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Female
+                  </button>
+                  <button
+                    className="bg-btn bg-btn--active"
+                    data-value="Male"
+                    key="Male"
+                    name="gender"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Male
+                  </button>
+                </div>
+                <span
+                  className="error"
+                />
+              </div>
+            </div>
+            <div
+              className="form-input request_dropdown "
+            >
+              <label
+                htmlFor="department"
+              >
+                Your Department
+                <span
+                  style={
+                    Object {
+                      "color": "red",
+                    }
+                  }
+                >
+                  *
+                </span>
+              </label>
+              <div
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  autoComplete="off"
+                  choices={
+                    Array [
+                      "Talent & Development",
+                      "Success",
+                      "IT",
+                      "Operations",
+                    ]
+                  }
+                  className="input select  request_dropdown"
+                  error=""
+                  label="Your Department"
+                  name="department"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  size="245px"
+                  tabIndex="0"
+                  type="dropdown-select"
+                  value="Talent & Development"
+                >
+                  <div
+                    className="value"
+                    style={
+                      Object {
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    Talent & Development
+                    <div
+                      className="select-dropdown inactive"
+                    >
+                      <img
+                        alt="icn"
+                        src="form_select_dropdown.svg"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    className="select-menu select-menu--inactive"
+                  >
+                    <li
+                      id="choice"
+                      key="Talent & Development"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Talent & Development
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="Success"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Success
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="IT"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        IT
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="Operations"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Operations
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <span
+                className="error"
+              />
+            </div>
+          </div>
+          <div
+            className="input-group "
+          >
+            <div
+              className="spaces"
+            >
+              <div
+                className="form-input request_dropdown "
+              >
+                <label
+                  htmlFor="role"
+                >
+                  Your Role
+                  <span
+                    style={
+                      Object {
+                        "color": "red",
+                      }
+                    }
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="value"
+                    style={
+                      Object {
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    <input
+                      autoComplete="off"
+                      choices={
+                        Array [
+                          "Software Developer",
+                          "HR",
+                        ]
+                      }
+                      className="occupationInput"
+                      label="Your Role"
+                      name="role"
+                      onChange={[Function]}
+                      size="245px"
+                      type="text"
+                      value="Software Developer"
+                    />
+                    <div
+                      className="hide"
+                    >
+                      <ul
+                        className="select-menu select-menu--inactive"
+                      >
+                        <li
+                          id="choice"
+                          key="Software Developer"
+                        >
+                          <div
+                            id="choice"
+                            onClick={[Function]}
+                            onKeyPress={[Function]}
+                            role="button"
+                            tabIndex="0"
+                          >
+                            Software Developer
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <span
+                  className="error"
+                />
+              </div>
+            </div>
+            <div
+              className="spaces"
+            >
+              <div
+                className="form-input  "
+              >
+                <label
+                  htmlFor="manager"
+                >
+                  Your Manager
+                  <span
+                    style={
+                      Object {
+                        "color": "red",
+                      }
+                    }
+                  >
+                    *
+                  </span>
+                </label>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    autoComplete="off"
+                    choices={
+                      Array [
+                        "Test User",
+                      ]
+                    }
+                    className="input select  "
+                    error=""
+                    label="Your Manager"
+                    name="manager"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    size="245px"
+                    tabIndex="0"
+                    type="dropdown-select"
+                    value="Collins"
+                  >
+                    <div
+                      className="value"
+                      style={
+                        Object {
+                          "width": "245px",
+                        }
+                      }
+                    >
+                       
+                      <div
+                        className="select-dropdown inactive"
+                      >
+                        <img
+                          alt="icn"
+                          src="form_select_dropdown.svg"
+                        />
+                      </div>
+                    </div>
+                    <ul
+                      className="select-menu select-menu--inactive"
+                    >
+                      <li
+                        id="choice"
+                        key="Test User"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Test User
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span
+                  className="error"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="input-group"
+          >
+            <div
+              className="container flex-row"
+            >
+              <div
+                className="checkbox default"
+                id="checkBox"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex="0"
+              >
+                <img
+                  alt="clicked"
+                  className="ticksvg"
+                  src="tick.svg"
+                />
+              </div>
+              <p
+                id="remember-my-details"
+              >
+                Remember my personal details
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset
+      className="travel-details"
+    >
+      <legend
+        className="line"
+        style={
+          Object {
+            "borderBottom": "1px solid #E4E4E4",
+            "fontFamily": "DIN Pro Medium",
+            "fontSize": "18px",
+            "marginBottom": "6px",
+            "paddingTop": "5px",
+          }
+        }
+      >
+        Travel Details
+      </legend>
+      <div
+        className="trip-align"
+        onChange={[Function]}
+      >
+        <ul
+          style={
+            Object {
+              "padding": "0",
+            }
+          }
+        >
+          <li>
+            <input
+              checked={false}
+              id="oneWay"
+              name="selector"
+              onChange={[Function]}
+              type="radio"
+              value="oneWay"
+            />
+            <label
+              htmlFor="oneWay"
+            >
+              One Way Trip
+            </label>
+            <div
+              className="check"
+            />
+          </li>
+        </ul>
+        <ul
+          style={
+            Object {
+              "padding": "0",
+            }
+          }
+        >
+          <li>
+            <input
+              checked={true}
+              id="return"
+              name="selector"
+              onChange={[Function]}
+              type="radio"
+              value="return"
+            />
+            <label
+              htmlFor="return"
+            >
+              Return Trip
+            </label>
+            <div
+              className="check"
+            />
+          </li>
+        </ul>
+        <ul
+          style={
+            Object {
+              "padding": "0",
+            }
+          }
+        >
+          <li>
+            <input
+              checked={false}
+              id="multi"
+              name="selector"
+              onChange={[Function]}
+              type="radio"
+              value="multi"
+            />
+            <label
+              htmlFor="multi"
+            >
+              Multi City Trip
+            </label>
+            <div
+              className="check"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        id={0}
+        key="0"
+      >
+        <div
+          className="travel-input-area"
+        >
+          <div
+            className="input-group"
+            id="trip0"
+          >
+            <div
+              className="rectangle return"
+            >
+              <div
+                className="style-details"
+              >
+                <div
+                  className="travel-to"
+                  onChange={[Function]}
+                >
+                  <div
+                    className="form-input  "
+                  >
+                    <label
+                      htmlFor="origin-0"
+                    >
+                      From
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <input
+                      autoComplete="off"
+                      className=" "
+                      data-parentid={0}
+                      label="From"
+                      name="origin-0"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      parentid={0}
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      className="error"
+                    />
+                  </div>
+                  <img
+                    alt="icn"
+                    className="location-icon"
+                    src="location.svg"
+                  />
+                </div>
+                <div
+                  className="travel-to"
+                  onChange={[Function]}
+                >
+                  <div
+                    className="form-input  "
+                  >
+                    <label
+                      htmlFor="destination-0"
+                    >
+                      Travel to
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <input
+                      autoComplete="off"
+                      className=" "
+                      data-parentid={0}
+                      label="Travel to"
+                      name="destination-0"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      parentid={0}
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      className="error"
+                    />
+                  </div>
+                  <img
+                    alt="icn"
+                    className="location-icon"
+                    src="location.svg"
+                  />
+                </div>
+                <div
+                  className="others-width"
+                  role="presentation"
+                >
+                  <div
+                    className="form-input  "
+                  >
+                    <label
+                      htmlFor="departureDate-0"
+                    >
+                      Depart
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      className="date-wrapper "
+                      id="departureDate-0_date"
+                    >
+                      <div>
+                        <div
+                          className="react-datepicker-wrapper"
+                        >
+                          <div
+                            className="react-datepicker__input-container"
+                          >
+                            <input
+                              autoComplete="off"
+                              className=""
+                              disabled={false}
+                              name="departureDate-0"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              readOnly={false}
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        alt="cal"
+                        className="calendar-icon"
+                        src="calendar_icon.svg"
+                      />
+                    </div>
+                    <span
+                      className="error"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="others-width"
+                  role="presentation"
+                >
+                  <div
+                    className="form-input arrival-date "
+                  >
+                    <label
+                      htmlFor="arrivalDate-0"
+                    >
+                      Return
+                      <span
+                        style={
+                          Object {
+                            "color": "red",
+                          }
+                        }
+                      >
+                        *
+                      </span>
+                    </label>
+                    <div
+                      className="date-wrapper arrival-date"
+                      id="arrivalDate-0_date"
+                    >
+                      <div>
+                        <div
+                          className="react-datepicker-wrapper"
+                        >
+                          <div
+                            className="react-datepicker__input-container"
+                          >
+                            <input
+                              autoComplete="off"
+                              className="arrival-date"
+                              disabled={true}
+                              name="arrivalDate-0"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              placeholder="select depart date first"
+                              readOnly={false}
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        alt="cal"
+                        className="calendar-icon"
+                        src="calendar_icon.svg"
+                      />
+                    </div>
+                    <span
+                      className="error"
+                    />
+                  </div>
+                </div>
+                <div
+                  className="travel-to"
+                >
+                  <div>
+                    <div
+                      className="form-input room-dropdown "
+                    >
+                      <label
+                        htmlFor="bed-0"
+                      >
+                        Available rooms
+                        <span
+                          style={
+                            Object {
+                              "color": "red",
+                            }
+                          }
+                        >
+                          *
+                        </span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        className=" room-dropdown"
+                        disabled={true}
+                        label="Available rooms"
+                        name="bed-0"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Choose rooms"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        className="error"
+                      />
+                    </div>
+                    <img
+                      alt="icon"
+                      src="/static/media/form_select_dropdown.d19986d7.svg"
+                      style={
+                        Object {
+                          "position": "absolute",
+                          "right": "15px",
+                          "top": "43px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div
+        className="submit-area submit-area--return"
+      >
+        <button
+          className="bg-btn bg-btn--inactive"
+          id="cancel"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-btn bg-btn--active"
+          disabled={true}
+          id="submit"
+          type="submit"
+        >
+          Send Request
+        </button>
+      </div>
+    </fieldset>
+  </form>
 </div>
 `;

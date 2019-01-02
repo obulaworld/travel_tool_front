@@ -2,10 +2,13 @@ import React from 'react';
 import RestoreChecklistItem from '../RestoreChecklistModal';
 
 describe('Renders',() => {
-  let closeModal, wrapper;
-  closeModal = jest.fn();
+  let wrapper;
   const props = {
-    closeModal: closeModal(),
+    shouldOpen: true,
+    closeModal: jest.fn(),
+    restoreChecklistItem: jest.fn(),
+    handleInputChange: jest.fn(),
+    itemName: 'Passport'
   };
   beforeEach(() => {
     wrapper = mount( <RestoreChecklistItem {...props}

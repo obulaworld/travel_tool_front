@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -65,12 +64,10 @@ export const mapStateToProps = ({user, analytics, readiness, travelCalendar}) =>
 Dashboard.propTypes = {
   history: PropTypes.shape({}).isRequired,
   downloadAnalytics: PropTypes.func.isRequired,
-  getCurrentUserRole: PropTypes.array.isRequired,
   departmentTrips: PropTypes.shape({}).isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
   fetchReadiness: PropTypes.func.isRequired,
   readiness:  PropTypes.shape({}).isRequired,
-  isLoaded: PropTypes.bool.isRequired,
   exportReadiness: PropTypes.func.isRequired,
   fetchCalendarAnalytics: PropTypes.func.isRequired,
   downloadCalendarAnalytics: PropTypes.func.isRequired,

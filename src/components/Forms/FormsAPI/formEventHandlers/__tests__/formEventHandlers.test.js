@@ -26,7 +26,7 @@ describe('Default eventHandlers', () => {
   });
 
   it('validates the target input field with change date', () => {
-    const date = moment('27-09-2017');
+    const date = moment(new Date());
     targetField = 'dateOfBirth';
     eventHandlers = createEventHandlersFor(targetForm, targetField, 'validate');
     eventHandlers.handleSelectDate(date);

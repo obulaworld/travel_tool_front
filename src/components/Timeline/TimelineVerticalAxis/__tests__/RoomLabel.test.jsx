@@ -7,7 +7,13 @@ const props = {
   guestHouseId: 'guest-house-id-1',
   name: 'Ndovu',
   id: 'room-id-1',
-  status: true
+  status: true,
+  modalType: 'Menengai-room-id-1',
+  closeModal: jest.fn(),
+  openModal: jest.fn(),
+  addmaintenanceRecord: jest.fn(),
+  updateMaintenanceRecord: jest.fn(),
+  shouldOpen: true
 };
 
 describe('<RoomLabel />', () => {

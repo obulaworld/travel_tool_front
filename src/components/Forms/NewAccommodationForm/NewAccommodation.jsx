@@ -42,7 +42,8 @@ class NewAccommodation extends PureComponent {
       const startDate = cloneStartDate.format('YYYY-MM-DD');
       const endDate = cloneStartDate.endOf('month').format('YYYY-MM-DD');
       initFetchTimelineData(guestHouse.id, startDate, endDate);
-    }fetchAccommodation();
+    }
+    fetchAccommodation();
   }
 
   getHouseDetails = (modalType, detailsSource) => {
@@ -245,7 +246,7 @@ class NewAccommodation extends PureComponent {
   }
 }
 NewAccommodation.propTypes = {
-  createAccommodation: PropTypes.func.isRequired,
+  createAccommodation: PropTypes.func,
   fetchAccommodation: PropTypes.func.isRequired,
   initFetchTimelineData: PropTypes.func.isRequired,
   guestHouse: PropTypes.object.isRequired,
@@ -256,5 +257,6 @@ NewAccommodation.propTypes = {
 
 NewAccommodation.defaultProps = {
   editAccommodation: () => {},
+  createAccommodation: () => {}
 };
 export default NewAccommodation;

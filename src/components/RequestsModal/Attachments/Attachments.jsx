@@ -34,7 +34,8 @@ class Attachments extends Component {
           {isFetching ? ( <Preloader spinnerClass="loader" />) : fileSubmissions.length > 0 ? (
             <div className="attachment-modals">
               {fileSubmissions.map(submission => (
-                <div className="mask" key={submission.fileName}>
+                <div className="mask" key={submission.url}> 
+                  {/* Some attachements might have same but never same url*/}
                   <div className="rectangle">
                     <a href={submission.url} target="_blank" rel="noopener noreferrer">
                       {this.renderThumbnail(submission.fileName, submission.url)}
@@ -62,7 +63,7 @@ class Attachments extends Component {
 }
 
 Attachments.propTypes = {
-  fileSubmissions: PropTypes.shape({}).isRequired,
+  fileSubmissions: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   handleDownload: PropTypes.func.isRequired
 };

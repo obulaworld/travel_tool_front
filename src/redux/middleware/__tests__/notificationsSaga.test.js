@@ -40,7 +40,7 @@ describe('Notifications Saga', () => {
         .dispatch({
           type: FETCH_NOTIFICATIONS
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s notifications', () => {
@@ -53,7 +53,7 @@ describe('Notifications Saga', () => {
         .dispatch({
           type: FETCH_NOTIFICATIONS
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -74,7 +74,7 @@ describe('Notifications Saga', () => {
           type: ADD_NOTIFICATION,
           notification: response.data.notifications
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -105,7 +105,7 @@ describe('Notifications Saga', () => {
           type: UPDATE_ALL_NOTIFICATIONS_STATUS,
           statusUpdateData
         })
-        .run();
+        .silentRun();
     });
 
     it('handles failed update errors', () => {
@@ -125,7 +125,7 @@ describe('Notifications Saga', () => {
           type: UPDATE_ALL_NOTIFICATIONS_STATUS,
           statusUpdateData
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -157,7 +157,7 @@ describe('Notifications Saga', () => {
           type: 'MARK_SINGLE_NOTIFICATION_AS_READ',
           notificationId: 12
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error while marking a notification as read', () => {
@@ -174,7 +174,7 @@ describe('Notifications Saga', () => {
           type: 'MARK_SINGLE_NOTIFICATION_AS_READ',
           notificationId: 12
         })
-        .run();
+        .silentRun();
     });
   });
 });

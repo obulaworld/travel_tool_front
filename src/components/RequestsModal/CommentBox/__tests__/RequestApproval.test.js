@@ -5,7 +5,9 @@ import RequestApproval from '../RequestApproval';
 const props = {
   requestData: {
     status: 'Approved',
-    manager: 'Onyx'
+    manager: 'Onyx',
+    approverImage:'http://this.travela.img',
+    timeApproved: new Date()
   }
 };
 

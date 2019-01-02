@@ -101,7 +101,7 @@ describe('Approvals saga', () => {
           type: 'FETCH_USER_APPROVALS',
           url: action.url
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error while fetching approvals', () => {
@@ -118,7 +118,7 @@ describe('Approvals saga', () => {
           type: 'FETCH_USER_APPROVALS',
           url: action.url
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -155,7 +155,7 @@ describe('Approvals saga', () => {
           type: 'UPDATE_REQUEST_STATUS',
           statusUpdateData: action.statusUpdateData
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error while updating a request status', () => {
@@ -171,7 +171,7 @@ describe('Approvals saga', () => {
           type: 'UPDATE_REQUEST_STATUS',
           statusUpdateData: action.statusUpdateData
         })
-        .run();
+        .silentRun();
     });
   });
 });

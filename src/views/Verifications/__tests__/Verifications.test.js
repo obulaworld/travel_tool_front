@@ -17,22 +17,20 @@ const props = {
   openModal: jest.fn(),
   getCurrentUserRole: ['Travel Team Member'],
   approvals: {
-    approvals: [
-      {
-        id: '245923RTF',
-        duration: '3 days',
-        status: 'Approved',
-        name: 'Jomo Kenyatta',
-        tripType: 'oneWay',
-        trips: [
-          {
-            departureDate: '2018-09-20',
-            origin: 'Lagos',
-            destination: 'Angola'
-          }
-        ]
-      }
-    ],
+    approvals: [{
+      id: '245923RTF',
+      duration: '3 days',
+      status: 'Approved',
+      name: 'Jomo Kenyatta',
+      tripType: 'oneWay',
+      trips: [{
+        departureDate: '2018-09-20',
+        origin: 'Lagos',
+        destination: 'Angola'
+      }]
+    }],
+    approvedApprovalsCount: 2,
+    verifiedApprovalsCount: 1,
     pagination: {
       currentPage: 1,
       pageCount: 4,
@@ -41,7 +39,9 @@ const props = {
     },
     isLoading: false
   },
-  history: [],
+  history: {
+    push: jest.fn()
+  },
   location: {
     search: ''
   },
@@ -49,7 +49,7 @@ const props = {
   message: '',
   match: {
     params: {
-      requestId: 'sgdgdg'
+      requestId: '245923RTF'
     }
   },
   submissionInfo
@@ -118,8 +118,8 @@ describe('<VerificationsPage>', () => {
     wrapper.unmount();
   });
 
-  describe('Approvals page filters', () => {
-    let axios, wrapper, spy;
+  describe('Verifications page filters', () => {
+    let wrapper;
 
     beforeEach(() => {
       wrapper = mount(
@@ -138,22 +138,19 @@ describe('<VerificationsPage>', () => {
     it('it filters Verifications by status=open', () => {
       const openButton = wrapper.find('#open-button');
       openButton.simulate('click');
-      const history = wrapper.find('Verifications').prop('history');
-      expect(history[0].indexOf('?status=open')).toBeTruthy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1&status=approved');
     });
 
     it('it filters Verifications by status=past', () => {
       const openButton = wrapper.find('#past-button');
       openButton.simulate('click');
-      const history = wrapper.find('Verifications').prop('history');
-      expect(history[0].indexOf('?status=past')).toBeTruthy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1&status=verified');
     });
 
     it('it fetches all Verifications by clicking all', () => {
       const openButton = wrapper.find('#all-button');
       openButton.simulate('click');
-      const history = wrapper.find('Verifications').prop('history');
-      expect(history[0].includes('status')).toBeFalsy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1');
     });
 
     it('updates searchQuery on receiving receiving location props', () => {

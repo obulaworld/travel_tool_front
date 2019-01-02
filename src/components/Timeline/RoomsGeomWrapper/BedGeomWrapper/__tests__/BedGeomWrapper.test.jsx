@@ -8,7 +8,8 @@ const props = {
     id: 'trip-id-1'
   }],
   timelineStartDate: moment().startOf('month'),
-  timelineViewType: 'month'
+  timelineViewType: 'month',
+  handleChangeRoomModal: jest.fn()
 };
 
 describe('<BedGeomWrapper />', () => {

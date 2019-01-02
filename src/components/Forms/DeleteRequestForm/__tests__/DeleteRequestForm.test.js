@@ -2,10 +2,14 @@ import React from 'react';
 import DeleteRequestForm from '../DeleteRequestForm';
 
 describe('Renders',() => {
-  let closeModal, wrapper;
-  closeModal = jest.fn();
+  let wrapper;
+  
   const props = {
-    closeModal: closeModal(),
+    shouldOpen: true,
+    closeModal: jest.fn(),
+    deleteChecklistItem: jest.fn(),
+    handleInputChange: jest.fn(),
+    itemName: 'Passport'
   };
   beforeEach(() => {
     wrapper = mount( <DeleteRequestForm {...props}

@@ -75,7 +75,7 @@ describe('Room fault status saga', () =>{
         startDate: action.startDate,
         endDate: action.endDate
       })
-      .run();
+      .silentRun();
   });
 });
 

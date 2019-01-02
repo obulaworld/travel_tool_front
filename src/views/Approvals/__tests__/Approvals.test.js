@@ -36,13 +36,17 @@ const props = {
     ],
     pagination: {
       currentPage: 1,
-      pageCount: 4,
+      pageCount: 1,
       dataCount: 10,
       onPageChange: jest.fn()
     },
-    isLoading: false
+    isLoading: false,
+    pastApprovalsCount: 1,
+    openApprovalsCount: 1
   },
-  history: [],
+  history: {
+    push: jest.fn()
+  },
   location: {
     search: ''
   },
@@ -50,7 +54,7 @@ const props = {
   message: '',
   match: {
     params: {
-      requestId: 'sgdgdg'
+      requestId: '245923RTF'
     }
   },
   submissionInfo
@@ -82,6 +86,7 @@ describe('<ApprovalsPage>', () => {
   }); 
 
   it('calls the onPageChange method', () => {
+    props.approvals.pagination.pageCount = 4;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -120,7 +125,7 @@ describe('<ApprovalsPage>', () => {
   });
 
   describe('Approvals page filters', () => {
-    let axios, wrapper, spy;
+    let wrapper;
 
     beforeEach(() => {
       wrapper = mount(
@@ -139,22 +144,19 @@ describe('<ApprovalsPage>', () => {
     it('it filters approvals by status=open', () => {
       const openButton = wrapper.find('#open-button');
       openButton.simulate('click');
-      const history = wrapper.find('Approvals').prop('history');
-      expect(history[0].indexOf('?status=open')).toBeTruthy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-approvals?page=1&status=open');
     });
 
     it('it filters approvals by status=past', () => {
       const openButton = wrapper.find('#past-button');
       openButton.simulate('click');
-      const history = wrapper.find('Approvals').prop('history');
-      expect(history[0].indexOf('?status=past')).toBeTruthy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-approvals?page=1&status=past');
     });
 
     it('it fetches all approvals by clicking all', () => {
       const openButton = wrapper.find('#all-button');
       openButton.simulate('click');
-      const history = wrapper.find('Approvals').prop('history');
-      expect(history[0].includes('status')).toBeFalsy();
+      expect(props.history.push).toHaveBeenCalledWith('/requests/my-approvals?page=1');
     });
 
     it('updates searchQuery on receiving receiving location props', () => {

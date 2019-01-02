@@ -21,6 +21,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         },
       },
       "handleClearForm": [Function],
+      "handleSetState": [Function],
       "props": Object {
         "addmaintenanceRecord": [Function],
         "closeModal": [Function],
@@ -62,7 +63,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         "values": Object {
           "maintainanceEnd": "",
           "maintainanceStart": "",
-          "reason": undefined,
+          "reason": "",
         },
       },
       "submitEditedMaintenanceData": [Function],
@@ -105,20 +106,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
     />,
           "_forcedUpdate": false,
           "_instance": [Circular],
-          "_newState": Object {
-            "errors": Object {},
-            "hasBlankFields": true,
-            "hideNotificationPane": true,
-            "hideOverlay": false,
-            "hideSideBar": false,
-            "openSearch": false,
-            "selectedLink": "settings page",
-            "values": Object {
-              "maintainanceEnd": "",
-              "maintainanceStart": "",
-              "reason": undefined,
-            },
-          },
+          "_newState": null,
           "_rendered": <FormContext
             errors={Object {}}
             targetForm={[Circular]}
@@ -127,7 +115,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                     Object {
                             "maintainanceEnd": "",
                             "maintainanceStart": "",
-                            "reason": undefined,
+                            "reason": "",
                           }
             }
     >
@@ -142,7 +130,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
                                     Object {
                                             "maintainanceEnd": "",
                                             "maintainanceStart": "",
-                                            "reason": undefined,
+                                            "reason": "",
                                           }
                             }
                     />
@@ -183,7 +171,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
     Object {
       "maintainanceEnd": "",
       "maintainanceStart": "",
-      "reason": undefined,
+      "reason": "",
     }
   }
 >
@@ -198,7 +186,7 @@ exports[`<MaintainanceForm /> renders correctly 1`] = `
         Object {
           "maintainanceEnd": "",
           "maintainanceStart": "",
-          "reason": undefined,
+          "reason": "",
         }
       }
     />

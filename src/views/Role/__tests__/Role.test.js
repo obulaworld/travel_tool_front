@@ -6,26 +6,24 @@ import configureStore from 'redux-mock-store';
 import ConnectedRole, { Role } from '../index';
 
 const props = {
-  roles: {
-    result: [
-      {
-        id: 401938,
-        roleName: 'Requester',
-        description: 'Can make travel request',
-        createdAt: '2018-08-16T11:11:52.181Z',
-        updatedAt: '2018-08-16T11:11:52.181Z',
-        users: [{ email: 'taiwo.sunday@andela.com' }]
-      },
-      {
-        id: 53019,
-        roleName: 'Manager',
-        description: 'Can request and approve travel request ',
-        createdAt: '2018-08-16T11:11:52.181Z',
-        updatedAt: '2018-08-16T11:11:52.181Z',
-        users: []
-      }
-    ]
-  },
+  roles: [
+    {
+      id: 401938,
+      roleName: 'Requester',
+      description: 'Can make travel request',
+      createdAt: '2018-08-16T11:11:52.181Z',
+      updatedAt: '2018-08-16T11:11:52.181Z',
+      users: [{ email: 'taiwo.sunday@andela.com' }]
+    },
+    {
+      id: 53019,
+      roleName: 'Manager',
+      description: 'Can request and approve travel request ',
+      createdAt: '2018-08-16T11:11:52.181Z',
+      updatedAt: '2018-08-16T11:11:52.181Z',
+      users: []
+    }
+  ],
   user: {
     UserInfo: {
       name: 'John Doe',
@@ -47,6 +45,8 @@ const props = {
   openModal: jest.fn(),
   onNotificationToggle: jest.fn(),
   closeModal: jest.fn(),
+  addRole: jest.fn(),
+  updateRole: jest.fn()
 };
 
 const initialState = {
@@ -118,7 +118,6 @@ describe('<RolePage>', () => {
     wrapper.unmount();
   });
 
-
   it('should set `visibility` prop to `visible` when add new role button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
@@ -135,6 +134,4 @@ describe('<RolePage>', () => {
         .props().visibility
     ).toEqual('visible');
   });
-
-  it('should ')
 });

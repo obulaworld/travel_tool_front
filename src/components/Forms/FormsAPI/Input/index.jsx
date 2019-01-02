@@ -119,8 +119,8 @@ class Input extends PureComponent {
     render() {
       const { errors, values } = this.context;
       let { name, label, className } = this.props;
-      const value = values? values[name]: '';
-      const error = errors? errors[name]: '';
+      const value = values ? values[name]: '';
+      const error = errors ? errors[name]: '';
       let customClass = className ? className : '';
       // switch input types into InputElement
       const InputElement = this.getInputType();

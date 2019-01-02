@@ -111,7 +111,8 @@ const props = {
   },
   updateRequestStatus: jest.fn(() => Promise.resolve()),
   isStatusUpdating: false,
-  url: 'travela.andela.com/requests/'
+  url: 'travela.andela.com/requests/',
+  redirectLink: '/requests'
 };
 
 const componentDidMountSpy = sinon.spy(

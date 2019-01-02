@@ -20,7 +20,6 @@ const response = {
   }
 };
 const error = 'Possible network error, please reload the page';
-
 describe('Requests Saga', () => {
   describe('Fetch requests saga', () => {
     it('fetches users request', () => {
@@ -38,7 +37,7 @@ describe('Requests Saga', () => {
           type: 'FETCH_USER_REQUESTS',
           url
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -54,7 +53,7 @@ describe('Requests Saga', () => {
           type: 'FETCH_USER_REQUESTS',
           url
         })
-        .run();
+        .silentRun();
     });
 
   });
@@ -94,7 +93,7 @@ describe('Requests Saga', () => {
           type: 'CREATE_NEW_REQUEST',
           requestData: action.requestData
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error while creating a new request', () => {
@@ -110,7 +109,7 @@ describe('Requests Saga', () => {
           type: 'CREATE_NEW_REQUEST',
           requestData: action.requestData
         })
-        .run();
+        .silentRun();
     });
   });
   describe('Fetch request details Saga', () => {
@@ -127,7 +126,7 @@ describe('Requests Saga', () => {
           type: 'FETCH_USER_REQUEST_DETAILS',
           requestId
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests details', () => {
@@ -143,7 +142,7 @@ describe('Requests Saga', () => {
           type: 'FETCH_USER_REQUEST_DETAILS',
           requestId
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -180,7 +179,7 @@ describe('Requests Saga', () => {
           requestId,
           requestData: action.requestData
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests details', () => {
@@ -197,7 +196,7 @@ describe('Requests Saga', () => {
           requestId,
           requestData: action.requestData
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -227,7 +226,7 @@ describe('Requests Saga', () => {
           type: 'DELETE_REQUEST',
           requestId,
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error deleting a user\'s requests', () => {
@@ -243,7 +242,7 @@ describe('Requests Saga', () => {
           type: 'DELETE_REQUEST',
           requestId
         })
-        .run();
+        .silentRun();
     });
   });
 });

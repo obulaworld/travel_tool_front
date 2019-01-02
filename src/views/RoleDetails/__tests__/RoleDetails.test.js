@@ -8,17 +8,14 @@ import ConnectedRoleDetails, { RoleDetails } from '../index';
 
 let wrapper;
 const props = {
-  roleUsers: [
-    {
-      fullName: 'A user',
-      centers: [
-        {
-          id: 12345,
-          location: 'Lagos, Nigeria'
-        }
-      ]
-    }
-  ],
+  roleUsers: [{
+    id: 1,
+    fullName: 'A user',
+    centers: [{
+      id: 12345,
+      location: 'Lagos, Nigeria'
+    }]
+  }],
   closeModal: jest.fn(),
   fetchRoleUsers: sinon.spy(),
   updateUserCenter: jest.fn(),
@@ -34,7 +31,7 @@ const props = {
   modalType: 'new model',
   match: {
     params: {
-      roleId: 335498
+      roleId: '335498'
     }
   },
   roleName: 'Travel team member',
@@ -78,8 +75,9 @@ describe('<ROleDetails />', () => {
 
   it(`calls the fetchRoleUser prop method on
     componentDidMount`, () => {
+    const { match: { params: { roleId } } } = props;
     expect(props.fetchRoleUsers.called).toEqual(true);
-    expect(props.fetchRoleUsers.calledWith(335498)).toEqual(true);
+    expect(props.fetchRoleUsers.calledWith(roleId)).toEqual(true);
   });
 
   it(`calls renders the RoleDetails Table with

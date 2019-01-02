@@ -40,7 +40,7 @@ class ChangeBedForm extends PureComponent {
     return (
       <FormContext targetForm={this} values={values} errors={errors}>
         <form className="change-room-modal__form">
-          <p className="change-room-modal__other-available-room">
+          <div className="change-room-modal__other-available-room">
             {loadingBeds && (
               <div className="change-room-modal__text-center">
                 <div className="change-room-modal__ddl-spinner" />
@@ -58,7 +58,7 @@ class ChangeBedForm extends PureComponent {
                size: '100%',
                choices: [...bedChoices, {label: 'Hotel Booking', value: -1}],
              })}
-          </p>
+          </div>
           <p className="change-room-modal__reason">
           Reason
             <span className="change-room-modal__important-text">*</span>

@@ -45,7 +45,7 @@ const PieChartAnalytics = ({data, color, error }) => (
             dataKey="value"
           >
             {
-              data.map((entry, index) => {
+              data.map((entry) => {
                 const maxLightness = 90;
                 const minLightness = 50;
                 const lightnessRange = maxLightness - minLightness;
@@ -58,8 +58,8 @@ const PieChartAnalytics = ({data, color, error }) => (
                 lightnessDiff = isFinite(lightnessDiff) ? lightnessDiff : 0;
                 const lightness = ((maxEntryValue - entry.value) * lightnessDiff) + 50;
                 return color === 'orange' ?
-                  <Cell fill={`hsl(226, 70%, ${lightness}%)`} /> :
-                  <Cell fill={`hsl(37, 99%, ${lightness}%)`} />;
+                  <Cell key={color} fill={`hsl(226, 70%, ${lightness}%)`} /> :
+                  <Cell key={color} fill={`hsl(37, 99%, ${lightness}%)`} />;
               })
             }
           </Pie>

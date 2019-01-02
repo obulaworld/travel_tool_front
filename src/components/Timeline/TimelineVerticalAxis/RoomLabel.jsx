@@ -17,7 +17,7 @@ class RoomLabel extends PureComponent {
 
   renderMainteinanceForm(type){
     const {closeModal, name, id, status, shouldOpen, addmaintenanceRecord, 
-      modalType, timelineDateRange, guestHouseId} = this.props;
+      updateMaintenanceRecord, modalType, timelineDateRange, guestHouseId} = this.props;
     return(
       <Modal
         closeModal={closeModal}
@@ -32,6 +32,7 @@ class RoomLabel extends PureComponent {
           addmaintenanceRecord={addmaintenanceRecord}
           timelineDateRange={timelineDateRange}
           guestHouseId={guestHouseId}
+          updateMaintenanceRecord={updateMaintenanceRecord}
         />
       </Modal>
     );
@@ -89,14 +90,18 @@ class RoomLabel extends PureComponent {
 RoomLabel.propTypes = {
   closeModal: PropTypes.func.isRequired,
   addmaintenanceRecord: PropTypes.func.isRequired,
-  shouldOpen:PropTypes.bool.isRequired,
-  status: PropTypes.string.isRequired,
+  updateMaintenanceRecord: PropTypes.func.isRequired,
+  shouldOpen: PropTypes.bool.isRequired,
+  status: PropTypes.bool.isRequired,
   timelineDateRange: PropTypes.array.isRequired,
   guestHouseId: PropTypes.string.isRequired,
-  modalType: PropTypes.string.isRequired,
+  modalType: PropTypes.string,
   openModal: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+};
+RoomLabel.defaultProps = {
+  modalType: null
 };
 
 export default RoomLabel;

@@ -47,11 +47,12 @@ DeleteRequestForm.propTypes = {
   modalType: PropTypes.string,
   deleteReason: PropTypes.string,
   shouldOpen: PropTypes.bool.isRequired,
-  itemName: PropTypes.string.isRequired
+  itemName: PropTypes.string
 };
 
 DeleteRequestForm.defaultProps = {
   modalType:'',
   deleteReason: '',
+  itemName: ''
 };
 export default DeleteRequestForm;

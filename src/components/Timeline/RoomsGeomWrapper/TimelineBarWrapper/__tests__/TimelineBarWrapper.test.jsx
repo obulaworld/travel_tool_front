@@ -30,6 +30,7 @@ describe('TimelineBarWrappper', () => {
   it('ignore tab focus on trip bar to prevent distorted positioning', () => {
     expect(wrapper.prop('tabIndex')).toEqual('-1');
   });
+
   it('renders properly', () => {
     expect(wrapper).toMatchSnapshot();
   });
