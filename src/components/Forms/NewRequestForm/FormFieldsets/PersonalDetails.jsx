@@ -18,10 +18,7 @@ class PersonalDetailsFieldset extends Component {
   renderfields = collapse => {
     const { disableInputs } = this.state;
     const { values, value, managers, occupations } = this.props;
-    const managerChoices = managers.map(manager => ({
-      label: manager.fullName,
-      value: manager.fullName // FIXME: use manager.email when the backend starts storing requests and approvals with manager's email rather than name
-    }));
+    const managerChoices = managers.map(manager => manager.fullName);
     const occupationsNames = occupations.map(
       occupation => occupation.occupationName
     );
@@ -47,9 +44,10 @@ class PersonalDetailsFieldset extends Component {
                 })}
               </div>
               <div className="spaces">
-                {renderInput('manager', 'dropdown-select', {
+                {renderInput('manager', 'filter-dropdown-select', {
                   choices: managerChoices,
-                  size: value
+                  size: value,
+                  className: 'request_dropdown'
                 })}
               </div>
             </div>
