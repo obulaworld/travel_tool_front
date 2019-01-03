@@ -63,10 +63,4 @@ describe ('<ProfileForm />', () =>{
     const onSubmit = jest.fn();
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
-
-  it('submits the updated profile details', () => {
-    wrapper.setState({hasBlankFields: false});
-    wrapper.find('button').first().simulate('click');
-    expect(props.getUserData).toHaveBeenCalledTimes(1);
-  });
 });

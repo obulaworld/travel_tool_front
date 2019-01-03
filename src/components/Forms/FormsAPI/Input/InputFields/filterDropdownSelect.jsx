@@ -26,8 +26,8 @@ export default class filterDropdownSelect extends Component  {
       });
       this.dataValue();
     }
-
-
+    
+    
     // presents the matching options on the dropdown and their onClick events
     //and limits them to five options
     getSelectOptions(choices) {
@@ -105,7 +105,7 @@ export default class filterDropdownSelect extends Component  {
 
     render(){
       const {choices, size, value} = this.props;
-      const {role, dropdownClass} = this.state;
+      const {role, dropdownClass, manager} = this.state;
       const options = this.getSelectOptions(choices);
       return (
         <div style={{position:'relative'}}>
@@ -119,7 +119,7 @@ export default class filterDropdownSelect extends Component  {
               value={value}
               onChange={this.changeText}
             />
-            {role ? (
+            {role || manager ? (
               <div className={dropdownClass || 'hide'}>
                 { options }
               </div>

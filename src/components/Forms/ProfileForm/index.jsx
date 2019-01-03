@@ -28,18 +28,19 @@ class ProfileForm extends PureComponent {
       hideSideBar: false,
       openSearch: false,
       selectedLink: 'settings page',
-      hideOverlay: false
+      hideOverlay: false,
     };
     this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
-  static getDerivedStateFromProps(props, state){
-    const { userData } = props;
-    if(userData !== undefined && state.values.department === ''){
+  componentWillReceiveProps(nextProps){
+    const { userData } = nextProps;
+
+    if(userData !== undefined){
       const { passportName, gender, department, occupation, manager } = userData;
-      return  {
-        ...state,
+      this.setState((prevState) => ({
+        ...prevState,
         values: {
           name: Validator.databaseValueValidator(passportName),
           gender: Validator.databaseValueValidator(gender),
@@ -47,14 +48,13 @@ class ProfileForm extends PureComponent {
           role: Validator.databaseValueValidator(occupation),
           manager: Validator.databaseValueValidator(manager)
         }
-      };
+      }));
     }
-    return null;
   }
 
   submitProfileForm = event => {
     event.preventDefault();
-    const { updateUserProfile, user, getUserData, occupations } = this.props;
+    const { updateUserProfile, user, occupations } = this.props;
 
     const userId = user.UserInfo.id;
     const { values } = this.state;
@@ -64,7 +64,7 @@ class ProfileForm extends PureComponent {
       data.passportName = data.name;
       data.occupation = isValid ? data.role: '';
       updateUserProfile(data, userId, true);
-      getUserData(userId);
+      this.setState({hasBlankFields: true});
     }
   };
 
@@ -82,9 +82,8 @@ class ProfileForm extends PureComponent {
           <ProfileDetails
             values={values}
             managers={managers}
-            hasBlankFields={hasBlankFields}
             occupations={occupations} />
-          {hasBlankFields ? (
+          {hasBlankFields? (
             <div className="submit-area">
               <button
                 type="submit"
@@ -113,7 +112,7 @@ ProfileForm.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   managers: PropTypes.array,
   user: PropTypes.object.isRequired,
-  getUserData: PropTypes.func.isRequired,
+  userData: PropTypes.object.isRequired,
   occupations: PropTypes.array
 };
 ProfileForm.defaultProps = {

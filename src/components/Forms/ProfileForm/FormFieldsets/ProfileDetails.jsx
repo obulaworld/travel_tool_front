@@ -38,7 +38,7 @@ class ProfileDetailsFieldSets extends Component {
             className: 'profile_role_dropdown'
           })}
           {renderInput('department', 'dropdown-select', {className: 'profile_dropdown'})}
-          {renderInput('manager', 'dropdown-select', {className: 'profile_dropdown'})}
+          {renderInput('manager', 'filter-dropdown-select', {className: 'profile_role_dropdown'})}
         </div>
       </fieldset>
     );

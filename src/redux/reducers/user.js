@@ -5,6 +5,7 @@ import {
   GET_USER_DATA,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAILURE,
+  UPDATE_PROFILE_SUCCESS,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -28,6 +29,13 @@ const user = (state = initialState, action) => {
         .roles.map(role => role.roleName),
       errors: [],
       isLoaded: true
+    };
+  case UPDATE_PROFILE_SUCCESS:
+    return {
+      ...state,
+      getUserData: action.response,
+      currentUser: action.response.result,
+      errors: [],
     };
   case GET_USER_DATA_FAILURE:
     return {
