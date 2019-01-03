@@ -3,6 +3,7 @@ import toast from 'toastr';
 import ProfileApi from '../../services/ProfileApi';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import { UPDATE_USER_PROFILE } from '../constants/actionTypes';
+import {updateUserProfileSuccess} from '../actionCreator/userProfileActions';
 
 export function* postUserProfileDataSagaAsync(action) {
   try {
@@ -13,6 +14,7 @@ export function* postUserProfileDataSagaAsync(action) {
     );
     if (action.showToast){
       toast.success('Profile updated successfully');
+      yield put(updateUserProfileSuccess(response.data));
     }
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

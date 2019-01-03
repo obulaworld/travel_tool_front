@@ -1,4 +1,4 @@
-import {UPDATE_USER_PROFILE}from '../constants/actionTypes';
+import {UPDATE_PROFILE_SUCCESS, UPDATE_USER_PROFILE} from '../constants/actionTypes';
 
 const updateUserProfile = (userProfileData, userId, showToast) =>(
   {
@@ -8,5 +8,10 @@ const updateUserProfile = (userProfileData, userId, showToast) =>(
     showToast
   });
 
+
+export const updateUserProfileSuccess = response => ({
+  type: UPDATE_PROFILE_SUCCESS,
+  response
+});
 
 export default updateUserProfile;

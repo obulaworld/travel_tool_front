@@ -41,7 +41,7 @@ exports[`<Timeline /> renders correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="1"
         key="0"
       />
@@ -51,7 +51,7 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="3"
         key="2"
       />
@@ -208,7 +208,7 @@ exports[`<Timeline /> renders correctly 1`] = `
             },
           ]
         }
-        timelineStartDate={"2019-01-01T00:00:00.000Z"}
+        timelineStartDate={"2018-12-31T21:00:00.000Z"}
         timelineViewType="month"
         tripDayWidth={0}
       />
@@ -334,7 +334,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
       className="timeline__body-segments"
     >
       <div
-        className="timeline__segment current week-view"
+        className="timeline__segment  week-view"
         data-segment-label="Tue 1/1"
         key="0"
       />
@@ -344,7 +344,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         key="1"
       />
       <div
-        className="timeline__segment  week-view"
+        className="timeline__segment current week-view"
         data-segment-label="Thu 1/3"
         key="2"
       />
@@ -381,7 +381,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
             },
           ]
         }
-        timelineStartDate={"2019-01-01T00:00:00.000Z"}
+        timelineStartDate={"2018-12-31T21:00:00.000Z"}
         timelineViewType="week"
         tripDayWidth={0}
       />
@@ -579,7 +579,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
             },
           ]
         }
-        timelineStartDate={"2019-01-01T00:00:00.000Z"}
+        timelineStartDate={"2018-12-31T21:00:00.000Z"}
         timelineViewType="year"
         tripDayWidth={0}
       />
