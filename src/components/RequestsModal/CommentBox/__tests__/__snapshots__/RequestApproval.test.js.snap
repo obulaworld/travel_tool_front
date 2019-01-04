@@ -22,7 +22,7 @@ exports[`RequestApproval component should match snapshot 1`] = `
     <span
       className="modal__hours-status"
     >
-      a few seconds ago
+      a minute ago
     </span>
   </span>
 </div>

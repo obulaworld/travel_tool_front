@@ -5,6 +5,7 @@ import {
   itemsToCheck, requestId,
   LagosSubmission,
 } from '../../../mockData/checklistSubmissionMockData';
+import tripRequest from '../../../mockData/checklistSubmissionMocks';
 
 describe('SubmissionItem Component', () => {
   let props = {
@@ -18,16 +19,24 @@ describe('SubmissionItem Component', () => {
     postSuccess: [...itemsToCheck],
     fileUploadData: fileUploadStore,
     isUploadingStage2: [],
-    checklistItem: {...LagosSubmission.checklist[0], resources: [{
-      link: 'image.com',
-      lable: 'document'
-    }]},
+    departureTime: '2019-07-08T12:00',
+    arrivalTime: '2019-07-09T12:00',
+    returnDepartureTime: '2019-07-10T12:00',
+    returnTime: '2019-07-11T12:00',
+    checklistItem: {
+      ...LagosSubmission.checklist[0], resources: [{
+        link: 'image.com',
+        lable: 'document'
+      }]
+    },
     tripId: 'NumC5-pK7G',
+    request: {...tripRequest},
+    trip: tripRequest.trips[0]
   };
 
   const setup = (props) => mount(<SubmissionItem {...props} />);
 
-  it ('should render the component', () => {
+  it('should render the component', () => {
     const wrapper = setup(props);
     const submissionItem = wrapper.find('.travelSubmission--item');
     const submissionItemLink = wrapper
@@ -40,13 +49,13 @@ describe('SubmissionItem Component', () => {
     expect(textAreaField.length).toBe(1);
   });
 
-  it ('should call `handleTextAreaSubmit` when textarea input is blur', () => {
+  it('should call `handleTextAreaSubmit` when textarea input is blur', () => {
     const wrapper = setup(props);
     const event = {
-      target: { value: 'green card' }
+      target: {value: 'green card'}
     };
 
-    const textAreaField = wrapper.find('.textArea');
+    const textAreaField = wrapper.find('textarea');
     const handleTextAreaSubmitSpy = jest
       .spyOn(wrapper.instance(), 'handleTextAreaSubmit');
 
@@ -54,13 +63,13 @@ describe('SubmissionItem Component', () => {
     textAreaField.simulate('focus');
     textAreaField.simulate('change', event);
     textAreaField.simulate('blur');
-    expect(handleTextAreaSubmitSpy).toHaveBeenCalled();
+    expect(handleTextAreaSubmitSpy).toHaveBeenCalledTimes(1);
   });
 
-  it ('should show error if textarea field is not filled', () => {
+  it('should show error if textarea field is not filled', () => {
     const wrapper = setup(props);
     const event = {
-      target: { value: '', name: 'submissionText' }
+      target: {value: '', name: 'submissionText'}
     };
 
     const textAreaField = wrapper.find('.textArea');
@@ -74,11 +83,11 @@ describe('SubmissionItem Component', () => {
     expect(error.text()).toBe('*Field is required');
   });
 
-  it ('should show error if all ticket field is not filled', () => {
+  it('should show error if all ticket field is not filled', () => {
     props.checklistItem = LagosSubmission.checklist[3];
     const wrapper = setup(props);
     const event = {
-      target: { value: '', name: 'returnAirline' }
+      target: {value: '', name: 'returnAirline'}
     };
 
     const returnAirlineInput = wrapper.find('.returnAirline');
@@ -91,17 +100,17 @@ describe('SubmissionItem Component', () => {
     returnAirlineInput.simulate('change', event);
     returnAirlineInput.simulate('blur');
     expect(handleTicketSubmitSpy).toHaveBeenCalled();
-    const error = wrapper.find('.submission-progress__error');
+    const error = wrapper.find('.submission-progress__error').last();
     expect(error.length).toBe(1);
     expect(error.text()).toBe('*All Fields are required');
   });
 
-  it ('should show error if all ticket field is not filled', () => {
+  it('should show error if all ticket field is not filled', () => {
     props.checklistItem = LagosSubmission.checklist[3];
     props.tripType = 'multi';
     const wrapper = setup(props);
     const event = {
-      target: { value: '', name: 'airline' }
+      target: {value: '', name: 'airline'}
     };
 
     const airlineInput = wrapper.find('.airline');
@@ -119,12 +128,12 @@ describe('SubmissionItem Component', () => {
     expect(error.text()).toBe('*All Fields are required');
   });
 
-  it ('should show error if all ticket field is not filled',  () => {
+  it('should show error if all ticket field is not filled', () => {
     props.checklistItem = LagosSubmission.checklist[3];
     props.tripType = 'return';
     const wrapper = setup(props);
     const event = {
-      target: { value: 'Arik Airways', name: 'returnAirline' }
+      target: {value: 'Arik Airways', name: 'returnAirline'}
     };
 
     const returnAirlineInput = wrapper.find('.returnAirline');
@@ -141,19 +150,19 @@ describe('SubmissionItem Component', () => {
     expect(error.length).toBe(0);
   });
 
-  it ('should not upload if no file is chosen',  () => {
+  it('should not upload if no file is chosen', () => {
     props.checklistItem = LagosSubmission.checklist[2];
     const wrapper = setup(props);
-    const event = { target: { files: [] } };
+    const event = {target: {files: []}};
 
     expect(wrapper.instance().checkFileSize(event.target)).toBe(false);
   });
 
-  it ('should handle file upload if file size is less than 1.5mb',  () => {
+  it('should handle file upload if file size is less than 1.5mb', () => {
     props.checklistItem = LagosSubmission.checklist[2];
     const wrapper = setup(props);
     const event = {
-      target: { files: [{ size: 1000, name: 'test.png' }] }
+      target: {files: [{size: 1000, name: 'test.png'}]}
     };
 
     const fileInput = wrapper.find('.uploadFile');
@@ -163,12 +172,12 @@ describe('SubmissionItem Component', () => {
     fileInput.simulate('change', event);
     expect(props.handleFileUpload).toHaveBeenCalled();
   });
-  
-  it ('should render file size error if file size is greater than 1.5mb',  () => {
+
+  it('should render file size error if file size is greater than 1.5mb', () => {
     props.checklistItem = LagosSubmission.checklist[2];
     const wrapper = setup(props);
     const event = {
-      target: { files: [{ size: 17000000, name: 'test.png' }] }
+      target: {files: [{size: 17000000, name: 'test.png'}]}
     };
 
     const fileInput = wrapper.find('.uploadFile');
@@ -180,8 +189,8 @@ describe('SubmissionItem Component', () => {
     expect(error.text()).toBe('File must not exceed 1.5mb');
   });
 
-  it (`should render uploaded file input if 
-    checklistItem is file and is already uploaded`,  () => {
+  it(`should render uploaded file input if 
+    checklistItem is file and is already uploaded`, () => {
     props.checklistItem = LagosSubmission.checklist[1];
     const wrapper = setup(props);
     const fileInput = wrapper.find('.uploadedFile');
@@ -192,16 +201,16 @@ describe('SubmissionItem Component', () => {
     expect(fileInputName.text()).toBe('test.pdf');
   });
 
-  it ('should render is uploading spinner',  () => {
+  it('should render is uploading spinner', () => {
     const newProps = {
       ...props,
-      fileUploadData: { isUploading: 'NumC5-pK7G-7' },
+      fileUploadData: {isUploading: 'NumC5-pK7G-7'},
       isUploadingStage2: ['NumC5-pK7G-7'],
       checkId: 'NumC5-pK7G-7',
       checklistItem: LagosSubmission.checklist[2]
     };
     const wrapper = setup(newProps);
-    wrapper.setState({ type: 'uploading' });
+    wrapper.setState({type: 'uploading'});
 
     const uploadProgress = wrapper.find('#submission-progress');
     const uploadSpinner = wrapper.find('.submission-progress__spinner');
@@ -211,7 +220,7 @@ describe('SubmissionItem Component', () => {
     expect(uploadProgress.text()).toBe('Uploading file...');
   });
 
-  it ('should render file name when successfully uploaded',  () => {
+  it('should render file name when successfully uploaded', () => {
     const newProps = {
       ...props,
       postSuccess: ['NumC5-pK7G-7'],
@@ -219,7 +228,7 @@ describe('SubmissionItem Component', () => {
       checklistItem: LagosSubmission.checklist[2]
     };
     const wrapper = setup(newProps);
-    wrapper.setState({ 
+    wrapper.setState({
       type: 'success',
       fileName: 'test.png',
       utilsType: 'uploadField'
@@ -232,7 +241,7 @@ describe('SubmissionItem Component', () => {
     expect(uploadedFileName.text()).toBe('test.png');
   });
 
-  it ('should render `Done` when text is successfully uploaded',  () => {
+  it('should render `Done` when text is successfully uploaded', () => {
     const newProps = {
       ...props,
       postSuccess: ['NumC5-pK7G-9'],
@@ -240,7 +249,7 @@ describe('SubmissionItem Component', () => {
       checklistItem: LagosSubmission.checklist[0]
     };
     const wrapper = setup(newProps);
-    wrapper.setState({ 
+    wrapper.setState({
       type: 'success',
       fileName: 'green card',
       utilsType: 'textarea'
@@ -252,7 +261,7 @@ describe('SubmissionItem Component', () => {
     expect(uploadDone.text()).toBe('Done');
   });
 
-  it ('should set uploaded file name',  () => {
+  it('should set uploaded file name', () => {
     props.checkId = 'NumC5-pK7G-7';
     const wrapper = setup(props);
     wrapper.instance().setUploadedFileName('test.png', 'NumC5-pK7G-7');
@@ -260,11 +269,11 @@ describe('SubmissionItem Component', () => {
     expect(wrapper.state().uploadedFileName).toBe('test.png');
   });
 
-  it ('should change info state if `nextProps`, isUploading', () => {
+  it('should change info state if `nextProps`, isUploading', () => {
     const wrapper = setup(props);
     const nextProps = {
       ...props,
-      fileUploadData: { isUploading: 'NumC5-pK7G-7', uploadSuccess: '' },
+      fileUploadData: {isUploading: 'NumC5-pK7G-7', uploadSuccess: ''},
       checkId: 'NumC5-pK7G-7'
     };
 
@@ -273,11 +282,11 @@ describe('SubmissionItem Component', () => {
     expect(wrapper.state().info).toBe('Uploading file...');
   });
 
-  it ('should change info state if `nextProps`, uploadSuccess', () => {
+  it('should change info state if `nextProps`, uploadSuccess', () => {
     const wrapper = setup(props);
     const nextProps = {
       ...props,
-      fileUploadData: { uploadSuccess: 'NumC5-pK7G-7', isUploading: '' },
+      fileUploadData: {uploadSuccess: 'NumC5-pK7G-7', isUploading: ''},
       checkId: 'NumC5-pK7G-7'
     };
 

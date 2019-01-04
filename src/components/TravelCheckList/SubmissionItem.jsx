@@ -1,7 +1,7 @@
 /* eslint react/jsx-one-expression-per-line: 0 */
 /* eslint react/jsx-key: 0 */
-import React, { Component, Fragment } from 'react';
-import { PropTypes } from 'prop-types';
+import React, {Component, Fragment} from 'react';
+import {PropTypes} from 'prop-types';
 import SubmissionsUtils from './SubmissionsUtils';
 
 class SubmissionItem extends Component {
@@ -10,91 +10,104 @@ class SubmissionItem extends Component {
     departureTime: '', arrivalTime: '', ticketNumber: '', airline: '',
     returnDepartureTime: '', returnTime: '', returnTicketNumber: '',
     returnAirline: '', validTicket: true, uploadedFileName: '', validInput: true
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     const {
-      fileUploadData: { isUploading, uploadSuccess }, checkId
+      fileUploadData: {isUploading, uploadSuccess}, checkId
     } = nextProps;
 
     if (isUploading.match(checkId)) {
-      return this.setState({ info: 'Uploading file...', type: 'uploading' });
+      return this.setState({info: 'Uploading file...', type: 'uploading'});
     }
 
     uploadSuccess.match(checkId) && this.setState({
-      info: 'Done', type: 'success', uploadedFileName: '' });
+      info: 'Done', type: 'success', uploadedFileName: ''
+    });
   }
+
+  getEmptyFieldsMessage = () => {
+    const {
+      departureTime, arrivalTime, returnDepartureTime, returnTime,
+      airline, returnTicketNumber,
+      returnAirline, ticketNumber
+    } = this.state;
+    const datesEmpty = [departureTime, arrivalTime, returnDepartureTime, returnTime]
+      .some(date => date === '');
+    const otherFieldsEmpty = [airline, returnTicketNumber, ticketNumber, returnAirline]
+      .some(field => field === '');
+    return otherFieldsEmpty ? 'All Fields are required' :
+      (datesEmpty ? 'The trip time details are required' : '');
+  };
 
   checkFileSize = (file) => {
     if (file.files[0]) {
-      const { size, name } = file.files[0];
+      const {size, name} = file.files[0];
       if (size > 1500000) {
         file.value = '';
-        this.setState({ info: 'File must not exceed 1.5mb', type: 'error' });
+        this.setState({info: 'File must not exceed 1.5mb', type: 'error'});
         return false;
       }
-      this.setState({ info: '', type: '', fileName: name });
+      this.setState({info: '', type: '', fileName: name});
       return true;
     }
     return false; // if no file
   }
 
   setTextArea = (value, id) => {
-    const { checkId } = this.props;
+    const {checkId} = this.props;
     const fill = checkId.match(id);
-    fill && this.setState({ submissionText: value });
+    fill && this.setState({submissionText: value});
   }
 
   setTicketFields = (ticketDetails, id) => {
-    const { checkId } = this.props;
+    const {checkId} = this.props;
     const fill = checkId.match(id);
-    fill && this.setState({ ...ticketDetails });
+    fill && this.setState({...ticketDetails});
   }
 
   setUploadedFileName = (fileName, id) => {
-    const { checkId } = this.props;
-    checkId.match(id) && this.setState({ uploadedFileName: fileName });
+    const {checkId} = this.props;
+    checkId.match(id) && this.setState({uploadedFileName: fileName});
   }
 
   handleUpload = (e) => {
     e.preventDefault();
     const file = e.target;
     const {
-      tripId, handleFileUpload, checklistItem: { id }, checkId, requestId
+      tripId, handleFileUpload, checklistItem: {id}, checkId, requestId
     } = this.props;
     const validFileSize = this.checkFileSize(file);
     if (validFileSize) return handleFileUpload(file, id, tripId, checkId, requestId);
   }
 
-  handleInputChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+  handleInputChange = (name, value) => {
+    this.setState({[name]: value});
+  };
 
   submitTextArea = () => {
-    const { submissionText } = this.state;
+    const {submissionText} = this.state;
     const {
-      tripId, checklistItem: { id }, postSubmission, checkId, requestId
+      tripId, checklistItem: {id}, postSubmission, checkId, requestId
     } = this.props;
-    const formData = { tripId, file: submissionText };
+    const formData = {tripId, file: submissionText};
     submissionText && postSubmission(
-      { formData, checklistItemId: id }, checkId, requestId);
-  }
+      {formData, checklistItemId: id}, checkId, requestId);
+  };
 
   handleTextAreaSubmit = () => {
     const valid = this.validateInputFields();
     valid && this.submitTextArea();
-  }
+  };
 
   validateInputFields = () => {
-    const { submissionText } = this.state;
-    this.setState({ validInput: !!submissionText });
+    const {submissionText} = this.state;
+    this.setState({validInput: !!submissionText});
     return !!submissionText;
   }
 
   validateTicketFields = () => {
-    const { tripType } = this.props;
+    const {tripType} = this.props;
     const {
       departureTime, arrivalTime, airline, ticketNumber,
       returnDepartureTime, returnTime, returnTicketNumber, returnAirline
@@ -106,13 +119,13 @@ class SubmissionItem extends Component {
       ? [...defaultVals, ...returnVals] : defaultVals;
 
     const valid = !valuesArr.includes('');
-    this.setState({ validTicket: valid });
+    this.setState({validTicket: valid});
     return valid;
   }
 
   submitTicket = (valid) => {
     const {
-      tripId, checklistItem: { id }, postSubmission, checkId, requestId
+      tripId, checklistItem: {id}, postSubmission, checkId, requestId
     } = this.props;
     const {
       departureTime, arrivalTime, airline, ticketNumber,
@@ -122,21 +135,21 @@ class SubmissionItem extends Component {
       departureTime, arrivalTime, airline, ticketNumber,
       returnDepartureTime, returnTime, returnTicketNumber, returnAirline,
     };
-    const formData = { tripId, file: ticket };
+    const formData = {tripId, file: ticket};
     valid && postSubmission(
-      { formData, checklistItemId: id }, checkId, requestId
+      {formData, checklistItemId: id}, checkId, requestId
     );
-  }
+  };
 
   handleTicketSubmit = () => {
     const valid = this.validateTicketFields();
     valid && this.submitTicket(valid);
-  }
+  };
 
   renderError = (utilsType) => {
-    const { validTicket, validInput } = this.state;
+    const {validTicket, validInput} = this.state;
     const msg = utilsType.match('ticketFieldset') &&
-      !validTicket && 'All Fields are required';
+      !validTicket && this.getEmptyFieldsMessage();
     const msg2 = !['ticketFieldset', 'uploadField'].includes(utilsType) &&
       !validInput && 'Field is required';
     return (
@@ -151,7 +164,7 @@ class SubmissionItem extends Component {
   }
 
   renderUploadError = () => {
-    const { info } = this.state;
+    const {info} = this.state;
     return (
       <div className="submission-progress__">
         <div className="submission-progress__error">
@@ -163,7 +176,7 @@ class SubmissionItem extends Component {
 
   renderIsUploading = () => {
     const {
-      fileUploadData: { isUploading }, checkId, isUploadingStage2
+      fileUploadData: {isUploading}, checkId, isUploadingStage2
     } = this.props;
     return (
       <Fragment>
@@ -183,11 +196,11 @@ class SubmissionItem extends Component {
   }
 
   renderUploadDone = () => {
-    const { postSuccess, checkId, checklistItem} = this.props;
-    const { requiresFiles, submissions: [item] } = checklistItem;
+    const {postSuccess, checkId, checklistItem} = this.props;
+    const {requiresFiles, submissions: [item]} = checklistItem;
     return (
       <Fragment>
-        { postSuccess.includes(checkId) && !requiresFiles && (
+        {postSuccess.includes(checkId) && !requiresFiles && (
           <div className="submission-progress__">
             <div className="submission-progress__success">Done</div>
           </div>
@@ -203,19 +216,21 @@ class SubmissionItem extends Component {
       returnDepartureTime, returnTicketNumber, airline, returnAirline,
     } = this.state;
     const {
-      checklistItem, fileUploadData, itemsToCheck, tripType, checkId,
-      postSuccess
+      checklistItem, fileUploadData, itemsToCheck, tripType, checkId, tripId,
+      postSuccess, request
     } = this.props;
-    const { requiresFiles, name, submissions: [item] } = checklistItem;
+    const {requiresFiles, name, submissions: [item]} = checklistItem;
     let utilsType = requiresFiles ? 'uploadField' : 'textarea';
     utilsType = name.toLowerCase().match('travel ticket details')
       ? 'ticketFieldset'
       : utilsType;
+    const trip = request.trips.find(trip => trip.id === tripId);
     return (
       <Fragment>
         <SubmissionsUtils
           checklistItem={checklistItem} utilsType={utilsType} checkId={checkId}
           handleUpload={this.handleUpload} fileUploadData={fileUploadData}
+          request={request} trip={trip || {}}
           setTextArea={this.setTextArea} postSuccess={postSuccess}
           setTicketFields={this.setTicketFields} arrivalTime={arrivalTime}
           uploadedFileName={uploadedFileName || fileName} uploadProcess={type}
@@ -230,17 +245,18 @@ class SubmissionItem extends Component {
         {type === 'error' && this.renderUploadError()}
         {type === 'uploading' && this.renderIsUploading()}
         {this.renderError(utilsType)}
-        {type === 'success' &&  this.renderUploadDone()}
+        {type === 'success' && this.renderUploadDone()}
       </Fragment>
     );
-  }
+  };
+
 
   renderTravelChecklistItem = () => {
-    const { checklistItem: { id, name, resources } } = this.props;
+    const {checklistItem: {id, name, resources}} = this.props;
 
     return (
       <div className="travelSubmission--item">
-        <span className="travelSubmission--item__name">{ name }</span>
+        <span className="travelSubmission--item__name">{name}</span>
         {resources.length > 0 && resources.map(resource => (
           <a
             key={id} href={resource.link} target="blank"
@@ -262,6 +278,7 @@ SubmissionItem.propTypes = {
   checklistItem: PropTypes.object.isRequired, handleFileUpload: PropTypes.func.isRequired,
   postSubmission: PropTypes.func.isRequired, fileUploadData: PropTypes.object.isRequired,
   tripId: PropTypes.string.isRequired, itemsToCheck: PropTypes.array.isRequired,
+  request: PropTypes.object.isRequired,
   postSuccess: PropTypes.array.isRequired, isUploadingStage2: PropTypes.array.isRequired,
   requestId: PropTypes.string.isRequired, tripType: PropTypes.string.isRequired,
   checkId: PropTypes.string.isRequired
