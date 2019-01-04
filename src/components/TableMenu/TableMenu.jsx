@@ -21,23 +21,23 @@ class TableMenu extends PureComponent {
     closeModal(true, 'new model');
   }
 
-  handleIconOpentoggle = (toggleMenu, requestId) => {
+  handleIconOpentoggle = (toggleMenu, request) => {
     return (
       <i
         className="fa fa-ellipsis-v"
         id="toggleIcon"
         role="presentation"
-        onClick={() => toggleMenu(requestId)}
+        onClick={() => toggleMenu(request.id, request)}
       />
     );
   };
 
-  handleIconClosetoggle = (toggleMenu, requestId) => {
+  handleIconClosetoggle = (toggleMenu, request) => {
     return (
       <li
         className="table__menu-list-item"
         id="toggleButton"
-        onClick={() => toggleMenu(requestId)}
+        onClick={() => toggleMenu(request.id, request)}
         role="presentation"
       >
         <img src={cancelIcon} alt="cancel-icon" className="menu-icon" />
@@ -54,7 +54,7 @@ class TableMenu extends PureComponent {
         id="travelChecklistBtn"
         onClick={() => {
           showTravelChecklist(request, 'travel checklist');
-          toggleMenu(request.id);
+          toggleMenu(request.id, request);
         }}
         role="presentation"
       >
@@ -76,7 +76,7 @@ class TableMenu extends PureComponent {
           id="checklistSubmission"
           onClick={() => {
             showTravelChecklist(request, 'upload submissions');
-            toggleMenu(request.id);
+            toggleMenu(request.id, request);
           }}
           role="presentation"
         >
@@ -121,7 +121,7 @@ class TableMenu extends PureComponent {
     const openMenu = menuOpen.id === request.id && menuOpen.open;
     return (
       <div>
-        {this.handleIconOpentoggle(toggleMenu, request.id)}
+        {this.handleIconOpentoggle(toggleMenu, request)}
         <div className={`table__menu-container ${openMenu ? 'open' : ''}`}>
           {type === 'requests' && (
             <ul className="table__menu-list">
@@ -143,7 +143,7 @@ class TableMenu extends PureComponent {
               }
               {this.renderCheckListSubmissionBtn()}
               {requestStatus === 'Open' && this.renderDelete()}
-              {this.handleIconClosetoggle(toggleMenu, request.id)}
+              {this.handleIconClosetoggle(toggleMenu, request)}
             </ul>
           )}
         </div>
@@ -159,6 +159,9 @@ class TableMenu extends PureComponent {
     );
   }
 }
+TableMenu.defaultProps = {
+  modalType: ''
+};
 
 TableMenu.propTypes = {
   editRequest: PropTypes.func.isRequired,
@@ -170,7 +173,7 @@ TableMenu.propTypes = {
   menuOpen: PropTypes.object.isRequired,
   deleteRequest: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
-  modalType: PropTypes.string.isRequired,
+  modalType: PropTypes.string,
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };

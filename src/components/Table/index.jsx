@@ -37,20 +37,22 @@ export class Table extends Component {
     return newStatus;
   }
 
-  toggleMenu = requestId => {
+  toggleMenu = (requestId, request) => {
     const { menuOpen } = this.state;
     if (menuOpen.id !== requestId) {
       return this.setState({
         menuOpen: {
           open: true,
-          id: requestId
+          id: requestId,
+          request
         }
       });
     }
     this.setState({
       menuOpen: {
         open: !menuOpen.open,
-        id: requestId
+        id: requestId,
+        request
       }
     });
   }
@@ -293,7 +295,7 @@ export class Table extends Component {
       submissions, isFetching, isUploading, percentageCompleted,
       itemsToCheck, postSuccess, tripType,
     } = submissionInfo;
-    const { menuOpen: { id } } = this.state;
+    const { menuOpen: { id, request } } = this.state;
     return (
       <Modal
         closeModal={handleCloseSubmissionModal}
@@ -309,7 +311,7 @@ export class Table extends Component {
         modalBar={<div className="table__modal-bar-text">{id}</div>}
       >
         <CheckListSubmissions
-          requestId={id || ''} shouldOpen={shouldOpen} closeModal={closeModal}
+          requestId={id || ''} request={request} shouldOpen={shouldOpen} closeModal={closeModal}
           modalType={modalType} postSubmission={postSubmission} tripType={tripType}
           fetchSubmission={fetchSubmission} fetchUserRequests={fetchUserRequests}
           percentageCompleted={percentageCompleted} submissions={submissions}

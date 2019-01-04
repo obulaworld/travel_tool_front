@@ -3,8 +3,9 @@ import CheckListSubmissions from '../CheckListSubmissions';
 import {
   checklistSubmission, fileUploadStore,
   itemsToCheck, requestId,
-  percentageCompleted
+  percentageCompleted,
 } from '../../../mockData/checklistSubmissionMockData';
+import tripRequest from '../../../mockData/checklistSubmissionMocks';
 
 describe('ChecklistSubmission Component', () => {
   let props = {
@@ -20,7 +21,8 @@ describe('ChecklistSubmission Component', () => {
     requestId,
     postSuccess: [...itemsToCheck],
     fileUploads: fileUploadStore,
-    isUploadingStage2: []
+    isUploadingStage2: [],
+    request: {...tripRequest},
   };
 
   const setup = (props) => mount(<CheckListSubmissions {...props} />);
