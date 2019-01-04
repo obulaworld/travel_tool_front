@@ -599,7 +599,7 @@ NewRequestForm.propTypes = {
   managers: PropTypes.array,
   creatingRequest: PropTypes.bool,
   modalType: PropTypes.string,
-  getUserData: PropTypes.func.isRequired,
+  getUserData: PropTypes.object.isRequired,
   requestOnEdit: PropTypes.object.isRequired,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
