@@ -353,7 +353,6 @@ class NewRequestForm extends PureComponent {
       requestOnEdit,
       updateUserProfile,
       userData,
-      getUserData,
       user
     } = this.props;
     const { values, selection, trips } = this.state;
@@ -391,13 +390,12 @@ class NewRequestForm extends PureComponent {
     }
     const checkBoxState = localStorage.getItem('checkBox');
     if (checkBoxState === 'clicked') {
-      if (!isEqual(newUserData, defaultUserData)) {
+      if (!isEqual(newUserData, defaultUserData) && isValid) {
         values.passportName = values.name;
         values.occupation = values.role;
         const userId = user.UserInfo.id;
         // this adds user profile to the database *do not remove
         updateUserProfile(values, userId);
-        getUserData(userId);
       }
     }
   };
@@ -585,7 +583,6 @@ class NewRequestForm extends PureComponent {
   };
 
   render() {
-    const { managers, creatingRequest, occupations } = this.props;
     return <div>{this.renderForm()}</div>;
   }
 }
@@ -599,7 +596,6 @@ NewRequestForm.propTypes = {
   managers: PropTypes.array,
   creatingRequest: PropTypes.bool,
   modalType: PropTypes.string,
-  getUserData: PropTypes.object.isRequired,
   requestOnEdit: PropTypes.object.isRequired,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,

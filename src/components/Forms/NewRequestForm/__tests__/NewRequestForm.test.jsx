@@ -554,11 +554,11 @@ describe('<NewRequestForm />', () => {
     localStorage.setItem('checkBox', 'clicked');
     shallowWrapper.setState({
       values: {
-        name: 'tomato', // FIX: need to be refactor later
+        name: 'Moses Gitau', // FIX: need to be refactor later
         gender: 'male',
-        department: 'fame',
-        role: 'job',
-        manager: 'mango',
+        department: 'Talent Driven Development',
+        role: 'Software Developer',
+        manager: 'Samuel Kubai',
       },
       trips: [],
       selection: 'return',
@@ -569,6 +569,7 @@ describe('<NewRequestForm />', () => {
     sinon.spy(shallowWrapper.instance(), 'handleSubmit');
     shallowWrapper.instance().handleSubmit(event);
     expect(shallowWrapper.instance().handleSubmit.calledOnce).toEqual(true);
+    expect(props.updateUserProfile).toHaveBeenCalledTimes(0);
   });
 
   it('should add new trip field for multi trip  ', () => {
