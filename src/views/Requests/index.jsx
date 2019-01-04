@@ -167,7 +167,7 @@ export class Requests extends Base {
   }
   renderNewRequestForm() {
     const {
-      updateUserProfile, userData, getUserData,
+      updateUserProfile, userData,
       user, createNewRequest,
       loading,errors,closeModal,shouldOpen,
       modalType, roleUsers,requestOnEdit,editRequest,
@@ -191,7 +191,7 @@ export class Requests extends Base {
           handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
           managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
           requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
-          fetchAvailableRooms={fetchAvailableRooms} getUserData={getUserData}
+          fetchAvailableRooms={fetchAvailableRooms}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
           creatingRequest={creatingRequest}
         />

@@ -14,8 +14,8 @@ export function* postUserProfileDataSagaAsync(action) {
     );
     if (action.showToast){
       toast.success('Profile updated successfully');
-      yield put(updateUserProfileSuccess(response.data));
     }
+    yield put(updateUserProfileSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     if (errorMessage === 'occupation is required'){ /* istanbul ignore next */
