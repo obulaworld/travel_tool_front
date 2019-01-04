@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import withLoading from '../Hoc/withLoading';
 import Utils from '../../helper/Utils';
 import './CheckInTable.scss';
@@ -13,7 +14,7 @@ export class CheckInTable extends Component {
   }
   renderCheckIns(trip) {
     const { residenceClassName, dateToday } = this.props;
-    const enforceCheckIn = (dateToday >= trip.departureDate) ? false : true;
+    const enforceCheckIn = (moment(dateToday) >= moment(trip.departureDate)) ? false : true;
     return (
       <tr key={trip.id} className="checkInTable__row">
         <td className={`mdl-data-table__cell--non-numeric checkInTable__data__roomName ${residenceClassName}`}>
