@@ -4,10 +4,14 @@ import { connect } from 'react-redux';
 import UserInfo from '../../../components/RequestsModal/UserInfo/UserInfo';
 import AddComment from '../../../components/RequestsModal/CommentBox/AddComment';
 import ConnectedCommentBox from '../../../components/RequestsModal/CommentBox/CommentBox';
-import { fetchTravelReadinessDocument } from '../../../redux/actionCreator/travelReadinessDocumentsActions';
+// import FileAttachment from '../../Attachments';
+import { fetchTravelReadinessDocument, verifyTravelReadinessDocument } from '../../../redux/actionCreator/travelReadinessDocumentsActions';
 import Preloader from '../../../components/Preloader/Preloader';
+import Button from '../../../components/buttons/Buttons';
 import NotFound from '../../ErrorPages';
 import ConnectedDocumentDetailsAttachment from './DocumentDetailsAttachment';
+import './VerifyTravelReadinessDocument.scss';
+import checkUserPermission from '../../../helper/permissions';
 
 export const TravelDocumentField = ({ label, value }) => (
   <div>
@@ -34,6 +38,8 @@ export class DocumentDetailsModal extends Component {
     fetchDocumentDetails: PropTypes.func.isRequired,
     fetchingDocument: PropTypes.bool.isRequired,
     error: PropTypes.string,
+    verifyDocument: PropTypes.func.isRequired,
+    getCurrentUserRole: PropTypes.array.isRequired
   };
 
   static defaultProps = {
@@ -43,6 +49,22 @@ export class DocumentDetailsModal extends Component {
   componentDidMount() {
     const { documentId, fetchDocumentDetails } = this.props;
     fetchDocumentDetails(documentId);
+  }
+
+  verifyDocumentDetails = () => {
+    const { documentId, verifyDocument } = this.props;
+    verifyDocument(documentId);
+  }
+
+  checkCurrentUserStatus = () => {
+    const { getCurrentUserRole } = this.props;
+    const allowedRoles = ['Super Administrator', 'Travel Administrator'];
+    const allowed = getCurrentUserRole.some(role => allowedRoles.includes(role));
+    if (!allowed && allowedRoles.length !== 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   renderPassportDetails(document) {
@@ -70,6 +92,36 @@ export class DocumentDetailsModal extends Component {
     );
   }
 
+  renderVerificationButton = () => {
+    const { document } = this.props;
+    return (
+      <span className="modal__button-below">
+        <span className="modal__dialog-btn">
+          <Button
+            text={document.isVerified ? 'Verified' : 'Verify'}
+            onClick={this.verifyDocumentDetails}
+            buttonType="button"
+            buttonClass={document.isVerified ? 'button__verified' : 'button__verify'}
+            disabled={document.isVerified ? true : false}
+          />
+        </span>
+      </span>
+    );
+  }
+
+  renderRequesterVerificationStatus = () => {
+    const { document } = this.props;
+    return (
+      <span className="modal__button-below">
+        <span className="modal__dialog-btn">
+          <span className={document.isVerified ? 'status__verified' : 'status__verify'}>
+            {document.isVerified ? 'Verified' : 'Pending'}
+          </span>
+        </span>
+      </span>
+    );
+  }
+
   render() {
     const { documentType, document, userData, user: { picture }, fetchingDocument, error } = this.props;
     const userInfo = {
@@ -78,14 +130,15 @@ export class DocumentDetailsModal extends Component {
       role: userData.occupation,
     };
 
-    if(!fetchingDocument && !document.data ) {
+    if (!fetchingDocument && !document.data) {
       return <NotFound redirectLink="/travel-readiness" errorMessage={error} />;
     }
 
     return (
       <Fragment>
-        <div style={{display:'flex', flexWrap:'wrap', justifyContent: 'space-between'}}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <UserInfo requestData={userInfo} />
+          {this.checkCurrentUserStatus() ? this.renderVerificationButton() : this.renderRequesterVerificationStatus()}
         </div>
         <div className="modal__travel-doc-details">
           {
@@ -116,15 +169,17 @@ TravelDocumentField.defaultProps = {
   value: 'n/a',
 };
 
-const mapStateToProps = ({ auth, travelReadinessDocuments }) => ({
+const mapStateToProps = ({ user, auth, travelReadinessDocuments }) => ({
   user: auth.user.UserInfo,
   document: travelReadinessDocuments.document,
   fetchingDocument: travelReadinessDocuments.fetchingDocument,
-  error: travelReadinessDocuments.error
+  error: travelReadinessDocuments.error,
+  getCurrentUserRole: user.getCurrentUserRole,
 });
 
 const mapDispatchToProps = {
-  fetchDocumentDetails: fetchTravelReadinessDocument
+  fetchDocumentDetails: fetchTravelReadinessDocument,
+  verifyDocument: verifyTravelReadinessDocument
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentDetailsModal);

@@ -44,3 +44,18 @@ export const fetchTravelReadinessDocumentFailure = (error) => ({
   type: types.FETCH_TRAVEL_READINESS_DOCUMENT_FAILURE,
   error,
 });
+
+export const verifyTravelReadinessDocument = (documentId) => ({
+  type: types.VERIFY_TRAVEL_READINESS_DOCUMENT,
+  documentId,
+});
+
+export const verifyTravelReadinessDocumentSuccess = (document) => ({
+  type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  document
+});
+
+export const verifyTravelReadinessDocumentFailure = (error) => ({
+  type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  error
+});

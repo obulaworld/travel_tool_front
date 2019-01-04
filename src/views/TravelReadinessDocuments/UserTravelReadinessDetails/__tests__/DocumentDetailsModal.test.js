@@ -30,6 +30,9 @@ const defaultState = {
         picture: 'http://mockpicture.in'
       }
     }
+  },
+  user: {
+    getCurrentUserRole: ['Requester']
   }
 };
 
@@ -43,6 +46,7 @@ const props = {
   },
   fetchingDocument: false,
   document: {
+    isVerified: false,
     data: {
       id: 'ckls'
     }
@@ -50,6 +54,8 @@ const props = {
   fetchDocumentDetails: jest.fn(),
   documentId: 'xifslke',
   documentType: 'passport',
+  verifyDocument: jest.fn(),
+  getCurrentUserRole: ['Requester']
 };
 
 describe('DocumentDetailsModal', () => {
@@ -79,6 +85,49 @@ describe('DocumentDetailsModal', () => {
     };
     const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
     expect(wrapper.find(TravelDocumentField).length).toBe(5);
+  });
+
+  it('should render the Visa Details without crashing when document is verified', () => {
+    const updatedProps = {
+      ...props,
+      documentType: 'visa',
+      document: {
+        isVerified: true,
+        data: {
+          id: 'ckls',
+          isVerified: true,
+        }
+      }
+    };
+    const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
+    expect(wrapper.find(TravelDocumentField).length).toBe(5);
+  });
+
+  it('should simulate verify documents click', () => {
+    const updatedProps = {
+      ...props,
+      getCurrentUserRole: ['Travel Administrator']
+    };
+    const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
+    const verifyButton = wrapper.find('Button');
+    verifyButton.simulate('click');
+    expect(wrapper.find(TravelDocumentField).length).toBe(6);
+  });
+
+  it('should render the Visa Details without crashing when user is an admin and document is verified', () => {
+    const updatedProps = {
+      ...props,
+      getCurrentUserRole: ['Travel Administrator'],
+      document: {
+        isVerified: true,
+        data: {
+          id: 'ckls',
+          isVerified: true,
+        }
+      }
+    };
+    const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
+    expect(wrapper.find(TravelDocumentField).length).toBe(6);
   });
 
   describe('TravelDocumentField', () => {

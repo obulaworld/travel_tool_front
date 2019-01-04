@@ -1,7 +1,7 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
-import { watchFetchUsersReadinessDocuments, watchFetchReadinessDocuments, watchFetchReadinessDocumentDetails } from '../travelReadinessDocumentsSaga';
+import { watchFetchUsersReadinessDocuments, watchFetchReadinessDocuments, watchFetchReadinessDocumentDetails, watchVerifyTravelReadinessDocuments } from '../travelReadinessDocumentsSaga';
 import * as types from '../../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../../services/TravelReadinessDocumentsAPI';
 
@@ -138,6 +138,52 @@ describe('Travel Readiness Documents saga', () => {
           documentId,
         })
         .silentRun();
+    });
+  });
+
+  describe('Verify Travel Readiness Document', () => {
+    const documentId = 'getIt';
+    const response = {
+      data: {
+        success: true,
+        message: 'Successfully verified document',
+        updatedDocument: { id: 'getIt' },
+      }
+    };
+
+    const error = new Error('Server error, try again');
+    error.response = { status: 500 };
+
+    it('verifies travel readiness document', () => {
+      return expectSaga(watchVerifyTravelReadinessDocuments)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.verifyTravelReadinessDocument, documentId), response]
+        ])
+        .put({
+          type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+          document: response.data.updatedDocument
+        })
+        .dispatch({
+          type: types.VERIFY_TRAVEL_READINESS_DOCUMENT,
+          documentId,
+        })
+        .run();
+    });
+
+    it('handles errors from fetching', () => {
+      return expectSaga(watchVerifyTravelReadinessDocuments)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.verifyTravelReadinessDocument, documentId), throwError(error)]
+        ])
+        .put({
+          type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
+          error: error.message
+        })
+        .dispatch({
+          type: types.VERIFY_TRAVEL_READINESS_DOCUMENT,
+          documentId,
+        })
+        .run();
     });
   });
 });

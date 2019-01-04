@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { takeLatest, call, put } from 'redux-saga/effects';
+import toast from 'toastr';
 import * as types from '../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../services/TravelReadinessDocumentsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
@@ -45,4 +46,20 @@ export function* fetchReadinessDocumentDetailsAsync(action) {
 
 export function* watchFetchReadinessDocumentDetails() {
   yield takeLatest(types.FETCH_TRAVEL_READINESS_DOCUMENT, fetchReadinessDocumentDetailsAsync);
+}
+
+export function* verifyTravelReadinessSaga(action){
+  try {
+    const response = yield call(TravelReadinessDocumentsAPI.verifyTravelReadinessDocument, action.documentId);
+    yield put(actions.verifyTravelReadinessDocumentSuccess(response.data.updatedDocument));
+    toast.success('Document successfully verified');
+  } catch (error) {
+    let errorMessage = apiErrorHandler(error);
+    yield put(actions.verifyTravelReadinessDocumentFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchVerifyTravelReadinessDocuments(){
+  yield takeLatest(types.VERIFY_TRAVEL_READINESS_DOCUMENT, verifyTravelReadinessSaga);
 }

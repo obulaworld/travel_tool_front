@@ -102,4 +102,38 @@ describe('Travel Readiness Documents actions', () => {
       expect(action).toEqual(expectedAction);
     });
   });
+
+  describe('verify a travel readiness document', () => {
+    it('should return action type VERIFY_TRAVEL_READINESS_DOCUMENT', () => {
+      const expectedAction = {
+        type: types.VERIFY_TRAVEL_READINESS_DOCUMENT,
+        documentId: 'docIDD',
+      };
+
+      const action = actions.verifyTravelReadinessDocument('docIDD');
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+      const mockDocumentData = { id: 'docIDD' };
+      const expectedAction = {
+        type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+        document: mockDocumentData,
+      };
+
+      const action = actions.verifyTravelReadinessDocumentSuccess(mockDocumentData);
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {
+      const error = 'Error fetching document data';
+      const expectedAction = {
+        type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
+        error,
+      };
+
+      const action = actions.verifyTravelReadinessDocumentFailure(error);
+      expect(action).toEqual(expectedAction);
+    });
+  });
 });
