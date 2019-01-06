@@ -11,26 +11,27 @@ import activeDashboardIcon from '../../../images/icons/dashboard.svg';
 import inactiveDashboardIcon  from '../../../images/icons/dashboard_inactive.svg';
 import activeDocumentsIcon from '../../../images/icons/documents-blue.svg';
 import inactiveDocumentsIcon from '../../../images/icons/documents-grey.svg';
+import activeHome from '../../../images/icons/home.svg';
+import inactiveHome from '../../../images/icons/home_grey.svg';
 
 const NavItemsMetadata = [
-  // Dashboard`
-  {
-    text: 'Dashboard',
-    link_to: '/dashboard',
-    activateOnLogin: true,
-    exact: true,
-    onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
-    icons: {
-      active: activeDashboardIcon,
-      inactive: inactiveDashboardIcon
-    }
-  },
   // Home`
   {
     text: 'Home',
     link_to: '/home',
     activateOnLogin: true,
     exact: true,
+    icons: {
+      active: activeHome,
+      inactive: inactiveHome
+    }
+  },
+  // Dashboard`
+  {
+    text: 'Dashboard',
+    link_to: '/dashboard',
+    exact: true,
+    onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
     icons: {
       active: activeDashboardIcon,
       inactive: inactiveDashboardIcon
@@ -40,7 +41,6 @@ const NavItemsMetadata = [
   {
     text: 'Requests',
     link_to: '/requests',
-    activateOnLogin: false,
     isDropdown: true,
     dropdownItems: [
       {
