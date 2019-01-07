@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactQuill from 'react-quill'; 
+import ReactQuill from 'react-quill';
 import sanitizeHtml from 'sanitize-html-react';
-import './_CommentBox.scss';
 import {
   createComment,
   editComment
 } from '../../../redux/actionCreator/commentsActions';
-import 'react-quill/dist/quill.snow.css'; 
+import 'react-quill/dist/quill.snow.css';
+import './_CommentBox.scss';
 
 export class CommentBox extends Component {
   constructor(props) {
@@ -141,7 +141,7 @@ export class CommentBox extends Component {
       <form className="editor__editor-form">
         <ReactQuill
           value={text}
-          className="quill-contents"  
+          className="quill-contents"
           onChange={this.handleChange}
           onKeyUp={this.handleKeyUp}
           modules={CommentBox.modules}

@@ -3,6 +3,12 @@
   height: 120px;
 }
 
+.ql-snow .ql-formats:after,
+.ql-snow.ql-toolbar:after,
+.ql-snow .ql-toolbar:after {
+  display: flex;
+}
+
 p {
   color: #130202;
   font-family: 'DIN Pro';

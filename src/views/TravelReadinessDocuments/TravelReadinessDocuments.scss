@@ -1,0 +1,83 @@
+.readiness-header {
+  margin-bottom: 75px;
+}
+
+.readiness-table {
+  width: 100%;
+  color: #4f4f4f !important;
+  border-style: none;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  background-color: #f8f8f8;
+}
+
+.readiness__cell-name {
+  width: 50%;
+  color: #3359db;
+}
+
+.table__body td:first-child {
+  border-left: 1px solid #e4e4e4;
+}
+
+.table__body td:last-child {
+  border-right: 1px solid #e4e4e4;
+}
+
+.table__readiness--empty {
+  display: flex;
+  justify-content: center;
+  font-family: "DIN Pro";
+  margin-left: -62px;
+  color: #999;
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.modal__travel-doc-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px 0;
+
+  .preloader {
+    margin-bottom:  50px;
+    grid-column: 2/3;
+  }
+}
+
+#travel-doc-details-content .pageOverlay {
+  height: auto;
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.modal__travel-doc-item {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  flex-basis: 26%;
+  min-height: 63px;
+  min-width: 100px;
+  padding-right: 1px;
+}
+
+.modal__trip-detail-label {
+  color: #999999;
+  font-family: 'DIN Pro';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+}
+
+.modal__travel-doc-text {
+  color: #4f4f4f;
+  font-family: 'DIN Pro';
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  padding-top: 7px;
+}
+
+.document-name {
+  color: #3359db;
+}

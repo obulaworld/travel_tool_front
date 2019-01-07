@@ -48,7 +48,7 @@ const rootReducer = combineReducers({
   fileUploads,
   attachments,
   maintenance,
-  travelReadinessDocuments
+  travelReadinessDocuments,
 });
 
 export default rootReducer;
