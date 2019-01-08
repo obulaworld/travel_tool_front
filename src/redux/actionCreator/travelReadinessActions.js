@@ -4,8 +4,27 @@ import {
   FETCH_TRAVEL_READINESS_FAILURE, 
   EXPORT_TRAVEL_READINESS, 
   EXPORT_TRAVEL_READINESS_SUCCESS, 
-  EXPORT_TRAVEL_READINESS_FAILURE
+  EXPORT_TRAVEL_READINESS_FAILURE,
+  CREATE_TRAVEL_READINESS_DOCUMENT,
+  CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS
 } from '../constants/actionTypes';
+
+export const createTravelReadinessDocument = (documentType, payload) => ({
+  type: CREATE_TRAVEL_READINESS_DOCUMENT,
+  payload,
+  documentType
+});
+
+export const createTravelReadinessDocumentSuccess = (response) => ({
+  type: CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  response
+});
+
+export const createTravelReadinessDocumentFailure = (error) => ({
+  type: CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  error
+});
 
 export const fetchReadiness = (query) => ({
   type: FETCH_TRAVEL_READINESS,

@@ -18,6 +18,15 @@ class ReadinessAPI {
       {responseType: 'blob'}
     );
   }
+
+  static createDocument(documentType, documentDetails) {
+    return axios.post(
+      `${baseUrl}/travelreadiness`,
+      {
+        [documentType]: documentDetails
+      }
+    );
+  }
 }
 
 export default ReadinessAPI;

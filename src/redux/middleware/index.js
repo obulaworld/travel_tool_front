@@ -73,7 +73,7 @@ import { watchFetchCenters, watchUpdateUserCenterAsync } from './centersSaga';
 import { watchFetchAnalytics, watchdownloadAnalytics } from './analyticsSaga';
 import {
   watchFetchReadiness,
-  watchExportReadiness
+  watchExportReadiness, watchCreateTravelReadinessDocument
 } from './travelReadinessSaga';
 
 import { watchFetchDepartmentTrips } from './tripsAnalyticsSaga';
@@ -165,7 +165,8 @@ function* rootSaga() {
     watchDeleteMaintenance(),
     watchDisableAccommodation(),
     watchFetchDisabledAccommodation(),
-    watchRestoreDisabledAccommodation()
+    watchRestoreDisabledAccommodation(),
+    watchCreateTravelReadinessDocument()
   ]);
 }
 

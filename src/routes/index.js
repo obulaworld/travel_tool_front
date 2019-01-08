@@ -15,7 +15,9 @@ import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedDocuments from '../views/Documents';
+import ConnectedReadiness from '../views/Readiness';
 import NotFound from '../views/ErrorPages';
+
 import {
   TRAVEL_ADMINISTRATOR,
   SUPER_ADMINISTRATOR,
@@ -89,6 +91,11 @@ const Routes = () => (
             path="/requests"
             exact
             component={RequireAuth(ConnectedRequests)}
+          />
+          <Route
+            path="/travel_readiness"
+            exact
+            component={RequireAuth(ConnectedReadiness)}
           />
           <Route
             path="/settings/roles"
