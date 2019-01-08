@@ -54,4 +54,18 @@ describe('Readiness API', () => {
     );
     expect(response.status).toEqual(200);
   });
+
+  it('should create a passport', async () => {
+    const passportData = {};
+
+    moxios.stubRequest(`${baseUrl}/travelreadiness`, {
+      status: 201
+    });
+
+    const response = await ReadinessAPI.createDocument('passport', passportData);
+    expect(moxios.requests.mostRecent().url).toEqual(
+      `${baseUrl}/travelreadiness`
+    );
+    expect(response.status).toEqual(201);
+  });
 });

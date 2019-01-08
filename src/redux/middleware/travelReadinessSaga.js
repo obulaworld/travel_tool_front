@@ -9,14 +9,14 @@ import {
   EXPORT_TRAVEL_READINESS,
   CREATE_TRAVEL_READINESS_DOCUMENT
 } from '../constants/actionTypes';
-import { fetchReadinessSuccess,
+import {
+  fetchReadinessSuccess,
   fetchReadinessFailure,
   exportReadinessFailure,
   exportReadinessSuccess,
-  createTravelReadinessDocumentSuccess,
-  createTravelReadinessDocumentFailure
+  createTravelReadinessDocumentSuccess, createTravelReadinessDocumentFailure
 } from '../actionCreator/travelReadinessActions';
-import { closeModal } from '../actionCreator/modalActions';
+import {closeModal} from '../actionCreator/modalActions';
 
 //fetch Travel Readiness from API and dispatch action to get this data to store via reducer
 export function* fetchReadinessSaga(action){
@@ -29,6 +29,21 @@ export function* fetchReadinessSaga(action){
   }
 }
 
+// export function* createTravelReadinessDocument(action) {
+//   try{
+//     const response = yield call(ReadinessAPI.createDocument, action.documentType, action.payload);
+//     yield put(createTravelReadinessDocumentSuccess(response));
+//     toast.success(_.capitalize(action.documentType)+' created successfully!');
+//     yield put(closeModal());
+//   }catch (error) {
+//     if( error.response.status === 409){
+//       const {  response: { data: { errors }}} = error;
+//       errors && errors.length > 0 && toast.error(errors[0].message);
+//     }
+//     yield put(createTravelReadinessDocumentFailure(error.response.data));
+//   }
+// }
+
 export function* createTravelReadinessDocument(action) {
   try{
     const response = yield call(ReadinessAPI.createDocument, action.documentType, action.payload);
@@ -37,15 +52,10 @@ export function* createTravelReadinessDocument(action) {
     yield put(closeModal());
   }catch (error) {
     if( error.response.status === 409){
-      const {  response: { data: { errors }}} = error;
-      errors && errors.length > 0 && toast.error(errors[0].message);
+      toast.error(apiErrorHandler(error));
     }
     yield put(createTravelReadinessDocumentFailure(error.response.data));
   }
-}
-
-export function* watchFetchReadiness(){
-  yield takeEvery(FETCH_TRAVEL_READINESS, fetchReadinessSaga);
 }
 
 export function* exportReadinessSaga(action){
@@ -59,9 +69,14 @@ export function* exportReadinessSaga(action){
   }
 }
 
+export function* watchFetchReadiness(){
+  yield takeEvery(FETCH_TRAVEL_READINESS, fetchReadinessSaga);
+}
+
 export function* watchExportReadiness(){
   yield takeEvery(EXPORT_TRAVEL_READINESS, exportReadinessSaga);
 }
+
 
 export function* watchCreateTravelReadinessDocument() {
   yield takeLatest(CREATE_TRAVEL_READINESS_DOCUMENT, createTravelReadinessDocument);

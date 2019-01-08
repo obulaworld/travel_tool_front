@@ -19,7 +19,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "exact": true,
               "icons": Object {
                 "active": "home.svg",
-                "inactive": "home.svg",
+                "inactive": "home_grey.svg",
               },
               "link_to": "/home",
               "text": "Home",
