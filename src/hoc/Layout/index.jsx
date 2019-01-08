@@ -9,7 +9,6 @@ import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import upic from '../../images/upic.svg';
 import './Layout.scss';
 import {getUserData} from '../../redux/actionCreator/userActions';
-import Preloader from '../../components/Preloader/Preloader';
 
 export class Layout extends Component {
 
@@ -22,7 +21,7 @@ export class Layout extends Component {
 
   componentDidMount = () => {
     const { user, getUserData } = this.props;
-    getUserData(user.UserInfo.id);
+    user && getUserData(user.UserInfo.id);
   };
 
   onNotificationToggle = () => {
@@ -114,7 +113,7 @@ export class Layout extends Component {
   };
 
   renderContent(){
-    const {children, isLoaded} = this.props;
+    const {children, isLoaded, user} = this.props;
     const { hideNotificationPane, hideSideBar} = this.state;
     const [hideClass, leftPaddingClass] = hideNotificationPane
       ? ['hide', '']
@@ -125,7 +124,7 @@ export class Layout extends Component {
           {this.renderLeftSideBar(hideSideBar)}
           <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
-              { isLoaded &&  children }
+              { (isLoaded || !user) &&  children }
             </div>
           </div>
         </div>
