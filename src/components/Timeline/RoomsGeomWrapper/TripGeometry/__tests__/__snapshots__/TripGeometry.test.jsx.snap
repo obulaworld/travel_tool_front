@@ -8,14 +8,14 @@ exports[`<TripGeometry /> renders correctly 1`] = `
     Object {
       "length": 7,
       "stayPercentage": "100%",
-      "tripTimelineOffsetLeft": -11501,
+      "tripTimelineOffsetLeft": -11563,
     }
   }
 >
   <TimelineBar
     customStyle={
       Object {
-        "background": "hsl(108,57%,68%)",
+        "background": "hsl(185,46%,67%)",
       }
     }
     tripDayWidth={31}
@@ -23,7 +23,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       Object {
         "length": 7,
         "stayPercentage": "100%",
-        "tripTimelineOffsetLeft": -11501,
+        "tripTimelineOffsetLeft": -11563,
       }
     }
   >
@@ -31,7 +31,7 @@ exports[`<TripGeometry /> renders correctly 1`] = `
       className="geom-trip geom-trip--inner"
       style={
         Object {
-          "background": "hsl(108,67%,48%)",
+          "background": "hsl(185,56%,47%)",
           "width": "100%",
         }
       }
