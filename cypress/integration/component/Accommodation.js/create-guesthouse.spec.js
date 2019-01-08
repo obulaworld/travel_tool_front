@@ -1,3 +1,5 @@
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('Accommodation page(create a new guest house)', () => {
   before(() => {
     cy.authenticateUser();
@@ -66,25 +68,31 @@ describe('Accommodation page(create a new guest house)', () => {
 
   describe('Create New Guesthouse', () => {
     it('should throw an error if a room name duplicate is found in the guesthouse', () => {
+      cy.server();
+      cy.route('POST', `${baseAPI}/guesthouses`).as(
+        'postGuestHouse'
+      );
+
       cy.uploadFile('images/guesthouse.jpg', 'image/jpeg');
       cy.get('input[name=houseName]')
+        .wait(2000)
         .type(Math.random().toString(36).substr(2).toUpperCase());
       cy.get('input[name=location]')
         .type('Lagos')
-        .wait(3000)
+        .wait(5000)
         .type('{downarrow}{enter}');
       cy.get('input[name=bathRooms]')
         .clear()
         .type('2');
       cy.get('input[name=roomName-0]')
         .type('Room 1');
-      cy.get('div[name=roomType-0]').click();
+      cy.get('div[name=roomType-0]').wait(2000).click();
       cy.get('div[name=roomType-0] > ul > li#choice:nth-child(2)').click();
       cy.get('input[name=bedCount-0]')
         .type('4');
       cy.get('input[name=roomName-1]')
         .type('Room 1');
-      cy.get('div[name=roomType-1]').click();
+      cy.get('div[name=roomType-1]').wait(2000).click();
       cy.get('div[name=roomType-1] > ul > li#choice:first').click();
       cy.get('input[name=bedCount-1]')
         .type('4');
@@ -93,6 +101,7 @@ describe('Accommodation page(create a new guest house)', () => {
         .should('not.be.disabled')
         .click();
       cy.authenticateUser();
+      cy.wait('@postGuestHouse');
       cy.get('.toast-message')
         .wait(3000)
         .should('be.visible')
@@ -101,27 +110,32 @@ describe('Accommodation page(create a new guest house)', () => {
       cy.get('.modal-close').click();
     });
 
-    it('should throw an error if guesthouse name already exists', () => {   
+    it('should throw an error if guesthouse name already exists', () => { 
+      cy.server();
+      cy.route('POST', `${baseAPI}/guesthouses`).as(
+        'postGuestHouse'
+      );  
       cy.get('button.action-btn.btn-new-request').click();
       cy.uploadFile('images/guesthouse.jpg', 'image/jpeg');
       cy.get('input[name=houseName]')
+        .wait(2000)
         .type('Guest House B');
       cy.get('input[name=location]')
         .type('Lagos')
-        .wait(3000)
+        .wait(5000)
         .type('{downarrow}{enter}');
       cy.get('input[name=bathRooms]')
         .clear()
         .type('2');
       cy.get('input[name=roomName-0]')
         .type('Room 3');
-      cy.get('div[name=roomType-0]').click();
+      cy.get('div[name=roomType-0]').wait(2000).click();
       cy.get('div[name=roomType-0] > ul > li#choice:nth-child(2)').click();
       cy.get('input[name=bedCount-0]')
         .type('2');
       cy.get('input[name=roomName-1]')
         .type('Room 4');
-      cy.get('div[name=roomType-1]').click();
+      cy.get('div[name=roomType-1]').wait(2000).click();
       cy.get('div[name=roomType-1] > ul > li#choice:first').click();
       cy.get('input[name=bedCount-1]')
         .type('3');
@@ -130,6 +144,7 @@ describe('Accommodation page(create a new guest house)', () => {
         .should('not.be.disabled')
         .click();
       cy.authenticateUser();
+      cy.wait('@postGuestHouse');
       cy.get('.toast-message')
         .wait(3000)
         .should('be.visible')
@@ -138,27 +153,32 @@ describe('Accommodation page(create a new guest house)', () => {
       cy.get('.modal-close').click();
     });
 
-    it('should successfully create a new guesthouse', () => {      
+    it('should successfully create a new guesthouse', () => {
+      cy.server();
+      cy.route('POST', `${baseAPI}/guesthouses`).as(
+        'postGuestHouse'
+      );      
       cy.get('button.action-btn.btn-new-request').click();
       cy.uploadFile('images/guesthouse.jpg', 'image/jpeg');
       cy.get('input[name=houseName]')
+        .wait(2000)
         .type(Math.random().toString(36).substr(2).toUpperCase());
       cy.get('input[name=location]')
         .type('Lagos')
-        .wait(3000)
+        .wait(5000)
         .type('{downarrow}{enter}');
       cy.get('input[name=bathRooms]')
         .clear()
         .type('2');
       cy.get('input[name=roomName-0]')
         .type('Room 1');
-      cy.get('div[name=roomType-0]').click();
+      cy.get('div[name=roomType-0]').wait(2000).click();
       cy.get('div[name=roomType-0] > ul > li#choice:nth-child(2)').click();
       cy.get('input[name=bedCount-0]')
         .type('4');
       cy.get('input[name=roomName-1]')
         .type('Room 2');
-      cy.get('div[name=roomType-1]').click();
+      cy.get('div[name=roomType-1]').wait(2000).click();
       cy.get('div[name=roomType-1] > ul > li#choice:first').click();
       cy.get('input[name=bedCount-1]')
         .type('4');
@@ -169,6 +189,7 @@ describe('Accommodation page(create a new guest house)', () => {
       cy.authenticateUser();
       cy.get('.progress-bar')
         .should('be.visible');
+      cy.wait('@postGuestHouse');
       cy.get('.toast-message')
         .wait(3000)
         .should('be.visible')

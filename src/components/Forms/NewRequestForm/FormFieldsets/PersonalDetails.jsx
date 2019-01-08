@@ -40,14 +40,16 @@ class PersonalDetailsFieldset extends Component {
                 {renderInput('role', 'filter-dropdown-select', {
                   choices: occupationsNames,
                   size: value,
-                  className: 'request_dropdown'
+                  className: 'request_dropdown',
+                  id: 'your-role'
                 })}
               </div>
               <div className="spaces">
                 {renderInput('manager', 'filter-dropdown-select', {
                   choices: managerChoices,
                   size: value,
-                  className: 'request_dropdown'
+                  className: 'request_dropdown',
+                  id: 'your-manager'
                 })}
               </div>
             </div>

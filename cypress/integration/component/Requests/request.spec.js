@@ -1,14 +1,16 @@
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('Requests', () => {
   before(() => {
     cy.server();
-    cy.route('GET', 'http://127.0.0.1:5000/api/v1/requests',
+    cy.route('GET', `${baseAPI}/requests`,
       'fixture:requests/no-request');
   });
 
   describe('New User\'s request page', () => {
     before(() => {
       cy.authenticateUser();
-      cy.visit('/requests');
+      cy.visit('/requests').wait(3000);
     });
 
     it('displays the requests header', () => {
