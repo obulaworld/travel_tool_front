@@ -169,7 +169,6 @@ exports[`<Requests> renders as expected 1`] = `
       fetchAvailableRooms={[Function]}
       fetchAvailableRoomsSuccess={[Function]}
       fetchUserRequests={[Function]}
-      getUserData={[Function]}
       handleCreateRequest={[Function]}
       handleEditRequest={[Function]}
       loading={false}

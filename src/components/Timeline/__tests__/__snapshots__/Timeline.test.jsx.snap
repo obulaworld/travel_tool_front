@@ -337,23 +337,20 @@ exports[`<Timeline /> renders correctly 1`] = `
         data-segment-label="31"
         key="30"
       />
-      <RoomsGeomWrapper
-        deletedMaintenance={Object {}}
-        editMaintenance={Object {}}
-        handleChangeRoomModal={[Function]}
-        handleDeleteMaintenanceModal={[Function]}
-        handleEditMaintenanceModal={[Function]}
-        rooms={
-          Array [
-            Object {
-              "faulty": false,
-            },
-          ]
-        }
-        timelineStartDate={"2018-12-31T21:00:00.000Z"}
-        timelineViewType="month"
-        tripDayWidth={0}
-      />
+      <div
+        className="rooms-geometry-wrapper"
+      >
+        <div
+          className="room-geometry-wrapper"
+        >
+          <div
+            className="room-status-bar item-row"
+          />
+          <div
+            className="bed-geometry-wrapper item-row"
+          />
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -699,23 +696,20 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
         data-segment-label="Mon 1/7"
         key="6"
       />
-      <RoomsGeomWrapper
-        deletedMaintenance={Object {}}
-        editMaintenance={Object {}}
-        handleChangeRoomModal={[Function]}
-        handleDeleteMaintenanceModal={[Function]}
-        handleEditMaintenanceModal={[Function]}
-        rooms={
-          Array [
-            Object {
-              "faulty": false,
-            },
-          ]
-        }
-        timelineStartDate={"2018-12-31T21:00:00.000Z"}
-        timelineViewType="week"
-        tripDayWidth={0}
-      />
+      <div
+        className="rooms-geometry-wrapper"
+      >
+        <div
+          className="room-geometry-wrapper"
+        >
+          <div
+            className="room-status-bar item-row"
+          />
+          <div
+            className="bed-geometry-wrapper item-row"
+          />
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -1086,23 +1080,20 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
         data-segment-label="Dec"
         key="11"
       />
-      <RoomsGeomWrapper
-        deletedMaintenance={Object {}}
-        editMaintenance={Object {}}
-        handleChangeRoomModal={[Function]}
-        handleDeleteMaintenanceModal={[Function]}
-        handleEditMaintenanceModal={[Function]}
-        rooms={
-          Array [
-            Object {
-              "faulty": false,
-            },
-          ]
-        }
-        timelineStartDate={"2018-12-31T21:00:00.000Z"}
-        timelineViewType="year"
-        tripDayWidth={0}
-      />
+      <div
+        className="rooms-geometry-wrapper"
+      >
+        <div
+          className="room-geometry-wrapper"
+        >
+          <div
+            className="room-status-bar item-row"
+          />
+          <div
+            className="bed-geometry-wrapper item-row"
+          />
+        </div>
+      </div>
     </div>
   </div>
   <div

@@ -87,7 +87,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                   onBlur={[Function]}
                   onChange={[Function]}
                   type="text"
-                  value=""
+                  value="Collins"
                 />
                 <span
                   className="error"
@@ -362,7 +362,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
-                className="form-input  "
+                className="form-input request_dropdown "
               >
                 <label
                   htmlFor="manager"
@@ -386,61 +386,35 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                   }
                 >
                   <div
-                    autoComplete="off"
-                    choices={
-                      Array [
-                        "Test User",
-                      ]
-                    }
-                    className="input select  "
-                    error=""
-                    label="Your Manager"
-                    name="manager"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    onKeyPress={[Function]}
-                    role="button"
-                    size="245px"
-                    tabIndex="0"
-                    type="dropdown-select"
-                    value="Collins"
-                  >
-                    <div
-                      className="value"
-                      style={
-                        Object {
-                          "width": "245px",
-                        }
+                    className="value"
+                    style={
+                      Object {
+                        "width": "245px",
                       }
+                    }
+                  >
+                    <input
+                      autoComplete="off"
+                      choices={
+                        Array [
+                          "Test User",
+                        ]
+                      }
+                      className="occupationInput"
+                      label="Your Manager"
+                      name="role"
+                      onChange={[Function]}
+                      size="245px"
+                      type="text"
+                      value="Collins"
+                    />
+                    <div
+                      className="hide"
                     >
-                       
-                      <div
-                        className="select-dropdown inactive"
-                      >
-                        <img
-                          alt="icn"
-                          src="form_select_dropdown.svg"
-                        />
-                      </div>
+                      <ul
+                        className="select-menu select-menu--inactive"
+                      />
                     </div>
-                    <ul
-                      className="select-menu select-menu--inactive"
-                    >
-                      <li
-                        id="choice"
-                        key="Test User"
-                      >
-                        <div
-                          id="choice"
-                          onClick={[Function]}
-                          onKeyPress={[Function]}
-                          role="button"
-                          tabIndex="0"
-                        >
-                          Test User
-                        </div>
-                      </li>
-                    </ul>
                   </div>
                 </div>
                 <span
