@@ -17,7 +17,7 @@ class PersonalDetailsFieldset extends Component {
   };
   renderfields = collapse => {
     const { disableInputs } = this.state;
-    const { value, managers, occupations } = this.props;
+    const { value, values, managers, occupations } = this.props;
     const managerChoices = managers.map(manager => manager.fullName);
     const occupationsNames = occupations.map(
       occupation => occupation.occupationName

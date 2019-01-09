@@ -123,11 +123,9 @@ class Timeline extends PureComponent {
   }
 
   updateTimelineSegmentWidth = async () => {
-    // ensure setState is done async after componentDidMount/componentDidUpdate
     const width = await Promise.resolve(
       this.timelineSegmentsRef.current.getBoundingClientRect().width
     ).catch((error) => {
-      console.log('This is error');
       return error;
     });
     this.setState(prevState => ({

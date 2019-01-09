@@ -17,7 +17,7 @@ const props = {
   },
   trips: notCheckInTrips.trips,
   loading: false,
-  dateToday: '2018-11-27'
+  dateToday: moment(new Date()).format('YYYY-MM-DD')
 };
 
 const initialState = {

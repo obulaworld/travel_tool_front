@@ -31,7 +31,7 @@ export class CheckIn extends Base {
   }
   render() {
     const { trips, tripError } = this.props;
-    const dateToday = moment(new Date().toISOString(), 'YYYY-MM-DD').format('Y-M-D');
+    const dateToday = moment(new Date()).format('YYYY-MM-DD');
     return (
       <Fragment>
         <div>

@@ -101,7 +101,7 @@ describe('SubmissionUtils Component', () => {
     const input = wrapper.find('input[name="departureTime"]');
     const event = {
       target: {
-        value: 'foo',
+        value: '2019-07-08T12:00', //foo provided is not in a recognized RFC2822 or ISO format.
         name: 'departureTime',
         type: 'datetime-local'
       }
@@ -117,7 +117,9 @@ describe('SubmissionUtils Component', () => {
       .spyOn(wrapper.instance(), 'handleTicketSubmit');
     const event = {
       target: {
-        value: 'foo',
+        value: '2019-07-08T12:00', //foo provided is not in a recognized RFC2822 or ISO format.
+        name: 'departureTime',// name and type needed to successfully simulate change
+        type: 'datetime-local'// on the departureTime input
       }
     };
     input.simulate('focus');
@@ -126,6 +128,3 @@ describe('SubmissionUtils Component', () => {
     expect(handleTicketSubmitSpy).toHaveBeenCalled();
   });
 });
-
-
-
