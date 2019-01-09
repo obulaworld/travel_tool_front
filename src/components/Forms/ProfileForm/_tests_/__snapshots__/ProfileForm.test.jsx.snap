@@ -286,7 +286,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input profile_role_dropdown "
+        className="form-input profile_dropdown "
       >
         <label
           htmlFor="manager"
@@ -310,11 +310,11 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
-            className="value"
-            style={
-              Object {
-                "width": undefined,
-              }
+            autoComplete="off"
+            choices={
+              Array [
+                "Test User",
+              ]
             }
             className="input select  profile_dropdown"
             error=""
@@ -336,14 +336,35 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                   "width": "",
                 }
               }
-              className="occupationInput"
-              label="Line Manager"
-              labelNote=""
-              name="role"
-              onChange={[Function]}
-              type="text"
-              value=""
-            />
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                id="choice"
+                key="Test User"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Test User
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
         <span

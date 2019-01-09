@@ -296,7 +296,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input profile_role_dropdown "
+                        className="form-input profile_dropdown "
                     >
                         <label
                             htmlFor="manager"
