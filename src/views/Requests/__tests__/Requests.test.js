@@ -8,7 +8,7 @@ import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 import beds from '../../AvailableRooms/__mocks__/mockData/availableRooms';
 import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
 
-const props = {
+let props = {
   requests: [
     {
       id: 'xDh20btGz',
@@ -52,6 +52,7 @@ const props = {
       tripType: 'oneWay',
       manager: 'Ezrqn Kiptanui',
       gender: 'Female',
+      status: 'Verified',
       trips: [
         {
           departureDate: '2018-09-20',
@@ -140,20 +141,35 @@ const props = {
   },
   createNewRequest: jest.fn(),
   getOccupation: jest.fn(),
+  getUserData: jest.fn(),
+  fetchAvailableRoomsSuccess: jest.fn(),
   loading: false,
   errors: [],
   shouldOpen: false,
+  requestStatus: 'Open',
   modalType: null,
   openModal: sinon.spy(() => Promise.resolve()),
   closeModal: sinon.spy(() => Promise.resolve()),
   page: 'Requests',
   match: {
-    params: { requestId: 'sgjdgljgd' }
+    params: { requestId: 'xDh20btGx' }
   },
   editRequest: jest.fn(),
   submissionInfo,
   fileUploads: {},
-  fetchSubmission: jest.fn()
+  fetchSubmission: jest.fn(),
+  postSubmission: jest.fn(),
+  occupations: [{
+    createdAt: '2018-08-16T11:11:52.181Z',
+    id: 1,
+    occupationName: 'Account associate',
+    updatedAt: '2018-08-16T11:11:52.181Z'
+  },{
+    createdAt: '2018-08-16T11:11:52.181Z',
+    id: 2,
+    occupationName: 'Account executive',
+    updatedAt: '2018-08-16T11:11:52.181Z'
+  }]
 };
 
 const initialState = {
@@ -184,6 +200,8 @@ const mockStore = configureStore();
 const store = mockStore(initialState);
 
 describe('<Requests>', () => {
+  process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
+
   it('should render the Requests without crashing', () => {
     const wrapper = mount(
       <Provider store={store}>
@@ -344,6 +362,19 @@ describe('<Requests>', () => {
     wrapper.find('button#cancel').simulate('click');
     expect(props.closeModal.calledWith(true, 'create request')).toBeTruthy();
   });
+  
+  it('should set `shouldOpen` prop to `true` when new request button is clicked', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Requests {...{...props, shouldOpen: true, modalType: 'new model'}} />
+        </MemoryRouter>
+      </Provider>
+    );
+    wrapper.find('.btn-new-request').simulate('click');
+    expect(wrapper.find('Requests').props().shouldOpen).toBe(true);
+    expect(props.openModal.called).toBe(true);
+  });
 
   it('should set `visibility` prop to `visible` when new request button is clicked', () => {
     const wrapper = mount(
@@ -420,7 +451,7 @@ describe('<Requests>', () => {
   it('should handle edit request', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <Requests {...props} />
+        <Requests {...{...props}} />
       </Provider>
     );
     const mountWrapper = wrapper.find('li#iconBtn');

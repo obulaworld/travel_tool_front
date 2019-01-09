@@ -25,6 +25,19 @@ exports[`<Dashboard /> renders correctly 1`] = `
       }
     }
   />
-  <TravelCalendar />
+  <TravelCalendar
+    downloadCalendarAnalytics={[Function]}
+    fetchCalendarAnalytics={[Function]}
+    travelCalendar={
+      Object {
+        "isLoading": false,
+        "travelCalendarData": Object {
+          "data": Array [],
+          "pagination": Object {},
+          "travelCalendarError": "No records found",
+        },
+      }
+    }
+  />
 </div>
 `;

@@ -1,9 +1,9 @@
 import React from 'react';
-import {GuestHouseDetails} from '..';
 import moment from 'moment';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
+import { GuestHouseDetails } from '..';
 
 const props = {
   availableBeds: [
@@ -18,42 +18,44 @@ const props = {
     goBack: jest.fn(),
     push: jest.fn()
   },
-  initFetchTimelineData: jest.fn(),
   guestHouse: {
     id: 'guest-house-1',
     houseName: 'Ndovu',
-    rooms: [
-      {
-        faulty: true,
-        beds: [
-          {bedName: 'bed1',
-            id: 'bed-1',
-            booked: false,
-            trips: [
-              {
-                'id': 'trip-id-1',
-                'origin': 'Lagos',
-                'destination': 'Nairobi',
-                'departureDate': '2018-12-09',
-                'arrivalDate': '2018-12-11',
-                'createdAt': '2018-08-15T11:11:52.181Z',
-                'checkInDate': '2018-01-01',
-                'checkOutDate': '2018-01-10',
-                'request': {
-                  'name': 'Alice Doe',
-                  'gender': 'Female'
-                }
-              }
-            ]
-          }
-        ],
-        maintainances: [
+    rooms: [{
+      id: '1',
+      roomName: 'Presidential suite',
+      faulty: true,
+      bedCount: 1,
+      beds: [{
+        bedName: 'bed1',
+        id: 'bed-1',
+        booked: false,
+        trips: [
           {
-            start: '2018-12-21',
-            end: '2019-01-03'
+            'id': 'trip-id-1',
+            'origin': 'Lagos',
+            'destination': 'Nairobi',
+            'departureDate': '2018-12-09',
+            'arrivalDate': '2018-12-11',
+            'createdAt': '2018-08-15T11:11:52.181Z',
+            'checkInDate': '2018-01-01',
+            'checkOutDate': '2018-01-10',
+            'request': {
+              'name': 'Alice Doe',
+              'gender': 'Female'
+            }
           }
         ]
-      }]
+      }
+      ],
+      maintainances: [
+        {
+          id: 1,
+          start: '2018-12-21',
+          end: '2019-01-03'
+        }
+      ]
+    }]
   },
   accommodation:{
     error:'',
@@ -63,6 +65,11 @@ const props = {
     shouldOpen: false,
     modalType: null
   },
+  initFetchTimelineData: jest.fn(),
+  addmaintenanceRecord: jest.fn(),
+  editingAccommodation: false,
+  updateMaintenanceRecord: jest.fn(),
+  deleteMaintenanceRecord: jest.fn(),
   fetchAvailableRooms: jest.fn(),
   fetchTimelineRoomsData: jest.fn(),
   guestHouseId: 'guest-house-id-1',
@@ -74,6 +81,9 @@ const props = {
   modalType: 'change-room-modal',
   shouldOpen: true,
   loading: false,
+  isLoading: false,
+  handleOnEdit: jest.fn(),
+  editAccommodation: jest.fn(),
   disableAccommodation: jest.fn(),
   fetchAccommodation: jest.fn(),
 };
@@ -133,7 +143,13 @@ describe('<GuestHouseDetails />', () => {
       </Provider>);
     wrapper.setState(state);
     const unavailableGuestHouse = wrapper.find('div.time-font').last();
-    expect(unavailableGuestHouse.text()).toBe('January 2019');
+    
+    // Always generate future date; but same month and year as today
+    const futureDate = moment(new Date(), 'YYYY/MM/DD');
+    const month = futureDate.format('MMMM');
+    const year = futureDate.format('YYYY');
+
+    expect(unavailableGuestHouse.text()).toBe(`${month} ${year}`);
     expect(wrapper.instance().state.timelineViewType).toBe('month');
   });
 

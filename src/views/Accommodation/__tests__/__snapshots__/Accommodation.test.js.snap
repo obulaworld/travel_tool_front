@@ -26,9 +26,12 @@ exports[`<Accommodation /> renders correctly 1`] = `
     <NewAccommodation
       closeModal={[Function]}
       createAccommodation={[Function]}
+      createAccommodationLoading={false}
       editAccommodation={[Function]}
       fetchAccommodation={[Function]}
-      modalType={null}
+      guestHouse={Object {}}
+      initFetchTimelineData={[Function]}
+      modalType=""
     />
   </Modal>
   <Modal
@@ -72,9 +75,9 @@ exports[`<Accommodation /> renders correctly 1`] = `
         type="button"
       >
         <ButtonLoadingIcon
+          buttonText="Restore"
           isLoading={false}
         />
-        Restore
       </button>
     </div>
   </Modal>

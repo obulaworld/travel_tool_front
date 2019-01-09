@@ -1,13 +1,24 @@
 import React from 'react';
 import moment from 'moment';
+import { mount } from 'enzyme';
 import Timeline from '..';
-import { tripsResponse } from '../../../redux/__mocks__/mocks';
 import availableRooms from '../__mocks__/availableRooms';
 import Utils from '../../../helper/Utils';
 
 const props = {
-  rooms: [{faulty: false}],
+  rooms: [{faulty: false,
+    id: '2',
+    roomName: 'Menegagai',
+    beds: [{
+      id: 1,
+      bedName: 'Bed 2',
+      trips:[]
+    }],
+    maintainances: [],
+  }],
+  addmaintenanceRecord: jest.fn(),
   fetchAvailableRooms: jest.fn(),
+  updateMaintenanceRecord: jest.fn(),
   deleteMaintenanceRecord: jest.fn(),
   fetchTimelineRoomsData: jest.fn(),
   updateRoomState: jest.fn(),
@@ -25,7 +36,7 @@ const props = {
 describe('<Timeline />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = mount(
       <Timeline {...props} />
     );
   });

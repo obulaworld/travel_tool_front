@@ -21,7 +21,7 @@ const response = {
     message: 'Successfully retrieved guestHouses'
   }
 };
-const error = 'Possible network error, please reload the page';
+const error = new Error('Possible network error, please reload the page');
 
 toast.error = jest.fn();
 toast.success = jest.fn();
@@ -38,7 +38,7 @@ describe('Accommodation Saga', () => {
         .dispatch({
           type: 'FETCH_ACCOMMODATION_CENTRES'
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -48,12 +48,12 @@ describe('Accommodation Saga', () => {
         ])
         .put({
           type: 'FETCH_ACCOMMODATION_CENTRES_FAILURE',
-          error
+          error: error.message
         })
         .dispatch({
           type: 'FETCH_ACCOMMODATION_CENTRES'
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -75,7 +75,7 @@ describe('Accommodation Saga', () => {
         .dispatch({
           type: 'FETCH_DISABLED_ACCOMMODATION'
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -85,12 +85,12 @@ describe('Accommodation Saga', () => {
         ])
         .put({
           type: 'FETCH_DISABLED_ACCOMMODATION_FAILURE',
-          error
+          error: error.message
         })
         .dispatch({
           type: 'FETCH_DISABLED_ACCOMMODATION'
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -119,7 +119,7 @@ describe('Accommodation Saga', () => {
           type: 'DISABLE_ACCOMMODATION',
           guestHouseId
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -129,13 +129,13 @@ describe('Accommodation Saga', () => {
         ])
         .put({
           type: 'DISABLE_ACCOMMODATION_FAILURE',
-          error
+          error: error.message
         })
         .dispatch({
           type: 'DISABLE_ACCOMMODATION',
           guestHouseId: 'hinlmknk'
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -164,7 +164,7 @@ describe('Accommodation Saga', () => {
           type: 'RESTORE_DISABLED_ACCOMMODATION',
           guestHouseId,
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -174,13 +174,13 @@ describe('Accommodation Saga', () => {
         ])
         .put({
           type: 'RESTORE_DISABLED_ACCOMMODATION_FAILURE',
-          error
+          error: error.message
         })
         .dispatch({
           type: 'RESTORE_DISABLED_ACCOMMODATION',
           guestHouseId: 'hinlmknk',
         })
-        .run();
+        .silentRun();
     });
   });
 });

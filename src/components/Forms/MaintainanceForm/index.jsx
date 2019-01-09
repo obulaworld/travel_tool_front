@@ -27,13 +27,16 @@ class MaintainceForm extends PureComponent {
   }
 
   componentDidMount() {
-    const { maintenance } = this.props;
-    const { departureDate, returnDate, reason } = maintenance;
+    this.handleSetState;
+  }
+
+  handleSetState = () => {
+
+    const { maintenance: { departureDate, returnDate, reason }}  = this.props;
     const startDate = departureDate ? moment(departureDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
     const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
-
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState(prevState => ({...prevState, values : {maintainanceStart: startDate, maintainanceEnd: endDate, reason }}));
+    const disableReason = reason ? reason : '';
+    this.setState(prevState => ({ ...prevState, values: { maintainanceStart: startDate, maintainanceEnd: endDate, reason: disableReason } }));
   }
 
   submitMaintainanceData = event => {

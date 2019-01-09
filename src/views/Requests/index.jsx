@@ -205,7 +205,6 @@ export class Requests extends Base {
     } = this.props;
     const { requestId } = this.state;
     const filteredReqId = requests.filter(request => request.id === requestId);
-
     return (
       <Fragment>
         {/* {!isFetching && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests" />} */}

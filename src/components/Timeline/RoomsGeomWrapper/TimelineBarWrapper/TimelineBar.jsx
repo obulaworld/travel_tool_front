@@ -21,10 +21,10 @@ class TimelineBar extends PureComponent {
 }
 
 TimelineBar.propTypes = {
-  children: PropTypes.string.isRequired,
-  tripDayWidth: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired,
+  tripDayWidth: PropTypes.number.isRequired,
   customStyle: PropTypes.object.isRequired,
-  tripStats: PropTypes.string.isRequired,
+  tripStats: PropTypes.object.isRequired,
 };
 
 export default TimelineBar;

@@ -80,6 +80,9 @@ export default class filterDropdownSelect extends Component  {
     getPropsObject = () => {
       const { className, error } = this.props;
       const _props = { ...this.props };
+      ['labelNote'].map(
+        item => delete _props[item]
+      );
       const props = {
         ..._props,
         className: `input select ${error ? 'error' : 'This field is required'} ${

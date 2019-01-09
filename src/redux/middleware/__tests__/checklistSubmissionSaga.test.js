@@ -51,7 +51,7 @@ describe('Submission post saga ', () => {
         formData,
         checklistItemId,
         checkId
-      }).run();
+      }).silentRun();
   });
 
   it('fails to post submission', () => {
@@ -71,7 +71,7 @@ describe('Submission post saga ', () => {
         formData,
         checklistItemId,
         checkId
-      }).run();
+      }).silentRun();
   });
 
   it('fetches submission', () => {
@@ -87,7 +87,7 @@ describe('Submission post saga ', () => {
       }).dispatch({
         type: 'FETCH_SUBMISSION',
         requestId, tripType: 'return'
-      }).run();
+      }).silentRun();
   });
 
   it('fails to fetch submission', () => {
@@ -102,6 +102,6 @@ describe('Submission post saga ', () => {
       }).dispatch({
         type: 'FETCH_SUBMISSION',
         requestId, tripType: 'return'
-      }).run();
+      }).silentRun();
   });
 });

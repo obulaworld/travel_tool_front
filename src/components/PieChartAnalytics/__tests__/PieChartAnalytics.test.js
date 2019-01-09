@@ -29,7 +29,7 @@ describe('<Dashboard />', () => {
     const wrapper = shallow(
       <PieChartAnalytics 
         {...props}
-        error={{ error: '`Oops! An error occurred in retrieving this data`' }} 
+        error="Oops! An error occurred in retrieving this data`" 
       />
     );
     const serverError = wrapper.find('.dashboard-component__error-text--style');

@@ -7,7 +7,7 @@ exports[`<TimelineDetails /> renders properly without a checkInDate or checkOutD
   role="presentation"
   style={
     Object {
-      "left": "0pxpx",
+      "left": "0px",
       "position": "absolute",
     }
   }
@@ -93,7 +93,7 @@ exports[`<TimelineDetails /> renders prorperly 1`] = `
   role="presentation"
   style={
     Object {
-      "left": "0pxpx",
+      "left": "0px",
       "position": "absolute",
     }
   }

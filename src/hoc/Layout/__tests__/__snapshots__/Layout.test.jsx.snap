@@ -52,7 +52,9 @@ exports[`Layout component Layout Shallow should render layout component correctl
         >
           <div
             className="rp-requests "
-          />
+          >
+            <Component />
+          </div>
         </div>
       </div>
       <div

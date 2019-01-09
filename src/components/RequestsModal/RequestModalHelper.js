@@ -15,8 +15,8 @@ export default class RequestModalHelper {
   static getRequestTripsDetails(requestData) {
     const {trips, tripType, createdAt} = requestData;
     const requestTripsDetails = trips && trips.map(trip => {
-      const tripDetails = { createdAt, tripType, ...trip };
-      return <TripDetails key={trip.id} tripDetails={tripDetails} />;
+      const tripDetails = { createdAt, tripType, ...trip, };
+      return <TripDetails key={trip.origin} tripDetails={tripDetails} />;
     });
     return requestTripsDetails;
   }

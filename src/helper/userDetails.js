@@ -29,7 +29,7 @@ export const logoutUser = (history, msg) => {
 };
 
 export const getUserRoleCenter = (userDetail, defaultCenter) => {
-  const userCenter = userDetail && userDetail.centers[0] ? userDetail.centers[0].location
+  const userCenter = userDetail && userDetail.centers ? userDetail.centers[0].location
     : defaultCenter;
   return userCenter;
 };

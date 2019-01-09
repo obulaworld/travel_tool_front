@@ -63,7 +63,7 @@ describe('Maintainence record saga', () => {
         response: action.data,
         roomId: action.roomId,
       })
-      .run();
+      .silentRun();
   });
 
   it('Updates maintenance record successfully', () => {
@@ -78,7 +78,7 @@ describe('Maintainence record saga', () => {
         maintenance: action.data,
         roomId: action.roomId
       })
-      .run();
+      .silentRun();
   });
 
   it('Throws error on update maintenance failure', () => {
@@ -97,7 +97,7 @@ describe('Maintainence record saga', () => {
         maintenance: action.data,
         roomId: action.roomId
       })
-      .run();
+      .silentRun();
   });
 
   it('Delete maintenance record successfully', () => {
@@ -116,7 +116,7 @@ describe('Maintainence record saga', () => {
         type: DELETE_MAINTENANCE_RECORD,
         roomId: action.roomId
       })
-      .run();
+      .silentRun();
   });
 
   it('Throws error on delelte maintenance failure', () => {
@@ -134,6 +134,6 @@ describe('Maintainence record saga', () => {
         type: DELETE_MAINTENANCE_RECORD,
         roomId: action.roomId
       })
-      .run();
+      .silentRun();
   });
 });

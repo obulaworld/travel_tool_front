@@ -14,6 +14,18 @@ import '../../customStyles/toast.scss';
 
 // Check if the bugsnag API key was configured correctly
 // and handle cases where the key was not provided.
+/*
+import bugsnag from 'bugsnag-js';
+import bugsnag from 'bugsnag';
+Bugsnag Error: "bugsnag-js" is for browser JavaScript only.
+  For node, use the "bugsnag" package.
+
+https://github.com/bugsnag/bugsnag-react/issues/4
+https://github.com/bugsnag/bugsnag-js/tree/next/packages/plugin-react
+https://github.com/bugsnag/bugsnag-js
+*/
+
+
 let Wrapper = Fragment;
 
 if (process.env.REACT_APP_BUGSNAG_API_KEY) {

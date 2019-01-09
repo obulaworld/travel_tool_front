@@ -50,7 +50,8 @@ class AccommodationDetails extends Component {
               {renderInput(`roomType-${i}`, 'dropdown-select', {
                 parentid: i,
                 handleDropDown,
-                className: 'add_room_type'
+                className: 'add_room_type',
+                size: ''
               })}
             </div>
             <div className="room remove" onChange={handleInputChange}>
@@ -142,8 +143,8 @@ const addRoomOnClick = PropTypes.func;
 const handleInputChange = PropTypes.func;
 const handleLocation = PropTypes.func;
 const removeRoom = PropTypes.func;
-const documentId = PropTypes.string;
-const handleDropDown = PropTypes.string;
+const documentId = PropTypes.number;
+const handleDropDown = PropTypes.func;
 const modalType = PropTypes.string;
 
 AccommodationDetails.propTypes = {

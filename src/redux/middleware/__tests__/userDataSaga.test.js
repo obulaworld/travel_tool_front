@@ -44,7 +44,7 @@ describe('User Saga', () => {
           type: 'GET_USER_DATA',
           id
         })
-        .run();
+        .silentRun();
     });
     it('throws error if there is an error fetching a users detail', () => {
       return expectSaga(watchGetUserDataSagaAsync, UserAPI)
@@ -57,7 +57,7 @@ describe('User Saga', () => {
           type: 'GET_USER_DATA',
           id
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -73,7 +73,7 @@ describe('User Saga', () => {
           type: 'POST_USER_DATA',
           userData: user
         })
-        .run();
+        .silentRun();
     });
 
     it('successufullt runs saga to post user data', () => {
@@ -90,7 +90,7 @@ describe('User Saga', () => {
           type: 'POST_USER_DATA',
           userData: user
         })
-        .run();
+        .silentRun();
     });
   });
 

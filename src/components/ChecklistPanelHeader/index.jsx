@@ -21,7 +21,7 @@ class ChecklistPanelHeader extends PureComponent {
 
 ChecklistPanelHeader.propTypes = {
   openModal: PropTypes.func.isRequired,
-  location: PropTypes.func,
+  location: PropTypes.string,
 };
 
 ChecklistPanelHeader.defaultProps = {

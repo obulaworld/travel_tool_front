@@ -13,7 +13,9 @@ describe('Notification Container Component', () => {
       notificationType: 'pending',
       notificationStatus: 'unread',
       senderImage: testImage,
-      id: 'id1'
+      id: 1,
+      notificationLink: '/requests/my-approvals/id1',
+      updatedAt: new Date().toISOString()
     },
     {
       isPending: true,
@@ -22,7 +24,9 @@ describe('Notification Container Component', () => {
       notificationStatus: 'unread',
       notificationType: 'pending',
       senderImage: testImage,
-      id: 'id2'
+      id: 2,
+      notificationLink: '/requests/my-approvals/id2',
+      updatedAt: new Date().toISOString()
     },
     {
       isPending: true,
@@ -31,7 +35,9 @@ describe('Notification Container Component', () => {
       notificationStatus: 'unread',
       notificationType: 'pending',
       senderImage: testImage,
-      id: 'id3'
+      id: 3,
+      notificationLink: '/requests/my-approvals/id3',
+      updatedAt: new Date().toISOString()
     },
     ],
     generalNotifications: [{
@@ -42,13 +48,15 @@ describe('Notification Container Component', () => {
       notificationStatus: 'unread',
       notificationType: 'general',
       senderImage: testImage,
-      id: 'id11'
+      id: 11,
+      notificationLink: '/requests/my-approvals/EwUNJYzNg',
+      updatedAt: new Date().toISOString()
     }],
     updateAllNotificationStatus: jest.fn(),
     markSingleNotificationAsRead: jest.fn(),
-    link: '',
     timeStamp: '',
-    id: 12
+    id: 12,
+    singleNotificationRead: 3
   };
 
   const setup = (props = customProps) => shallow( <NotificationContainer {...props} />);

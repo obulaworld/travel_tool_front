@@ -32,7 +32,7 @@ exports[`<RoomLabel /> renders properly 1`] = `
   </div>
   <Modal
     closeDeleteModal={null}
-    closeModal={null}
+    closeModal={[Function]}
     customModalStyles=""
     customOverlayStyle=""
     modalBar={<div />}
@@ -45,6 +45,8 @@ exports[`<RoomLabel /> renders properly 1`] = `
     width="480px"
   >
     <MaintainceForm
+      addmaintenanceRecord={[Function]}
+      closeModal={[Function]}
       editMaintenance={Object {}}
       guestHouseId="guest-house-id-1"
       id="room-id-1"
@@ -57,6 +59,7 @@ exports[`<RoomLabel /> renders properly 1`] = `
           "2018-01-31",
         ]
       }
+      updateMaintenanceRecord={[Function]}
     />
   </Modal>
 </div>

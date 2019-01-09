@@ -14,15 +14,18 @@ const props = {
   fetchAccommodation: sinon.spy(),
   fetchDisabledAccommodation: sinon.spy(),
   restoreDisabledAccommodation: sinon.spy(),
+  initFetchTimelineData: sinon.spy(),
   isLoading: false,
   createAccommodation: jest.fn(),
+  createAccommodationLoading: false,
+  editAccommodation: jest.fn(),
   shouldOpen: false,
-  modalType: null,
+  modalType: '',
   openModal: jest.fn(),
   onNotificationToggle: jest.fn(),
   restoreGuestHouse: sinon.spy(),
   closeModal: sinon.spy(() => Promise.resolve()),
-  getCurrentUserRole: 'Travel Administrator',
+  getCurrentUserRole: ['Requester'],
   history: {
     push: jest.fn()
   },
@@ -41,16 +44,11 @@ const initialState = {
 const mockStore = configureStore();
 const store = mockStore(initialState);
 
-const wrapper = mount(
-  <Provider store={store}>
-    <MemoryRouter>
-      <ConnectedAccommodation {...props} />
-    </MemoryRouter>
-  </Provider>
-);
-
 describe('<Accommodation />', () => {
   let wrapper;
+
+  process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
+
   beforeEach(() => {
     wrapper = shallow(<Accommodation {...props} />);
   });

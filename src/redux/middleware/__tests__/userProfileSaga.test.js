@@ -51,7 +51,7 @@ describe('Profile saga', () =>{
         userId:action.userId,
         showToast: action.showToast
       })
-      .run();
+      .silentRun();
   });
 
   it('should test invalid role', () => {
@@ -80,7 +80,7 @@ describe('Profile saga', () =>{
         userId:action.userId,
         showToast: action.showToast
       })
-      .run();
+      .silentRun();
   });
 });
 

@@ -53,8 +53,7 @@ class DeleteModal extends Component {
 const deleteModalPropTypes = {
   closeModal: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
-  modalType: PropTypes.string.isRequired,
-  deleteUserDocument: PropTypes.func.isRequired,
+  modalType: PropTypes.string,
   documentName: PropTypes.string.isRequired,
 };
 

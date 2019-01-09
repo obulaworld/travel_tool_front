@@ -8,7 +8,9 @@ export default class DropdownSelect extends Component {
     className: PropTypes.string,
     error: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    choices: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.arrayOf(PropTypes.object)]).isRequired,
     value: PropTypes.string.isRequired,
     size: PropTypes.string.isRequired
   };
@@ -41,7 +43,7 @@ export default class DropdownSelect extends Component {
   getPropsObject = () => {
     const { className, error } = this.props;
     const _props = { ...this.props };
-    ['labelNote', 'selectOptions', 'handleSelect', 'selectedDate'].map(
+    ['labelNote', 'selectOptions', 'handleSelect', 'handleDropDown', 'selectedDate'].map(
       item => delete _props[item]
     );
 

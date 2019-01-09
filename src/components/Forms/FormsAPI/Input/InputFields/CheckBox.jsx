@@ -19,7 +19,7 @@ export default class CheckBox extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, value } = this.props;
     const { condition } = this.state;
     return (
       <label htmlFor="checkbox" className="container">
@@ -40,5 +40,5 @@ export default class CheckBox extends Component {
 CheckBox.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.bool.isRequired
+  value: PropTypes.string.isRequired
 };

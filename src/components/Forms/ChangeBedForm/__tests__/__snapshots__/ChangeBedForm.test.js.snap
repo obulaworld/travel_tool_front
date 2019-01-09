@@ -54,7 +54,7 @@ exports[`<ChangeBedForm /> should render correctly 1`] = `
             <form
                     className="change-room-modal__form"
             >
-                    <p
+                    <div
                             className="change-room-modal__other-available-room"
                     >
                             <div
@@ -62,7 +62,7 @@ exports[`<ChangeBedForm /> should render correctly 1`] = `
                             >
                                     No beds are available
                             </div>
-                    </p>
+                    </div>
                     <p
                             className="change-room-modal__reason"
                     >
@@ -139,7 +139,7 @@ exports[`<ChangeBedForm /> should render correctly 1`] = `
   <form
     className="change-room-modal__form"
   >
-    <p
+    <div
       className="change-room-modal__other-available-room"
     >
       <div
@@ -147,7 +147,7 @@ exports[`<ChangeBedForm /> should render correctly 1`] = `
       >
         No beds are available
       </div>
-    </p>
+    </div>
     <p
       className="change-room-modal__reason"
     >
@@ -261,7 +261,7 @@ exports[`<ChangeBedForm /> should render correctly and display loader 1`] = `
             <form
                     className="change-room-modal__form"
             >
-                    <p
+                    <div
                             className="change-room-modal__other-available-room"
                     >
                             <div
@@ -269,7 +269,7 @@ exports[`<ChangeBedForm /> should render correctly and display loader 1`] = `
                             >
                                     No beds are available
                             </div>
-                    </p>
+                    </div>
                     <p
                             className="change-room-modal__reason"
                     >
@@ -339,7 +339,7 @@ exports[`<ChangeBedForm /> should render correctly and display loader 1`] = `
   <form
     className="change-room-modal__form"
   >
-    <p
+    <div
       className="change-room-modal__other-available-room"
     >
       <div
@@ -347,7 +347,7 @@ exports[`<ChangeBedForm /> should render correctly and display loader 1`] = `
       >
         No beds are available
       </div>
-    </p>
+    </div>
     <p
       className="change-room-modal__reason"
     >

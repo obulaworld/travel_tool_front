@@ -57,7 +57,7 @@ describe('Document saga', () => {
         .dispatch({
           type: 'FETCH_DOCUMENTS',
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error while fetchiing documents', () => {
@@ -72,7 +72,7 @@ describe('Document saga', () => {
         .dispatch({
           type: 'FETCH_DOCUMENTS',
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -102,7 +102,7 @@ describe('Document saga', () => {
           documentId,
           deletingDocument: true
         })
-        .run();
+        .silentRun();
     });
     it('handles failed document deletion', () => {
       const error = new Error('Server error, try again');
@@ -121,9 +121,9 @@ describe('Document saga', () => {
           documentId,
           deletingDocument: true
         })
-        .run();
-    })
-  })
+        .silentRun();
+    });
+  });
   describe('Update document saga', () => {
     toast.success = jest.fn();
     toast.error = jest.fn();
@@ -152,7 +152,7 @@ describe('Document saga', () => {
           type: UPDATE_DOCUMENT,
           document: newDocumentName
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error when updating documents fails', () => {
@@ -172,7 +172,7 @@ describe('Document saga', () => {
           type: UPDATE_DOCUMENT,
           document: newDocumentName
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -199,7 +199,7 @@ describe('Document saga', () => {
           url: cloudinary_url,
           name: name
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -218,7 +218,7 @@ describe('Document saga', () => {
           type: CREATE_DOCUMENT,
           documentData
         })
-        .run();
+        .silentRun();
     });
 
     it('handles failed document creation', () => {
@@ -244,7 +244,7 @@ describe('Document saga', () => {
           type: CREATE_DOCUMENT,
           documentData
         })
-        .run();
+        .silentRun();
     });
   });
 });

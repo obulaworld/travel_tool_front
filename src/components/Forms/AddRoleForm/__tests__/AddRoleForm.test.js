@@ -5,6 +5,10 @@ const propsFactory = (overrides) => ({
   addRole: jest.fn(),
   updateRole: jest.fn(),
   addingRole: false,
+  roleDetail: {
+    description: '',
+    roleName: ''
+  },
   ...overrides,
 });
 

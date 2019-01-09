@@ -7,7 +7,9 @@ const props = {
   user: {
     picture: 'http://my-image'
   },
-  requestData,
+  requestData:{
+    picture: 'http://my-image'
+  }
 };
 
 describe('UserComments component', () => {

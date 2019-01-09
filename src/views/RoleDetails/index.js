@@ -20,7 +20,7 @@ import NotFound from '../ErrorPages';
 export class RoleDetails extends Component {
   state = {
     headTitle: 'Add User',
-    userDetail: ''
+    userDetail: {}
   }
 
   componentDidMount() {
@@ -42,7 +42,7 @@ export class RoleDetails extends Component {
 
   handleAddUser = () => {
     const { openModal, hideDeleteRoleModal, deleteModalState } = this.props;
-    this.setState({ headTitle: 'Add User', userDetail: '' });
+    this.setState({ headTitle: 'Add User', userDetail: {} });
     deleteModalState === 'visible' && hideDeleteRoleModal();
     openModal(true, 'new model');
   }

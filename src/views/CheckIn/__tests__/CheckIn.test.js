@@ -17,7 +17,7 @@ const props = {
   },
   trips: notCheckInTrips.trips,
   loading: false,
-  dateToday: '2018-11-27'
+  dateToday: moment(new Date()).format('YYYY-MM-DD')
 };
 
 const initialState = {
@@ -42,7 +42,7 @@ const store = mockStore(initialState);
 
 const setup = () => {
   /* Replace departure date to today's date */
-  const newDepartureDate = moment(new Date().toISOString(), 'YYYY-MM-DD').format('Y-M-D');
+  const newDepartureDate = moment(new Date()).format('YYYY-MM-DD');
   props.trips[0].departureDate = newDepartureDate;
 
   return mount(

@@ -120,7 +120,7 @@ export default class MaintenanceDetails extends PureComponent {
 
 MaintenanceDetails.propTypes = {
   maintenance: PropTypes.object.isRequired,
-  bookingDetailsPos: PropTypes.string,
+  bookingDetailsPos: PropTypes.number,
   detailsVariantClass: PropTypes.string,
   toggleBookingDetails: PropTypes.func.isRequired,
   translateDetailsLeft: PropTypes.bool,
@@ -129,7 +129,7 @@ MaintenanceDetails.propTypes = {
 };
 
 MaintenanceDetails.defaultProps = {
-  bookingDetailsPos: '100px',
+  bookingDetailsPos: 0,
   detailsVariantClass: 'hidden',
   translateDetailsLeft: false
 };
