@@ -39,7 +39,7 @@ class ProfileDetailsFieldSets extends Component {
             size: '' //can be the width of the input
           })}
           {renderInput('department', 'dropdown-select', {className: 'profile_dropdown',size: ''})}
-          {renderInput('manager', 'dropdown-select', {className: 'profile_dropdown',size: ''})}
+          {renderInput('manager', 'filter-dropdown-select', {className: 'profile_role_dropdown',size: ''})}
         </div>
       </fieldset>
     );
