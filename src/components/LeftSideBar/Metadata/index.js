@@ -88,6 +88,17 @@ const NavItemsMetadata = [
       inactive: inactiveDocumentsIcon
     }
   },
+  // Travel Readiness
+  {
+    text: 'Travel Readiness',
+    link_to: '/travel_readiness',
+    activateOnLogin: true,
+    isDropdown: false,
+    icons: {
+      active: activeChecklistIcon,
+      inactive: inactiveChecklistIcon
+    }
+  },
   // Trip planner
   {
     text: 'Trip Planner',

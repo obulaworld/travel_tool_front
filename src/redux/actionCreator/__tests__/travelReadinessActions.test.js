@@ -1,7 +1,10 @@
 import {
   fetchReadiness,
   fetchReadinessSuccess,
-  fetchReadinessFailure
+  fetchReadinessFailure,
+  createTravelReadinessDocumentSuccess,
+  createTravelReadinessDocument,
+  createTravelReadinessDocumentFailure
 } from '../travelReadinessActions';
 import { fetchReadinessResponse } from '../../__mocks__/mocks';
 
@@ -35,5 +38,28 @@ describe('Travel Readiness Action', () => {
     };
     const createdAction = fetchReadinessFailure(error);
     expect(createdAction).toEqual(expectedAction);
+  });
+
+  it('should return action type of CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+    const expectedAction ={
+      type: 'CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS',
+      response: {}
+    };
+    expect(createTravelReadinessDocumentSuccess({})).toEqual(expectedAction);
+  });
+
+  it('should return action type of CREATE_TRAVEL_READINESS_DOCUMENT', () => {
+    expect(createTravelReadinessDocument('visa', {})).toEqual({
+      type: 'CREATE_TRAVEL_READINESS_DOCUMENT',
+      payload: {},
+      documentType: 'visa'
+    });
+  });
+
+  it('should return action type of CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE with right payload', () => {
+    expect(createTravelReadinessDocumentFailure({ errors: {}})).toEqual({
+      type: 'CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE',
+      error: { errors: {}}
+    });
   });
 });

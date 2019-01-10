@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReadinessPanelHeader /> renders without crashing 1`] = `
+<div
+  className="PageHeader"
+>
+  <div>
+    <span
+      className="title"
+    >
+      Travel Readiness
+    </span>
+  </div>
+  <div>
+    <button
+      className="action-btn btn-new-request"
+      onClick={[Function]}
+      type="button"
+    >
+      Add Visa
+    </button>
+  </div>
+</div>
+`;

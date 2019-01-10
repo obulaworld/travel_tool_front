@@ -11,7 +11,6 @@ import {
   createDocumentFailure
 } from '../../actionCreator/documentActions';
 import documentsMockData from '../../../mockData/documentsMockData';
-// import documents from '../../../mockData/documentsMockData';
 import { documentData, response } from '../../__mocks__/documentMockData';
 
 describe('Documents Reducer', () => {

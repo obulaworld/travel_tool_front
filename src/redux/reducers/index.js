@@ -22,7 +22,7 @@ import submissions from './checklistSubmission';
 import fileUploads from './fileUploads';
 import attachments from './attachments';
 import maintenance from './maintenance';
-
+import travelReadinessDocuments from './travelReadinessDocuments';
 
 const rootReducer = combineReducers({
   auth,
@@ -47,7 +47,8 @@ const rootReducer = combineReducers({
   submissions,
   fileUploads,
   attachments,
-  maintenance
+  maintenance,
+  travelReadinessDocuments
 });
 
 export default rootReducer;
