@@ -102,9 +102,23 @@ const NavItemsMetadata = [
   // Trip planner
   {
     text: 'Trip Planner',
-    link_to: '/checklists',
+    link_to: '/trip-planner',
     activateOnLogin: false,
-    isDropdown: false,
+    isDropdown: true,
+    dropdownItems: [
+      {
+        link_to: '/travel-readiness',
+        exact: true,
+        text: 'Travel Readiness',
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+      },
+      {
+        link_to: '/checklists',
+        exact: true,
+        text: 'Travel Checklist',
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+      }
+    ],
     icons: {
       active: activeChecklistIcon,
       inactive: inactiveChecklistIcon

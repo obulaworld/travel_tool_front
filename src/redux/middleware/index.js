@@ -97,6 +97,7 @@ import {
   watchFetchAttachments,
   watchdownloadAttachments
 } from './attachmentsSaga';
+import { watchFetchUsersReadinessDocuments, watchFetchReadinessDocuments, watchFetchReadinessDocumentDetails } from './travelReadinessDocumentsSaga';
 
 function* rootSaga() {
   yield all([
@@ -166,7 +167,10 @@ function* rootSaga() {
     watchDisableAccommodation(),
     watchFetchDisabledAccommodation(),
     watchRestoreDisabledAccommodation(),
-    watchCreateTravelReadinessDocument()
+    watchCreateTravelReadinessDocument(),
+    watchFetchUsersReadinessDocuments(),
+    watchFetchReadinessDocuments(),
+    watchFetchReadinessDocumentDetails(),
   ]);
 }
 

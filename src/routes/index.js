@@ -16,6 +16,8 @@ import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedDocuments from '../views/Documents';
 import ConnectedReadiness from '../views/Readiness';
+import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
+import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
 import NotFound from '../views/ErrorPages';
 
 import {
@@ -151,6 +153,28 @@ const Routes = () => (
                 ConnectedChecklist,
                 SUPER_ADMINISTRATOR,
                 TRAVEL_ADMINISTRATOR
+              )
+            }
+          />
+          <Route
+            path="/travel-readiness"
+            exact
+            component={
+              RequireAuth(
+                ConnectedTravelReadinessDocuments,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
+              )
+            }
+          />
+          <Route
+            path="/travel-readiness/:userId"
+            exact
+            component={
+              RequireAuth(
+                ConnectedUserTravelReadinessDetails,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
               )
             }
           />
