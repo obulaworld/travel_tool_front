@@ -37,12 +37,16 @@
 .modal__travel-doc-details {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 20px 0;
+  margin: 20px 0 50px;
 
   .preloader {
     margin-bottom:  50px;
     grid-column: 2/3;
   }
+}
+
+.modal__user-info {
+  font-weight: bold;
 }
 
 #travel-doc-details-content .pageOverlay {
@@ -80,4 +84,31 @@
 
 .document-name {
   color: #3359db;
+}
+
+.readiness-table .mask {
+  width: 540px;
+  max-width: 540px;
+
+  .rectangle {
+    width: 15%;
+  }
+
+
+  .rectangle-2 {
+    width: 100%;
+
+    .section-1 {
+      .document-name a {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .rectangle-copy {
+    display: block;
+    height: 60px;
+    width: 37px;
+    margin: 5px auto 5px;
+  }
 }
