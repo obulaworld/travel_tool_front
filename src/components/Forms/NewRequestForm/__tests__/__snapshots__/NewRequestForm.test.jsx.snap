@@ -322,6 +322,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                         ]
                       }
                       className="occupationInput"
+                      id="your-role"
                       label="Your Role"
                       name="role"
                       onChange={[Function]}
@@ -401,6 +402,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                         ]
                       }
                       className="occupationInput"
+                      id="your-manager"
                       label="Your Manager"
                       name="role"
                       onChange={[Function]}
