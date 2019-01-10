@@ -1,7 +1,9 @@
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('Requests page(create new request)', () => {
   before(() => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
   });
 
   describe('Request Form', () => {
@@ -40,20 +42,6 @@ describe('Requests page(create new request)', () => {
       cy.get('@error-span').contains('This field is required');
     });
 
-    it('clears fields when the Cancel button is clicked', () => {
-      const [today] = new Date()
-        .toLocaleString('en-US')
-        .toString()
-        .split(',');
-      cy.get('input[name=departureDate-0]')
-        .as('departure-date')
-        .click();
-      cy.get('.react-datepicker__day--today').click();
-      cy.get('@departure-date').should('have.value', today);
-      cy.get('button#cancel').click();
-      cy.get('@departure-date').should('have.value', '');
-    });
-
     it(`disables the return date field when departure
            date is not yet selected`, () => {
       cy.get('input[name=arrivalDate-0]')
@@ -70,12 +58,23 @@ describe('Requests page(create new request)', () => {
         the fields are missing`, () => {
       cy.get('button#submit').should('be.disabled');
     });
+
+    it('closes the modal when the Cancel button is clicked', () => {
+      cy.get('button#cancel').click();
+      cy.get('.modal')
+        .should('not.be.visible');
+    });
   });
 
   describe('Create return request', () => {
+    before(() => {
+      // Click on 'New Request' button
+      cy.get('button.action-btn.btn-new-request').as('request-button');
+      cy.get('@request-button').click();
+    });
     it('creates a return request', () => {
       cy.server();
-      cy.route('POST', 'http://127.0.0.1:5000/api/v1/requests').as(
+      cy.route('POST', `${baseAPI}/requests`).as(
         'createRequest'
       ); // Used to check when request is POST completed
 
@@ -86,9 +85,8 @@ describe('Requests page(create new request)', () => {
       cy.get('button[name=gender]:first').click();
       cy.get('div[name=department]').click();
       cy.get('div[name=department] > ul > li#choice:first').click();
-      cy.get('div[name=manager]').click();
-      cy.get('div[name=manager] > ul > li#choice:first').click();
-      cy.get('input.occupationInput')
+      cy.get('input#your-manager').click();
+      cy.get('input#your-role')
         .clear()
         .type('Account associate');
       cy.get('input[name=origin-0]')
@@ -99,9 +97,11 @@ describe('Requests page(create new request)', () => {
         .type('Lagos')
         .wait(2000)
         .type('{downarrow}{enter}');
+      cy.get('input[name=departureDate-0]').click();
+      cy.get('.react-datepicker__day--today').click();
       cy.get('input[name=arrivalDate-0]').click();
-      cy.get('.react-datepicker__day--today + div:first').click();
-      cy.get('div[name=bed-0]').click();
+      cy.get('.react-datepicker__day--today + div:first').wait(2000).click();
+      cy.get('div[name=bed-0]').wait(2000).click();
       cy.get('div[name=bed-0] > ul > li#choice:first')
         .wait(2000)
         .click();
@@ -115,7 +115,8 @@ describe('Requests page(create new request)', () => {
       //check for success toast message
       cy.get('.toast-message')
         .should('be.visible')
-        .contains('Request created');
+        .contains('Request created')
+        .wait(3000);
 
       // check for created request in request table
       cy.get('.table__row')
@@ -137,6 +138,11 @@ describe('Requests page(create new request)', () => {
       cy.get('@request-data')
         .eq(6)
         .should('contain', 'Open'); // status column
+      // Delete request after creation
+      cy.get('.request__status--open + .menu__container:first').click();
+      cy.get('#deleteRequest').click();
+      cy.get(':nth-child(1) > .table__requests__status > :nth-child(1) > .table__menu > .menu__container > :nth-child(1) > .table__menu-container > .table__menu-list > #deleteRequest > .overlay > .modal > .modal-content > .delete-checklist-item__footer > .bg-btn')
+        .click();
     });
   });
 
@@ -147,14 +153,13 @@ describe('Requests page(create new request)', () => {
       cy.get('input[type=radio]#oneWay').check({ force: true }); //check one-way radio button
     });
 
-    it('hides the return date and room input fields', () => {
+    it('hides the return date field', () => {
       cy.get('input[name=arrivalDate-0]').should('not.be.visible');
-      cy.get('input[name=bed-0]').should('not.be.visible');
     });
 
     it('creates a one-way request', () => {
       cy.server();
-      cy.route('POST', 'http://127.0.0.1:5000/api/v1/requests').as(
+      cy.route('POST', `${baseAPI}/requests`).as(
         'createRequest'
       );
 
@@ -168,11 +173,8 @@ describe('Requests page(create new request)', () => {
       cy.get('div[name=department] > ul > li#choice')
         .eq(0)
         .click();
-      cy.get('div[name=manager]').click();
-      cy.get('div[name=manager] > ul > li#choice')
-        .eq(0)
-        .click();
-      cy.get('input.occupationInput')
+      cy.get('input#your-manager').click();
+      cy.get('input#your-role')
         .clear()
         .type('Software developer');
       cy.get('input[name=origin-0]')
@@ -185,7 +187,11 @@ describe('Requests page(create new request)', () => {
         .type('{downarrow}{enter}');
       cy.get('input[name=departureDate-0]').click();
       cy.get('.react-datepicker__day--today')
-        .next()
+        .wait(2000)
+        .click();
+      cy.get('div[name=bed-0]').wait(2000).click();
+      cy.get('div[name=bed-0] > ul > li#choice:first')
+        .wait(2000)
         .click();
 
       cy.get('button#submit')
@@ -196,7 +202,8 @@ describe('Requests page(create new request)', () => {
 
       cy.get('.toast-message')
         .should('be.visible')
-        .contains('Request created');
+        .contains('Request created')
+        .wait(3000);
 
       cy.get('.table__row')
         .eq(0)
@@ -217,9 +224,15 @@ describe('Requests page(create new request)', () => {
       cy.get('@request-data')
         .eq(6)
         .should('contain', 'Open'); // status column
+      // Delete request after creation
+      cy.get('.request__status--open + .menu__container:first').click();
+      cy.get('#deleteRequest').click();
+      cy.get(':nth-child(1) > .table__requests__status > :nth-child(1) > .table__menu > .menu__container > :nth-child(1) > .table__menu-container > .table__menu-list > #deleteRequest > .overlay > .modal > .modal-content > .delete-checklist-item__footer > .bg-btn')
+        .click();
     });
   });
 
+  
   describe('Create multi-trip request', () => {
     before(() => {
       cy.get('button.action-btn.btn-new-request').as('request-button');
@@ -255,7 +268,7 @@ describe('Requests page(create new request)', () => {
     it('creates a multi-trip request', () => {
       let leavingDate = '';
       cy.server();
-      cy.route('POST', 'http://127.0.0.1:5000/api/v1/requests').as(
+      cy.route('POST', `${baseAPI}/requests`).as(
         'createRequest'
       );
 
@@ -266,9 +279,8 @@ describe('Requests page(create new request)', () => {
       cy.get('button[name=gender]:first').click();
       cy.get('div[name=department]').click();
       cy.get('div[name=department] > ul > li#choice:first').click();
-      cy.get('div[name=manager]').click();
-      cy.get('div[name=manager] > ul > li#choice:first').click();
-      cy.get('input.occupationInput')
+      cy.get('input#your-manager').click();
+      cy.get('input#your-role')
         .clear()
         .type('Account associate');
       cy.get('input[name=origin-0]')
@@ -286,8 +298,9 @@ describe('Requests page(create new request)', () => {
         .click();
       cy.get('.react-datepicker__day--today + div:first')
         .as('tomorrow')
+        .wait(2000)
         .click();
-      cy.get('div[name=bed-0]').click();
+      cy.get('div[name=bed-0]').wait(2000).click();
 
       cy.get('div[name=bed-0] > ul > li#choice:first')
         .wait(2000)
@@ -307,9 +320,10 @@ describe('Requests page(create new request)', () => {
       cy.get('input[name=arrivalDate-1]').click();
       cy.get('@tomorrow')
         .next()
+        .wait(2000)
         .click();
 
-      cy.get('div[name=bed-1]').click();
+      cy.get('div[name=bed-1]').wait(2000).click();
       cy.get('div[name=bed-1] > ul > li#choice:first')
         .wait(2000)
         .click();
@@ -322,7 +336,8 @@ describe('Requests page(create new request)', () => {
 
       cy.get('.toast-message')
         .should('be.visible')
-        .contains('Request created');
+        .contains('Request created')
+        .wait(3000);
 
       cy.get('.table__row')
         .eq(0)
@@ -343,6 +358,11 @@ describe('Requests page(create new request)', () => {
       cy.get('@request-data')
         .eq(6)
         .should('contain', 'Open');
+      // Delete request after creation
+      cy.get('.request__status--open + .menu__container:first').click();
+      cy.get('#deleteRequest').click();
+      cy.get(':nth-child(1) > .table__requests__status > :nth-child(1) > .table__menu > .menu__container > :nth-child(1) > .table__menu-container > .table__menu-list > #deleteRequest > .overlay > .modal > .modal-content > .delete-checklist-item__footer > .bg-btn')
+        .click();
     });
   });
 });

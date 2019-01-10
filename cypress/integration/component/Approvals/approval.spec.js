@@ -1,7 +1,9 @@
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('Approvals', () => {
   before(() => {
     cy.server();
-    cy.route('GET', 'http://127.0.0.1:5000/api/v1/approvals',
+    cy.route('GET', `${baseAPI}/approvals`,
       'fixture:approvals/approval');
   });
 

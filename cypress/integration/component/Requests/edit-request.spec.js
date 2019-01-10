@@ -1,47 +1,49 @@
 import moment from 'moment';
 
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('User editing request', () => {
   let request;
   before(() => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
     cy.server();
-    cy.route('POST', 'http://127.0.0.1:5000/api/v1/requests').as(
+    cy.route('POST', `${baseAPI}/requests`).as(
       'createRequest'
     ); // Used to check when request is POST completed
-
     // Fill form data
-    cy.get('button.action-btn.btn-new-request').as('request-button').click();
+    cy.get('button.action-btn.btn-new-request').as('request-button');
+    cy.get('@request-button').click();
     cy.get('input[name=name]')
       .clear()
       .type('Mr White');
     cy.get('button[name=gender]:last').click();
     cy.get('div[name=department]').click();
-    cy.get('div[name=department] > ul > li#choice:first').wait(1000).click();
-    cy.get('div[name=manager]').click().wait(1000);
-    cy.get('div[name=manager] > ul > li#choice:first').click();
-    cy.get('input.occupationInput')
+    cy.get('div[name=department] > ul > li#choice:first').click();
+    cy.get('input#your-manager').click();
+    cy.get('input#your-role')
       .clear()
       .type('Software developer');
-    // TODO: Find a way to mock google's location API to avoid long wait times
     cy.get('input[name=origin-0]')
       .type('Kampala')
-      .wait(5000)
+      .wait(2000)
       .type('{downarrow}{enter}');
     cy.get('input[name=destination-0]')
       .type('Nairobi')
-      .wait(5000)
+      .wait(2000)
       .type('{downarrow}{enter}');
     cy.get('input[name=departureDate-0]').click();
-    cy.get('.react-datepicker__day--today')
-      .next()
+    cy.get('.react-datepicker__day--today + div:first')
+      .as('tomorrow')
       .click();
     cy.get('input[name=arrivalDate-0]').click();
-    cy.get('.react-datepicker__day--today')
+    cy.get('@tomorrow')
       .next()
-      .next()
+      .wait(2000)
       .click();
-    cy.get('div[name=bed-0]').click().wait(5000).get('div[name=bed-0] > ul > li#choice:first')
+    cy.get('div[name=bed-0]').wait(2000).click();
+    cy.get('div[name=bed-0] > ul > li#choice:first')
+      .wait(2000)
       .click();
     // Submit form
     cy.get('button#submit')
@@ -55,7 +57,7 @@ describe('User editing request', () => {
 
   it('should display the edit modal when the edit button is clicked', () => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
 
     cy.get('.request__status--open + .menu__container:first').click();
     cy.get('.table__menu-list').should('be.visible');
@@ -63,6 +65,7 @@ describe('User editing request', () => {
 
     // modal is displayed
     cy.get('.modal')
+      .wait(3000)
       .as('request-modal')
       .should('be.visible');
 
@@ -70,11 +73,11 @@ describe('User editing request', () => {
     cy.get('input[name=name]').should('have.value', 'Mr White');
     cy.get('.input > .bg-btn--active').contains('Male');
     cy.get('.request_dropdown [for=department] + div > div[name=department] > div.value').contains('Talent & Development');
-    cy.get('label[for=role] + div > div.value > input.occupationInput').should('have.value', 'Software developer');
+    cy.get('label[for=role] + div > div.value > input#your-role').should('have.value', 'Software developer');
     cy.get('input[name=origin-0]').should('have.value', 'Kampala, Uganda');
-    cy.get('input[name=destination-0]').should('have.value', 'Nairobi, Kenya');
-    cy.get('input[name=departureDate-0]').should('have.value', moment().add(1, 'days').format('MM/DD/YYYY'));
-    cy.get('input[name=arrivalDate-0]').should('have.value', moment().add(2, 'days').format('MM/DD/YYYY'));
+    cy.get('input[name=destination-0]').wait(2000).should('have.value', 'Nairobi, Kenya');
+    cy.get('input[name=departureDate-0]').wait(2000).should('have.value', moment().add(1, 'days').format('MM/DD/YYYY'));
+    cy.get('input[name=arrivalDate-0]').wait(2000).should('have.value', moment().add(2, 'days').format('MM/DD/YYYY'));
 
     // predefined request type selected
     cy.get('input#return').should('be.checked');
@@ -83,7 +86,7 @@ describe('User editing request', () => {
 
   it('should display errors when fields are cleared and the submit button should be disabled', () => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
 
     cy.get('.request__status--open + .menu__container:first').click();
     cy.get('.table__menu-list').should('be.visible');
@@ -91,11 +94,12 @@ describe('User editing request', () => {
 
     // modal is displayed
     cy.get('.modal')
+      .wait(3000)
       .as('request-modal')
       .should('be.visible');
 
-    cy.get('input[name=origin-0]').clear();
-    cy.get('input[name=destination-0]').clear();
+    cy.get('input[name=origin-0]').wait(3000).clear();
+    cy.get('input[name=destination-0]').wait(3000).clear();
     cy.get('input[name=name]').clear();
     cy.get('label[for=role] + div > div.value > input.occupationInput').clear();
     cy.get('#submit').should('be.disabled');
@@ -116,7 +120,7 @@ describe('User editing request', () => {
 
   it('should allow the user to edit the request and see a success message', () => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
 
     cy.get('.request__status--open + .menu__container:first').click();
     cy.get('.table__menu-list').should('be.visible');
@@ -128,25 +132,25 @@ describe('User editing request', () => {
     cy.get('input[name=origin-0]')
       .clear()
       .type('Lagos')
-      .wait(5000)
+      .wait(3000)
       .type('{downarrow}{enter}');
     cy.get('input[name=destination-0]')
       .clear().type('Nairobi')
-      .wait(5000)
+      .wait(3000)
       .type('{downarrow}{enter}');
 
     // Toast success should be visible
     cy.get('.toast-success:contains("Request updated")')
       .should('be.visible');
 
-    // confirm that the edit shows on the table
-    cy.get('td:nth-child(2):first').contains('One-way');
+    // confirm that the edit shows on the tabl
+    cy.get('.table__body > :nth-child(1) > .pl-sm-100').contains('One-way');
     cy.get('td:nth-child(3):first').contains('Lagos, Nigeria');
   });
 
   it('should only allow one to edit an open request', () => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
     cy.get('.request__status--rejected + .menu__container:first').click();
     cy.get('#iconBtn').should('not.be.visible');
     cy.get('.table__menu-container.open .table__menu-list .table__menu-list-item:contains("Cancel"):first').click();
@@ -158,6 +162,11 @@ describe('User editing request', () => {
     cy.get('.request__status--verified + .menu__container:first').click();
     cy.get('#iconBtn').should('not.be.visible');
     cy.get('.table__menu-container.open .table__menu-list .table__menu-list-item:contains("Cancel"):first').click();
+    // Delete request after the edit test
+    cy.get('.request__status--open + .menu__container:first').wait(3000).click();
+    cy.get('#deleteRequest').click();
+    cy.get(':nth-child(1) > .table__requests__status > :nth-child(1) > .table__menu > .menu__container > :nth-child(1) > .table__menu-container > .table__menu-list > #deleteRequest > .overlay > .modal > .modal-content > .delete-checklist-item__footer > .bg-btn')
+      .click();
   });
 
 });
