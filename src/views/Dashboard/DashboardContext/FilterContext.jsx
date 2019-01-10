@@ -10,7 +10,9 @@ export default class FilterContext extends Component {
     super(props);
     const start = moment().startOf('isoWeek').format('YYYY-MM-DD');
     const end = moment().endOf('isoWeek').format('YYYY-MM-DD');
-    const [city] = localStorage.getItem('location').split(',');
+    const city = localStorage.getItem('location') &&
+      localStorage.getItem('location').split(',') ||
+      process.env.REACT_APP_DEFAULT_LOCATION;
     this.state = {
       range: {start, end},
       city
