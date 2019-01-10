@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import './index.scss';
-import errorIcon from '../../images/error_24px.svg';
 import download from '../../images/icons/save_alt_24px.svg';
 import TravelReadiness   from '../TravelReadiness';
 import TripsPerMonthPlaceholder from '../Placeholders/TripsPerMonthPlaceholder';
@@ -9,13 +8,12 @@ import TripsPerMonthPlaceholder from '../Placeholders/TripsPerMonthPlaceholder';
 export default class AnalyticsReport extends Component {
 
   componentDidMount() {
-    const { fetchDepartmentTrips, fetchReadiness, context } = this.props;
-    const { start, end } = context.state.range;
+    const { fetchDepartmentTrips, fetchReadiness, context: { state: { range }} } = this.props;
+    const { start, end } = range;
+    fetchReadiness({page: '1', limit: '9', type:'json', travelFlow: 'inflow', range });
     fetchDepartmentTrips({
       filterBy: 'month', type: 'json', firstDate: start, lastDate: end
     });
-    fetchReadiness({page: '1', limit: '9', type:'json', travelFlow: 'inflow'});
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,7 +37,7 @@ export default class AnalyticsReport extends Component {
     fetchDepartmentTrips({
       filterBy: 'month', type: 'json', firstDate: start, lastDate: end
     });
-  }
+  };
 
   renderButton = (name, icon, text, onclickFunction) => (
     <button
@@ -66,7 +64,7 @@ export default class AnalyticsReport extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   renderNotFound = () => {
     return (
@@ -75,7 +73,7 @@ export default class AnalyticsReport extends Component {
         <p className="analyticsReport__text-center">No data to display</p>
       </div>
     );
-  }
+  };
 
   renderSpinner = () => {
     return (
@@ -85,7 +83,7 @@ export default class AnalyticsReport extends Component {
         <p className="analyticsReport__text-center">generating report...</p>
       </div>
     );
-  }
+  };
 
   renderTripDetailsHeader = () => {
     return (
@@ -104,10 +102,12 @@ export default class AnalyticsReport extends Component {
         </div>
       </Fragment>
     );
-  }
+  };
 
   render() {
-    const { departmentTrips, readiness, fetchReadiness, exportReadiness } = this.props;
+    const {
+      departmentTrips, readiness, fetchReadiness, exportReadiness,
+      context: { state: { range }}  } = this.props;
     const { report, loading, error } = departmentTrips;
     return(
       <div className="analyticsReport">
@@ -117,6 +117,7 @@ export default class AnalyticsReport extends Component {
           renderButton={this.renderButton}
           fetchReadiness={fetchReadiness}
           exportReadiness={exportReadiness}
+          range={range}
           renderSpinner={this.renderSpinner} />
         <div className="analyticsReport__card">
           {loading ? <TripsPerMonthPlaceholder /> : (
@@ -149,7 +150,10 @@ AnalyticsReport.propTypes = {
   fetchReadiness:PropTypes.func.isRequired,
   exportReadiness:PropTypes.func.isRequired,
   context: PropTypes.shape({
-    state: PropTypes.shape({}).isRequired,
+    state: PropTypes.shape({
+      start: PropTypes.string.isRequired,
+      end: PropTypes.string.isRequired,
+    }).isRequired,
     handleFilter: PropTypes.func.isRequired
   }).isRequired
 };
