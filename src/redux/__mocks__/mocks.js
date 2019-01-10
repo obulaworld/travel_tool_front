@@ -52,6 +52,18 @@ export const fetchRoleUsersResponse = {
   ]
 };
 
+export const fetchTeammatesResponse = {
+  teammates: [
+    {
+      name: 'Alice Doe',
+      picture: 'https://randomuser.me/api/portraits/men/25.jpg',
+      destination: 'Lagos',
+      departureDate: '2019-10-16',
+      returnDate: '2018-07-20'
+    }
+  ]
+};
+
 export const fetchRequestsCommentsResponse = {
   id: 'xGh30atGz',
   comment: 'See you next week',
@@ -350,25 +362,25 @@ export const fetchReadinessResponse = {
 };
 
 export const fetchTravelCalendarResponse = {
-  "data": [
+  'data': [
     {
-      name: "Harrison Maina",
-      department: "Apprenticeship Department",
-      role: "Product designer",
+      name: 'Harrison Maina',
+      department: 'Apprenticeship Department',
+      role: 'Product designer',
       flights: {
         arrival: {
-          destination: "Lagos",
-          airline: "Kenya Airways",
-          flightNo: "KQ5752",
-          arrivalTime: "24/10/2018 13:23:33",
-          departureTime: "24/10/2018 13:23:33"
+          destination: 'Lagos',
+          airline: 'Kenya Airways',
+          flightNo: 'KQ5752',
+          arrivalTime: '24/10/2018 13:23:33',
+          departureTime: '24/10/2018 13:23:33'
         },
         departure: {
-          destination: "Nairobi",
-          airline: "Kenya Airways",
-          flightNo: "KQ5752",
-          arrivalTime: "24/10/2018 13:23:33",
-          departureTime: "24/10/2018 13:23:33"
+          destination: 'Nairobi',
+          airline: 'Kenya Airways',
+          flightNo: 'KQ5752',
+          arrivalTime: '24/10/2018 13:23:33',
+          departureTime: '24/10/2018 13:23:33'
         }
       }
     }

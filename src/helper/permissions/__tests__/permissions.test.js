@@ -12,7 +12,6 @@ describe('checkUserPermissions', () => {
 
   it('should redirect if the user does not have permissions', () => {
     const result = checkUserPermission(history,[SUPER_ADMINISTRATOR], [REQUESTER, MANAGER]);
-
     expect(result).toBe(false);
     expect(history.push).toHaveBeenCalledTimes(1);
   });

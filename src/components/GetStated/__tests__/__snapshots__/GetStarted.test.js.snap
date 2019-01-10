@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GetStarted /> should render without crashing 1`] = `
+<div
+  className="started"
+>
+  <div
+    className="card-layout card-layout--start"
+  >
+    <img
+      alt=""
+      className="photo"
+      src="home.png"
+    />
+    <div
+      className="details"
+    >
+      <p
+        className="ready"
+      >
+        Get Travel Ready
+      </p>
+      <p
+        className="confirm"
+      >
+        Confirm you have all the required travel documents today and avoid last minute hassle.
+      </p>
+      <Link
+        replace={false}
+        to="/travel_readiness"
+      >
+        Get Started
+      </Link>
+    </div>
+  </div>
+</div>
+`;

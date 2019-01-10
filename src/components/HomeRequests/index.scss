@@ -1,0 +1,75 @@
+.card--request-table {
+  padding: 0 30px;
+
+  & .thead {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+    & div {
+      height: 20px;
+      width: 74px;
+      color: #4F4F4F;
+      font-size: 15px;
+      font-family: "DIN Pro Medium";
+      line-height: 20px;
+    }
+  }
+
+  & .tbody {
+
+    & .data-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+
+      &__content {
+        height: 18px;
+        width: 74px;
+        color: #4F4F4F;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      &__id {
+        height: 18px;
+        color: #3359DB;
+        font-family: "DIN Pro";
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      &__status {
+        height: 22px;
+        width: 74px;
+        border-radius: 14px;
+        background-color: #49AAAF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #FFFFFF;
+        font-family: "DIN Pro";
+        font-size: 11px;
+        line-height: 14px;
+        text-align: center;
+
+        &--open {
+          background-color: #3359db;
+        }
+
+        &--rejected {
+          background-color: #FF5359;
+        }
+
+        &--verified {
+          background-color: #08c75e;
+        }
+      }
+    }
+
+    & .data-row:not(:last-child) {
+      border-bottom: solid 1px #ccc;
+    }
+  }
+}

@@ -22,8 +22,6 @@ import { getOccupation } from '../../redux/actionCreator/occupationActions';
 import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
 import { fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
-import NotFound from '../ErrorPages';
-
 
 export class Requests extends Base {
   constructor(props) {

@@ -18,6 +18,7 @@ import ConnectedDocuments from '../views/Documents';
 import ConnectedReadiness from '../views/Readiness';
 import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
 import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
+import ConnectedHome from '../views/Home';
 import NotFound from '../views/ErrorPages';
 
 import {
@@ -54,6 +55,11 @@ const Routes = () => (
                 TRAVEL_TEAM_MEMBER
               )
             }
+          />
+          <Route
+            path="/home"
+            exact
+            component={RequireAuth(ConnectedHome)}
           />
           <Route
             path="/requests/my-approvals"
