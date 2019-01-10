@@ -9,7 +9,7 @@ const props = {
       name: 'Alice Doe'
     }
   },
-  bookingDetailsPos: '0px',
+  bookingDetailsPos: 0,
   detailsVariantClass: '',
   toggleBookingDetails: jest.fn(),
   translateDetailsLeft: false,
@@ -54,5 +54,5 @@ describe('<TimelineDetails />', () => {
     const submitButton = wrapper.find('button');
     submitButton.simulate('click');
     expect(props.handleChangeRoomModal).toHaveBeenCalled();
-  })
+  });
 });

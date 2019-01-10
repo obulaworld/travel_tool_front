@@ -58,7 +58,7 @@ describe('Role Saga', () => {
         .dispatch({
           type: 'GET_ROLE_DATA'
         })
-        .run();
+        .silentRun();
     });
     it('throws error if there is an error fetching a roles', () => {
       return expectSaga(watchGetRoleDataSagaAsync, RoleAPI)
@@ -70,7 +70,7 @@ describe('Role Saga', () => {
         .dispatch({
           type: 'GET_ROLE_DATA'
         })
-        .run();
+        .silentRun();
     });
 
     it('update roles ', () => {
@@ -83,7 +83,7 @@ describe('Role Saga', () => {
         .dispatch({
           type: 'PUT_ROLE_DATA'
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error updating a roles', () => {
@@ -96,7 +96,7 @@ describe('Role Saga', () => {
         .dispatch({
           type: 'PUT_ROLE_DATA'
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -116,7 +116,7 @@ describe('Role Saga', () => {
           type: 'ADD_ROLE',
           newRole
         })
-        .run();
+        .silentRun();
     });
     it('throws error if there is an error addin a roles', () => {
       return expectSaga(watchAddRoleSaga, RoleAPI)
@@ -131,7 +131,7 @@ describe('Role Saga', () => {
           type: 'ADD_ROLE',
           newRole
         })
-        .run();
+        .silentRun();
     });
     it('updates a role', () => {
       const response = updateRoleResponse;
@@ -147,7 +147,7 @@ describe('Role Saga', () => {
           type: 'UPDATE_ROLE',
           updateRole
         })
-        .run();
+        .silentRun();
     });
     it('throws an error if it exist when updating roles', () => {
       return expectSaga(watchUpdateRoleSaga, RoleAPI)
@@ -162,7 +162,7 @@ describe('Role Saga', () => {
           type: 'UPDATE_ROLE',
           updateRole
         })
-        .run();
+        .silentRun();
     });
   });
 

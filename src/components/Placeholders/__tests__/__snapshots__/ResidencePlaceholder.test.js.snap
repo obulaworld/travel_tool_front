@@ -6,6 +6,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
 >
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="0"
   >
     <ContentLoader
       height={440}
@@ -131,6 +132,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
   </div>
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="1"
   >
     <ContentLoader
       height={440}
@@ -256,6 +258,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
   </div>
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="2"
   >
     <ContentLoader
       height={440}
@@ -381,6 +384,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
   </div>
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="3"
   >
     <ContentLoader
       height={440}
@@ -506,6 +510,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
   </div>
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="4"
   >
     <ContentLoader
       height={440}
@@ -631,6 +636,7 @@ exports[`<ResidencePlaceholder /> should render without crashing 1`] = `
   </div>
   <div
     className="mdl-cell mdl-cell--4 mdl-card centre-card"
+    key="5"
   >
     <ContentLoader
       height={440}

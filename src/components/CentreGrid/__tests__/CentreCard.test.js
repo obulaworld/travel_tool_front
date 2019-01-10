@@ -12,6 +12,10 @@ const props = {
   beds: 5,
   bathrooms: 4,
   handleOnRestore: jest.fn(),
+  guesthouseId: 'guest-house-1',
+  disabledGuestHouse: {
+    id: 'guest-house-1',
+  }
 };
 
 describe('<CentreCard />', () => {
@@ -57,15 +61,9 @@ describe('<CentreCard />', () => {
   });
 
   it('should call handleOnRestore when the button is clicked', () => {
-    const newProps = {
-      ...props,
-      disabledGuestHouse: {}
-    };
-
-    // wrapper = shallow(<CentreCard {...newProps} />);
     wrapper = mount(
       <Router>
-        <CentreCard {...newProps} />
+        <CentreCard {...props} />
       </Router>
     );
     const { handleOnRestore } = props;

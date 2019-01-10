@@ -20,8 +20,11 @@ class CentreCard extends PureComponent {
     bathrooms: PropTypes.number.isRequired,
     guesthouseId: PropTypes.string.isRequired,
     disabledGuestHouse: PropTypes.object.isRequired,
-    handleOnRestore: PropTypes.func.isRequired
+    handleOnRestore: PropTypes.func
   };
+  static defaultProps = {
+    handleOnRestore: () => null
+  }
 
   handleClick(e) {
     e.preventDefault();
@@ -85,16 +88,16 @@ class CentreCard extends PureComponent {
     const { cardImage, imageAlt, countryFlagImage, guestHouseName, guestHouseLocation, beds,
       bathrooms, guesthouseId, disabledGuestHouse } = this.props;
     return (
-      <div className={disabledGuestHouse ? 
+      <div className={disabledGuestHouse.id ? 
         'mdl-cell mdl-cell--4 mdl-card centre-card-disabled' 
         : 'mdl-cell mdl-cell--4 mdl-card centre-card'}>
-        <Link 
+        <Link
           to={`/residence/manage/guest-houses/${guesthouseId}`} 
-          onClick={disabledGuestHouse ? this.handleClick : ''}
+          onClick={disabledGuestHouse.id ? this.handleClick : ()=>null}
           id="thisGuesthouseLink"
         >
           { this.renderCentreImage(cardImage, imageAlt)}
-          { disabledGuestHouse ? this.renderRestoreButton() : '' }
+          { disabledGuestHouse.id ? this.renderRestoreButton() : '' }
           <div className="mdl-card__supporting-text centre-info">
             <div className="centre-info__container">
               {this.renderCentreFlag(guestHouseLocation, countryFlagImage)}

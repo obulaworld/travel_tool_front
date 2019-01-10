@@ -9,9 +9,14 @@ exports[`<TimelineVerticalAxis /> renders properly without crashing 1`] = `
     key="room-id-1"
   >
     <RoomLabel
+      addmaintenanceRecord={[Function]}
+      closeModal={[Function]}
       guestHouseId="guest-house-id-1"
       id="room-id-1"
+      modalType="Menengai-room-id-1"
       name="Ndovu"
+      openModal={[Function]}
+      shouldOpen={true}
       status={false}
       timelineDateRange={
         Array [
@@ -19,10 +24,12 @@ exports[`<TimelineVerticalAxis /> renders properly without crashing 1`] = `
           "2018-01-31",
         ]
       }
+      updateMaintenanceRecord={[Function]}
       updateRoomState={[Function]}
     />
     <div
       className="bed-name item-row"
+      key="Kitanda1"
     >
       <div>
         Kitanda 1

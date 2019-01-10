@@ -20,7 +20,9 @@ exports[`<Accommodation /> should render correctly 1`] = `
   >
     <NewAccommodation
       closeModal={[Function]}
+      createAccommodation={[Function]}
       editAccommodation={[Function]}
+      editingAccommodation={false}
       fetchAccommodation={[Function]}
       guestHouse={
         Object {
@@ -44,7 +46,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
           "location": "Kampala",
           "rooms": Array [
             Object {
-              "bedCount": "1",
+              "bedCount": 1,
               "createdAt": "2018-10-05T00:07:22.281Z",
               "faulty": false,
               "guestHouseId": "zNnGJAJH5",
@@ -59,7 +61,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
         }
       }
       initFetchTimelineData={[Function]}
-      modalType={null}
+      modalType=""
     />
   </Modal>
   <Modal
@@ -105,9 +107,9 @@ exports[`<Accommodation /> should render correctly 1`] = `
         type="button"
       >
         <ButtonLoadingIcon
+          buttonText="Disable"
           isLoading={false}
         />
-        Disable
       </button>
     </div>
   </Modal>
@@ -147,7 +149,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
             />
           </div>
           <div>
-            01
+            1
           </div>
         </div>
       </div>
@@ -190,10 +192,12 @@ exports[`<Accommodation /> should render correctly 1`] = `
     >
       <GuestHouseDetailCard
         label="Bed Capacity"
-        value="01"
+        period=""
+        value={1}
       />
       <GuestHouseDetailCard
         label="No. of rooms"
+        period=""
         value={1}
       />
       <GuestHouseDetailCard
@@ -209,11 +213,17 @@ exports[`<Accommodation /> should render correctly 1`] = `
     </div>
   </div>
   <Timeline
+    addmaintenanceRecord={[Function]}
+    availableBeds={Array []}
     closeModal={[Function]}
+    deleteMaintenanceRecord={[Function]}
     editMaintenance={Object {}}
+    fetchAvailableRooms={[Function]}
     fetchTimelineRoomsData={[Function]}
     guestHouseId="zNnGJAJH5"
     handlePeriod={[Function]}
+    loading={false}
+    loadingBeds={false}
     maintenanceDetails={Object {}}
     modal={
       Object {
@@ -226,7 +236,7 @@ exports[`<Accommodation /> should render correctly 1`] = `
     rooms={
       Array [
         Object {
-          "bedCount": "1",
+          "bedCount": 1,
           "createdAt": "2018-10-05T00:07:22.281Z",
           "faulty": false,
           "guestHouseId": "zNnGJAJH5",
@@ -238,6 +248,8 @@ exports[`<Accommodation /> should render correctly 1`] = `
       ]
     }
     shouldOpen={false}
+    updateMaintenanceRecord={[Function]}
+    updateRoomState={[Function]}
     updateTripRoom={[Function]}
   />
 </div>

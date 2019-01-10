@@ -30,7 +30,7 @@ RadioButton.propTypes = {
   name: PropTypes.string,
   value:  PropTypes.string,
   id:  PropTypes.string,
-  defaultChecked: PropTypes.string,
+  defaultChecked: PropTypes.bool,
 };
 
 RadioButton.defaultProps = {

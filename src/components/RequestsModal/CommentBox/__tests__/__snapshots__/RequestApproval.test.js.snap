@@ -10,6 +10,7 @@ exports[`RequestApproval component should match snapshot 1`] = `
     <ImageLink
       altText="avatar"
       imageClass="modal__oval-copy"
+      imageSrc="http://this.travela.img"
     />
     <span
       className="modal__user-name"

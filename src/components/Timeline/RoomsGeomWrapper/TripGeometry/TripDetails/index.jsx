@@ -154,7 +154,7 @@ export default class TripDetails extends Component {
 
 TripDetails.propTypes = {
   trip: PropTypes.object.isRequired,
-  bookingDetailsPos: PropTypes.string,
+  bookingDetailsPos: PropTypes.number, //line 145 expects this to be a number
   detailsVariantClass: PropTypes.string,
   toggleBookingDetails: PropTypes.func.isRequired,
   translateDetailsLeft: PropTypes.bool,
@@ -162,7 +162,7 @@ TripDetails.propTypes = {
 };
 
 TripDetails.defaultProps = {
-  bookingDetailsPos: '100px',
+  bookingDetailsPos: 0,
   detailsVariantClass: 'hidden',
   translateDetailsLeft: false
 };

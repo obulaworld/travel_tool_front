@@ -109,8 +109,6 @@ class TravelDetailsFieldset extends Component {
       handleDate,
       handlePickBed,
       removeTrip,
-      parentIds,
-      existingTrips,
       availableRooms,
       modalType,
       requestOnEdit

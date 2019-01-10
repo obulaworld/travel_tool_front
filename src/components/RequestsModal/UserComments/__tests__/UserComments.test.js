@@ -8,7 +8,7 @@ const event = {
 };
 
 const comments = [{
-  id: 1,
+  id: '1', // commentItem expects this to be a string
   userName: 'Smith Allen',
   picture: '/path/to/image',
   createdAt: '',
@@ -52,8 +52,10 @@ describe('UserComments component', () => {
 
   it('should call editComment', () => {
     const spy = jest.spyOn(wrapper.instance(), 'editComment');
-    wrapper.instance().editComment(1);
-    expect(spy).toHaveBeenCalledTimes(1);  });
+    wrapper.instance().editComment(comments[0]); //pass the comment with actual id,test and  is edited
+    wrapper.instance().handleCancelClick(event);
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 
   it('should call handleCancelClick', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleCancelClick');

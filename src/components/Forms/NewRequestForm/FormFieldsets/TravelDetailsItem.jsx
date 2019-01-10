@@ -229,10 +229,10 @@ class TravelDetailsItem extends Component {
             <div>
               {
                 renderInput(`bed-${itemId}`, 'text', {
+                  value: '',
                   className: 'room-dropdown',
                   placeholder: 'Choose rooms',
-                  disabled: missingRequiredFields,
-                  choices: [],
+                  disabled: missingRequiredFields
                 })
               }
               <img

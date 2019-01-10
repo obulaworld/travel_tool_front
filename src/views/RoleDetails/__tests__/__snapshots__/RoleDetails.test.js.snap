@@ -29,10 +29,10 @@ exports[`<ROleDetails /> renders correctly 1`] = `
       handleUpdateRole={[Function]}
       myTitle="Add User"
       role="Travel team member"
-      roleId={335498}
+      roleId="335498"
       updateUserCenter={[Function]}
       updatingRole={false}
-      userDetail=""
+      userDetail={Object {}}
     />
   </Modal>
   <div
@@ -80,6 +80,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
               },
             ],
             "fullName": "A user",
+            "id": 1,
           },
         ]
       }

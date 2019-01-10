@@ -22,7 +22,8 @@ const props = {
   shouldOpen: false,
   onNotificationToggle: jest.fn(),
   occupations: [],
-  getOccupation: jest.fn()
+  getOccupation: jest.fn(),
+  getUserData: jest.fn()
 
 };
 

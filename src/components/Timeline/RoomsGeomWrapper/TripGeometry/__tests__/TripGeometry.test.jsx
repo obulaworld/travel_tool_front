@@ -10,7 +10,8 @@ const props = {
       gender: 'Male'
     }
   },
-  tripDayWidth: 31
+  tripDayWidth: 31,
+  handleChangeRoomModal: jest.fn()
 };
 
 const bookingDetailsPosEvent = {

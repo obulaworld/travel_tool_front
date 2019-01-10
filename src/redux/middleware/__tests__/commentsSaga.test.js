@@ -39,7 +39,7 @@ describe('Comments saga', () => {
           requestId: commentData.requestId,
           comment: commentData.comment
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error while creating a comment', () => {
@@ -56,7 +56,7 @@ describe('Comments saga', () => {
           requestId: commentData.requestId,
           comment: commentData.comment
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -95,7 +95,7 @@ describe('Comments saga', () => {
           comment: commentData.comment,
           id
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error while updating a comment', () => {
@@ -113,7 +113,7 @@ describe('Comments saga', () => {
           comment: commentData.comment,
           id
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -139,7 +139,7 @@ describe('Comments saga', () => {
           requestId,
           commentId,
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error while deleting a comment', () => {
@@ -156,7 +156,7 @@ describe('Comments saga', () => {
           requestId,
           commentId,
         })
-        .run();
+        .silentRun();
     });
   });
 });

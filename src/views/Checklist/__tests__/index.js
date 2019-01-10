@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 import ConnectedChecklist, { Checklist, mapStateToProps } from '../index';
 import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 
@@ -33,31 +34,43 @@ const initialState = {
 };
 let shallowWrapper, mountWrapper, parentWrapper;
 
+const props = {
+  openModal: sinon.spy(),
+  closeModal: sinon.spy(),
+  createTravelChecklist: jest.fn(),
+  fetchTravelChecklist: jest.fn(),
+  deleteTravelChecklist: jest.fn(),
+  updateTravelChecklist: jest.fn(),
+  restoreChecklist: jest.fn(),
+  handleInputChange: jest.fn(),
+  fetchDeletedChecklistItems: jest.fn(),
+  getCurrentUserRole: ['Travel Administrator'],
+  shouldOpen: false,
+  modalType: 'edit cheklistItem',
+  checklistItems: travelChecklistMockData,
+  deletedChecklistItems: [
+    travelChecklistMockData[0].checklist[0]
+  ],
+  currentUser: {
+    location: 'Nairobi'
+  },
+  isLoading: false,
+  history: {
+    push: jest.fn()
+  }
+};
+
+const middleware = [createSagaMiddleware];
+const mockStore = configureStore(middleware);
+
+
 describe('<Checklist> component', () => {
-  const props = {
-    openModal: sinon.spy(),
-    closeModal: sinon.spy(),
-    createTravelChecklist: jest.fn(),
-    fetchTravelChecklist: jest.fn(),
-    deleteTravelChecklist: jest.fn(),
-    updateTravelChecklist: jest.fn(),
-    restoreChecklist: jest.fn(),
-    handleInputChange: jest.fn(),
-    fetchDeletedChecklistItems: jest.fn(),
-    getCurrentUserRole: ['Travel Administrator'],
-    shouldOpen: false,
-    modalType: 'edit cheklistItem',
-    checklistItems: travelChecklistMockData,
-    deletedChecklistItems: travelChecklistMockData,
-    currentUser: {
-      location: 'Nairobi'
-    },
-    isLoading: false,
-  };
+
+  const store = mockStore(initialState);
   beforeEach(() => {
     shallowWrapper = mount( <Checklist {...props} />);
     mountWrapper = mount(
-      <Provider>
+      <Provider store={store}>
         <MemoryRouter>
           <Checklist {...props} />
         </MemoryRouter>
@@ -65,14 +78,17 @@ describe('<Checklist> component', () => {
     );
     parentWrapper = mountWrapper.find(Checklist);
   });
+
   it('should render the Checklist page without crashing', () => {
     expect(shallowWrapper.length).toBe(1);
   });
+
   it('renders loading indicator if `isLoading is true`', () => {
     const wrapper = shallowWrapper;
     wrapper.setProps({ isLoading: true});
     expect(wrapper.find('.loader').length).toBe(3);
   });
+
   it('should call the setItemToDelete function', () => {
     const checklistItemId = { id: 5 };
     const wrapper = shallowWrapper;
@@ -135,6 +151,7 @@ describe('<Checklist> component', () => {
     wrapperInstance.deleteChecklistItem(event);
     expect(deleteTravelChecklist).toBeCalledWith(state.checklistItemId, state);
   });
+
   it('should call the restoreTravelChecklist function', () => {
     const state = {
       checklistItemId: '',
@@ -220,29 +237,27 @@ describe('<Checklist> component', () => {
 });
 
 describe('<Checklist> component without created or deleted travel checklist items',() => {
-  const props = {
-    openModal: sinon.spy(),
-    closeModal: sinon.spy(),
-    createTravelChecklist: jest.fn(),
-    fetchTravelChecklist: jest.fn(),
-    deleteTravelChecklist: jest.fn(),
-    fetchDeletedChecklistItems: jest.fn(),
-    getCurrentUserRole: ['Travel Administrator'],
-    shouldOpen: false,
+  
+  const secondaryInitialState ={
+    ...initialState,
+    travelChecklist: {
+      checklistItems: []
+    }
+  };
+  const secondaryProps = {
+    ...props,
     modalType: '',
     checklistItems: [],
     deletedChecklistItems: [],
-    currentUser: {
-      location: 'Nairobi'
-    },
-    isLoading: false
   };
+
+  const store = mockStore(secondaryInitialState);
   beforeEach(() => {
-    shallowWrapper = shallow( <Checklist {...props} />);
+    shallowWrapper = shallow( <Checklist {...secondaryProps} />);
     mountWrapper = mount(
-      <Provider>
+      <Provider store={store}>
         <MemoryRouter>
-          <Checklist {...props} />
+          <Checklist {...secondaryProps} />
         </MemoryRouter>
       </Provider>
     );

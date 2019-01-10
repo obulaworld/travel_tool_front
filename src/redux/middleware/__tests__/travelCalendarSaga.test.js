@@ -62,7 +62,7 @@ describe('Travel Calendar Saga', () => {
           type: DOWNLOAD_CALENDAR_ANALYTICS,
           query: '?type=file'
         })
-        .run();
+        .silentRun();
     });
   it('should throw an error when downloading travel calendar data fails', () => {
     expectSaga(watchDownloadCalendarAnalytics, TravelCalendarAPI)

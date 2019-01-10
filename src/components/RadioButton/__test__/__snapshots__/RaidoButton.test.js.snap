@@ -10,16 +10,18 @@ exports[`<RadioButton /> should render correctly 1`] = `
 >
   <li>
     <input
-      checked=""
-      id=""
+      checked={false}
+      id="0o3"
       name="selector"
       onChange={[Function]}
       type="radio"
-      value=""
+      value="20"
     />
     <label
-      htmlFor=""
-    />
+      htmlFor="0o3"
+    >
+      lamp
+    </label>
     <div
       className="check"
     />

@@ -9,7 +9,8 @@ const props = {
   fetchUsersNotification: jest.fn(),
   notifications: [...notificationMockData],
   markSingleNotificationAsRead: jest.fn(),
-  updateAllNotificationStatus: jest.fn()
+  updateAllNotificationStatus: jest.fn(),
+  singleNotificationRead: 0
 };
 describe('Notification Pane Component', () => {
   const setup = () => shallow(<NotificationPane {...props} />);

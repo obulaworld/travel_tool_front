@@ -61,6 +61,7 @@ exports[`<RoomLabel /> should match snapshot 1`] = `
           "17/12/2018",
         ]
       }
+      updateMaintenanceRecord={[Function]}
     />
   </Modal>
 </div>

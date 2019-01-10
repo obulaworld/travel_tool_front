@@ -6,6 +6,8 @@ import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
 import { Layout } from '..';
 import {REQUESTER} from '../../../helper/roles';
+import { NavBar } from '../../../components/nav-bar/NavBar';
+import notificatonsMockData from '../../../components/nav-bar/__mocks__/notificationMockData-navBar';
 
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
@@ -23,7 +25,10 @@ const initialState = {
   modal: {
     modal: {}
   },
-  notifications: []
+  notifications: {
+    notifications: [],
+    singleNotificationRead: 0
+  }
 };
 
 const store = mockStore(initialState);
@@ -40,23 +45,34 @@ const props = {
     }
   },
   getUserData: jest.fn(),
+  isLoaded: true
 };
 
 describe('Layout component', () => {
-  describe('<Layout />', () => {
+  describe('Layout Mount', () => {
+    const mountProps = {
+      ...props,
+      history: {
+        push: jest.fn()
+      },
+      logout: jest.fn()
+    };
 
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Layout {...props} location={{}}>
-            <div>
-              Test Content
-            </div>
-          </Layout>
-        </MemoryRouter>
-      </Provider>
-    );
+    let wrapper;
 
+    beforeEach(() => {
+      wrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter>
+            <Layout {...mountProps} location={{}}>
+              <div>
+                Test Content
+              </div>
+            </Layout>
+          </MemoryRouter>
+        </Provider>
+      );
+    });
 
     it('should render all the components except the notification pane', () => {
       expect(wrapper.find('.sidebar').length).toBe(1);// LeftSideBar
@@ -85,11 +101,35 @@ describe('Layout component', () => {
       expect(wrapper.find('.notification.hide').exists()).toBeTruthy();
     });
 
-    it.skip('should log the user out when the logout button is clicked', () => {
-      const spy = sinon.spy(wrapper.instance(), 'logout');
+    it('should log the user out when the logout button is clicked', () => {
+      const customProps = {
+        onNotificationToggle: jest.fn(),
+        avatar: 'avatar',
+        history: {
+          push: jest.fn()
+        },
+        openSearch: true,
+        handleHideSearchBar: jest.fn(),
+        notifications: [...notificatonsMockData],
+        user: {
+          UserInfo: {
+            name: 'Tomato Jos',
+            picture: 'http://picture.com/gif'
+          }
+        },
+        location: {
+          search: 'search=gjg',
+          pathname: 'requests'
+        }
+      };
+      const navBarSetup = () => mount(
+        <MemoryRouter>
+          <NavBar {...customProps} />
+        </MemoryRouter>
+      );
+      wrapper = navBarSetup();
       wrapper.find('#logout').simulate('click');
-      expect(spy.calledOnce).toEqual(true);
-      expect(history.push).toHaveBeenCalledWith('/');
+      expect(customProps.history.push).toHaveBeenCalledWith('/');
     });
   });
 

@@ -34,7 +34,7 @@ describe('Auth Saga', () => {
         .dispatch({
           type: 'SET_CURRENT_USER'
         })
-        .run();
+        .silentRun();
     });
   });
 });

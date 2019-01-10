@@ -37,6 +37,7 @@ exports[`<NewUserRoleForm /> <PersonalDetails /> renders correctly 1`] = `
         name="center"
         onChange={null}
         required={true}
+        size=""
         type="dropdown-select"
       />
     </div>
@@ -134,6 +135,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
               onKeyPress={[Function]}
               required={true}
               role="button"
+              size=""
               tabIndex="0"
               type="dropdown-select"
               value="New York, USA"
@@ -142,7 +144,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 className="value"
                 style={
                   Object {
-                    "width": undefined,
+                    "width": "",
                   }
                 }
               >
@@ -202,7 +204,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        <undefined />
+        Submit
       </button>
     </div>
   </fieldset>

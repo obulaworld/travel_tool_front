@@ -1,10 +1,13 @@
 
 import moment from 'moment';
-import generateDynamicDate from './generateDynamicDate';
 
 const generateDynamicTime = (date) => {
-  const createdAt = moment(date).format('MM/DD/YYYY @ h:mm a');
-  return moment(createdAt).fromNow();
+  // Validating date input before return https://momentjs.com/docs/#/parsing/special-formats/
+
+  const validDate = moment(date, moment.ISO_8601).isValid();
+  if(validDate){
+    return moment(date).fromNow();
+  }
 };
 
 export default generateDynamicTime;

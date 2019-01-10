@@ -123,6 +123,11 @@ NewChecklistForm.propTypes = {
   createTravelChecklist: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   updateTravelChecklist: PropTypes.func.isRequired,
-  modalType: PropTypes.string.isRequired,
-  checklistItem: PropTypes.object.isRequired,
+  modalType: PropTypes.string,
+  checklistItem: PropTypes.object,
+};
+
+NewChecklistForm.defaultProps = {
+  checklistItem: null,
+  modalType: null
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
+import { type } from 'os';
 import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 
@@ -36,18 +37,19 @@ describe('<NewRequestForm />', () => {
   const props = {
     occupations: [{occupationName: 'Software Developer'}, {occupationName: 'HR'}],
     loading: false,
-    errors: [],
     user: {
       UserInfo: {
-        id: '09ijrjt'
+        id: '-LJNw1BsT0LP_E4l2peP',
+        name: 'Collins',
       }
     },
     userData:{
       id: '2',
       fullName: 'Collins Muru',
+      name: 'Collins',
       email: 'collins.muru@andela.com',
       userId: '-LJNw1BsT0LP_E4l2peP',
-      passportName: '',
+      passportName: 'Collins',
       department: 'Talent & Development',
       occupation: 'Software Developer',
       manager: 'Collins',
@@ -89,19 +91,18 @@ describe('<NewRequestForm />', () => {
     getUserData: jest.fn(() => {}),
     handleCreateRequest: jest.fn(() => {}),
     updateUserProfile: jest.fn(() => {}),
-    creatingRequest: jest.fn(() => {}),
+    creatingRequest: false,
     handleEditRequest: jest.fn(() => {}),
     fetchUserRequests: jest.fn(() => {}),
     fetchAvailableRooms: jest.fn(() => {}),
     fetchAvailableRoomsSuccess: jest.fn(() => {}),
     closeModal: jest.fn(),
     choices: ['director', 'chef'],
-    managers: [
-      {
-        fullName: 'Test User',
-        email: 'test.user@andela.com'
-      }
-    ]
+    managers: [{
+      fullName: 'Test User',
+      email: 'test.user@andela.com'
+    }],
+    modalType:'new model'
   };
   const event = {
     preventDefault: jest.fn(),
@@ -138,6 +139,7 @@ describe('<NewRequestForm />', () => {
 
 
   beforeEach(() => {
+    process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
     wrapper = mount(<NewRequestForm {...props} />);
   });
 
@@ -169,9 +171,11 @@ describe('<NewRequestForm />', () => {
     wrapper.find('input[name="name"]').simulate('change', {
       target: {
         name: 'name',
-        value: 'John Mutuma'
+        value: 'John Mutuma',
+        type: 'text'
       }
     });
+    wrapper.update();
     expect(wrapper.state().values.name).toBe('John Mutuma');
   });
 
@@ -245,7 +249,6 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.instance().onChangeDate(date, event);
     expect(shallowWrapper.instance().onChangeDate.calledOnce).toEqual(true);
   });
-
 
   it('call event when location is picked', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
@@ -445,7 +448,6 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().collapsible.calledOnce).toEqual(true);
   });
 
-
   it('selects female gender on button click', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
     femaleButton.simulate('click', {
@@ -490,8 +492,6 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state('values').gender).toBe('Male');
   });
 
-
-
   it('selects gender with browsers that do not support custom datasets', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
     femaleButton.simulate('click', {
@@ -505,21 +505,6 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should not toggle the modal if request submission failed', () => {
-    wrapper.setState({
-      values: {
-        name: 'test',
-        gender: 'test',
-        department: 'test',
-        role: 'test',
-        manager: 'test',
-        origin: 'test',
-        destination: 'Nairobi',
-        otherDestination: '',
-        departureDate: '09/27/1988',
-        arrivalDate: '09/27/1988',
-        bed: beds[0].id
-      }
-    });
     wrapper.setProps({
       errors: ['error while creating a new request']
     });
@@ -542,12 +527,10 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state()).toMatchObject({});
   });
 
-
   it('should render a loading indicator while creating a new request', () => {
     wrapper.setProps({ creatingRequest: true });
     expect(wrapper.find('h5').text()).toEqual('Creating request...');
   });
-
 
   it('should submit travel details ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);

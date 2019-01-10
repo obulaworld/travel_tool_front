@@ -5,9 +5,11 @@ import moment from 'moment';
 const props = {
   beds: [{
     bedName: 'kitanda 1',
-    bedId: 1
+    id: 1, //BedGeomWrapper expects this to be id
+    trips: []
   }],
   maintainances:[{
+    id: 'repair1', // TimelineBarWrapper expects maintanance to have and id
     reason:'Bad window',
     start: '11-10-2018',
     end: '11-10-2018'
@@ -15,7 +17,10 @@ const props = {
   timelineStartDate: moment().startOf('month'),
   tripDayWidth: 31,
   timelineViewType: 'month',
-  status: false
+  status: false,
+  handleChangeRoomModal: jest.fn(),
+  handleEditMaintenanceModal: jest.fn(),
+  handleDeleteMaintenanceModal: jest.fn(),
 };
 
 const bookingDetailsPosEvent = {

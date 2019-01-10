@@ -12,15 +12,18 @@ describe('<Documents />', () => {
     shouldOpen: false,
     modalType: '',
     isLoading: false,
+    isUpdating: false,
+    isUploading: false,
     editDocument: jest.fn(),
+    createDocument: jest.fn(),
     documentOnEdit: {
       id: '1',
       name: 'Passport',
       cloudinary_public_id: 'e93h236FvT',
       cloudinary_url: 'https://image.jpg',
       userId: '-LMgZQKq6MXAj_41iRWi',
-      createdAt: '2018-08-16 012:11:52.181+01',
-      updatedAt: '2018-08-16 012:11:52.181+01',
+      createdAt: '2018-08-16 12:11:52.181+01',
+      updatedAt: '2018-08-16 12:11:52.181+01',
     },
     updateDocumentOnEdit: jest.fn(),
     removeDocumentFromEdit: jest.fn(),
@@ -34,8 +37,8 @@ describe('<Documents />', () => {
         cloudinary_public_id: 'e93h236FvT',
         cloudinary_url: 'https://image.jpg',
         userId: '-LMgZQKq6MXAj_41iRWi',
-        createdAt: '2018-08-16 012:11:52.181+01',
-        updatedAt: '2018-08-16 012:11:52.181+01',
+        createdAt: '2018-08-16 12:11:52.181+01',
+        updatedAt: '2018-08-16 12:11:52.181+01',
       },
       {
         id: '2',
@@ -43,8 +46,8 @@ describe('<Documents />', () => {
         cloudinary_public_id: 'e93h236FvT',
         cloudinary_url: 'https://image.url',
         userId: '-LMgZQKq6MXAj_41iRWi',
-        createdAt: '2018-08-16 012:11:52.181+01',
-        updatedAt: '2018-08-16 012:11:52.181+01',
+        createdAt: '2018-08-16 12:11:52.181+01',
+        updatedAt: '2018-08-16 12:11:52.181+01',
       }
     ],
   };
@@ -83,8 +86,8 @@ describe('<Documents />', () => {
       cloudinary_public_id: 'e93h236FvT',
       cloudinary_url: 'https://image.jpg',
       userId: '-LMgZQKq6MXAj_41iRWi',
-      createdAt: '2018-08-16 012:11:52.181+01',
-      updatedAt: '2018-08-16 012:11:52.181+01',
+      createdAt: '2018-08-16 12:11:52.181+01',
+      updatedAt: '2018-08-16 12:11:52.181+01',
     };
     const wrapper = shallow(<Documents {...props} />);
     wrapper.instance().state = {
@@ -104,8 +107,8 @@ describe('<Documents />', () => {
       cloudinary_public_id: 'e93h236FvT',
       cloudinary_url: 'https://image.jpg',
       userId: '-LMgZQKq6MXAj_41iRWi',
-      createdAt: '2018-08-16 012:11:52.181+01',
-      updatedAt: '2018-08-16 012:11:52.181+01',
+      createdAt: '2018-08-16 12:11:52.181+01',
+      updatedAt: '2018-08-16 12:11:52.181+01',
     };
 
     const wrapper = shallow(<Documents {...props} />);

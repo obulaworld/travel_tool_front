@@ -24,7 +24,11 @@ let props = {
   toggleMenu: jest.fn(),
   requestStatus: '',
   type: '',
-  editRequest: sinon.spy(() => Promise.resolve())
+  shouldOpen: false,
+  openModal: jest.fn(),
+  closeModal: jest.fn(),
+  editRequest: sinon.spy(() => Promise.resolve()),
+  deleteRequest: sinon.spy(() => Promise.resolve())
 };
 
 let wrapper = shallow(<TableMenu {...props} />);

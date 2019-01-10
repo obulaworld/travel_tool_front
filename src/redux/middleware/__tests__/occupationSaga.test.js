@@ -27,7 +27,7 @@ describe('occupations saga', () => {
       .dispatch({
         type: 'FETCH_OCCUPATIONS'
       })
-      .run();
+      .silentRun();
   }
   );
 
@@ -46,6 +46,6 @@ describe('occupations saga', () => {
       .dispatch({
         type: 'FETCH_OCCUPATIONS'
       })
-      .run();
+      .silentRun();
   });
 });

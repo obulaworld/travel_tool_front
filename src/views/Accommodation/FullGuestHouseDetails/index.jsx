@@ -59,7 +59,7 @@ export class GuestHouseDetails extends PureComponent {
   }
 
   renderGuestHouseDetailsNameBar = () => {
-    const { match, history, guestHouse, userId } = this.props;
+    const { match, history, guestHouse } = this.props;
     return (
       <div className="guesthouse-details-wrapper--top">
         <div className="details-wrapper-top-right">
@@ -186,8 +186,7 @@ export class GuestHouseDetails extends PureComponent {
         <div className="delete-checklist-item__footer delete-checklist-item__right">
           <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
           <button id="disableGuestHouseId" disabled={disableGustHouseButtonState} type="button" className="restore-checklist-items__footer--delete" onClick={this.disableGuestHouse}>
-            <ButtonLoadingIcon isLoading={disableGustHouseButtonState} />
-            Disable
+            <ButtonLoadingIcon buttonText="Disable" isLoading={disableGustHouseButtonState} />
           </button>
         </div>
       </Modal>
@@ -208,7 +207,7 @@ export class GuestHouseDetails extends PureComponent {
         title={`Edit ${guestHouse.houseName}`}
       >
         <NewAccommodationForm
-          closeModal={closeModal} modalType={modalType} fetchAccommodation={fetchAccommodation}
+          closeModal={closeModal} modalType={modalType || ''} fetchAccommodation={fetchAccommodation}
           editAccommodation={editAccommodation} editingAccommodation={editingAccommodation}
           guestHouse={guestHouse} initFetchTimelineData={initFetchTimelineData}
         />
@@ -242,9 +241,11 @@ export class GuestHouseDetails extends PureComponent {
                     <div className="guesthouse-details-wrapper--key-details">
                       <GuestHouseDetailCard
                         label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
+                        period=""
                       />
                       <GuestHouseDetailCard
                         label="No. of rooms" value={guestHouse.rooms.length}
+                        period=""
                       />
                       <GuestHouseDetailCard
                         label="Vacant spaces"
@@ -262,7 +263,7 @@ export class GuestHouseDetails extends PureComponent {
           <Timeline
             modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
             modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
-            rooms={guestHouse.rooms} guestHouseId={guestHouse.id} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
+            rooms={guestHouse.rooms} guestHouseId={guestHouse.id || ''} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
             updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
             deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
             availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
@@ -276,14 +277,14 @@ export class GuestHouseDetails extends PureComponent {
 
 GuestHouseDetails.propTypes = {
   maintenance: PropTypes.object, guestHouse: PropTypes.object,
-  match: PropTypes.object.isRequired, history: PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired, history: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired, closeModal: PropTypes.func.isRequired,
   initFetchTimelineData: PropTypes.func,
   updateRoomState: PropTypes.func.isRequired,
   addmaintenanceRecord:PropTypes.func.isRequired,
   deleteMaintenanceRecord:PropTypes.func.isRequired,
   updateMaintenanceRecord:PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired, modal: PropTypes.func.isRequired,
+  modal: PropTypes.object.isRequired,
   fetchAccommodation: PropTypes.func.isRequired, editAccommodation: PropTypes.func.isRequired,
   editingAccommodation: PropTypes.bool.isRequired,
   updateTripRoom: PropTypes.func.isRequired, availableBeds: PropTypes.array.isRequired,

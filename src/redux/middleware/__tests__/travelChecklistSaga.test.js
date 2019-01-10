@@ -38,6 +38,7 @@ toast.error = jest.fn();
 toast.success = jest.fn();
 
 describe('Travel Checklist Saga test', () => {
+  const error = new Error('Server error, try again');
   describe('Delete travel checklist item', () => {
     const checklistItemId = '23ErGDS6';
     const deleteReason = 'Hello world';
@@ -65,10 +66,10 @@ describe('Travel Checklist Saga test', () => {
           checklistItemId,
           deleteReason
         })
-        .run();
+        .silentRun();
     });
+
     it('handles failed travel checklist item delete', () => {
-      const error = new Error('Server error, try again');
       error.response = { status: 500 };
 
       return expectSaga(watchDeleteChecklist)
@@ -87,9 +88,10 @@ describe('Travel Checklist Saga test', () => {
           checklistItemId,
           deleteReason
         })
-        .run();
+        .silentRun();
     });
   });
+
   describe('Fetch travel checklist', () => {
     const response = {
       data: {
@@ -113,7 +115,7 @@ describe('Travel Checklist Saga test', () => {
           type: FETCH_TRAVEL_CHECKLIST,
           requestId
         })
-        .run();
+        .silentRun();
     });
 
     it('fetches all travel checklist', () => {
@@ -130,7 +132,7 @@ describe('Travel Checklist Saga test', () => {
           type: FETCH_TRAVEL_CHECKLIST,
           requestId: undefined
         })
-        .run();
+        .silentRun();
     });
 
     it('handles failed travel checklist fetch', () => {
@@ -150,7 +152,7 @@ describe('Travel Checklist Saga test', () => {
           type: FETCH_TRAVEL_CHECKLIST,
           requestId
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -188,7 +190,7 @@ describe('Travel Checklist Saga test', () => {
           type: CREATE_TRAVEL_CHECKLIST,
           checklistItemData: action.checklist
         })
-        .run();
+        .silentRun();
     });
 
     it('handles failed travel checklist creation', () => {
@@ -214,7 +216,7 @@ describe('Travel Checklist Saga test', () => {
           type: CREATE_TRAVEL_CHECKLIST,
           checklistItemData: action.checklist
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -227,15 +229,6 @@ describe('Travel Checklist Saga test', () => {
     const response = {
       data: {
         updatedChecklistItem: { name: 'updatedItem'}
-      }
-    };
-
-    const error = {
-      response: {
-        status: 422,
-        data: {
-          errors: ['update error']
-        }
       }
     };
 
@@ -254,7 +247,7 @@ describe('Travel Checklist Saga test', () => {
           checklistItemId: '20',
           checklistItemData: {name: 'ItemUpdates'}
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error when updating fails', () => {
@@ -264,14 +257,14 @@ describe('Travel Checklist Saga test', () => {
         ])
         .put({
           type: UPDATE_TRAVEL_CHECKLIST_FAILURE,
-          error: 'Bad Request. ',
+          error: error.message
         })
         .dispatch({
           type: UPDATE_TRAVEL_CHECKLIST,
           checklistItemId: '20',
           checklistItemData: {name: 'ItemUpdates'}
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -296,25 +289,23 @@ describe('Travel Checklist Saga test', () => {
           type: FETCH_DELETED_CHECKLISTITEMS,
           destinationName
         })
-        .run();
+        .silentRun();
     });
 
     it('throws an error when fetching deleted checlist items fails', () => {
-      const error = new Error('Server error, try again');
-      error.response = { status: 500 };
       expectSaga(watchFetchDeletedChecklistItems, TravelChecklistAPI)
         .provide([
           [matchers.call.fn(TravelChecklistAPI.getDeletedCheckListItems, destinationName), throwError(error)]
         ])
         .put({
           type: FETCH_DELETED_CHECKLISTITEMS_FAILURE,
-          error
+          error: error.message
         })
         .dispatch({
           type: FETCH_DELETED_CHECKLISTITEMS,
           destinationName
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -338,7 +329,6 @@ describe('Travel Checklist Saga test', () => {
       }
     };
 
-
     it('restores a disabled travel checklist item successfully', () => {
       return expectSaga(watchRestoreChecklist)
         .provide([[
@@ -355,8 +345,9 @@ describe('Travel Checklist Saga test', () => {
           checklistItemId: '20',
           checklistItemData: {name: 'ItemRestores'}
         })
-        .run();
+        .silentRun();
     });
+
     it('throws an error when item restore fails', () => {
       expectSaga(watchRestoreChecklist)
         .provide([
@@ -371,7 +362,7 @@ describe('Travel Checklist Saga test', () => {
           checklistItemId: '20',
           checklistItemData: {deletedAt: '2018-11-26T08:33:16.139Z'}
         })
-        .run();
+        .silentRun();
     });
   });
 });

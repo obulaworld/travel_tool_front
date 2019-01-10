@@ -8,7 +8,7 @@ exports[`<MaintenanceDetails /> renders properly 1`] = `
   role="presentation"
   style={
     Object {
-      "left": "100pxpx",
+      "left": "0px",
       "position": "absolute",
     }
   }

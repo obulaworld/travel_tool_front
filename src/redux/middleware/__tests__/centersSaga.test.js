@@ -55,7 +55,7 @@ describe('Centers Saga', () => {
       .dispatch({
         type: 'FETCH_CENTERS'
       })
-      .run();
+      .silentRun();
   });
   it('throws error if there is an error fetching a user\'s requests', () => {
     return expectSaga(watchFetchCenters, CentersAPI)
@@ -67,7 +67,7 @@ describe('Centers Saga', () => {
       .dispatch({
         type: 'FETCH_CENTERS'
       })
-      .run();
+      .silentRun();
   });
 
   describe('Update user center  Saga', () => {
@@ -87,7 +87,7 @@ describe('Centers Saga', () => {
             center: 'New York, USA'
           }
         })
-        .run();
+        .silentRun();
     });
 
     it('throws error if there is an error fetching a user\'s requests', () => {
@@ -105,7 +105,7 @@ describe('Centers Saga', () => {
         .dispatch({
           type: 'UPDATE_USER_CENTER'
         })
-        .run();
+        .silentRun();
     });
   });
 });

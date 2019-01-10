@@ -24,12 +24,20 @@ describe ('<ProfileForm />', () =>{
     getUserData: jest.fn(() => {}),
     onChange: jest.fn(() => {}),
     size:10,
+    userData: {},
     managers: [
       {
         fullName: 'Test User',
         email: 'test.user@andela.com'
       }
-    ]
+    ],
+    userData: {
+      passportName: 'John Doe', 
+      gender: 'Female', 
+      department: 'Success',
+      occupation: 'CEO',
+      manager: 'Juliet Doe'
+    }
   };
 
   beforeEach(() => {
@@ -39,7 +47,6 @@ describe ('<ProfileForm />', () =>{
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
-
 
   it('submits calls on submit if all details are available',() =>{
     const form = wrapper.find('.new-profile');
@@ -54,7 +61,6 @@ describe ('<ProfileForm />', () =>{
     const onSubmit = jest.fn();
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
-
 
   it('sets default state when clear button is clicked',() =>{
     wrapper.setState({hasBlankFields: false});

@@ -11,8 +11,8 @@ const initState = {
   approvals: [],
   isLoading: false,
   message: '',
-  openApprovalsCount: '',
-  pastApprovalsCount: '',
+  openApprovalsCount: 0,
+  pastApprovalsCount: 0,
   pagination: '',
   fetchApprovalError: ''
 };

@@ -60,7 +60,6 @@ export default class NotificationContainer extends PureComponent {
           id, message, notificationLink, notificationType,
           notificationStatus, senderImage, senderName, updatedAt,
         } = notification;
-
         let isPending = false;
         let general = false;
         if(notificationType === 'pending'){
@@ -74,9 +73,9 @@ export default class NotificationContainer extends PureComponent {
           <NotificationItem
             markSingleAsRead={this.handleMarkSingleAsRead}
             notificationsCount={notificationsCount}
-            link={notification.notificationLink}
-            key={notification.id}
-            id={notification.id}
+            link={notificationLink}
+            key={id}
+            id={id}
             isPending={isPending}
             general={general}
             name={senderName}

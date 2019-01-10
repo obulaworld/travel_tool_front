@@ -25,7 +25,10 @@ const SubmitArea = ({ onCancel, deleteChecklistItem, deleteReason }) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   deleteChecklistItem: PropTypes.func.isRequired,
-  deleteReason: PropTypes.string.isRequired
+  deleteReason: PropTypes.string,
+};
+SubmitArea.defaultProps = {
+  deleteReason: null,
 };
 
 export default SubmitArea;

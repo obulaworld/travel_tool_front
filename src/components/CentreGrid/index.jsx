@@ -48,6 +48,7 @@ export class CentreGrid extends PureComponent {
               guestHouseLocation={guestHouse.location}
               beds={this.getBedCount(guestHouse.rooms)}
               bathrooms={guestHouse.bathRooms}
+              disabledGuestHouse={{}}
             />))
           }
         </div>
@@ -56,7 +57,7 @@ export class CentreGrid extends PureComponent {
   }
 
   renderDisabledGuesthouses(disabledGuestHouses) {
-    const { modal, openModal, handleOnRestore } = this.props;
+    const { handleOnRestore } = this.props;
     if (disabledGuestHouses && disabledGuestHouses.length > 0) {
       return (
         <div>
@@ -76,8 +77,6 @@ export class CentreGrid extends PureComponent {
                 beds={this.getBedCount(disabledGuestHouse.rooms)}
                 bathrooms={disabledGuestHouse.bathRooms}
                 disabledGuestHouse={disabledGuestHouse}
-                modal={modal}
-                openModal={openModal}
                 handleOnRestore={handleOnRestore}
               />
             ))
@@ -112,8 +111,6 @@ CentreGrid.propTypes = {
   })),
   error: PropTypes.string,
   disabledGuestHouses: PropTypes.array,
-  modal: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
   handleOnRestore: PropTypes.func.isRequired
 };
 

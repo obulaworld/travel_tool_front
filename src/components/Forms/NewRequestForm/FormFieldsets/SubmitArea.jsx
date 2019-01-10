@@ -28,19 +28,21 @@ const SubmitArea = (props) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   hasBlankFields: PropTypes.bool.isRequired,
-  sameOriginDestination: PropTypes.bool.isRequired,
+  sameOriginDestination: PropTypes.bool,
   send: PropTypes.string.isRequired,
   modalType: PropTypes.string,
   onEditCancel: PropTypes.func,
   selection: PropTypes.string,
   loading: PropTypes.bool,
-  disableOnChangeProfile: PropTypes.bool.isRequired
+  disableOnChangeProfile: PropTypes.bool
 };
 
 SubmitArea.defaultProps = {
   modalType: '',
   selection: '',
   loading: false,
+  disableOnChangeProfile: false,
+  sameOriginDestination: false,
   onEditCancel: () => {}
 };
 
