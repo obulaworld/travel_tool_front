@@ -27,17 +27,18 @@ export class Dashboard extends Component {
               <Fragment>
                 <DashboardHeader downloadCsv={downloadAnalytics} context={context} />
                 <ConnectedAnalytics context={context} />
+                <AnalyticsReport
+                  fetchDepartmentTrips={fetchDepartmentTrips}
+                  departmentTrips={departmentTrips}
+                  fetchReadiness={fetchReadiness}
+                  exportReadiness={exportReadiness}
+                  readiness={readiness}
+                  context={context}
+                />
               </Fragment>
             )}
           </Consumer>
         </FilterContext>
-        <AnalyticsReport
-          fetchDepartmentTrips={fetchDepartmentTrips}
-          departmentTrips={departmentTrips}
-          fetchReadiness={fetchReadiness}
-          exportReadiness={exportReadiness}
-          readiness={readiness}
-        />
         <TravelCalendar
           fetchCalendarAnalytics={fetchCalendarAnalytics}
           downloadCalendarAnalytics={downloadCalendarAnalytics}

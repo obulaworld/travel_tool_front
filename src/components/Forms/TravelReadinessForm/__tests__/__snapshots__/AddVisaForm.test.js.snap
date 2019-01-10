@@ -250,6 +250,105 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
           className="error"
         />
       </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="visaType"
+        >
+          Select Visa Type
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            autoComplete="off"
+            choices={
+              Array [
+                "H-2A",
+                "H-2B",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Select Visa Type"
+            name="visaType"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+            type="dropdown-select"
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": undefined,
+                }
+              }
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                id="choice"
+                key="H-2A"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  H-2A
+                </div>
+              </li>
+              <li
+                id="choice"
+                key="H-2B"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  H-2B
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
     </div>
   </fieldset>
   <div
@@ -307,7 +406,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
           id="submit"
           type="submit"
         >
-          <undefined />
+          Add Visa
         </button>
       </div>
     </fieldset>

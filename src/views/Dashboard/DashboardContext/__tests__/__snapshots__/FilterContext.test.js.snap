@@ -8,8 +8,8 @@ exports[`<FilterContext /> should render without crashing 1`] = `
       "state": Object {
         "city": "Nairobi",
         "range": Object {
-          "end": "2019-01-13",
-          "start": "2019-01-07",
+          "end": "2019-01-31",
+          "start": "2019-01-01",
         },
       },
     }

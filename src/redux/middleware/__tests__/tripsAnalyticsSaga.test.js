@@ -21,9 +21,12 @@ FileSaver.saveAs = jest.fn();
 
 describe('Test suite for trips Analytics Saga', () => {
   describe('Test for department trips analytics', () => {
+    const date = new Date();
     const query = {
       filterBy: 'month',
-      type: 'json'
+      type: 'json',
+      firstDate: date.toISOString(),
+      lastDate: new Date(date.getTime() + 86400000).toISOString()
     };
     it('should return report analytics if request was successful', () => {
       const response = {
@@ -72,6 +75,13 @@ describe('Test suite for trips Analytics Saga', () => {
     it('should call FileSaver.saveAs function if request was successful and action type is file', () => {
       const response = {
         data: fetchDepartmentsTripsResponse
+      };
+      const date = new Date();
+      let query = {
+        filterBy: 'month',
+        type: 'file',
+        firstDate: date.toISOString(),
+        lastDate: new Date(date.getTime() + 86400000).toISOString()
       };
       query.type = 'file';
       return expectSaga(watchFetchDepartmentTrips, AnalyticsAPI)
