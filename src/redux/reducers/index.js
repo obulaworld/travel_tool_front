@@ -23,6 +23,8 @@ import fileUploads from './fileUploads';
 import attachments from './attachments';
 import maintenance from './maintenance';
 import travelReadinessDocuments from './travelReadinessDocuments';
+import teammates from './teammates';
+
 
 const rootReducer = combineReducers({
   auth,
@@ -49,6 +51,7 @@ const rootReducer = combineReducers({
   attachments,
   maintenance,
   travelReadinessDocuments,
+  teammates
 });
 
 export default rootReducer;

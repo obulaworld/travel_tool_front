@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 
-import ConnectedAnalytics, {mapStateToProps, Analytics} from '..';
+import ConnectedAnalytics, { Analytics } from '..';
 
 const initialState = {
   analytics: {

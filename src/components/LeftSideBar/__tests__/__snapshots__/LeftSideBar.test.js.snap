@@ -18,6 +18,15 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "activateOnLogin": true,
               "exact": true,
               "icons": Object {
+                "active": "home.svg",
+                "inactive": "home.svg",
+              },
+              "link_to": "/home",
+              "text": "Home",
+            },
+            Object {
+              "exact": true,
+              "icons": Object {
                 "active": "dashboard.svg",
                 "inactive": "dashboard_inactive.svg",
               },
@@ -30,7 +39,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "text": "Dashboard",
             },
             Object {
-              "activateOnLogin": true,
               "dropdownItems": Array [
                 Object {
                   "exact": true,

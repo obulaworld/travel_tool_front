@@ -207,6 +207,19 @@ export const fetchDepartmentsTripsResponse = {
   ]
 };
 
+export const fetchTeammatesResponse = {
+  success: true,
+  teammates: [
+    {
+      name: 'Alice Doe',
+      picture: 'https://randomuser.me/api/portraits/men/25.jpg',
+      destination: 'Lagos',
+      departureDate: '2019-10-16',
+      returnDate: '2018-07-20'
+    }
+  ]
+};
+
 export const fetchAnalyticsResponse = {
   dats: {
     total_requests: 1,

@@ -50,6 +50,8 @@ import { watchFetchAvailableRooms } from './availableRoomsSaga';
 
 import { watchUpdateRoomsAsync } from './roomUpdateSaga';
 
+import { watchFetchTeammates } from './homeSaga';
+
 import {
   watchFetchTrips,
   watchUpdateTrip,
@@ -171,6 +173,7 @@ function* rootSaga() {
     watchFetchUsersReadinessDocuments(),
     watchFetchReadinessDocuments(),
     watchFetchReadinessDocumentDetails(),
+    watchFetchTeammates()
   ]);
 }
 
