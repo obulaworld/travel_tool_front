@@ -35,7 +35,7 @@ const PieChartAnalytics = ({data, color, error }) => (
         </p>
       )
       : (data.length > 0 && data[0].name !== '') ? (
-        <PieChart width={250} height={200}>
+        <PieChart width={300} height={200}>
           <Pie
             isAnimationActive={false}
             data={data} cx={145} cy={75}
