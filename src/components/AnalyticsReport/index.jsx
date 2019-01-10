@@ -9,16 +9,36 @@ import TripsPerMonthPlaceholder from '../Placeholders/TripsPerMonthPlaceholder';
 export default class AnalyticsReport extends Component {
 
   componentDidMount() {
-    const { fetchDepartmentTrips, fetchReadiness } = this.props;
-    fetchDepartmentTrips({filterBy: 'month', type: 'json'});
+    const { fetchDepartmentTrips, fetchReadiness, context } = this.props;
+    const { start, end } = context.state.range;
+    fetchDepartmentTrips({
+      filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+    });
     fetchReadiness({page: '1', limit: '9', type:'json', travelFlow: 'inflow'});
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { context, fetchDepartmentTrips } = this.props;
+    const { range } = nextProps.context.state;
+    if (range.start !== context.state.range.start
+       || range.end !== context.state.range.end) {
+      const { start, end } = range;
+      fetchDepartmentTrips({
+        filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+      });
+    }
+  }
+
   getDepartmentTripsCSV = () => {
-    const { fetchDepartmentTrips } = this.props;
-    fetchDepartmentTrips({ filterBy: 'month', type: 'file' });
-    fetchDepartmentTrips({ filterBy: 'month', type: 'json' });
+    const { fetchDepartmentTrips, context } = this.props;
+    const { start, end } = context.state.range;
+    fetchDepartmentTrips({
+      filterBy: 'month', type: 'file', firstDate: start, lastDate: end
+    });
+    fetchDepartmentTrips({
+      filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+    });
   }
 
   renderButton = (name, icon, text, onclickFunction) => (
@@ -127,5 +147,9 @@ AnalyticsReport.propTypes = {
   readiness: PropTypes.object.isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
   fetchReadiness:PropTypes.func.isRequired,
-  exportReadiness:PropTypes.func.isRequired
+  exportReadiness:PropTypes.func.isRequired,
+  context: PropTypes.shape({
+    state: PropTypes.shape({}).isRequired,
+    handleFilter: PropTypes.func.isRequired
+  }).isRequired
 };

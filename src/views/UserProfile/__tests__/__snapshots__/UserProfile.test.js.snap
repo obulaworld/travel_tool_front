@@ -296,7 +296,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input profile_dropdown "
+                        className="form-input profile_role_dropdown "
                     >
                         <label
                             htmlFor="manager"
@@ -320,41 +320,23 @@ Array [
                             }
                         >
                             <div
-                                autoComplete="off"
-                                choices={Array []}
-                                className="input select  profile_dropdown"
-                                error=""
-                                label="Line Manager"
-                                name="manager"
-                                onChange={[Function]}
-                                onClick={[Function]}
-                                onKeyPress={[Function]}
-                                role="button"
-                                size=""
-                                tabIndex="0"
-                                type="dropdown-select"
-                                value=""
+                                className="value"
+                                style={
+                                    Object {
+                                        "width": "",
+                                      }
+                                }
                             >
-                                <div
-                                    className="value"
-                                    style={
-                                        Object {
-                                            "width": "",
-                                          }
-                                    }
-                                >
-                                     
-                                    <div
-                                        className="select-dropdown inactive"
-                                    >
-                                        <img
-                                            alt="icn"
-                                            src="form_select_dropdown.svg"
-                                        />
-                                    </div>
-                                </div>
-                                <ul
-                                    className="select-menu select-menu--inactive"
+                                <input
+                                    autoComplete="off"
+                                    choices={Array []}
+                                    className="occupationInput"
+                                    label="Line Manager"
+                                    name="role"
+                                    onChange={[Function]}
+                                    size=""
+                                    type="text"
+                                    value=""
                                 />
                             </div>
                         </div>

@@ -286,7 +286,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input profile_dropdown "
+        className="form-input profile_role_dropdown "
       >
         <label
           htmlFor="manager"
@@ -310,61 +310,28 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
-            autoComplete="off"
-            choices={
-              Array [
-                "Test User",
-              ]
-            }
-            className="input select  profile_dropdown"
-            error=""
-            label="Line Manager"
-            name="manager"
-            onChange={[Function]}
-            onClick={[Function]}
-            onKeyPress={[Function]}
-            role="button"
-            size=""
-            tabIndex="0"
-            type="dropdown-select"
-            value=""
-          >
-            <div
-              className="value"
-              style={
-                Object {
-                  "width": "",
-                }
+            className="value"
+            style={
+              Object {
+                "width": "",
               }
-            >
-               
-              <div
-                className="select-dropdown inactive"
-              >
-                <img
-                  alt="icn"
-                  src="form_select_dropdown.svg"
-                />
-              </div>
-            </div>
-            <ul
-              className="select-menu select-menu--inactive"
-            >
-              <li
-                id="choice"
-                key="Test User"
-              >
-                <div
-                  id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
-                >
-                  Test User
-                </div>
-              </li>
-            </ul>
+            }
+          >
+            <input
+              autoComplete="off"
+              choices={
+                Array [
+                  "Test User",
+                ]
+              }
+              className="occupationInput"
+              label="Line Manager"
+              name="role"
+              onChange={[Function]}
+              size=""
+              type="text"
+              value=""
+            />
           </div>
         </div>
         <span

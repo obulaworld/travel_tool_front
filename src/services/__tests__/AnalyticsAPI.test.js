@@ -17,12 +17,15 @@ describe('Analytics API', () => {
   });
 
   it('should make a get request to get trips department analytics', async () => {
+    const date = new Date();
     const query = {
       filterBy: 'month',
-      type: 'json'
+      type: 'json',
+      firstDate: date.toISOString(),
+      lastDate: new Date(date.getTime() + 86400000).toISOString()
     };
 
-    moxios.stubRequest(`${baseUrl}/analytics/trips/departments?filterBy=${query.filterBy}&type=${query.type}`, {
+    moxios.stubRequest(`${baseUrl}/analytics/trips/departments?filterBy=${query.filterBy}&type=${query.type}&firstDate=${query.firstDate}&lastDate=${query.lastDate}`, {
       status: 200,
       response: fetchDepartmentsTripsResponse
     });
@@ -30,7 +33,7 @@ describe('Analytics API', () => {
     const response = await AnalyticsAPI.getDepartmentTrips(query);
 
     expect(moxios.requests.mostRecent().url)
-      .toEqual(`${baseUrl}/analytics/trips/departments?filterBy=${query.filterBy}&type=${query.type}`);
+      .toEqual(`${baseUrl}/analytics/trips/departments?filterBy=${query.filterBy}&type=${query.type}&firstDate=${query.firstDate}&lastDate=${query.lastDate}`);
     expect(response.data).toEqual(fetchDepartmentsTripsResponse);
   });
 

@@ -9,22 +9,6 @@ exports[`<Dashboard /> renders correctly 1`] = `
       <Component />
     </ContextConsumer>
   </FilterContext>
-  <AnalyticsReport
-    departmentTrips={
-      Object {
-        "loading": false,
-        "report": Array [],
-      }
-    }
-    exportReadiness={[Function]}
-    fetchDepartmentTrips={[Function]}
-    fetchReadiness={[Function]}
-    readiness={
-      Object {
-        "isLoading": false,
-      }
-    }
-  />
   <TravelCalendar
     downloadCalendarAnalytics={[Function]}
     fetchCalendarAnalytics={[Function]}
