@@ -111,12 +111,32 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             },
             Object {
               "activateOnLogin": false,
+              "dropdownItems": Array [
+                Object {
+                  "exact": true,
+                  "link_to": "/travel-readiness",
+                  "onlyVisibleTo": Array [
+                    "Super Administrator",
+                    "Travel Administrator",
+                  ],
+                  "text": "Travel Readiness",
+                },
+                Object {
+                  "exact": true,
+                  "link_to": "/checklists",
+                  "onlyVisibleTo": Array [
+                    "Super Administrator",
+                    "Travel Administrator",
+                  ],
+                  "text": "Travel Checklist",
+                },
+              ],
               "icons": Object {
                 "active": "checklist-active.svg",
                 "inactive": "checklist-inactive.svg",
               },
-              "isDropdown": false,
-              "link_to": "/checklists",
+              "isDropdown": true,
+              "link_to": "/trip-planner",
               "onlyVisibleTo": Array [
                 "Super Administrator",
                 "Travel Administrator",
