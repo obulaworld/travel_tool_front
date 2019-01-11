@@ -19,8 +19,8 @@ export const TableHead = () => (
   <thead>
     <tr>
       <th className="mdl-data-table__cell--non-numeric table__head">Name</th>
-      <th className="mdl-data-table__cell--non-numeric table__head">Department</th>
-      <th className="mdl-data-table__cell--non-numeric table__head">No. of Passports</th>
+      <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">Department</th>
+      <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">No. of Passports</th>
       <th className="mdl-data-table__cell--non-numeric table__head">No. of Visas</th>
     </tr>
   </thead>

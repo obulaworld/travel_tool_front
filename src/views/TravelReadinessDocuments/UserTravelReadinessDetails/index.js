@@ -33,45 +33,45 @@ class UserTravelReadinessDetails extends Component {
     openModal(true, 'document details');
   }
 
-  renderPanelHeader() {
-    const { activeDocument } = this.state;
-    const { userReadiness, isLoading } = this.props;
-    const { fullName, travelDocuments: { passport, visa } } = userReadiness;
-    return (
-      <Fragment>
-        {!isLoading && (
-          <div className="request-panel-header">
-            <PageHeader addLink title={fullName} iconLink="/travel-readiness" />
-            <div className="open-requests">
-              <div className="button-group">
-                <Button
-                  showBadge badge={passport && passport.length}
-                  onClick={() => this.toggleDocumentTab('passport')} text="Passports"
-                  buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'passport' ? 'bg-btn--active' : ''}`}
-                  badgeClass={activeDocument === 'passport' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
-                />
-                <Button
-                  badge={visa && visa.length} showBadge
-                  buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'visa' ? 'bg-btn--active' : ''}`}
-                  badgeClass={activeDocument === 'visa' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
-                  text="Visas" onClick={() => this.toggleDocumentTab('visa')}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </Fragment>
-    );
-  }
-
   render() {
     const { activeDocument, documentId } = this.state;
     const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
-    const { travelDocuments: { passport, visa } } = userReadiness;
+    const { fullName, travelDocuments } = userReadiness;
+    const { passport, visa } = travelDocuments;
     return (
       <Fragment>
-        <div className={isLoading ? 'readiness-header' : ''}>
-          {this.renderPanelHeader()}
+        <div className={isLoading && 'readiness-header'}>
+          {
+            !isLoading && (
+              <div className="request-panel-header">
+                <PageHeader
+                  addLink
+                  title={fullName}
+                  iconLink="/travel-readiness"
+                />
+                <div className="open-requests">
+                  <div className="button-group">
+                    <Button
+                      showBadge
+                      badge={passport && passport.length}
+                      text="Passports"
+                      onClick={() => this.toggleDocumentTab('passport')}
+                      buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'passport' ? 'bg-btn--active' : ''}`}
+                      badgeClass={activeDocument === 'passport' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+                    />
+                    <Button
+                      showBadge
+                      badge={visa && visa.length}
+                      text="Visas"
+                      onClick={() => this.toggleDocumentTab('visa')}
+                      buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'visa' ? 'bg-btn--active' : ''}`}
+                      badgeClass={activeDocument === 'visa' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          }
         </div>
         <TravelReadinessDetailsTable closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
       </Fragment>
@@ -103,7 +103,7 @@ UserTravelReadinessDetails.propTypes = {
 };
 
 UserTravelReadinessDetails.defaultProps = {
-  modalType: '',
+  modalType: ''
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserTravelReadinessDetails);

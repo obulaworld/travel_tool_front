@@ -7,7 +7,7 @@ import {
   EXPORT_TRAVEL_READINESS_FAILURE,
   CREATE_TRAVEL_READINESS_DOCUMENT,
   CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
-  CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS
+  CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
 } from '../constants/actionTypes';
 
 export const createTravelReadinessDocument = (documentType, payload) => ({
@@ -54,4 +54,3 @@ export const exportReadinessFailure = (error) => ({
   type: EXPORT_TRAVEL_READINESS_FAILURE,
   error
 });
-

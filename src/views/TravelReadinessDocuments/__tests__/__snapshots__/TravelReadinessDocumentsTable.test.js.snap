@@ -32,12 +32,12 @@ exports[`TravelReadinessDocumentsTable renders TableHead 1`] = `
       Name
     </th>
     <th
-      className="mdl-data-table__cell--non-numeric table__head"
+      className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
     >
       Department
     </th>
     <th
-      className="mdl-data-table__cell--non-numeric table__head"
+      className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
     >
       No. of Passports
     </th>

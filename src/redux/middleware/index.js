@@ -99,7 +99,12 @@ import {
   watchFetchAttachments,
   watchdownloadAttachments
 } from './attachmentsSaga';
-import { watchFetchUsersReadinessDocuments, watchFetchReadinessDocuments, watchFetchReadinessDocumentDetails } from './travelReadinessDocumentsSaga';
+import {
+  watchFetchUsersReadinessDocuments,
+  watchFetchReadinessDocuments,
+  watchFetchReadinessDocumentDetails,
+  watchVerifyTravelReadinessDocuments
+} from './travelReadinessDocumentsSaga';
 
 function* rootSaga() {
   yield all([
@@ -173,7 +178,8 @@ function* rootSaga() {
     watchFetchUsersReadinessDocuments(),
     watchFetchReadinessDocuments(),
     watchFetchReadinessDocumentDetails(),
-    watchFetchTeammates()
+    watchFetchTeammates(),
+    watchVerifyTravelReadinessDocuments(),
   ]);
 }
 

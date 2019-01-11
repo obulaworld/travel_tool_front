@@ -63,4 +63,21 @@ describe('TravelReadinessDocumentsAPI', () => {
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/documents/xyz`);
     expect(response.data).toEqual(data);
   });
+
+  it('should send a PUT request to verify a travel readiness document', async () => {
+    const data = {
+      message: 'Successfully verified document',
+      success: true,
+      updatedDocument: { id: 'xyz' }
+    };
+    moxios.stubRequest(`${baseUrl}/travelreadiness/documents/${data.updatedDocument.id}/verify`, {
+      status: 200,
+      response: data,
+    });
+
+    const response = await TravelReadinessDocumentsAPI.verifyTravelReadinessDocument('xyz');
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/documents/xyz/verify`);
+    expect(response.data).toEqual(data);
+  });
 });

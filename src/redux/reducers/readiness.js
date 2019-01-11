@@ -9,7 +9,7 @@ const initialState = {
   readiness: [], 
   isLoading:false, 
   error: '' ,
-  pagination: {}
+  pagination: {},
 };
 
 const readiness = (state = initialState, action) => {
