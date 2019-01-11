@@ -7,6 +7,12 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
   <TravelReadiness
     exportReadiness={[Function]}
     fetchReadiness={[Function]}
+    range={
+      Object {
+        "end": "2018-07-22",
+        "start": "2018-05-20",
+      }
+    }
     readiness={
       Object {
         "isLoading": false,

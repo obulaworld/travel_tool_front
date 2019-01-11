@@ -10,11 +10,12 @@ $white: #FFFFFF;
   justify-content: space-between;
   padding: 10px 0;
   color: $grey-color;
+  max-height: 650px;
   p {
     color: $grey-color !important;
     line-height: 20px;
   }
-  
+
   &__text-center {
     text-align: center;
   }
@@ -43,6 +44,9 @@ $white: #FFFFFF;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
     padding: 23px 20px 23px 20px;
     z-index: 2;
+    /* TODO Remove overflow and max height and add pagination */
+    max-height: 585px;
+    overflow-y: scroll;
 
     .pg--container{
       justify-content: space-between;

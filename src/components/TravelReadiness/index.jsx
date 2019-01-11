@@ -1,7 +1,6 @@
 
 import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
-import { read } from 'fs';
 import generateDynamicDate from '../../helper/generateDynamicDate';
 import download from '../../images/icons/save_alt_24px.svg';
 import Button from '../buttons/Buttons';
@@ -16,10 +15,18 @@ class TravelReadiness extends PureComponent {
     super(props);
     this.state = { travelFlow: 'inflow' };
   }
-  renderReadinessDetails = (item, index) => {
+
+  componentWillReceiveProps(nextProps) {
+    const {range: prevRange, fetchReadiness} = this.props;
+    const {range: newRange } = nextProps;
     const { travelFlow } = this.state;
-    const { arrivalDate, departureDate } = item;
-    const date = travelFlow.match('inflow') ? arrivalDate : departureDate;
+    if(JSON.stringify(prevRange) !== JSON.stringify(newRange)) {
+      fetchReadiness({page: '1', limit: '9', type:'json', travelFlow, range:newRange });
+    }
+  }
+
+  renderReadinessDetails = (item, index) => {
+    const { departureDate } = item;
     return (
       <div className="analyticsReport__row analyticsReport__report-details" key={`item${index}`}>
         <div>
@@ -29,11 +36,11 @@ class TravelReadiness extends PureComponent {
           <p>{item.travelReadiness}</p>
         </div>
         <div>
-          <p>{generateDynamicDate({}, date)}</p>
+          <p>{generateDynamicDate({}, departureDate)}</p>
         </div>
       </div>
     );
-  }
+  };
 
   renderPagination = (readiness) => {
     const {pagination} = readiness;
@@ -46,24 +53,24 @@ class TravelReadiness extends PureComponent {
       );
     }
 
-  }
+  };
   getReadinessCSV = () => {
-    const { exportReadiness } = this.props;
+    const { exportReadiness, range } = this.props;
     const { travelFlow } = this.state;
-    exportReadiness({ type: 'file', travelFlow: travelFlow});
+    exportReadiness({ type: 'file', travelFlow: travelFlow, range });
   };
 
   getTravelFlow = travelArgument => {
-    const { fetchReadiness } = this.props;
+    const { fetchReadiness, range } = this.props;
     this.setState({
       travelFlow: travelArgument
     });
-    fetchReadiness({page: '1', limit, type:'json', travelFlow: travelArgument});
-  }
+    fetchReadiness({page: '1', limit, type:'json', travelFlow: travelArgument, range});
+  };
 
   travelFlowButton = () => {
     const { travelFlow } = this.state;
-    const travelButton = (
+    return (
       <Fragment>
         <button
           className="travel-readiness-toggle-button-0" type="button"
@@ -79,31 +86,32 @@ class TravelReadiness extends PureComponent {
         </button>
       </Fragment>
     );
-    return travelButton;
   };
+
   findPages = readiness => {
     if (readiness.pagination) {
       const {currentPage, pageCount} = readiness.pagination;
       return { currentPage, pageCount};
     }
     return {};
-  }
+  };
   handlePagination = direction => {
-    const { readiness, fetchReadiness } = this.props;
+    const { readiness, fetchReadiness, range } = this.props;
+    const { travelFlow } = this.state;
     if(readiness){
       const { currentPage, pageCount, limit, prevPage, nextPage } = readiness.pagination;
       if(direction==='Next' && currentPage <= pageCount){
-        fetchReadiness({page: nextPage, limit, type:'json', travelFlow: 'inflow'});
+        fetchReadiness({page: nextPage, limit, type:'json', travelFlow, range});
       }else if(direction === 'Previous' && prevPage > 0){
-        fetchReadiness({page: prevPage, limit, type:'json', travelFlow: 'inflow'});
+        fetchReadiness({page: prevPage, limit, type:'json', travelFlow, range});
       }
 
     }
-  }
+  };
 
   renderReadinessTitles = () => {
     const { travelFlow } = this.state;
-    const readinessTitles = (
+    return (
       <div className="analyticsReport__row analyticsReport__report-header">
         <div>
           <p>Name</p>
@@ -116,8 +124,7 @@ class TravelReadiness extends PureComponent {
         </div>
       </div>
     );
-    return readinessTitles;
-  }
+  };
 
   renderServerError = () => {
     return (
@@ -125,7 +132,7 @@ class TravelReadiness extends PureComponent {
         Oops! An error occurred in retrieving this data
       </p>
     );
-  }
+  };
   render() {
     const { readiness, renderNotFound } = this.props;
     const { isLoading, error } = readiness;
@@ -147,8 +154,8 @@ class TravelReadiness extends PureComponent {
               </div>
               {this.renderReadinessTitles()}
               {error && this.renderServerError()}
-              { (!error 
-                && readiness.readiness.length > 0 
+              { (!error
+                && readiness.readiness.length > 0
                 && readiness.readiness.map((item, index) => this.renderReadinessDetails(item, index))
               )
               }
@@ -165,7 +172,7 @@ TravelReadiness.propTypes = {
   readiness: PropTypes.object.isRequired,
   exportReadiness:PropTypes.func.isRequired,
   renderNotFound: PropTypes.func.isRequired,
-
+  range: PropTypes.shape().isRequired
 };
 
 export default TravelReadiness;

@@ -12,8 +12,8 @@ const defaultProps = {
   },
   context: {
     state: { range: {
-      start: {},
-      end: {}
+      start: '2018-05-20',
+      end: '2018-07-22'
     }},
     handleFilter: jest.fn()
   },
