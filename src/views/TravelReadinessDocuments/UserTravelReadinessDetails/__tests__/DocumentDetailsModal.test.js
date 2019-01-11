@@ -2,17 +2,21 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
-import DocumentDetailsModal from '../DocumentDetailsModal';
+import ConnectedDocumentDetailsModal, { DocumentDetailsModal, TravelDocumentField } from '../DocumentDetailsModal';
 import { initialState } from '../../../../redux/reducers/travelReadinessDocuments';
 import users from '../../__mocks__/users';
+import NotFound from '../../../ErrorPages';
 
-const state = {
+const defaultState = {
   travelReadinessDocuments: {
     ...initialState,
     users,
     userReadiness: users[0],
+  },
+  comments: {
+    comment: '',
+    comments: [],
   },
   modal: {
     modal: {
@@ -29,27 +33,58 @@ const state = {
   }
 };
 
-const store = configureStore()(state);
+const props = {
+  userData: {
+    fullName: 'Zlatan Ibile',
+    occupation: 'Software Developer'
+  },
+  user: {
+    picture: 'http://pix.els'
+  },
+  fetchingDocument: false,
+  document: {
+    data: {
+      id: 'ckls'
+    }
+  },
+  fetchDocumentDetails: jest.fn(),
+  documentId: 'xifslke',
+  documentType: 'passport',
+};
 
 describe('DocumentDetailsModal', () => {
-  const props = {
-    userData: {
-      fullName: 'Zlatan Ibile',
-      occupation: 'Software Developer'
-    },
-    documentId: 'xifslke',
-    documentType: 'passport',
-  };
-
-  it('should render the Document Details without crashing', () => {
+  it('should render the NotFound component if document is not found', () => {
+    const store = configureStore()(defaultState);
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <DocumentDetailsModal {...props} />
+          <ConnectedDocumentDetailsModal {...props} />
         </MemoryRouter>
       </Provider>
     );
     expect(wrapper.length).toBe(1);
+    expect(wrapper.find(NotFound).length).toBe(1);
+  });
+
+  it('should render the Passport Details without crashing', () => {
+    const wrapper = shallow(<DocumentDetailsModal {...props} />);
+    expect(wrapper.find(TravelDocumentField).length).toBe(6);
     wrapper.unmount();
+  });
+
+  it('should render the Visa Details without crashing', () => {
+    const updatedProps = {
+      ...props,
+      documentType: 'visa'
+    };
+    const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
+    expect(wrapper.find(TravelDocumentField).length).toBe(5);
+  });
+
+  describe('TravelDocumentField', () => {
+    it('should render correctly', () => {
+      const wrapper = shallow(<TravelDocumentField label="Column" value="The value" />);
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 });

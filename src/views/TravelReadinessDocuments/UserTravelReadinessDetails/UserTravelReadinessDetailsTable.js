@@ -4,7 +4,7 @@ import { capitalize } from 'lodash';
 import withLoading from '../../../components/Hoc/withLoading';
 import '../TravelReadinessDocuments.scss';
 import Modal from '../../../components/modal/Modal';
-import DocumentDetailsModal from './DocumentDetailsModal';
+import ConnectedDocumentDetailsModal from './DocumentDetailsModal';
 
 export class UserTravelReadinessDetailsTable extends Component {
   state = {};
@@ -120,7 +120,7 @@ export class UserTravelReadinessDetailsTable extends Component {
             : 'invisible'
         }
       >
-        <DocumentDetailsModal userData={userData} documentId={documentId} documentType={activeDocument} />
+        <ConnectedDocumentDetailsModal userData={userData} documentId={documentId} documentType={activeDocument} />
       </Modal>
     );
   }

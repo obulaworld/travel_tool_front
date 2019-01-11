@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import UserInfo from '../../../components/RequestsModal/UserInfo/UserInfo';
 import AddComment from '../../../components/RequestsModal/CommentBox/AddComment';
 import ConnectedCommentBox from '../../../components/RequestsModal/CommentBox/CommentBox';
-// import FileAttachment from '../../Attachments';
 import { fetchTravelReadinessDocument } from '../../../redux/actionCreator/travelReadinessDocumentsActions';
 import Preloader from '../../../components/Preloader/Preloader';
 import NotFound from '../../ErrorPages';
+import ConnectedDocumentDetailsAttachment from './DocumentDetailsAttachment';
 
-const TravelDocumentField = ({ label, value }) => (
+export const TravelDocumentField = ({ label, value }) => (
   <div>
     <div className="modal__travel-doc-item">
       <div className="modal__travel-doc-label">
@@ -22,7 +22,7 @@ const TravelDocumentField = ({ label, value }) => (
   </div>
 );
 
-class DocumentDetailsModal extends Component {
+export class DocumentDetailsModal extends Component {
   state = {  }
 
   static propTypes = {
@@ -33,8 +33,12 @@ class DocumentDetailsModal extends Component {
     documentType: PropTypes.string.isRequired,
     fetchDocumentDetails: PropTypes.func.isRequired,
     fetchingDocument: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired,
+    error: PropTypes.string,
   };
+
+  static defaultProps = {
+    error: '',
+  }
 
   componentDidMount() {
     const { documentId, fetchDocumentDetails } = this.props;
@@ -93,7 +97,9 @@ class DocumentDetailsModal extends Component {
               : document.data && this.renderVisaDetails(document)
           }
         </div>
-        {/* TODO: add file attachment component */}
+        {
+          fetchingDocument ? <Preloader /> : <ConnectedDocumentDetailsAttachment documentData={document} />
+        }
         <AddComment image={picture} />
         <ConnectedCommentBox />
       </Fragment>

@@ -1,31 +1,47 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ReadinessPanelHeader from '../../components/ReadinessPanelHeader/ReadinessPanelHeader';
 import AddVisaForm from '../../components/Forms/TravelReadinessForm/AddVisaForm';
 import { closeModal, openModal } from '../../redux/actionCreator/modalActions';
 import Modal from '../../components/modal/Modal';
-import Button from '../../components/buttons/Buttons';
+import PassportForm from '../../components/Forms/TravelReadinessForm/PassportForm';
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
+import PageHeader from '../../components/PageHeader';
 import { fetchUserReadinessDocuments } from '../../redux/actionCreator/travelReadinessDocumentsActions';
 import TravelReadinessDetailsTable from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
 import './Readiness.scss';
+import Button from '../../components/buttons/Buttons';
 
 export class TravelReadinessDocuments extends Component {
-  state = {
-    activeDocument: 'passport',
-    documentId: ''
-  };
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      documentContext: 'passport',
+      activeDocument: 'passport',
+      documentId: ''
+    };
+  }
 
   componentDidMount() {
     const { fetchUserData, user } = this.props;
     fetchUserData(user.currentUser.userId);
   }
-
   toggleDocumentTab = type => {
     this.setState({
-      activeDocument: type
+      activeDocument: type,
+      documentContext: type
     });
+    switch (type) {
+    case 'passport':
+      openModal(true, 'add Passport');
+      break;
+    case 'visa':
+      openModal(true, 'add visa');
+      break;
+    default:
+      // Handle the opening of the 'others' modal
+      return;
+    }
   };
 
   showDocumentDetail = documentId => {
@@ -34,6 +50,21 @@ export class TravelReadinessDocuments extends Component {
       documentId
     });
     openModal(true, 'document details');
+  };
+
+  handleModals = documentContext => {
+    const { openModal } = this.props;
+    switch (documentContext) {
+    case 'passport':
+      openModal(true, 'add Passport');
+      break;
+    case 'visa':
+      openModal(true, 'add visa');
+      break;
+    default:
+      // Handle the opening of the 'others' modal
+      return;
+    }
   };
 
   renderVisaModal = () => {
@@ -64,58 +95,91 @@ export class TravelReadinessDocuments extends Component {
     );
   };
 
-  renderPanelHeader() {
-    const { activeDocument } = this.state;
+  renderPassportModal = () => {
+    const {
+      closeModal,
+      shouldOpen,
+      modalType,
+      travelReadinessDocuments,
+      createTravelReadinessDocument
+    } = this.props;
+    return (
+      <Modal
+        customModalStyles="add-document-item"
+        closeModal={closeModal}
+        width="680px"
+        visibility={
+          shouldOpen && modalType === 'add Passport' ? 'visible' : 'invisible'
+        }
+        title="Add Passport"
+      >
+        <PassportForm
+          createTravelReadinessDocument={createTravelReadinessDocument}
+          {...travelReadinessDocuments}
+        />
+      </Modal>
+    );
+  };
+
+  renderButton = (text, active, onClickHandler, moreProps) => {
+    let className = 'documents-button-group__button';
     const { userReadiness, isLoading } = this.props;
+    const { activeDocument } = this.state;
     const {
       travelDocuments: { passport, visa }
     } = userReadiness;
+
+    if (active) {
+      className += '--active';
+    } else if (active === false) {
+      className += '--inactive';
+    }
     return (
-      <Fragment>
-        {!isLoading && (
-          <div className="space-header">
-            <div className="open-requests">
-              <div className="button-group">
-                <Button
-                  showBadge
-                  badge={passport && passport.length}
-                  onClick={() => this.toggleDocumentTab('passport')}
-                  text="Passports"
-                  buttonClass={`bg-btn bg-btn--with-badge ${
-                    activeDocument === 'passport' ? 'bg-btn--active' : ''
-                  }`}
-                  badgeClass={
-                    activeDocument === 'passport'
-                      ? 'bg-btn--with-badge--active'
-                      : 'bg-btn--with-badge__approvals--inactive'
-                  }
-                />
-                <Button
-                  badge={visa && visa.length}
-                  showBadge
-                  buttonClass={`bg-btn bg-btn--with-badge ${
-                    activeDocument === 'visa' ? 'bg-btn--active' : ''
-                  }`}
-                  badgeClass={
-                    activeDocument === 'visa'
-                      ? 'bg-btn--with-badge--active'
-                      : 'bg-btn--with-badge__approvals--inactive'
-                  }
-                  text="Visas"
-                  onClick={() => this.toggleDocumentTab('visa')}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </Fragment>
+      <button
+        showBadge
+        badge={10}
+        type="button"
+        className={className}
+        onClick={onClickHandler}
+        {...moreProps}
+      >
+        {text}
+      </button>
     );
+  };
+
+  isActive(buttonContext) {
+    const { documentContext } = this.state;
+    return buttonContext === documentContext;
   }
 
-  renderVisaPage = () => {
-    const { openModal } = this.props;
-    return <ReadinessPanelHeader openModal={openModal} />;
-  };
+  renderButtonGroup() {
+    const { documentContext } = this.state;
+    return (
+      <div className="documents-button-group">
+        <div>
+          {this.renderButton(
+            'Passports',
+            this.isActive('passport'),
+            () => this.toggleDocumentTab('passport'),
+            { id: 'passportButton' }
+          )}
+          {this.renderButton(
+            'Visas',
+            this.isActive('visa'),
+            () => this.toggleDocumentTab('visa'),
+            { id: 'visaButton' }
+          )}
+        </div>
+        {this.renderButton(
+          `Add${' ' + documentContext}`,
+          undefined,
+          () => this.handleModals(documentContext),
+          { id: 'actionButton' }
+        )}
+      </div>
+    );
+  }
 
   render() {
     const { activeDocument, documentId } = this.state;
@@ -129,13 +193,13 @@ export class TravelReadinessDocuments extends Component {
     const {
       travelDocuments: { passport, visa }
     } = userReadiness;
+
     return (
       <Fragment>
-        <div style={{ width: '96%' }}>{this.renderVisaPage()}</div>
+        <PageHeader title="Travel Readiness" />
+        {this.renderButtonGroup()}
         {this.renderVisaModal()}
-        <div className={isLoading ? 'readiness-header' : ''}>
-          {this.renderPanelHeader()}
-        </div>
+        {this.renderPassportModal()}
         <TravelReadinessDetailsTable
           closeModal={closeModal}
           shouldOpen={shouldOpen}
