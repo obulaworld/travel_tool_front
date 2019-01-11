@@ -21,7 +21,7 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
       >
         <img
           alt="icon"
-          src="home.svg"
+          src="home_grey.svg"
         />
       </div>
       <div

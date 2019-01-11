@@ -29,7 +29,6 @@ export const initialState = {
   fetchingDocument: false,
 };
 
-
 export default (state=initialState, action) => {
   switch (action.type) {
   case CREATE_TRAVEL_READINESS_DOCUMENT:
@@ -40,11 +39,10 @@ export default (state=initialState, action) => {
     const {error: {errors}} = action;
     const validationErrors = {};
     errors && errors.forEach( error => {
-      const key = error.name.split('.');
-      if( key && key.length === 2)
-        validationErrors[key[1]] = error.message;
+      validationErrors[error.name.split('.')[1]] = error.message;
     });
-    return {...state, isLoading: false, errors: validationErrors === {} ? errors : validationErrors};
+
+    return {...state, isLoading: false, errors: validationErrors};
   }
   case FETCH_ALL_USERS_READINESS_DOCUMENTS:
     return {

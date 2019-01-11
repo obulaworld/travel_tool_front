@@ -348,7 +348,7 @@ It's key method `renderInput` takes 3 arguments;
 
 render() {
   const formMetadata = {
-    inputLabels: {
+    passportInputLabels: {
       fullname: {
         label: 'Your name',
         note: '(As it appears on your passport)'
@@ -447,7 +447,7 @@ We can get creative as we wish and group the inputs rendered in the form into cl
 ```js
 // DemoFormMetadata/index.js
 const demoFormMetadata = {
-  inputLabels: {
+  passportInputLabels: {
     fullname: {
       label: 'Your name',
       note: '(As it appears on your passport)'

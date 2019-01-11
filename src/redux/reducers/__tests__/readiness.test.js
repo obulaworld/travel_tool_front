@@ -3,10 +3,21 @@ import {
   FETCH_TRAVEL_READINESS, FETCH_TRAVEL_READINESS_FAILURE, FETCH_TRAVEL_READINESS_SUCCESS
 
 } from '../../constants/actionTypes';
-import { fetchReadinessResponse
+import {
+  fetchReadinessResponse, passportDetails
 
 } from '../../__mocks__/mocks';
-import { fetchReadinessFailure, fetchReadinessSuccess, fetchReadiness, exportReadiness, exportReadinessFailure, exportReadinessSuccess } from '../../actionCreator/travelReadinessActions';
+import {
+  fetchReadinessFailure,
+  fetchReadinessSuccess,
+  fetchReadiness,
+  exportReadiness,
+  exportReadinessFailure,
+  exportReadinessSuccess,
+  createTravelReadinessDocumentSuccess,
+  createTravelReadinessDocument,
+  createTravelReadinessDocumentFailure
+} from '../../actionCreator/travelReadinessActions';
 
 describe('Test suite for readiness reducer', () => {
   const initialState = {
@@ -78,4 +89,48 @@ describe('Test suite for readiness reducer', () => {
       expect(newState.error).toEqual(error);
       done();
     });
+  it('should handle CREATE_READINESS_DOCUMENT_SUCCESS', (done)=> {
+    const currentState = {
+      isLoading: false,
+      document: {},
+      errors: {}
+    };
+
+    const response = { 'passport': {...passportDetails}};
+    const action = createTravelReadinessDocumentSuccess(response);
+    const newState = readiness(currentState, action);
+    expect(newState.error, {});
+    expect(newState.document, response);
+    done();
+  });
+
+  it('should handle CREATE_READINESS_DOCUMENT', (done)=> {
+    const currentState = {
+      isLoading: true,
+      document: {},
+      errors: {}
+    };
+
+    const response = { 'passport': {...passportDetails}};
+    const action = createTravelReadinessDocument(response);
+    const newState = readiness(currentState, action);
+    expect(newState.error, {});
+    expect(newState.document, response);
+    done();
+  });
+
+  it('should handle CREATE_READINESS_DOCUMENT', (done)=> {
+    const currentState = {
+      isLoading: false,
+      document: {},
+      errors: {}
+    };
+
+    const response = { 'passport': {...passportDetails}};
+    const action = createTravelReadinessDocumentFailure(response);
+    const newState = readiness(currentState, action);
+    expect(newState.error, {});
+    expect(newState.document, response);
+    done();
+  });
 });

@@ -77,10 +77,66 @@
   }
 }
 
-.space-header {
-  box-sizing: border-box;
-  background-color: #f8f8f8;
-  height: 55px;
-  width: 96.3%;
-  margin-top: 8%;
+.documents-button-group {
+  margin-top: 53px;
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-left: 2px;
+  max-width: 96%;
+
+  div {
+    display: flex;
+    width: 240px;
+    justify-content: space-between;
+  }
+
+  &__button {
+    height: 36px;
+    width: 114px;
+    border-radius: 1px;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    outline: none;
+    border: 1px solid #3359db;
+    background-color: #fff;
+    cursor: pointer;
+    color: #3359db;
+    text-align: center;
+
+    &--active {
+      height: 36px;
+      width: 114px;
+      border-radius: 1px;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px;
+      outline: none;
+      border: 1px solid #3359db;
+      cursor: pointer;
+      text-align: center;
+      background-color: #3359DB;
+      color: #F8F8F8;
+    }
+
+    &--inactive {
+      height: 36px;
+      width: 114px;
+      border-radius: 1px;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid #D4D4D4;
+      background-color: #F8F8F8;
+      color: #999999;
+
+    }
+  }
 }

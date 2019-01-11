@@ -10,7 +10,6 @@ import PageHeader from '../../components/PageHeader';
 import { fetchUserReadinessDocuments } from '../../redux/actionCreator/travelReadinessDocumentsActions';
 import TravelReadinessDetailsTable from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
 import './Readiness.scss';
-import Button from '../../components/buttons/Buttons';
 
 export class TravelReadinessDocuments extends Component {
   constructor(props, context) {
@@ -73,7 +72,9 @@ export class TravelReadinessDocuments extends Component {
       shouldOpen,
       modalType,
       createTravelReadinessDocument,
-      travelReadinessDocuments
+      travelReadinessDocuments,
+      fetchUserData, 
+      user 
     } = this.props;
     return (
       <Modal
@@ -90,6 +91,8 @@ export class TravelReadinessDocuments extends Component {
           closeModal={closeModal}
           createTravelReadinessDocument={createTravelReadinessDocument}
           {...travelReadinessDocuments}
+          fetchUserData={fetchUserData}
+          user={user} 
         />
       </Modal>
     );
@@ -101,7 +104,9 @@ export class TravelReadinessDocuments extends Component {
       shouldOpen,
       modalType,
       travelReadinessDocuments,
-      createTravelReadinessDocument
+      createTravelReadinessDocument,
+      fetchUserData,
+      user,
     } = this.props;
     return (
       <Modal
@@ -116,6 +121,8 @@ export class TravelReadinessDocuments extends Component {
         <PassportForm
           createTravelReadinessDocument={createTravelReadinessDocument}
           {...travelReadinessDocuments}
+          fetchUserData={fetchUserData}
+          user={user}
         />
       </Modal>
     );
