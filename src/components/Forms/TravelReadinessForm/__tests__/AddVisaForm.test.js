@@ -7,7 +7,9 @@ import AddVisaForm from '../AddVisaForm';
 const props = {
   errors: {},
   createTravelReadinessDocument: jest.fn(),
-  closeModal: jest.fn()
+  closeModal: jest.fn(),
+  fetchUserData: jest.fn(),
+  user: {}
 };
 
 const textFile = new Blob(['This is a text file'], {type : 'text/plain'});

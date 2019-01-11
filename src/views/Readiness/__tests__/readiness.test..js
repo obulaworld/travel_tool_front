@@ -12,6 +12,7 @@ const props = {
   openModal: sinon.spy(() => Promise.resolve()),
   modalType: 'Add Visa',
   shouldOpen: false,
+  showBadge: false,
   createTravelReadinessDocument: sinon.spy(() => Promise.resolve()),
   userReadiness:  sinon.spy(() => Promise.resolve()),
   user: {
@@ -47,9 +48,9 @@ describe('renders <TravelReadinessDocuments />', () =>{
   const store = mockStore(state);
   it('renders without crashing', () => {
     const wrapper = mount(
-      <Provider store={store} {...props}>
+      <Provider store={store}>
         <MemoryRouter>
-          <ConnectedReadiness />
+          <ConnectedReadiness {...props} />
         </MemoryRouter>
       </Provider>
     );

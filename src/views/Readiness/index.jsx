@@ -122,6 +122,7 @@ export class TravelReadinessDocuments extends Component {
           createTravelReadinessDocument={createTravelReadinessDocument}
           {...travelReadinessDocuments}
           fetchUserData={fetchUserData}
+          closeModal={closeModal}
           user={user}
         />
       </Modal>
@@ -143,8 +144,6 @@ export class TravelReadinessDocuments extends Component {
     }
     return (
       <button
-        showBadge
-        badge={10}
         type="button"
         className={className}
         onClick={onClickHandler}

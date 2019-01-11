@@ -80,19 +80,20 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
+            size=""
             tabIndex="0"
             type="dropdown-select"
-            value=""
+            value="Multiple"
           >
             <div
               className="value"
               style={
                 Object {
-                  "width": undefined,
+                  "width": "",
                 }
               }
             >
-               
+              Multiple
               <div
                 className="select-dropdown inactive"
               >
@@ -290,18 +291,20 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
             onClick={[Function]}
             onKeyPress={[Function]}
             role="button"
+            size=""
             tabIndex="0"
             type="dropdown-select"
+            value="H-2A"
           >
             <div
               className="value"
               style={
                 Object {
-                  "width": undefined,
+                  "width": "",
                 }
               }
             >
-               
+              H-2A
               <div
                 className="select-dropdown inactive"
               >

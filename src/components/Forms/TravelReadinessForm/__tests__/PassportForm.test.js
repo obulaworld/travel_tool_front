@@ -12,19 +12,26 @@ describe('<PassportForm/>',  () => {
   createTravelReadinessDocument = jest.fn();
 
   const props = {
+    createTravelReadinessDocument: jest.fn(),
+    fetchingDocument: false,
     isLoading: false,
     document: {},
-    errors: {}
+    errors: {},
+    fetchUserData: jest.fn(),
+    users: [],
+    user: {},
+    closeModal: jest.fn(),
+    onCancel: jest.fn()
   };
 
   const document = {
     name: 'Mike',
     passportNumber : 'ABC123aemlbczy85',
     nationality : 'Kenyan ',
-    dateOfBirth : '12/01/1998',
-    dateOfIssue : '12/10/2018',
+    dateOfBirth : '12-01-1998',
+    dateOfIssue : '12-10-2018',
     placeOfIssue : 'Kenya',
-    expiryDate : '11/11/2019',
+    expiryDate : '11-11-2019',
     cloudinaryUrl : 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpeg'
   };
 
@@ -40,9 +47,7 @@ describe('<PassportForm/>',  () => {
   };
 
   beforeEach(() => {
-    wrapper = mount(<PassportForm
-      createTravelReadinessDocument={createTravelReadinessDocument}
-      errors={props.errors} />);
+    wrapper = mount(<PassportForm {...props} />);
     moxios.install();
   });
 
@@ -123,7 +128,7 @@ describe('<PassportForm/>',  () => {
 
     wrapper.setState({documentUploaded: true});
     wrapper.find('.passport-form').simulate('submit');
-    expect(createTravelReadinessDocument).toHaveBeenCalled();
+    expect(props.createTravelReadinessDocument).toHaveBeenCalled();
   });
 
   it('should display errors when received from the api', () => {

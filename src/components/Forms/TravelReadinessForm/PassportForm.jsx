@@ -43,6 +43,12 @@ class PassportForm extends PureComponent{
   }
 
 
+  onCancel = (event) => {
+    event.preventDefault();
+    const { closeModal } = this.props;
+    closeModal();
+  };
+
   handleSubmit = async event => {
     event.preventDefault();
     const { values, image, errors, documentUploaded } = this.state;
@@ -129,6 +135,7 @@ PassportForm.propTypes = {
   createTravelReadinessDocument: PropTypes.func.isRequired,
   errors: PropTypes.shape({}).isRequired,
   fetchUserData: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 export default PassportForm;

@@ -171,7 +171,7 @@ describe('Travel readiness documents test suite', () => {
         payload: visa,
         documentType: 'visa'
       })
-      .run();
+      .silentRun();
   });
 
   it('returns success', () =>{
@@ -182,6 +182,6 @@ describe('Travel readiness documents test suite', () => {
         type: CREATE_TRAVEL_READINESS_DOCUMENT,
         payload: visa,
         documentType: 'visa'
-      }).run();
+      }).silentRun();
   });
 });

@@ -4,10 +4,10 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { DocumentDetailsAttachment } from '../DocumentDetailsAttachment';
-import { wrap } from 'module';
 
 const props = {
   downloadDocument: jest.fn(),
+  isFetching: true,
   documentData: {
     'id': 'b9gnYkdzG',
     'type': 'passport',
