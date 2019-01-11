@@ -360,6 +360,7 @@ exports[`<PassportForm/> renders correctly 1`] = `
         <button
           className="bg-btn bg-btn--inactive"
           id="cancel"
+          onClick={[Function]}
           type="button"
         >
           Cancel

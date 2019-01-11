@@ -83,7 +83,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
             size=""
             tabIndex="0"
             type="dropdown-select"
-            value="Multiple"
+            value=""
           >
             <div
               className="value"
@@ -93,7 +93,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                 }
               }
             >
-              Multiple
+               
               <div
                 className="select-dropdown inactive"
               >
@@ -294,7 +294,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
             size=""
             tabIndex="0"
             type="dropdown-select"
-            value="H-2A"
+            value=""
           >
             <div
               className="value"
@@ -304,7 +304,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                 }
               }
             >
-              H-2A
+               
               <div
                 className="select-dropdown inactive"
               >

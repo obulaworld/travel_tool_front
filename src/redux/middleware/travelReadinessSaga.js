@@ -31,7 +31,10 @@ export function* fetchReadinessSaga(action){
 
 export function* createTravelReadinessDocument(action) {
   try{
-    const response = yield call(ReadinessAPI.createDocument, action.documentType, action.payload);
+    const response = yield call(
+      ReadinessAPI.createDocument,
+      action.documentType, 
+      action.payload);
     yield put(createTravelReadinessDocumentSuccess(response));
     toast.success(_.capitalize(action.documentType)+' created successfully!');
     yield put(closeModal());
