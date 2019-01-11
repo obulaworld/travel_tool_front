@@ -16,7 +16,7 @@ import {
   exportReadinessSuccess,
   createTravelReadinessDocumentSuccess, createTravelReadinessDocumentFailure
 } from '../actionCreator/travelReadinessActions';
-import {closeModal} from '../actionCreator/modalActions';
+import {closeModal, openModal} from '../actionCreator/modalActions';
 
 //fetch Travel Readiness from API and dispatch action to get this data to store via reducer
 export function* fetchReadinessSaga(action){
@@ -33,15 +33,15 @@ export function* createTravelReadinessDocument(action) {
   try{
     const response = yield call(
       ReadinessAPI.createDocument,
-      action.documentType, 
+      action.documentType,
       action.payload);
     yield put(createTravelReadinessDocumentSuccess(response));
-    toast.success(_.capitalize(action.documentType)+' created successfully!');
+    const docType = action.documentType === 'other' ? 'document' : action.documentType;
+    toast.success(_.capitalize(docType)+' created successfully!');
     yield put(closeModal());
+    yield put(openModal(true, 'interactive'));
   }catch (error) {
-    if( error.response.status === 409){
-      toast.error(apiErrorHandler(error));
-    }
+    toast.error(apiErrorHandler(error));
     yield put(createTravelReadinessDocumentFailure(error.response.data));
   }
 }

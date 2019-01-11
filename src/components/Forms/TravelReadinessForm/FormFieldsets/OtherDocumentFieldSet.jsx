@@ -11,7 +11,7 @@ class OtherDocumentFieldSet extends Component {
           {renderInput('name', 'text')}
           {renderInput('dateOfIssue', 'date')}
           {renderInput(
-            'documentId', 
+            'documentId',
             'text',
             {
               labelNote: '(Optional)',

@@ -180,7 +180,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       </Modal>
     );
   }
-  
+
   render() {
     const { activeDocument } = this.props;
     const { props } = this;

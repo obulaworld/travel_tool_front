@@ -11,10 +11,11 @@ const TravelDocumentModal = (props) => {
     modalType,
     createTravelReadinessDocument,
     travelReadinessDocuments,
-    fetchUserData, 
+    fetchUserData,
     user,
+    openModal
   } = props;
-  
+
   return (
     <Modal
       customModalStyles="add-document-item"
@@ -28,11 +29,12 @@ const TravelDocumentModal = (props) => {
     >
       <OtherDocument
         closeModal={closeModal}
+        openModal={openModal}
         createTravelReadinessDocument={createTravelReadinessDocument}
         travelReadinessDocuments={travelReadinessDocuments}
         documentType="other"
         fetchUserData={fetchUserData}
-        user={user} 
+        user={user}
       />
     </Modal>
   );
@@ -45,6 +47,7 @@ TravelDocumentModal.propTypes = {
   user: PropTypes.object.isRequired,
   travelReadinessDocuments: PropTypes.object.isRequired,
   fetchUserData: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
 
 };
 TravelDocumentModal.defaultProps = {
