@@ -29,21 +29,6 @@ export function* fetchReadinessSaga(action){
   }
 }
 
-// export function* createTravelReadinessDocument(action) {
-//   try{
-//     const response = yield call(ReadinessAPI.createDocument, action.documentType, action.payload);
-//     yield put(createTravelReadinessDocumentSuccess(response));
-//     toast.success(_.capitalize(action.documentType)+' created successfully!');
-//     yield put(closeModal());
-//   }catch (error) {
-//     if( error.response.status === 409){
-//       const {  response: { data: { errors }}} = error;
-//       errors && errors.length > 0 && toast.error(errors[0].message);
-//     }
-//     yield put(createTravelReadinessDocumentFailure(error.response.data));
-//   }
-// }
-
 export function* createTravelReadinessDocument(action) {
   try{
     const response = yield call(ReadinessAPI.createDocument, action.documentType, action.payload);
