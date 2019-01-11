@@ -6,6 +6,7 @@ import documentMocks from '../__mocks__/documentMocks';
 describe('UserTravelReadinessDetailsTable', () => {
   const passports = documentMocks.filter(doc => doc.type === 'passport');
   const visas = documentMocks.filter(doc => doc.type === 'visa');
+  const otherDocuments = documentMocks.filter(doc => doc.type === 'other');
 
   const defaultProps = {
     activeDocument: 'passport',
@@ -52,12 +53,27 @@ describe('UserTravelReadinessDetailsTable', () => {
     expect(wrapper.find('.table__readiness--empty').length).toBe(1);
   });
 
+  it('renders \'no other\' if no other document exist', () => {
+    const props = {
+      ...defaultProps,
+      activeDocument: 'other',
+      others: [],
+      shouldOpen: false,
+      modalType: 'document details',
+      documentId: 'fufgw',
+      userData: {}
+    };
+    const wrapper = shallow(<UserTravelReadinessDetailsTable {...props} />);
+    expect(wrapper.find('.table__readiness--empty').length).toBe(1);
+  });
+
+
   it('renders \'no visas\' if no visas exist', () => {
     const props = {
       ...defaultProps,
       activeDocument: 'visa',
       shouldOpen: true,
-      modalType: 'document details',
+      modalType: 'add other',
       documentId: 'fufgw',
       userData: {}
     };
@@ -94,4 +110,33 @@ describe('UserTravelReadinessDetailsTable', () => {
 
     expect(mockOnClick).toHaveBeenCalled();
   });
+
+  it('handles showing other documnent modal', () => {
+    const props = {
+      ...defaultProps,
+      passports,
+      visas,
+      others: otherDocuments,
+      activeDocument: 'other',
+    };
+    const mockOnClick = jest.fn();
+    const wrapper = shallow(<UserTravelReadinessDetailsTable {...props} handleShowDocument={mockOnClick} />);
+    const documentSpan = wrapper.find('.document-name').at(0);
+    documentSpan.simulate('click');
+    expect(mockOnClick).toHaveBeenCalled();
+  });
+
+  it('renders other documnent table', () => {
+    const props = {
+      ...defaultProps,
+      passports,
+      visas,
+      others: otherDocuments,
+      activeDocument: 'other',
+    };
+    const mockOnClick = jest.fn();
+    const wrapper = shallow(<UserTravelReadinessDetailsTable {...props} handleShowDocument={mockOnClick} />);
+    expect(wrapper.find('.table__container')).toBeTruthy();
+  });
+
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import toast from 'toastr';
 import moxios from 'moxios';
-import AddVisaForm from '../AddVisaForm';
+import OtherDocumentForm from '../OtherDocumentForm';
 
 
 const props = {
@@ -26,8 +26,8 @@ const event = {
   }
 };
 
-describe('<AddVisaForm />', () => {
-  const wrapper = mount(<AddVisaForm {...props} />);
+describe('<OtherDocumentForm />', () => {
+  const wrapper = mount(<OtherDocumentForm {...props} />);
   process.env.REACT_APP_CLOUNDINARY_API = 'https://api.cloudinary.com/v1_1/skybound/image/upload';
   beforeEach(() => {
     moxios.install();

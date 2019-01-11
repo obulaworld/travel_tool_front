@@ -88,20 +88,9 @@ const NavItemsMetadata = [
       inactive: inactiveAccommodationIcon
     }
   },
-  // Documents
-  {
-    text: 'Documents',
-    link_to: '/documents',
-    activateOnLogin: true,
-    isDropdown: false,
-    icons: {
-      active: activeDocumentsIcon,
-      inactive: inactiveDocumentsIcon
-    }
-  },
   // Travel Readiness
   {
-    text: 'Travel Readiness',
+    text: 'Travel Documents',
     link_to: '/travel_readiness',
     activateOnLogin: true,
     isDropdown: false,

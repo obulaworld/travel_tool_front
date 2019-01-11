@@ -18,8 +18,12 @@ class UserInfo extends PureComponent {
             {requestData && requestData.name}
           </div>
           <div className="user-role">
-            {requestData && `${requestData.role}${', '}`}
-            {requestData && requestData.department}
+            {
+              requestData && (
+                `${requestData.role}${requestData.role && ','} 
+                ${requestData.department || ''}`
+              )
+            }
           </div>
         </div>
       </div>

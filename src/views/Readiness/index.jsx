@@ -4,11 +4,16 @@ import PropTypes from 'prop-types';
 import AddVisaForm from '../../components/Forms/TravelReadinessForm/AddVisaForm';
 import { closeModal, openModal } from '../../redux/actionCreator/modalActions';
 import Modal from '../../components/modal/Modal';
+import TravelDocumentModal from '../../components/modal/TravelDocumentModal/TravelDocumentModal';
 import PassportForm from '../../components/Forms/TravelReadinessForm/PassportForm';
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
 import PageHeader from '../../components/PageHeader';
-import { fetchUserReadinessDocuments } from '../../redux/actionCreator/travelReadinessDocumentsActions';
-import TravelReadinessDetailsTable from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
+import { 
+  fetchUserReadinessDocuments 
+} from '../../redux/actionCreator/travelReadinessDocumentsActions';
+import 
+TravelReadinessDetailsTable
+  from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
 import './Readiness.scss';
 
 export class TravelReadinessDocuments extends Component {
@@ -37,6 +42,9 @@ export class TravelReadinessDocuments extends Component {
     case 'visa':
       openModal(true, 'add visa');
       break;
+    case 'other':
+      openModal(true, 'add other');
+      break;
     default:
       // Handle the opening of the 'others' modal
       return;
@@ -59,6 +67,9 @@ export class TravelReadinessDocuments extends Component {
       break;
     case 'visa':
       openModal(true, 'add visa');
+      break;
+    case 'other':
+      openModal(true, 'add other');
       break;
     default:
       // Handle the opening of the 'others' modal
@@ -90,12 +101,17 @@ export class TravelReadinessDocuments extends Component {
         <AddVisaForm
           closeModal={closeModal}
           createTravelReadinessDocument={createTravelReadinessDocument}
-          {...travelReadinessDocuments}
+          documentType="visa"
+          travelReadinessDocuments={travelReadinessDocuments}
           fetchUserData={fetchUserData}
           user={user} 
         />
       </Modal>
     );
+  };
+
+  renderOtherDocumentModal = () => {
+    return <TravelDocumentModal {...this.props} />;
   };
 
   renderPassportModal = () => {
@@ -132,7 +148,6 @@ export class TravelReadinessDocuments extends Component {
   renderButton = (text, active, onClickHandler, moreProps) => {
     let className = 'documents-button-group__button';
     const { userReadiness, isLoading } = this.props;
-    const { activeDocument } = this.state;
     const {
       travelDocuments: { passport, visa }
     } = userReadiness;
@@ -171,6 +186,12 @@ export class TravelReadinessDocuments extends Component {
             () => this.toggleDocumentTab('visa'),
             { id: 'visaButton' }
           )}
+          {this.renderButton(
+            'Others',
+            this.isActive('other'),
+            () => this.toggleDocumentTab('other'),
+            { id: 'otherButton' }
+          )}
         </div>
         {this.renderButton(
           `Add${' ' + documentContext}`,
@@ -184,23 +205,18 @@ export class TravelReadinessDocuments extends Component {
 
   render() {
     const { activeDocument, documentId } = this.state;
+    const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
     const {
-      userReadiness,
-      isLoading,
-      shouldOpen,
-      modalType,
-      closeModal
-    } = this.props;
-    const {
-      travelDocuments: { passport, visa }
+      travelDocuments: { passport, visa, other  }
     } = userReadiness;
 
     return (
       <Fragment>
-        <PageHeader title="Travel Readiness" />
+        <PageHeader title="Travel Documents" />
         {this.renderButtonGroup()}
         {this.renderVisaModal()}
         {this.renderPassportModal()}
+        {this.renderOtherDocumentModal()}
         <TravelReadinessDetailsTable
           closeModal={closeModal}
           shouldOpen={shouldOpen}
@@ -209,6 +225,7 @@ export class TravelReadinessDocuments extends Component {
           activeDocument={activeDocument}
           passports={passport}
           visas={visa}
+          others={other}
           handleShowDocument={this.showDocumentDetail}
           documentId={documentId}
           userData={userReadiness}
