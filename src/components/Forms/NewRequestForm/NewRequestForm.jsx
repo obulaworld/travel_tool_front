@@ -23,7 +23,7 @@ class NewRequestForm extends PureComponent {
     const editTripsStateValues = isEdit ? this.getTrips(requestOnEdit) : {};
     const requestTrips = isEdit ? this.setTrips(requestOnEdit) : [{}];
     this.defaultState = {
-      optionalFields: ['bedId'],
+      optionalFields: ['bedId', 'arrivalDate-1'],
       values: {
         name: name,
         gender,
@@ -414,6 +414,7 @@ class NewRequestForm extends PureComponent {
 
       return {
         parentIds: parentIds + 1,
+        optionalFields: [ prevState.optionalFields[0], `arrivalDate-${parentIds}`],
         trips: trips.concat([{
           departureDate: newTripDepartureDate,
           origin: lastDepartureLocation

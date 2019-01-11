@@ -103,7 +103,7 @@ class TravelDetailsFieldset extends Component {
   }
 
 
-  renderTravelDetails = (i, selection, onChangeInput, mappedTrip) => {
+  renderTravelDetails = (i, selection, onChangeInput, parentIds) => {
     const {
       values,
       handleDate,
@@ -111,7 +111,7 @@ class TravelDetailsFieldset extends Component {
       removeTrip,
       availableRooms,
       modalType,
-      requestOnEdit
+      requestOnEdit,
     } = this.props;
 
     const { renderInput } = this.inputRenderer;
@@ -132,6 +132,7 @@ class TravelDetailsFieldset extends Component {
         fetchRoomsOnFocus={this.fetchRoomsOnFocus}
         modalType={modalType}
         requestOnEdit={requestOnEdit}
+        parentIds={parentIds}
       />
     );
   };
@@ -141,7 +142,7 @@ class TravelDetailsFieldset extends Component {
     for (let i = 0; i < parentIds; i += 1) {
       forms.push(
         <div id={i} key={i}>
-          {this.renderTravelDetails(i, selection, onChangeInput)}
+          {this.renderTravelDetails(i, selection, onChangeInput, parentIds)}
         </div>
       );
     }

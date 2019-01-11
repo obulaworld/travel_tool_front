@@ -163,7 +163,11 @@ class TravelDetailsItem extends Component {
       renderInput,
       customPropsForArrival,
       selection,
+      parentIds
     } = this.props;
+    if (selection === 'multi' && itemId === parentIds - 1) {
+      return null;
+    }
     return(
       <div className="others-width" role="presentation">
         {renderInput(`arrivalDate-${itemId}`, 'date', {
@@ -273,6 +277,12 @@ class TravelDetailsItem extends Component {
         missingRequiredFields: false
       });
     }
+
+    if (isValid && selection === 'multi' && values[`arrivalDate-${i-1}`]) {
+      this.setState({
+        missingRequiredFields: false
+      });
+    }
   }
 
   render() {
@@ -338,5 +348,10 @@ TravelDetailsItem.propTypes = {
   customPropsForArrival: customPropsForArrival.isRequired,
   fetchRoomsOnFocus: fetchRoomsOnFocus.isRequired,
   modalType: modalType.isRequired,
-  requestOnEdit: requestOnEdit.isRequired
+  requestOnEdit: requestOnEdit.isRequired,
+  parentIds: PropTypes.number
+};
+
+TravelDetailsItem.defaultProps = {
+  parentIds: 0
 };
