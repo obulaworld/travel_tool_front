@@ -1,12 +1,14 @@
+import documentMock from '../../../mockData/travelReadinesMockData';
 import {
   fetchReadiness,
   fetchReadinessSuccess,
   fetchReadinessFailure,
-  createTravelReadinessDocumentSuccess,
   createTravelReadinessDocument,
+  createTravelReadinessDocumentSuccess,
   createTravelReadinessDocumentFailure
 } from '../travelReadinessActions';
 import { fetchReadinessResponse } from '../../__mocks__/mocks';
+import {CREATE_TRAVEL_READINESS_DOCUMENT} from '../../constants/actionTypes';
 
 describe('Travel Readiness Action', () => {
   it('should return action type of FETCH_TRAVEL_READINESS and payload', () => {
@@ -37,6 +39,24 @@ describe('Travel Readiness Action', () => {
       error
     };
     const createdAction = fetchReadinessFailure(error);
+    expect(createdAction).toEqual(expectedAction);
+  });
+
+  describe('should return action of type create travel readiness document', () =>  {
+    const expectedAction = {
+      type: 'CREATE_TRAVEL_READINESS_DOCUMENT',
+      payload: {...documentMock.passport},
+      documentType: 'passport'
+    };
+    const createdAction = createTravelReadinessDocument('passport', documentMock.passport);
+    expect(createdAction).toEqual(expectedAction);
+  });
+
+  describe('should return action of type create travel readiness document success', () =>  {
+    const expectedAction = {
+      type: 'CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS',
+    };
+    const createdAction = createTravelReadinessDocumentSuccess();
     expect(createdAction).toEqual(expectedAction);
   });
 

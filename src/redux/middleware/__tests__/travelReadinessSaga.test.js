@@ -7,7 +7,7 @@ import {
   watchFetchReadiness, watchExportReadiness, watchCreateTravelReadinessDocument
 } from '../travelReadinessSaga';
 import {
-  fetchReadinessResponse
+  fetchReadinessResponse, fetchTravelReadinessResponse, passportDetails
 } from '../../__mocks__/mocks';
 import {
   FETCH_TRAVEL_READINESS,
@@ -16,7 +16,9 @@ import {
   EXPORT_TRAVEL_READINESS,
   EXPORT_TRAVEL_READINESS_SUCCESS,
   EXPORT_TRAVEL_READINESS_FAILURE,
-  CREATE_TRAVEL_READINESS_DOCUMENT, CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE
+  CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  CREATE_TRAVEL_READINESS_DOCUMENT
 } from '../../constants/actionTypes';
 
 FileSaver.saveAs = jest.fn();

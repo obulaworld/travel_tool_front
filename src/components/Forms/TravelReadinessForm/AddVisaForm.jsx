@@ -33,6 +33,16 @@ class AddVisaForm extends PureComponent {
     this.setState({errors, isSubmitting: false});
   }
 
+  componentWillUnmount() {
+    const { fetchUserData, user } = this.props;
+    fetchUserData(user.currentUser.userId);
+  }
+
+
+
+
+ 
+
 
   onCancel = (event) => {
     event.preventDefault();
@@ -117,7 +127,9 @@ class AddVisaForm extends PureComponent {
 AddVisaForm.propTypes = {
   errors: PropTypes.object.isRequired,
   createTravelReadinessDocument: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  fetchUserData: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default AddVisaForm;
