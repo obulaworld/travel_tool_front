@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentDetailsModal TravelDocumentField should render correctly 1`] = `
+<div>
+  <div
+    className="modal__travel-doc-item"
+  >
+    <div
+      className="modal__travel-doc-label"
+    >
+      Column
+    </div>
+    <div
+      className="modal__travel-doc-text"
+    >
+      The value
+    </div>
+  </div>
+</div>
+`;
