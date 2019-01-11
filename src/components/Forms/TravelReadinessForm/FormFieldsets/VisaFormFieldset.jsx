@@ -8,11 +8,15 @@ class VisaFormFieldSet extends Component {
     return (
       <fieldset>
         <div className="input-group visa-input">
-          {renderInput('country', 'text')}
-          {renderInput('entryType', 'dropdown-select')}
+          {renderInput('country', 'text' )}
+          {renderInput('entryType', 'dropdown-select', {
+            size: ''
+          })}
           {renderInput('dateOfIssue', 'date')}
           {renderInput('expiryDate', 'date')}
-          {renderInput('visaType', 'dropdown-select')}
+          {renderInput('visaType', 'dropdown-select', {
+            size: ''
+          })}
         </div>
       </fieldset>
     );

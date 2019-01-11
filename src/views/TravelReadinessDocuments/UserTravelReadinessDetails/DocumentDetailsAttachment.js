@@ -32,6 +32,7 @@ export class DocumentDetailsAttachment extends Component {
     return (
       <Attachments
         fileSubmissions={fileSubmissions}
+        isFetching={false}
         handleDownload={this.handleDownloadDocument}
       />
     );

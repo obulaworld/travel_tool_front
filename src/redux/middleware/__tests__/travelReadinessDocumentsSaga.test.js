@@ -30,7 +30,7 @@ describe('Travel Readiness Documents saga', () => {
         .dispatch({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS
         })
-        .run();
+        .silentRun();
     });
 
     it('handles errors from fetching', () => {
@@ -45,7 +45,7 @@ describe('Travel Readiness Documents saga', () => {
         .dispatch({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -75,7 +75,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.FETCH_USER_READINESS_DOCUMENTS,
           userId,
         })
-        .run();
+        .silentRun();
     });
 
     it('handles errors from fetching', () => {
@@ -91,7 +91,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.FETCH_USER_READINESS_DOCUMENTS,
           userId,
         })
-        .run();
+        .silentRun();
     });
   });
 
@@ -121,7 +121,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.FETCH_TRAVEL_READINESS_DOCUMENT,
           documentId,
         })
-        .run();
+        .silentRun();
     });
 
     it('handles errors from fetching', () => {
@@ -137,7 +137,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.FETCH_TRAVEL_READINESS_DOCUMENT,
           documentId,
         })
-        .run();
+        .silentRun();
     });
   });
 });

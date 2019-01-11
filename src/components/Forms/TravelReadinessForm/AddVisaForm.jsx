@@ -17,7 +17,8 @@ class AddVisaForm extends PureComponent {
         country: '',
         entryType: '',
         dateOfIssue: '',
-        expiryDate: ''
+        expiryDate: '',
+        visaType:''
       },
       errors: {},
       hasBlankFields: true,
@@ -37,12 +38,6 @@ class AddVisaForm extends PureComponent {
     const { fetchUserData, user } = this.props;
     fetchUserData(user.currentUser.userId);
   }
-
-
-
-
- 
-
 
   onCancel = (event) => {
     event.preventDefault();
