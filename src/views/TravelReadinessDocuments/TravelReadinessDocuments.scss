@@ -16,12 +16,27 @@
   color: #3359db;
 }
 
-.table__body td:first-child {
-  border-left: 1px solid #e4e4e4;
-}
+.table__body {
 
-.table__body td:last-child {
-  border-right: 1px solid #e4e4e4;
+  td:last-child {
+    border-right: 1px solid #e4e4e4;
+  }
+
+  td:first-child {
+    border-left: 1px solid #e4e4e4;
+  }
+
+  #pending {
+    color: #FFAF30;
+  }
+
+  #not___verified {
+    color: #FF5359;
+  }
+
+  #verified {
+    color: #10A36D;
+  }
 }
 
 .table__readiness--empty {
