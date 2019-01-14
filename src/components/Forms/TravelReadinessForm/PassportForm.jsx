@@ -42,6 +42,9 @@ class PassportForm extends PureComponent{
     fetchUserData(user.currentUser.userId);
   }
 
+  formatDate = (date) => {
+    return moment(date).format('YYYY/MM/DD');
+  }
 
   onCancel = (event) => {
     event.preventDefault();
@@ -59,9 +62,9 @@ class PassportForm extends PureComponent{
 
       const newValues = {
         ...values,
-        dateOfBirth: moment(dateOfBirth).format('YYYY/MM/DD'),
-        dateOfIssue:moment(dateOfIssue).format('YYYY/MM/DD'),
-        expiryDate: moment(expiryDate).format('YYYY/MM/DD')
+        dateOfBirth: this.formatDate(dateOfBirth),
+        dateOfIssue: this.formatDate(dateOfIssue),
+        expiryDate: this.formatDate(expiryDate)
       };
 
 
@@ -84,9 +87,9 @@ class PassportForm extends PureComponent{
 
           DocumentAPI.setToken();
           createTravelReadinessDocument('passport',{...values, cloudinaryUrl: url,
-            dateOfBirth: moment(dateOfBirth).format('YYYY/MM/DD'),
-            dateOfIssue:moment(dateOfIssue).format('YYYY/MM/DD'),
-            expiryDate: moment(expiryDate).format('YYYY/MM/DD')});
+            dateOfBirth: this.formatDate(dateOfBirth),
+            dateOfIssue:this.formatDate(dateOfIssue),
+            expiryDate: this.formatDate(expiryDate)});
         } catch (e) {
           toast.error('Error uploading passport. Please try again!');
         }

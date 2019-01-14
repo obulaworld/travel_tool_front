@@ -6,8 +6,13 @@ const SubmitArea = (props) => {
   const { hasBlankFields,onCancel, send, selection, loading} = props;
   return (
     <fieldset>
-      <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
-        <button type="button" className="bg-btn bg-btn--inactive" onClick={onCancel} id="cancel">
+      <div
+        className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
+        <button
+          type="button"
+          className="bg-btn bg-btn--inactive"
+          onClick={onCancel}
+          id="cancel">
               Cancel
         </button>
         <button

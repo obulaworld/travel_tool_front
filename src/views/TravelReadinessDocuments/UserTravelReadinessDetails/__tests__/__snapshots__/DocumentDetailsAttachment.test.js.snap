@@ -11,5 +11,6 @@ exports[`DocumentDetailsAttachment renders a document attachment 1`] = `
     ]
   }
   handleDownload={[Function]}
+  isFetching={false}
 />
 `;

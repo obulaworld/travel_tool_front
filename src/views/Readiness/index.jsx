@@ -136,16 +136,11 @@ export class TravelReadinessDocuments extends Component {
     const {
       travelDocuments: { passport, visa }
     } = userReadiness;
-
-    if (active) {
-      className += '--active';
-    } else if (active === false) {
-      className += '--inactive';
-    }
+    
     return (
       <button
         type="button"
-        className={className}
+        className={`${className}${ active ? '--active' : '--inactive'}`}
         onClick={onClickHandler}
         {...moreProps}
       >
