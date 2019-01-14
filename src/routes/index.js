@@ -200,7 +200,10 @@ const Routes = () => (
             exact
             component={RequireAuth(ConnectedDocuments)}
           />
-          <Route component={NotFound} />
+          <Route
+            component={
+              RequireAuth(NotFound)
+            } />
         </Switch>
       </LayoutShell>
     </Route>
