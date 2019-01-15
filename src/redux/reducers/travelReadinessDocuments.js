@@ -19,7 +19,8 @@ import {
   EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
   DELETE_TRAVEL_READINESS_DOCUMENT,
   DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-  DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE
+  DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  CREATE_COMMENT_SUCCESS
 } from '../constants/actionTypes';
 
 export const initialState = {
@@ -34,7 +35,10 @@ export const initialState = {
     },
   },
   errors: {},
-  document: {},
+  document: {
+    comments: [],
+  },
+  comments: [],
   fetchingDocument: false,
 };
 
@@ -108,7 +112,9 @@ export default (state = initialState, action) => {
     return {
       ...state,
       fetchingDocument: true,
-      document: {}
+      document: {
+        comments: [],
+      },
     };
   case FETCH_TRAVEL_READINESS_DOCUMENT_SUCCESS:
     return {
@@ -120,7 +126,9 @@ export default (state = initialState, action) => {
     return {
       ...state,
       fetchingDocument: false,
-      document: {},
+      document: {
+        comments: [],
+      },
       error: action.error
     };
   case VERIFY_TRAVEL_READINESS_DOCUMENT:
@@ -128,7 +136,9 @@ export default (state = initialState, action) => {
       ...state,
       fetchingDocument: true,
       updatingDocument: true,
-      document: {},
+      document: {
+        comments: [],
+      },
     };
   case VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS:
   case EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS:
@@ -148,7 +158,9 @@ export default (state = initialState, action) => {
       fetchingDocument: false,
       updatingDocument: false,
       error: action.error,
-      document: {},
+      document: {
+        comments: [],
+      },
     };
   case CREATE_TRAVEL_READINESS_DOCUMENT:
     return {...state, isLoading: true};
@@ -199,6 +211,21 @@ export default (state = initialState, action) => {
       deletingDocument: false,
       error: action.error,
       document: {},
+    };
+  case CREATE_COMMENT_SUCCESS:
+    return {
+      ...state,
+      document: {
+        ...state.document,
+        comments: [
+          ...state.document.comments,
+          action.comment.comment
+        ],
+      },
+      comments: [
+        ...state.document.comments,
+        action.comment.comment
+      ],
     };
   default: return state;
   }

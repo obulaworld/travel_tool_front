@@ -62,10 +62,10 @@ export class CommentBox extends Component {
 
   handleSubmit = event => {
     const { text } = this.state;
-    const { createComment, requestId } = this.props;
+    const { createComment, requestId, documentId } = this.props;
     event.preventDefault();
     if (text.trim() !== '') {
-      createComment(requestId, this.sanitizeInputData(text));
+      createComment(requestId, documentId, this.sanitizeInputData(text));
     }
     this.setState({
       text: '',
@@ -172,6 +172,7 @@ CommentBox.propTypes = {
   createComment: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   requestId: PropTypes.string,
+  documentId: PropTypes.string,
   comment: PropTypes.string,
   id: PropTypes.string,
   afterSubmit: PropTypes.func,
@@ -182,6 +183,7 @@ CommentBox.propTypes = {
 CommentBox.defaultProps = {
   afterSubmit: () => {},
   requestId: '',
+  documentId: '',
   comment: '',
   id: '',
   handleNoEdit: () => {},

@@ -190,8 +190,10 @@ export class RequestDetailsModal extends Component {
   }
 
   renderRequests() {
-    const { fetchingRequest, error, requestId, redirectLink,
-      requestData, user, email } = this.props;
+    const {
+      fetchingRequest, error, requestId, redirectLink,
+      requestData, user, user: { picture }, email, currentUser
+    } = this.props;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
 
@@ -217,16 +219,16 @@ export class RequestDetailsModal extends Component {
           {this.renderRequestDetailsHeader(requestData)}
           {RequestModalHelper.getRequestTripsDetails(requestData)}
         </div>
-        { ['Approved', 'Verified'].includes(requestData.status) ?
-          <FileAttachment requestId={requestId} /> : '' }
-        <AddComment image={user.picture} />
-        <ConnectedCommentBox requestId={requestId} />
-        {requestData && ['Approved', 'Rejected'].includes(requestData.status) &&
-        this.renderRequestAprroval()}
+        { ['Approved', 'Verified'].includes(requestData.status) ? <FileAttachment requestId={requestId} /> : '' }
+        <AddComment image={picture} />
+        <ConnectedCommentBox requestId={requestId} documentId={null} />
+        {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
         <div id="comments">
           <ConnectedUserComments
             comments={requestData.comments ? requestData.comments.slice(0).reverse(): []}
-            email={email.result && email.result.email} />
+            email={email.result && email.result.email}
+            currentUser={currentUser}
+          />
         </div>
       </Fragment>
     );
@@ -248,6 +250,7 @@ RequestDetailsModal.propTypes = {
   requestId: PropTypes.string,
   user: PropTypes.object,
   requestData: PropTypes.object,
+  currentUser: PropTypes.object,
   isStatusUpdating: PropTypes.bool,
   fetchingRequest: PropTypes.bool,
   navigatedPage: PropTypes.string,
@@ -262,6 +265,7 @@ RequestDetailsModal.defaultProps = {
   updateRequestStatus: () => {},
   requestId: '',
   requestData: {},
+  currentUser: {},
   user: {},
   isStatusUpdating: false,
   fetchingRequest: false,
@@ -275,6 +279,7 @@ const mapStateToProps = (state) => {
   return {
     requestData: state.requests.requestData,
     user: state.auth.user.UserInfo,
+    currentUser: state.user.currentUser,
     isStatusUpdating: state.approvals.updatingStatus,
     fetchingRequest: state.requests.fetchingRequest,
     email:state.user.getUserData,

@@ -13,7 +13,7 @@ describe('travel readiness reducer', () => {
     const expectedOutput = {
       ...initialState,
       isLoading: true,
-      document: {},
+      document: { comments: [] },
       errors: {}
     };
     expect(travelReadinessDocuments(initialState, {
@@ -57,7 +57,7 @@ describe('travel readiness reducer', () => {
 
     const expectedOutput = {
       ...initialState,
-      document: {},
+      document: { comments: [] },
       errors: {
         'country': 'country should be provided',
         'expiryDate': 'expiry date should be greater than date of issue'
@@ -194,7 +194,7 @@ describe('travel readiness reducer', () => {
     };
 
     const newState = travelReadinessDocuments(initialState, action);
-    const expectedState = { ...initialState, updatingDocument: true, document: {}, fetchingDocument: true };
+    const expectedState = { ...initialState, updatingDocument: true, document: { comments: [] }, fetchingDocument: true };
 
     expect(newState).toEqual(expectedState);
   });
@@ -218,7 +218,7 @@ describe('travel readiness reducer', () => {
     };
 
     const newState = travelReadinessDocuments(initialState, action);
-    const expectedState = { ...initialState, isLoading: false, error: action.error, document: {}, updatingDocument: false};
+    const expectedState = { ...initialState, isLoading: false, error: action.error, document: { comments: [] }, updatingDocument: false};
 
     expect(newState).toEqual(expectedState);
   });

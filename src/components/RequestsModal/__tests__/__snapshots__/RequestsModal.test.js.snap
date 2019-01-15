@@ -325,6 +325,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
     image="http://my-image"
   />
   <Connect(CommentBox)
+    documentId={null}
     requestId="xDh20cuGx"
   />
   <RequestApproval
@@ -410,6 +411,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
           },
         ]
       }
+      currentUser={Object {}}
     />
   </div>
 </Fragment>

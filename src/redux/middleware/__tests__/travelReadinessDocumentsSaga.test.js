@@ -240,7 +240,7 @@ describe('Travel Readiness Documents saga', () => {
           payload,
           documentId,
         })
-        .run();
+        .silentRun();
     });
 
     it('handles errors from update', () => {
@@ -257,7 +257,7 @@ describe('Travel Readiness Documents saga', () => {
           documentType: 'passport',
           documentId,
         })
-        .run();
+        .silentRun();
     });
   });
 

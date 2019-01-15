@@ -70,22 +70,25 @@ export default class CommentItem extends Component {
       comment,
       renderCancelButton,
       editComment,
-      editReady
+      editReady,
+      currentUser
     } = this.props;
     return (
       <div className="modal__modal1" key={comment.id}>
         <hr />
         <div className="modal__mdl-icons">
           <ImageLink
-            imageSrc={comment.picture}
+            imageSrc={comment.userId === currentUser.id ? currentUser.picture : comment.user.picture}
             altText="avatar"
             imageClass="modal__oval-copy"
           />
-          <span className="modal__user-name">{comment.userName}</span>
+          <span className="modal__user-name">
+            {comment.userId === currentUser.id ? currentUser.fullName : comment.user.fullName}
+          </span>
           <span className="modal__hours-status">
             {formatDate(comment.createdAt)}
           </span>
-          {email === comment.userEmail ? (
+          {comment && comment.userId === currentUser.id ? (
             <span className="modal__dialog">
               <button
                 className={`edit-button ${
@@ -141,5 +144,6 @@ CommentItem.propTypes = {
   resetEditing: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
-  renderCancelButton: PropTypes.func.isRequired
+  renderCancelButton: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired,
 };
