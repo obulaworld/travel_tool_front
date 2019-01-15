@@ -82,19 +82,32 @@ describe('TravelReadinessDocumentsAPI', () => {
   });
 
   it('should send a PUT request to update a travel readiness document', async () => {
-    const data = {
-      message: 'Visa successfully update',
-      success: true,
-      updatedDocument: { id: 'xyz' }
-    };
-    moxios.stubRequest(`${baseUrl}/travelreadiness/documents/${data.updatedDocument.id}`, {
-      status: 200,
-      response: data,
-    });
-
+    const data = { message: 'Visa successfully update', success: true, updatedDocument: { id: 'xyz' } };
+    moxios.stubRequest(
+      `${baseUrl}/travelreadiness/documents/${data.updatedDocument.id}`,
+      {
+        status: 200,
+        response: data
+      }
+    );
     const response = await TravelReadinessDocumentsAPI.editTravelReadinessDocument('visa', { id: 'xyz' }, 'xyz');
 
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/documents/xyz`);
+    expect(response.data).toEqual(data);
+  });
+
+  it('should send a DELETE request to delete a travel readiness document', async () => {
+    const data = { message: 'Successfully deleted document', success: true, deletedDocument: { id: '7472wh' } };
+    moxios.stubRequest(
+      `${baseUrl}/travelreadiness/documents/${data.deletedDocument.id}`,
+      {
+        status: 200,
+        response: data
+      }
+    );
+    const response = await TravelReadinessDocumentsAPI.deleteTravelReadinessDocument('7472wh');
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/documents/7472wh`);
     expect(response.data).toEqual(data);
   });
 });

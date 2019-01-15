@@ -22,6 +22,12 @@ exports[`<Dashboard /> renders correctly 1`] = `
         },
       }
     }
+    user={
+      Object {
+        "email": "william.sserubiri@andela.com",
+        "id": 2,
+      }
+    }
   />
 </div>
 `;

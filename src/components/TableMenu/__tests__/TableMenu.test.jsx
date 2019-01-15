@@ -60,6 +60,7 @@ let props = {
     }
   },
   editDocument: sinon.spy(() => Promise.resolve()),
+  deleteDocument: sinon.spy(() => Promise.resolve())
 };
 
 let wrapper = shallow(<TableMenu {...props} />);
@@ -80,8 +81,8 @@ describe('<TableMenu />', () => {
     wrapper = shallow(<TableMenu {...props} />);
 
     expect(wrapper.find('ul').length).toBe(10);
-    expect(wrapper.find('li').length).toBe(22);
-    expect(wrapper.find('img').length).toBe(22);
+    expect(wrapper.find('li').length).toBe(31);
+    expect(wrapper.find('img').length).toBe(31);
   });
 
   it('should render Onclick request works as exepected', () => {
@@ -189,6 +190,9 @@ describe('<TableMenu />', () => {
       ...props,
       requestStatus: 'Open',
       openModal: jest.fn(),
+      passportData: {},
+      visaData: {},
+      documentData: {}
     };
     wrapper = shallow(<TableMenu {...newProps} />);
     const deleteRequest = wrapper.find('li#deleteRequest');
@@ -203,7 +207,10 @@ describe('<TableMenu />', () => {
       fetchUserRequests: jest.fn(),
       requestStatus: 'Open',
       openModal: jest.fn(),
-      closeModal: jest.fn()
+      closeModal: jest.fn(),
+      passportData: {},
+      visaData: {},
+      documentData: {}
     };
     const event = { preventDefault: jest.fn() };
     wrapper = shallow(<TableMenu {...newProps} />);
@@ -211,5 +218,38 @@ describe('<TableMenu />', () => {
       .dive().find('.delete-document-button');
     deleteRequest.simulate('click', event);
     expect(wrapper.instance().props.deleteRequest).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call simulate deletion for passport', () => {
+    let newProps = {
+      ...props,
+      request: {},
+      visaData: {},
+      documentData: {}
+    };
+    const event = { preventDefault: jest.fn() };
+    wrapper = shallow(<TableMenu {...newProps} />);
+    const deleteButton = wrapper
+      .find('DeleteModal')
+      .dive()
+      .find('.delete-document-button');
+    deleteButton.simulate('click', event);
+  });
+
+  it('should call simulate deletion for visa', () => {
+    let newProps = {
+      ...props,
+      request: {},
+      passportData: {},
+      documentData: {}
+    };
+
+    const event = { preventDefault: jest.fn() };
+    wrapper = shallow(<TableMenu {...newProps} />);
+    const deleteButton = wrapper
+      .find('DeleteModal')
+      .dive()
+      .find('.delete-document-button');
+    deleteButton.simulate('click', event);
   });
 });

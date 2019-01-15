@@ -173,4 +173,38 @@ describe('Travel Readiness Documents actions', () => {
       expect(action).toEqual(expectedAction);
     });
   });
+
+  describe('DELETE a travel readiness document', () => {
+    it('should return action type DELETE_TRAVEL_READINESS_DOCUMENT', () => {
+      const expectedAction = {
+        type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
+        documentId: 'docIDD',
+      };
+
+      const action = actions.deleteTravelReadinessDocument('docIDD');
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+      const mockDocumentData = { id: 'docIDD' };
+      const expectedAction = {
+        type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+        deletedDocument: mockDocumentData,
+      };
+
+      const action = actions.deleteTravelReadinessDocumentSuccess(mockDocumentData);
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {
+      const error = 'Error fetching document data';
+      const expectedAction = {
+        type: types.DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+        error,
+      };
+
+      const action = actions.deleteTravelReadinessDocumentFailure(error);
+      expect(action).toEqual(expectedAction);
+    });
+  });
 });

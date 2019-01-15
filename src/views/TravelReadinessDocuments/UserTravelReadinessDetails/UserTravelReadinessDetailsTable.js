@@ -41,7 +41,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       }
     });
   }
-  
+
   renderTableHeadRows(columnNames) {
     return (
       <tr>
@@ -109,7 +109,7 @@ export class UserTravelReadinessDetailsTable extends Component {
     const {id, data: { passportNumber, dateOfBirth, dateOfIssue, placeOfIssue, expiryDate, nationality }, isVerified } = passportData;
     const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${nationality}-passport`;
-    const { handleShowDocument, type, editDocument } = this.props;
+    const { handleShowDocument, type, editDocument, shouldOpen, modalType, closeModal, openModal, deleteDocument  } = this.props;
     const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
@@ -132,8 +132,9 @@ export class UserTravelReadinessDetailsTable extends Component {
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           <TableMenu
-            passportData={passportData} menuOpen={menuOpen} type={type}
-            toggleMenu={this.toggleMenu} editDocument={editDocument}
+            passportData={passportData} menuOpen={menuOpen} type={type} closeModal={closeModal}
+            shouldOpen={shouldOpen} openModal={openModal} deleteDocument={deleteDocument}
+            toggleMenu={this.toggleMenu} editDocument={editDocument} modalType={modalType}
           />
         </td>
       </tr>
@@ -144,7 +145,7 @@ export class UserTravelReadinessDetailsTable extends Component {
     const { id, data: {country, entryType, visaType, dateOfIssue, expiryDate}, isVerified } = visaData;
     const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${country}-visa`;
-    const { handleShowDocument, type, editDocument } = this.props;
+    const { handleShowDocument, type, editDocument, shouldOpen, modalType, closeModal, openModal, deleteDocument } = this.props;
     const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
@@ -167,8 +168,9 @@ export class UserTravelReadinessDetailsTable extends Component {
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           <TableMenu
-            visaData={visaData} menuOpen={menuOpen} type={type} 
-            toggleMenu={this.toggleMenu} editDocument={editDocument}
+            visaData={visaData} menuOpen={menuOpen} type={type} closeModal={closeModal}
+            toggleMenu={this.toggleMenu} editDocument={editDocument} modalType={modalType}
+            deleteDocument={deleteDocument} shouldOpen={shouldOpen} openModal={openModal}
           />
         </td>
       </tr>
@@ -179,7 +181,7 @@ export class UserTravelReadinessDetailsTable extends Component {
     const { id, data: {name, dateOfIssue, expiryDate, documentId, cloudinaryUrl }, isVerified } = documentData;
     const status = isVerified ? 'Verified': 'Pending';
     const attachments = `${name}-document`;
-    const { handleShowDocument, type, editDocument } = this.props;
+    const { handleShowDocument, type, editDocument, shouldOpen, modalType, closeModal, openModal, deleteDocument } = this.props;
     const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
@@ -203,8 +205,9 @@ export class UserTravelReadinessDetailsTable extends Component {
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data">
           <TableMenu
-            documentData={documentData} menuOpen={menuOpen} type={type} 
-            toggleMenu={this.toggleMenu} editDocument={editDocument}
+            documentData={documentData} menuOpen={menuOpen} type={type} closeModal={closeModal}
+            toggleMenu={this.toggleMenu} editDocument={editDocument} modalType={modalType}
+            deleteDocument={deleteDocument} shouldOpen={shouldOpen} openModal={openModal}
           />
         </td>
       </tr>
@@ -255,6 +258,7 @@ UserTravelReadinessDetailsTable.propTypes = {
   passports: PropTypes.array, visas: PropTypes.array,
   activeDocument: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func,
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   handleShowDocument: PropTypes.func.isRequired,
@@ -262,11 +266,13 @@ UserTravelReadinessDetailsTable.propTypes = {
   userData: PropTypes.object.isRequired,
   editDocument: PropTypes.func, type: PropTypes.string,
   location: PropTypes.object.isRequired,
+  deleteDocument: PropTypes.func
 };
 
 UserTravelReadinessDetailsTable.defaultProps = {
   modalType: '', type: 'documents', editDocument: () => {},
   passports: [], visas: [], others: [], documentId: '',
+  deleteDocument: () => {}, openModal: () => {}
 };
 
 export default withLoading(UserTravelReadinessDetailsTable);
