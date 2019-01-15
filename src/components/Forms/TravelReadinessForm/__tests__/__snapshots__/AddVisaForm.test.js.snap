@@ -5,6 +5,355 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
   className="travel-document-form"
   onSubmit={[Function]}
 >
+  <fieldset>
+    <div
+      className="input-group visa-input"
+    >
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="country"
+        >
+          Country
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <input
+          autoComplete="off"
+          className=" "
+          label="Country"
+          name="country"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="entryType"
+        >
+          Entry Type
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            autoComplete="off"
+            choices={
+              Array [
+                "Single",
+                "Multiple",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Entry Type"
+            name="entryType"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            size=""
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": "",
+                }
+              }
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                id="choice"
+                key="Single"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Single
+                </div>
+              </li>
+              <li
+                id="choice"
+                key="Multiple"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Multiple
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="dateOfIssue"
+        >
+          Date of Issue
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <div
+          className="date-wrapper "
+          id="dateOfIssue_date"
+        >
+          <div>
+            <div
+              className="react-datepicker-wrapper"
+            >
+              <div
+                className="react-datepicker__input-container"
+              >
+                <input
+                  autoComplete="off"
+                  className=""
+                  disabled={false}
+                  name="dateOfIssue"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  readOnly={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <img
+            alt="cal"
+            className="calendar-icon"
+            src="calendar_icon.svg"
+          />
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="expiryDate"
+        >
+          Expiry Date
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <div
+          className="date-wrapper "
+          id="expiryDate_date"
+        >
+          <div>
+            <div
+              className="react-datepicker-wrapper"
+            >
+              <div
+                className="react-datepicker__input-container"
+              >
+                <input
+                  autoComplete="off"
+                  className=""
+                  disabled={false}
+                  name="expiryDate"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  readOnly={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <img
+            alt="cal"
+            className="calendar-icon"
+            src="calendar_icon.svg"
+          />
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="visaType"
+        >
+          Select Visa Type
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+            *
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            autoComplete="off"
+            choices={
+              Array [
+                "H-2A",
+                "H-2B",
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Select Visa Type"
+            name="visaType"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            size=""
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": "",
+                }
+              }
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+            >
+              <li
+                id="choice"
+                key="H-2A"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  H-2A
+                </div>
+              </li>
+              <li
+                id="choice"
+                key="H-2B"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  H-2B
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+    </div>
+  </fieldset>
   <div
     className="travel-document-select-file"
   >
@@ -60,7 +409,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
           id="submit"
           type="submit"
         >
-          Add 
+          Add Visa
         </button>
       </div>
     </fieldset>

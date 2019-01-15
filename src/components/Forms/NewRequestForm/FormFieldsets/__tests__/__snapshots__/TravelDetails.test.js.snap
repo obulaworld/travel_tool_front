@@ -200,6 +200,7 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
       itemId={0}
       modalType="edit request"
       onChangeInput={[Function]}
+      parentIds={1}
       removeTrip={[Function]}
       renderInput={[Function]}
       requestOnEdit={

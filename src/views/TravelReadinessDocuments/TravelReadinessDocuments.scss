@@ -26,16 +26,19 @@
     border-left: 1px solid #e4e4e4;
   }
 
-  #pending {
-    color: #FFAF30;
+  .pending, .verified {
+    border-radius: 14px;
+    color: #FFF;
+    font-size: 11px;
+    padding: 5px 15px;
   }
 
-  #not___verified {
-    color: #FF5359;
+  .pending {
+    background-color: #FFAF30;
   }
 
-  #verified {
-    color: #10A36D;
+  .verified {
+    background-color: #10A36D;
   }
 }
 
