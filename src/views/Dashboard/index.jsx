@@ -18,7 +18,7 @@ export class Dashboard extends Component {
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
       exportReadiness, travelCalendar, fetchCalendarAnalytics,
-      downloadCalendarAnalytics, downloadAnalytics } = this.props;
+      downloadCalendarAnalytics, downloadAnalytics, currentUser } = this.props;
     return (
       <div id="dashboard">
         <FilterContext>
@@ -41,7 +41,9 @@ export class Dashboard extends Component {
         <TravelCalendar
           fetchCalendarAnalytics={fetchCalendarAnalytics}
           downloadCalendarAnalytics={downloadCalendarAnalytics}
-          travelCalendar={travelCalendar} />
+          travelCalendar={travelCalendar}
+          user={currentUser}
+        />
       </div>
     );
   }
@@ -71,7 +73,8 @@ Dashboard.propTypes = {
   exportReadiness: PropTypes.func.isRequired,
   fetchCalendarAnalytics: PropTypes.func.isRequired,
   downloadCalendarAnalytics: PropTypes.func.isRequired,
-  travelCalendar: PropTypes.object.isRequired
+  travelCalendar: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

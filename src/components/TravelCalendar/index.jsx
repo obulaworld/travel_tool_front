@@ -114,9 +114,10 @@ class TravelCalendar extends PureComponent {
   }
 
   renderCalendar (calender, index) {
+    const {user} = this.props;
     return (
       <Fragment key={`calendar-${index}`}>
-        <TravelCalendarDetails id="calendar" calendar={calender} />
+        <TravelCalendarDetails id="calendar" calendar={calender} user={user} />
       </Fragment>
     );
   }
@@ -195,7 +196,8 @@ class TravelCalendar extends PureComponent {
 TravelCalendar.propTypes = {
   fetchCalendarAnalytics: PropTypes.func.isRequired,
   downloadCalendarAnalytics: PropTypes.func.isRequired,
-  travelCalendar: PropTypes.object.isRequired
+  travelCalendar: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default TravelCalendar;

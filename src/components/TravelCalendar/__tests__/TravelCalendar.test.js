@@ -1,7 +1,8 @@
 import React from 'react';
-import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
-import { shallow, mount } from 'enzyme';
+import {format, startOfISOWeek, endOfISOWeek} from 'date-fns';
+import {shallow, mount} from 'enzyme';
 import TravelCalendar from '../index';
+import mockUser from '../../../mockData/mockUserData';
 
 const props = {
   travelCalendar: {
@@ -41,7 +42,9 @@ const props = {
   },
   fetchCalendarAnalytics: jest.fn(),
   downloadCalendarAnalytics: jest.fn(),
-  handleFilterBtn: jest.fn()
+  handleFilterBtn: jest.fn(),
+  user: {...mockUser}
+
 };
 
 const filter = `dateFrom=${format(startOfISOWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfISOWeek(new Date()), 'YYYY-MM-DD')}`;
@@ -118,7 +121,7 @@ describe('Travel Calendar', () => {
 
   describe('Travel Calendar error', () => {
     it('should render Travel Calendar with error fetching data from the server', () => {
-      props.travelCalendar ={
+      props.travelCalendar = {
         travelCalendarError: 'Server error please try again',
         travelCalendarData: {
           data: []
