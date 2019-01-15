@@ -103,7 +103,8 @@ import {
   watchFetchUsersReadinessDocuments,
   watchFetchReadinessDocuments,
   watchFetchReadinessDocumentDetails,
-  watchVerifyTravelReadinessDocuments
+  watchVerifyTravelReadinessDocuments,
+  watchEditTravelReadinessDocument
 } from './travelReadinessDocumentsSaga';
 
 function* rootSaga() {
@@ -180,6 +181,7 @@ function* rootSaga() {
     watchFetchReadinessDocumentDetails(),
     watchFetchTeammates(),
     watchVerifyTravelReadinessDocuments(),
+    watchEditTravelReadinessDocument()
   ]);
 }
 

@@ -233,7 +233,7 @@ exports[`<OtherDocumentForm /> renders without crashing 1`] = `
           id="submit"
           type="submit"
         >
-          Add Document
+          Add Visa
         </button>
       </div>
     </fieldset>

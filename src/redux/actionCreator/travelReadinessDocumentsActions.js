@@ -59,3 +59,20 @@ export const verifyTravelReadinessDocumentFailure = (error) => ({
   type: types.VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
   error
 });
+
+export const editTravelReadinessDocument = (documentType, payload, documentId) => ({
+  type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
+  documentType,
+  payload,
+  documentId
+});
+
+export const editTravelReadinessDocumentSuccess = (documentUpdate) => ({
+  type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  documentUpdate
+});
+
+export const editTravelReadinessDocumentFailure = (error) => ({
+  type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  error
+});

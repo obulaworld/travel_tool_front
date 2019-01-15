@@ -222,4 +222,50 @@ describe('travel readiness reducer', () => {
 
     expect(newState).toEqual(expectedState);
   });
+
+  it('should handle EDIT_TRAVEL_READINESS_DOCUMENT', () => {
+    const action = {
+      type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
+      documentType: 'visa',
+      payload: {
+        'visa': {
+          'entryType':'Multiple',
+          'country': 'Estoni and Herzegovina',
+          'dateOfIssue': '02/01/2018',
+          'expiryDate': '06/01/2019',
+          'cloudinaryUrl': 'http://n.com'
+        }
+      },
+      documentId: 'JiSe',
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, updatingDocument: true, document: {} };
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+    const action = {
+      type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+      document: { id: 'JiSe', type: 'visa' },
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, isLoading: false, document: action.document, updatingDocument: false };
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {
+    const action = {
+      type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
+      error: 'Error updating travel readiness document'
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, error: action.error, document: {}, updatingDocument: false};
+
+    expect(newState).toEqual(expectedState);
+  });
 });

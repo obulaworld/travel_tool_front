@@ -6,26 +6,24 @@ import OtherDocument from '../../Forms/TravelReadinessForm/OtherDocumentForm';
 
 const TravelDocumentModal = (props) => {
   const {
-    closeModal,
-    shouldOpen,
-    modalType,
+    closeModal, shouldOpen, modalType,
     createTravelReadinessDocument,
+    editTravelReadinessDocument,
     travelReadinessDocuments,
-    fetchUserData,
-    user,
-    openModal
+    openModal,
+    fetchUserData, user,
+    currentDocument, document
   } = props;
-
   return (
     <Modal
       customModalStyles="add-document-item"
       closeModal={closeModal}
       width="580px"
       height="600px"
-      visibility={
-        shouldOpen && modalType === 'add other' ? 'visible' : 'invisible'
+      visibility={(shouldOpen && (modalType === 'add other' || modalType === 'edit other'))
+        ? 'visible' : 'invisible'
       }
-      title="Add Document"
+      title={modalType === 'add other' ? 'Add Document' : 'Edit Document'}
     >
       <OtherDocument
         closeModal={closeModal}
@@ -35,6 +33,10 @@ const TravelDocumentModal = (props) => {
         documentType="other"
         fetchUserData={fetchUserData}
         user={user}
+        editTravelReadinessDocument={editTravelReadinessDocument}
+        currentDocument={currentDocument}
+        modalType={modalType}
+        document={document}
       />
     </Modal>
   );
@@ -49,8 +51,12 @@ TravelDocumentModal.propTypes = {
   fetchUserData: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
 
+  editTravelReadinessDocument: PropTypes.func.isRequired,
+  document: PropTypes.object.isRequired,
+  currentDocument: PropTypes.object,
 };
 TravelDocumentModal.defaultProps = {
-  modalType: ''
+  modalType: '',
+  currentDocument: {}
 };
 export default TravelDocumentModal;

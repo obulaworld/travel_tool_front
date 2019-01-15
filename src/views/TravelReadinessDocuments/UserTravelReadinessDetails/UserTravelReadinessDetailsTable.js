@@ -5,9 +5,14 @@ import withLoading from '../../../components/Hoc/withLoading';
 import '../TravelReadinessDocuments.scss';
 import Modal from '../../../components/modal/Modal';
 import ConnectedDocumentDetailsModal from './DocumentDetailsModal';
+import TableMenu from '../../../components/TableMenu/TableMenu';
 
 export class UserTravelReadinessDetailsTable extends Component {
-  state = {};
+  state = {
+    menuOpen: {
+      open: false, id: null
+    }
+  };
 
   componentDidMount() {
     const { location : { search }, handleShowDocument } = this.props;
@@ -20,6 +25,23 @@ export class UserTravelReadinessDetailsTable extends Component {
       handleShowDocument(id, type);
     }
   }
+
+  toggleMenu = (documentId, document) => {
+    const { menuOpen } = this.state;
+    if (menuOpen.id !== documentId) {
+      return this.setState({
+        menuOpen: {
+          open: true, id: documentId, document
+        }
+      });
+    }
+    this.setState({
+      menuOpen: {
+        open: !menuOpen.open, id: documentId, document
+      }
+    });
+  }
+  
   renderTableHeadRows(columnNames) {
     return (
       <tr>
@@ -35,19 +57,19 @@ export class UserTravelReadinessDetailsTable extends Component {
   renderTableHead() {
     const { activeDocument } = this.props;
     let columnNames = [
-      'Country', 'Entry Type', 'Visa Type', 'Issue Date', 'Expiry Date', 'Attachments', 'Status',
+      'Country', 'Entry Type', 'Visa Type', 'Issue Date', 'Expiry Date', 'Attachments', 'Status', ''
     ];
 
     if(activeDocument === 'passport') {
       columnNames = [
         'Passport No', 'Date of Birth', 'Date of Issue', 'Place of Issue',
-        'Expiry Date', 'Attachments', 'Status',
+        'Expiry Date', 'Attachments', 'Status', ''
       ];
     }
     if(activeDocument === 'other') {
       columnNames = [
         'Document Name', 'Document Id', 'Date of Issue',
-        'Expiry Date', 'Attachments', 'Status',
+        'Expiry Date', 'Attachments', 'Status', ''
       ];
     }
     return (
@@ -61,10 +83,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       <tbody className="table__body">
         {
           this.renderDocuments({
-            activeDocument,
-            passports,
-            visas,
-            others
+            activeDocument, passports, visas, others
           })
         }
       </tbody>
@@ -72,10 +91,7 @@ export class UserTravelReadinessDetailsTable extends Component {
   }
 
   renderDocuments({
-    activeDocument,
-    passports,
-    visas,
-    others
+    activeDocument, passports, visas, others
   }) {
     switch(activeDocument) {
     case 'passport':
@@ -93,7 +109,8 @@ export class UserTravelReadinessDetailsTable extends Component {
     const {id, data: { passportNumber, dateOfBirth, dateOfIssue, placeOfIssue, expiryDate, nationality }, isVerified } = passportData;
     const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${nationality}-passport`;
-    const { handleShowDocument } = this.props;
+    const { handleShowDocument, type, editDocument } = this.props;
+    const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -113,6 +130,12 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span className={status.toLowerCase()}>{status}</span>
         </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <TableMenu
+            passportData={passportData} menuOpen={menuOpen} type={type}
+            toggleMenu={this.toggleMenu} editDocument={editDocument}
+          />
+        </td>
       </tr>
     );
   }
@@ -121,7 +144,8 @@ export class UserTravelReadinessDetailsTable extends Component {
     const { id, data: {country, entryType, visaType, dateOfIssue, expiryDate}, isVerified } = visaData;
     const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${country}-visa`;
-    const { handleShowDocument } = this.props;
+    const { handleShowDocument, type, editDocument } = this.props;
+    const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -141,6 +165,12 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span className={status.toLowerCase()}>{status}</span>
         </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <TableMenu
+            visaData={visaData} menuOpen={menuOpen} type={type} 
+            toggleMenu={this.toggleMenu} editDocument={editDocument}
+          />
+        </td>
       </tr>
     );
   }
@@ -149,7 +179,8 @@ export class UserTravelReadinessDetailsTable extends Component {
     const { id, data: {name, dateOfIssue, expiryDate, documentId, cloudinaryUrl }, isVerified } = documentData;
     const status = isVerified ? 'Verified': 'Pending';
     const attachments = `${name}-document`;
-    const { handleShowDocument } = this.props;
+    const { handleShowDocument, type, editDocument } = this.props;
+    const { menuOpen } = this.state;
     return (
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
@@ -170,6 +201,12 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span className={status.toLowerCase()}>{status}</span>
         </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <TableMenu
+            documentData={documentData} menuOpen={menuOpen} type={type} 
+            toggleMenu={this.toggleMenu} editDocument={editDocument}
+          />
+        </td>
       </tr>
     );
   }
@@ -181,11 +218,7 @@ export class UserTravelReadinessDetailsTable extends Component {
         title={`${capitalize(activeDocument)} Details`}
         closeModal={closeModal}
         modalId="travel-doc-details-content"
-        visibility={
-          shouldOpen && modalType === 'document details'
-            ? 'visible'
-            : 'invisible'
-        }
+        visibility={shouldOpen && modalType === 'document details' ? 'visible' : 'invisible'}
       >
         <ConnectedDocumentDetailsModal userData={userData} documentId={documentId} documentType={activeDocument} />
       </Modal>
@@ -219,31 +252,21 @@ export class UserTravelReadinessDetailsTable extends Component {
 }
 
 UserTravelReadinessDetailsTable.propTypes = {
-  passports: PropTypes.array,
-  visas: PropTypes.array,
+  passports: PropTypes.array, visas: PropTypes.array,
   activeDocument: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   handleShowDocument: PropTypes.func.isRequired,
-  documentId: PropTypes.string,
+  documentId: PropTypes.string, others: PropTypes.array,
   userData: PropTypes.object.isRequired,
-  others: PropTypes.array,
+  editDocument: PropTypes.func, type: PropTypes.string,
   location: PropTypes.object.isRequired,
 };
 
 UserTravelReadinessDetailsTable.defaultProps = {
-  modalType: '',
-};
-
-UserTravelReadinessDetailsTable.defaultProps = {
-  documentId: '',
-};
-
-UserTravelReadinessDetailsTable.defaultProps = {
-  passports: [],
-  visas: [],
-  others: [],
+  modalType: '', type: 'documents', editDocument: () => {},
+  passports: [], visas: [], others: [], documentId: '',
 };
 
 export default withLoading(UserTravelReadinessDetailsTable);

@@ -37,15 +37,17 @@ const children = PropTypes.oneOfType([
 
 
 FormContext.propTypes = {
-  values: values.isRequired,
-  errors: errors.isRequired,
+  values: values,
+  errors: errors,
   targetForm: targetForm.isRequired,
   validatorName: validatorName,
   children: children.isRequired
 };
 
 FormContext.defaultProps = {
-  validatorName: 'validate'
+  validatorName: 'validate',
+  values: {},
+  errors: {},
 };
 
 export default FormContext;

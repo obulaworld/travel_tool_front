@@ -1,10 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import { takeLatest, call, put } from 'redux-saga/effects';
 import toast from 'toastr';
+import * as _ from 'lodash';
 import * as types from '../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../services/TravelReadinessDocumentsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import * as actions from '../actionCreator/travelReadinessDocumentsActions';
+import {closeModal} from '../actionCreator/modalActions';
 
 export function* fetchUsersReadinessDocumentsAsync() {
   try {
@@ -62,4 +64,23 @@ export function* verifyTravelReadinessSaga(action){
 
 export function* watchVerifyTravelReadinessDocuments(){
   yield takeLatest(types.VERIFY_TRAVEL_READINESS_DOCUMENT, verifyTravelReadinessSaga);
+}
+
+
+export function* editTravelReadinessDocument(action) {
+  try{
+    const { documentType, payload, documentId } = action;
+    const response = yield call(TravelReadinessDocumentsAPI.editTravelReadinessDocument, documentType, payload, documentId);
+    yield put(actions.editTravelReadinessDocumentSuccess(response.data.updatedDocument));
+    toast.success(_.capitalize(action.documentType)+' updated successfully!');
+    yield put(closeModal());
+  }catch (error) {
+    let errorMessage = apiErrorHandler(error);
+    yield put(actions.editTravelReadinessDocumentFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchEditTravelReadinessDocument() {
+  yield takeLatest(types.EDIT_TRAVEL_READINESS_DOCUMENT, editTravelReadinessDocument);
 }

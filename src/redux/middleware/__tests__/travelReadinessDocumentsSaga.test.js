@@ -1,9 +1,19 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
-import { watchFetchUsersReadinessDocuments, watchFetchReadinessDocuments, watchFetchReadinessDocumentDetails, watchVerifyTravelReadinessDocuments } from '../travelReadinessDocumentsSaga';
+import toast from 'toastr';
+import { 
+  watchFetchUsersReadinessDocuments, 
+  watchFetchReadinessDocuments, 
+  watchFetchReadinessDocumentDetails, 
+  watchVerifyTravelReadinessDocuments,
+  watchEditTravelReadinessDocument
+} from '../travelReadinessDocumentsSaga';
 import * as types from '../../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../../services/TravelReadinessDocumentsAPI';
+
+toast.error = jest.fn();
+toast.success = jest.fn();
 
 describe('Travel Readiness Documents saga', () => {
   describe('fetchUsersReadinessDocumentsAsync', () => {
@@ -184,6 +194,69 @@ describe('Travel Readiness Documents saga', () => {
           documentId,
         })
         .silentRun();
+    });
+  });
+
+  describe('Update Travel Readiness Document', () => {
+    const documentId = 'getIt';
+    const payload = {
+      'visa': {
+        'entryType':'Multiple',
+        'country': 'Estoni and Herzegovina',
+        'dateOfIssue': '02/01/2018',
+        'expiryDate': '06/01/2019',
+        'cloudinaryUrl': 'http://n.com'
+      }
+    };
+    const response = {
+      data: {
+        success: true,
+        message: 'Visa updated successfully',
+        updatedDocument: { id: 'getIt' },
+      }
+    };
+
+    const error = {
+      response: {
+        data: 'Possible network error, please reload the page',
+        status: 500
+      }
+    };
+    
+
+    it('updates travel readiness document', () => {
+      return expectSaga(watchEditTravelReadinessDocument)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.editTravelReadinessDocument, 'visa', payload, documentId), response]
+        ])
+        .put({
+          type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+          documentUpdate: response.data.updatedDocument
+        })
+        .dispatch({
+          type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
+          documentType: 'visa',
+          payload,
+          documentId,
+        })
+        .run();
+    });
+
+    it('handles errors from update', () => {
+      return expectSaga(watchEditTravelReadinessDocument)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.editTravelReadinessDocument, 'passport', documentId), throwError(error)]
+        ])
+        .put({
+          type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
+          error: error.response.data
+        })
+        .dispatch({
+          type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
+          documentType: 'passport',
+          documentId,
+        })
+        .run();
     });
   });
 });

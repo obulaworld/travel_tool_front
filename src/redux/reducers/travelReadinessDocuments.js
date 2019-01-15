@@ -13,7 +13,10 @@ import {
   FETCH_TRAVEL_READINESS_DOCUMENT_FAILURE,
   VERIFY_TRAVEL_READINESS_DOCUMENT,
   VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-  VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE
+  VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  EDIT_TRAVEL_READINESS_DOCUMENT,
+  EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE
 } from '../constants/actionTypes';
 
 export const initialState = {
@@ -35,6 +38,7 @@ export const initialState = {
 const tdReducer = (state = initialState.userReadiness.travelDocuments, action) => {
   switch(action.type) {
   case VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS:
+  case EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS:
     return {
       ...state,
       [action.document.type]: state[action.document.type].map((item) => {
@@ -111,6 +115,7 @@ export default (state = initialState, action) => {
       document: {},
     };
   case VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS:
+  case EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS:
     return {
       ...state,
       fetchingDocument: false,
@@ -143,6 +148,19 @@ export default (state = initialState, action) => {
     });
     return {...state, isLoading: false, errors: validationErrors === {} ? errors : validationErrors};
   }
+  case EDIT_TRAVEL_READINESS_DOCUMENT:
+    return {
+      ...state,
+      updatingDocument: true,
+      document: {},
+    };
+  case EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE:
+    return {
+      ...state,
+      updatingDocument: false,
+      error: action.error,
+      document: {},
+    };
   default: return state;
   }
 };

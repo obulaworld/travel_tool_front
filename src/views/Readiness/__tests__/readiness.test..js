@@ -87,6 +87,12 @@ describe('renders <TravelReadinessDocuments />', () =>{
     actionButton = wrapper.find('#actionButton');
 
     expect(actionButton.text()).toEqual('Add passport');
+
+    const otherButton = wrapper.find('#otherButton');
+    otherButton.simulate('click');
+    actionButton = wrapper.find('#actionButton');
+
+    expect(actionButton.text()).toEqual('Add other');
     wrapper.unmount();
   });
 
@@ -129,6 +135,27 @@ describe('renders <TravelReadinessDocuments />', () =>{
       const displayedModalTitle = wrapper.find('.modal.visible.add-document-item .modal-title');
       expect(displayedModal.length).toEqual(1);
       expect(displayedModalTitle.text()).toEqual('Add visa');
+    }, 200);
+  });
+
+  it('should open the add other documents modal when the add other button is clicked', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ConnectedReadiness {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    const otherButton = wrapper.find('#otherButton');
+    otherButton.simulate('click');
+    let actionButton = wrapper.find('#actionButton');
+    actionButton.simulate('click');
+
+    setTimeout(() => {
+      const displayedModal = wrapper.find('.modal.visible.add-document-item');
+      const displayedModalTitle = wrapper.find('.modal.visible.add-document-item .modal-title');
+      expect(displayedModal.length).toEqual(1);
+      expect(displayedModalTitle.text()).toEqual('Add Document');
     }, 200);
   });
 });
