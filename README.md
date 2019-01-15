@@ -1,5 +1,6 @@
-[![CircleCI](https://circleci.com/gh/andela/travel_tool_front.svg?style=svg)](https://circleci.com/gh/andela/travel_tool_front)
-
+[![CircleCI](https://circleci.com/gh/andela/travel_tool_front.svg?style=svg&circle-token=3ce13da82e06d3d2dcefa5b59608d1f1787a8419)](https://circleci.com/gh/andela/travel_tool_front)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e827017c4dbdedc8e944/maintainability)](https://codeclimate.com/repos/5c35c067613b2b0286009fd2/maintainability)
+[![Coverage](https://api.codeclimate.com/v1/badges/e827017c4dbdedc8e944/test_coverage)](https://codeclimate.com/repos/5c35c067613b2b0286009fd2/test_coveragey)
 # Andela Travel
 
 ## Description
