@@ -33,26 +33,49 @@ export class UserTravelReadinessDetailsTable extends Component {
         'Expiry Date', 'Attachments', 'Status',
       ];
     }
+    if(activeDocument === 'other') {
+      columnNames = [
+        'Document Name', 'Document Id', 'Date of Issue',
+        'Expiry Date', 'Attachments', 'Status',
+      ];
+    }
     return (
       <thead>{this.renderTableHeadRows(columnNames)}</thead>
     );
   }
 
   renderTableBody() {
-    const { activeDocument, passports, visas } = this.props;
-    return activeDocument === 'passport' ? (
+    const { activeDocument, passports, visas, others } = this.props;
+    return(
       <tbody className="table__body">
         {
-          passports.map(data => this.renderPassPortRow(data))
-        }
-      </tbody>
-    ) : (
-      <tbody className="table__body">
-        {
-          visas.map(data => this.renderVisaRow(data))
+          this.renderDocuments({
+            activeDocument,
+            passports,
+            visas,
+            others
+          })
         }
       </tbody>
     );
+  }
+
+  renderDocuments({
+    activeDocument,
+    passports,
+    visas,
+    others
+  }) {
+    switch(activeDocument) {
+    case 'passport':
+      return passports.map(data => this.renderPassPortRow(data));
+    case'visa':
+      return visas.map(data => this.renderVisaRow(data));
+    case 'other':
+      return others.map(data => this.renderOtherDocumentRow(data));
+    default:
+      return;
+    }
   }
 
   renderPassPortRow(passportData) {
@@ -107,6 +130,33 @@ export class UserTravelReadinessDetailsTable extends Component {
     );
   }
 
+  renderOtherDocumentRow(documentData) {
+    const { id, data: {name, dateOfIssue, expiryDate, documentId, cloudinaryUrl }, isVerified } = documentData;
+    const status = isVerified ? 'Verified': 'Pending';
+    const attachments = `${name}-document`;
+    const { handleShowDocument } = this.props;
+    return (
+      <tr key={id} className="table__rows">
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <span
+            onClick={() => handleShowDocument(id)}
+            role="presentation"
+            className="document-name"
+          >
+            {name}
+          </span>
+        </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{documentId || 'N/A'}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{dateOfIssue}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{expiryDate}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <a className="table__data--link" target="_blank" rel="noopener noreferrer" href={cloudinaryUrl}>{attachments}</a>
+        </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{status}</td>
+      </tr>
+    );
+  }
+
   renderDocumentModal() {
     const{ activeDocument, closeModal, shouldOpen, modalType, documentId, userData } = this.props;
     return (
@@ -124,16 +174,16 @@ export class UserTravelReadinessDetailsTable extends Component {
       </Modal>
     );
   }
-
+  
   render() {
-    const { activeDocument, passports, visas } = this.props;
-
-    if((activeDocument === 'passport' && !passports.length) || (activeDocument === 'visa' && !visas.length)) {
+    const { activeDocument } = this.props;
+    const { props } = this;
+    if((!props[`${activeDocument}s`].length) ) {
       return (
         <div className="table__readiness--empty">
           No
           {' '}
-          {activeDocument}
+          {`${activeDocument}`}
           s
         </div>
       );
@@ -161,6 +211,7 @@ UserTravelReadinessDetailsTable.propTypes = {
   handleShowDocument: PropTypes.func.isRequired,
   documentId: PropTypes.string,
   userData: PropTypes.object.isRequired,
+  others: PropTypes.array,
 };
 
 UserTravelReadinessDetailsTable.defaultProps = {
@@ -174,6 +225,7 @@ UserTravelReadinessDetailsTable.defaultProps = {
 UserTravelReadinessDetailsTable.defaultProps = {
   passports: [],
   visas: [],
+  others: [],
 };
 
 export default withLoading(UserTravelReadinessDetailsTable);

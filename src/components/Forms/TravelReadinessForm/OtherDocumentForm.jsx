@@ -1,33 +1,33 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {PropTypes} from 'prop-types';
-import './TravelDocument.scss';
 import BaseForm from './BaseForm';
 
-class AddVisaForm extends PureComponent {
+class OtherDocumentForm extends Component{
   constructor(props) {
     super(props);
     this.defaultState = {
       values: {
-        country: '',
-        entryType: '',
+        name: '',
         dateOfIssue: '',
         expiryDate: '',
-        visaType:''
       },
       errors: {},
       hasBlankFields: true,
       isSubmitting: false,
       uploadProgress: 0,
-      cloudinaryUrl: ''
+      cloudinaryUrl: '',
+      optionalFields: [
+        'documentId'
+      ]
     };
     this.state = {...this.defaultState};
   }
 
   render() {
     const { 
-      fetchUserData,
-      user,closeModal,
-      createTravelReadinessDocument,
+      fetchUserData, 
+      user,closeModal, 
+      createTravelReadinessDocument, 
       travelReadinessDocuments 
     } = this.props;
     return (
@@ -35,7 +35,7 @@ class AddVisaForm extends PureComponent {
         fetchUserData={fetchUserData}
         user={user}
         defaultFormState={this.state}
-        documentType="visa" 
+        documentType="other"
         {...travelReadinessDocuments}
         closeModal={closeModal}
         createTravelReadinessDocument={createTravelReadinessDocument}
@@ -44,11 +44,11 @@ class AddVisaForm extends PureComponent {
   }
 }
 
-AddVisaForm.propTypes = {
+OtherDocumentForm.propTypes = {
   createTravelReadinessDocument: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   fetchUserData: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 
-export default AddVisaForm;
+export default OtherDocumentForm;

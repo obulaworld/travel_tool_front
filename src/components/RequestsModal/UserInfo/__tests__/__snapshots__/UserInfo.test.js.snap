@@ -14,7 +14,8 @@ exports[`UserComments component should match snapshot 1`] = `
     <div
       className="user-role"
     >
-      undefined, 
+      undefinedundefined 
+                      
     </div>
   </div>
 </div>

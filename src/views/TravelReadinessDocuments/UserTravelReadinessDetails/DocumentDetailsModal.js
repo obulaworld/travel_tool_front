@@ -66,29 +66,50 @@ export class DocumentDetailsModal extends Component {
       return true;
     }
   }
-
-  renderPassportDetails(document) {
-    return (
-      <Fragment>
-        <TravelDocumentField label="Passport Number" value={document.data.passportNumber} />
-        <TravelDocumentField label="Nationality" value={document.data.nationality} />
-        <TravelDocumentField label="Date of Birth" value={document.data.dateOfBirth} />
-        <TravelDocumentField label="Place of Issue" value={document.data.placeOfIssue} />
-        <TravelDocumentField label="Date of Issue" value={document.data.dateOfIssue} />
-        <TravelDocumentField label="Expiry Date" value={document.data.expiryDate} />
-      </Fragment>
-    );
+  
+  generateDocumentData(documentType, document) {
+    const { data } = document;
+    switch(documentType){
+    case 'passport': 
+      return [ 
+        { key: 'Passport Number', value: data.passportNumber },
+        { key: 'Nationality', value: data.nationality },
+        { key: 'Date of Birth', value: data.dateOfBirth },
+        { key: 'Place of Issue', value: data.placeOfIssue },
+        { key: 'Date of Issue', value: data.dateOfIssue },
+        { key: 'Expiry Date', value: data.expiryDate },
+      ];
+    case 'visa':
+      return [
+        { key: 'Country', value: data.country },
+        { key: 'Entry Type', value: data.entryType },
+        { key: 'Visa Type', value: data.visaType },
+        { key: 'Date of Issue', value: data.dateOfIssue },
+        { key: 'Expiry Date', value: data.expiryDate },
+      ];
+    case 'other': 
+      return [
+        { key: 'Document Name', value: data.name },
+        { key: 'Document Id', value: data.documentId || 'N/A' },
+        { key: 'Date of Issue', value: data.dateOfIssue },
+        { key: 'Expiry Date', value: data.expiryDate },
+      ];
+    default:
+      return;
+    }
   }
-
-  renderVisaDetails(document) {
+  
+  renderDocuments(documentData) {
     return (
-      <Fragment>
-        <TravelDocumentField label="Country" value={document.data.country} />
-        <TravelDocumentField label="Entry Type" value={document.data.entryType} />
-        <TravelDocumentField label="Visa Type" value={document.data.visaType} />
-        <TravelDocumentField label="Date of Issue" value={document.data.dateOfIssue} />
-        <TravelDocumentField label="Expiry Date" value={document.data.expiryDate} />
-      </Fragment>
+      documentData
+        .map(
+          document => (
+            <TravelDocumentField 
+              key={document.key} 
+              label={document.key} 
+              value={document.value} 
+            />
+          ))
     );
   }
 
@@ -145,9 +166,7 @@ export class DocumentDetailsModal extends Component {
             fetchingDocument && <Preloader />
           }
           {
-            !fetchingDocument && documentType === 'passport'
-              ? document.data && this.renderPassportDetails(document)
-              : document.data && this.renderVisaDetails(document)
+            !fetchingDocument && this.renderDocuments(this.generateDocumentData(documentType, document))
           }
         </div>
         {

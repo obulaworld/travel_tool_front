@@ -58,6 +58,20 @@ const documentMocks = [
     'isVerified': false,
     'createdAt': '2019-01-04T11:11:52.181Z',
     'updatedAt': '2019-01-08T06:38:35.139Z',
+  },
+  {
+    'id': 'sufIFundZ',
+    'type': 'other',
+    'data': {
+      'name': 'Permit',
+      'expiryDate': '06-01-2018',
+      'dateOfIssue': '02-01-2018',
+      'documentId': 'KT93egsgsg',
+      'cloudinaryUrl': 'https://res.cloudinary.com/ined/image/upload/v1538568663/Logo_blue_2x.png'
+    },
+    'isVerified': false,
+    'createdAt': '2019-01-04T11:11:52.181Z',
+    'updatedAt': '2019-01-08T06:38:35.139Z',
   }
 ];
 
