@@ -9,11 +9,10 @@ import PassportForm from '../../components/Forms/TravelReadinessForm/PassportFor
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
 import PageHeader from '../../components/PageHeader';
 import { 
-  fetchUserReadinessDocuments 
+  fetchUserReadinessDocuments
 } from '../../redux/actionCreator/travelReadinessDocumentsActions';
-import 
-TravelReadinessDetailsTable
-  from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
+import TravelReadinessDetailsTable from 
+  '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
 import './Readiness.scss';
 
 export class TravelReadinessDocuments extends Component {
@@ -22,40 +21,25 @@ export class TravelReadinessDocuments extends Component {
     this.state = {
       documentContext: 'passport',
       activeDocument: 'passport',
-      documentId: ''
-    };
+      documentId: '' 
+    }; 
   }
 
   componentDidMount() {
     const { fetchUserData, user } = this.props;
     fetchUserData(user.currentUser.userId);
   }
+
   toggleDocumentTab = type => {
     this.setState({
       activeDocument: type,
       documentContext: type
-    });
-    switch (type) {
-    case 'passport':
-      openModal(true, 'add Passport');
-      break;
-    case 'visa':
-      openModal(true, 'add visa');
-      break;
-    case 'other':
-      openModal(true, 'add other');
-      break;
-    default:
-      // Handle the opening of the 'others' modal
-      return;
-    }
+    }); 
   };
 
   showDocumentDetail = documentId => {
     const { openModal } = this.props;
-    this.setState({
-      documentId
-    });
+    this.setState({ documentId });
     openModal(true, 'document details');
   };
 
@@ -72,7 +56,6 @@ export class TravelReadinessDocuments extends Component {
       openModal(true, 'add other');
       break;
     default:
-      // Handle the opening of the 'others' modal
       return;
     }
   };
@@ -145,24 +128,42 @@ export class TravelReadinessDocuments extends Component {
     );
   };
 
-  renderButton = (text, active, onClickHandler, moreProps) => {
+  renderButton = (text, active, onClickHandler, document_count, moreProps) => {
     let className = 'documents-button-group__button';
     const { userReadiness, isLoading } = this.props;
-    const {
-      travelDocuments: { passport, visa }
-    } = userReadiness;
-    
+    const { travelDocuments: { passport, visa } } = userReadiness;
     return (
       <button
         type="button"
+        key={text}
         className={`${className}${ active ? '--active' : '--inactive'}`}
         onClick={onClickHandler}
+        document_count={document_count}
         {...moreProps}
       >
         {text}
+        <span className={document_count ? 'documentbutton' : 'addbutton'}>{document_count}</span>
       </button>
     );
   };
+
+  documentButtons = (passport, visa, other) => ([
+    {
+      name: 'passport',
+      display: 'Passports',
+      document_count: passport ? passport.length : 0
+    },
+    {
+      name: 'visa',
+      display: 'Visas',
+      document_count: visa ? visa.length : 0
+    },
+    {
+      name: 'other',
+      display: 'Others',
+      document_count: other ? other.length : 0
+    }
+  ]);
 
   isActive(buttonContext) {
     const { documentContext } = this.state;
@@ -170,46 +171,33 @@ export class TravelReadinessDocuments extends Component {
   }
 
   renderButtonGroup() {
+    const {userReadiness: {travelDocuments: {passport, visa, other}}}= this.props;
     const { documentContext } = this.state;
+    const buttons = this.documentButtons(passport, visa, other);
     return (
       <div className="documents-button-group">
         <div>
-          {this.renderButton(
-            'Passports',
-            this.isActive('passport'),
-            () => this.toggleDocumentTab('passport'),
-            { id: 'passportButton' }
-          )}
-          {this.renderButton(
-            'Visas',
-            this.isActive('visa'),
-            () => this.toggleDocumentTab('visa'),
-            { id: 'visaButton' }
-          )}
-          {this.renderButton(
-            'Others',
-            this.isActive('other'),
-            () => this.toggleDocumentTab('other'),
-            { id: 'otherButton' }
-          )}
+          {
+            buttons.map((button) => (
+              this.renderButton(
+                button.display,
+                this.isActive(button.name),
+                () => this.toggleDocumentTab(button.name), 
+                button.document_count,
+                { id: `${button.name}Button` }) ))
+          }
         </div>
         {this.renderButton(
           `Add${' ' + documentContext}`,
           undefined,
-          () => this.handleModals(documentContext),
-          { id: 'actionButton' }
-        )}
-      </div>
-    );
-  }
+          () => this.handleModals(documentContext), null,
+          { id: 'actionButton' } )}
+      </div> ); }
 
   render() {
     const { activeDocument, documentId } = this.state;
     const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
-    const {
-      travelDocuments: { passport, visa, other  }
-    } = userReadiness;
-
+    const { travelDocuments: { passport, visa, other  } } = userReadiness;
     return (
       <Fragment>
         <PageHeader title="Travel Documents" />
@@ -231,8 +219,7 @@ export class TravelReadinessDocuments extends Component {
           userData={userReadiness}
         />
       </Fragment>
-    );
-  }
+    ); }
 }
 
 const mapStateToProps = ({ modal, travelReadinessDocuments, user }) => ({

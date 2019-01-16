@@ -62,7 +62,6 @@
         ]
       }
     ],
-    "max-len": ["error", { "code": 100 }],
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,

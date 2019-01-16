@@ -84,13 +84,11 @@
   justify-content: space-between;
   padding-left: 2px;
   max-width: 96%;
-
   div {
     display: flex;
     width: 360px;
     justify-content: space-between;
   }
-
   &__button {
     height: 36px;
     width: 114px;
@@ -105,8 +103,24 @@
     cursor: pointer;
     color: #3359db;
     text-align: center;
-
     &--active {
+      span {
+        &.addbutton {
+          display: none;
+        }
+        background-color: #F8F8F8;
+        border-radius: 0.8em;
+        display: inline-block;
+        font-weight: bold;
+        color:#3359DB;
+        margin-left: 5px;
+        line-height: 1.3em;
+        padding-bottom: 2px;
+        padding-right: 1.6px;
+        padding-left: 1px;
+        text-align: center;
+        width: 1.3em;
+      }
       height: 36px;
       width: 114px;
       border-radius: 1px;
@@ -121,8 +135,24 @@
       background-color: #3359DB;
       color: #F8F8F8;
     }
-
     &--inactive {
+      span {
+        &.addbutton {
+          display: none;
+        }
+        background-color: #3359DB;
+        border-radius: 1.0em;
+        display: inline-block;
+        font-weight: bold;
+        margin-left: 5px;
+        color: #F8F8F8;
+        line-height: 1.3em;
+        padding-left: 1px;
+        padding-right: 1.7px;
+        padding-bottom: 2px;
+        text-align: center;
+        width: 1.3em;
+      }
       height: 36px;
       width: 114px;
       border-radius: 1px;
@@ -136,7 +166,6 @@
       border: 1px solid #D4D4D4;
       background-color: #F8F8F8;
       color: #999999;
-
     }
   }
 }
