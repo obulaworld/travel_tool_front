@@ -172,6 +172,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                   className="react-datepicker__input-container"
                 >
                   <input
+                    autoComplete="off"
                     className=""
                     disabled={false}
                     name="dateOfIssue"
@@ -227,6 +228,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                   className="react-datepicker__input-container"
                 >
                   <input
+                    autoComplete="off"
                     className=""
                     disabled={false}
                     name="expiryDate"

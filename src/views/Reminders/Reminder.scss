@@ -113,3 +113,90 @@
   outline: none;
   cursor: pointer;
 }
+
+.document_header_group_button {
+  margin-top: 20px;
+  display: inline-flex;
+  width: 100%;
+  max-width: 96%;
+
+  div {
+    flex: 1;
+    display: flex;
+    width: 240px;
+  }
+
+  .create-new {
+    border-color: #3359DB;
+    margin-right: 0;
+    font-family: "DIN Pro";
+  }
+  button {
+    border-style: solid;
+    height: 36px;
+    width: 114px;
+    border-radius: 1px;
+
+    font-size: 14px;
+    margin-right: 1em;
+    line-height: 14px;
+    background: #F8F8F8;
+    outline: none;
+    padding: 2px 2px 5px 2px;
+    cursor: pointer;
+    text-align: center;
+    font-family: "DIN Pro";
+    text-decoration: none;
+    display: inline-block;
+    color: #3359DB;
+
+    span{
+      padding: 4px 8px;
+      background: #F8F8F8;
+      border-radius: 50%;
+      font-size: 12px;
+      color: #3359DB;
+      font-family: 'Din Pro';
+    }
+  }
+
+  button:active{
+    border-style: solid;
+
+  }
+  .document-button_group{
+    &__active{
+      background: #3359DB;
+      outline: none;
+      border-style: none;
+      color: #F8F8F8;
+    }
+    &__inactive{
+      span{
+        background: #3359DB;
+        color: #F8F8F8;
+      }
+    }
+  }
+
+}
+.reminderPagination{
+
+}
+
+.readiness-table{
+  margin-top: 20px;
+  .table__head {
+    &:first-of-type {
+      padding-left: 0 !important;
+    }
+  }
+
+  .table__body{
+    text-align: left;
+  }
+
+  tbody .table__rows .condition-name{
+    color: #3359DB;
+  }
+}

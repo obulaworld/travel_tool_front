@@ -156,15 +156,6 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "text": "User Roles",
                 },
                 Object {
-                  "exact": true,
-                  "link_to": "/settings/reminder-setup",
-                  "onlyVisibleTo": Array [
-                    "Travel Administrator",
-                    "Super Administrator",
-                  ],
-                  "text": "Reminder Setup",
-                },
-                Object {
                   "link_to": "/settings/profile",
                   "text": "User Profile",
                 },
@@ -175,6 +166,25 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                     "Travel Administrator",
                   ],
                   "text": "Travel team",
+                },
+                Object {
+                  "exact": true,
+                  "link_to": "/settings/reminders",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                    "Travel Team Member",
+                  ],
+                  "text": "Reminder Condition",
+                },
+                Object {
+                  "exact": true,
+                  "link_to": "/settings/reminder-setup",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                  ],
+                  "text": "Reminder Setup",
                 },
               ],
               "icons": Object {

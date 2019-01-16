@@ -133,6 +133,7 @@ exports[`<PassportForm/> renders correctly 1`] = `
                     className="react-datepicker__input-container"
                   >
                     <input
+                      autoComplete="off"
                       className=""
                       disabled={false}
                       name="dateOfBirth"
@@ -188,6 +189,7 @@ exports[`<PassportForm/> renders correctly 1`] = `
                     className="react-datepicker__input-container"
                   >
                     <input
+                      autoComplete="off"
                       className=""
                       disabled={false}
                       name="dateOfIssue"
@@ -274,6 +276,7 @@ exports[`<PassportForm/> renders correctly 1`] = `
                     className="react-datepicker__input-container"
                   >
                     <input
+                      autoComplete="off"
                       className=""
                       disabled={false}
                       name="expiryDate"
@@ -301,7 +304,6 @@ exports[`<PassportForm/> renders correctly 1`] = `
             />
           </div>
         </div>
-        <hr />
       </fieldset>
     </div>
     <div

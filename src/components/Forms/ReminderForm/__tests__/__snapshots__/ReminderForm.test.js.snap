@@ -738,7 +738,6 @@ exports[`Reminder Form renders correctly 1`] = `
       </button>
     </div>
   </fieldset>
-  <hr />
   <fieldset>
     <div
       className="submit-area"
