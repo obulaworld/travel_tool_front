@@ -181,6 +181,7 @@ const Routes = () => (
                 ConnectedUserTravelReadinessDetails,
                 SUPER_ADMINISTRATOR,
                 TRAVEL_ADMINISTRATOR,
+                TRAVEL_TEAM_MEMBER,
               )
             }
           />

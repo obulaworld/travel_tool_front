@@ -154,7 +154,6 @@ export class TravelReadinessDocuments extends Component {
       </button>
     );
   };
-
   documentButtons = (passport, visa, other) => ([
     {
       name: 'passport',
@@ -177,7 +176,6 @@ export class TravelReadinessDocuments extends Component {
     const { documentContext } = this.state;
     return buttonContext === documentContext;
   }
-
   renderButtonGroup() {
     const {userReadiness: {travelDocuments: {passport, visa, other}}}= this.props;
     const { documentContext } = this.state;
@@ -203,8 +201,8 @@ export class TravelReadinessDocuments extends Component {
       </div> ); }
 
   render() {
-    const { documentId, documentContext } = this.state;
-    const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
+    const { documentId, documentContext, } = this.state;
+    const { userReadiness, isLoading, shouldOpen, modalType, closeModal, location } = this.props;
     const { travelDocuments: { passport, visa, other  } } = userReadiness;
     return (
       <Fragment>
@@ -222,6 +220,7 @@ export class TravelReadinessDocuments extends Component {
           passports={passport}
           visas={visa}
           others={other}
+          location={location}
           handleShowDocument={this.showDocumentDetail}
           documentId={documentId}
           userData={userReadiness}
@@ -256,7 +255,7 @@ TravelReadinessDocuments.propTypes = {
   openModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   shouldOpen: PropTypes.bool.isRequired,
-  createTravelReadinessDocument: PropTypes.func.isRequired
+  createTravelReadinessDocument: PropTypes.func.isRequired,
 };
 
 TravelReadinessDocuments.defaultProps = {
@@ -264,6 +263,5 @@ TravelReadinessDocuments.defaultProps = {
 };
 
 export default connect(
-  mapStateToProps,
-  matchDispatchToProps
+  mapStateToProps, matchDispatchToProps
 )(TravelReadinessDocuments);
