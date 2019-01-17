@@ -34,6 +34,11 @@ const visaDefaultFormState  = {
     dateOfIssue: '',
     expiryDate: '',
   },
+  value: {
+    name: '',
+    dateOfIssue: '',
+    expiryDate: '',
+  },
   errors: {},
   hasBlankFields: true,
   isSubmitting: false,
@@ -74,10 +79,10 @@ describe('<OtherDocumentForm />', () => {
 
   it('renders other document modal', () => {
     const wrapperWithOtherDocumentField = mount(
-      <BaseForm 
-        {...props} 
-        documentType="other" 
-        defaultFormState={otherDocumentDefaultFormState} 
+      <BaseForm
+        {...props}
+        documentType="other"
+        defaultFormState={otherDocumentDefaultFormState}
       />
     );
     expect(
@@ -87,10 +92,10 @@ describe('<OtherDocumentForm />', () => {
 
   it('renders other document modal with button text \'Add Document\'', () => {
     const wrapperWithOtherDocumentField = mount(
-      <BaseForm 
-        {...props} 
-        documentType="other" 
-        defaultFormState={otherDocumentDefaultFormState} 
+      <BaseForm
+        {...props}
+        documentType="other"
+        defaultFormState={otherDocumentDefaultFormState}
       />
     );
     expect(

@@ -80,7 +80,7 @@ export class UserTravelReadinessDetailsTable extends Component {
 
   renderPassPortRow(passportData) {
     const {id, data: { passportNumber, dateOfBirth, dateOfIssue, placeOfIssue, expiryDate, nationality }, isVerified } = passportData;
-    const status = isVerified ? 'Verified': 'Pending';
+    const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${nationality}-passport`;
     const { handleShowDocument } = this.props;
     return (
@@ -99,14 +99,16 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">{placeOfIssue}</td>
         <td className="mdl-data-table__cell--non-numeric table__data">{expiryDate}</td>
         <td className="mdl-data-table__cell--non-numeric table__data">{attachments}</td>
-        <td className="mdl-data-table__cell--non-numeric table__data">{status}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <span className={status.toLowerCase()}>{status}</span>
+        </td>
       </tr>
     );
   }
 
   renderVisaRow(visaData) {
     const { id, data: {country, entryType, visaType, dateOfIssue, expiryDate}, isVerified } = visaData;
-    const status = isVerified ? 'Verified': 'Pending';
+    const status = isVerified ? 'Verified' : 'Pending';
     const attachments = `${country}-visa`;
     const { handleShowDocument } = this.props;
     return (
@@ -125,7 +127,9 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">{dateOfIssue}</td>
         <td className="mdl-data-table__cell--non-numeric table__data">{expiryDate}</td>
         <td className="mdl-data-table__cell--non-numeric table__data">{attachments}</td>
-        <td className="mdl-data-table__cell--non-numeric table__data">{status}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <span className={status.toLowerCase()}>{status}</span>
+        </td>
       </tr>
     );
   }
@@ -152,7 +156,9 @@ export class UserTravelReadinessDetailsTable extends Component {
         <td className="mdl-data-table__cell--non-numeric table__data">
           <a className="table__data--link" target="_blank" rel="noopener noreferrer" href={cloudinaryUrl}>{attachments}</a>
         </td>
-        <td className="mdl-data-table__cell--non-numeric table__data">{status}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">
+          <span className={status.toLowerCase()}>{status}</span>
+        </td>
       </tr>
     );
   }
@@ -174,7 +180,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       </Modal>
     );
   }
-  
+
   render() {
     const { activeDocument } = this.props;
     const { props } = this;

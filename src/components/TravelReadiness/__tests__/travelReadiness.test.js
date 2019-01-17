@@ -24,6 +24,7 @@ const defaultProps = {
       nextPage: 3
     },
   },
+  range: {},
   fetchReadiness: jest.fn(),
   renderButton: jest.fn(),
   departmentTrips: {
@@ -69,12 +70,12 @@ describe('Test suite for Travel Readiness Component', () => {
   });
 
   it('should display Oops! An error occurred in retrieving this data when server error occurs', () => {
-    const newProps = { 
-      ...defaultProps, 
-      readiness: { 
+    const newProps = {
+      ...defaultProps,
+      readiness: {
         error: 'server error, try again',
         readiness: [],
-      } 
+      }
     };
     const wrapper = setup(newProps);
     const serverError = wrapper.find('.dashboard-component__error-text--style');

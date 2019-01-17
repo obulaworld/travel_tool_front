@@ -52,7 +52,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       })
       .silentRun();
   });
-  
+
   it('should throw an error if get readiness request failed', () => {
     const error = {
       response: {
@@ -99,7 +99,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       })
       .silentRun();
   });
-  
+
   it('should call FileSaver.saveAs function if the action type is file', () => {
     const response = {
       data: fetchReadinessResponse
@@ -181,7 +181,7 @@ describe('Travel readiness documents test suite', () => {
       ]).dispatch({
         type: CREATE_TRAVEL_READINESS_DOCUMENT,
         payload: visa,
-        documentType: 'visa'
+        documentType: 'visa',
       }).silentRun();
   });
 });

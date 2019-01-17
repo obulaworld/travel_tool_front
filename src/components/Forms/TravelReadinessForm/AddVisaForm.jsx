@@ -24,18 +24,19 @@ class AddVisaForm extends PureComponent {
   }
 
   render() {
-    const { 
-      fetchUserData,
-      user,closeModal,
+    const {
+      fetchUserData,user,closeModal,
       createTravelReadinessDocument,
-      travelReadinessDocuments 
+      travelReadinessDocuments
     } = this.props;
+    const { errors } = this.state;
     return (
-      <BaseForm 
+      <BaseForm
         fetchUserData={fetchUserData}
         user={user}
+        errors={errors}
         defaultFormState={this.state}
-        documentType="visa" 
+        documentType="visa"
         {...travelReadinessDocuments}
         closeModal={closeModal}
         createTravelReadinessDocument={createTravelReadinessDocument}
@@ -48,7 +49,7 @@ AddVisaForm.propTypes = {
   createTravelReadinessDocument: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   fetchUserData: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
 };
 
 export default AddVisaForm;
