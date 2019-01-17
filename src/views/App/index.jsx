@@ -4,7 +4,6 @@ import createPlugin from 'bugsnag-react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import moment from 'moment';
-import MaintenancePage from '../ErrorPages/Maintenance/Maintenance';
 import store from '../../redux/store/store';
 import './App.scss';
 import Routes from '../../routes/index';
@@ -48,18 +47,11 @@ class App extends Component {
     return (
       <Wrapper>
         <div className="App-container">
-          {
-            process.env.REACT_APP_NODE_ENV === 'maintenance'
-              ? (
-                <MaintenancePage />
-              )
-              : (
-                <Provider store={store}>
-                  <BrowserRouter>
-                    <Routes />
-                  </BrowserRouter>
-                </Provider>
-              )}
+          <Provider store={store}>
+            <BrowserRouter>
+              <Routes />
+            </BrowserRouter>
+          </Provider>
         </div>
       </Wrapper>
     );
