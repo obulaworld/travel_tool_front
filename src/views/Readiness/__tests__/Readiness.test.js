@@ -31,7 +31,13 @@ const state = {
   travelReadinessDocuments: {
     ...initialState,
     users,
-    userReadiness: users[0],
+    userReadiness: {
+      travelDocuments: {
+        passport: [],
+        visa: [],
+        other: []
+      }
+    },
     documents: {},
     errors:{},
     isLoading: false
