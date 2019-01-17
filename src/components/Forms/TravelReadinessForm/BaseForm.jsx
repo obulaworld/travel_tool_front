@@ -16,7 +16,6 @@ class BaseForm extends Component {
     super(props);
     const { defaultFormState } = this.props;
     this.defaultState = defaultFormState;
-
     this.state = {...this.defaultState};
   }
 
@@ -74,11 +73,11 @@ class BaseForm extends Component {
     const {  name } = file;
     this.setState({name, file});
   };
-  
+
   renderSubmitButtonText() {
     const { documentType } = this.props;
     switch(documentType) {
-    case 'visa': 
+    case 'visa':
       return 'Visa';
     case 'other':
       return 'Document';
@@ -104,18 +103,18 @@ class BaseForm extends Component {
           }
           <div className="travel-document-select-file">
             <p>Attach File</p>
-            <FileUploadField 
-              name={name} 
-              documentUpload={documentUpload} 
-              handleUpload={this.handleUpload} 
+            <FileUploadField
+              name={name}
+              documentUpload={documentUpload}
+              handleUpload={this.handleUpload}
             />
           </div>
           <hr />
           <div className="travel-document-submit-area">
-            <SubmitArea 
-              hasBlankFields={hasBlankFields || !file} 
-              loading={isSubmitting} onCancel={this.onCancel} 
-              addition={this.renderSubmitButtonText()} 
+            <SubmitArea
+              hasBlankFields={hasBlankFields || !file}
+              loading={isSubmitting} onCancel={this.onCancel}
+              addition={this.renderSubmitButtonText()}
             />
           </div>
         </form>

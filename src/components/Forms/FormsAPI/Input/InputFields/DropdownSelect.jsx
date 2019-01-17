@@ -11,13 +11,14 @@ export default class DropdownSelect extends Component {
     choices: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.arrayOf(PropTypes.object)]).isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     size: PropTypes.string.isRequired
   };
 
   static defaultProps = {
     className: '',
-    error: ''
+    error: '',
+    value: ''
   };
 
   state = {

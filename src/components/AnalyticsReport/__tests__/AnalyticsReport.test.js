@@ -14,7 +14,7 @@ const defaultProps = {
     state: { range: {
       start: '2018-05-20',
       end: '2018-07-22'
-    }},
+    }, start: '2018-05-20', end:'2018-07-22'},
     handleFilter: jest.fn()
   },
   fetchDepartmentTrips: jest.fn(),

@@ -24,16 +24,17 @@ class OtherDocumentForm extends Component{
   }
 
   render() {
-    const { 
-      fetchUserData, 
-      user,closeModal, 
-      createTravelReadinessDocument, 
-      travelReadinessDocuments 
+    const {
+      fetchUserData,user,closeModal,
+      createTravelReadinessDocument,
+      travelReadinessDocuments
     } = this.props;
+    const { errors } = this.state;
     return (
-      <BaseForm 
+      <BaseForm
         fetchUserData={fetchUserData}
         user={user}
+        errors={errors}
         defaultFormState={this.state}
         documentType="other"
         {...travelReadinessDocuments}
@@ -48,7 +49,8 @@ OtherDocumentForm.propTypes = {
   createTravelReadinessDocument: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   fetchUserData: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default OtherDocumentForm;

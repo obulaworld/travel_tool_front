@@ -40,7 +40,7 @@ class UserTravelReadinessDetails extends Component {
     const { passport, visa } = travelDocuments;
     return (
       <Fragment>
-        <div className={isLoading && 'readiness-header'}>
+        <div className={isLoading ? 'readiness-header' : ''}>
           {
             !isLoading && (
               <div className="request-panel-header">

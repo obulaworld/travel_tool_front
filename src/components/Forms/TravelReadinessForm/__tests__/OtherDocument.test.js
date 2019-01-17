@@ -8,6 +8,7 @@ const props = {
   errors: {},
   createTravelReadinessDocument: jest.fn(),
   closeModal: jest.fn(),
+  openModal: jest.fn(),
   fetchUserData: jest.fn(),
   user: {}
 };
@@ -48,7 +49,7 @@ describe('<OtherDocumentForm />', () => {
 
   it('handles submit', () => {
     moxios.stubRequest(
-      process.env.REACT_APP_CLOUNDINARY_API, 
+      process.env.REACT_APP_CLOUNDINARY_API,
       { status: 200, data: { url: 'url' } }
     );
     wrapper.state().file = validFile;
@@ -60,7 +61,7 @@ describe('<OtherDocumentForm />', () => {
 
   it('changes state accordingly',  () => {
     moxios.stubRequest(
-      process.env.REACT_APP_CLOUNDINARY_API, 
+      process.env.REACT_APP_CLOUNDINARY_API,
       { status: 200, data: { url: 'url' } }
     );
     wrapper.find('#select-file').simulate('change', event);

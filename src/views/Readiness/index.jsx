@@ -8,20 +8,20 @@ import TravelDocumentModal from '../../components/modal/TravelDocumentModal/Trav
 import PassportForm from '../../components/Forms/TravelReadinessForm/PassportForm';
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
 import PageHeader from '../../components/PageHeader';
-import { 
-  fetchUserReadinessDocuments 
+import {
+  fetchUserReadinessDocuments
 } from '../../redux/actionCreator/travelReadinessDocumentsActions';
-import 
+import
 TravelReadinessDetailsTable
   from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
 import './Readiness.scss';
+import ReadinessInteractiveModal from './ReadinessInteractiveModal';
 
 export class TravelReadinessDocuments extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       documentContext: 'passport',
-      activeDocument: 'passport',
       documentId: ''
     };
   }
@@ -32,7 +32,6 @@ export class TravelReadinessDocuments extends Component {
   }
   toggleDocumentTab = type => {
     this.setState({
-      activeDocument: type,
       documentContext: type
     });
     switch (type) {
@@ -46,7 +45,6 @@ export class TravelReadinessDocuments extends Component {
       openModal(true, 'add other');
       break;
     default:
-      // Handle the opening of the 'others' modal
       return;
     }
   };
@@ -72,27 +70,23 @@ export class TravelReadinessDocuments extends Component {
       openModal(true, 'add other');
       break;
     default:
-      // Handle the opening of the 'others' modal
       return;
     }
   };
 
   renderVisaModal = () => {
     const {
-      closeModal,
-      shouldOpen,
-      modalType,
+      closeModal, shouldOpen, modalType,
       createTravelReadinessDocument,
       travelReadinessDocuments,
-      fetchUserData, 
-      user 
+      fetchUserData,
+      user
     } = this.props;
     return (
       <Modal
         customModalStyles="add-document-item"
         closeModal={closeModal}
-        width="580px"
-        height="600px"
+        width="580px" height="600px"
         visibility={
           shouldOpen && modalType === 'add visa' ? 'visible' : 'invisible'
         }
@@ -104,7 +98,7 @@ export class TravelReadinessDocuments extends Component {
           documentType="visa"
           travelReadinessDocuments={travelReadinessDocuments}
           fetchUserData={fetchUserData}
-          user={user} 
+          user={user}
         />
       </Modal>
     );
@@ -116,13 +110,8 @@ export class TravelReadinessDocuments extends Component {
 
   renderPassportModal = () => {
     const {
-      closeModal,
-      shouldOpen,
-      modalType,
-      travelReadinessDocuments,
-      createTravelReadinessDocument,
-      fetchUserData,
-      user,
+      closeModal, shouldOpen, modalType, travelReadinessDocuments,
+      createTravelReadinessDocument, fetchUserData, user
     } = this.props;
     return (
       <Modal
@@ -147,11 +136,6 @@ export class TravelReadinessDocuments extends Component {
 
   renderButton = (text, active, onClickHandler, moreProps) => {
     let className = 'documents-button-group__button';
-    const { userReadiness, isLoading } = this.props;
-    const {
-      travelDocuments: { passport, visa }
-    } = userReadiness;
-    
     return (
       <button
         type="button"
@@ -204,12 +188,9 @@ export class TravelReadinessDocuments extends Component {
   }
 
   render() {
-    const { activeDocument, documentId } = this.state;
+    const { documentId, documentContext } = this.state;
     const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
-    const {
-      travelDocuments: { passport, visa, other  }
-    } = userReadiness;
-
+    const { travelDocuments: { passport, visa, other  } } = userReadiness;
     return (
       <Fragment>
         <PageHeader title="Travel Documents" />
@@ -222,13 +203,20 @@ export class TravelReadinessDocuments extends Component {
           shouldOpen={shouldOpen}
           modalType={modalType}
           isLoading={isLoading}
-          activeDocument={activeDocument}
+          activeDocument={documentContext}
           passports={passport}
           visas={visa}
           others={other}
           handleShowDocument={this.showDocumentDetail}
           documentId={documentId}
           userData={userReadiness}
+        />
+        <ReadinessInteractiveModal
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
+          documentContext={documentContext}
+          handleModals={this.handleModals}
         />
       </Fragment>
     );
