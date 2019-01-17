@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
 import { downloadAnalytics } from '../../redux/actionCreator/analyticsActions';
-import {fetchCalendarAnalytics, downloadCalendarAnalytics} from '../../redux/actionCreator/travelCalendarActions';
+import {
+  fetchCalendarAnalytics, downloadCalendarAnalytics
+} from '../../redux/actionCreator/travelCalendarActions';
 import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';

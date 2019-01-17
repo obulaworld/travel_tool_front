@@ -12,8 +12,13 @@ export class RoleTable extends PureComponent {
     const { handleEditRole } = this.props;
     return (
       <tr key={role.id} className="table__row">
-        <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze-role-table">
-          <Link className="table__data--link" to={`/settings/roles/${role.id}`}>{role.roleName}</Link>
+        <td 
+          className="mdl-data-table__cell--non-numeric 
+          table__requests__destination table__data freeze-role-table">
+          <Link 
+            className="table__data--link" to={`/settings/roles/${role.id}`}>
+            {role.roleName}
+          </Link>
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data pl-sm-120">
           {role.description}
@@ -25,7 +30,11 @@ export class RoleTable extends PureComponent {
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
           style={testColor}
         >
-          <span onClick={() => handleEditRole(role)} id="editRole" role="presentation" onKeyDown={this.key}>Edit</span>
+          <span
+            onClick={() => handleEditRole(role)} 
+            id="editRole" role="presentation" onKeyDown={this.key}>
+            Edit
+          </span>
           &ensp; &ensp;  &ensp;  &ensp; &ensp;  
           Delete
         </td>

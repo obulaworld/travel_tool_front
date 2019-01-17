@@ -59,7 +59,8 @@ export class NotificationPane extends PureComponent {
                 (pendingNotifications.length > 0) && (
                   <NotificationContainer
                     title="Pending Approvals" pendingNotifications={pendingNotifications}
-                    updateAllNotificationStatus={updateAllNotificationStatus} singleNotificationRead={singleNotificationRead}
+                    updateAllNotificationStatus={updateAllNotificationStatus}
+                    singleNotificationRead={singleNotificationRead}
                     markSingleNotificationAsRead={markSingleNotificationAsRead}
                   />
                 )
@@ -68,7 +69,8 @@ export class NotificationPane extends PureComponent {
                 (generalNotifications.length > 0) && (
                   <NotificationContainer
                     title="General Notifications" generalNotifications={generalNotifications}
-                    updateAllNotificationStatus={updateAllNotificationStatus} markSingleNotificationAsRead={markSingleNotificationAsRead}
+                    updateAllNotificationStatus={updateAllNotificationStatus} 
+                    markSingleNotificationAsRead={markSingleNotificationAsRead}
                     singleNotificationRead={singleNotificationRead}
                   />)
               }

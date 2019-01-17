@@ -3,7 +3,9 @@ import FileSaver from 'file-saver';
 import ReadinessAPI from '../../services/ReadinessAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import { FETCH_TRAVEL_READINESS, EXPORT_TRAVEL_READINESS } from '../constants/actionTypes';
-import { fetchReadinessSuccess, fetchReadinessFailure, exportReadinessFailure, exportReadinessSuccess } from '../actionCreator/travelReadinessActions';
+import {
+  fetchReadinessSuccess, fetchReadinessFailure, exportReadinessFailure, exportReadinessSuccess
+} from '../actionCreator/travelReadinessActions';
 
 //fetch Travel Readiness from API and dispatch action to get this data to store via reducer
 export function* fetchReadinessSaga(action){

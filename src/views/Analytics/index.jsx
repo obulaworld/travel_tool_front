@@ -37,7 +37,8 @@ export class Analytics extends Component {
     const data = props.data;
     const largestFourData = data && data.sort((a, b) => b.value - a.value).slice(0,4);
     const otherArray = data && data.sort((a, b) => b.value - a.value).slice(5, data.length + 1);
-    const otherDataValue = otherArray && otherArray.map(data => data.value).reduce((a, b) => a+b, 0);
+    const otherDataValue = otherArray &&
+    otherArray.map(data => data.value).reduce((a, b) => a+b, 0);
     const otherData = { name: 'Others', value : otherDataValue};
     const requiredData = largestFourData && data.length > 4 && otherData 
       ? [...largestFourData, otherData] 
@@ -46,9 +47,7 @@ export class Analytics extends Component {
     return (
       <AnalyticsCard title={title}>
         {
-          link ? (
-            <Link to={link}><StatsAnalytics {...props} /></Link>
-          ) : (
+          link ? ( <Link to={link}><StatsAnalytics {...props} /></Link> ) : (
             props.chart ? <PieChartAnalytics {...props} /> : <StatsAnalytics {...props} />
           )
         }

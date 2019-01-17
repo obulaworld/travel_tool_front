@@ -12,7 +12,8 @@ class TravelChecklist extends PureComponent {
     const countryFlagUrl = countryUtils.getCountryFlagUrl(list.destinationName);
     const { destinationName, checklist } = list;
     const location = localStorage.getItem('location');
-    const newChecklist = destinationName.includes(location) ? checklist.filter(item => item.name === 'Travel Ticket Details') : checklist;
+    const newChecklist = destinationName.includes(location) ? 
+      checklist.filter(item => item.name === 'Travel Ticket Details') : checklist;
     return (
       <Fragment key={keyIndex}>
         {
@@ -46,7 +47,8 @@ class TravelChecklist extends PureComponent {
             ? checklistItems.map((list, i) => this.renderCheckList(list, i))
             : (
               <p className="travelCheckList__not-found">
-                There are no checklist items for your selected destination(s). Please contact your Travel Department.
+                There are no checklist items for your selected destination(s).
+                Please contact your Travel Department.
               </p>
             )
         }

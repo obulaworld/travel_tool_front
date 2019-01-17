@@ -14,7 +14,8 @@ const DocumentItem = (props) => {
   return (
     <Fragment>
       <tr className="table__rows">
-        <td className="mdl-data-table__cell--non-numeric document__name table__data freeze-role-table">
+        <td className="mdl-data-table__cell--non-numeric 
+                        document__name table__data freeze-role-table">
           <span><img src={documentIcon} alt="file_icon" className="document__icon" /></span>
           {document.name}
         </td>

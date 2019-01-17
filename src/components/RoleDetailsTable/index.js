@@ -47,7 +47,9 @@ export class RoleDetailsTable extends PureComponent {
     const { handleEditCenter, deleteModalRoleId, deleteModalState } = this.props;
     return (
       <tr key={roleUser.id} className="table__rows">
-        <td className="mdl-data-table__cell--non-numeric role-user__name table__data freeze-role-table">
+        <td
+          className="mdl-data-table__cell--non-numeric role-user__name
+          table__data freeze-role-table">
           {roleUser.fullName}
         </td>
         <td className="mdl-data-table__cell--non-numeric table__data pl-sm-120">
@@ -55,21 +57,22 @@ export class RoleDetailsTable extends PureComponent {
         </td>
         <td
           className="mdl-data-table__cell--non-numeric table__requests__status table__data delete"
-          style={testColor}
-        >
-          <span onClick={() => handleEditCenter(roleUser)} id="editButton" role="presentation" onKeyDown={this.key}>Edit</span>
+          style={testColor}>
+          <span
+            onClick={() => handleEditCenter(roleUser)} id="editButton" role="presentation"
+            onKeyDown={this.key}>
+            Edit
+          </span>
           &ensp; &ensp;  &ensp;  &ensp; &ensp;
           <span
             onClick={() => this.showDeleteModal(roleUser.id)}
             id="deleteButton"
             role="presentation"
-            onKeyDown={this.key}
-          >
+            onKeyDown={this.key}>
             Delete
             {
-              deleteModalRoleId === roleUser.id
-              && deleteModalState === 'visible'
-              && this.renderDeleteModal(roleUser)
+              deleteModalRoleId === roleUser.id && deleteModalState === 'visible' &&
+              this.renderDeleteModal(roleUser)
             }
           </span>
         </td>

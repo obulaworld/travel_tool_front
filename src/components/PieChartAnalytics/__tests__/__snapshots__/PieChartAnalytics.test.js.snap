@@ -50,7 +50,7 @@ exports[`<Dashboard /> renders correctly 1`] = `
     reverseStackOrder={false}
     stackOffset="none"
     startAngle={0}
-    width={250}
+    width={300}
   >
     <Pie
       animationBegin={400}

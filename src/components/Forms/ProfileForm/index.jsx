@@ -75,7 +75,6 @@ class ProfileForm extends PureComponent {
   render() {
     const { values, errors, hasBlankFields } = this.state;
     const { managers, occupations } = this.props;
-
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={this.submitProfileForm} className="new-profile">
@@ -97,7 +96,10 @@ class ProfileForm extends PureComponent {
               <button type="submit" className="bg-btn bg-btn--active">
                 Save Changes
               </button>
-              <button type="button" className="bg-btn bg-btn--inactive" onClick={this.handleClearForm} id="btn-cancel">
+              <button
+                type="button" 
+                className="bg-btn bg-btn--inactive" 
+                onClick={this.handleClearForm} id="btn-cancel">
                 Cancel
               </button>
             </div>

@@ -100,8 +100,17 @@ export class Accommodation extends Component {
         </span>
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
-          <button type="button" disabled={isLoading} id="restoreGuestHouseId" className="bg-btn bg-btn--active restore-guestHouse-button" onClick={() => this.restoreGuestHouse(disabledGuestHouse.id)}>
+          <button
+            type="button" 
+            className="delete-checklist-item__footer--cancel" 
+            onClick={closeModal}>
+            Cancel
+          </button>
+          <button
+            type="button" 
+            disabled={isLoading} id="restoreGuestHouseId" 
+            className="bg-btn bg-btn--active restore-guestHouse-button" 
+            onClick={() => this.restoreGuestHouse(disabledGuestHouse.id)}>
             <ButtonLoadingIcon isLoading={isLoading} buttonText="Restore" />
           </button>
         </div>

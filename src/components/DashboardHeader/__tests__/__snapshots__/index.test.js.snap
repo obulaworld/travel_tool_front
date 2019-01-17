@@ -29,9 +29,9 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
       onClick={[Function]}
       type="button"
     >
-      07 Jan, 19 - 13 Jan, 19
+      14 Jan, 19 - 20 Jan, 19
       <img
-        alt="07 Jan, 19 - 13 Jan, 19"
+        alt="14 Jan, 19 - 20 Jan, 19"
         src="calendar_active.svg"
       />
     </button>
@@ -247,7 +247,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Jan 10, 2019"
+                value="Jan 17, 2019"
               />
             </span>
             <span
@@ -256,7 +256,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Jan 10, 2019"
+                value="Jan 17, 2019"
               />
             </span>
           </div>
@@ -440,7 +440,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                     <div
                       className="rdrMonthName"
                     >
-                      Jun 2021
+                      Jul 2021
                     </div>
                     <div
                       className="rdrWeekDays"
@@ -515,7 +515,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                           className="rdrDayNumber"
                         >
                           <span>
-                            30
+                            27
                           </span>
                         </span>
                       </button>
@@ -542,7 +542,61 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                           className="rdrDayNumber"
                         >
                           <span>
-                            31
+                            28
+                          </span>
+                        </span>
+                      </button>
+                      <button
+                        className="rdrDay rdrDayPassive"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onPauseCapture={[Function]}
+                        style={
+                          Object {
+                            "color": "#3d91ff",
+                          }
+                        }
+                        tabIndex={-1}
+                        type="button"
+                      >
+                        <span
+                          className="rdrDayNumber"
+                        >
+                          <span>
+                            29
+                          </span>
+                        </span>
+                      </button>
+                      <button
+                        className="rdrDay rdrDayPassive"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onPauseCapture={[Function]}
+                        style={
+                          Object {
+                            "color": "#3d91ff",
+                          }
+                        }
+                        tabIndex={-1}
+                        type="button"
+                      >
+                        <span
+                          className="rdrDayNumber"
+                        >
+                          <span>
+                            30
                           </span>
                         </span>
                       </button>
@@ -599,7 +653,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -625,7 +679,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayWeekend rdrDayStartOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -651,7 +705,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -677,7 +731,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayStartOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -692,6 +746,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -703,7 +758,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -718,6 +773,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -729,7 +785,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -744,6 +800,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -755,7 +812,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -770,6 +827,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -781,7 +839,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -796,6 +854,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -807,7 +866,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayStartOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -822,6 +881,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -833,7 +893,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -848,6 +908,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -859,7 +920,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayStartOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -874,6 +935,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -885,7 +947,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -900,6 +962,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -911,7 +974,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -926,6 +989,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -937,7 +1001,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -952,6 +1016,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -963,7 +1028,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -978,6 +1043,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -989,7 +1055,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayStartOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1004,6 +1070,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1015,7 +1082,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1030,6 +1097,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1041,7 +1109,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayStartOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1056,6 +1124,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1067,7 +1136,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1082,6 +1151,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1093,7 +1163,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1108,6 +1178,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1119,7 +1190,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1134,6 +1205,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1145,7 +1217,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1160,6 +1232,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1171,7 +1244,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayStartOfWeek"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1186,6 +1259,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1197,7 +1271,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1212,6 +1286,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1223,7 +1298,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayWeekend rdrDayStartOfWeek"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1238,6 +1313,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1249,7 +1325,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1264,6 +1340,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
+                        tabIndex={-1}
                         type="button"
                       >
                         <span
@@ -1302,7 +1379,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled rdrDayEndOfMonth"
+                        className="rdrDay rdrDayDisabled"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1329,7 +1406,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayPassive rdrDayDisabled"
+                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek rdrDayEndOfMonth"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1351,61 +1428,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                           className="rdrDayNumber"
                         >
                           <span>
-                            1
-                          </span>
-                        </span>
-                      </button>
-                      <button
-                        className="rdrDay rdrDayPassive rdrDayDisabled"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onPauseCapture={[Function]}
-                        style={
-                          Object {
-                            "color": "#3d91ff",
-                          }
-                        }
-                        tabIndex={-1}
-                        type="button"
-                      >
-                        <span
-                          className="rdrDayNumber"
-                        >
-                          <span>
-                            2
-                          </span>
-                        </span>
-                      </button>
-                      <button
-                        className="rdrDay rdrDayPassive rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onPauseCapture={[Function]}
-                        style={
-                          Object {
-                            "color": "#3d91ff",
-                          }
-                        }
-                        tabIndex={-1}
-                        type="button"
-                      >
-                        <span
-                          className="rdrDayNumber"
-                        >
-                          <span>
-                            3
+                            31
                           </span>
                         </span>
                       </button>

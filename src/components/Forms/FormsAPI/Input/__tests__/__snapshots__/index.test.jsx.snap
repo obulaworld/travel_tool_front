@@ -15,7 +15,7 @@ exports[`<Input /> renders as expected 1`] = `
         }
       }
     >
-      *
+       * 
     </span>
   </label>
   <input

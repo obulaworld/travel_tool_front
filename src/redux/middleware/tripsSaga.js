@@ -59,7 +59,8 @@ export function* updateTripRoomSaga(action) {
       reason: action.data.reason
     };
     yield call(TripsAPI.updateTripRoom, action.tripId, tripData);
-    yield put(initFetchTimelineData(action.data.guestHouseId, action.data.startDate, action.data.endDate));
+    yield put(initFetchTimelineData(action.data.guestHouseId,
+      action.data.startDate, action.data.endDate));
     toast.success('Room/Bed updated successfully');
     yield put(updateTripRoomSuccess());
     yield put(closeModal());

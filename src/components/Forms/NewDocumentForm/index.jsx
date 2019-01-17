@@ -100,7 +100,8 @@ class NewDocumentForm extends PureComponent {
       delete axios.defaults.headers.common['Authorization'];
       if (values.file !== '') {
         const uploadedDoc = await axios
-          .post(process.env.REACT_APP_CLOUNDINARY_API, formData, { onUploadProgress: this.handleUploadProgress});
+          .post(process.env.REACT_APP_CLOUNDINARY_API, 
+            formData, { onUploadProgress: this.handleUploadProgress});
 
         cloudinaryUrl = uploadedDoc.data.secure_url;
         publicId = uploadedDoc.data.public_id;

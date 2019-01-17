@@ -107,7 +107,8 @@ export class RoleDetails extends Component {
 
   renderRoleForm() {
     const { error, closeModal, shouldOpen, modalType,
-      roleName, fetchRoleUsers, fetchCenters, centers, putRoleData, updateUserCenter, match } = this.props;
+      roleName, fetchRoleUsers, fetchCenters, centers,
+      putRoleData, updateUserCenter, match } = this.props;
     const { headTitle, userDetail } = this.state;
     const { params: {roleId } } = match;
     return (

@@ -9,7 +9,8 @@ class CalendarAnalyticsAPI{
     const limit = 3;
     const {filter, page, type} = query;
     const responseType = (type === 'file') ? 'blob' : 'json';
-    return axios.get(`${baseUrl}/analytics/calendar?type=${type}&location=${location}&${filter}&limit=${limit}&page=${page}`, {
+    return axios.get(`${baseUrl}/analytics/calendar?type=${type}&location=${location}&${filter
+    }&limit=${limit}&page=${page}`, {
       responseType
     });
   }

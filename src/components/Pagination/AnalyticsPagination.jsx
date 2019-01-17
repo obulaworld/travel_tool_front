@@ -14,7 +14,11 @@ class AnalyticsPagination extends PureComponent{
   renderPaginationBtn (direction) {
     const { pagination: {currentPage, pageCount, prevPage} } = this.props;
     const renderButton = (text, disabled) => (
-      <button id={text} className={`pg--button ${disabled && 'disabled'}`} onClick={this.handleClick} type="button">{text}</button>
+      <button
+        id={text} 
+        className={`pg--button ${disabled && 'disabled'}`} onClick={this.handleClick} type="button">
+        {text}
+      </button>
     );
 
     switch (direction) {

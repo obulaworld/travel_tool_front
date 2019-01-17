@@ -17,10 +17,11 @@ const createEventHandlersFor = (targetForm, targetField, validatorName) => {
     handleInputChange: handlerCreators.getInputChangeHandler,
     handleCheckBoxChange: handlerCreators.getCheckBoxHandler
   };
-  // call the creators in _handlerCreators to create the handlers for the target form and store them in eventHandlers
-  const validator = targetForm[validatorName || 'validate']
-    || getDefaultBlanksValidatorFor(targetForm);
-  for(let handlerName of Object.keys(_handlerCreators)) {
+  // call the creators in _handlerCreators to create the handlers
+  // for the target form and store them in eventHandlers
+  const validator = targetForm[validatorName || 'validate'] ||
+    getDefaultBlanksValidatorFor(targetForm);
+  for (let handlerName of Object.keys(_handlerCreators)) {
     eventHandlers[handlerName] = _handlerCreators[handlerName](
       targetForm,
       validator,

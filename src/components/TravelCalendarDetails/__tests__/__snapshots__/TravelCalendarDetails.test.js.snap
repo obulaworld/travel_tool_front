@@ -62,73 +62,6 @@ exports[`Travel Calendar Details should render TravelCalendarDetails 1`] = `
           >
             <img
               alt="Arrival"
-              src="flightTakeoff.svg"
-            />
-            <p
-              className="flight__title"
-            >
-              Departure
-            </p>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th
-                  key="Airline"
-                >
-                  Airline
-                </th>
-                <th
-                  key="Flight No."
-                >
-                  Flight No.
-                </th>
-                <th
-                  key="Departure Time"
-                >
-                  Departure Time
-                </th>
-                <th
-                  key="Origin"
-                >
-                  Origin
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  key="airline"
-                >
-                  Kenya Airways
-                </td>
-                <td
-                  key="flightNo"
-                >
-                  KQ5752
-                </td>
-                <td
-                  key="departureTime"
-                >
-                  Invalid date
-                </td>
-                <td
-                  key="destination"
-                >
-                  Nairobi
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div
-          className="flight"
-        >
-          <div
-            className="flight__header"
-          >
-            <img
-              alt="Arrival"
               src="flightLand.svg"
             />
             <p
@@ -183,6 +116,73 @@ exports[`Travel Calendar Details should render TravelCalendarDetails 1`] = `
                   key="destination"
                 >
                   Lagos
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          className="flight"
+        >
+          <div
+            className="flight__header"
+          >
+            <img
+              alt="Arrival"
+              src="flightTakeoff.svg"
+            />
+            <p
+              className="flight__title"
+            >
+              Departure
+            </p>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th
+                  key="Airline"
+                >
+                  Airline
+                </th>
+                <th
+                  key="Flight No."
+                >
+                  Flight No.
+                </th>
+                <th
+                  key="Departure Time"
+                >
+                  Departure Time
+                </th>
+                <th
+                  key="Destination"
+                >
+                  Destination
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  key="airline"
+                >
+                  Kenya Airways
+                </td>
+                <td
+                  key="flightNo"
+                >
+                  KQ5752
+                </td>
+                <td
+                  key="departureTime"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="destination"
+                >
+                  Nairobi
                 </td>
               </tr>
             </tbody>

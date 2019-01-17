@@ -72,7 +72,8 @@ export default class AnalyticsReport extends Component {
       <Fragment>
         <div className="analyticsReport__row analyticsReport__header">
           <p>Number of Trips per Department</p>
-          {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
+          {this.renderButton('btnExportTripsPerMonth', download,
+            'Export', this.getDepartmentTripsCSV)}
         </div>
         <div className="analyticsReport__row analyticsReport__report-header">
           <div>

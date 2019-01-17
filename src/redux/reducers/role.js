@@ -48,11 +48,13 @@ const role = (state = initialState, action) => {
   case PUT_ROLE_DATA_SUCCESS:
     return { ...state, putRoleData: action.roleData, updatingRole: false };
   case PUT_ROLE_DATA_FAILURE:
-    return { ...state, updatingRole: false, putRoleData: action.response, roleErrors: action.error };
+    return { ...state, updatingRole: false,
+      putRoleData: action.response, roleErrors: action.error };
   case FETCH_ROLE_USERS:
     return { ...state, isFetching: true, roleName: '', roleUsers: [] };
   case FETCH_ROLE_USERS_SUCCESS:
-    return { ...state, isFetching: false, roleUsers: action.users, roleName: action.roleName , error: ''};
+    return { ...state, isFetching: false,
+      roleUsers: action.users, roleName: action.roleName , error: ''};
   case FETCH_ROLE_USERS_FAILURE:
     return { ...state, isFetching: false, error: action.error };
   case DELETE_USER_ROLE:

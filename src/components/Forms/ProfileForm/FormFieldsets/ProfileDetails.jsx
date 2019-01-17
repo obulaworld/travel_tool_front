@@ -6,9 +6,7 @@ import * as formMetadata from '../../FormsMetadata/NewProfileMetadata';
 class ProfileDetailsFieldSets extends Component {
 
   render() {
-    const { managers, occupations } = this.props;
-
-
+    const { managers, occupations, } = this.props;
 
     const occupationsNames = occupations.map(occupation =>
       occupation.occupationName);
@@ -17,8 +15,6 @@ class ProfileDetailsFieldSets extends Component {
     formMetadata.dropdownSelectOptions.manager = managerNames;
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
-
-
 
     return (
       <fieldset className="personal-details">
@@ -31,15 +27,18 @@ class ProfileDetailsFieldSets extends Component {
           </span>
         </div>
         <div className="input-group profile-input">
-          {renderInput('name', 'text')}
+          <div>
+            {renderInput('name', 'text',{ disabled: true })}
+          </div>
           {renderInput('gender', 'button-toggler')}
-          {renderInput('role', 'filter-dropdown-select', {
-            choices: occupationsNames,
-            className: 'profile_role_dropdown',
-            size: '' //can be the width of the input
-          })}
-          {renderInput('department', 'dropdown-select', {className: 'profile_dropdown',size: ''})}
-          {renderInput('manager', 'dropdown-select', {className: 'profile_dropdown',size: ''})}
+          <div>
+            {renderInput('role', 'text', { disabled: true })}
+          </div>
+          <div>
+            {renderInput('department', 'text', { disabled: true })}
+          </div>
+          {renderInput('manager', 'filter-dropdown-select', {
+            className: 'profile_dropdown no-disable', size: '' })}
         </div>
       </fieldset>
     );
@@ -47,11 +46,10 @@ class ProfileDetailsFieldSets extends Component {
 }
 ProfileDetailsFieldSets.propTypes = {
   managers: PropTypes.array,
-  occupations: PropTypes.array,
+  occupations: PropTypes.array
 };
 ProfileDetailsFieldSets.defaultProps = {
   managers: [],
   occupations: []
 };
-
 export default ProfileDetailsFieldSets;

@@ -40,25 +40,26 @@ class SubmissionsUtils extends Component {
   };
 
   renderTextarea = () => {
-    const { itemsToCheck, checkId, submissionText, handleTextAreaSubmit, fileUploadData: {isUploading}
-    } = this.props;
+    const { itemsToCheck, checkId, submissionText, handleTextAreaSubmit } = this.props;
 
     return (
       <div className="travelSubmission--item__textarea">
         <textarea
-          placeholder="input information here..." name="submissionText" rows="4" cols="80" type="submit"
-          className="textArea" value={submissionText} onChange={this.handleInputChange} onBlur={handleTextAreaSubmit}
+          placeholder="input information here..." name="submissionText" rows="4" cols="80"
+          className="textArea" value={submissionText} onChange={this.handleInputChange} 
+          type="submit" onBlur={handleTextAreaSubmit}
         />
         {
           itemsToCheck.includes(checkId) && (
-            <img src={check} alt="check_icon" className="travelCheckList--input__check-image__ticket visible" />
+            <img
+              src={check} alt="check_icon"
+              className="travelCheckList--input__check-image__ticket visible" />
           )}
       </div>
     );
   };
   renderUploadField = () => {
-    const {fileUploadData, itemsToCheck, checkId, handleUpload} = this.props;
-    const {isUploading} = fileUploadData;
+    const { fileUploadData, itemsToCheck, checkId, handleUpload} = this.props;
     return (
       <div className="travelSubmission--input__upload-field">
         <div className="travelSubmission--input__input-field">
@@ -69,13 +70,15 @@ class SubmissionsUtils extends Component {
             <span id="file-upload" role="presentation">Upload file</span>
           </div>
           <input
-            type="file" name="file" className="uploadFile" onChange={handleUpload} disabled={isUploading}
+            type="file" name="file" className="uploadFile"
+            onChange={handleUpload} disabled={fileUploadData.isUploading}
           />
         </div>
         {
           itemsToCheck.includes(checkId) && (
             <img
-              src={check} alt="check_icon" className="travelCheckList--input__check-image__ticket visible"
+              src={check} alt="check_icon" 
+              className="travelCheckList--input__check-image__ticket visible"
             />
           )
         }
@@ -84,21 +87,27 @@ class SubmissionsUtils extends Component {
   };
 
   renderUploadedField = () => {
-    const { itemsToCheck, checkId, uploadedFileName, handleUpload, fileUploadData: {isUploading}, uploadProcess
-    } = this.props;
+    const { itemsToCheck, checkId, uploadedFileName, handleUpload,
+      fileUploadData: { isUploading }, uploadProcess } = this.props;
     const fileName = (!uploadProcess || uploadProcess.match('success')) && uploadedFileName;
     return (
       <div className="travelSubmission--input__upload-field__">
         <div className="travelSubmission--input__input-field__">
           <div role="presentation" className="travelSubmission--input__btn--">
-            <span id="file-upload" role="presentation" className="uploadedFileName">{fileName}</span>
+            <span id="file-upload" role="presentation" className="uploadedFileName">
+              {fileName}
+            </span>
             <img src={uploadIcon} alt="upload_icon" className="travelSubmission--input__image" />
           </div>
-          <input type="file" name="file" className="uploadedFile" onChange={handleUpload} disabled={isUploading} />
+          <input
+            type="file" name="file" className="uploadedFile" 
+            onChange={handleUpload} disabled={isUploading} />
         </div>
         {
           itemsToCheck.includes(checkId) && (
-            <img src={check} alt="check_icon" className="travelCheckList--input__check-image__ticket visible" />
+            <img
+              src={check} alt="check_icon" 
+              className="travelCheckList--input__check-image__ticket visible" />
           )
         }
       </div>
@@ -117,12 +126,14 @@ class SubmissionsUtils extends Component {
   };
 
   validateDates = (name, value) => {
-    const fields = ['departureDate', 'departureTime', 'arrivalTime', 'returnDepartureTime', 'returnTime'];
+    const fields = ['departureDate', 'departureTime', 
+      'arrivalTime', 'returnDepartureTime', 'returnTime'];
     const values = {...this.state, [name]: value};
     let allValid = true;
     for (let i = 1; i < fields.length; i++) {
       const max = i === fields.length - 1 ? null : fields[i + 1];
-      if (!this.validateDate(fields[i], values[fields[i]], values[fields[i - 1]], max && values[max])) {
+      if (!this.validateDate(fields[i], 
+        values[fields[i]], values[fields[i - 1]], max && values[max])) {
         allValid = false;
       }
     }
@@ -130,7 +141,8 @@ class SubmissionsUtils extends Component {
   };
 
   validateDate = (name, value, min, max) => {
-    const valid = (min ? moment(value).isSameOrAfter(moment(min)) : true) && (max ? moment(value).isSameOrBefore(moment(max)) : true);
+    const valid = (min ? moment(value).isSameOrAfter(moment(min)) : true) &&
+    (max ? moment(value).isSameOrBefore(moment(max)) : true);
     this.setState((prevState) => ({
       errors: { ...prevState.errors,
         [name]: !valid ? 'Inconsistent date. Please check again!' : null
@@ -153,7 +165,8 @@ class SubmissionsUtils extends Component {
       <div className="airline-name">
         <span id="label">{label}</span>
         <input
-          id={`${name}-${tripId}`} type={type} value={value || ''} onChange={this.handleInputChange} onBlur={this.handleTicketSubmit}
+          id={`${name}-${tripId}`} type={type} value={value || ''} 
+          onChange={this.handleInputChange} onBlur={this.handleTicketSubmit}
           name={name} placeholder={placeholder} className={name} min={min} max={max}
         />
         {
@@ -164,9 +177,11 @@ class SubmissionsUtils extends Component {
   };
 
   renderTicketFieldset = () => {
-    const { checklistItem, itemsToCheck, tripType, airline, ticketNumber, checkId, returnTicketNumber, returnAirline } = this.props;
+    const { checklistItem, itemsToCheck, tripType, airline, ticketNumber,
+      checkId, returnTicketNumber, returnAirline } = this.props;
     const {name, submissions: {tripId}} = checklistItem;
-    const { departureDate, departureTime, arrivalTime, returnDepartureTime, returnTime, arrivalDate } = this.state;
+    const { departureDate, departureTime, arrivalTime, 
+      returnDepartureTime, returnTime, arrivalDate } = this.state;
     return (
       name.toLowerCase().includes('travel ticket') &&
       (
@@ -191,8 +206,8 @@ class SubmissionsUtils extends Component {
             {tripType.match('return') && (
               <div className="travel-submission-details__return" id="return-fields">
                 {this.renderTicketInput('datetime-local', '19:35:00', 'Departure Time',
-                  'returnDepartureTime', tripId, returnDepartureTime, this.formatDateTime(arrivalTime),
-                  this.formatDateTime(arrivalDate)
+                  'returnDepartureTime', tripId, returnDepartureTime,
+                  this.formatDateTime(arrivalTime), this.formatDateTime(arrivalDate)
                 )}
                 {this.renderTicketInput('datetime-local', '19:35:00', 'Arrival Time',
                   'returnTime', tripId, returnTime, this.formatDateTime(returnDepartureTime)
@@ -207,7 +222,9 @@ class SubmissionsUtils extends Component {
             )}
           </div>
           {itemsToCheck.includes(checkId) && (
-            <img src={check} alt="check_icon" className="travelCheckList--input__check-image__ticket visible" />
+            <img
+              src={check} alt="check_icon" 
+              className="travelCheckList--input__check-image__ticket visible" />
           )}
         </form>
       )
@@ -222,8 +239,10 @@ class SubmissionsUtils extends Component {
     return (
       <Fragment>
         {utilsType && utilsType.match('ticketFieldset') && this.renderTicketFieldset()}
-        {(utilsType && utilsType.match('uploadField') && !item && !showUploadedField) && this.renderUploadField()}
-        {utilsType && utilsType.match('uploadField') && (item || showUploadedField) && this.renderUploadedField()}
+        {(utilsType && utilsType.match('uploadField') && !item && !showUploadedField) &&
+        this.renderUploadField()}
+        {utilsType && utilsType.match('uploadField') && (item || showUploadedField) &&
+        this.renderUploadedField()}
         {utilsType && utilsType.match('textarea') && this.renderTextarea()}
       </Fragment>
     );
@@ -235,13 +254,17 @@ class SubmissionsUtils extends Component {
 }
 
 SubmissionsUtils.propTypes = {
-  checklistItem: PropTypes.object.isRequired, utilsType: PropTypes.string, checkId: PropTypes.string.isRequired,
-  submissionText: PropTypes.string.isRequired, ticketNumber: PropTypes.string.isRequired, returnTicketNumber: PropTypes.string.isRequired,
-  airline: PropTypes.string.isRequired, returnAirline: PropTypes.string.isRequired, handleUpload: PropTypes.func.isRequired,
-  setTextArea: PropTypes.func.isRequired, postSuccess: PropTypes.array.isRequired, setTicketFields: PropTypes.func.isRequired,
-  setUploadedFileName: PropTypes.func.isRequired, handleInputChange: PropTypes.func.isRequired, handleTextAreaSubmit: PropTypes.func.isRequired,
-  handleTicketSubmit: PropTypes.func.isRequired, fileUploadData: PropTypes.object.isRequired, tripType: PropTypes.string.isRequired,
-  uploadedFileName: PropTypes.string.isRequired, uploadProcess: PropTypes.string.isRequired, itemsToCheck: PropTypes.array.isRequired,
+  checklistItem: PropTypes.object.isRequired, utilsType: PropTypes.string,
+  checkId: PropTypes.string.isRequired, returnTicketNumber: PropTypes.string.isRequired,
+  submissionText: PropTypes.string.isRequired, ticketNumber: PropTypes.string.isRequired, 
+  airline: PropTypes.string.isRequired, returnAirline: PropTypes.string.isRequired,
+  handleUpload: PropTypes.func.isRequired, setTicketFields: PropTypes.func.isRequired,
+  setTextArea: PropTypes.func.isRequired, postSuccess: PropTypes.array.isRequired,
+  setUploadedFileName: PropTypes.func.isRequired, handleInputChange: PropTypes.func.isRequired,
+  handleTextAreaSubmit: PropTypes.func.isRequired, fileUploadData: PropTypes.object.isRequired,
+  handleTicketSubmit: PropTypes.func.isRequired, tripType: PropTypes.string.isRequired,
+  uploadedFileName: PropTypes.string.isRequired, uploadProcess: PropTypes.string.isRequired,
+  itemsToCheck: PropTypes.array.isRequired,
 };
 
 SubmissionsUtils.defaultProps = {utilsType: ''};

@@ -9,7 +9,8 @@ export default class NewChecklistForm extends PureComponent {
     super(props);
     const { modalType, checklistItem } = this.props;
     const itemName = (modalType == 'edit cheklistItem' && checklistItem) ? checklistItem.name : '' ;
-    const requiresFiles = (modalType == 'edit cheklistItem' && checklistItem) ? checklistItem.requiresFiles : '' ;
+    const requiresFiles = (modalType == 'edit cheklistItem' && checklistItem) ?
+      checklistItem.requiresFiles : '' ;
     const link = (modalType == 'edit cheklistItem' && checklistItem.resources[0])
       ? checklistItem.resources[0].link : '' ;
     const label = (modalType == 'edit cheklistItem' && checklistItem.resources[0])

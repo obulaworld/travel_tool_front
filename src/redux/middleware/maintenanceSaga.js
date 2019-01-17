@@ -1,6 +1,8 @@
 import toast from 'toastr';
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { ADD_MAINTENANCE_RECORD, UPDATE_MAINTENANCE_RECORD, DELETE_MAINTENANCE_RECORD } from '../constants/actionTypes';
+import {
+  ADD_MAINTENANCE_RECORD, UPDATE_MAINTENANCE_RECORD, DELETE_MAINTENANCE_RECORD
+} from '../constants/actionTypes';
 import MaintainaceApi from '../../services/MaintainaceApi';
 import maintenanceAction, 
 { updateMaintenanceRecordSuccess, 
@@ -16,7 +18,8 @@ export function* AddMainteinanceSaga(action) {
   try {
     const response = yield call(MaintainaceApi.addMaintainanceRecord, action.data, action.roomId);
     const message = response.data.message;
-    yield put(updateRoomState({ fault: true}, action.roomId, action.startDate, action.endDate, action.guestHouseId));
+    yield put(updateRoomState(
+      { fault: true},action.roomId, action.startDate, action.endDate, action.guestHouseId));
     toast.success(message);
   } catch (error) { /* istanbul ignore next */
     const errorMessage = apiErrorHandler(error);
@@ -31,7 +34,8 @@ export function* watchAddMainteinanceAsync() {
 
 export function* updateMaintenanceAsync(action) {
   try {
-    const response = yield call(MaintainaceApi.updateMaintenanceRecord, action.maintenance, action.roomId);
+    const response = yield call(MaintainaceApi.updateMaintenanceRecord,
+      action.maintenance, action.roomId);
     const message = response.data.message;
     yield put(updateMaintenanceRecordSuccess(action.maintenance));
     toast.success(message);

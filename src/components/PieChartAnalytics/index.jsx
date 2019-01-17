@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import PropTypes from 'prop-types';
 
-export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name }) => {
+export const renderCustomizedLabel = (
+  { cx, cy, midAngle, innerRadius, outerRadius, percent, name }) => {
   const RADIAN = Math.PI / 180;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const sin = Math.sin(-RADIAN * midAngle);
@@ -17,9 +18,13 @@ export const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadi
 
   return (
     <g>
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke="#4F4F4F" fill="none" strokeDasharray="5,1" />
+      <path
+        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke="#4F4F4F"
+        fill="none" strokeDasharray="5,1" />
       <circle cx={ex} cy={ey} r={2} fill="#4F4F4F" stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 4} y={ey} textAnchor={textAnchor} fill="#4F4F4F" className="label">
+      <text
+        x={ex + (cos >= 0 ? 1 : -1) * 4} y={ey} textAnchor={textAnchor}
+        fill="#4F4F4F" className="label">
         {`${(percent * 100).toFixed(2)}% [${name}]`}
       </text>
     </g>

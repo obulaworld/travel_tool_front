@@ -1,5 +1,5 @@
 import React from 'react';
-import RestoreChecklistItem from '../RestoreChecklistModal';
+import RestoreChecklistItem from '..';
 
 describe('Renders',() => {
   let wrapper;
