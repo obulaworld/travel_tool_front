@@ -101,6 +101,12 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ],
     "jsx-a11y/label-has-for": [
       2,
       {
