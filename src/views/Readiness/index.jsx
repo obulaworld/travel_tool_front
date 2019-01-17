@@ -26,21 +26,38 @@ export class TravelReadinessDocuments extends Component {
   }
 
   componentDidMount() {
-    const { fetchUserData, user } = this.props;
+    const { fetchUserData, user, location: { search } } = this.props;
     fetchUserData(user.currentUser.userId);
+    const travelDocumentDetails = search ? search.split('?').join('').split('&') : '';
+    const searchMatch = /id=\w+&type=(passport|other|visa)/.test(search.split('?')[1]);
+
+    if(travelDocumentDetails.length && searchMatch) {
+      const id = travelDocumentDetails[0].split('=')[1];
+      const type = travelDocumentDetails[1].split('=')[1];
+      this.showDocumentDetail(id, type);
+    }
   }
 
   toggleDocumentTab = type => {
-    this.setState({
-      documentContext: type
-    });
+    this.setState({ documentContext: type });
+    switch (type) {
+    case 'passport':
+      openModal(true, 'add Passport');
+      break;
+    case 'visa':
+      openModal(true, 'add visa');
+      break;
+    case 'other':
+      openModal(true, 'add other');
+      break;
+    default:
+      return;
+    }
   };
 
-  showDocumentDetail = documentId => {
+  showDocumentDetail = (documentId, type) => {
     const { openModal } = this.props;
-    this.setState({ 
-      documentId 
-    });
+    this.setState({ documentContext: type, documentId });
     openModal(true, 'document details');
   };
 
@@ -221,8 +238,7 @@ export class TravelReadinessDocuments extends Component {
 }
 
 const mapStateToProps = ({ modal, travelReadinessDocuments, user }) => ({
-  ...modal.modal,
-  travelReadinessDocuments,
+  ...modal.modal, travelReadinessDocuments,
   userReadiness: travelReadinessDocuments.userReadiness,
   isLoading: travelReadinessDocuments.isLoading,
   user: user

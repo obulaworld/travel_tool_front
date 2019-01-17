@@ -87,7 +87,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span
-            onClick={() => handleShowDocument(id)}
+            onClick={() => handleShowDocument(id, 'passport')}
             role="presentation"
             className="document-name"
           >
@@ -115,7 +115,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span
-            onClick={() => handleShowDocument(id)}
+            onClick={() => handleShowDocument(id, 'visa')}
             role="presentation"
             className="document-name"
           >
@@ -143,7 +143,7 @@ export class UserTravelReadinessDetailsTable extends Component {
       <tr key={id} className="table__rows">
         <td className="mdl-data-table__cell--non-numeric table__data">
           <span
-            onClick={() => handleShowDocument(id)}
+            onClick={() => handleShowDocument(id, 'other')}
             role="presentation"
             className="document-name"
           >

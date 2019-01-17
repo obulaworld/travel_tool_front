@@ -23,6 +23,9 @@ const props = {
   },
   currentUser: {
     userId: '1200'
+  },
+  location: {
+    search: '/travel_readiness?id=EBUmAX3z1&type=passport',
   }
 };
 
