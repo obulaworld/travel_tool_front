@@ -82,7 +82,6 @@ describe('<Home />', () => {
     expect(props.fetchUserRequests).toHaveBeenCalled();
     expect(props.fetchRoleUsers).toHaveBeenCalled();
     expect(props.getOccupation).toHaveBeenCalled();
-    expect(props.fetchAvailableRooms).toHaveBeenCalled();
     expect(wrapper.instance().state.department).toBe('Success');
   });
 
