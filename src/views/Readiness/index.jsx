@@ -8,11 +8,10 @@ import TravelDocumentModal from '../../components/modal/TravelDocumentModal/Trav
 import PassportForm from '../../components/Forms/TravelReadinessForm/PassportForm';
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
 import PageHeader from '../../components/PageHeader';
-import { 
-  fetchUserReadinessDocuments
-} from '../../redux/actionCreator/travelReadinessDocumentsActions';
 import TravelReadinessDetailsTable from 
   '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
+import { fetchUserReadinessDocuments, editTravelReadinessDocument, fetchTravelReadinessDocument
+} from '../../redux/actionCreator/travelReadinessDocumentsActions';
 import './Readiness.scss';
 import ReadinessInteractiveModal from './ReadinessInteractiveModal';
 
@@ -39,10 +38,12 @@ export class TravelReadinessDocuments extends Component {
   }
 
   toggleDocumentTab = type => {
-    this.setState({ documentContext: type });
+    this.setState({
+      documentContext: type
+    });
     switch (type) {
     case 'passport':
-      openModal(true, 'add Passport');
+      openModal(true, 'add passport');
       break;
     case 'visa':
       openModal(true, 'add visa');
@@ -51,6 +52,7 @@ export class TravelReadinessDocuments extends Component {
       openModal(true, 'add other');
       break;
     default:
+      // Handle the opening of the 'others' modal
       return;
     }
   };
@@ -65,7 +67,7 @@ export class TravelReadinessDocuments extends Component {
     const { openModal } = this.props;
     switch (documentContext) {
     case 'passport':
-      openModal(true, 'add Passport');
+      openModal(true, 'add passport');
       break;
     case 'visa':
       openModal(true, 'add visa');
@@ -78,32 +80,37 @@ export class TravelReadinessDocuments extends Component {
     }
   };
 
+  handleEditDocument = async (documentId) => {
+    const { openModal, fetchDocumentDetails } = this.props;
+    const { documentContext } = this.state;
+    await fetchDocumentDetails(documentId);
+    openModal(true, `edit ${documentContext}`);
+  }
+
+
   renderVisaModal = () => {
     const {
       closeModal, shouldOpen, modalType,
       createTravelReadinessDocument,
-      travelReadinessDocuments,
-      fetchUserData,
-      user
+      editTravelReadinessDocument, travelReadinessDocuments,
+      fetchUserData, user, document, fetchingDocument
     } = this.props;
     return (
       <Modal
         customModalStyles="add-document-item"
         closeModal={closeModal}
         width="580px" height="600px"
-        visibility={
-          shouldOpen && modalType === 'add visa' ? 'visible' : 'invisible'
-        }
-        title="Add Visa"
+        visibility={(shouldOpen && (modalType === 'add visa' || modalType === 'edit visa'))
+          ? 'visible' : 'invisible'}
+        title={modalType === 'add visa' ? 'Add Visa' : 'Edit Visa'}
       >
         <AddVisaForm
           closeModal={closeModal}
           createTravelReadinessDocument={createTravelReadinessDocument}
-          documentType="visa"
-          travelReadinessDocuments={travelReadinessDocuments}
-          fetchUserData={fetchUserData}
-          user={user}
-        />
+          editTravelReadinessDocument={editTravelReadinessDocument}
+          documentType="visa" travelReadinessDocuments={travelReadinessDocuments}
+          fetchUserData={fetchUserData} user={user}
+          document={document} modalType={modalType} fetchingDocument={fetchingDocument} />
       </Modal>
     );
   };
@@ -114,37 +121,36 @@ export class TravelReadinessDocuments extends Component {
 
   renderPassportModal = () => {
     const {
-      closeModal, shouldOpen, modalType, travelReadinessDocuments,
-      createTravelReadinessDocument, fetchUserData, user
+      closeModal, shouldOpen,
+      modalType, travelReadinessDocuments,
+      createTravelReadinessDocument, editTravelReadinessDocument,
+      fetchUserData, user, document, fetchingDocument
     } = this.props;
     return (
       <Modal
         customModalStyles="add-document-item"
-        closeModal={closeModal}
-        width="680px"
-        visibility={
-          shouldOpen && modalType === 'add Passport' ? 'visible' : 'invisible'
-        }
-        title="Add Passport"
+        closeModal={closeModal} width="680px"
+        visibility={(shouldOpen && (modalType === 'add passport' || modalType === 'edit passport'))
+          ? 'visible' : 'invisible'}
+        title={modalType === 'add passport' ? 'Add Passport' : 'Edit Passport'}
       >
         <PassportForm
           createTravelReadinessDocument={createTravelReadinessDocument}
-          {...travelReadinessDocuments}
-          fetchUserData={fetchUserData}
-          closeModal={closeModal}
-          user={user}
-        />
+          editTravelReadinessDocument={editTravelReadinessDocument}
+          {...travelReadinessDocuments} fetchUserData={fetchUserData}
+          closeModal={closeModal} user={user}
+          document={document} modalType={modalType} fetchingDocument={fetchingDocument} />
       </Modal>
     );
   };
 
-  renderButton = (text, active, onClickHandler, document_count, moreProps) => {
+  renderButton = (text, active, onClickHandler, document_count, moreProps, normal) => {
     let className = 'documents-button-group__button';
     return (
       <button
         type="button"
         key={text}
-        className={`${className}${ active ? '--active' : '--inactive'}`}
+        className={`${className}${ normal ? '' : (active  ? '--active' : '--inactive')}`}
         onClick={onClickHandler}
         document_count={document_count}
         {...moreProps}
@@ -195,9 +201,9 @@ export class TravelReadinessDocuments extends Component {
         </div>
         {this.renderButton(
           `Add${' ' + documentContext}`,
-          undefined,
+          false,
           () => this.handleModals(documentContext), null,
-          { id: 'actionButton' } )}
+          { id: 'actionButton' }, true)}
       </div> ); }
 
   render() {
@@ -212,26 +218,16 @@ export class TravelReadinessDocuments extends Component {
         {this.renderPassportModal()}
         {this.renderOtherDocumentModal()}
         <TravelReadinessDetailsTable
-          closeModal={closeModal}
-          shouldOpen={shouldOpen}
-          modalType={modalType}
-          isLoading={isLoading}
-          activeDocument={documentContext}
-          passports={passport}
-          visas={visa}
-          others={other}
-          location={location}
-          handleShowDocument={this.showDocumentDetail}
-          documentId={documentId}
-          userData={userReadiness}
-        />
+          closeModal={closeModal} shouldOpen={shouldOpen}
+          modalType={modalType} isLoading={isLoading}
+          activeDocument={documentContext} passports={passport}
+          visas={visa} others={other} location={location}
+          handleShowDocument={this.showDocumentDetail} documentId={documentId}
+          userData={userReadiness} editDocument={this.handleEditDocument} />
         <ReadinessInteractiveModal
-          closeModal={closeModal}
-          shouldOpen={shouldOpen}
-          modalType={modalType}
-          documentContext={documentContext}
-          handleModals={this.handleModals}
-        />
+          closeModal={closeModal} shouldOpen={shouldOpen}
+          modalType={modalType} documentContext={documentContext}
+          handleModals={this.handleModals} />
       </Fragment>
     ); }
 }
@@ -239,28 +235,28 @@ export class TravelReadinessDocuments extends Component {
 const mapStateToProps = ({ modal, travelReadinessDocuments, user }) => ({
   ...modal.modal, travelReadinessDocuments,
   userReadiness: travelReadinessDocuments.userReadiness,
-  isLoading: travelReadinessDocuments.isLoading,
-  user: user
+  isLoading: travelReadinessDocuments.isLoading, user: user,
+  document: travelReadinessDocuments.document,
+  fetchingDocument: travelReadinessDocuments.fetchingDocument,
 });
 
 const matchDispatchToProps = {
-  openModal,
-  closeModal,
-  createTravelReadinessDocument,
-  fetchUserData: fetchUserReadinessDocuments
+  openModal, closeModal, createTravelReadinessDocument,
+  editTravelReadinessDocument,
+  fetchUserData: fetchUserReadinessDocuments,
+  fetchDocumentDetails: fetchTravelReadinessDocument,
 };
 
 TravelReadinessDocuments.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
-  modalType: PropTypes.string,
-  shouldOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired, openModal: PropTypes.func.isRequired,
+  modalType: PropTypes.string, shouldOpen: PropTypes.bool.isRequired,
   createTravelReadinessDocument: PropTypes.func.isRequired,
+  editTravelReadinessDocument: PropTypes.func.isRequired,
+  fetchDocumentDetails: PropTypes.func.isRequired,
+  document: PropTypes.object.isRequired,
 };
 
-TravelReadinessDocuments.defaultProps = {
-  modalType: 'add visa'
-};
+TravelReadinessDocuments.defaultProps = { modalType: 'add visa' };
 
 export default connect(
   mapStateToProps, matchDispatchToProps

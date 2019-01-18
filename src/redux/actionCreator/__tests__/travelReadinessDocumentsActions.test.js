@@ -1,5 +1,6 @@
 import * as types from '../../constants/actionTypes';
 import * as actions from '../travelReadinessDocumentsActions';
+import documentMock from '../../../mockData/travelReadinesMockData';
 
 describe('Travel Readiness Documents actions', () => {
   describe('fetch all users readiness documents', () => {
@@ -133,6 +134,42 @@ describe('Travel Readiness Documents actions', () => {
       };
 
       const action = actions.verifyTravelReadinessDocumentFailure(error);
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('update a travel readiness document', () => {
+    it('should return action type EDIT_TRAVEL_READINESS_DOCUMENT', () => {
+      const expectedAction = {
+        type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
+        documentType: 'passport',
+        payload: {...documentMock.passport},
+        documentId: 'docIDD'
+      };
+
+      const action = actions.editTravelReadinessDocument('passport', documentMock.passport, 'docIDD');
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+      const mockDocumentData = { id: 'docIDD' };
+      const expectedAction = {
+        type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+        documentUpdate: mockDocumentData,
+      };
+
+      const action = actions.editTravelReadinessDocumentSuccess(mockDocumentData);
+      expect(action).toEqual(expectedAction);
+    });
+
+    it('should return action type EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {
+      const error = 'Error updating document';
+      const expectedAction = {
+        type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
+        error,
+      };
+
+      const action = actions.editTravelReadinessDocumentFailure(error);
       expect(action).toEqual(expectedAction);
     });
   });

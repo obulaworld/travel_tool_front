@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields,onCancel, send, selection, loading} = props;
+  const { hasBlankFields,onCancel, send, selection, loading } = props;
   return (
     <fieldset>
       <div
@@ -27,7 +27,7 @@ const SubmitArea = (props) => {
 
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  hasBlankFields: PropTypes.bool.isRequired,
+  hasBlankFields: PropTypes.bool,
   send: PropTypes.string.isRequired,
   selection: PropTypes.string,
   loading: PropTypes.bool,
@@ -36,6 +36,7 @@ SubmitArea.propTypes = {
 SubmitArea.defaultProps = {
   selection: '',
   loading: false,
+  hasBlankFields: false,
 };
 
 export default SubmitArea;

@@ -19,6 +19,15 @@ class TravelReadinessDocumentsAPI {
   static verifyTravelReadinessDocument(query) {
     return axios.put(`${baseUrl}/travelreadiness/documents/${query}/verify`);
   }
+
+  static editTravelReadinessDocument(documentType, documentDetails, documentId) {
+    return axios.put(
+      `${baseUrl}/travelreadiness/documents/${documentId}`,
+      {
+        [documentType]: documentDetails
+      }
+    );
+  }
 }
 
 export default TravelReadinessDocumentsAPI;

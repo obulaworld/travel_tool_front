@@ -8,6 +8,6 @@ const documents=
     placeOfIssue: 'Kenya',
     expiryDate: '11/11/2019',
     cloudinaryUr: 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpeg'
-  }}
+  }};
 
 export default documents;

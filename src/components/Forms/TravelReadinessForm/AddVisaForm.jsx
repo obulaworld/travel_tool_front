@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {PropTypes} from 'prop-types';
+import moment from 'moment';
 import './TravelDocument.scss';
 import BaseForm from './BaseForm';
 
@@ -14,11 +15,12 @@ class AddVisaForm extends PureComponent {
         expiryDate: '',
         visaType:''
       },
+      image: '',
+      imageChanged: false,
+      documentUploaded: false,
+      uploadingDocument: false,
       errors: {},
       hasBlankFields: true,
-      isSubmitting: false,
-      uploadProgress: 0,
-      cloudinaryUrl: ''
     };
     this.state = {...this.defaultState};
   }
@@ -27,9 +29,14 @@ class AddVisaForm extends PureComponent {
     const {
       fetchUserData,user,closeModal,
       createTravelReadinessDocument,
-      travelReadinessDocuments
+      editTravelReadinessDocument,
+      travelReadinessDocuments,
+      document,
+      currentDocument,
+      modalType,
+      errors
     } = this.props;
-    const { errors } = this.state;
+
     return (
       <BaseForm
         fetchUserData={fetchUserData}
@@ -40,6 +47,10 @@ class AddVisaForm extends PureComponent {
         {...travelReadinessDocuments}
         closeModal={closeModal}
         createTravelReadinessDocument={createTravelReadinessDocument}
+        editTravelReadinessDocument={editTravelReadinessDocument}
+        currentDocument={currentDocument}
+        document={document}
+        modalType={modalType}
       />
     );
   }
@@ -50,6 +61,14 @@ AddVisaForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   fetchUserData: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  editTravelReadinessDocument: PropTypes.func,
+  document: PropTypes.object,
+  modalType: PropTypes.string,
 };
 
+AddVisaForm.defaultProps = {
+  editTravelReadinessDocument: () => {},
+  document: {},
+  modalType: ''
+};
 export default AddVisaForm;

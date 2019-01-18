@@ -3,13 +3,15 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import toast from 'toastr';
+import { isEmpty } from 'lodash';
 import DocumentAPI from '../../../services/DocumentAPI';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PassportDetails from'./FormFieldsets/passportDetails';
 import './TravelReadiness.scss';
 import SubmitArea from './FormFieldsets/SubmitArea';
+import Preloader from '../../Preloader/Preloader';
 
-class PassportForm extends PureComponent{
+class PassportForm extends PureComponent {
   constructor(props) {
     super(props);
     this.defaultState = {
@@ -33,17 +35,32 @@ class PassportForm extends PureComponent{
 
 
   componentWillReceiveProps(nextProps, nextContext) {
-    const { errors } = nextProps;
-    this.setState({ errors});
+    const { errors, document } = nextProps;
+    const { document: currentDocument } = this.props;
+    if (isEmpty(currentDocument) && !isEmpty(document)) {
+      const { passportNumber, name, nationality, dateOfBirth, dateOfIssue, placeOfIssue, expiryDate, cloudinaryUrl } = document.data;
+      this.newState = {
+        values: {
+          name: name,
+          passportNumber,
+          nationality,
+          dateOfBirth: moment(dateOfBirth),
+          dateOfIssue: moment(dateOfIssue),
+          placeOfIssue,
+          expiryDate: moment(expiryDate)
+        },
+        id: document.id,
+        image: cloudinaryUrl,
+        imageChanged: false,
+      };
+      this.setState({errors, ...this.newState });
+    }
+    this.setState({ errors });
   }
 
   componentWillUnmount() {
     const { fetchUserData, user } = this.props;
     fetchUserData(user.currentUser.userId);
-  }
-
-  formatDate = (date) => {
-    return moment(date).format('YYYY/MM/DD');
   }
 
   onCancel = (event) => {
@@ -54,21 +71,24 @@ class PassportForm extends PureComponent{
 
   handleSubmit = async event => {
     event.preventDefault();
-    const { values, image, errors, documentUploaded } = this.state;
-    const {createTravelReadinessDocument} = this.props;
-    const {dateOfBirth, dateOfIssue, expiryDate} = values;
+    const { values, image, errors, documentUploaded, id } = this.state;
+    const { createTravelReadinessDocument, editTravelReadinessDocument, modalType } = this.props;
+    const { dateOfBirth, dateOfIssue, expiryDate } = values;
 
     if( documentUploaded){
 
       const newValues = {
         ...values,
-        dateOfBirth: this.formatDate(dateOfBirth),
-        dateOfIssue: this.formatDate(dateOfIssue),
-        expiryDate: this.formatDate(expiryDate)
+        dateOfBirth: moment(dateOfBirth).format('YYYY/MM/DD'),
+        dateOfIssue:moment(dateOfIssue).format('YYYY/MM/DD'),
+        expiryDate: moment(expiryDate).format('YYYY/MM/DD')
       };
 
-
-      createTravelReadinessDocument('passport', newValues);
+      if (modalType === 'edit passport') {
+        editTravelReadinessDocument('passport', newValues, id);
+      } else {
+        createTravelReadinessDocument('passport', newValues);
+      }
     }else {
       if (image) {
         const fd = new FormData();
@@ -83,13 +103,22 @@ class PassportForm extends PureComponent{
           this.setState({
             documentUploaded: true,
             uploadingDocument: false,
-            values: {...values, cloudinaryUrl: url}});
-
+            values: {...values, cloudinaryUrl: url}
+          });
           DocumentAPI.setToken();
-          createTravelReadinessDocument('passport',{...values, cloudinaryUrl: url,
-            dateOfBirth: this.formatDate(dateOfBirth),
-            dateOfIssue:this.formatDate(dateOfIssue),
-            expiryDate: this.formatDate(expiryDate)});
+          const passportValues = {
+            ...values, 
+            cloudinaryUrl: url,
+            dateOfBirth: moment(dateOfBirth).format('YYYY/MM/DD'),
+            dateOfIssue:moment(dateOfIssue).format('YYYY/MM/DD'),
+            expiryDate: moment(expiryDate).format('YYYY/MM/DD')
+          };
+
+          if (modalType === 'edit passport') {
+            editTravelReadinessDocument('passport',{ ...passportValues }, id);
+          } else {
+            createTravelReadinessDocument('passport',{ ...passportValues });
+          }
         } catch (e) {
           toast.error('Error uploading passport. Please try again!');
         }
@@ -108,26 +137,35 @@ class PassportForm extends PureComponent{
     }
     this.setState({
       image: e.target.files[0],
+      imageChanged: true,
       documentUploaded: false,
       errors: { ...errors, cloudinaryUrl: ''}});
   };
 
   render() {
-    const {errors, values, hasBlankFields,uploadingDocument } = this.state;
+    const {errors, values, hasBlankFields,uploadingDocument, imageChanged } = this.state;
+    const { document, modalType, fetchingDocument } = this.props;
     return (
       <div>
-        <FormContext
-          targetForm={this}
-          errors={errors}
-          validatorName="myCustomValidator" // uses FormAPI's default validator if this is undefined
-          values={values}>
-          <form className="passport-form" onSubmit={this.handleSubmit}>
-            <PassportDetails handleUpload={this.handleUpload} errors={errors} />
-            <SubmitArea
-              onCancel={this.onCancel} hasBlankFields={hasBlankFields} send="Add Passport"
-              loading={uploadingDocument} />
-          </form>
-        </FormContext>
+        {fetchingDocument ? <Preloader /> : (
+          <FormContext
+            targetForm={this}
+            errors={errors}
+            validatorName="myCustomValidator" // uses FormAPI's default validator if this is undefined
+            values={values}>
+            <form className="passport-form" onSubmit={this.handleSubmit}>
+              <PassportDetails 
+                handleUpload={this.handleUpload} 
+                errors={errors} 
+                document={document}
+                modalType={modalType}
+              />
+              <SubmitArea
+                onCancel={this.onCancel} hasBlankFields={hasBlankFields && !imageChanged}
+                send={modalType === 'edit passport' ? 'Save Changes' : 'Add Passport'}
+                loading={uploadingDocument} />
+            </form>
+          </FormContext>)}
       </div>
     );
   }
@@ -139,6 +177,17 @@ PassportForm.propTypes = {
   errors: PropTypes.shape({}).isRequired,
   fetchUserData: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  editTravelReadinessDocument: PropTypes.func,
+  document: PropTypes.object.isRequired,
+  modalType: PropTypes.string,
+  fetchingDocument: PropTypes.bool
 };
+
+PassportForm.defaultProps = {
+  editTravelReadinessDocument: () => {},
+  modalType: '',
+  fetchingDocument: false
+};
+
 export default PassportForm;

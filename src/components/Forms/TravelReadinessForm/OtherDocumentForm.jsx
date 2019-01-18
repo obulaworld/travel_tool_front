@@ -11,11 +11,12 @@ class OtherDocumentForm extends Component{
         dateOfIssue: '',
         expiryDate: '',
       },
+      image: '',
+      imageChanged: false,
+      documentUploaded: false,
+      uploadingDocument: false,
       errors: {},
       hasBlankFields: true,
-      isSubmitting: false,
-      uploadProgress: 0,
-      cloudinaryUrl: '',
       optionalFields: [
         'documentId'
       ]
@@ -24,10 +25,15 @@ class OtherDocumentForm extends Component{
   }
 
   render() {
-    const {
-      fetchUserData,user,closeModal,
+    const { 
+      fetchUserData, 
+      user,closeModal, 
       createTravelReadinessDocument,
-      travelReadinessDocuments
+      editTravelReadinessDocument,
+      travelReadinessDocuments,
+      document,
+      currentDocument,
+      modalType
     } = this.props;
     const { errors } = this.state;
     return (
@@ -40,6 +46,10 @@ class OtherDocumentForm extends Component{
         {...travelReadinessDocuments}
         closeModal={closeModal}
         createTravelReadinessDocument={createTravelReadinessDocument}
+        editTravelReadinessDocument={editTravelReadinessDocument}
+        currentDocument={currentDocument}
+        modalType={modalType}
+        document={document}
       />
     );
   }
@@ -51,6 +61,15 @@ OtherDocumentForm.propTypes = {
   fetchUserData: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
+  editTravelReadinessDocument: PropTypes.func,
+  document: PropTypes.object,
+  modalType: PropTypes.string,
+};
+
+OtherDocumentForm.defaultProps = {
+  editTravelReadinessDocument: () => {},
+  document: {},
+  modalType: ''
 };
 
 export default OtherDocumentForm;
