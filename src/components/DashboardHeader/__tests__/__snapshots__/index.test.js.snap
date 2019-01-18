@@ -29,9 +29,9 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
       onClick={[Function]}
       type="button"
     >
-      14 Jan, 19 - 20 Jan, 19
+      2019-01-01 - 2019-01-31
       <img
-        alt="14 Jan, 19 - 20 Jan, 19"
+        alt="2019-01-01 - 2019-01-31"
         src="calendar_active.svg"
       />
     </button>

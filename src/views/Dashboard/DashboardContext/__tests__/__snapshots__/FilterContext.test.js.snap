@@ -11,8 +11,8 @@ exports[`<FilterContext /> should render without crashing 1`] = `
           " Kenya",
         ],
         "range": Object {
-          "end": "2019-01-20",
-          "start": "2019-01-14",
+          "end": "2019-01-31",
+          "start": "2019-01-01",
         },
       },
     }

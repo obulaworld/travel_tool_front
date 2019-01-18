@@ -25,4 +25,11 @@ HtmlInput.defaultProps = {
   error: ''
 };
 
+HtmlInput.propTypes = {
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ])
+};
+
 export default HtmlInput;

@@ -1,0 +1,171 @@
+.MainWrapper {
+  padding: 0;
+}
+
+.mdl-layout__drawer-button {
+  padding-top: 4px;
+  @media (min-width: 840px) {
+    display: none;
+  }
+}
+
+.side_overlay {
+  display: none;
+  @media (max-width: 1024px) {
+    display: block;
+    z-index: 50;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.request-page__table-view {
+  @media (max-width: 839px) {
+    padding: 0px 15px;
+  }
+}
+
+.request-page {
+  height: 100%;
+  overflow-x: auto;
+  .full-height {
+    height: 100%;
+    overflow-x: auto;
+    .full-height {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+    }
+    &__left-side-bar {
+      height: 100%;
+    }
+    &__table-view {
+      height: 100%;
+      @media (max-width: 839px) {
+        padding: 0 22px;
+      }
+      @media (max-width: 479px) {
+        padding: 0 12px;
+      }
+    }
+    &__right-side-bar {
+      height: 100%;
+      @media (max-width: 839px) and (min-width: 480px) {
+        margin-left: -500px !important;
+        z-index: 200;
+      }
+    }
+  }
+}
+
+.side-drawer {
+  &__user-details {
+    margin: 42px 0px -21px 22px;
+  }
+  &__user-name {
+    margin-top: 14px;
+    font-family: 'DIN Pro';
+    color: #4f4f4f;
+  }
+  &__divider {
+    margin-top: 41px;
+    margin-bottom: -57px;
+    border-top: 1px solid lightgrey;
+  }
+}
+
+.documents-button-group {
+  margin-top: 53px;
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-left: 2px;
+  max-width: 96%;
+  div {
+    display: flex;
+    width: 360px;
+    justify-content: space-between;
+  }
+  &__button {
+    height: 36px;
+    width: 114px;
+    border-radius: 1px;
+    font-family: "DIN Pro";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    outline: none;
+    border: 1px solid #3359db;
+    background-color: #fff;
+    cursor: pointer;
+    color: #3359db;
+    text-align: center;
+    &--active {
+      span {
+        &.addbutton {
+          display: none;
+        }
+        background-color: #F8F8F8;
+        border-radius: 0.8em;
+        display: inline-block;
+        font-weight: bold;
+        color:#3359DB;
+        margin-left: 5px;
+        line-height: 1.3em;
+        padding-bottom: 2px;
+        padding-right: 1.6px;
+        padding-left: 1px;
+        text-align: center;
+        width: 1.3em;
+      }
+      height: 36px;
+      width: 114px;
+      border-radius: 1px;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px;
+      outline: none;
+      border: 1px solid #3359db;
+      cursor: pointer;
+      text-align: center;
+      background-color: #3359DB;
+      color: #F8F8F8;
+    }
+    &--inactive {
+      span {
+        &.addbutton {
+          display: none;
+        }
+        background-color: #3359DB;
+        border-radius: 1.0em;
+        display: inline-block;
+        font-weight: bold;
+        margin-left: 5px;
+        color: #F8F8F8;
+        line-height: 1.3em;
+        padding-left: 1px;
+        padding-right: 1.7px;
+        padding-bottom: 2px;
+        text-align: center;
+        width: 1.3em;
+      }
+      height: 36px;
+      width: 114px;
+      border-radius: 1px;
+      font-family: "DIN Pro";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid #D4D4D4;
+      background-color: #F8F8F8;
+      color: #999999;
+    }
+  }
+}

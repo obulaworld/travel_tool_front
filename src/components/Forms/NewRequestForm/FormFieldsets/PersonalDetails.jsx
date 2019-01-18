@@ -45,14 +45,16 @@ class PersonalDetailsFieldset extends Component {
                   disabled: true,
                   choices: occupationsNames,
                   size: value,
-                  className: 'request_dropdown'
+                  className: 'request_dropdown',
+                  id: 'your-role'
                 })}
               </div>
               <div className="spaces">
                 {renderInput('manager', 'filter-dropdown-select', {
                   choices: managerChoices,
                   size: value,
-                  className: 'request_dropdown no-disable'
+                  className: 'request_dropdown',
+                  id: 'your-manager'
                 })}
               </div>
             </div>

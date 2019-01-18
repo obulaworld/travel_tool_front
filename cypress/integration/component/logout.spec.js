@@ -2,7 +2,7 @@ describe('Logout User', () => {
 
   it('should set token in cookie', () => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
   });
 
 

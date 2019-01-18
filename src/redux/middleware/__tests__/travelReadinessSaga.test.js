@@ -4,18 +4,21 @@ import { throwError } from 'redux-saga-test-plan/providers';
 import FileSaver from 'file-saver';
 import ReadinessAPI from '../../../services/ReadinessAPI';
 import {
-  watchFetchReadiness, watchExportReadiness
+  watchFetchReadiness, watchExportReadiness, watchCreateTravelReadinessDocument
 } from '../travelReadinessSaga';
 import {
-  fetchReadinessResponse
+  fetchReadinessResponse, fetchTravelReadinessResponse, passportDetails
 } from '../../__mocks__/mocks';
 import {
-  FETCH_TRAVEL_READINESS, 
-  FETCH_TRAVEL_READINESS_SUCCESS, 
-  FETCH_TRAVEL_READINESS_FAILURE, 
+  FETCH_TRAVEL_READINESS,
+  FETCH_TRAVEL_READINESS_SUCCESS,
+  FETCH_TRAVEL_READINESS_FAILURE,
   EXPORT_TRAVEL_READINESS,
   EXPORT_TRAVEL_READINESS_SUCCESS,
-  EXPORT_TRAVEL_READINESS_FAILURE
+  EXPORT_TRAVEL_READINESS_FAILURE,
+  CREATE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  CREATE_TRAVEL_READINESS_DOCUMENT
 } from '../../constants/actionTypes';
 
 FileSaver.saveAs = jest.fn();
@@ -49,7 +52,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       })
       .silentRun();
   });
-  
+
   it('should throw an error if get readiness request failed', () => {
     const error = {
       response: {
@@ -96,7 +99,7 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       })
       .silentRun();
   });
-  
+
   it('should call FileSaver.saveAs function if the action type is file', () => {
     const response = {
       data: fetchReadinessResponse
@@ -114,5 +117,71 @@ describe('Test suite for Travel Readiness Analytics Saga', () => {
       .then(() => {
         expect(FileSaver.saveAs).toHaveBeenCalled();
       });
+  });
+});
+
+describe('Travel readiness documents test suite', () => {
+  const visa = {'visa': {
+    'entryType':'Multiple',
+    'country': 'Estoni and Herzegovina',
+    'dateOfIssue': '02/01/2018',
+    'expiryDate': '06/01/2019',
+    'cloudinaryUrl': 'http://n.com'
+  }} ;
+
+  const response = {
+    'success': true,
+    'message': 'document successfully added',
+    'addedDocument': {
+      'isVerified': false,
+      'id': '0GlBp87ee',
+      'type': 'visa',
+      'data': {
+        'country': 'Estoni and Herzegovina',
+        'entryType': 'Multiple',
+        'expiryDate': '06/01/2020',
+        'dateOfIssue': '02/01/2018',
+        'cloudinaryUrl': 'http://n.com'
+      },
+      'userId': '-LTLuRS8MeBH0B3Qg_jC',
+      'updatedAt': '2019-01-09T15:52:10.171Z',
+      'createdAt': '2019-01-09T15:52:10.171Z',
+      'deletedAt': null
+    }
+  };
+
+  it('should throw an error if create request document failed', () =>{
+    const error = {response : {
+      status: 409,
+      data: {'success': false,
+        'message': 'validation error',
+        errors: [{
+          message: 'n',
+        }]
+      }}};
+    return expectSaga(watchCreateTravelReadinessDocument, ReadinessAPI)
+      .provide([
+        [call(ReadinessAPI.createDocument, 'visa', visa), throwError(error)]
+      ]).put({
+        type: CREATE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+        error: error.response.data,
+      }).
+      dispatch({
+        type: CREATE_TRAVEL_READINESS_DOCUMENT,
+        payload: visa,
+        documentType: 'visa'
+      })
+      .silentRun();
+  });
+
+  it('returns success', () =>{
+    return expectSaga(watchCreateTravelReadinessDocument, ReadinessAPI)
+      .provide([
+        [call(ReadinessAPI.createDocument, 'visa', visa), response]
+      ]).dispatch({
+        type: CREATE_TRAVEL_READINESS_DOCUMENT,
+        payload: visa,
+        documentType: 'visa',
+      }).silentRun();
   });
 });

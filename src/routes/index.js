@@ -15,7 +15,12 @@ import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedDocuments from '../views/Documents';
+import ConnectedReadiness from '../views/Readiness';
+import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
+import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
+import ConnectedHome from '../views/Home';
 import NotFound from '../views/ErrorPages';
+
 import {
   TRAVEL_ADMINISTRATOR,
   SUPER_ADMINISTRATOR,
@@ -50,6 +55,11 @@ const Routes = () => (
                 TRAVEL_TEAM_MEMBER
               )
             }
+          />
+          <Route
+            path="/home"
+            exact
+            component={RequireAuth(ConnectedHome)}
           />
           <Route
             path="/requests/my-approvals"
@@ -89,6 +99,11 @@ const Routes = () => (
             path="/requests"
             exact
             component={RequireAuth(ConnectedRequests)}
+          />
+          <Route
+            path="/travel_readiness"
+            exact
+            component={RequireAuth(ConnectedReadiness)}
           />
           <Route
             path="/settings/roles"
@@ -148,6 +163,29 @@ const Routes = () => (
             }
           />
           <Route
+            path="/travel-readiness"
+            exact
+            component={
+              RequireAuth(
+                ConnectedTravelReadinessDocuments,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
+              )
+            }
+          />
+          <Route
+            path="/travel-readiness/:userId"
+            exact
+            component={
+              RequireAuth(
+                ConnectedUserTravelReadinessDetails,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
+                TRAVEL_TEAM_MEMBER,
+              )
+            }
+          />
+          <Route
             path="/settings/roles/:roleId"
             exact
             component={
@@ -163,7 +201,10 @@ const Routes = () => (
             exact
             component={RequireAuth(ConnectedDocuments)}
           />
-          <Route component={NotFound} />
+          <Route
+            component={
+              RequireAuth(NotFound)
+            } />
         </Switch>
       </LayoutShell>
     </Route>

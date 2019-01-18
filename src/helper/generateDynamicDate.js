@@ -2,7 +2,8 @@
 import moment from 'moment';
 
 const generateDynamicDate = (requestData, date) => {
-  return requestData && moment(date).format('DD MMM YYYY');
+  const returnDate = requestData && date ? moment(date).format('DD MMM YYYY') : 'N/A';
+  return returnDate;
 };
 
 export default generateDynamicDate;

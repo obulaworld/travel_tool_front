@@ -2,15 +2,12 @@ import { put, takeLatest, call, takeEvery } from 'redux-saga/effects';
 import FileSaver from 'file-saver';
 import {
   FETCH_DEPARTMENT_TRIPS_ANALYTICS,
-  FETCH_DEPARTMENT_TRIPS_ANALYTICS_SUCCESS,
-  FETCH_DEPARTMENT_TRIPS_ANALYTICS_FAILURE
 } from '../constants/actionTypes';
 import AnalyticsAPI from '../../services/AnalyticsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import {
-  fetchDepartmentTrips,
   fetchDepartmentTripsSuccess,
-  fetchDepartmentTripsFailure,
+  fetchDepartmentTripsFailure
 } from '../actionCreator/tripAnalyticsActions';
 
 export function* fetchDepartmentTripsSaga(action) {
@@ -21,8 +18,7 @@ export function* fetchDepartmentTripsSaga(action) {
     } else {
       yield put(fetchDepartmentTripsSuccess(response.data));
     }
-  }
-  catch(error) {
+  } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchDepartmentTripsFailure(errorMessage));
   }

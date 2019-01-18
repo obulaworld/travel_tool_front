@@ -1,0 +1,53 @@
+.passport-form {
+  padding: 2em 0;
+
+  hr {
+    margin: 0.5em 0;
+  }
+
+  .input-group {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .form-input {
+      width: 48%;
+    }
+
+    .form-input.fluid {
+      width: 100%;
+    }
+  }
+
+  .attach-file {
+    transition: height 0.5s ease-out;
+
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  }
+
+  .date-wrapper {
+    img {
+      display: none;
+    }
+
+    > div, .react-datepicker-wrapper, .react-datepicker__input-container, input {
+      flex: 1;
+      display: flex;
+    }
+  }
+
+  .document-input__input-container{
+    p {
+      color: #3359DB;
+
+      span {
+        text-decoration: underline;
+      }
+    }
+
+  }
+}

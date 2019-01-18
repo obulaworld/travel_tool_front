@@ -4,7 +4,7 @@ describe('Logout a user when token expires', () => {
     cy.visit('/requests');
   });
 
-  it('should check the url', () => {
+  xit('should check the url', () => {
     cy.clearCookie('jwt-token');
     cy.visit('/requests');
     cy.get('.toast-message').should('be.visible')

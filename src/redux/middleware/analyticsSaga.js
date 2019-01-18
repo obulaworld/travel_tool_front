@@ -26,8 +26,7 @@ export function* watchFetchAnalytics() {
 
 export function* downloadAnalyticsSaga({query}) {
   try {
-    const {data} = 
-    yield call(AnalyticsAPI.exportAnalytics, query);
+    const {data} = yield call(AnalyticsAPI.exportAnalytics, query);
     yield FileSaver.saveAs(data, 'Requests/Trips Analytics');
     toast.success('Download Successful');
   } catch (error) {

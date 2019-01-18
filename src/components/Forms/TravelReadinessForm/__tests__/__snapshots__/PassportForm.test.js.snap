@@ -1,0 +1,380 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PassportForm/> renders correctly 1`] = `
+<div>
+  <form
+    className="passport-form"
+    onSubmit={[Function]}
+  >
+    <div>
+      <fieldset>
+        <div
+          className="input-group"
+        >
+          <div
+            className="form-input fluid "
+          >
+            <label
+              htmlFor="name"
+            >
+              Name as Seen On Passport
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <input
+              autoComplete="off"
+              className=" fluid"
+              label="Name as Seen On Passport"
+              name="name"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="passportNumber"
+            >
+              Passport Number
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <input
+              autoComplete="off"
+              className=" "
+              label="Passport Number"
+              name="passportNumber"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="nationality"
+            >
+              Nationality
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <input
+              autoComplete="off"
+              className=" "
+              label="Nationality"
+              name="nationality"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="dateOfBirth"
+            >
+              Date of Birth
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <div
+              className="date-wrapper "
+              id="dateOfBirth_date"
+            >
+              <div>
+                <div
+                  className="react-datepicker-wrapper"
+                >
+                  <div
+                    className="react-datepicker__input-container"
+                  >
+                    <input
+                      autoComplete="off"
+                      className=""
+                      disabled={false}
+                      name="dateOfBirth"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      readOnly={false}
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <img
+                alt="cal"
+                className="calendar-icon"
+                src="calendar_icon.svg"
+              />
+            </div>
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="dateOfIssue"
+            >
+              Date of Issue
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <div
+              className="date-wrapper "
+              id="dateOfIssue_date"
+            >
+              <div>
+                <div
+                  className="react-datepicker-wrapper"
+                >
+                  <div
+                    className="react-datepicker__input-container"
+                  >
+                    <input
+                      autoComplete="off"
+                      className=""
+                      disabled={false}
+                      name="dateOfIssue"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      readOnly={false}
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <img
+                alt="cal"
+                className="calendar-icon"
+                src="calendar_icon.svg"
+              />
+            </div>
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="placeOfIssue"
+            >
+              Place of Issue
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <input
+              autoComplete="off"
+              className=" "
+              label="Place of Issue"
+              name="placeOfIssue"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="expiryDate"
+            >
+              Expiry Date
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                *
+              </span>
+            </label>
+            <div
+              className="date-wrapper "
+              id="expiryDate_date"
+            >
+              <div>
+                <div
+                  className="react-datepicker-wrapper"
+                >
+                  <div
+                    className="react-datepicker__input-container"
+                  >
+                    <input
+                      autoComplete="off"
+                      className=""
+                      disabled={false}
+                      name="expiryDate"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      readOnly={false}
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <img
+                alt="cal"
+                className="calendar-icon"
+                src="calendar_icon.svg"
+              />
+            </div>
+            <span
+              className="error"
+            />
+          </div>
+        </div>
+        <div
+          className="attach-file"
+        >
+          <p>
+            Attach File
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+              *
+            </span>
+          </p>
+          <div
+            className="document-input__input-container"
+          >
+            <label
+              className="document-input__input-container__prompts"
+              htmlFor="select-file"
+            >
+              <img
+                alt="Document Upload"
+                className="document-input__input-container__prompts__img"
+                src="document-upload-blue.svg"
+              />
+              <div
+                className="document-input__input-container__prompts__text"
+              >
+                <p>
+                  Drag file here or 
+                  <span>
+                    choose from computer
+                  </span>
+                </p>
+              </div>
+              <input
+                accept="image/*, .pdf"
+                id="select-file"
+                onChange={[Function]}
+                type="file"
+              />
+            </label>
+          </div>
+          <span
+            className="error"
+          />
+        </div>
+        <hr />
+      </fieldset>
+    </div>
+    <fieldset>
+      <div
+        className="submit-area"
+      >
+        <button
+          className="bg-btn bg-btn--inactive"
+          id="cancel"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-btn bg-btn--active"
+          disabled={true}
+          id="submit"
+          type="submit"
+        >
+          Add Passport
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+`;

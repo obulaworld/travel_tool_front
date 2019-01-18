@@ -50,6 +50,8 @@ import { watchFetchAvailableRooms } from './availableRoomsSaga';
 
 import { watchUpdateRoomsAsync } from './roomUpdateSaga';
 
+import { watchFetchTeammates } from './homeSaga';
+
 import {
   watchFetchTrips,
   watchUpdateTrip,
@@ -73,7 +75,7 @@ import { watchFetchCenters, watchUpdateUserCenterAsync } from './centersSaga';
 import { watchFetchAnalytics, watchdownloadAnalytics } from './analyticsSaga';
 import {
   watchFetchReadiness,
-  watchExportReadiness
+  watchExportReadiness, watchCreateTravelReadinessDocument
 } from './travelReadinessSaga';
 
 import { watchFetchDepartmentTrips } from './tripsAnalyticsSaga';
@@ -97,6 +99,13 @@ import {
   watchFetchAttachments,
   watchdownloadAttachments
 } from './attachmentsSaga';
+import {
+  watchFetchUsersReadinessDocuments,
+  watchFetchReadinessDocuments,
+  watchFetchReadinessDocumentDetails,
+  watchVerifyTravelReadinessDocuments,
+  watchEditTravelReadinessDocument
+} from './travelReadinessDocumentsSaga';
 
 function* rootSaga() {
   yield all([
@@ -165,7 +174,14 @@ function* rootSaga() {
     watchDeleteMaintenance(),
     watchDisableAccommodation(),
     watchFetchDisabledAccommodation(),
-    watchRestoreDisabledAccommodation()
+    watchRestoreDisabledAccommodation(),
+    watchCreateTravelReadinessDocument(),
+    watchFetchUsersReadinessDocuments(),
+    watchFetchReadinessDocuments(),
+    watchFetchReadinessDocumentDetails(),
+    watchFetchTeammates(),
+    watchVerifyTravelReadinessDocuments(),
+    watchEditTravelReadinessDocument()
   ]);
 }
 

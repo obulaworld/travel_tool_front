@@ -1,14 +1,15 @@
-import { 
+import {
   FETCH_TRAVEL_READINESS, FETCH_TRAVEL_READINESS_FAILURE,
   FETCH_TRAVEL_READINESS_SUCCESS, EXPORT_TRAVEL_READINESS,
-  EXPORT_TRAVEL_READINESS_SUCCESS, 
-  EXPORT_TRAVEL_READINESS_FAILURE } from '../constants/actionTypes';
+  EXPORT_TRAVEL_READINESS_SUCCESS,
+  EXPORT_TRAVEL_READINESS_FAILURE, CREATE_TRAVEL_READINESS_DOCUMENT
+} from '../constants/actionTypes';
 
 const initialState = { 
   readiness: [], 
   isLoading:false, 
   error: '' ,
-  pagination: {}
+  pagination: {},
 };
 
 const readiness = (state = initialState, action) => {

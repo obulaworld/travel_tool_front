@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
-
+import moment from 'moment';
 import './TravelCalendar.scss';
 import Utils from '../../helper/Utils';
 import TravelCalendarDetails from '../TravelCalendarDetails';
@@ -16,8 +16,8 @@ class TravelCalendar extends PureComponent {
     isCalendarOpen: false,
     page: 1,
     filter: {
-      start: format(startOfISOWeek(new Date()), 'YYYY-MM-DD'),
-      end: format(endOfISOWeek(new Date()), 'YYYY-MM-DD')
+      start: moment().startOf('month').format('YYYY-MM-DD'),
+      end: moment().endOf('month').format('YYYY-MM-DD')
     }
   }
 

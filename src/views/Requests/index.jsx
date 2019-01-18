@@ -202,6 +202,8 @@ export class Requests extends Base {
       isFetching, requests, pagination,
       fetchRequestsError, message
     } = this.props;
+    const { requestId } = this.state;
+    const filteredReqId = requests.filter(request => request.id === requestId);
     return (
       <Fragment>
         {this.renderRequestPanelHeader(isFetching)}

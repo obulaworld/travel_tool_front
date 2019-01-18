@@ -183,4 +183,54 @@ describe('Accommodation Saga', () => {
         .silentRun();
     });
   });
+
+  describe('Update Accommodation saga', () => {
+    const guestHouseData = {
+      houseName: 'Mapopo Falls',
+    };
+
+    const guestHouseId = '78yuhk8iu';
+    const response = {
+      data: {
+        guestHouse: {
+          id: '78yuhk8iu',
+          houseName: 'Mapopo Falls',
+        },
+        success: true,
+      }
+    };
+    it('updates a guesthouse', () => {
+      return expectSaga(watchEditAccommodation)
+        .provide([[call(AccommodationAPI.editAccommodation, guestHouseData, guestHouseId), response]])
+        .put({
+          type: EDIT_ACCOMMODATION_DATA_SUCCESS,
+          guestHouseData: {
+            id: '78yuhk8iu',
+            houseName: 'Mapopo Falls',
+          }
+        })
+        .dispatch({
+          type: EDIT_ACCOMMODATION_DATA,
+          guestHouseId,
+          guestHouseData
+        })
+        .silentRun();
+    });
+
+    it('throws error if there is an error updating the guesthouse', () => {
+      return expectSaga(watchEditAccommodation)
+        .provide([
+          [call(AccommodationAPI.editAccommodation), throwError(error)]
+        ])
+        .put({
+          type: EDIT_ACCOMMODATION_DATA_FAILURE,
+          error: error.message
+        })
+        .dispatch({
+          type: EDIT_ACCOMMODATION_DATA,
+          guestHouseId: 'hinlmknk'
+        })
+        .silentRun();
+    });
+  });
 });

@@ -1,12 +1,14 @@
 import moment from 'moment';
 
+const baseAPI = Cypress.env('REACT_APP_API_URL');
+
 describe('Requests Page(view request details)', () => {
   let request;
   before(() => {
     cy.authenticateUser();
-    cy.visit('/requests');
+    cy.visit('/requests').wait(3000);
     cy.server();
-    cy.route('POST', 'http://127.0.0.1:5000/api/v1/requests').as(
+    cy.route('POST', `${baseAPI}/requests`).as(
       'createRequest'
     ); // Used to check when request is POST completed
     // Fill form data
@@ -18,9 +20,8 @@ describe('Requests Page(view request details)', () => {
     cy.get('button[name=gender]:last').click();
     cy.get('div[name=department]').click();
     cy.get('div[name=department] > ul > li#choice:first').click();
-    cy.get('div[name=manager]').click();
-    cy.get('div[name=manager] > ul > li#choice:first').click();
-    cy.get('input.occupationInput')
+    cy.get('input#your-manager').click();
+    cy.get('input#your-role')
       .clear()
       .type('Software developer');
     cy.get('input[name=origin-0]')
@@ -33,11 +34,10 @@ describe('Requests Page(view request details)', () => {
       .type('{downarrow}{enter}');
     cy.get('input[name=departureDate-0]').click();
     cy.get('.react-datepicker__day--today')
-      .next()
+      .as('today')
       .click();
     cy.get('input[name=arrivalDate-0]').click();
-    cy.get('.react-datepicker__day--today')
-      .next()
+    cy.get('@today')
       .next()
       .click();
     cy.get('div[name=bed-0]').click();
@@ -57,7 +57,7 @@ describe('Requests Page(view request details)', () => {
   it(`should open the request details modal when the
   requestId is clicked`, () => {
     cy.server();
-    cy.route(`http://127.0.0.1:5000/api/v1/requests/${request.id}`).as(
+    cy.route(`${baseAPI}/requests/${request.id}`).as(
       'getRequest'
     );
     cy.get('.table__row')
@@ -103,7 +103,7 @@ describe('Requests Page(view request details)', () => {
   });
 
   it('displays the WSISWYG editor', () => {
-    cy.get('.editor__editor-form').within(() => {
+    cy.get('.editor__editor-form').wait(5000).within(() => {
       cy.get('.quill').should('be.visible');
       cy.get('.editor__btn-wrap > button#post-submit')
         .contains('Post')
@@ -113,7 +113,7 @@ describe('Requests Page(view request details)', () => {
 
   it(`closes the request details modal when the
   close button is clicked`, () => {
-    cy.get('button.modal-close').click();
+    cy.get('.modal-close').click();
     cy.get('.modal').should('not.be.visible');
   });
 });

@@ -1,0 +1,38 @@
+.travel-document-form {
+  .input-group.visa-input {
+    width: 100%;
+    height: 80%;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .form-input {
+      width: 48%;
+    }
+  }
+  .travel-document-submit-area {
+    margin-top: 3em;
+  }
+
+  .date-wrapper {
+    > div, .react-datepicker-wrapper, .react-datepicker__input-container, input{
+      flex: 1;
+      display: flex;
+    }
+  }
+  .form-input {
+    width: 48%;
+  }
+  .react-datepicker-wrapper {
+    flex: 1;
+  }
+  img .date-wrapper {
+     display: none;
+  }
+
+  .document-input__input-container__prompts__text p{
+    color: #3359DB;
+  }
+  
+}

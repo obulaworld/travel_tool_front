@@ -36,8 +36,7 @@ class MaintainceForm extends PureComponent {
     const startDate = departureDate ? moment(departureDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
     const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
     const disableReason = reason ? reason : '';
-    this.setState(prevState => ({...prevState,
-      values: { maintainanceStart: startDate, maintainanceEnd: endDate, reason: disableReason } }));
+    this.setState(prevState => ({ ...prevState, values: { maintainanceStart: startDate, maintainanceEnd: endDate, reason: disableReason } }));
   }
 
   submitMaintainanceData = event => {

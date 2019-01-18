@@ -9,22 +9,6 @@ exports[`<Dashboard /> renders correctly 1`] = `
       <Component />
     </ContextConsumer>
   </FilterContext>
-  <AnalyticsReport
-    departmentTrips={
-      Object {
-        "loading": false,
-        "report": Array [],
-      }
-    }
-    exportReadiness={[Function]}
-    fetchDepartmentTrips={[Function]}
-    fetchReadiness={[Function]}
-    readiness={
-      Object {
-        "isLoading": false,
-      }
-    }
-  />
   <TravelCalendar
     downloadCalendarAnalytics={[Function]}
     fetchCalendarAnalytics={[Function]}
@@ -36,12 +20,6 @@ exports[`<Dashboard /> renders correctly 1`] = `
           "pagination": Object {},
           "travelCalendarError": "No records found",
         },
-      }
-    }
-    user={
-      Object {
-        "email": "william.sserubiri@andela.com",
-        "id": 2,
       }
     }
   />

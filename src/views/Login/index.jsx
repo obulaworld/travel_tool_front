@@ -61,7 +61,7 @@ export class Login extends Component {
       history.push(url);
       localStorage.removeItem('url');
     } else {
-      history.push('/requests');
+      history.push('/home');
     }
   }
 

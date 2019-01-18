@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentDetailsAttachment renders a document attachment 1`] = `
+<Attachments
+  fileSubmissions={
+    Array [
+      Object {
+        "fileName": "undefined Passport",
+        "url": "https://res.cloudinary.com/ined/image/upload/v1538568663/Logo_blue_2x.png",
+      },
+    ]
+  }
+  handleDownload={[Function]}
+  isFetching={false}
+/>
+`;

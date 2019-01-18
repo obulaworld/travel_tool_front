@@ -10,7 +10,6 @@ import deleteBtnRed from '../../../../images/delete.svg';
 import TravelDetailsItem from './TravelDetailsItem';
 
 class TravelDetailsFieldset extends Component {
-
   componentDidMount = () => {
     this.get_details();
   };
@@ -77,8 +76,12 @@ class TravelDetailsFieldset extends Component {
     let data = {};
     const { fetchAvailableRooms } = this.props;
     if (this.validateAllTripDetails(values, i, selection)) {
-      const newDepartureDate = new Date(values[`departureDate-${i}`].format('YYYY-MM-DD'));
-      const newArrivalDate = moment(newDepartureDate).add(1, 'months').format('YYYY-MM-DD');
+      const newDepartureDate = new Date(
+        values[`departureDate-${i}`].format('YYYY-MM-DD')
+      );
+      const newArrivalDate = moment(newDepartureDate)
+        .add(1, 'months')
+        .format('YYYY-MM-DD');
       data = {
         gender: values.gender,
         location: values[`destination-${i}`],
@@ -91,7 +94,7 @@ class TravelDetailsFieldset extends Component {
       };
       fetchAvailableRooms(data);
     }
-  }
+  };
 
   validateAllTripDetails(values, i, selection) {
     const isValid =
@@ -102,8 +105,7 @@ class TravelDetailsFieldset extends Component {
     return isValid && values[`arrivalDate-${i}`];
   }
 
-
-  renderTravelDetails = (i, selection, onChangeInput, mappedTrip) => {
+  renderTravelDetails = (i, selection, onChangeInput, parentIds) => {
     const {
       values,
       handleDate,
@@ -132,6 +134,7 @@ class TravelDetailsFieldset extends Component {
         fetchRoomsOnFocus={this.fetchRoomsOnFocus}
         modalType={modalType}
         requestOnEdit={requestOnEdit}
+        parentIds={parentIds}
       />
     );
   };
@@ -141,7 +144,7 @@ class TravelDetailsFieldset extends Component {
     for (let i = 0; i < parentIds; i += 1) {
       forms.push(
         <div id={i} key={i}>
-          {this.renderTravelDetails(i, selection, onChangeInput)}
+          {this.renderTravelDetails(i, selection, onChangeInput, parentIds)}
         </div>
       );
     }
@@ -157,9 +160,15 @@ class TravelDetailsFieldset extends Component {
       <fieldset className="travel-details">
         <legend
           className="line"
-          style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4',
-            fontFamily: 'DIN Pro Medium',	fontSize: '18px', paddingTop: '5px' }}>
-        Travel Details
+          style={{
+            marginBottom: '6px',
+            borderBottom: '1px solid #E4E4E4',
+            fontFamily: 'DIN Pro Medium',
+            fontSize: '18px',
+            paddingTop: '5px'
+          }}
+        >
+          Travel Details
         </legend>
         {this.renderRadioButton(handleRadioButtonChange)}
         {this.renderForms(parentIds, selection, onChangeInput, existingTrips)}

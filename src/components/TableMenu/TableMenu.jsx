@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import editIcon from '../../images/edit.svg';
 import checkListIcon from '../../images/checklisticon.svg';
 import cancelIcon from '../../images/cancel.svg';
@@ -21,23 +22,23 @@ class TableMenu extends PureComponent {
     closeModal(true, 'new model');
   }
 
-  handleIconOpentoggle = (toggleMenu, request) => {
+  handleIconOpentoggle = (toggleMenu, data, toggleId) => {
     return (
       <i
         className="fa fa-ellipsis-v"
-        id="toggleIcon"
+        id={toggleId}
         role="presentation"
-        onClick={() => toggleMenu(request.id, request)}
+        onClick={() => toggleMenu(data.id, data)}
       />
     );
   };
 
-  handleIconClosetoggle = (toggleMenu, request) => {
+  handleIconClosetoggle = (toggleMenu, data, toggleId) => {
     return (
       <li
         className="table__menu-list-item"
-        id="toggleButton"
-        onClick={() => toggleMenu(request.id, request)}
+        id={toggleId}
+        onClick={() => toggleMenu(data.id, data)}
         role="presentation"
       >
         <img src={cancelIcon} alt="cancel-icon" className="menu-icon" />
@@ -110,19 +111,24 @@ class TableMenu extends PureComponent {
     );
   }
 
+  openToggleMenu(data) {
+    const { menuOpen } = this.props;
+    const openMenu = menuOpen.id === data.id && menuOpen.open;
+    return openMenu;
+  }
+
   renderToggle = () => {
     const {
       toggleMenu,
       editRequest,
       request,
       type,
-      requestStatus,
-      menuOpen } = this.props;
-    const openMenu = menuOpen.id === request.id && menuOpen.open;
+      requestStatus } = this.props;
+
     return (
       <div>
-        {this.handleIconOpentoggle(toggleMenu, request)}
-        <div className={`table__menu-container ${openMenu ? 'open' : ''}`}>
+        {this.handleIconOpentoggle(toggleMenu, request, 'toggleIcon')}
+        <div className={`table__menu-container ${this.openToggleMenu(request) ? 'open' : ''}`}>
           {type === 'requests' && (
             <ul className="table__menu-list">
               {requestStatus === 'Open' && (
@@ -143,7 +149,7 @@ class TableMenu extends PureComponent {
               }
               {this.renderCheckListSubmissionBtn()}
               {requestStatus === 'Open' && this.renderDelete()}
-              {this.handleIconClosetoggle(toggleMenu, request)}
+              {this.handleIconClosetoggle(toggleMenu, request, 'toggleButton')}
             </ul>
           )}
         </div>
@@ -151,10 +157,54 @@ class TableMenu extends PureComponent {
     );
   };
 
+  renderEditButton = (data) => {
+    const { toggleMenu, editDocument } = this.props;
+    return (
+      <Fragment>
+        { this.handleIconOpentoggle(toggleMenu, data, 'toggleIcon2') }
+        <div className={`table__menu-container ${
+          this.openToggleMenu(data) ? 'open' : ''}`
+        }>
+          <ul className="table__menu-list">  
+            {!data.isVerified && (
+              <li
+                className="table__menu-list-item"
+                id="iconBtn2"
+                onClick={() => {
+                  toggleMenu(data.id);
+                  editDocument(data.id);
+                }}
+                role="presentation"
+              >
+                <img src={editIcon} alt="edit-icon" className="menu-icon" />
+                Edit
+              </li>)}
+            {this.handleIconClosetoggle(toggleMenu, data, 'toggleButton2')}
+          </ul>
+        </div>
+      </Fragment>
+    );
+  }
+
+  renderDocumentsToggle() {
+    const { passportData, visaData, documentData } = this.props;
+    return (
+      <div>      
+        { !isEmpty(passportData) && this.renderEditButton(passportData) }
+        { !isEmpty(visaData) && this.renderEditButton(visaData) }
+        { !isEmpty(documentData) && this.renderEditButton(documentData) }
+      </div>
+    );
+  }
+
   render() {
+    const { request, passportData, visaData, documentData } = this.props;
     return (
       <div className="menu__container">
-        {this.renderToggle()}
+        {!isEmpty(request) && this.renderToggle()}
+        {!isEmpty(passportData) && this.renderDocumentsToggle()}
+        {!isEmpty(visaData) && this.renderDocumentsToggle()}
+        {!isEmpty(documentData) && this.renderDocumentsToggle()}
       </div>
     );
   }
@@ -164,18 +214,38 @@ TableMenu.defaultProps = {
 };
 
 TableMenu.propTypes = {
-  editRequest: PropTypes.func.isRequired,
-  showTravelChecklist: PropTypes.func.isRequired,
-  request: PropTypes.object.isRequired,
-  requestStatus: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  editRequest: PropTypes.func,
+  showTravelChecklist: PropTypes.func,
+  request: PropTypes.object,
+  requestStatus: PropTypes.string,
+  type: PropTypes.string,
   toggleMenu: PropTypes.func.isRequired,
   menuOpen: PropTypes.object.isRequired,
-  deleteRequest: PropTypes.func.isRequired,
-  shouldOpen: PropTypes.bool.isRequired,
+  deleteRequest: PropTypes.func,
+  shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
-  openModal: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired,
+  openModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  passportData: PropTypes.object,
+  visaData: PropTypes.object,
+  documentData: PropTypes.object,
+  editDocument: PropTypes.func,
+};
+TableMenu.defaultProps = {
+  modalType: '',
+  passportData: {},
+  visaData: {},
+  documentData: {},
+  editDocument: () => {},
+  editRequest: () => {},
+  showTravelChecklist: () => {},
+  request: {},
+  requestStatus: '',
+  type: '',
+  deleteRequest: () => {},
+  shouldOpen: false,
+  openModal: () => {},
+  closeModal: () => {},
 };
 TableMenu.defaultProps = {
   modalType: ''

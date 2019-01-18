@@ -131,17 +131,34 @@ Array [
                                  * 
                             </span>
                         </label>
-                        <input
-                            autoComplete="off"
-                            className=" "
-                            disabled={true}
-                            label="Role"
-                            name="role"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="text"
-                            value=""
-                        />
+                        <div
+                            style={
+                                Object {
+                                    "position": "relative",
+                                  }
+                            }
+                        >
+                            <div
+                                className="value"
+                                style={
+                                    Object {
+                                        "width": "",
+                                      }
+                                }
+                            >
+                                <input
+                                    autoComplete="off"
+                                    choices={Array []}
+                                    className="occupationInput"
+                                    label="Role"
+                                    name="role"
+                                    onChange={[Function]}
+                                    size=""
+                                    type="text"
+                                    value=""
+                                />
+                            </div>
+                        </div>
                         <span
                             className="error"
                         />
@@ -163,17 +180,116 @@ Array [
                                  * 
                             </span>
                         </label>
-                        <input
-                            autoComplete="off"
-                            className=" "
-                            disabled={true}
-                            label="Department"
-                            name="department"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="text"
-                            value=""
-                        />
+                        <div
+                            style={
+                                Object {
+                                    "position": "relative",
+                                  }
+                            }
+                        >
+                            <div
+                                autoComplete="off"
+                                choices={
+                                    Array [
+                                        "Talent & Development",
+                                        "Success",
+                                        "IT",
+                                        "Operations",
+                                      ]
+                                }
+                                className="input select  profile_dropdown"
+                                error=""
+                                label="Department"
+                                name="department"
+                                onChange={[Function]}
+                                onClick={[Function]}
+                                onKeyPress={[Function]}
+                                role="button"
+                                size=""
+                                tabIndex="0"
+                                type="dropdown-select"
+                                value=""
+                            >
+                                <div
+                                    className="value"
+                                    style={
+                                        Object {
+                                            "width": "",
+                                          }
+                                    }
+                                >
+                                     
+                                    <div
+                                        className="select-dropdown inactive"
+                                    >
+                                        <img
+                                            alt="icn"
+                                            src="form_select_dropdown.svg"
+                                        />
+                                    </div>
+                                </div>
+                                <ul
+                                    className="select-menu select-menu--inactive"
+                                >
+                                    <li
+                                        id="choice"
+                                        key="Talent & Development"
+                                    >
+                                        <div
+                                            id="choice"
+                                            onClick={[Function]}
+                                            onKeyPress={[Function]}
+                                            role="button"
+                                            tabIndex="0"
+                                        >
+                                            Talent & Development
+                                        </div>
+                                    </li>
+                                    <li
+                                        id="choice"
+                                        key="Success"
+                                    >
+                                        <div
+                                            id="choice"
+                                            onClick={[Function]}
+                                            onKeyPress={[Function]}
+                                            role="button"
+                                            tabIndex="0"
+                                        >
+                                            Success
+                                        </div>
+                                    </li>
+                                    <li
+                                        id="choice"
+                                        key="IT"
+                                    >
+                                        <div
+                                            id="choice"
+                                            onClick={[Function]}
+                                            onKeyPress={[Function]}
+                                            role="button"
+                                            tabIndex="0"
+                                        >
+                                            IT
+                                        </div>
+                                    </li>
+                                    <li
+                                        id="choice"
+                                        key="Operations"
+                                    >
+                                        <div
+                                            id="choice"
+                                            onClick={[Function]}
+                                            onKeyPress={[Function]}
+                                            role="button"
+                                            tabIndex="0"
+                                        >
+                                            Operations
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <span
                             className="error"
                         />
@@ -203,23 +319,41 @@ Array [
                             }
                         >
                             <div
-                                className="value"
-                                style={
-                                    Object {
-                                        "width": "",
-                                      }
-                                }
+                                autoComplete="off"
+                                choices={Array []}
+                                className="input select  profile_dropdown"
+                                error=""
+                                label="Line Manager"
+                                name="manager"
+                                onChange={[Function]}
+                                onClick={[Function]}
+                                onKeyPress={[Function]}
+                                role="button"
+                                size=""
+                                tabIndex="0"
+                                type="dropdown-select"
+                                value=""
                             >
-                                <input
-                                    autoComplete="off"
-                                    choices={Array []}
-                                    className="occupationInput"
-                                    label="Line Manager"
-                                    name="role"
-                                    onChange={[Function]}
-                                    size=""
-                                    type="text"
-                                    value=""
+                                <div
+                                    className="value"
+                                    style={
+                                        Object {
+                                            "width": "",
+                                          }
+                                    }
+                                >
+                                     
+                                    <div
+                                        className="select-dropdown inactive"
+                                    >
+                                        <img
+                                            alt="icn"
+                                            src="form_select_dropdown.svg"
+                                        />
+                                    </div>
+                                </div>
+                                <ul
+                                    className="select-menu select-menu--inactive"
                                 />
                             </div>
                         </div>

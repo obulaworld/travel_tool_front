@@ -10,13 +10,20 @@ const defaultProps = {
     report: tripsPerMonthData,
     loading: false,
   },
+  context: {
+    state: { range: {
+      start: '2018-05-20',
+      end: '2018-07-22'
+    }, start: '2018-05-20', end:'2018-07-22'},
+    handleFilter: jest.fn()
+  },
   fetchDepartmentTrips: jest.fn(),
   fetchReadiness: jest.fn(),
   exportReadiness: jest.fn(),
   readiness: {
     isLoading: false,
   },
-  
+
 };
 
 const setup = (props) => {
@@ -36,12 +43,12 @@ describe('Test suite for Analytics Report Component', () => {
   });
 
   it('should display no records found when there\'s no record', () => {
-    const newProps = { 
-      ...defaultProps, 
-      departmentTrips: { 
+    const newProps = {
+      ...defaultProps,
+      departmentTrips: {
         report: [],
         loading: false,
-      } 
+      }
     };
     const wrapper = setup(newProps);
     const noRecordsDiv = wrapper.find('#no-records');
@@ -49,13 +56,13 @@ describe('Test suite for Analytics Report Component', () => {
   });
 
   it('should display Oops! An error occurred in retrieving this data when server error occurs', () => {
-    const newProps = { 
-      ...defaultProps, 
-      departmentTrips: 
-        { ...defaultProps.departmentTrips, 
+    const newProps = {
+      ...defaultProps,
+      departmentTrips:
+        { ...defaultProps.departmentTrips,
           error: 'server error, try again',
           report: [],
-        } 
+        }
     };
     const wrapper = setup(newProps);
     const serverError = wrapper.find('.dashboard-component__error-text--style');
@@ -63,10 +70,10 @@ describe('Test suite for Analytics Report Component', () => {
   });
 
   it('should display TripsPerMonthPlaceholder, when the page is loading ', () => {
-    const newProps = { 
+    const newProps = {
       ...defaultProps,
-      departmentTrips: { 
-        ...defaultProps.departmentTrips, 
+      departmentTrips: {
+        ...defaultProps.departmentTrips,
         loading: true
       }
     };

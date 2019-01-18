@@ -8,11 +8,9 @@ export const { Consumer, Provider } = React.createContext();
 export default class FilterContext extends Component {
   constructor(props) {
     super(props);
-    const start = moment().startOf('isoWeek').format('YYYY-MM-DD');
-    const end = moment().endOf('isoWeek').format('YYYY-MM-DD');
-    const city = localStorage.getItem('location') &&
-      localStorage.getItem('location').split(',') ||
-      process.env.REACT_APP_DEFAULT_LOCATION;
+    const start = moment().startOf('month').format('YYYY-MM-DD');
+    const end = moment().endOf('month').format('YYYY-MM-DD');
+    const [city] = localStorage.getItem('location').split(',');
     this.state = {
       range: {start, end},
       city

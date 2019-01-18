@@ -11,13 +11,25 @@ import activeDashboardIcon from '../../../images/icons/dashboard.svg';
 import inactiveDashboardIcon  from '../../../images/icons/dashboard_inactive.svg';
 import activeDocumentsIcon from '../../../images/icons/documents-blue.svg';
 import inactiveDocumentsIcon from '../../../images/icons/documents-grey.svg';
+import activeHome from '../../../images/icons/home.svg';
+import inactiveHome from '../../../images/icons/home_grey.svg';
 
 const NavItemsMetadata = [
+  // Home`
+  {
+    text: 'Home',
+    link_to: '/home',
+    activateOnLogin: true,
+    exact: true,
+    icons: {
+      active: activeHome,
+      inactive: inactiveHome
+    }
+  },
   // Dashboard`
   {
     text: 'Dashboard',
     link_to: '/dashboard',
-    activateOnLogin: true,
     exact: true,
     onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
     icons: {
@@ -29,7 +41,6 @@ const NavItemsMetadata = [
   {
     text: 'Requests',
     link_to: '/requests',
-    activateOnLogin: true,
     isDropdown: true,
     dropdownItems: [
       {
@@ -77,23 +88,37 @@ const NavItemsMetadata = [
       inactive: inactiveAccommodationIcon
     }
   },
-  // Documents
+  // Travel Readiness
   {
-    text: 'Documents',
-    link_to: '/documents',
+    text: 'Travel Documents',
+    link_to: '/travel_readiness',
     activateOnLogin: true,
     isDropdown: false,
     icons: {
-      active: activeDocumentsIcon,
-      inactive: inactiveDocumentsIcon
+      active: activeChecklistIcon,
+      inactive: inactiveChecklistIcon
     }
   },
   // Trip planner
   {
     text: 'Trip Planner',
-    link_to: '/checklists',
+    link_to: '/trip-planner',
     activateOnLogin: false,
-    isDropdown: false,
+    isDropdown: true,
+    dropdownItems: [
+      {
+        link_to: '/travel-readiness',
+        exact: true,
+        text: 'Travel Readiness',
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+      },
+      {
+        link_to: '/checklists',
+        exact: true,
+        text: 'Travel Checklist',
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+      }
+    ],
     icons: {
       active: activeChecklistIcon,
       inactive: inactiveChecklistIcon

@@ -1,6 +1,6 @@
 import React from 'react';
-import {format, startOfISOWeek, endOfISOWeek} from 'date-fns';
-import {shallow, mount} from 'enzyme';
+import moment from 'moment';
+import { shallow, mount } from 'enzyme';
 import TravelCalendar from '../index';
 import mockUser from '../../../mockData/mockUserData';
 
@@ -47,7 +47,8 @@ const props = {
 
 };
 
-const filter = `dateFrom=${format(startOfISOWeek(new Date()), 'YYYY-MM-DD')}&dateTo=${format(endOfISOWeek(new Date()), 'YYYY-MM-DD')}`;
+const filter = `dateFrom=${moment().startOf('month')
+  .format('YYYY-MM-DD')}&dateTo=${moment().endOf('month').format('YYYY-MM-DD')}`;
 
 
 const wrapper = shallow(

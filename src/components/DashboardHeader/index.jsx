@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
-
+import moment from 'moment';
 import activeLocation from '../../images/icons/location_active.svg';
 import activeCalendar from '../../images/icons/calendar_active.svg';
 import download from '../../images/icons/download.svg';
@@ -13,8 +13,8 @@ export default class DashboardHeader extends PureComponent {
   state = {
     isDropdownOpen: false,
     range: {
-      start: format(startOfISOWeek(new Date()), 'DD MMM, YY'),
-      end: format(endOfISOWeek(new Date()), 'DD MMM, YY')
+      start: moment().startOf('month').format('YYYY-MM-DD'),
+      end: moment().endOf('month').format('YYYY-MM-DD')
     }
   }
 

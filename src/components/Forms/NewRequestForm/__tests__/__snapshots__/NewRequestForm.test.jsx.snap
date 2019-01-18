@@ -59,7 +59,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
-                className="form-input request_dropdown "
+                className="form-input  "
               >
                 <label
                   htmlFor="name"
@@ -72,13 +72,16 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
-                     * 
+                    *
+                  </span>
+                  <span>
+                     
+                    (As it appears on your passport)
                   </span>
                 </label>
                 <input
                   autoComplete="off"
-                  className=" request_dropdown"
-                  disabled={true}
+                  className=" "
                   label="Your Name"
                   name="name"
                   onBlur={[Function]}
@@ -108,7 +111,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
-                     * 
+                    *
                   </span>
                 </label>
                 <div
@@ -154,21 +157,119 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                     }
                   }
                 >
-                   * 
+                  *
                 </span>
               </label>
-              <input
-                autoComplete="off"
-                className=" request_dropdown"
-                disabled={true}
-                label="Your Department"
-                name="department"
-                onBlur={[Function]}
-                onChange={[Function]}
-                size="245px"
-                type="text"
-                value="Talent & Development"
-              />
+              <div
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  autoComplete="off"
+                  choices={
+                    Array [
+                      "Talent & Development",
+                      "Success",
+                      "IT",
+                      "Operations",
+                    ]
+                  }
+                  className="input select  request_dropdown"
+                  error=""
+                  label="Your Department"
+                  name="department"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  size="245px"
+                  tabIndex="0"
+                  type="dropdown-select"
+                  value="Talent & Development"
+                >
+                  <div
+                    className="value"
+                    style={
+                      Object {
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    Talent & Development
+                    <div
+                      className="select-dropdown inactive"
+                    >
+                      <img
+                        alt="icn"
+                        src="form_select_dropdown.svg"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    className="select-menu select-menu--inactive"
+                  >
+                    <li
+                      id="choice"
+                      key="Talent & Development"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Talent & Development
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="Success"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Success
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="IT"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        IT
+                      </div>
+                    </li>
+                    <li
+                      id="choice"
+                      key="Operations"
+                    >
+                      <div
+                        id="choice"
+                        onClick={[Function]}
+                        onKeyPress={[Function]}
+                        role="button"
+                        tabIndex="0"
+                      >
+                        Operations
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <span
                 className="error"
               />
@@ -194,6 +295,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
+<<<<<<< HEAD
                      * 
                   </span>
                 </label>
@@ -215,6 +317,67 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                   type="text"
                   value="Software Developer"
                 />
+=======
+                    *
+                  </span>
+                </label>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    className="value"
+                    style={
+                      Object {
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    <input
+                      autoComplete="off"
+                      choices={
+                        Array [
+                          "Software Developer",
+                          "HR",
+                        ]
+                      }
+                      className="occupationInput"
+                      id="your-role"
+                      label="Your Role"
+                      name="role"
+                      onChange={[Function]}
+                      size="245px"
+                      type="text"
+                      value="Software Developer"
+                    />
+                    <div
+                      className="hide"
+                    >
+                      <ul
+                        className="select-menu select-menu--inactive"
+                      >
+                        <li
+                          id="choice"
+                          key="Software Developer"
+                        >
+                          <div
+                            id="choice"
+                            onClick={[Function]}
+                            onKeyPress={[Function]}
+                            role="button"
+                            tabIndex="0"
+                          >
+                            Software Developer
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                 <span
                   className="error"
                 />
@@ -224,7 +387,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
+<<<<<<< HEAD
                 className="form-input request_dropdown no-disable "
+=======
+                className="form-input request_dropdown "
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
               >
                 <label
                   htmlFor="manager"
@@ -237,7 +404,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
+<<<<<<< HEAD
                      * 
+=======
+                    *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                   </span>
                 </label>
                 <div
@@ -263,6 +434,10 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                         ]
                       }
                       className="occupationInput"
+<<<<<<< HEAD
+=======
+                      id="your-manager"
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       label="Your Manager"
                       name="role"
                       onChange={[Function]}
@@ -450,7 +625,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
                          * 
+=======
+                        *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <input
@@ -493,7 +672,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
                          * 
+=======
+                        *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <input
@@ -536,7 +719,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
                          * 
+=======
+                        *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <div
@@ -596,7 +783,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
                          * 
+=======
+                        *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <div
@@ -657,7 +848,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                             }
                           }
                         >
+<<<<<<< HEAD
                            * 
+=======
+                          *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                         </span>
                       </label>
                       <input
