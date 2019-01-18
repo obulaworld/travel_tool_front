@@ -27,25 +27,29 @@ export class Home extends Component {
     const { location } = this.props;
     this.state = {
       url: location.search,
-      department: ''
+      department: '',
+      availableRooms:{}
     };
   }
 
   componentDidMount() {
     const { url } = this.state;
-    const { fetchUserRequests, fetchRoleUsers, getOccupation, fetchAvailableRooms } = this.props;
+    const { fetchUserRequests, fetchRoleUsers, getOccupation } = this.props;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
     getOccupation();
-    fetchAvailableRooms();
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
-    const { department, fetchTeammates } = nextProps;
+    const { department, fetchTeammates, availableRooms, fetchAvailableRooms } = nextProps;
 
     if(department !== prevState.department) {
       fetchTeammates(department);
       return {department};
+    }
+    if(availableRooms === prevState.availableRooms){
+      fetchAvailableRooms();
+      return { availableRooms }
     }
 
     return null;
