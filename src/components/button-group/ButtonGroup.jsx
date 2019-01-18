@@ -31,12 +31,14 @@ class ButtonGroup extends PureComponent {
           onClick={() => this.filterEntries('approvals', '')}
         />
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ?
+            'bg-btn--active' : ''}`}
           responsiveText="Open"
           disabled={openApprovalsCount === 0}
           badge={openApprovalsCount}
           showBadge={openApprovalsCount > 0}
-          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+          badgeClass={activeStatus === 'open' ? 
+            'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
           buttonId="open-button"
           onClick={() => this.filterEntries('approvals', '&status=open')}
           text="Pending Approvals"
@@ -64,14 +66,16 @@ class ButtonGroup extends PureComponent {
           onClick={() => this.filterEntries('requests', '')}
         />
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 
+            'bg-btn--active' : ''}`}
           text="Open Requests"
           responsiveText="Open"
           buttonId="open-button"
           disabled={openRequestsCount === 0}
           badge={openRequestsCount}
           showBadge={openRequestsCount > 0}
-          badgeClass={activeStatus === 'open' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
+          badgeClass={activeStatus === 'open' ? 
+            'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
           onClick={() => this.filterEntries('requests', '&status=open')}
         />
         <Button
@@ -97,12 +101,14 @@ class ButtonGroup extends PureComponent {
           onClick={() => this.filterEntries('approvals', '')}
         />
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'approved' ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'approved' ?
+            'bg-btn--active' : ''}`}
           responsiveText="Pending"
           disabled={approvedApprovalsCount === 0}
           badge={approvedApprovalsCount}
           showBadge={approvedApprovalsCount > 0}
-          badgeClass={activeStatus === 'approved' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+          badgeClass={activeStatus === 'approved' ?
+            'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
           buttonId="open-button"
           onClick={() => this.filterEntries('approvals', '&status=approved')}
           text="Pending Verifications"

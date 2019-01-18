@@ -295,6 +295,29 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
+<<<<<<< HEAD
+                     * 
+                  </span>
+                </label>
+                <input
+                  autoComplete="off"
+                  choices={
+                    Array [
+                      "Software Developer",
+                      "HR",
+                    ]
+                  }
+                  className=" request_dropdown"
+                  disabled={true}
+                  label="Your Role"
+                  name="role"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  size="245px"
+                  type="text"
+                  value="Software Developer"
+                />
+=======
                     *
                   </span>
                 </label>
@@ -354,6 +377,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                     </div>
                   </div>
                 </div>
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                 <span
                   className="error"
                 />
@@ -363,7 +387,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
+<<<<<<< HEAD
+                className="form-input request_dropdown no-disable "
+=======
                 className="form-input request_dropdown "
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
               >
                 <label
                   htmlFor="manager"
@@ -376,7 +404,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       }
                     }
                   >
+<<<<<<< HEAD
+                     * 
+=======
                     *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                   </span>
                 </label>
                 <div
@@ -402,7 +434,10 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                         ]
                       }
                       className="occupationInput"
+<<<<<<< HEAD
+=======
                       id="your-manager"
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       label="Your Manager"
                       name="role"
                       onChange={[Function]}
@@ -590,7 +625,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
+                         * 
+=======
                         *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <input
@@ -633,7 +672,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
+                         * 
+=======
                         *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <input
@@ -676,7 +719,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
+                         * 
+=======
                         *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <div
@@ -736,7 +783,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                           }
                         }
                       >
+<<<<<<< HEAD
+                         * 
+=======
                         *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                       </span>
                     </label>
                     <div
@@ -797,7 +848,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                             }
                           }
                         >
+<<<<<<< HEAD
+                           * 
+=======
                           *
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
                         </span>
                       </label>
                       <input

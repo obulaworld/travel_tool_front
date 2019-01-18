@@ -95,8 +95,8 @@ class Input extends PureComponent {
 
 
     renderAsterisk(){
-      /* This API assumes that all inputs are required and therefore a red asterisk is displayed but this is
-         * not enforced with html
+      /* This API assumes that all inputs are required and therefore a red asterisk is displayed
+         *  but this is not enforced with html
          * To remedy the former, if one has a field that should be optional,
          * they have to explicitly pass 'required: false' into customProps
          * This method checks for this and will display the asterisk appropriately.
@@ -106,11 +106,7 @@ class Input extends PureComponent {
       let requiredInput = required === undefined ? true : required;
       return (
         <Fragment>
-          {requiredInput && (
-            <span style={{color: 'red'}}>
-            *
-            </span>
-          ) }
+          {requiredInput && ( <span style={{color: 'red'}}> * </span> ) }
           {this.labelNote(labelNote)}
         </Fragment>
       );
@@ -126,8 +122,7 @@ class Input extends PureComponent {
       const InputElement = this.getInputType();
       return (
         <div
-          className={`form-input ${customClass} ${errors[name] ? 'error' : ''}`}
-        >
+          className={`form-input ${customClass} ${errors[name] ? 'error' : ''}`}>
           <label htmlFor={name}>
             {label}
             {this.renderAsterisk()}

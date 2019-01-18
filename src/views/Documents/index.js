@@ -109,8 +109,17 @@ export class Documents extends Component {
 
         <div className="download-document-hr" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={this.handleCloseEditModal}>Cancel</button>
-          <button type="button" className="bg-btn bg-btn--active" onClick={this.handleDownloadDocuments}>
+          <button
+            type="button" 
+            className="delete-checklist-item__footer--cancel" 
+            onClick={this.handleCloseEditModal}>
+            Cancel
+
+          </button>
+          <button
+            type="button" 
+            className="bg-btn bg-btn--active" 
+            onClick={this.handleDownloadDocuments}>
             Download
           </button>
         </div>

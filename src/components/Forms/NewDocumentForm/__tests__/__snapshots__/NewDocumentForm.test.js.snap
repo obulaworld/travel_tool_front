@@ -65,7 +65,7 @@ exports[`<NewDocumentForm /> renders correctly 1`] = `
           }
         }
       >
-        *
+         * 
       </span>
     </label>
     <input

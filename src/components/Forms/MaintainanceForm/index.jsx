@@ -92,13 +92,17 @@ class MaintainceForm extends PureComponent {
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={onSubmit} className="maintainance-form">
-          <MaintainanceFieldSets values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
+          <MaintainanceFieldSets
+            values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
           <div className="maintainence-line" />
           <div className="maintainence-submit-area">
-            <button type="button" className="bg-btn bg-btn--inactive btn-cancel" onClick={this.handleClearForm}>
+            <button
+              type="button" className="bg-btn bg-btn--inactive btn-cancel"
+              onClick={this.handleClearForm}>
               Cancel
             </button>
-            <button type="submit" className="bg-btn bg-btn--active" id="submit" disabled={hasBlankFields}>
+            <button
+              type="submit" className="bg-btn bg-btn--active" id="submit" disabled={hasBlankFields}>
               Save Changes
             </button>
           </div>

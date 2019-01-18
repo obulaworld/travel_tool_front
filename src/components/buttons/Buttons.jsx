@@ -36,7 +36,9 @@ class Button extends PureComponent {
       reverseText
     } = this.props;
     return (
-      <button type="button" disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
+      <button
+        type="button" 
+        disabled={disabled} className={buttonClass} onClick={onClick} id={buttonId}>
         { !reverseText && imageSrc && <img src={imageSrc} alt={altText} className={imageClass} /> }
         <span className={`${textClass}`}>
           {text}

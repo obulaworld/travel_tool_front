@@ -20,7 +20,8 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
 import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
-import { fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
+import { 
+  fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 
 export class Requests extends Base {
@@ -199,13 +200,12 @@ export class Requests extends Base {
   renderRequestPage() {
     const {
       isFetching, requests, pagination,
-      fetchRequestsError, message, match
+      fetchRequestsError, message
     } = this.props;
     const { requestId } = this.state;
     const filteredReqId = requests.filter(request => request.id === requestId);
     return (
       <Fragment>
-        {/* {!isFetching && (requestId && match.params.requestId && !filteredReqId.length) && <NotFound redirectLink="/requests" />} */}
         {this.renderRequestPanelHeader(isFetching)}
         {requests &&
           this.renderRequests(requests, isFetching, fetchRequestsError, message)}

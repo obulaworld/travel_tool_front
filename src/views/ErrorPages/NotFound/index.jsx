@@ -33,7 +33,8 @@ NotFound.propTypes = {
 };
 
 NotFound.defaultProps = {
-  errorMessage: 'The page you are looking for might have been removed, had its name changed or is temporarily unavailable.',
+  errorMessage: `${'The page you are looking for might have been removed, '}${`
+   had its name changed or is temporarily unavailable.`}`,
   redirectLink: '/requests'
 };
 

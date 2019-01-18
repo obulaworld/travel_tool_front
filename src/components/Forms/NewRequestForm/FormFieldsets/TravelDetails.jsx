@@ -10,7 +10,6 @@ import deleteBtnRed from '../../../../images/delete.svg';
 import TravelDetailsItem from './TravelDetailsItem';
 
 class TravelDetailsFieldset extends Component {
-
   componentDidMount = () => {
     this.get_details();
   };
@@ -77,21 +76,25 @@ class TravelDetailsFieldset extends Component {
     let data = {};
     const { fetchAvailableRooms } = this.props;
     if (this.validateAllTripDetails(values, i, selection)) {
-      const formattedDepartureDate = new Date(values[`departureDate-${i}`].format('YYYY-MM-DD'));
-      const formattedArrivalDate = moment(formattedDepartureDate).add(1, 'months').format('YYYY-MM-DD');
+      const newDepartureDate = new Date(
+        values[`departureDate-${i}`].format('YYYY-MM-DD')
+      );
+      const newArrivalDate = moment(newDepartureDate)
+        .add(1, 'months')
+        .format('YYYY-MM-DD');
       data = {
         gender: values.gender,
         location: values[`destination-${i}`],
         arrivalDate: values[`arrivalDate-${i}`]
           ? values[`arrivalDate-${i}`].format('YYYY-MM-DD')
-          : formattedArrivalDate,
+          : newArrivalDate,
         departureDate: values[`departureDate-${i}`].format('YYYY-MM-DD'),
         tripType: selection,
         rowId: i
       };
       fetchAvailableRooms(data);
     }
-  }
+  };
 
   validateAllTripDetails(values, i, selection) {
     const isValid =
@@ -102,7 +105,6 @@ class TravelDetailsFieldset extends Component {
     return isValid && values[`arrivalDate-${i}`];
   }
 
-
   renderTravelDetails = (i, selection, onChangeInput, parentIds) => {
     const {
       values,
@@ -111,7 +113,7 @@ class TravelDetailsFieldset extends Component {
       removeTrip,
       availableRooms,
       modalType,
-      requestOnEdit,
+      requestOnEdit
     } = this.props;
 
     const { renderInput } = this.inputRenderer;
@@ -158,9 +160,15 @@ class TravelDetailsFieldset extends Component {
       <fieldset className="travel-details">
         <legend
           className="line"
-          style={{ marginBottom: '6px', borderBottom:  '1px solid #E4E4E4',
-            fontFamily: 'DIN Pro Medium',	fontSize: '18px', paddingTop: '5px' }}>
-        Travel Details
+          style={{
+            marginBottom: '6px',
+            borderBottom: '1px solid #E4E4E4',
+            fontFamily: 'DIN Pro Medium',
+            fontSize: '18px',
+            paddingTop: '5px'
+          }}
+        >
+          Travel Details
         </legend>
         {this.renderRadioButton(handleRadioButtonChange)}
         {this.renderForms(parentIds, selection, onChangeInput, existingTrips)}

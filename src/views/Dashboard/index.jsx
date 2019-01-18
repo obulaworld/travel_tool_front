@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { fetchReadiness, exportReadiness } from '../../redux/actionCreator/travelReadinessActions';
 import {  fetchDepartmentTrips } from '../../redux/actionCreator/tripAnalyticsActions';
 import { downloadAnalytics } from '../../redux/actionCreator/analyticsActions';
-import {fetchCalendarAnalytics, downloadCalendarAnalytics} from '../../redux/actionCreator/travelCalendarActions';
+import {
+  fetchCalendarAnalytics, downloadCalendarAnalytics
+} from '../../redux/actionCreator/travelCalendarActions';
 import FilterContext, { Consumer } from './DashboardContext/FilterContext';
 import AnalyticsReport from '../../components/AnalyticsReport';
 import DashboardHeader from '../../components/DashboardHeader';
@@ -18,7 +20,7 @@ export class Dashboard extends Component {
   render() {
     const { fetchDepartmentTrips, departmentTrips, fetchReadiness,readiness,
       exportReadiness, travelCalendar, fetchCalendarAnalytics,
-      downloadCalendarAnalytics, downloadAnalytics } = this.props;
+      downloadCalendarAnalytics, downloadAnalytics, currentUser } = this.props;
     return (
       <div id="dashboard">
         <FilterContext>
@@ -42,7 +44,9 @@ export class Dashboard extends Component {
         <TravelCalendar
           fetchCalendarAnalytics={fetchCalendarAnalytics}
           downloadCalendarAnalytics={downloadCalendarAnalytics}
-          travelCalendar={travelCalendar} />
+          travelCalendar={travelCalendar}
+          user={currentUser}
+        />
       </div>
     );
   }
@@ -72,7 +76,8 @@ Dashboard.propTypes = {
   exportReadiness: PropTypes.func.isRequired,
   fetchCalendarAnalytics: PropTypes.func.isRequired,
   downloadCalendarAnalytics: PropTypes.func.isRequired,
-  travelCalendar: PropTypes.object.isRequired
+  travelCalendar: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

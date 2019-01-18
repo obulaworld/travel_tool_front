@@ -131,7 +131,8 @@ export class Table extends Component {
 
   renderApprovalsIdCell(request) {
     return (
-      <td className="mdl-data-table__cell--non-numeric table__requests__destination table__data freeze">
+      <td className="mdl-data-table__cell--non-numeric 
+                      table__data freeze">
         <div
           onKeyPress={() => {}}
           onClick={() => this.handleClickRequest(request.id)}
@@ -236,7 +237,8 @@ export class Table extends Component {
 
   renderDetailsModal() {
     const { closeModal, shouldOpen, modalType, requestId, page, requestData, type } = this.props;
-    const redirectLink = ['Verifications', 'Approvals'].includes(page) ? `/my-${page.toLowerCase()}` : '';
+    const redirectLink = ['Verifications', 'Approvals'].includes(page) ?
+      `/my-${page.toLowerCase()}` : '';
     return (
       <Modal
         requestId={requestId}
@@ -315,8 +317,9 @@ export class Table extends Component {
           modalType={modalType} postSubmission={postSubmission} tripType={tripType}
           fetchSubmission={fetchSubmission} fetchUserRequests={fetchUserRequests}
           percentageCompleted={percentageCompleted} submissions={submissions}
-          itemsToCheck={itemsToCheck} isLoading={isFetching} handleFileUpload={this.handleFileUpload}
-          fileUploads={fileUploads} postSuccess={postSuccess} isUploadingStage2={isUploading}
+          itemsToCheck={itemsToCheck} isLoading={isFetching} fileUploads={fileUploads}
+          handleFileUpload={this.handleFileUpload} postSuccess={postSuccess}
+          isUploadingStage2={isUploading}
         />
       </Modal>
     );

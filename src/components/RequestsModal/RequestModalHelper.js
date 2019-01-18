@@ -41,7 +41,8 @@ export default class RequestModalHelper {
     const { navigatedPage } = state;
     const { approvedCondition } = RequestModalHelper.getCondition(button, state);
     if ((['Approved', 'Verified'].includes(status) && button.id === 1
-      && navigatedPage !== 'Verifications') || (approvedCondition && navigatedPage !== 'Verifications')) {
+      && navigatedPage !== 'Verifications') || (approvedCondition &&
+        navigatedPage !== 'Verifications')) {
       style.backgroundColor = '#49AAAF';
       style.color = 'white';
     }

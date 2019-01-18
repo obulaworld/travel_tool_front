@@ -6,6 +6,15 @@
   }
 }
 
+.maintenance-page {
+  .pageOverlay {
+    top: 10px;
+    padding-top: 20px;
+    background-color: #f8f8f8;
+    border-top: none;
+  }
+}
+
 .pageOverlay {
   height: 100%;
   font-size: 100%;
@@ -29,6 +38,23 @@
   opacity: 1;
   min-width: 300px;
   margin-top: 60px;
+
+  .maintenance__title-text{
+    margin-top: 30px;
+    p {
+      color: #3359DB;
+        height: 31px;
+        width: 421px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #3359DB;
+        font-family: "DIN Pro";
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 31px;
+        text-align: center
+    }
+  }
 
   a.button {
     font-weight: 300;

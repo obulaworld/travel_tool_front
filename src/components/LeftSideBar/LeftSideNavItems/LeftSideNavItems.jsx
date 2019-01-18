@@ -55,7 +55,7 @@ class LeftSideNavItems extends PureComponent {
   generateDropdownContents = (items) => {
     const {userRole} = this.props;
     const dropDownItems = items.map(dropdownItem => {
-      // show if item.onlyVisibleTo is not defined or if it is defined and it includes the current users role
+      // show if item.onlyVisibleTo || if item.onlyVisibleTo and it includes the current users role
       const showItem = this.isLinkVisible(dropdownItem, userRole);
       return showItem ? this.renderDropdownItem(dropdownItem): null;
     });
@@ -64,7 +64,7 @@ class LeftSideNavItems extends PureComponent {
 
   generateNavItems(metadata, userRole) {
     const navItems = metadata.map(navItem => {
-      // show if item.onlyVisibleTo is not defined or if it is defined and it includes the current users role
+      // show if item.onlyVisibleTo || if item.onlyVisibleTo and it includes the current users role
       const showItem = this.isLinkVisible(navItem, userRole);
       return showItem ? this.renderNavItem(navItem) : null;
     });
@@ -76,8 +76,7 @@ class LeftSideNavItems extends PureComponent {
       <DropdownItem
         exact={dropdownItem.exact}
         key={dropdownItem.text}
-        link_to={dropdownItem.link_to}
-      >
+        link_to={dropdownItem.link_to}>
         {dropdownItem.text}
       </DropdownItem>
     );
@@ -94,8 +93,7 @@ class LeftSideNavItems extends PureComponent {
         activateOnLogin={navItem.activateOnLogin}
         text={navItem.text}
         onClick={this[navItem.onClick]}
-        className={navItem.variantClassName}
-      >
+        className={navItem.variantClassName}>
         {isDropdown? this.generateDropdownContents(dropdownItems): null}
       </LeftSidebarNavItem>
     );

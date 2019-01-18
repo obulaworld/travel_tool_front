@@ -126,7 +126,8 @@ class NewAccommodation extends PureComponent {
       } else if (name.startsWith('bedCount')) {
         rooms[parentid].bedCount = value;}
     } else { rooms.push({ [name.split('-')[0]]: value });}
-    this.setState(prevState => ({ values: { ...prevState.values, [rooms]: value } }), this.validate);
+    this.setState(prevState => ({ 
+      values: { ...prevState.values, [rooms]: value } }), this.validate);
   };
 
   handleDropDown = (data, choice) => {
@@ -137,7 +138,8 @@ class NewAccommodation extends PureComponent {
         rooms[parentid].roomType = choice;
       } else {
         rooms.push({ [name.split('-')[0]]: choice });}
-      this.setState(prevState => ({ values: { ...prevState.values, [rooms]: choice } }), this.validate);
+      this.setState(prevState => ({ 
+        values: { ...prevState.values, [rooms]: choice } }), this.validate);
     }};
   handleFormCancel = () => {
     this.setState({ ...this.defaultState });
@@ -225,10 +227,10 @@ class NewAccommodation extends PureComponent {
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         <form onSubmit={this.handleInputSubmit} className="new-request">
           <AccommodationDetails
-            values={values} handleDropDown={this.handleDropDown} handleImageChange={this.handleImageChange}
-            displayImage={this.displayImage} addRoomOnClick={this.addRoomOnClick} documentId={documentId}
-            removeRoom={this.removeRoom}
-            handleInputChange={this.handleInputChange}
+            values={values} handleDropDown={this.handleDropDown}
+            displayImage={this.displayImage} addRoomOnClick={this.addRoomOnClick}
+            removeRoom={this.removeRoom} handleImageChange={this.handleImageChange}
+            handleInputChange={this.handleInputChange} documentId={documentId}
             handleLocation={this.handleLocation}
             modalType={modalType} />
           <Script url={process.env.REACT_APP_CITY} />

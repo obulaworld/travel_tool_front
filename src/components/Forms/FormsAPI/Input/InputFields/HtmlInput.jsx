@@ -18,7 +18,7 @@ const HtmlInput = (props) => {
 };
 
 HtmlInput.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 HtmlInput.defaultProps = {

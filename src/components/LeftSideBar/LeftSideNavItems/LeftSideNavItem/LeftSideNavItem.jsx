@@ -94,7 +94,9 @@ export class LeftSideNavItem extends PureComponent {
     return (
       <Fragment>
         <li className={`left-side-nav-item ${className || ''} ${status}`}>
-          <NavLinkItem className="nav-link" role="button" onClick={this.handleClicked} to={link_to} onKeyPress={() => {}} tabIndex="0">
+          <NavLinkItem
+            className="nav-link" role="button" onClick={this.handleClicked}
+            to={link_to} onKeyPress={() => {}} tabIndex="0">
             <div className="left-side-nav-item__left-icon">
               <img src={this.isActive()? linkIcons.active: linkIcons.inactive} alt="icon" />
             </div>

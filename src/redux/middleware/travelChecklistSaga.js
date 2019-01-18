@@ -73,7 +73,8 @@ export function* watchFetchAllChecklists() {
 export function* updateChecklistAsync(action) {
   try {
     const { checklistItemId, checklistItemData } = action;
-    const response = yield call(TravelChecklistAPI.updateChecklistItem, checklistItemId, checklistItemData);
+    const response = yield call(TravelChecklistAPI.updateChecklistItem,
+      checklistItemId, checklistItemData);
     yield put(updateChecklistSuccess(response.data.updatedChecklistItem, checklistItemId));
     yield put(closeModal());
     toast.success(response.data.message);
@@ -92,7 +93,8 @@ export function* watchUpdateChecklist() {
 export function* deleteChecklistAsync(action) {
   try {
     const { checklistItemId, deleteReason } = action;
-    const response = yield call(TravelChecklistAPI.deleteChecklistItem, {checklistItemId, deleteReason});
+    const response = yield call(TravelChecklistAPI.deleteChecklistItem,
+      {checklistItemId, deleteReason});
     yield put(deleteChecklistSuccess(response.data.checklistItem, checklistItemId));
     toast.success(response.data.message);
     yield put(closeModal());
@@ -109,14 +111,14 @@ export function* watchDeleteChecklist() {
 }
 export function* fetchDeletedChecklistItemsAsync(action) {
   try {
-    const response = yield call(TravelChecklistAPI.getDeletedCheckListItems, action.destinationName);
+    const response = yield call(TravelChecklistAPI.getDeletedCheckListItems,
+      action.destinationName);
     yield put(fetchDeletedChecklistItemsSuccess(response.data));
   } catch(error) {
     const errorMessage = apiErrorHandler(error);
     yield put(fetchDeletedChecklistItemsFailure(errorMessage));
-    if (errorMessage !== 'There are currently no deleted travel checklist items for your location') {
-      toast.error(errorMessage);
-    }
+    const nonExist = 'There are currently no deleted travel checklist items for your location';
+    errorMessage !== nonExist ? toast.error(errorMessage) : null;
   }
 }
 
@@ -127,7 +129,8 @@ export function* watchFetchDeletedChecklistItems() {
 export function* restoreChecklistAsync(action) {
   try {
     const { checklistItemId, checklistItemData } = action;
-    const response = yield call(TravelChecklistAPI.updateChecklistItem, checklistItemId, checklistItemData);
+    const response = yield call(TravelChecklistAPI.updateChecklistItem,
+      checklistItemId, checklistItemData);
     yield put(restoreChecklistSuccess(response.data.updatedChecklistItem, checklistItemId));
     yield put(closeModal());
     toast.success(response.data.message);

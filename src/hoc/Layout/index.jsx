@@ -65,7 +65,8 @@ export class Layout extends Component {
     const {location} = this.props;
     return (
       <div
-        className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
+        className={`mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet
+        mdl-cell--hide-phone request-page__left-side-bar ${hideClass2}`}>
         <div className={`sidebar ${hideClass2}`}>
           <ConnectedLeftSideBar location={location} />
         </div>
@@ -90,7 +91,8 @@ export class Layout extends Component {
     const hideClass3 = hideSideBar ? '' : 'hide mdl-cell--hide-desktop';
     return (
       <div
-        className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3} request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}
+        className={`mdl-cell mdl-cell--3-col-desktop ${hideClass3}
+        request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone`}
       >
         <div className={`notification ${hideClass}`}>
           <ConnectedNotificationPane
@@ -122,7 +124,8 @@ export class Layout extends Component {
       <div className="mdl-layout__content full-height">
         <div className="mdl-grid mdl-grid--no-spacing full-height">
           {this.renderLeftSideBar(hideSideBar)}
-          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+          <div className="mdl-cell mdl-cell--9-col-desktop request-page__table-view
+          mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             <div className={`rp-requests ${leftPaddingClass}`}>
               { (isLoaded || !user) &&  children }
             </div>

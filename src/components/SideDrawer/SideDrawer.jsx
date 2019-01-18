@@ -9,7 +9,8 @@ import closeBtn from '../../images/close-btn.svg';
 export class SideDrawer extends PureComponent {
   render() {
     const { selectedLink, user, handleShowDrawer, showDrawer, location } = this.props;
-    const showDrawerTransition = showDrawer === 'none'? 'side-drawer__slide-in' : 'side-drawer__slide-out';
+    const showDrawerTransition = showDrawer === 'none'? 
+      'side-drawer__slide-in' : 'side-drawer__slide-out';
     return ( // eslint-disable-line
       <div className={`side-drawer ${showDrawerTransition}`}>
         <div className="side-drawer__cancel-btn">

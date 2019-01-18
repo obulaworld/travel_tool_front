@@ -247,5 +247,8 @@ TableMenu.defaultProps = {
   openModal: () => {},
   closeModal: () => {},
 };
+TableMenu.defaultProps = {
+  modalType: ''
+};
 
 export default TableMenu;

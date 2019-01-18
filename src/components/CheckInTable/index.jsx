@@ -17,13 +17,17 @@ export class CheckInTable extends Component {
     const enforceCheckIn = (moment(dateToday) >= moment(trip.departureDate)) ? false : true;
     return (
       <tr key={trip.id} className="checkInTable__row">
-        <td className={`mdl-data-table__cell--non-numeric checkInTable__data__roomName ${residenceClassName}`}>
+        <td 
+          className={`mdl-data-table__cell--non-numeric 
+                    checkInTable__data__roomName ${residenceClassName}`}>
           {Utils.generateTripRoomName(trip)}
         </td>
-        <td className={`mdl-data-table__cell--non-numeric checkInTable__data ${residenceClassName}`}>
+        <td className={`mdl-data-table__cell--non-numeric 
+                      checkInTable__data ${residenceClassName}`}>
           {Utils.generateTripDuration(trip)}
         </td>
-        <td className="mdl-data-table__cell--non-numeric checkInTable__data__column table__button-column">
+        <td className="mdl-data-table__cell--non-numeric 
+                        checkInTable__data__column table__button-column">
           {trip.checkStatus === 'Not Checked In' && (
             <button 
               id="btnCheck"

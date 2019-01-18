@@ -3,7 +3,8 @@ import { PropTypes } from 'prop-types';
 import Modal from '../Modal';
 
 
-const RestoreChecklistItem = ({ closeModal, shouldOpen, modalType, itemName, restoreChecklistItem }) => {
+const RestoreChecklistItem = ({ closeModal, shouldOpen, 
+  modalType, itemName, restoreChecklistItem }) => {
   return (
     <Fragment>
       <Modal
@@ -20,7 +21,12 @@ const RestoreChecklistItem = ({ closeModal, shouldOpen, modalType, itemName, res
         </span>
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
+          <button 
+            type="button" 
+            className="delete-checklist-item__footer--cancel"
+            onClick={closeModal}>
+            Cancel
+          </button>
           <button type="button" className="bg-btn bg-btn--active" onClick={restoreChecklistItem}>
             Restore
           </button>

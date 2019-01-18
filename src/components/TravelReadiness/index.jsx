@@ -1,4 +1,3 @@
-
 import React, { PureComponent, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import generateDynamicDate from '../../helper/generateDynamicDate';
@@ -120,7 +119,8 @@ class TravelReadiness extends PureComponent {
           <p>% Complete</p>
         </div>
         <div>
-          {travelFlow && travelFlow === 'outflow' ? <p>Expected Departure Date</p> : <p>Expected Arrival Date</p>}
+          {travelFlow && travelFlow === 'outflow' ? 
+            <p>Expected Departure Date</p> : <p>Expected Arrival Date</p>}
         </div>
       </div>
     );
@@ -138,6 +138,7 @@ class TravelReadiness extends PureComponent {
     const { isLoading, error } = readiness;
     const { travelFlow } = this.state;
     const pages = this.findPages(readiness);
+    const readinessArray = readiness.readiness;
     return (
       <div className="analyticsReport__card" id="travel-readiness" style={{marginRight: '30px'}}>
         { isLoading ?
@@ -150,7 +151,8 @@ class TravelReadiness extends PureComponent {
                   buttonClass="analyticsReport__export-button"
                   reverseText buttonId="btnExportReadinessCSV"
                   text="Export" imageSrc={download}
-                  onClick={travelFlow === 'outflow' ? () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
+                  onClick={travelFlow === 'outflow' ? 
+                    () => this.getReadinessCSV('outflow') : () => this.getReadinessCSV('inflow')} />
               </div>
               {this.renderReadinessTitles()}
               {error && this.renderServerError()}

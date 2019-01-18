@@ -44,12 +44,18 @@ class Attachments extends Component {
                   <div className="rectangle-2">
                     <div className="section-1">
                       <p className="document-name">
-                        <a href={submission.url} target="_blank" rel="noopener noreferrer">{submission.fileName}</a>
+                        <a href={submission.url} target="_blank" rel="noopener noreferrer">
+                          {submission.fileName}
+                        </a>
                       </p>
                     </div>
                     <div className="section-2">
-                      <button type="button" onClick={handleDownload} className="download-btn" id={submission.url}>
-                        <img src={downLoadIcon} alt="File" name={submission.fileName} id={submission.url} className="icon-content-save" />
+                      <button 
+                        type="button" onClick={handleDownload} className="download-btn"
+                        id={submission.url}>
+                        <img
+                          src={downLoadIcon} alt="File" name={submission.fileName}
+                          id={submission.url} className="icon-content-save" />
                       </button>
                     </div>
                   </div>

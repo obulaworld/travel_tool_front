@@ -57,7 +57,8 @@ class CheckListSubmissions extends Component {
               ? submissions.map((list, i) => this.renderCheckList(list, i))
               : (
                 <p className="travelCheckList__not-found">
-                  There are no checklist items for your selected destination(s). Please contact your Travel Department.
+                  There are no checklist items for your selected destination(s).
+                  Please contact your Travel Department.
                 </p>
               )
           }

@@ -35,40 +35,39 @@ Array [
                 <div
                     className="input-group profile-input"
                 >
-                    <div
-                        className="form-input  "
-                    >
-                        <label
-                            htmlFor="name"
+                    <div>
+                        <div
+                            className="form-input  "
                         >
-                            Name
-                            <span
-                                style={
-                                    Object {
-                                        "color": "red",
-                                      }
-                                }
+                            <label
+                                htmlFor="name"
                             >
-                                *
-                            </span>
-                            <span>
-                                 
-                                (As it appears on your passport)
-                            </span>
-                        </label>
-                        <input
-                            autoComplete="off"
-                            className=" "
-                            label="Name"
-                            name="name"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="text"
-                            value=""
-                        />
-                        <span
-                            className="error"
-                        />
+                                Name
+                                <span
+                                    style={
+                                        Object {
+                                            "color": "red",
+                                          }
+                                    }
+                                >
+                                     * 
+                                </span>
+                            </label>
+                            <input
+                                autoComplete="off"
+                                className=" "
+                                disabled={true}
+                                label="Name"
+                                name="name"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                type="text"
+                                value=""
+                            />
+                            <span
+                                className="error"
+                            />
+                        </div>
                     </div>
                     <div
                         className="form-input  "
@@ -84,7 +83,7 @@ Array [
                                       }
                                 }
                             >
-                                *
+                                 * 
                             </span>
                         </label>
                         <div
@@ -116,7 +115,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input profile_role_dropdown "
+                        className="form-input  "
                     >
                         <label
                             htmlFor="role"
@@ -129,7 +128,7 @@ Array [
                                       }
                                 }
                             >
-                                *
+                                 * 
                             </span>
                         </label>
                         <div
@@ -165,7 +164,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input profile_dropdown "
+                        className="form-input  "
                     >
                         <label
                             htmlFor="department"
@@ -178,7 +177,7 @@ Array [
                                       }
                                 }
                             >
-                                *
+                                 * 
                             </span>
                         </label>
                         <div
@@ -296,7 +295,7 @@ Array [
                         />
                     </div>
                     <div
-                        className="form-input profile_dropdown "
+                        className="form-input profile_dropdown no-disable "
                     >
                         <label
                             htmlFor="manager"
@@ -309,7 +308,7 @@ Array [
                                       }
                                 }
                             >
-                                *
+                                 * 
                             </span>
                         </label>
                         <div

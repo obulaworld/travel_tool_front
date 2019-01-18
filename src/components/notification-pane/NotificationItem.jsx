@@ -18,8 +18,16 @@ export default class NotificationItem extends PureComponent {
     });
     markSingleAsRead(id);
   }
+
+  checkMarkedAsRead = () => {
+    const { localNotificationStatus } = this.state;
+    const { notificationStatus } = this.props;
+    return notificationStatus === 'read' || localNotificationStatus === 'read';
+  }
+
   renderNotificationItemMetaInfo = () => {
-    const { isPending, notificationStatus, link, timeStamp, general, markSingleAsRead, id } = this.props;
+    const { isPending, notificationStatus, link,
+      timeStamp, general, markSingleAsRead, id } = this.props;
     const { localNotificationStatus } = this.state;
     return (
       <div className="notification--item__info__bottom">
@@ -27,7 +35,9 @@ export default class NotificationItem extends PureComponent {
           {generateDynamicDate(true, timeStamp)}
         </span>
         <Link to={`${link}`}>
-          <span className="view-details" onClick={() => markSingleAsRead(id)} role="button" tabIndex="0" onKeyUp={()=>{}}>
+          <span
+            className="view-details" 
+            onClick={() => markSingleAsRead(id)} role="button" tabIndex="0" onKeyUp={()=>{}}>
             {isPending && 'View Details'}
             {' '}
             {general && 'View Details'}
@@ -35,9 +45,11 @@ export default class NotificationItem extends PureComponent {
         </Link>
         <img
           role="presentation"
-          src={notificationStatus === 'read' || localNotificationStatus === 'read' ? readMessageIcon : unreadMessageIcon}
+          src={this.checkMarkedAsRead()
+            ? readMessageIcon : unreadMessageIcon}
           alt="message icon"
-          className={notificationStatus === 'read' || localNotificationStatus === 'read' ? 'msg-icon msg-icon__opened' : 'msg-icon msg-icon__closed'}
+          className={this.checkMarkedAsRead()
+            ? 'msg-icon msg-icon__opened' : 'msg-icon msg-icon__closed'}
           onClick={this.markAsRead}
         />
       </div>
@@ -45,9 +57,8 @@ export default class NotificationItem extends PureComponent {
   };
 
   render() {
-    const { name, image, notificationStatus, message } = this.props;
-    const { localNotificationStatus } = this.state;
-    const bgColorClass = notificationStatus === 'read'|| localNotificationStatus === 'read' ? 'message-opened' : '';
+    const { name, image, message } = this.props;
+    const bgColorClass = this.checkMarkedAsRead ? 'message-opened' : '';
 
     return (
       <div className={`notification-item ${bgColorClass}`}>

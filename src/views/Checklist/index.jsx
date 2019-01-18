@@ -9,7 +9,7 @@ import { createTravelChecklist, fetchTravelChecklist, updateTravelChecklist,
   deleteTravelChecklist, fetchDeletedChecklistItems, restoreChecklist
 } from '../../redux/actionCreator/travelChecklistActions';
 import './index.scss';
-import RestoreChecklistItem from '../../components/modal/RestoreChecklistModal/RestoreChecklistModal';
+import RestoreChecklistItem from '../../components/modal/RestoreChecklistModal';
 import DeleteRequestForm from '../../components/Forms/DeleteRequestForm/DeleteRequestForm';
 import Preloader from '../../components/Preloader/Preloader';
 
@@ -36,7 +36,8 @@ export class Checklist extends Component {
   manageModal = (action, checklistItem = null) => () => {
     let { openModal, closeModal } = this.props;
     if (action === 'add') { openModal(true, 'add cheklistItem'); }
-    if (action === 'edit'){ this.setState(() => ({itemToEdit: checklistItem})); openModal(true, 'edit cheklistItem'); }
+    if (action === 'edit'){
+      this.setState(() => ({itemToEdit: checklistItem})); openModal(true, 'edit cheklistItem'); }
     if (action === 'close-edit-modal') { closeModal(true, 'edit cheklistItem'); }
     if (action === 'close-delete-modal'){ closeModal(); this.setState({ deleteReason: null });}
   }
@@ -61,8 +62,12 @@ export class Checklist extends Component {
 
   separateChecklistItems = () => {
     const { checklistItems: [thisLocationChecklists] } = this.props;
-    const defaultChecklistItems = thisLocationChecklists ? thisLocationChecklists.checklist.filter(checklist => checklist.destinationName.toLowerCase().match('default')) : [];
-    const addedChecklistItems = thisLocationChecklists ? thisLocationChecklists.checklist.filter(checklist => !checklist.destinationName.toLowerCase().match('default')) : [];
+    const defaultChecklistItems = thisLocationChecklists ? 
+      thisLocationChecklists.checklist.filter(
+        checklist => checklist.destinationName.toLowerCase().match('default')) : [];
+    const addedChecklistItems = thisLocationChecklists ?
+      thisLocationChecklists.checklist.filter(
+        checklist => !checklist.destinationName.toLowerCase().match('default')) : [];
 
     return { defaultChecklistItems, addedChecklistItems };
   }
@@ -81,9 +86,9 @@ export class Checklist extends Component {
     const { itemName, deleteReason } = this.state;
     return (
       <DeleteRequestForm
-        shouldOpen={shouldOpen} modalType={modalType} closeModal={this.manageModal('close-delete-modal')}
+        shouldOpen={shouldOpen} deleteChecklistItem={this.deleteChecklistItem}
         handleInputChange={this.handleInputChange} itemName={itemName} deleteReason={deleteReason}
-        deleteChecklistItem={this.deleteChecklistItem} />
+        closeModal={this.manageModal('close-delete-modal')} modalType={modalType} />
     );
   }
 
@@ -92,7 +97,12 @@ export class Checklist extends Component {
       <div className="checklist-item">
         <div id="deleted-item">{deletedChecklistItem.name}</div>
         <div id="deleted-item">{deletedChecklistItem.deleteReason}</div>
-        <button type="button" id="restore-btn" onClick={this.setItemToRestore(deletedChecklistItem.id)}>Restore</button>
+        <button
+          type="button" id="restore-btn" 
+          onClick={this.setItemToRestore(deletedChecklistItem.id)}>
+Restore
+
+        </button>
       </div>
     );
   }
@@ -121,18 +131,23 @@ export class Checklist extends Component {
   }
 
   renderChecklistForm() {
-    const { closeModal, shouldOpen, modalType, createTravelChecklist, updateTravelChecklist, currentUser, fetchTravelChecklist } = this.props;
+    const { closeModal, shouldOpen, modalType, createTravelChecklist,
+      updateTravelChecklist, currentUser, fetchTravelChecklist } = this.props;
     const { itemToEdit } = this.state;
+    const modalToRender = modalType === 'edit cheklistItem' || modalType === 'add cheklistItem';
     return (
       <Modal
         customModalStyles="add-checklist-item" closeModal={closeModal} width="480px"
-        visibility={shouldOpen && (modalType === 'edit cheklistItem' || modalType === 'add cheklistItem') ? 'visible' : 'invisible'}
+        visibility={shouldOpen && modalToRender ? 'visible' : 'invisible'}
         title={`${modalType === 'edit cheklistItem' ? 'Edit' : 'Add'} Travel Checklist Item`}
       >
         <NewChecklistForm
-          closeModal={closeModal} modalType={modalType} closeEditModal={this.manageModal('close-edit-modal')}
-          createTravelChecklist={createTravelChecklist} fetchTravelChecklist={fetchTravelChecklist}
-          updateTravelChecklist={updateTravelChecklist} checklistItem={itemToEdit} currentUser={currentUser}
+          closeModal={closeModal} modalType={modalType}
+          closeEditModal={this.manageModal('close-edit-modal')}
+          createTravelChecklist={createTravelChecklist}
+          fetchTravelChecklist={fetchTravelChecklist}
+          updateTravelChecklist={updateTravelChecklist}
+          checklistItem={itemToEdit} currentUser={currentUser}
         />
       </Modal>
     );
@@ -147,7 +162,8 @@ export class Checklist extends Component {
     const currentChecklistItems = (addedChecklistItems.length) ? this.renderChecklistItems()
       : this.renderNoMessage('No new checklist item added yet');
     const deletedItems = (deletedChecklistItems.length !== 0 )
-      ? this.renderDeletedChecklistItems() : this.renderNoMessage('There are currently no disabled travel checklist items for your location');
+      ? this.renderDeletedChecklistItems() : this.renderNoMessage(`${`There are currently no
+       disabled travel checklist items for your location`}`);
     return (
       <Fragment>
         {this.renderChecklistPanelHeader()}
@@ -249,7 +265,8 @@ const mapDispatchToProps = {
 Checklist.propTypes = {
   openModal: PropTypes.func.isRequired, closeModal: PropTypes.func.isRequired,
   createTravelChecklist: PropTypes.func.isRequired, fetchTravelChecklist: PropTypes.func.isRequired,
-  deleteTravelChecklist: PropTypes.func, updateTravelChecklist: PropTypes.func, restoreChecklist: PropTypes.func,
+  deleteTravelChecklist: PropTypes.func,
+  updateTravelChecklist: PropTypes.func, restoreChecklist: PropTypes.func,
   fetchDeletedChecklistItems: PropTypes.func.isRequired, shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string, checklistItems: PropTypes.array.isRequired,
   deletedChecklistItems: PropTypes.array, currentUser: PropTypes.object.isRequired,

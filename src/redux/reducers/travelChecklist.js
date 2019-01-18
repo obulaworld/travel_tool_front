@@ -62,7 +62,8 @@ const traveChecklist = (state = initialState, action) => {
   case UPDATE_TRAVEL_CHECKLIST_SUCCESS:
     destination = state.checklistItems[0].destinationName;
     action.updatedChecklistItem.id = action.checklistItemId;
-    checklistUpdate = state.checklistItems[0].checklist.map(list => action.checklistItemId === list.id && action.updatedChecklistItem || list);
+    checklistUpdate = state.checklistItems[0].checklist
+      .map(list => action.checklistItemId === list.id && action.updatedChecklistItem || list);
 
     return {
       ...state,

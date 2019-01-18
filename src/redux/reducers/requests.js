@@ -43,7 +43,8 @@ const requests = (state = initialState, action) => {
       ...state,
       isDeleting: false,
       message: action.message,
-      openRequestsCount: state.openRequestsCount > 0 ? state.openRequestsCount - 1 : state.openRequestsCount,
+      openRequestsCount: state.openRequestsCount > 0 ?
+        state.openRequestsCount - 1 : state.openRequestsCount,
       requests: state.requests.filter(request =>
         request.id !== action.requestId) 
     };
@@ -103,7 +104,8 @@ const requests = (state = initialState, action) => {
       ...state,
       fetchingRequest: false,
       requestData: action.requestData,
-      comments: action.requestData.comments.sort( (commentDate1, commentDate2) =>  (commentDate1.createdAt > commentDate2.createdAt))
+      comments: action.requestData.comments.sort( 
+        (commentDate1, commentDate2) =>  (commentDate1.createdAt > commentDate2.createdAt))
     };
   case FETCH_USER_REQUEST_DETAILS_FAILURE:
     return {

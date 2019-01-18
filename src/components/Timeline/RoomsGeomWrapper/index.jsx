@@ -5,8 +5,10 @@ import './RoomsGeomWrapper.scss';
 
 class RoomsGeomWrapper extends PureComponent {
   render() {
-    const {rooms, timelineStartDate, tripDayWidth, handleDeleteMaintenanceModal, deletedMaintenance,
-      timelineViewType, handleChangeRoomModal, handleEditMaintenanceModal, editMaintenance} = this.props;
+    const {
+      rooms, timelineStartDate, tripDayWidth, handleDeleteMaintenanceModal, deletedMaintenance,
+      timelineViewType, handleChangeRoomModal, handleEditMaintenanceModal, editMaintenance
+    } = this.props;
     const roomGeoms = rooms.map(room => (
       <RoomGeomWrapper
         status={room.faulty}
@@ -20,14 +22,9 @@ class RoomsGeomWrapper extends PureComponent {
         timelineViewType={timelineViewType}
         handleChangeRoomModal={handleChangeRoomModal}
         handleEditMaintenanceModal={handleEditMaintenanceModal}
-        handleDeleteMaintenanceModal={handleDeleteMaintenanceModal}
-      />
+        handleDeleteMaintenanceModal={handleDeleteMaintenanceModal} />
     ));
-    return (
-      <div className="rooms-geometry-wrapper">
-        {roomGeoms}
-      </div>
-    );
+    return (<div className="rooms-geometry-wrapper">{roomGeoms}</div>);
   }
 }
 

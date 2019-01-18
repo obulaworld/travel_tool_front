@@ -25,40 +25,39 @@ exports[`<ProfileForm /> renders correctly 1`] = `
     <div
       className="input-group profile-input"
     >
-      <div
-        className="form-input  "
-      >
-        <label
-          htmlFor="name"
+      <div>
+        <div
+          className="form-input  "
         >
-          Name
-          <span
-            style={
-              Object {
-                "color": "red",
-              }
-            }
+          <label
+            htmlFor="name"
           >
-            *
-          </span>
-          <span>
-             
-            (As it appears on your passport)
-          </span>
-        </label>
-        <input
-          autoComplete="off"
-          className=" "
-          label="Name"
-          name="name"
-          onBlur={[Function]}
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
-        <span
-          className="error"
-        />
+            Name
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <input
+            autoComplete="off"
+            className=" "
+            disabled={true}
+            label="Name"
+            name="name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <span
+            className="error"
+          />
+        </div>
       </div>
       <div
         className="form-input  "
@@ -74,7 +73,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               }
             }
           >
-            *
+             * 
           </span>
         </label>
         <div
@@ -106,7 +105,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input profile_role_dropdown "
+        className="form-input  "
       >
         <label
           htmlFor="role"
@@ -119,7 +118,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               }
             }
           >
-            *
+             * 
           </span>
         </label>
         <div
@@ -155,7 +154,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
         />
       </div>
       <div
-        className="form-input profile_dropdown "
+        className="form-input  "
       >
         <label
           htmlFor="department"
@@ -168,9 +167,22 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               }
             }
           >
-            *
+             * 
           </span>
         </label>
+<<<<<<< HEAD
+        <input
+          autoComplete="off"
+          className=" "
+          disabled={true}
+          label="Department"
+          name="department"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+=======
         <div
           style={
             Object {
@@ -281,12 +293,13 @@ exports[`<ProfileForm /> renders correctly 1`] = `
             </ul>
           </div>
         </div>
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
         <span
           className="error"
         />
       </div>
       <div
-        className="form-input profile_dropdown "
+        className="form-input profile_dropdown no-disable "
       >
         <label
           htmlFor="manager"
@@ -299,7 +312,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               }
             }
           >
-            *
+             * 
           </span>
         </label>
         <div
@@ -310,12 +323,21 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           }
         >
           <div
-            autoComplete="off"
-            choices={
-              Array [
-                "Test User",
-              ]
+            className="value"
+            style={
+              Object {
+                "width": "",
+              }
             }
+<<<<<<< HEAD
+          >
+            <input
+              autoComplete="off"
+              choices={
+                Array [
+                  "Test User",
+                ]
+=======
             className="input select  profile_dropdown"
             error=""
             label="Line Manager"
@@ -335,36 +357,16 @@ exports[`<ProfileForm /> renders correctly 1`] = `
                 Object {
                   "width": "",
                 }
+>>>>>>> fe158ba7efca9a9a230419ffca7d3d1bc330616a
               }
-            >
-               
-              <div
-                className="select-dropdown inactive"
-              >
-                <img
-                  alt="icn"
-                  src="form_select_dropdown.svg"
-                />
-              </div>
-            </div>
-            <ul
-              className="select-menu select-menu--inactive"
-            >
-              <li
-                id="choice"
-                key="Test User"
-              >
-                <div
-                  id="choice"
-                  onClick={[Function]}
-                  onKeyPress={[Function]}
-                  role="button"
-                  tabIndex="0"
-                >
-                  Test User
-                </div>
-              </li>
-            </ul>
+              className="occupationInput"
+              label="Line Manager"
+              name="role"
+              onChange={[Function]}
+              size=""
+              type="text"
+              value=""
+            />
           </div>
         </div>
         <span

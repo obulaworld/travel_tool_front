@@ -76,17 +76,15 @@ export class Login extends Component {
     return (
       <div className="mdl-cell mdl-cell--7-col mdl-cell--hide-tablet mdl-cell--hide-phone">
         <img
-          src={cover}
-          alt="Road map"
-          className="login-page__landing-page-map"
-        />
+          src={cover} alt="Road map" className="login-page__landing-page-map" />
       </div>
     );
   }
 
   renderLinks() {
     const bookTrip = 'https://drive.google.com/file/d/1UasidXRo32pQscj4pVBQssrnG91Ig11S/view';
-    const andelaPolicy = 'https://docs.google.com/document/d/1ZqJ3OAF-7NfJAgkzMBdiMoTrsftTWJp9tNhV8eOe1d8/edit';
+    const andelaPolicy = `${`
+      https://docs.google.com/document/d/1ZqJ3OAF-7NfJAgkzMBdiMoTrsftTWJp9tNhV8eOe1d8/edit`}`;
     return (
       <Fragment>
         <TextLink
@@ -96,8 +94,7 @@ export class Login extends Component {
           textClass="login-page__link-text"
           altText="Video Symbol"
           text="How to book a trip"
-          link={bookTrip}
-        />
+          link={bookTrip} />
 
         <TextLink
           imageSrc={fileSymbol}
@@ -106,8 +103,7 @@ export class Login extends Component {
           textClass="login-page__link-text"
           altText="File Symbol"
           text="Andela travel policy"
-          link={andelaPolicy}
-        />
+          link={andelaPolicy} />
       </Fragment>
     );
   }
@@ -122,8 +118,7 @@ export class Login extends Component {
                 <img
                   src={travelaLogo}
                   alt="Andela Logo"
-                  className="login-page__andela-logo"
-                />
+                  className="login-page__andela-logo" />
                 <p className="login-page__travel-request-text">
                   Travel Requests Made Easier
                 </p>
@@ -136,8 +131,8 @@ export class Login extends Component {
                   altText="Google Symbol"
                   imageClass="login-page__google-white"
                   buttonType="button"
-                  buttonClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored login-page__login-btn"
-                />
+                  buttonClass="mdl-button mdl-js-button mdl-button--raised
+                   mdl-button--colored login-page__login-btn" />
               </div>
               <div className="hero__links">
                 {this.renderLinks()}

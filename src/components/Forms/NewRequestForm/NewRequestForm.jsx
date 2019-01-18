@@ -66,10 +66,10 @@ class NewRequestForm extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { values, trips, selection } = this.state;
-    if (((prevState.values.gender !== values.gender) || (prevState.values.role !== values.role)) && selection !== 'oneWay') {
-      trips.map((trip, index) => {
-        this.handlePickBed(null, index, false);
-      });
+    if ((
+      (prevState.values.gender !== values.gender) || (prevState.values.role !== values.role))
+      && selection !== 'oneWay') {
+      trips.map((trip, index) => {this.handlePickBed(null, index, false);});
     }
   }
 
@@ -162,7 +162,8 @@ class NewRequestForm extends PureComponent {
           const { trips } = prevState;
           const newTrips = [...trips];
 
-          if (targetFieldId < newTrips.length) { newTrips[targetFieldId].departureDate = dateFormat; }
+          if (targetFieldId < newTrips.length) {
+            newTrips[targetFieldId].departureDate = dateFormat; }
           return {
             targetFieldId,
             values: {
@@ -546,16 +547,15 @@ class NewRequestForm extends PureComponent {
     const { name, gender, department, role, manager } = requestOnEdit || {};
     const { name: stateName, manager: stateManager, gender: stateGender,
       department: stateDepartment, role: stateRole} = values;
-    const disableOnChangeProfile = (name === stateName && gender === stateGender && department === stateDepartment
-     && role === stateRole && manager === stateManager)
+    const disableOnChangeProfile = (name === stateName && gender === stateGender &&
+      department === stateDepartment && role === stateRole && manager === stateManager)
       ? true : false;
     return (
       <FormContext
         targetForm={this}
         values={values}
         errors={errors}
-        validatorName="validate"
-      >
+        validatorName="validate">
         {creatingRequest && <h5 className="style-h5">Creating request...</h5>}
         <form onSubmit={this.handleSubmit} className="new-request">
           {this.renderPersonalDetailsFieldset()}
@@ -564,8 +564,7 @@ class NewRequestForm extends PureComponent {
             url={process.env.REACT_APP_CITY}
             onCreate={this.handleScriptCreate}
             onError={this.handleScriptError}
-            onLoad={this.handleScriptLoad}
-          />
+            onLoad={this.handleScriptLoad} />
           <SubmitArea
             onCancel={this.handleClearForm}
             hasBlankFields={hasBlankFields}
@@ -573,10 +572,7 @@ class NewRequestForm extends PureComponent {
             selection={selection}
             loading={creatingRequest}
             disableOnChangeProfile={disableOnChangeProfile}
-            send={
-              modalType === 'edit request' ? 'Update Request' : 'Send Request'
-            }
-          />
+            send={modalType === 'edit request' ? 'Update Request' : 'Send Request'} />
         </form>
       </FormContext>
     );

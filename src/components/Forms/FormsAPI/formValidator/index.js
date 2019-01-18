@@ -21,13 +21,15 @@ function validate(field)  {
     if((values[`origin-${index}`] != '' || values[`destination-${index}`] != '')){
       errors[`origin-${index}`] = 'same origin and destination';
       errors[`destination-${index}`] = 'same origin and destination';
-      targetForm.setState(prevState => ({ ...prevState, errors, hasBlankFields, sameOriginDestination }));
+      targetForm.setState(prevState => ({
+        ...prevState, errors, hasBlankFields, sameOriginDestination }));
     }
   }else {
     sameOriginDestination = false;
     errors[`origin-${index}`] = '';
     errors[`destination-${index}`] = '';
-    targetForm.setState(prevState => ({ ...prevState, errors, hasBlankFields, sameOriginDestination}));
+    targetForm.setState(prevState => ({
+      ...prevState, errors, hasBlankFields, sameOriginDestination}));
   }
 
   if (!field){

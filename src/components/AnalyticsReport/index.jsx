@@ -2,28 +2,47 @@ import React, { Component, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import './index.scss';
 import download from '../../images/icons/save_alt_24px.svg';
-import TravelReadiness   from '../TravelReadiness';
+import TravelReadiness from '../TravelReadiness';
 import TripsPerMonthPlaceholder from '../Placeholders/TripsPerMonthPlaceholder';
 
 export default class AnalyticsReport extends Component {
-
   componentDidMount() {
-    const { fetchDepartmentTrips, fetchReadiness, context: { state: { range }} } = this.props;
+    const {
+      fetchDepartmentTrips,
+      fetchReadiness,
+      context: {
+        state: { range }
+      }
+    } = this.props;
     const { start, end } = range;
-    fetchReadiness({page: '1', limit: '9', type:'json', travelFlow: 'inflow', range });
+    fetchReadiness({
+      page: '1',
+      limit: '9',
+      type: 'json',
+      travelFlow: 'inflow',
+      range
+    });
     fetchDepartmentTrips({
-      filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+      filterBy: 'month',
+      type: 'json',
+      firstDate: start,
+      lastDate: end
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { context, fetchDepartmentTrips } = this.props;
     const { range } = nextProps.context.state;
-    if (range.start !== context.state.range.start
-       || range.end !== context.state.range.end) {
+    if (
+      range.start !== context.state.range.start ||
+      range.end !== context.state.range.end
+    ) {
       const { start, end } = range;
       fetchDepartmentTrips({
-        filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+        filterBy: 'month',
+        type: 'json',
+        firstDate: start,
+        lastDate: end
       });
     }
   }
@@ -32,10 +51,16 @@ export default class AnalyticsReport extends Component {
     const { fetchDepartmentTrips, context } = this.props;
     const { start, end } = context.state.range;
     fetchDepartmentTrips({
-      filterBy: 'month', type: 'file', firstDate: start, lastDate: end
+      filterBy: 'month',
+      type: 'file',
+      firstDate: start,
+      lastDate: end
     });
     fetchDepartmentTrips({
-      filterBy: 'month', type: 'json', firstDate: start, lastDate: end
+      filterBy: 'month',
+      type: 'json',
+      firstDate: start,
+      lastDate: end
     });
   };
 
@@ -45,7 +70,8 @@ export default class AnalyticsReport extends Component {
       id={name}
       type="button"
       className="analyticsReport__export-button"
-      onClick={onclickFunction}>
+      onClick={onclickFunction}
+    >
       <Fragment>
         {text}
         <img src={icon} alt={text} />
@@ -53,9 +79,12 @@ export default class AnalyticsReport extends Component {
     </button>
   );
 
-  renderTripsDetails = (item) => {
+  renderTripsDetails = item => {
     return (
-      <div className="analyticsReport__row analyticsReport__report-details" key={item.label}>
+      <div
+        className="analyticsReport__row analyticsReport__report-details"
+        key={item.label}
+      >
         <div>
           <p>{item.value}</p>
         </div>
@@ -90,7 +119,12 @@ export default class AnalyticsReport extends Component {
       <Fragment>
         <div className="analyticsReport__row analyticsReport__header">
           <p>Number of Trips per Department</p>
-          {this.renderButton('btnExportTripsPerMonth', download, 'Export', this.getDepartmentTripsCSV)}
+          {this.renderButton(
+            'btnExportTripsPerMonth',
+            download,
+            'Export',
+            this.getDepartmentTripsCSV
+          )}
         </div>
         <div className="analyticsReport__row analyticsReport__report-header">
           <div>
@@ -106,10 +140,16 @@ export default class AnalyticsReport extends Component {
 
   render() {
     const {
-      departmentTrips, readiness, fetchReadiness, exportReadiness,
-      context: { state: { range }}  } = this.props;
+      departmentTrips,
+      readiness,
+      fetchReadiness,
+      exportReadiness,
+      context: {
+        state: { range }
+      }
+    } = this.props;
     const { report, loading, error } = departmentTrips;
-    return(
+    return (
       <div className="analyticsReport">
         <TravelReadiness
           readiness={readiness}
@@ -118,23 +158,25 @@ export default class AnalyticsReport extends Component {
           fetchReadiness={fetchReadiness}
           exportReadiness={exportReadiness}
           range={range}
-          renderSpinner={this.renderSpinner} />
+          renderSpinner={this.renderSpinner}
+        />
         <div className="analyticsReport__card">
-          {loading ? <TripsPerMonthPlaceholder /> : (
+          {loading ? (
+            <TripsPerMonthPlaceholder />
+          ) : (
             <Fragment>
-              {
-                this.renderTripDetailsHeader()
-              }
-              {report
-              && report.length > 0 && !loading &&
-              report.map(item => this.renderTripsDetails(item))}
-              {error
-                ? (
-                  <p className="dashboard-component__error-text--style">
-                    Oops! An error occurred in retrieving this data
-                  </p>
-                )
-                : (report && !report.length && this.renderNotFound())}
+              {this.renderTripDetailsHeader()}
+              {report &&
+                report.length > 0 &&
+                !loading &&
+                report.map(item => this.renderTripsDetails(item))}
+              {error ? (
+                <p className="dashboard-component__error-text--style">
+                  Oops! An error occurred in retrieving this data
+                </p>
+              ) : (
+                report && !report.length && this.renderNotFound()
+              )}
             </Fragment>
           )}
         </div>
@@ -147,12 +189,12 @@ AnalyticsReport.propTypes = {
   departmentTrips: PropTypes.object.isRequired,
   readiness: PropTypes.object.isRequired,
   fetchDepartmentTrips: PropTypes.func.isRequired,
-  fetchReadiness:PropTypes.func.isRequired,
-  exportReadiness:PropTypes.func.isRequired,
+  fetchReadiness: PropTypes.func.isRequired,
+  exportReadiness: PropTypes.func.isRequired,
   context: PropTypes.shape({
     state: PropTypes.shape({
       start: PropTypes.string.isRequired,
-      end: PropTypes.string.isRequired,
+      end: PropTypes.string.isRequired
     }).isRequired,
     handleFilter: PropTypes.func.isRequired
   }).isRequired

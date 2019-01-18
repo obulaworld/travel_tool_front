@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { shallow, mount } from 'enzyme';
 import TravelCalendar from '../index';
+import mockUser from '../../../mockData/mockUserData';
 
 const props = {
   travelCalendar: {
@@ -41,7 +42,9 @@ const props = {
   },
   fetchCalendarAnalytics: jest.fn(),
   downloadCalendarAnalytics: jest.fn(),
-  handleFilterBtn: jest.fn()
+  handleFilterBtn: jest.fn(),
+  user: {...mockUser}
+
 };
 
 const filter = `dateFrom=${moment().startOf('month')
@@ -119,7 +122,7 @@ describe('Travel Calendar', () => {
 
   describe('Travel Calendar error', () => {
     it('should render Travel Calendar with error fetching data from the server', () => {
-      props.travelCalendar ={
+      props.travelCalendar = {
         travelCalendarError: 'Server error please try again',
         travelCalendarData: {
           data: []
