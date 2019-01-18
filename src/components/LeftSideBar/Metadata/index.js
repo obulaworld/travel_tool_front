@@ -153,8 +153,7 @@ const NavItemsMetadata = [
         exact: true,
         text: 'Travel team',
         onlyVisibleTo: ['Travel Administrator']
-      }
-
+      },
     ],
     icons: {
       active: activeSettingsIcon,
