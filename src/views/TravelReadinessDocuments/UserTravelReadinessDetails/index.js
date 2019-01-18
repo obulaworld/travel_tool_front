@@ -25,17 +25,18 @@ class UserTravelReadinessDetails extends Component {
     });
   }
 
-  showDocumentDetail = (documentId) => {
+  showDocumentDetail = (documentId, type) => {
     const { openModal } = this.props;
     this.setState({
-      documentId
+      documentId, 
+      activeDocument: type
     });
     openModal(true, 'document details');
   }
 
   render() {
     const { activeDocument, documentId } = this.state;
-    const { userReadiness, isLoading, shouldOpen, modalType, closeModal } = this.props;
+    const { userReadiness, isLoading, shouldOpen, modalType, closeModal, location } = this.props;
     const { fullName, travelDocuments } = userReadiness;
     const { passport, visa } = travelDocuments;
     return (
@@ -73,7 +74,7 @@ class UserTravelReadinessDetails extends Component {
             )
           }
         </div>
-        <TravelReadinessDetailsTable closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
+        <TravelReadinessDetailsTable location={location} closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
       </Fragment>
     );
   }
@@ -100,10 +101,12 @@ UserTravelReadinessDetails.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   closeModal: PropTypes.func.isRequired,
+  location: PropTypes.object,
 };
 
 UserTravelReadinessDetails.defaultProps = {
-  modalType: ''
+  modalType: '',
+  location: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserTravelReadinessDetails);

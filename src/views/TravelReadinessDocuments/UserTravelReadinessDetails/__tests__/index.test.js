@@ -31,6 +31,9 @@ describe('UserTravelReadinessDetails', () => {
         userId: 'xufljSJvnos'
       }
     },
+    location: {
+      search: '/travel_readiness?id=EBUmAX3z1&type=passport',
+    }
   };
 
   it('should render the Travel Readiness details page without crashing', () => {

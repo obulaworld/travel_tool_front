@@ -9,6 +9,17 @@ import ConnectedDocumentDetailsModal from './DocumentDetailsModal';
 export class UserTravelReadinessDetailsTable extends Component {
   state = {};
 
+  componentDidMount() {
+    const { location : { search }, handleShowDocument } = this.props;
+    const travelDocumentDetails = search ? search.split('?').join('').split('&') : '';
+    const searchMatch = /id=\w+&type=(passport|other|visa)/.test(search.split('?')[1]);
+
+    if(travelDocumentDetails.length && searchMatch) {
+      const id = travelDocumentDetails[0].split('=')[1];
+      const type = travelDocumentDetails[1].split('=')[1];
+      handleShowDocument(id, type);
+    }
+  }
   renderTableHeadRows(columnNames) {
     return (
       <tr>
@@ -218,6 +229,7 @@ UserTravelReadinessDetailsTable.propTypes = {
   documentId: PropTypes.string,
   userData: PropTypes.object.isRequired,
   others: PropTypes.array,
+  location: PropTypes.object.isRequired,
 };
 
 UserTravelReadinessDetailsTable.defaultProps = {

@@ -16,6 +16,9 @@ describe('UserTravelReadinessDetailsTable', () => {
     shouldOpen: false,
     userData: {
       id: 'userId'
+    },
+    location: {
+      search: '/travel-readiness/_GHGFFFHHHHHHH?id=EBUmAX3z1&type=passport',
     }
   };
 
