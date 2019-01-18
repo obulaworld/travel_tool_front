@@ -55,12 +55,16 @@ class Modal extends PureComponent {
             (url.includes('/requests')) ?
               (
                 <Link to={url}>
-                  <button type="button" onClick={closeDeleteModal ? closeDeleteModal : closeModal} className="modal-close">
+                  <button
+                    type="button" onClick={closeDeleteModal ?
+                      closeDeleteModal : closeModal} className="modal-close">
                     <img alt="close" src={closeButton} />
                   </button>
                 </Link>
               ) : (
-                <button type="button" onClick={closeDeleteModal ? closeDeleteModal : closeModal} className="modal-close">
+                <button
+                  type="button" onClick={closeDeleteModal ? 
+                    closeDeleteModal : closeModal} className="modal-close">
                   <img alt="close" src={closeButton} />
                 </button>
               )
@@ -86,7 +90,8 @@ class Modal extends PureComponent {
     return (
       visibility === 'visible' ? (
         <Fragment>
-          <Overlay className={overlayStyle} overlayBackground={!showOverlay ? 'overlayBackground' : ''}>
+          <Overlay
+            className={overlayStyle} overlayBackground={!showOverlay ? 'overlayBackground' : ''}>
             <div
               className={`modal ${visibility} ${customModalStyles}`}
               style={{maxWidth: width}}

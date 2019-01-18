@@ -13,9 +13,11 @@ import {
 import greyBedIcon from '../../../images/icons/accomodation_inactive.svg';
 import Modal from '../../../components/modal/Modal';
 import { NewAccommodationForm } from '../../../components/Forms';
-import  MaintainceForm  from '../../../components/Forms/MaintainanceForm';
-import addmaintenanceRecord, 
-{ deleteMaintenanceRecord, updateMaintenanceRecord } from '../../../redux/actionCreator/maintenanceAction';
+import MaintainceForm from '../../../components/Forms/MaintainanceForm';
+import addmaintenanceRecord, {
+  deleteMaintenanceRecord,
+  updateMaintenanceRecord
+} from '../../../redux/actionCreator/maintenanceAction';
 import {
   openModal,
   closeModal
@@ -35,8 +37,8 @@ export class GuestHouseDetails extends PureComponent {
     period: 'month',
     startDate: moment().startOf('month'),
     timelineViewType: 'month',
-    disableGustHouseButtonState: false,
-  }
+    disableGustHouseButtonState: false
+  };
 
   handleOnEdit = () => {
     let { openModal } = this.props;
@@ -46,25 +48,27 @@ export class GuestHouseDetails extends PureComponent {
   handleOnDisable = () => {
     let { openModal } = this.props;
     openModal(true, 'disable guesthouse');
-  }
+  };
 
   disableGuestHouse = () => {
     this.setState({ disableGustHouseButtonState: true });
     const { disableAccommodation, guestHouse, history } = this.props;
     const { id } = guestHouse;
     disableAccommodation(id, history);
-  }
+  };
   handlePeriod = (period, startDate, timelineViewType) => {
-    this.setState({period, startDate, timelineViewType});
-  }
+    this.setState({ period, startDate, timelineViewType });
+  };
 
   renderGuestHouseDetailsNameBar = () => {
     const { match, history, guestHouse } = this.props;
     return (
       <div className="guesthouse-details-wrapper--top">
         <div className="details-wrapper-top-right">
-          <div 
-            className="back-button" role="presentation" onClick={history.goBack}
+          <div
+            className="back-button"
+            role="presentation"
+            onClick={history.goBack}
           >
             <div className="arrow">
               <span />
@@ -84,15 +88,20 @@ export class GuestHouseDetails extends PureComponent {
           <div>
             <img src={edit_icon} alt="Edit Link" className="edit-icon" />
             <button
-              type="button" className="edit-btn" onClick={this.handleOnEdit}
+              type="button"
+              className="edit-btn"
+              onClick={this.handleOnEdit}
             >
               Edit Guest House
             </button>
           </div>
           <div>
             <img src={disable_icon} alt="Edit Link" className="edit-icon" />
-            <button 
-              id="handleOnDisableId" type="button" className="edit-btn" onClick={this.handleOnDisable}
+            <button
+              id="handleOnDisableId"
+              type="button"
+              className="edit-btn"
+              onClick={this.handleOnDisable}
             >
               Disable Guest House
             </button>
@@ -113,41 +122,58 @@ export class GuestHouseDetails extends PureComponent {
   isUnderMaintenance = (maintainances, startDate, endDate) => {
     const maintainanceEndDate = moment(maintainances.end);
     const maintainanceStartDate = moment(maintainances.start);
-    let acceptableRange = maintainanceEndDate.isBetween(startDate, endDate, null, '[]') ||
-    maintainanceStartDate.isBetween(startDate, endDate, null, '[]');
-    const specialCase = startDate.isBetween(maintainanceStartDate, maintainanceEndDate, null, '[]') &&
-    endDate.isBetween(maintainanceStartDate, maintainanceEndDate, null, '[]');
+    let acceptableRange =
+      maintainanceEndDate.isBetween(startDate, endDate, null, '[]') ||
+      maintainanceStartDate.isBetween(startDate, endDate, null, '[]');
+    const specialCase =
+      startDate.isBetween(
+        maintainanceStartDate,
+        maintainanceEndDate,
+        null,
+        '[]'
+      ) &&
+      endDate.isBetween(maintainanceStartDate, maintainanceEndDate, null, '[]');
     return { specialCase, acceptableRange };
-  }
+  };
 
   checkMaintenance = room => {
     const { startDate, timelineViewType } = this.state;
     const cloneStart = startDate.clone();
     const endDate = cloneStart.add(2, 'weeks').endOf(`${timelineViewType}`);
     const maintainances = room.maintainances[0];
-    if(maintainances){
+    if (maintainances) {
       let isUnderMaintenance = false;
-      const { specialCase, acceptableRange } = 
-      this.isUnderMaintenance(maintainances, startDate, endDate);
+      const { specialCase, acceptableRange } = this.isUnderMaintenance(
+        maintainances,
+        startDate,
+        endDate
+      );
       isUnderMaintenance = acceptableRange || specialCase;
-      if( timelineViewType==='week'){
+      if (timelineViewType === 'week') {
         const weekStartDate = cloneStart.subtract(16, 'days').startOf('week');
-        const weekEndDate = weekStartDate.clone().add(1, 'week').subtract(1, 'day');
-        const { specialCase, acceptableRange } = 
-        this.isUnderMaintenance(maintainances, weekStartDate , weekEndDate);
+        const weekEndDate = weekStartDate
+          .clone()
+          .add(1, 'week')
+          .subtract(1, 'day');
+        const { specialCase, acceptableRange } = this.isUnderMaintenance(
+          maintainances,
+          weekStartDate,
+          weekEndDate
+        );
         isUnderMaintenance = acceptableRange || specialCase;
       }
       return isUnderMaintenance;
     }
-  }
+  };
 
   getAvailableBedsCount = rooms => {
     if (rooms.length !== 0) {
-      const room = (rooms.map(room =>
-        room.faulty && this.checkMaintenance(room) ? 
-          [] : room.beds
-      ));
-      return room.map(bed => bed? bed.filter(b => !b.booked): []).reduce((acc, val) => acc+val.length, 0);
+      const room = rooms.map(room =>
+        room.faulty && this.checkMaintenance(room) ? [] : room.beds
+      );
+      return room
+        .map(bed => (bed ? bed.filter(b => !b.booked) : []))
+        .reduce((acc, val) => acc + val.length, 0);
     }
     return 0;
   };
@@ -166,7 +192,7 @@ export class GuestHouseDetails extends PureComponent {
       endDate
     };
     updateTripRoom({ tripId, data });
-  }
+  };
 
   renderDisableAccommodationModal() {
     const { closeModal, modal, guestHouse } = this.props;
@@ -174,8 +200,13 @@ export class GuestHouseDetails extends PureComponent {
     const { disableGustHouseButtonState } = this.state;
     return (
       <Modal
-        closeModal={closeModal} customModalStyles="delete-checklist-item restore-model-content"
-        visibility={shouldOpen && modalType.match('disable guesthouse') ? 'visible' : 'invisible'}
+        closeModal={closeModal}
+        customModalStyles="delete-checklist-item restore-model-content"
+        visibility={
+          shouldOpen && modalType.match('disable guesthouse')
+            ? 'visible'
+            : 'invisible'
+        }
         title={`Disable ${guestHouse.houseName}`}
       >
         <span className="delete-checklist-item__disclaimer restore-checklist-items_span">
@@ -184,118 +215,186 @@ export class GuestHouseDetails extends PureComponent {
         </span>
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button type="button" className="delete-checklist-item__footer--cancel" onClick={closeModal}>Cancel</button>
-          <button id="disableGuestHouseId" disabled={disableGustHouseButtonState} type="button" className="restore-checklist-items__footer--delete" onClick={this.disableGuestHouse}>
-            <ButtonLoadingIcon buttonText="Disable" isLoading={disableGustHouseButtonState} />
+          <button
+            type="button"
+            className="delete-checklist-item__footer--cancel"
+            onClick={closeModal}
+          >
+            Cancel
+          </button>
+          <button
+            id="disableGuestHouseId"
+            disabled={disableGustHouseButtonState}
+            type="button"
+            className="restore-checklist-items__footer--delete"
+            onClick={this.disableGuestHouse}
+          >
+            <ButtonLoadingIcon
+              buttonText="Disable"
+              isLoading={disableGustHouseButtonState}
+            />
           </button>
         </div>
       </Modal>
     );
   }
 
-
   renderEditAccommodationForm() {
-    const { 
-      closeModal, modal, guestHouse, initFetchTimelineData, fetchAccommodation, editAccommodation, editingAccommodation,
+    const {
+      closeModal,
+      modal,
+      guestHouse,
+      initFetchTimelineData,
+      fetchAccommodation,
+      editAccommodation,
+      editingAccommodation
     } = this.props;
     const { shouldOpen, modalType } = modal;
     return (
       <Modal
         closeModal={closeModal}
         width="800px"
-        visibility={shouldOpen && modalType === 'edit accommodation' ? 'visible' : 'invisible'}
+        visibility={
+          shouldOpen && modalType === 'edit accommodation'
+            ? 'visible'
+            : 'invisible'
+        }
         title={`Edit ${guestHouse.houseName}`}
       >
         <NewAccommodationForm
-          closeModal={closeModal} modalType={modalType || ''} fetchAccommodation={fetchAccommodation}
-          editAccommodation={editAccommodation} editingAccommodation={editingAccommodation}
-          guestHouse={guestHouse} initFetchTimelineData={initFetchTimelineData}
+          closeModal={closeModal}
+          modalType={modalType || ''}
+          fetchAccommodation={fetchAccommodation}
+          editAccommodation={editAccommodation}
+          editingAccommodation={editingAccommodation}
+          guestHouse={guestHouse}
+          initFetchTimelineData={initFetchTimelineData}
         />
       </Modal>
     );
   }
 
   render() {
-    const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, maintenance, openModal,closeModal,
-      modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails, accommodation } = this.props;
+    const {
+      guestHouse,
+      updateRoomState,
+      availableBeds,
+      fetchAvailableRooms,
+      loadingBeds,
+      maintenance,
+      openModal,
+      closeModal,
+      modal,
+      loading,
+      isLoading,
+      addmaintenanceRecord,
+      deleteMaintenanceRecord,
+      updateMaintenanceRecord,
+      maintenanceDetails,
+      accommodation
+    } = this.props;
     const { shouldOpen, modalType } = modal;
     const { period } = this.state;
 
-   
     return (
-      (
-      
-        <div className="guesthouse-details-wrapper">
-          {this.renderEditAccommodationForm()}
-          {this.renderDisableAccommodationModal()}
-          <div className="set-details">
-            { isLoading ? (
-              <Preloader />
+      <div className="guesthouse-details-wrapper">
+        {this.renderEditAccommodationForm()}
+        {this.renderDisableAccommodationModal()}
+        <div className="set-details">
+          {isLoading ? (
+            <Preloader />
+          ) : !guestHouse.id &&
+            !guestHouse.houseName &&
+            !guestHouse.Location ? (
+              <NotFound
+                redirectLink="/residence/manage"
+                errorMessage={accommodation.error}
+              />
             ) : (
-
-              (!guestHouse.id && !guestHouse.houseName && !guestHouse.Location) ?
-                <NotFound redirectLink="/residence/manage" errorMessage={accommodation.error} /> :
-                (
-                  <Fragment>
-                    {this.renderGuestHouseDetailsNameBar()}
-                    <div className="guesthouse-details-wrapper--key-details">
-                      <GuestHouseDetailCard
-                        label="Bed Capacity" value={this.getBedCount(guestHouse.rooms)}
-                        period=""
-                      />
-                      <GuestHouseDetailCard
-                        label="No. of rooms" value={guestHouse.rooms.length}
-                        period=""
-                      />
-                      <GuestHouseDetailCard
-                        label="Vacant spaces"
-                        value={this.getAvailableBedsCount(guestHouse.rooms)}
-                        period={period} />
-                      <GuestHouseDetailCard
-                        label="Unavailable"
-                        value={this.getUnavailableBedCount(guestHouse.rooms)}
-                        period={period}
-                      />
-                    </div>
-                  </Fragment>
-                ))}
-          </div>
-          <Timeline
-            modalType={modalType} shouldOpen={shouldOpen} openModal={openModal}
-            modal={modal} closeModal={closeModal} handleMaintainence={this.handleMaintainence}
-            rooms={guestHouse.rooms} guestHouseId={guestHouse.id || ''} fetchTimelineRoomsData={this.fetchTimelineRoomsData}
-            updateRoomState={updateRoomState} addmaintenanceRecord={addmaintenanceRecord}
-            deleteMaintenanceRecord={deleteMaintenanceRecord} updateTripRoom={this.callUpdateTripRoom}
-            availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
-            loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
-            updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
-          />
+              <Fragment>
+                {this.renderGuestHouseDetailsNameBar()}
+                <div className="guesthouse-details-wrapper--key-details">
+                  <GuestHouseDetailCard
+                    label="Bed Capacity"
+                    value={this.getBedCount(guestHouse.rooms)}
+                    period=""
+                  />
+                  <GuestHouseDetailCard
+                    label="No. of rooms"
+                    value={guestHouse.rooms.length}
+                    period=""
+                  />
+                  <GuestHouseDetailCard
+                    label="Vacant spaces"
+                    value={this.getAvailableBedsCount(guestHouse.rooms)}
+                    period={period}
+                  />
+                  <GuestHouseDetailCard
+                    label="Unavailable"
+                    value={this.getUnavailableBedCount(guestHouse.rooms)}
+                    period={period}
+                  />
+                </div>
+              </Fragment>
+            )}
         </div>
-      ));
+        <Timeline
+          modalType={modalType}
+          shouldOpen={shouldOpen}
+          openModal={openModal}
+          modal={modal}
+          closeModal={closeModal}
+          handleMaintainence={this.handleMaintainence}
+          rooms={guestHouse.rooms}
+          guestHouseId={guestHouse.id || ''}
+          fetchTimelineRoomsData={this.fetchTimelineRoomsData}
+          updateRoomState={updateRoomState}
+          addmaintenanceRecord={addmaintenanceRecord}
+          deleteMaintenanceRecord={deleteMaintenanceRecord}
+          updateTripRoom={this.callUpdateTripRoom}
+          availableBeds={availableBeds}
+          fetchAvailableRooms={fetchAvailableRooms}
+          handlePeriod={this.handlePeriod}
+          loadingBeds={loadingBeds}
+          loading={loading}
+          editMaintenance={maintenance}
+          updateMaintenanceRecord={updateMaintenanceRecord}
+          maintenanceDetails={maintenanceDetails}
+        />
+      </div>
+    );
   }
 }
 
 GuestHouseDetails.propTypes = {
-  maintenance: PropTypes.object, guestHouse: PropTypes.object,
-  match: PropTypes.object.isRequired, history: PropTypes.object.isRequired,
-  openModal: PropTypes.func.isRequired, closeModal: PropTypes.func.isRequired,
+  maintenance: PropTypes.object,
+  guestHouse: PropTypes.object,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  openModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   initFetchTimelineData: PropTypes.func,
   updateRoomState: PropTypes.func.isRequired,
-  addmaintenanceRecord:PropTypes.func.isRequired,
-  deleteMaintenanceRecord:PropTypes.func.isRequired,
-  updateMaintenanceRecord:PropTypes.func.isRequired,
+  addmaintenanceRecord: PropTypes.func.isRequired,
+  deleteMaintenanceRecord: PropTypes.func.isRequired,
+  updateMaintenanceRecord: PropTypes.func.isRequired,
   modal: PropTypes.object.isRequired,
-  fetchAccommodation: PropTypes.func.isRequired, editAccommodation: PropTypes.func.isRequired,
+  fetchAccommodation: PropTypes.func.isRequired,
+  editAccommodation: PropTypes.func.isRequired,
   editingAccommodation: PropTypes.bool.isRequired,
-  updateTripRoom: PropTypes.func.isRequired, availableBeds: PropTypes.array.isRequired,
-  fetchAvailableRooms: PropTypes.func.isRequired, loadingBeds: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired, isLoading: PropTypes.bool.isRequired,
-  maintenanceDetails: PropTypes.object, disableAccommodation: PropTypes.func.isRequired,
-  accommodation: PropTypes.object, 
+  updateTripRoom: PropTypes.func.isRequired,
+  availableBeds: PropTypes.array.isRequired,
+  fetchAvailableRooms: PropTypes.func.isRequired,
+  loadingBeds: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  maintenanceDetails: PropTypes.object,
+  disableAccommodation: PropTypes.func.isRequired,
+  accommodation: PropTypes.object
 };
 
 GuestHouseDetails.defaultProps = {
-  initFetchTimelineData: () => { },
+  initFetchTimelineData: () => {},
   guestHouse: {},
   maintenance: {},
   maintenanceDetails: {},
@@ -304,7 +403,7 @@ GuestHouseDetails.defaultProps = {
   }
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   guestHouse: state.accommodation.guestHouse,
   isLoading: state.accommodation.isLoading,
   user: state.auth.user.UserInfo,
@@ -315,15 +414,25 @@ const mapStateToProps = (state) => ({
   editingAccommodation: state.accommodation.editingAccommodation,
   maintenance: state.maintenance,
   maintenanceDetails: state.maintenance,
-  accommodation:state.accommodation
+  accommodation: state.accommodation
 });
 
 const actionCreators = {
-  initFetchTimelineData, updateRoomState,
-  openModal, closeModal, editAccommodation,
-  fetchAccommodation, addmaintenanceRecord,
-  deleteMaintenanceRecord, updateTripRoom,
-  fetchAvailableRooms, updateMaintenanceRecord, disableAccommodation
+  initFetchTimelineData,
+  updateRoomState,
+  openModal,
+  closeModal,
+  editAccommodation,
+  fetchAccommodation,
+  addmaintenanceRecord,
+  deleteMaintenanceRecord,
+  updateTripRoom,
+  fetchAvailableRooms,
+  updateMaintenanceRecord,
+  disableAccommodation
 };
 
-export default connect(mapStateToProps, actionCreators)(GuestHouseDetails);
+export default connect(
+  mapStateToProps,
+  actionCreators
+)(GuestHouseDetails);

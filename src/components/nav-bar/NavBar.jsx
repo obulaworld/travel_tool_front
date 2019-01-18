@@ -142,7 +142,10 @@ export class NavBar extends PureComponent {
     return (
       <span className="navbar__logo-icons">
         <img src={travela} alt="Andela Logo" className="mdl-cell--hide-phone" />
-        <img src={mobileTravel} alt="Travela Logo" className="mdl-cell--hide-desktop mdl-cell--hide-tablet navbar__travela-logo" />
+        <img
+          src={mobileTravel} 
+          alt="Travela Logo" 
+          className="mdl-cell--hide-desktop mdl-cell--hide-tablet navbar__travela-logo" />
       </span>
     );
   }
@@ -182,7 +185,8 @@ export class NavBar extends PureComponent {
         </div>
         <nav className="mdl-navigation">
           {this.renderNotification()}
-          <div className="navbar__user-icon navbar__nav-size mdl-cell--hide-tablet mdl-cell--hide-phone">
+          <div className="navbar__user-icon navbar__nav-size 
+                            mdl-cell--hide-tablet mdl-cell--hide-phone">
             {this.renderUserIcons()}
           </div>
         </nav>
@@ -206,7 +210,9 @@ export class NavBar extends PureComponent {
             </i>
           </div>
         </button>
-        <div className="navbar__search-size mdl-cell--hide-desktop mdl-cell--hide-tablet" style={{display: `${showSearch}`}}>
+        <div
+          className="navbar__search-size 
+                  mdl-cell--hide-desktop mdl-cell--hide-tablet" style={{display: `${showSearch}`}}>
           <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
         </div>
       </header>

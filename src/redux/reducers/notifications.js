@@ -45,7 +45,8 @@ const notifications = (state = initialState, action) => {
     return { ...state, isLoading: true };
   case MARK_SINGLE_NOTIFICATION_AS_READ_SUCCESS:
     updatedNotifications = [...state.notifications];
-    index = updatedNotifications.findIndex(notification => notification.id == action.notification.id);
+    index = updatedNotifications.findIndex(
+      notification => notification.id == action.notification.id);
     updatedNotifications[index].notificationStatus = 'read';
     return {
       ...state, notifications: updatedNotifications,

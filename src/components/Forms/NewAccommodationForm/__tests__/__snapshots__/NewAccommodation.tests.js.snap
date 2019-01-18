@@ -69,7 +69,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                 }
               }
             >
-              *
+               * 
             </span>
           </label>
           <input
@@ -105,7 +105,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                 }
               }
             >
-              *
+               * 
             </span>
           </label>
           <input
@@ -140,7 +140,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                 }
               }
             >
-              *
+               * 
             </span>
           </label>
           <div>
@@ -212,7 +212,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       }
                     }
                   >
-                    *
+                     * 
                   </span>
                 </label>
                 <input
@@ -249,7 +249,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       }
                     }
                   >
-                    *
+                     * 
                   </span>
                 </label>
                 <div
@@ -357,7 +357,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                       }
                     }
                   >
-                    *
+                     * 
                   </span>
                 </label>
                 <div>

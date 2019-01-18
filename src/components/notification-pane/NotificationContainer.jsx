@@ -53,7 +53,8 @@ export default class NotificationContainer extends PureComponent {
 
   renderNotifications = (notifications) => {
     const displayViewDetails =
-      ['approved your request', 'posted a comment', 'rejected your request', 'updated your travel residence record.'];
+      ['approved your request', 'posted a comment', 'rejected your request',
+        'updated your travel residence record.'];
     return notifications.length && notifications.map(
       notification => {
         const {
@@ -94,8 +95,7 @@ export default class NotificationContainer extends PureComponent {
     const { notificationsCount } = this.state;
     const customClass = title === 'Pending Approvals' ? 'pending' : 'general';
     const number = title === 'Pending Approvals'
-      ? pendingNotifications.length
-      : generalNotifications.length;
+      ? pendingNotifications.length : generalNotifications.length;
     this.getUnreadNotificationsCount();
     return (
       <div className="notification-container">
@@ -111,13 +111,14 @@ export default class NotificationContainer extends PureComponent {
             className="notification-container__header__action"
             onClick={this.handleMarkAllAsRead}
             onKeyUp={this.handleMarkAllAsRead}
-            tabIndex={0}
-          >
+            tabIndex={0}>
               mark all as read
           </div>
         </div>
-        {title === 'Pending Approvals' && number !== 0 && this.renderNotifications(pendingNotifications)}
-        {title === 'General Notifications' && number !== 0 && this.renderNotifications(generalNotifications)}
+        {title === 'Pending Approvals' && number !== 0 &&
+        this.renderNotifications(pendingNotifications)}
+        {title === 'General Notifications' && number !== 0 &&
+        this.renderNotifications(generalNotifications)}
       </div>
     );
   }

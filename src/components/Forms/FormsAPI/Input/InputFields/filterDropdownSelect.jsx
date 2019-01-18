@@ -34,7 +34,8 @@ export default class filterDropdownSelect extends Component  {
       let filteredChoices = [null, null];
       const {role} = this.state;
       if (role){
-        filteredChoices = choices.filter((eachChoice => eachChoice.toLowerCase().includes(role.toLowerCase())));
+        filteredChoices = choices.filter(
+          (eachChoice => eachChoice.toLowerCase().includes(role.toLowerCase())));
         let choiceLength = filteredChoices.length;
         if ( choiceLength > 5 ){
           filteredChoices.splice(5, choiceLength - 5);

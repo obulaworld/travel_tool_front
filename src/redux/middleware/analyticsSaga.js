@@ -2,7 +2,9 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import FileSaver from 'file-saver';
 import toast from 'toastr';
 
-import { fetchAnalyticsSuccess, fetchAnalyticsFailure, downloadAnalyticsFailure } from '../actionCreator/analyticsActions';
+import {
+  fetchAnalyticsSuccess, fetchAnalyticsFailure, downloadAnalyticsFailure
+} from '../actionCreator/analyticsActions';
 import { FETCH_ANALYTICS, DOWNLOAD_ANALYTICS } from '../constants/actionTypes';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import AnalyticsAPI from '../../services/AnalyticsAPI';

@@ -34,9 +34,11 @@ export class Verifications extends Base {
   }
 
   renderApprovalsTable(){
-    const { approvals, history, location, openModal, closeModal, shouldOpen, modalType, submissionInfo } = this.props;
+    const { approvals, history, location, openModal, closeModal,
+      shouldOpen, modalType, submissionInfo } = this.props;
     const {requestId} = this.state;
-    const requestData = approvals.approvals ? approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
+    const requestData = approvals.approvals ? 
+      approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -115,7 +117,8 @@ export class Verifications extends Base {
       <Fragment>
         {this.renderVerificationsPaneHeader(approvals.isLoading )}
         {approvals.approvals && this.renderApprovalsTable()}
-        {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
+        {!approvals.isLoading && approvals.approvals.length > 0 &&
+          this.renderPagination(approvals.pagination)}
       </Fragment>
     );
   }

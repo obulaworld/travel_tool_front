@@ -46,6 +46,10 @@ const props = {
     isLoading: false,
   },
   isLoaded: false,
+  currentUser: {
+    id: 2,
+    email: 'william.sserubiri@andela.com'
+  }
 };
 
 localStorage.setItem('location', 'Nairobi, Kenya');

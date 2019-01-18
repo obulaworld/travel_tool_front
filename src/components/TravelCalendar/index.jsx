@@ -95,7 +95,8 @@ class TravelCalendar extends PureComponent {
           </Fragment>
         </button>
         {text === 'Pick a date' && (
-          <div className={`calendar ${isCalendarOpen ? 'open': ''} ${showDown >= 2 ? 'calendar--down': '' }`}>
+          <div className={`
+            calendar ${isCalendarOpen ? 'open': ''} ${showDown >= 2 ? 'calendar--down': '' }`}>
             <CalendarRange handleChange={this.handleChange} />
           </div>
         )}

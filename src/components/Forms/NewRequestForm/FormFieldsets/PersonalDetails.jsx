@@ -29,15 +29,20 @@ class PersonalDetailsFieldset extends Component {
         {!collapse ? (
           <div>
             <div className={`input-group ${disabled}`}>
-              <div className="spaces">{renderInput('name', 'text')}</div>
+              <div className="spaces">
+                {renderInput('name', 'text', { 
+                  className: 'request_dropdown', disabled: true })}
+              </div>
               <div className="spaces">
                 {renderInput('gender', 'button-toggler')}
               </div>
-              {renderInput('department', 'dropdown-select', { size: value, className: 'request_dropdown'})}
+              {renderInput('department', 'text', { disabled: true, size: value,
+                className: 'request_dropdown'})}
             </div>
             <div className={`input-group ${disabled}`}>
               <div className="spaces">
-                {renderInput('role', 'filter-dropdown-select', {
+                {renderInput('role', 'text', {
+                  disabled: true,
                   choices: occupationsNames,
                   size: value,
                   className: 'request_dropdown'
@@ -47,7 +52,7 @@ class PersonalDetailsFieldset extends Component {
                 {renderInput('manager', 'filter-dropdown-select', {
                   choices: managerChoices,
                   size: value,
-                  className: 'request_dropdown'
+                  className: 'request_dropdown no-disable'
                 })}
               </div>
             </div>

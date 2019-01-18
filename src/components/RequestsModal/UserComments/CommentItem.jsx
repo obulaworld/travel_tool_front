@@ -28,28 +28,27 @@ export default class CommentItem extends Component {
     const { deleteModalState } = this.state;
     return (
       <button
-        type="button"
-        className={`modal__delete-btn ${deleteModalState === 'visible' ? 'blue-text' : ''}`}
-        onClick={this.handleDeleteComment}
-      >
+        type="button" onClick={this.handleDeleteComment}
+        className={`modal__delete-btn ${deleteModalState === 'visible' ? 'blue-text' : ''}`}>
         Delete
         <Modal
-          customModalStyles="delete-comment-modal"
-          customOverlayStyle="delete-modal-overlay"
-          visibility={deleteModalState}
-          closeDeleteModal={this.closeDeleteCommentModal}
-          title="Delete Comment ?"
-          showOverlay={false}
-        >
+          customModalStyles="delete-comment-modal" customOverlayStyle="delete-modal-overlay"
+          visibility={deleteModalState} closeDeleteModal={this.closeDeleteCommentModal}
+          title="Delete Comment ?" showOverlay={false}>
           <p className="delete-comment-modal__text">This action cannot be undone</p>
-          <button className="delete-comment-modal__btn" type="button" onClick={this.confirmDeleteComment}>Delete</button>
+          <button
+            className="delete-comment-modal__btn" 
+            type="button" onClick={this.confirmDeleteComment}>
+            Delete
+          </button>
         </Modal>
       </button>
     );
   }
 
   render() {
-    const { editedLabel, commentToEdit, activeCommentId, email, handleNoEdit, resetEditing, formatDate, comment, renderCancelButton, editComment, editReady } = this.props;
+    const { editedLabel, commentToEdit, activeCommentId, email, handleNoEdit, resetEditing,
+      formatDate, comment, renderCancelButton, editComment, editReady } = this.props;
     return (
       <div className="modal__modal1" key={comment.id}>
         <hr />
@@ -64,19 +63,25 @@ export default class CommentItem extends Component {
           {email === comment.userEmail ? (
             <span className="modal__dialog">
               <button
-                type="button" className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`} onClick={() => editComment(comment)}>
+                className={`edit-button ${activeCommentId === comment.id ? 'active': ''}`}
+                type="button" onClick={() => editComment(comment)}>
               Edit
               </button>
               {this.renderDeleteOption()}
             </span>) : null }
           {commentToEdit == comment.comment ? (
             <div className="comment-box">
-              <ConnectedCommentBox startSubmitReady={true} handleNoEdit={handleNoEdit} afterSubmit={resetEditing} editReady={editReady} editComment={editComment} comment={commentToEdit} requestId={comment.requestId} id={comment.id} />  {/* eslint-disable-line */}
+              <ConnectedCommentBox
+                startSubmitReady handleNoEdit={handleNoEdit} afterSubmit={resetEditing}
+                editReady={editReady} editComment={editComment} comment={commentToEdit}
+                requestId={comment.requestId} id={comment.id} />
               {renderCancelButton()}
             </div>
           ) :  (
             <div className="modal__modal2">
-                <div className="modal__status-update" dangerouslySetInnerHTML={{ __html: `${comment.comment} ${editedLabel}` }} /> {/*eslint-disable-line*/}
+              <div
+                className="modal__status-update"
+                dangerouslySetInnerHTML={{ __html: `${comment.comment} ${editedLabel}` }} />
             </div>)}
         </div>
       </div>

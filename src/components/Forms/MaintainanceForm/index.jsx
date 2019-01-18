@@ -36,7 +36,8 @@ class MaintainceForm extends PureComponent {
     const startDate = departureDate ? moment(departureDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
     const endDate = returnDate ? moment(returnDate, 'YYYY-MM-DD').format('MM/DD/YYYY') : '';
     const disableReason = reason ? reason : '';
-    this.setState(prevState => ({ ...prevState, values: { maintainanceStart: startDate, maintainanceEnd: endDate, reason: disableReason } }));
+    this.setState(prevState => ({...prevState,
+      values: { maintainanceStart: startDate, maintainanceEnd: endDate, reason: disableReason } }));
   }
 
   submitMaintainanceData = event => {
@@ -92,13 +93,17 @@ class MaintainceForm extends PureComponent {
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={onSubmit} className="maintainance-form">
-          <MaintainanceFieldSets values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
+          <MaintainanceFieldSets
+            values={values} hasBlankFields={hasBlankFields} editMaintenance={editMaintenance} />
           <div className="maintainence-line" />
           <div className="maintainence-submit-area">
-            <button type="button" className="bg-btn bg-btn--inactive btn-cancel" onClick={this.handleClearForm}>
+            <button
+              type="button" className="bg-btn bg-btn--inactive btn-cancel"
+              onClick={this.handleClearForm}>
               Cancel
             </button>
-            <button type="submit" className="bg-btn bg-btn--active" id="submit" disabled={hasBlankFields}>
+            <button
+              type="submit" className="bg-btn bg-btn--active" id="submit" disabled={hasBlankFields}>
               Save Changes
             </button>
           </div>

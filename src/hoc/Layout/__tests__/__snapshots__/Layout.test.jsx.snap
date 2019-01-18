@@ -37,7 +37,8 @@ exports[`Layout component Layout Shallow should render layout component correctl
         className="mdl-grid mdl-grid--no-spacing full-height"
       >
         <div
-          className="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone request-page__left-side-bar "
+          className="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet
+                mdl-cell--hide-phone request-page__left-side-bar "
         >
           <div
             className="sidebar "
@@ -58,7 +59,8 @@ exports[`Layout component Layout Shallow should render layout component correctl
         </div>
       </div>
       <div
-        className="mdl-cell mdl-cell--3-col-desktop hide mdl-cell--hide-desktop request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone"
+        className="mdl-cell mdl-cell--3-col-desktop hide mdl-cell--hide-desktop
+              request-page__right-side-bar mdl-cell--3-col-tablet mdl-cell--4-col-phone"
       >
         <div
           className="notification hide"

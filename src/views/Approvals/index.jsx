@@ -36,7 +36,8 @@ export class Approvals extends Base {
       approvals, history, location, openModal, submissionInfo,
       closeModal, shouldOpen, modalType } = this.props;
     const {requestId} = this.state;
-    const requestData = approvals.approvals ? approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
+    const requestData = approvals.approvals ?
+      approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -113,7 +114,8 @@ export class Approvals extends Base {
       <Fragment>
         {this.renderApprovalsPanelHeader(approvals.isLoading)}
         {approvals.approvals && this.renderApprovalsTable()}
-        {!approvals.isLoading && approvals.approvals.length > 0 && this.renderPagination(approvals.pagination)}
+        {!approvals.isLoading && approvals.approvals.length > 0 &&
+          this.renderPagination(approvals.pagination)}
       </Fragment>
     );
   }

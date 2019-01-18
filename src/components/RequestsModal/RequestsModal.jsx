@@ -34,7 +34,8 @@ export class RequestDetailsModal extends Component {
     fetchUserRequestDetails(requestId);
   }
 
-  handleButtonState = (approvalText, rejectText, buttonSelected, approveColor, rejectColor, approveTextColor, rejectTextColor, newStatus, requestId) => {
+  handleButtonState = (approvalText, rejectText, buttonSelected, approveColor, rejectColor,
+    approveTextColor, rejectTextColor, newStatus, requestId) => {
     this.setState({
       approvalText,
       rejectText,
@@ -67,11 +68,13 @@ export class RequestDetailsModal extends Component {
   };
 
   handleReject = (requestId) => () => {
-    this.handleButtonState('Approve', 'Rejected', true, '', '#FF5359', '', 'white', 'Rejected', requestId);
+    this.handleButtonState('Approve', 'Rejected', true, '',
+      '#FF5359', '', 'white', 'Rejected', requestId);
   };
 
   handleConfirmModal = (button) => () => {
-    this.setState(prevState => ({ modalInvisible: !prevState.modalInvisible, buttonSelected: button }));
+    this.setState(prevState => ({
+      modalInvisible: !prevState.modalInvisible, buttonSelected: button }));
   }
 
   showButtons = (approveColor, rejectColor, approveTextColor, rejectTextColor, id) => {
@@ -121,11 +124,14 @@ export class RequestDetailsModal extends Component {
   shouldButtonsRender(status) {
     const { navigatedPage } = this.props;
     let shouldRender = this.renderButtons();
-    shouldRender = (navigatedPage === 'Requests' && (['Open', 'Approved', 'Rejected', 'Verified'].includes(status)))
+    shouldRender = (navigatedPage === 'Requests' &&
+     (['Open', 'Approved', 'Rejected', 'Verified'].includes(status)))
       ? RequestModalHelper.renderStatusAsBadge(status) : shouldRender;
-    shouldRender = (navigatedPage === 'Approvals' && (['Approved', 'Rejected', 'Verified'].includes(status)))
+    shouldRender = (navigatedPage === 'Approvals' &&
+     (['Approved', 'Rejected', 'Verified'].includes(status)))
       ? RequestModalHelper.renderStatusAsBadge(status) : shouldRender;
-    shouldRender = (navigatedPage === 'Verifications' && (['Open', 'Rejected', 'Verified'].includes(status)))
+    shouldRender = (navigatedPage === 'Verifications' &&
+     (['Open', 'Rejected', 'Verified'].includes(status)))
       ? RequestModalHelper.renderStatusAsBadge(status) : shouldRender;
     return shouldRender;
   }
@@ -148,7 +154,8 @@ export class RequestDetailsModal extends Component {
   renderButtons = () => {
     const { approveColor, rejectColor, approveTextColor, rejectTextColor } = this.state;
     const { requestData: { id, status }, navigatedPage } = this.props;
-    let displayButtons = this.showButtons(approveColor, rejectColor, approveTextColor, rejectTextColor, id)
+    let displayButtons = this.showButtons(approveColor, rejectColor,
+      approveTextColor, rejectTextColor, id)
       .map((button)=>{
         const buttonStyle = this.changeButtonColor(button, status);
         return (
@@ -157,7 +164,8 @@ export class RequestDetailsModal extends Component {
               <button
                 style={{
                   backgroundColor: `${buttonStyle.backgroundColor}`,
-                  color: `${buttonStyle.color}`, cursor: ['Open', 'Approved'].includes(status) ? 'Pointer' : 'default'
+                  color: `${buttonStyle.color}`,
+                  cursor: ['Open', 'Approved'].includes(status) ? 'Pointer' : 'default'
                 }}
                 onClick={this.handleConfirmModal(button.text)}
                 className={`${button.class}`}
@@ -182,7 +190,8 @@ export class RequestDetailsModal extends Component {
   }
 
   renderRequests() {
-    const { fetchingRequest, error, requestId, redirectLink, requestData, user, user: { picture }, email } = this.props;
+    const { fetchingRequest, error, requestId, redirectLink,
+      requestData, user, email } = this.props;
     const { modalInvisible, buttonSelected } = this.state;
     const { renderDialogText, handleConfirmModal, handleApprove, handleReject } = this;
 
@@ -208,12 +217,16 @@ export class RequestDetailsModal extends Component {
           {this.renderRequestDetailsHeader(requestData)}
           {RequestModalHelper.getRequestTripsDetails(requestData)}
         </div>
-        { ['Approved', 'Verified'].includes(requestData.status) ? <FileAttachment requestId={requestId} /> : '' }
-        <AddComment image={picture} />
+        { ['Approved', 'Verified'].includes(requestData.status) ?
+          <FileAttachment requestId={requestId} /> : '' }
+        <AddComment image={user.picture} />
         <ConnectedCommentBox requestId={requestId} />
-        {requestData && ['Approved', 'Rejected'].includes(requestData.status) && this.renderRequestAprroval()}
+        {requestData && ['Approved', 'Rejected'].includes(requestData.status) &&
+        this.renderRequestAprroval()}
         <div id="comments">
-          <ConnectedUserComments comments={requestData.comments ? requestData.comments.slice(0).reverse(): []} email={email.result && email.result.email} />
+          <ConnectedUserComments
+            comments={requestData.comments ? requestData.comments.slice(0).reverse(): []}
+            email={email.result && email.result.email} />
         </div>
       </Fragment>
     );

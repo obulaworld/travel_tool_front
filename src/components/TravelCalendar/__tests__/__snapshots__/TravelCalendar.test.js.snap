@@ -19,7 +19,7 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
         type="button"
       >
         <div>
-          07 Jan, 19 - 13 Jan, 19
+          14 Jan, 19 - 20 Jan, 19
         </div>
         <img
           alt="Pick a date"
@@ -28,7 +28,8 @@ exports[`Travel Calendar should render Travel Calendar Correctly 1`] = `
         />
       </button>
       <div
-        className="calendar  "
+        className="
+                  calendar  "
       >
         <CalendarRange
           handleChange={[Function]}

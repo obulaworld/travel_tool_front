@@ -114,7 +114,8 @@ export class CommentBox extends Component {
             <button
               type="submit"
               onClick={this.handleEditComment}
-              className={`editor__post-btn editor__post-btn${status} --active post-btn-text edit-buttons`}
+              className={`editor__post-btn editor__post-btn${status}
+              --active post-btn-text edit-buttons`}
               disabled={!text && true}
             >
               Save

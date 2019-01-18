@@ -64,7 +64,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
         </span>
       </div>
       <div
-        className="navbar__user-icon navbar__nav-size mdl-cell--hide-tablet mdl-cell--hide-phone"
+        className="navbar__user-icon navbar__nav-size  mdl-cell--hide-tablet mdl-cell--hide-phone"
       >
         <div
           className="profile-sec"
@@ -165,7 +165,7 @@ exports[`Render NavBar component should match snapshot 1`] = `
     </div>
   </button>
   <div
-    className="navbar__search-size mdl-cell--hide-desktop mdl-cell--hide-tablet"
+    className="navbar__search-size  mdl-cell--hide-desktop mdl-cell--hide-tablet"
     style={
       Object {
         "display": "block",

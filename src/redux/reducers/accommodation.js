@@ -22,7 +22,9 @@ import {
   RESTORE_DISABLED_ACCOMMODATION_FAILURE
 } from '../constants/actionTypes';
 
-import { disableGuestHouseSuccessState, restoreGuestHouseSuccessState } from '../../helper/accommodationReducer';
+import { 
+  disableGuestHouseSuccessState, restoreGuestHouseSuccessState 
+} from '../../helper/accommodationReducer';
 
 const initialState = {
   postAccommodationData: [],
@@ -46,7 +48,9 @@ const accommodation = (state = initialState, action) => {
   case CREATE_ACCOMMODATION_DATA:
     return { ...state, createAccommodationLoading: true };
   case CREATE_ACCOMMODATION_DATA_SUCCESS:
-    return { ...state, createAccommodationLoading: false,  postAccommodationData: action.accommodationData, };
+    return { 
+      ...state, createAccommodationLoading: false,
+      postAccommodationData: action.accommodationData, };
   case CREATE_ACCOMMODATION_DATA_FAILURE:
     return { ...state, createAccommodationLoading: false, errors: action.error, };
   case FETCH_ACCOMMODATION_CENTRES:
@@ -66,7 +70,8 @@ const accommodation = (state = initialState, action) => {
   case FETCH_TIMELINE_DATA_FAILURE:
     return guestHouseTimelineDataFailureState(state, action);
   case EDIT_ACCOMMODATION_DATA:
-    return { ...state, editingAccommodation: true, guestHouseData: action.guestHouseData, guestHouseId: action.guestHouseId };
+    return { ...state, editingAccommodation: true,
+      guestHouseData: action.guestHouseData, guestHouseId: action.guestHouseId };
   case EDIT_ACCOMMODATION_DATA_SUCCESS:
     return { ...state, editingAccommodation: false,
       guestHouseData: action.guestHouseData };
@@ -85,7 +90,8 @@ const accommodation = (state = initialState, action) => {
   case FETCH_DISABLED_ACCOMMODATION_FAILURE:
     return {  ...state, isLoading: false, error: action.error };
   case RESTORE_DISABLED_ACCOMMODATION:
-    return { ...state, isLoading: true, restoring: true, disabledguestHouse: action.guestHouseData };
+    return { ...state, isLoading: true, 
+      restoring: true, disabledguestHouse: action.guestHouseData };
   case RESTORE_DISABLED_ACCOMMODATION_SUCCESS:
     return restoreGuestHouseSuccessState(state, action);
   case RESTORE_DISABLED_ACCOMMODATION_FAILURE:

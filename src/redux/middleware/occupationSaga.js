@@ -1,6 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import { FETCH_OCCUPATIONS } from '../constants/actionTypes';
-import { fetchOccupationsSuccess, fetchOccupationsFailure } from '../actionCreator/occupationActions';
+import {
+  fetchOccupationsSuccess, fetchOccupationsFailure } from '../actionCreator/occupationActions';
 import OccupationAPI from '../../services/OccupationAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 

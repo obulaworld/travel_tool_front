@@ -12,10 +12,10 @@ class TravelDetailsItem extends Component {
     trip: null,
     missingRequiredFields: true,
     accommodationType: null
-  }
+  };
 
   componentDidMount() {
-    const {itemId, modalType, requestOnEdit, values } = this.props;
+    const { itemId, modalType, requestOnEdit, values } = this.props;
     this.loadState(requestOnEdit, itemId, modalType, values);
   }
 
@@ -30,13 +30,19 @@ class TravelDetailsItem extends Component {
 
   validateTripRecord = (values, itemId) => {
     const { trip, gender } = this.state;
-    const origin =  (trip.origin === values[`origin-${itemId}`]);
-    const destination = (trip.destination === values[`destination-${itemId}`]);
-    const departureDate = (Moment(values[`departureDate-${itemId}`]).isSame(trip.departureDate));
-    const arrivalDate = (Moment(values[`arrivalDate-${itemId}`]).isSame(trip.returnDate));
+    const origin = trip.origin === values[`origin-${itemId}`];
+    const destination = trip.destination === values[`destination-${itemId}`];
+    const departureDate = Moment(values[`departureDate-${itemId}`]).isSame(
+      trip.departureDate
+    );
+    const arrivalDate = Moment(values[`arrivalDate-${itemId}`]).isSame(
+      trip.returnDate
+    );
     const genderCheck = values.gender === gender;
-    return (origin && destination && departureDate && genderCheck || arrivalDate);
-  }
+    return (
+      (origin && destination && departureDate && genderCheck) || arrivalDate
+    );
+  };
 
   getRawBedChoices = (modalType, values, beds) => {
     const { bedOnEdit, itemId } = this.state;
@@ -47,26 +53,28 @@ class TravelDetailsItem extends Component {
       }
     }
     return bedChoices;
-  }
+  };
 
   loadState = (request = [], itemId, modalType, values) => {
-    const trip = (request.trips) && request.trips[itemId];
+    const trip = request.trips && request.trips[itemId];
     const pendingState = { itemId };
     if (trip && modalType === 'edit request') {
       pendingState.bedOnEdit = trip.beds;
-      pendingState.trip = {...trip};
+      pendingState.trip = { ...trip };
       pendingState.gender = request.gender;
       pendingState.missingRequiredFields = false;
       pendingState.accommodationType = trip.accommodationType;
     }
-    this.setState({ ...pendingState }, () => this.setBedChoices(modalType, values, []));
-  }
+    this.setState({ ...pendingState }, () =>
+      this.setBedChoices(modalType, values, [])
+    );
+  };
 
   setValues = (values, itemId, id, modalType) => {
-    if(modalType === 'edit request' ){
+    if (modalType === 'edit request') {
       values[`bed-${itemId}`] = values[`bed-${itemId}`] || id || null;
     }
-  }
+  };
 
   setBedChoices = (modalType, values, beds) => {
     const { itemId, selection } = this.props;
@@ -92,15 +100,16 @@ class TravelDetailsItem extends Component {
     } else {
       bedChoices = bedChoices.map(choice => {
         this.setValues(values, itemId, choice.id, modalType);
-        return ({
+        return {
           label: `${choice.rooms.roomName}, ${choice.bedName}`,
           value: choice.id
-        });});
+        };
+      });
       bedChoices.unshift({ label: 'Not Required', value: -2 });
       bedChoices.push({ label: 'Hotel Booking', value: -1 });
     }
     this.setState({ choices: bedChoices });
-  }
+  };
 
   handleChangeInput = event => {
     const { onChangeInput, handlePickBed, selection, values } = this.props;
@@ -110,7 +119,7 @@ class TravelDetailsItem extends Component {
       this.validateTripDetails(values, itemId, selection);
       handlePickBed(null, itemId, false);
     }
-  }
+  };
 
   handleDate = (date, event) => {
     const { handleDate, handlePickBed, selection, values } = this.props;
@@ -120,20 +129,17 @@ class TravelDetailsItem extends Component {
       this.validateTripDetails(values, itemId, selection);
       handlePickBed(null, itemId, false);
     }
-  }
+  };
 
-  renderLocation = (locationType) => {
-    const {
-      itemId,
-      renderInput,
-    } = this.props;
+  renderLocation = locationType => {
+    const { itemId, renderInput } = this.props;
     return (
       <div className="travel-to" onChange={this.handleChangeInput}>
         {renderInput(`${locationType}-${itemId}`, 'text', { parentid: itemId })}
         <img src={location} alt="icn" className="location-icon" />
       </div>
     );
-  }
+  };
 
   renderDeparture = () => {
     const {
@@ -141,7 +147,7 @@ class TravelDetailsItem extends Component {
       values,
       renderInput,
       customPropsForDeparture,
-      selection,
+      selection
     } = this.props;
     return (
       <div className="others-width" role="presentation">
@@ -154,7 +160,7 @@ class TravelDetailsItem extends Component {
         })}
       </div>
     );
-  }
+  };
 
   renderArrival = () => {
     const {
@@ -162,15 +168,12 @@ class TravelDetailsItem extends Component {
       values,
       renderInput,
       customPropsForArrival,
-      selection,
+      selection
     } = this.props;
-    return(
+    return (
       <div className="others-width" role="presentation">
         {renderInput(`arrivalDate-${itemId}`, 'date', {
-          ...customPropsForArrival(
-            values,
-            `departureDate-${itemId}`
-          ),
+          ...customPropsForArrival(values, `departureDate-${itemId}`),
           parentid: itemId,
           handleDate: this.handleDate,
           onChange: this.handleDate,
@@ -178,7 +181,7 @@ class TravelDetailsItem extends Component {
         })}
       </div>
     );
-  }
+  };
 
   renderBedDropdown = () => {
     const {
@@ -194,20 +197,44 @@ class TravelDetailsItem extends Component {
     const { choices, missingRequiredFields } = this.state;
     return (
       <div className="travel-to">
-        {(availableRooms.isLoading && availableRooms.rowId === itemId) ? (
-          <div className="travel-input-area__spinner" />)
-          : null}
-        {(selection === 'multi' && values['origin-0'] === values[`destination-${itemId}`] && values['origin-0'].trim() !== '') ? (
-          missingRequiredFields ? (
-            <div>
-              {
-                renderInput(`bed-${itemId}`, 'text', {
+        {availableRooms.isLoading && availableRooms.rowId === itemId ? (
+          <div className="travel-input-area__spinner" />
+        ) : null}
+        {selection === 'multi' &&
+        values['origin-0'] === values[`destination-${itemId}`] &&
+        values['origin-0'].trim() !== '' ? (
+            missingRequiredFields ? (
+              <div>
+                {renderInput(`bed-${itemId}`, 'text', {
                   className: 'room-dropdown',
                   placeholder: 'Not Required',
                   disabled: false,
-                  choices: [],
-                })
-              }
+                  choices: []
+                })}
+                <img
+                  style={{ top: '43px', position: 'absolute', right: '15px' }}
+                  src="/static/media/form_select_dropdown.d19986d7.svg"
+                  alt="icon"
+                />
+              </div>
+            ) : (
+              renderInput(`bed-${itemId}`, 'dropdown-select', {
+                className: 'room-dropdown',
+                parentid: itemId,
+                size: '100%',
+                choices: choices,
+                onChange: value => handlePickBed(value, itemId),
+                onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
+              })
+            )
+          ) : missingRequiredFields ? (
+            <div>
+              {renderInput(`bed-${itemId}`, 'text', {
+                value: '',
+                className: 'room-dropdown',
+                placeholder: 'Choose rooms',
+                disabled: missingRequiredFields
+              })}
               <img
                 style={{ top: '43px', position: 'absolute', right: '15px' }}
                 src="/static/media/form_select_dropdown.d19986d7.svg"
@@ -223,38 +250,10 @@ class TravelDetailsItem extends Component {
               onChange: value => handlePickBed(value, itemId),
               onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
             })
-          )
-        ) : (
-          missingRequiredFields ? (
-            <div>
-              {
-                renderInput(`bed-${itemId}`, 'text', {
-                  value: '',
-                  className: 'room-dropdown',
-                  placeholder: 'Choose rooms',
-                  disabled: missingRequiredFields
-                })
-              }
-              <img
-                style={{ top: '43px', position: 'absolute', right: '15px' }}
-                src="/static/media/form_select_dropdown.d19986d7.svg"
-                alt="icon"
-              />
-            </div>
-          )
-            :
-            renderInput(`bed-${itemId}`, 'dropdown-select', {
-              className: 'room-dropdown',
-              parentid: itemId,
-              size: '100%',
-              choices: choices,
-              onChange: value => handlePickBed(value, itemId),
-              onFocus: () => fetchRoomsOnFocus(values, itemId, selection)
-            })
-        )}
+          )}
       </div>
     );
-  }
+  };
 
   validateTripDetails(values, i, selection) {
     const isValid =
@@ -290,8 +289,7 @@ class TravelDetailsItem extends Component {
                 {this.renderBedDropdown()}
               </div>
             </div>
-            {selection === 'multi' &&
-              itemId >= 2 && (
+            {selection === 'multi' && itemId >= 2 && (
               <button
                 type="button"
                 className="delete-icon"
