@@ -49,7 +49,7 @@ export class Home extends Component {
     }
     if(availableRooms === prevState.availableRooms){
       fetchAvailableRooms();
-      return { availableRooms }
+      return { availableRooms };
     }
 
     return null;
