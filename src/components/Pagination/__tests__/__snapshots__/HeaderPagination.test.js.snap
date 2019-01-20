@@ -36,6 +36,7 @@ exports[`<HeaderPagination /> should render successfully 1`] = `
         ]
       }
       onClickItem={[Function]}
+      placeHolder=""
     />
   </div>
 </div>

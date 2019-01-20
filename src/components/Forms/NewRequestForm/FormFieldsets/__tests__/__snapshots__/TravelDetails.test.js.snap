@@ -227,32 +227,20 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
       selection="multi"
       values={
         Object {
-          "arrivalDate-1": "2019-10-29T21:00:00.000Z",
+          "arrivalDate-1": "2019-10-29T23:00:00.000Z",
           "bed-1": 1,
-          "departureDate-1": "2019-10-19T21:00:00.000Z",
+          "departureDate-1": "2019-10-19T23:00:00.000Z",
           "destination-1": "Lagos",
           "gender": "Male",
         }
       }
     />
   </div>
-  <div
-    className="add-multi-trip-area"
-    role="button"
-    tabIndex="0"
-  >
-    <button
-      className="another-trip"
-      onClick={[Function]}
-      type="button"
-    >
-      <img
-        alt="clicked"
-        className="addsvg"
-        src="add.svg"
-      />
-      Add another trip
-    </button>
-  </div>
+  <AddInputRowButton
+    addRowHandler={[Function]}
+    buttonClassName="another-trip"
+    text="Add another trip"
+    wrapperClassName="add-multi-trip-area"
+  />
 </fieldset>
 `;

@@ -31,7 +31,8 @@ describe('<SelectDropDown>', () => {
       selectedItem: {
         name: '2',
         value: 2
-      }
+      },
+      placeHolderText: '',
     });
   });
 
@@ -49,7 +50,8 @@ describe('<SelectDropDown>', () => {
       selectedItem: {
         name: '1',
         value: 1,
-      }
+      },
+      placeHolderText: '',
     });
   });
 

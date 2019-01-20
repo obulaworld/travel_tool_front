@@ -160,6 +160,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
               </div>
               <ul
                 className="select-menu select-menu--inactive"
+                onScroll={[Function]}
               >
                 <li
                   id="choice"

@@ -19,7 +19,10 @@ const TextArea = (props) => {
 };
 
 TextArea.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ])
 };
 
 TextArea.defaultProps = {

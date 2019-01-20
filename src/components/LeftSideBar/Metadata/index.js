@@ -139,12 +139,6 @@ const NavItemsMetadata = [
         onlyVisibleTo: ['Super Administrator']
       },
       {
-        link_to: '/settings/reminder-setup',
-        exact: true,
-        text: 'Reminder Setup',
-        onlyVisibleTo: ['Travel Administrator', 'Super Administrator']
-      },
-      {
         link_to: '/settings/profile',
         text: 'User Profile',
       },
@@ -153,6 +147,18 @@ const NavItemsMetadata = [
         exact: true,
         text: 'Travel team',
         onlyVisibleTo: ['Travel Administrator']
+      },
+      {
+        link_to: '/settings/reminders',
+        exact: true,
+        text: 'Reminder Condition',
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
+      },
+      {
+        link_to: '/settings/reminder-setup',
+        exact: true,
+        text: 'Reminder Setup',
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator']
       },
     ],
     icons: {

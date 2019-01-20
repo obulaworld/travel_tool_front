@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReminderFormInputFields should render correctly 1`] = `
+<fieldset>
+  <Input
+    autoComplete="off"
+    className=""
+    label="Condition Name"
+    labelNote=""
+    name="conditionName"
+    onChange={null}
+    type="text"
+  />
+  <div
+    className="reminders-fieldset"
+    key="0"
+  >
+    <Input
+      autoComplete="off"
+      choices={
+        Array [
+          Object {
+            "label": "Email Reminder",
+            "value": "1",
+          },
+        ]
+      }
+      className=""
+      currentPage={3}
+      fetchAllEmailTemplates={[Function]}
+      label="Reminder 1"
+      labelNote=""
+      loading={false}
+      name="reminderTemplate-0"
+      onChange={[Function]}
+      pageCount={4}
+      templatesCount={1}
+      type="dropdown-select"
+    />
+    <div
+      className="dropdown-input-group"
+    >
+      <Input
+        autoComplete="off"
+        className=""
+        id={0}
+        label="Date"
+        labelNote=""
+        min={1}
+        name="date-0"
+        onChange={[Function]}
+        type="number"
+      />
+      <Input
+        autoComplete="off"
+        choices={
+          Array [
+            "Days",
+            "Weeks",
+            "Months",
+            "Years",
+          ]
+        }
+        className="period"
+        label=""
+        labelNote=""
+        name="period-0"
+        onChange={[Function]}
+        type="dropdown-select"
+      />
+    </div>
+    <p>
+      To Expiry
+    </p>
+  </div>
+  <div
+    className="reminders-fieldset"
+    key="1"
+  >
+    <Input
+      autoComplete="off"
+      choices={
+        Array [
+          Object {
+            "label": "Email Reminder",
+            "value": "1",
+          },
+        ]
+      }
+      className=""
+      currentPage={3}
+      fetchAllEmailTemplates={[Function]}
+      label="Reminder 2"
+      labelNote=""
+      loading={false}
+      name="reminderTemplate-1"
+      onChange={[Function]}
+      pageCount={4}
+      templatesCount={1}
+      type="dropdown-select"
+    />
+    <div
+      className="dropdown-input-group"
+    >
+      <Input
+        autoComplete="off"
+        className=""
+        id={1}
+        label="Date"
+        labelNote=""
+        min={1}
+        name="date-1"
+        onChange={[Function]}
+        type="number"
+      />
+      <Input
+        autoComplete="off"
+        choices={
+          Array [
+            "Days",
+            "Weeks",
+            "Months",
+            "Years",
+          ]
+        }
+        className="period"
+        label=""
+        labelNote=""
+        name="period-1"
+        onChange={[Function]}
+        type="dropdown-select"
+      />
+    </div>
+    <p>
+      To Expiry
+    </p>
+    <button
+      className="delete-icon"
+      onClick={[Function]}
+      type="button"
+    >
+      <img
+        alt="clicked"
+        className="addsvg"
+        src="delete.svg"
+      />
+    </button>
+  </div>
+  <div
+    className="reminders-fieldset"
+    key="2"
+  >
+    <Input
+      autoComplete="off"
+      choices={
+        Array [
+          Object {
+            "label": "Email Reminder",
+            "value": "1",
+          },
+        ]
+      }
+      className=""
+      currentPage={3}
+      fetchAllEmailTemplates={[Function]}
+      label="Reminder 3"
+      labelNote=""
+      loading={false}
+      name="reminderTemplate-2"
+      onChange={[Function]}
+      pageCount={4}
+      templatesCount={1}
+      type="dropdown-select"
+    />
+    <div
+      className="dropdown-input-group"
+    >
+      <Input
+        autoComplete="off"
+        className=""
+        id={2}
+        label="Date"
+        labelNote=""
+        min={1}
+        name="date-2"
+        onChange={[Function]}
+        type="number"
+      />
+      <Input
+        autoComplete="off"
+        choices={
+          Array [
+            "Days",
+            "Weeks",
+            "Months",
+            "Years",
+          ]
+        }
+        className="period"
+        label=""
+        labelNote=""
+        name="period-2"
+        onChange={[Function]}
+        type="dropdown-select"
+      />
+    </div>
+    <p>
+      To Expiry
+    </p>
+    <button
+      className="delete-icon"
+      onClick={[Function]}
+      type="button"
+    >
+      <img
+        alt="clicked"
+        className="addsvg"
+        src="delete.svg"
+      />
+    </button>
+  </div>
+  <AddInputRowButton
+    addRowHandler={[Function]}
+    buttonClassName="add-reminder__button"
+    text="Add a Reminder"
+    wrapperClassName="add-reminder__border-dashed"
+  />
+</fieldset>
+`;

@@ -106,6 +106,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
               </div>
               <ul
                 className="select-menu select-menu--inactive"
+                onScroll={[Function]}
               >
                 <li
                   id="choice"
@@ -317,6 +318,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
               </div>
               <ul
                 className="select-menu select-menu--inactive"
+                onScroll={[Function]}
               >
                 <li
                   id="choice"

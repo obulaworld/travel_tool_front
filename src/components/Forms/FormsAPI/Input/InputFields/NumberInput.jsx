@@ -17,7 +17,7 @@ const NumberInput = (props) => {
       <input
         min="1"
         {...NumberProps}
-        className={`${className} ${NumberProps.className}`} 
+        className={`${className} ${NumberProps.className}`}
       />
       <div className="style-number">
         <img src={dropDown} alt="icn" className="image1" />
@@ -28,7 +28,10 @@ const NumberInput = (props) => {
 };
 
 NumberInput.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ])
 };
 
 NumberInput.defaultProps = {

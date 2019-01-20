@@ -19,9 +19,11 @@ import ConnectedReadiness from '../views/Readiness';
 import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
 import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
 import ConnectedHome from '../views/Home';
+import ConnectedReminders from '../views/Reminders';
 import ConnectedCreateEmailTemplate from '../views/ReminderSetup/CreateEmailTemplate';
 import ConnectedReminderSetup from '../views/ReminderSetup';
 import NotFound from '../views/ErrorPages';
+import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
 
 import {
   TRAVEL_ADMINISTRATOR,
@@ -189,9 +191,31 @@ const Routes = () => (
             }
           />
           <Route
+            path="/settings/reminders/create"
+            exact
+            component={
+              RequireAuth(
+                ConnectedCreateReminder,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
+                TRAVEL_TEAM_MEMBER
+              )
+            }
+          />
+          <Route
             path="/documents"
             exact
             component={RequireAuth(ConnectedDocuments)}
+          />
+          <Route
+            path="/settings/reminders"
+            exact
+            component={RequireAuth(
+              ConnectedReminders,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route component={RequireAuth(NotFound)} />
         </Switch>
