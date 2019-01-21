@@ -6,7 +6,7 @@ import toast from 'toastr';
 import { isEmpty } from 'lodash';
 import DocumentAPI from '../../../services/DocumentAPI';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
-import PassportDetails from'./FormFieldsets/passportDetails';
+import PassportDetails from './FormFieldsets/passportDetails';
 import './TravelReadiness.scss';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import Preloader from '../../Preloader/Preloader';

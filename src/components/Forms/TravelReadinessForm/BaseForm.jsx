@@ -42,7 +42,7 @@ class BaseForm extends Component {
       this.newState = {
         values: {
           name,
-          dateOfIssue: moment(dateOfIssue),
+          dateOfIssue: dateOfIssue === '' ? '' : moment(dateOfIssue),
           expiryDate: moment(expiryDate),
           documentId
         },
@@ -70,11 +70,11 @@ class BaseForm extends Component {
     const {  values, image, errors, documentUploaded, id } = this.state;
     const { createTravelReadinessDocument, editTravelReadinessDocument, modalType, documentType } = this.props;
     const { dateOfIssue, expiryDate } = values;
-    if( documentUploaded){
+    if(documentUploaded){
 
       const newValues = {
         ...values,
-        dateOfIssue:moment(dateOfIssue).format('YYYY/MM/DD'),
+        dateOfIssue: dateOfIssue === '' ? '' : moment(dateOfIssue).format('YYYY/MM/DD'),
         expiryDate: moment(expiryDate).format('YYYY/MM/DD')
       };
 
@@ -103,7 +103,7 @@ class BaseForm extends Component {
           const documentValues = {
             ...values, 
             cloudinaryUrl: url,
-            dateOfIssue:moment(dateOfIssue).format('MM/DD/YYYY'),
+            dateOfIssue: dateOfIssue === '' ? '' : moment(dateOfIssue).format('MM/DD/YYYY'),
             expiryDate: moment(expiryDate).format('MM/DD/YYYY')
           };
 
@@ -138,9 +138,7 @@ class BaseForm extends Component {
   render() {
     const {errors, values, hasBlankFields, uploadingDocument, name, imageChanged } = this.state;
     const { documentType, modalType, document, fetchingDocument } = this.props;
-    if (documentType === 'other') {
-      delete errors.documentid;
-    }
+    if (documentType === 'other') delete errors.documentid;
     return(
       <div>
         {fetchingDocument ? <Preloader /> : (
@@ -151,7 +149,7 @@ class BaseForm extends Component {
               <div className="travel-document-select-file">
                 <p>Attach File</p>
                 <FileUploadField 
-                  name={name} 
+                  name={name}
                   documentUpload={documentUpload} 
                   handleUpload={this.handleUpload}
                   document={document}

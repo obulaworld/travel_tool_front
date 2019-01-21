@@ -236,8 +236,8 @@ export class UserTravelReadinessDetailsTable extends Component {
         <div className="table__readiness--empty">
           No
           {' '}
-          {`${activeDocument}`}
-          s
+          {`${activeDocument === 'other' ? 'other document uploaded' : activeDocument}`}
+          {`${activeDocument === 'other' ? '' : 's'}`}
         </div>
       );
     }

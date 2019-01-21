@@ -9,7 +9,14 @@ class OtherDocumentFieldSet extends Component {
       <fieldset>
         <div className="input-group visa-input">
           {renderInput('name', 'text')}
-          {renderInput('dateOfIssue', 'date')}
+          {renderInput(
+            'dateOfIssue',
+            'date',
+            {
+              labelNote: '(Optional)',
+              required: false,
+            }
+          )}
           {renderInput(
             'documentId',
             'text',

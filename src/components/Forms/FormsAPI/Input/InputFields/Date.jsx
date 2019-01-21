@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { PropTypes } from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
 import calendarIcon from '../../../../../images/icons/calendar_icon.svg';
+import { minDate, maxDate } from '../../../../../helper/generateMinAndMaxDate';
 
-class DateInput extends React.Component {
+class DateInput extends Component {
   
   state = {
     selectedDate: null,
@@ -35,6 +36,8 @@ class DateInput extends React.Component {
           placeholderText="MM/DD/YYYY"
           selected={selectedDate}
           onChange={(date, event) => this.handleChange(date, event)}
+          minDate={name === 'expiryDate' ? minDate : null}
+          maxDate={name === 'dateOfIssue' || name === 'dateOfBirth' ? maxDate : null}
           name={name}
           onBlur={onBlur}
         />
@@ -44,11 +47,13 @@ class DateInput extends React.Component {
   }
 }
 
-
 DateInput.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string
+  ]),
   className: PropTypes.string,
-  name:  PropTypes.string,
+  name: PropTypes.string,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired
 };
@@ -56,7 +61,7 @@ DateInput.propTypes = {
 DateInput.defaultProps = {
   className: '',
   error: '',
-  name: ''
+  name: '',
 };
 
 export default DateInput;

@@ -167,5 +167,19 @@
       background-color: #F8F8F8;
       color: #999999;
     }
+
+  }
+
+  #actionButton {
+    border: 1px solid #3359db;
+    border-radius: 1px;
+    background-color: #ffffff;
+    cursor: pointer;
+    outline: none !important;
+    color: #3359db;
+    font-family: 'DIN Pro';
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
   }
 }

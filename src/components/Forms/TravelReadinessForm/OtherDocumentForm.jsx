@@ -18,7 +18,8 @@ class OtherDocumentForm extends Component{
       errors: {},
       hasBlankFields: true,
       optionalFields: [
-        'documentId'
+        'documentId',
+        'dateOfIssue'
       ]
     };
     this.state = {...this.defaultState};
