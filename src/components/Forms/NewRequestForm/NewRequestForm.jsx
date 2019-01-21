@@ -557,7 +557,7 @@ class NewRequestForm extends PureComponent {
         values={values}
         errors={errors}
         validatorName="validate">
-        {creatingRequest && <h5 className="style-h5">Creating request...</h5>}
+    
         <form onSubmit={this.handleSubmit} className="new-request">
           {this.renderPersonalDetailsFieldset()}
           {this.renderTravelDetailsFieldset()}
