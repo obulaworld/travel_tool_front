@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TemplatesMenu /> renders without crashing 1`] = `
+<span>
+  <i
+    className="fa fa-ellipsis-v on"
+    id="toggleIcon"
+    onClick={[Function]}
+    role="presentation"
+  />
+  <div
+    className="table__menu-container "
+  >
+    <ul
+      className="table__menu-list"
+    >
+      <li
+        className="table__menu-list-item top"
+      >
+        <span
+          className="edit"
+        >
+          Edit
+        </span>
+      </li>
+      <li
+        className="table__menu-list-item bottom"
+      >
+        <span
+          className="disable"
+        >
+          Disable
+        </span>
+      </li>
+    </ul>
+  </div>
+</span>
+`;

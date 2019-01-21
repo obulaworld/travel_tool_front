@@ -4,18 +4,20 @@ exports[`TravelReadinessDocumentsTable renders TableBody 1`] = `
 <tbody
   className="table__body"
 >
-  <Component
+  <UserReadiness
     department="Success"
     key="-LJlsimdclse9s"
     name="John Snow"
+    othersCount={0}
     passportsCount={1}
     userId="-LJlsimdclse9s"
     visasCount={2}
   />
-  <Component
+  <UserReadiness
     department="Talent & Development"
     key="-LMIzC-bCc10w7Uqc7-A"
     name="Celestine Ekoh-Ordan"
+    othersCount={0}
     passportsCount={0}
     userId="-LMIzC-bCc10w7Uqc7-A"
     visasCount={0}
@@ -45,6 +47,11 @@ exports[`TravelReadinessDocumentsTable renders TableHead 1`] = `
       className="mdl-data-table__cell--non-numeric table__head"
     >
       No. of Visas
+    </th>
+    <th
+      className="mdl-data-table__cell--non-numeric table__head"
+    >
+      No. of Other Documents
     </th>
   </tr>
 </thead>
@@ -79,6 +86,11 @@ exports[`TravelReadinessDocumentsTable renders UserReadiness 1`] = `
     className="mdl-data-table__cell--non-numeric table__data"
   >
     2
+  </td>
+  <td
+    className="mdl-data-table__cell--non-numeric table__data"
+  >
+    3
   </td>
 </tr>
 `;

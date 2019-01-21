@@ -110,20 +110,20 @@ const NavItemsMetadata = [
         link_to: '/travel-readiness',
         exact: true,
         text: 'Travel Readiness',
-        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator', 'Travel Team Member']
       },
       {
         link_to: '/checklists',
         exact: true,
         text: 'Travel Checklist',
-        onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator', 'Travel Team Member']
       }
     ],
     icons: {
       active: activeChecklistIcon,
       inactive: inactiveChecklistIcon
     },
-    onlyVisibleTo: ['Super Administrator', 'Travel Administrator']
+    onlyVisibleTo: ['Super Administrator', 'Travel Administrator','Travel Team Member']
   },
   // Settings
   {

@@ -24,6 +24,7 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
       "handleSubmit": [Function],
       "props": Object {
         "createReminderEmailTemplate": [Function],
+        "errors": Object {},
         "history": Object {
           "push": [Function],
         },
@@ -51,6 +52,7 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
           "_context": Object {},
           "_element": <NewEmailTemplateForm
             createReminderEmailTemplate={[Function]}
+            errors={Object {}}
             history={
                     Object {
                             "push": [Function],

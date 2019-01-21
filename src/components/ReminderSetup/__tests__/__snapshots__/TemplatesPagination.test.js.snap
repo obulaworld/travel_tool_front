@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TemplatesPagination /> renders without crashing 1`] = `
+<div
+  className="reminder-email-templates"
+>
+  <div
+    className="pagination"
+  >
+    <button
+      className="pagination__button"
+      disabled={false}
+      id="previous-button"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className=""
+      >
+        Previous
+      </span>
+      <span
+        className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+      >
+        Previous
+      </span>
+    </button>
+    <div
+      className="pagination__items"
+    >
+      <span
+        className="pagination__page"
+      >
+        Page
+      </span>
+      <div
+        className="pagination__current-page"
+        id="current-page"
+      >
+        2
+      </div>
+      of
+      <span
+        className="pagination__all-pages"
+        id="page-count"
+      >
+        6
+      </span>
+    </div>
+    <button
+      className="pagination__button"
+      disabled={false}
+      id="next-button"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className=""
+      >
+        Next
+      </span>
+      <span
+        className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+      >
+        Next
+      </span>
+    </button>
+  </div>
+</div>
+`;

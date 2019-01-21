@@ -33,69 +33,50 @@ import {
 
 const Routes = () => (
   <Switch>
-    <Route
-      path="/"
-      exact
-      component={ConnectedLogin}
-    />
-    <Route
-      path="/redirect/*"
-      exact
-      component={ConnectedLogin}
-    />
+    <Route path="/" exact component={ConnectedLogin} />
+    <Route path="/redirect/*" exact component={ConnectedLogin} />
     <Route>
       <LayoutShell>
         <Switch>
           <Route
             path="/dashboard"
             exact
-            component={
-              RequireAuth(
-                ConnectedDashboard,
-                TRAVEL_ADMINISTRATOR,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER
-              )
-            }
+            component={RequireAuth(
+              ConnectedDashboard,
+              TRAVEL_ADMINISTRATOR,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
-          <Route
-            path="/home"
-            exact
-            component={RequireAuth(ConnectedHome)}
-          />
+          <Route path="/home" exact component={RequireAuth(ConnectedHome)} />
           <Route
             path="/requests/my-approvals"
             exact
-            component={
-              RequireAuth(
-                ConnectedApprovals,
-                SUPER_ADMINISTRATOR,MANAGER
-              )
-            }
+            component={RequireAuth(
+              ConnectedApprovals,
+              SUPER_ADMINISTRATOR,
+              MANAGER
+            )}
           />
           <Route
             path="/requests/my-verifications"
             exact
-            component={
-              RequireAuth(
-                ConnectedVerifications,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedVerifications,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER,
+              TRAVEL_ADMINISTRATOR
+            )}
           />
           <Route
             path="/requests/my-verifications/:requestId"
             exact
-            component={
-              RequireAuth(
-                ConnectedVerifications,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedVerifications,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER,
+              TRAVEL_ADMINISTRATOR
+            )}
           />
           <Route
             path="/requests"
@@ -110,12 +91,7 @@ const Routes = () => (
           <Route
             path="/settings/roles"
             exact
-            component={
-              RequireAuth(
-                ConnectedRole,
-                SUPER_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(ConnectedRole, SUPER_ADMINISTRATOR)}
           />
           <Route
             path="/requests/:requestId"
@@ -135,13 +111,11 @@ const Routes = () => (
           <Route
             path="/residence/manage"
             exact
-            component={
-              RequireAuth(
-                ConnectedAccommodation,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedAccommodation,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR
+            )}
           />
           <Route
             path="/residence/manage/guest-houses/:guestHouseId"
@@ -156,47 +130,41 @@ const Routes = () => (
           <Route
             path="/checklists"
             exact
-            component={
-              RequireAuth(
-                ConnectedChecklist,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedChecklist,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/travel-readiness"
             exact
-            component={
-              RequireAuth(
-                ConnectedTravelReadinessDocuments,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR,
-              )
-            }
+            component={RequireAuth(
+              ConnectedTravelReadinessDocuments,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/travel-readiness/:userId"
             exact
-            component={
-              RequireAuth(
-                ConnectedUserTravelReadinessDetails,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER,
-              )
-            }
+            component={RequireAuth(
+              ConnectedUserTravelReadinessDetails,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/roles/:roleId"
             exact
-            component={
-              RequireAuth(
-                ConnectedRoleDetails,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedRoleDetails,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR
+            )}
           />
           <Route
             path="/settings/reminder-setup"
@@ -225,10 +193,7 @@ const Routes = () => (
             exact
             component={RequireAuth(ConnectedDocuments)}
           />
-          <Route
-            component={
-              RequireAuth(NotFound)
-            } />
+          <Route component={RequireAuth(NotFound)} />
         </Switch>
       </LayoutShell>
     </Route>
