@@ -16,7 +16,10 @@ import {
   VERIFY_TRAVEL_READINESS_DOCUMENT_FAILURE,
   EDIT_TRAVEL_READINESS_DOCUMENT,
   EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-  EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE
+  EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  DELETE_TRAVEL_READINESS_DOCUMENT,
+  DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE
 } from '../constants/actionTypes';
 
 export const initialState = {
@@ -46,6 +49,19 @@ const tdReducer = (state = initialState.userReadiness.travelDocuments, action) =
           return action.document;
         }
         return item;
+      })
+    };
+  default: return state;
+  }
+};
+
+const delReducer = (state = initialState.userReadiness.travelDocuments, action) => {
+  switch (action.type) {
+  case DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS:
+    return {
+      ...state,
+      [action.deletedDocument.type]: state[action.deletedDocument.type].filter((item) => {
+        return item.id !== action.deletedDocument.id;
       })
     };
   default: return state;
@@ -158,6 +174,29 @@ export default (state = initialState, action) => {
     return {
       ...state,
       updatingDocument: false,
+      error: action.error,
+      document: {},
+    };
+  case DELETE_TRAVEL_READINESS_DOCUMENT:
+    return {
+      ...state,
+      deletingDocument: true,
+      document: {},
+    };
+  case DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS:
+    return {
+      ...state,
+      deletingDocument: false,
+      document: action.deletedDocument,
+      userReadiness: {
+        ...state.userReadiness,
+        travelDocuments: delReducer(state.userReadiness.travelDocuments, action)
+      }
+    };
+  case DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE:
+    return {
+      ...state,
+      deletingDocument: false,
       error: action.error,
       document: {},
     };

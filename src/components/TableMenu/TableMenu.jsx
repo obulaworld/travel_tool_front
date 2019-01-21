@@ -8,7 +8,6 @@ import deleteIcon from '../../images/deleted.svg';
 import DeleteModal from '../../views/Documents/DeleteModal';
 
 class TableMenu extends PureComponent {
-
   showDeleteModal = () => {
     let { openModal } = this.props;
     openModal(true, 'delete document');
@@ -17,18 +16,26 @@ class TableMenu extends PureComponent {
   confirmDeleteRequest = (e) => {
     e.preventDefault();
     const { deleteRequest, request, closeModal } = this.props;
-    const requestId = request.id;
-    deleteRequest(requestId);
-    closeModal(true, 'new model');
+    switch (!isEmpty(request.id)) {
+    case true:
+      deleteRequest(request.id);
+      closeModal(true, 'new model'); break;
+    case false:
+      this.deleteTravelDocument(); break;
+    default: break;
+    }
   }
 
+  deleteTravelDocument = () => {
+    const { passportData, visaData, documentData, deleteDocument } = this.props;
+    const documentToBeDeleted = [passportData, visaData, documentData].filter(document => document.id !== undefined)[0];
+    deleteDocument(documentToBeDeleted.id);
+  }
   handleIconOpentoggle = (toggleMenu, data, toggleId) => {
     return (
       <i
-        className="fa fa-ellipsis-v"
-        id={toggleId}
-        role="presentation"
-        onClick={() => toggleMenu(data.id, data)}
+        className="fa fa-ellipsis-v" id={toggleId}
+        role="presentation" onClick={() => toggleMenu(data.id, data)}
       />
     );
   };
@@ -36,10 +43,8 @@ class TableMenu extends PureComponent {
   handleIconClosetoggle = (toggleMenu, data, toggleId) => {
     return (
       <li
-        className="table__menu-list-item"
-        id={toggleId}
-        onClick={() => toggleMenu(data.id, data)}
-        role="presentation"
+        className="table__menu-list-item" id={toggleId}
+        onClick={() => toggleMenu(data.id, data)} role="presentation"
       >
         <img src={cancelIcon} alt="cancel-icon" className="menu-icon" />
         Cancel
@@ -51,13 +56,11 @@ class TableMenu extends PureComponent {
     const { showTravelChecklist, request, toggleMenu } = this.props;
     return (
       <li
-        className="table__menu-list-item"
-        id="travelChecklistBtn"
+        className="table__menu-list-item" id="travelChecklistBtn"
         onClick={() => {
           showTravelChecklist(request, 'travel checklist');
           toggleMenu(request.id, request);
-        }}
-        role="presentation"
+        }} role="presentation"
       >
         <img src={checkListIcon} alt="cancel-icon" className="menu-icon" />
         Travel Checklist
@@ -66,20 +69,15 @@ class TableMenu extends PureComponent {
   }
 
   renderCheckListSubmissionBtn = () => {
-    const {
-      requestStatus, showTravelChecklist,
-      request, toggleMenu
-    } = this.props;
+    const { requestStatus, showTravelChecklist, request, toggleMenu } = this.props;
     return (
       requestStatus === 'Approved' && (
         <li
-          className="table__menu-list-item"
-          id="checklistSubmission"
+          className="table__menu-list-item" id="checklistSubmission"
           onClick={() => {
             showTravelChecklist(request, 'upload submissions');
             toggleMenu(request.id, request);
-          }}
-          role="presentation"
+          }} role="presentation"
         >
           <img src={checkListIcon} alt="list-icon" className="menu-icon" />
           Travel Checklist
@@ -88,24 +86,36 @@ class TableMenu extends PureComponent {
     );
   }
 
-  renderDelete = () => {
+  renderDeleteModalDocumentName = (data) => {
+    if (data.type === 'passport') {
+      return `this ${data.data.nationality} ${data.type}`;
+    } else if (data.type === 'visa') {
+      return `this ${data.data.country} visa`;
+    } else {
+      return `this ${data.data.name}`;
+    }
+  }
+  renderDeleteModalName = (requestId, data) => {
+    switch (!isEmpty(requestId)){
+    case true: return requestId;
+    case false: return this.renderDeleteModalDocumentName(data);
+    default: return 'Home';
+    }
+  }
+
+  renderDelete = (data) => {
     const { shouldOpen, closeModal, modalType, request } = this.props;
     return (
       <li
-        className="table__menu-list-item"
-        id="deleteRequest"
-        onClick={this.showDeleteModal}
-        role="presentation"
+        className="table__menu-list-item" id="deleteRequest"
+        onClick={this.showDeleteModal} role="presentation"
       >
         <img src={deleteIcon} alt="delete-icon" className="menu-icon" />
         Delete
         <DeleteModal
-          closeModal={closeModal}
-          shouldOpen={shouldOpen}
-          modalType={modalType}
-          handleDelete={this.confirmDeleteRequest}
-          documentName={request.id}
-          title="Delete Request"
+          closeModal={closeModal} shouldOpen={shouldOpen} handleDelete={this.confirmDeleteRequest}
+          modalType={modalType} documentName={this.renderDeleteModalName(request.id, data)}
+          title={!isEmpty(request.id) ? 'Delete Request' : 'Delete Document'}
         />
       </li>
     );
@@ -118,12 +128,7 @@ class TableMenu extends PureComponent {
   }
 
   renderToggle = () => {
-    const {
-      toggleMenu,
-      editRequest,
-      request,
-      type,
-      requestStatus } = this.props;
+    const { toggleMenu, editRequest, request, type, requestStatus } = this.props;
 
     return (
       <div>
@@ -133,20 +138,16 @@ class TableMenu extends PureComponent {
             <ul className="table__menu-list">
               {requestStatus === 'Open' && (
                 <li
-                  className="table__menu-list-item"
-                  id="iconBtn"
+                  className="table__menu-list-item" id="iconBtn"
                   onClick={() => {
                     editRequest(request.id);
                     toggleMenu(request.id);
-                  }}
-                  role="presentation"
+                  }} role="presentation"
                 >
                   <img src={editIcon} alt="edit-icon" className="menu-icon" />
                   Edit
                 </li>)}
-              {type === 'requests' &&
-                requestStatus === 'Open' && this.renderTravelCheckListBtn()
-              }
+              {type === 'requests' && requestStatus === 'Open' && this.renderTravelCheckListBtn() }
               {this.renderCheckListSubmissionBtn()}
               {requestStatus === 'Open' && this.renderDelete()}
               {this.handleIconClosetoggle(toggleMenu, request, 'toggleButton')}
@@ -168,17 +169,16 @@ class TableMenu extends PureComponent {
           <ul className="table__menu-list">  
             {!data.isVerified && (
               <li
-                className="table__menu-list-item"
-                id="iconBtn2"
+                className="table__menu-list-item" id="iconBtn2"
                 onClick={() => {
                   toggleMenu(data.id);
                   editDocument(data.id);
-                }}
-                role="presentation"
+                }} role="presentation"
               >
                 <img src={editIcon} alt="edit-icon" className="menu-icon" />
                 Edit
               </li>)}
+            {!data.isVerified && ( this.renderDelete(data) )}
             {this.handleIconClosetoggle(toggleMenu, data, 'toggleButton2')}
           </ul>
         </div>
@@ -189,7 +189,7 @@ class TableMenu extends PureComponent {
   renderDocumentsToggle() {
     const { passportData, visaData, documentData } = this.props;
     return (
-      <div>      
+      <div>
         { !isEmpty(passportData) && this.renderEditButton(passportData) }
         { !isEmpty(visaData) && this.renderEditButton(visaData) }
         { !isEmpty(documentData) && this.renderEditButton(documentData) }
@@ -230,6 +230,7 @@ TableMenu.propTypes = {
   visaData: PropTypes.object,
   documentData: PropTypes.object,
   editDocument: PropTypes.func,
+  deleteDocument: PropTypes.func
 };
 TableMenu.defaultProps = {
   modalType: '',
@@ -246,9 +247,7 @@ TableMenu.defaultProps = {
   shouldOpen: false,
   openModal: () => {},
   closeModal: () => {},
-};
-TableMenu.defaultProps = {
-  modalType: ''
+  deleteDocument: () => { }
 };
 
 export default TableMenu;

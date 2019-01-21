@@ -28,6 +28,10 @@ class TravelReadinessDocumentsAPI {
       }
     );
   }
+
+  static deleteTravelReadinessDocument(documentId) {
+    return axios.delete(`${baseUrl}/travelreadiness/documents/${documentId}`);
+  }
 }
 
 export default TravelReadinessDocumentsAPI;

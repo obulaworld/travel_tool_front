@@ -6,10 +6,7 @@ exports[`<FilterContext /> should render without crashing 1`] = `
     Object {
       "handleFilter": [Function],
       "state": Object {
-        "city": Array [
-          "Nairobi",
-          " Kenya",
-        ],
+        "city": "Nairobi",
         "range": Object {
           "end": "2019-01-31",
           "start": "2019-01-01",

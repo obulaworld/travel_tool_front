@@ -245,6 +245,18 @@ describe('travel readiness reducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
+  it('should handle DELETE_TRAVEL_READINESS_DOCUMENT', () => {
+    const action = {
+      type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
+      documentId: 'JiSe',
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, deletingDocument: true, document: {}};
+
+    expect(newState).toEqual(expectedState);
+  });
+
   it('should handle EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
     const action = {
       type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
@@ -253,6 +265,17 @@ describe('travel readiness reducer', () => {
 
     const newState = travelReadinessDocuments(initialState, action);
     const expectedState = { ...initialState, isLoading: false, document: action.document, updatingDocument: false };
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+    const action = {
+      type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+      deletedDocument: { id: 'JiSe', type: 'visa' },
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, isLoading: false, document: action.deletedDocument, deletingDocument: false };
 
     expect(newState).toEqual(expectedState);
   });
@@ -265,6 +288,17 @@ describe('travel readiness reducer', () => {
 
     const newState = travelReadinessDocuments(initialState, action);
     const expectedState = { ...initialState, error: action.error, document: {}, updatingDocument: false};
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {
+    const action = {
+      type: types.DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+      error: 'Error fetching travel readiness document'
+    };
+
+    const newState = travelReadinessDocuments(initialState, action);
+    const expectedState = { ...initialState, isLoading: false, error: action.error, document: {}, deletingDocument: false };
 
     expect(newState).toEqual(expectedState);
   });

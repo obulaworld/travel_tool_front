@@ -2,12 +2,13 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import toast from 'toastr';
-import { 
-  watchFetchUsersReadinessDocuments, 
-  watchFetchReadinessDocuments, 
-  watchFetchReadinessDocumentDetails, 
+import {
+  watchFetchUsersReadinessDocuments,
+  watchFetchReadinessDocuments,
+  watchFetchReadinessDocumentDetails,
   watchVerifyTravelReadinessDocuments,
-  watchEditTravelReadinessDocument
+  watchEditTravelReadinessDocument,
+  watchDeleteTravelReadinessDocument
 } from '../travelReadinessDocumentsSaga';
 import * as types from '../../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../../services/TravelReadinessDocumentsAPI';
@@ -222,7 +223,7 @@ describe('Travel Readiness Documents saga', () => {
         status: 500
       }
     };
-    
+
 
     it('updates travel readiness document', () => {
       return expectSaga(watchEditTravelReadinessDocument)
@@ -254,6 +255,52 @@ describe('Travel Readiness Documents saga', () => {
         .dispatch({
           type: types.EDIT_TRAVEL_READINESS_DOCUMENT,
           documentType: 'passport',
+          documentId,
+        })
+        .run();
+    });
+  });
+
+  describe('DELETE Travel Readiness Document', () => {
+    const documentId = 'getIt';
+    const response = {
+      data: {
+        success: true,
+        message: 'Successfully deleted document',
+        deletedDocument: { id: 'getIt', type: 'visa' },
+      }
+    };
+
+    const error = new Error('Server error, try again');
+    error.response = { status: 500 };
+
+    it('verifies travel readiness document', () => {
+      return expectSaga(watchDeleteTravelReadinessDocument)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.deleteTravelReadinessDocument, documentId), response]
+        ])
+        .put({
+          type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+          deletedDocument: response.data.deletedDocument
+        })
+        .dispatch({
+          type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
+          documentId,
+        })
+        .run();
+    });
+
+    it('handles errors from fetching', () => {
+      return expectSaga(watchDeleteTravelReadinessDocument)
+        .provide([
+          [call(TravelReadinessDocumentsAPI.deleteTravelReadinessDocument, documentId), throwError(error)]
+        ])
+        .put({
+          type: types.DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+          error: error.message
+        })
+        .dispatch({
+          type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
           documentId,
         })
         .run();

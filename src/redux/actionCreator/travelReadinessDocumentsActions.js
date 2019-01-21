@@ -76,3 +76,18 @@ export const editTravelReadinessDocumentFailure = (error) => ({
   type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
   error
 });
+
+export const deleteTravelReadinessDocument = (documentId) => ({
+  type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
+  documentId
+});
+
+export const deleteTravelReadinessDocumentSuccess = (deletedDocument) => ({
+  type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+  deletedDocument
+});
+
+export const deleteTravelReadinessDocumentFailure = (error) => ({
+  type: types.DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
+  error
+});

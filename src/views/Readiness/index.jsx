@@ -8,9 +8,9 @@ import TravelDocumentModal from '../../components/modal/TravelDocumentModal/Trav
 import PassportForm from '../../components/Forms/TravelReadinessForm/PassportForm';
 import { createTravelReadinessDocument } from '../../redux/actionCreator/travelReadinessActions';
 import PageHeader from '../../components/PageHeader';
-import TravelReadinessDetailsTable from 
-  '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
-import { fetchUserReadinessDocuments, editTravelReadinessDocument, fetchTravelReadinessDocument
+import TravelReadinessDetailsTable from '../TravelReadinessDocuments/UserTravelReadinessDetails/UserTravelReadinessDetailsTable';
+import {
+  fetchUserReadinessDocuments, editTravelReadinessDocument, deleteTravelReadinessDocument, fetchTravelReadinessDocument
 } from '../../redux/actionCreator/travelReadinessDocumentsActions';
 import './Readiness.scss';
 import ReadinessInteractiveModal from './ReadinessInteractiveModal';
@@ -18,10 +18,7 @@ import ReadinessInteractiveModal from './ReadinessInteractiveModal';
 export class TravelReadinessDocuments extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      documentContext: 'passport',
-      documentId: '' 
-    }; 
+    this.state = { documentContext: 'passport', documentId: '' };
   }
 
   componentDidMount() {
@@ -87,6 +84,10 @@ export class TravelReadinessDocuments extends Component {
     openModal(true, `edit ${documentContext}`);
   }
 
+  handleDeleteDocument = async (documentId) => {
+    const { deleteTravelReadinessDocument } = this.props;
+    deleteTravelReadinessDocument(documentId);
+  }
 
   renderVisaModal = () => {
     const {
@@ -146,6 +147,11 @@ export class TravelReadinessDocuments extends Component {
 
   renderButton = (text, active, onClickHandler, document_count, moreProps, normal) => {
     let className = 'documents-button-group__button';
+    const { userReadiness, isLoading } = this.props;
+    const {
+      travelDocuments: { passport, visa }
+    } = userReadiness;
+
     return (
       <button
         type="button"
@@ -208,7 +214,7 @@ export class TravelReadinessDocuments extends Component {
 
   render() {
     const { documentId, documentContext, } = this.state;
-    const { userReadiness, isLoading, shouldOpen, modalType, closeModal, location } = this.props;
+    const { userReadiness, isLoading, shouldOpen, modalType, closeModal, location, openModal } = this.props;
     const { travelDocuments: { passport, visa, other  } } = userReadiness;
     return (
       <Fragment>
@@ -218,8 +224,8 @@ export class TravelReadinessDocuments extends Component {
         {this.renderPassportModal()}
         {this.renderOtherDocumentModal()}
         <TravelReadinessDetailsTable
-          closeModal={closeModal} shouldOpen={shouldOpen}
-          modalType={modalType} isLoading={isLoading}
+          closeModal={closeModal} shouldOpen={shouldOpen} openModal={openModal}
+          modalType={modalType} isLoading={isLoading} deleteDocument={this.handleDeleteDocument}
           activeDocument={documentContext} passports={passport}
           visas={visa} others={other} location={location}
           handleShowDocument={this.showDocumentDetail} documentId={documentId}
@@ -242,7 +248,7 @@ const mapStateToProps = ({ modal, travelReadinessDocuments, user }) => ({
 
 const matchDispatchToProps = {
   openModal, closeModal, createTravelReadinessDocument,
-  editTravelReadinessDocument,
+  editTravelReadinessDocument, deleteTravelReadinessDocument,
   fetchUserData: fetchUserReadinessDocuments,
   fetchDocumentDetails: fetchTravelReadinessDocument,
 };
@@ -252,6 +258,7 @@ TravelReadinessDocuments.propTypes = {
   modalType: PropTypes.string, shouldOpen: PropTypes.bool.isRequired,
   createTravelReadinessDocument: PropTypes.func.isRequired,
   editTravelReadinessDocument: PropTypes.func.isRequired,
+  deleteTravelReadinessDocument: PropTypes.func.isRequired,
   fetchDocumentDetails: PropTypes.func.isRequired,
   document: PropTypes.object.isRequired,
 };

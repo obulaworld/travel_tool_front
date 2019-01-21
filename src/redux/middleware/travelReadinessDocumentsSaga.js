@@ -6,7 +6,7 @@ import * as types from '../constants/actionTypes';
 import TravelReadinessDocumentsAPI from '../../services/TravelReadinessDocumentsAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import * as actions from '../actionCreator/travelReadinessDocumentsActions';
-import {closeModal} from '../actionCreator/modalActions';
+import { closeModal } from '../actionCreator/modalActions';
 
 export function* fetchUsersReadinessDocumentsAsync() {
   try {
@@ -81,6 +81,23 @@ export function* editTravelReadinessDocument(action) {
   }
 }
 
+export function* deleteTravelReadinessDocumentSaga(action) {
+  try {
+    const response = yield call(TravelReadinessDocumentsAPI.deleteTravelReadinessDocument, action.documentId);
+    yield put(actions.deleteTravelReadinessDocumentSuccess(response.data.deletedDocument));
+    toast.success(response.data.message);
+    yield put(closeModal());
+  } catch (error) {
+    let errorMessage = apiErrorHandler(error);
+    yield put(actions.deleteTravelReadinessDocumentFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
 export function* watchEditTravelReadinessDocument() {
   yield takeLatest(types.EDIT_TRAVEL_READINESS_DOCUMENT, editTravelReadinessDocument);
+}
+
+export function* watchDeleteTravelReadinessDocument() {
+  yield takeLatest(types.DELETE_TRAVEL_READINESS_DOCUMENT, deleteTravelReadinessDocumentSaga);
 }
