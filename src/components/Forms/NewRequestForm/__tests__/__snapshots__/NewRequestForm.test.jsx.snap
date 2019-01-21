@@ -553,7 +553,6 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                             className="react-datepicker__input-container"
                           >
                             <input
-                              autoComplete="off"
                               className=""
                               disabled={false}
                               name="departureDate-0"
@@ -562,6 +561,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                               onClick={[Function]}
                               onFocus={[Function]}
                               onKeyDown={[Function]}
+                              placeholder="MM/DD/YYYY"
                               readOnly={false}
                               type="text"
                               value=""
@@ -613,16 +613,15 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                             className="react-datepicker__input-container"
                           >
                             <input
-                              autoComplete="off"
-                              className="arrival-date"
-                              disabled={true}
+                              className=""
+                              disabled={false}
                               name="arrivalDate-0"
                               onBlur={[Function]}
                               onChange={[Function]}
                               onClick={[Function]}
                               onFocus={[Function]}
                               onKeyDown={[Function]}
-                              placeholder="select depart date first"
+                              placeholder="MM/DD/YYYY"
                               readOnly={false}
                               type="text"
                               value=""

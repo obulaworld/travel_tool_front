@@ -8,7 +8,7 @@ import {
   NumberInput,
   filterDropdownSelect,
   CheckBox,
-  TextArea
+  TextArea, TagsInput
 } from './InputFields';
 import createEventHandlersFor from '../formEventHandlers';
 import './_input.scss';
@@ -52,6 +52,14 @@ class Input extends PureComponent {
           onChange: onChange || eventHandlers.handleCheckBoxChange
         };
         return CheckBox;
+      case 'tags':
+        this.props = {
+          ...this.props,
+          handleDelete: onChange || eventHandlers.handleTagDeleted,
+          handleAddition: onChange || eventHandlers.handleTagAdded,
+          handleInputBlur: eventHandlers.handleTagAdded
+        };
+        return TagsInput;
       default:
         this.props = {
           ...this.props,

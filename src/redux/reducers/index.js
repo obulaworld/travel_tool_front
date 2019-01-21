@@ -16,6 +16,7 @@ import centers from './centers';
 import availableRooms from './availableRooms';
 import analytics from './analytics';
 import readiness from './readiness';
+import reminderManagement from './reminderManagement';
 import travelCalendar from './travelCalendar';
 import documents from './documents';
 import submissions from './checklistSubmission';
@@ -51,7 +52,8 @@ const rootReducer = combineReducers({
   attachments,
   maintenance,
   travelReadinessDocuments,
-  teammates
+  teammates,
+  reminderManagement
 });
 
 export default rootReducer;

@@ -1,0 +1,29 @@
+import {connect} from 'react-redux';
+import React, { Fragment } from 'react';
+import Base from '../../Base';
+import PageHeader from '../../../components/PageHeader';
+import NewEmailTemplateForm from '../../../components/Forms/NewEmailTemplateForm';
+import {createReminderEmailTemplate} from '../../../redux/actionCreator/reminderManagementActions';
+
+class CreateEmailTemplate extends Base{
+
+  render() {
+    return (
+      <Fragment>
+        <div className="readiness-header">
+          <PageHeader
+            addLink
+            title="CREATE AN EMAIL TEMPLATE"
+            iconLink="/settings/reminder-setup"
+          />
+          <NewEmailTemplateForm {...this.props} />
+        </div>
+      </Fragment>
+    );
+  }
+}
+
+const mapStateToProps = ({ reminderManagement : { newEmailTemplate }}) => newEmailTemplate;
+
+
+export default connect(mapStateToProps, { createReminderEmailTemplate }) (CreateEmailTemplate);

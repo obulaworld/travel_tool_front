@@ -15,7 +15,6 @@ exports[`<Date /> renders as expected 1`] = `
     disabled={false}
     disabledKeyboardNavigation={false}
     dropdownMode="scroll"
-    error=""
     fixedHeight={true}
     monthsShown={1}
     name=""
@@ -28,6 +27,7 @@ exports[`<Date /> renders as expected 1`] = `
     onMonthChange={[Function]}
     onSelect={[Function]}
     onYearChange={[Function]}
+    placeholderText="MM/DD/YYYY"
     preventOpenOnFocus={false}
     previousMonthButtonLabel="Previous Month"
     readOnly={false}
@@ -36,7 +36,6 @@ exports[`<Date /> renders as expected 1`] = `
     showTimeSelect={false}
     timeCaption="Time"
     timeIntervals={30}
-    value={null}
     withPortal={false}
   />
   <img

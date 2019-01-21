@@ -19,6 +19,8 @@ import ConnectedReadiness from '../views/Readiness';
 import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
 import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
 import ConnectedHome from '../views/Home';
+import ConnectedCreateEmailTemplate from '../views/ReminderSetup/CreateEmailTemplate';
+import ConnectedReminderSetup from '../views/ReminderSetup';
 import NotFound from '../views/ErrorPages';
 
 import {
@@ -191,6 +193,28 @@ const Routes = () => (
             component={
               RequireAuth(
                 ConnectedRoleDetails,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR
+              )
+            }
+          />
+          <Route
+            path="/settings/reminder-setup"
+            exact
+            component={
+              RequireAuth(
+                ConnectedReminderSetup,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR
+              )
+            }
+          />
+          <Route
+            path="/settings/reminder-setup/create"
+            exact
+            component={
+              RequireAuth(
+                ConnectedCreateEmailTemplate,
                 SUPER_ADMINISTRATOR,
                 TRAVEL_ADMINISTRATOR
               )

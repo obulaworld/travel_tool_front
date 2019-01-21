@@ -6,6 +6,7 @@ import ButtonToggler from './ButtonToggler';
 import NumberInput from './NumberInput';
 import CheckBox from './CheckBox';
 import TextArea from './TextArea';
+import TagsInput from './TagsInput';
 
 export {
   DropdownSelect,
@@ -15,5 +16,6 @@ export {
   NumberInput,
   filterDropdownSelect,
   CheckBox,
-  TextArea
+  TextArea,
+  TagsInput
 };

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReminderSetup> page renders correctly 1`] = `
+<div
+  className="readiness-header"
+>
+  <div
+    className="PageHeader"
+  >
+    <div>
+      <span
+        className="title"
+      >
+        EMAIL TEMPLATES
+      </span>
+    </div>
+    <div>
+      <button
+        className="action-btn btn-new-request"
+        onClick={[Function]}
+        type="button"
+      >
+        CREATE NEW
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -15,6 +15,18 @@ export function getInputChangeHandler(targetForm, validate, targetField) {
   };
 }
 
+export function getTagsAddHandler(targetForm, validate, targetField) {
+  return tags => {
+    updateFormValues.call(targetForm, tags.length === 0 ? null : tags, targetField, validate);
+  };
+}
+
+export function getTagsDeleteHandler(targetForm, validate, targetField) {
+  return tags => {
+    updateFormValues.call(targetForm, tags.length === 0  ? null : tags, targetField, validate);
+  };
+}
+
 export function getTogglerHandler(targetForm, validate, targetField) {
   return opt => updateFormValues.call(targetForm, opt, targetField, validate);
 }

@@ -6,9 +6,27 @@ import headerIcon from '../../images/back-icon.svg';
 
 
 class PageHeader extends PureComponent {
+  renderActionButton= (actionBtnClickHandler,openModal, actionBtn) => {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            actionBtnClickHandler ?
+              actionBtnClickHandler():
+              openModal(true, 'new model'); }
+          }
+          type="button"
+          className="action-btn btn-new-request"
+        >
+          {actionBtn}
+        </button>
+      </div>
+    );
+  };
+
   render() {
     const {
-      title, actionBtn, openModal, titleClassName, location,
+      title, actionBtn, actionBtnClickHandler, openModal,titleClassName, location,
       icon, iconLink, addLink
     } = this.props;
 
@@ -29,27 +47,17 @@ class PageHeader extends PureComponent {
             </span>
           )}
         </div>
-        {actionBtn ? (
-          <div>
-            <button
-              onClick={() => openModal(true, 'new model')}
-              type="button"
-              className="action-btn btn-new-request"
-            >
-              {actionBtn}
-            </button>
-          </div>
-        ) : ''}
+        {actionBtn && this.renderActionButton(actionBtnClickHandler, openModal, actionBtn)}
       </div>
     );
   }
 }
 
-export default PageHeader;
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   actionBtn: PropTypes.string,
+  actionBtnClickHandler: PropTypes.func,
   openModal: PropTypes.func,
   location: PropTypes.string,
   titleClassName: PropTypes.string,
@@ -65,5 +73,8 @@ PageHeader.defaultProps = {
   icon: headerIcon,
   iconLink: '',
   addLink: false,
+  actionBtnClickHandler: null,
   openModal: () => {}
 };
+
+export default PageHeader;
