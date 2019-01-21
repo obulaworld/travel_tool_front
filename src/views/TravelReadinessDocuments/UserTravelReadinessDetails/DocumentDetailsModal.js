@@ -12,6 +12,7 @@ import NotFound from '../../ErrorPages';
 import ConnectedDocumentDetailsAttachment from './DocumentDetailsAttachment';
 import './VerifyTravelReadinessDocument.scss';
 import checkUserPermission from '../../../helper/permissions';
+import ConnectedUserComments from '../../../components/RequestsModal/UserComments/UserComments';
 
 export const TravelDocumentField = ({ label, value }) => (
   <div>
@@ -39,11 +40,15 @@ export class DocumentDetailsModal extends Component {
     fetchingDocument: PropTypes.bool.isRequired,
     error: PropTypes.string,
     verifyDocument: PropTypes.func.isRequired,
-    getCurrentUserRole: PropTypes.array.isRequired
+    getCurrentUserRole: PropTypes.array.isRequired,
+    email: PropTypes.object,
+    currentUser: PropTypes.object,
   };
 
   static defaultProps = {
     error: '',
+    email: {},
+    currentUser: {},
   }
 
   componentDidMount() {
@@ -144,7 +149,7 @@ export class DocumentDetailsModal extends Component {
   }
 
   render() {
-    const { documentType, document, userData, user: { picture }, fetchingDocument, error } = this.props;
+    const { documentType, document, userData, user: { picture }, fetchingDocument, error, email, currentUser } = this.props;
     const userInfo = {
       ...userData,
       name: userData.fullName,
@@ -173,7 +178,10 @@ export class DocumentDetailsModal extends Component {
           fetchingDocument ? <Preloader /> : <ConnectedDocumentDetailsAttachment documentData={document} />
         }
         <AddComment image={picture} />
-        <ConnectedCommentBox />
+        <ConnectedCommentBox requestId={null} documentId={document.id} />
+        <div id="comments">
+          <ConnectedUserComments comments={document.comments ? document.comments.slice(0).reverse(): []} email={email.result && email.result.email} currentUser={currentUser} />
+        </div>
       </Fragment>
     );
   }
@@ -188,17 +196,18 @@ TravelDocumentField.defaultProps = {
   value: 'n/a',
 };
 
-const mapStateToProps = ({ user, auth, travelReadinessDocuments }) => ({
+const mapStateToProps = ({ user, auth, travelReadinessDocuments }, state) => ({
   user: auth.user.UserInfo,
   document: travelReadinessDocuments.document,
   fetchingDocument: travelReadinessDocuments.fetchingDocument,
   error: travelReadinessDocuments.error,
   getCurrentUserRole: user.getCurrentUserRole,
+  currentUser: user.currentUser,
 });
 
 const mapDispatchToProps = {
   fetchDocumentDetails: fetchTravelReadinessDocument,
-  verifyDocument: verifyTravelReadinessDocument
+  verifyDocument: verifyTravelReadinessDocument,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentDetailsModal);

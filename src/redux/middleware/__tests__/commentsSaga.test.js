@@ -9,6 +9,7 @@ describe('Comments saga', () => {
   describe('Create comment saga', () => {
     const commentData = {
       requestId: 'abcdefgh',
+      documentId: null,
       comment: 'Saga test comment'
     };
 
@@ -37,6 +38,7 @@ describe('Comments saga', () => {
         .dispatch({
           type: 'CREATE_COMMENT',
           requestId: commentData.requestId,
+          documentId: commentData.documentId,
           comment: commentData.comment
         })
         .silentRun();
@@ -54,6 +56,7 @@ describe('Comments saga', () => {
         .dispatch({
           type: 'CREATE_COMMENT',
           requestId: commentData.requestId,
+          documentId: commentData.documentId,
           comment: commentData.comment
         })
         .silentRun();

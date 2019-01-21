@@ -189,6 +189,51 @@ exports[`CommentItem component should match snapshot 3`] = `
     <span
       className="modal__hours-status"
     />
+    <span
+      className="modal__dialog"
+    >
+      <button
+        className="edit-button "
+        onClick={[Function]}
+        type="button"
+      >
+        Edit
+      </button>
+      <button
+        className="modal__delete-btn "
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+        <Modal
+          closeDeleteModal={[Function]}
+          closeModal={null}
+          customModalStyles="delete-comment-modal"
+          customOverlayStyle="delete-modal-overlay"
+          modalBar={<div />}
+          modalContentId=""
+          modalId=""
+          requestId=""
+          showOverlay={false}
+          title="Delete Comment ?"
+          visibility="invisible"
+          width=""
+        >
+          <p
+            className="delete-comment-modal__text"
+          >
+            This action cannot be undone
+          </p>
+          <button
+            className="delete-comment-modal__btn"
+            onClick={[Function]}
+            type="button"
+          >
+            Delete
+          </button>
+        </Modal>
+      </button>
+    </span>
     <div
       className="comment-box"
     >
@@ -198,7 +243,7 @@ exports[`CommentItem component should match snapshot 3`] = `
         editComment={[Function]}
         editReady={false}
         handleNoEdit={[Function]}
-        id="1"
+        id={1}
         startSubmitReady={true}
       />
     </div>

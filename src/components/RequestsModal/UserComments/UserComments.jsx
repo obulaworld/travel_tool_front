@@ -58,7 +58,7 @@ export class UserComments extends Component {
 
   render() {
     const { commentToEdit, activeCommentId, commentToDelete, editReady } = this.state;
-    const { comments, email, deleteComment } = this.props;
+    const { comments, email, deleteComment, currentUser } = this.props;
     return comments && comments.map((comment) => {
       const editedLabel = comment.isEdited  ? '<span>(edited)</span>' : '';
       return (
@@ -77,6 +77,7 @@ export class UserComments extends Component {
           resetEditing={this.resetEditing}
           editComment={this.editComment}
           formatDate={this.formatDate}
+          currentUser={currentUser}
         />
       );
     });
@@ -87,12 +88,14 @@ UserComments.propTypes = {
   comments: PropTypes.array,
   email:PropTypes.string,
   deleteComment: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 UserComments.defaultProps = {
   deleteComment: () => {},
   comments: [],
-  email: ''
+  email: '',
+  currentUser: {}
 };
 
 

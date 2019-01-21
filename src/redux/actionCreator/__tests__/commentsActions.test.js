@@ -15,16 +15,17 @@ describe('Comments Actions', () => {
     const expectedAction = {
       type: 'CREATE_COMMENT',
       requestId: 'zkjxiow824n',
+      documentId: null,
       comment: 'test comment'
     };
-    const newAction = createComment('zkjxiow824n', 'test comment');
+    const newAction = createComment('zkjxiow824n', null, 'test comment');
     expect(newAction).toEqual(expectedAction);
   });
 
   it('should return action of type CREATE_COMMENT_SUCCESS', () => {
     const expectedAction = {
       type: 'CREATE_COMMENT_SUCCESS',
-      comment: 'test comment'
+      comment: 'test comment',
     };
     const newAction = createCommentSuccess('test comment');
     expect(newAction).toEqual(expectedAction);

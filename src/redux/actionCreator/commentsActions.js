@@ -4,9 +4,10 @@ import {
   DELETE_COMMENT
 } from '../constants/actionTypes';
 
-export const createComment = (requestId, comment) => ({
+export const createComment = (requestId, documentId, comment) => ({
   type: CREATE_COMMENT,
   requestId,
+  documentId,
   comment
 });
 

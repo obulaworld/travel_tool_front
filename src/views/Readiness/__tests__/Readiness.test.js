@@ -81,7 +81,7 @@ describe('renders <TravelReadinessDocuments />', () =>{
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <ConnectedReadiness {...{...props, shouldOpen:true}} />
+          <ConnectedReadiness {...{...props, shouldOpen:true, modalType: 'interactive'}} />
         </MemoryRouter>
       </Provider>
     );
@@ -136,7 +136,7 @@ describe('renders <TravelReadinessDocuments />', () =>{
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <ConnectedReadiness {...{...newProps, shouldOpen:true}} />
+          <ConnectedReadiness {...{...newProps, shouldOpen:true, modalType: 'interactive'}} />
         </MemoryRouter>
       </Provider>
     );

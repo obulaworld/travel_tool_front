@@ -4,9 +4,12 @@ import CommentItem from '../CommentItem';
 
 const props = {
   comment: {
+    user: {
+      picture: '/path/to/image',
+      fullName: 'Smith Allen',
+    },
     id: 1,
-    userName: 'Smith Allen',
-    picture: '/path/to/image',
+    userId: 1,
     createdAt: '',
     comment: 'Can you clarify why',
     userEmail: 'ik@gmail.com',
@@ -21,7 +24,12 @@ const props = {
   editComment: jest.fn(),
   handleNoEdit: jest.fn(),
   formatDate: jest.fn(),
-  renderCancelButton: jest.fn()
+  renderCancelButton: jest.fn(),
+  currentUser: {
+    id: 1,
+    picture: '/path/to/image',
+    fullName: 'Smith Allen',
+  }
 };
 
 
@@ -35,9 +43,12 @@ describe('CommentItem component', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(<CommentItem
       comment={{
+        user: {
+          picture: '/path/to/image',
+          fullName: 'Smith Allen',
+        },
         id: 1,
-        userName: 'Smith Allen',
-        picture: '/path/to/image',
+        userId: 1,
         createdAt: '',
         comment: 'Can you clarify why',
         userEmail: 'ik@gmail.com',
@@ -53,6 +64,11 @@ describe('CommentItem component', () => {
       formatDate={jest.fn()}
       handleNoEdit={jest.fn()}
       renderCancelButton={jest.fn()}
+      currentUser={{
+        id: 1,
+        picture: '/path/to/image',
+        fullName: 'Smith Allen',
+      }}
     />);
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('.active').length).toEqual(0);
@@ -61,12 +77,15 @@ describe('CommentItem component', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(<CommentItem
       comment={{
-        id: '1',
-        userName: 'Smith Allen',
-        picture: '/path/to/image',
+        user: {
+          picture: '/path/to/image',
+          fullName: 'Smith Allen',
+        },
+        id: 1,
+        userId: 1,
         createdAt: '',
         comment: 'Can you clarify why',
-        userEmail: 'ikechukwu@gmail.com',
+        userEmail: 'ik@gmail.com',
       }}
       deleteComment={jest.fn()}
       email="ik@gmail.com"
@@ -79,6 +98,11 @@ describe('CommentItem component', () => {
       formatDate={jest.fn()}
       handleNoEdit={jest.fn()}
       renderCancelButton={jest.fn()}
+      currentUser={{
+        id: 1,
+        picture: '/path/to/image',
+        fullName: 'Smith Allen',
+      }}
     />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -86,9 +110,12 @@ describe('CommentItem component', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(<CommentItem
       comment={{
+        user: {
+          picture: '/path/to/image',
+          fullName: 'Smith Allen',
+        },
         id: '1',
-        userName: 'Smith Allen',
-        picture: '/path/to/image',
+        userId: 1,
         createdAt: '',
         comment: 'Can you clarify why',
         userEmail: 'ik@gmail.com',
@@ -104,6 +131,11 @@ describe('CommentItem component', () => {
       formatDate={jest.fn()}
       handleNoEdit={jest.fn()}
       renderCancelButton={jest.fn()}
+      currentUser={{
+        id: 1,
+        picture: '/path/to/image',
+        fullName: 'Smith Allen',
+      }}
     />);
     expect(wrapper.find('.active').length).toEqual(1);
     wrapper.find('.active').simulate('click');

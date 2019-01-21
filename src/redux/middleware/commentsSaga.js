@@ -13,8 +13,8 @@ import {
 
 export function* createCommentAsync(action) {
   try {
-    const { requestId, comment } = action;
-    const response = yield call(CommentsAPI.createComment, {requestId, comment});
+    const { requestId, documentId, comment } = action;
+    const response = yield call(CommentsAPI.createComment, {requestId, documentId, comment});
     yield put(createCommentSuccess(response.data));
   }
   catch(error) {
