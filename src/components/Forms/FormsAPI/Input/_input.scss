@@ -176,10 +176,9 @@ form .form-input {
     position: relative;
     input {
       background: white;
-      color: transparent;
-      text-shadow: 0 0 0 #999999;
+      color: #999999;
       width: 190px;
-      cursor: context-menu;
+      cursor: text;
       @media (max-width: 450px) {
         width: 100%;
       }
