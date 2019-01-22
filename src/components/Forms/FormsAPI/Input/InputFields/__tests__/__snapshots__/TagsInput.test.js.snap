@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TagsInput> input field should render correctly 1`] = `
+<DragDropContext(ReactTags)
+  allowDragDrop={false}
+  autofocus={false}
+  handleAddition={[Function]}
+  handleDelete={[Function]}
+  handleInputBlur={[Function]}
+  inline={true}
+  max={null}
+  tags={Array []}
+/>
+`;

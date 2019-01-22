@@ -104,9 +104,9 @@ import {
   watchFetchReadinessDocuments,
   watchFetchReadinessDocumentDetails,
   watchVerifyTravelReadinessDocuments,
-  watchEditTravelReadinessDocument,
-  watchDeleteTravelReadinessDocument
+  watchEditTravelReadinessDocument
 } from './travelReadinessDocumentsSaga';
+import {watchCreateEmailReminderTemplate} from "./reminderManagementSaga";
 
 function* rootSaga() {
   yield all([
@@ -182,8 +182,8 @@ function* rootSaga() {
     watchFetchReadinessDocumentDetails(),
     watchFetchTeammates(),
     watchVerifyTravelReadinessDocuments(),
-    watchEditTravelReadinessDocument(),
-    watchDeleteTravelReadinessDocument(),
+    watchCreateEmailReminderTemplate(),
+    watchEditTravelReadinessDocument()
   ]);
 }
 

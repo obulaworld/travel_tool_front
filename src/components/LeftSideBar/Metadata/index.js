@@ -139,6 +139,12 @@ const NavItemsMetadata = [
         onlyVisibleTo: ['Super Administrator']
       },
       {
+        link_to: '/settings/reminder-setup',
+        exact: true,
+        text: 'Reminder Setup',
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator']
+      },
+      {
         link_to: '/settings/profile',
         text: 'User Profile',
       },

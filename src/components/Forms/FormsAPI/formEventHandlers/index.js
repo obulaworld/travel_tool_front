@@ -15,7 +15,9 @@ const createEventHandlersFor = (targetForm, targetField, validatorName) => {
     handleInputBlur: handlerCreators.getOnBlurHandler,
     handleSelectDate: handlerCreators.getDateHandler,
     handleInputChange: handlerCreators.getInputChangeHandler,
-    handleCheckBoxChange: handlerCreators.getCheckBoxHandler
+    handleCheckBoxChange: handlerCreators.getCheckBoxHandler,
+    handleTagAdded: handlerCreators.getTagsAddHandler,
+    handleTagDeleted: handlerCreators.getTagsDeleteHandler
   };
   // call the creators in _handlerCreators to create the handlers
   // for the target form and store them in eventHandlers

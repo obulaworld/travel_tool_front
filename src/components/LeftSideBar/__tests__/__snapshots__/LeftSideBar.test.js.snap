@@ -153,6 +153,15 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "text": "User Roles",
                 },
                 Object {
+                  "exact": true,
+                  "link_to": "/settings/reminder-setup",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                  ],
+                  "text": "Reminder Setup",
+                },
+                Object {
                   "link_to": "/settings/profile",
                   "text": "User Profile",
                 },
