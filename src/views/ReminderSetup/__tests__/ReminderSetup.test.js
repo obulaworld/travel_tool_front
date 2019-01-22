@@ -1,29 +1,36 @@
 import React from 'react';
-import ReminderSetup from '../index';
+import {Provider} from 'react-redux';
+import {MemoryRouter} from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import { mount } from 'enzyme';
+import ReminderSetup from '..';
+import listOfTemplates from '../__mocks__';
 
-const props = {
-  history: {
-    push: jest.fn(),
-  }
-};
-describe('<ReminderSetup> page', () => {
-
-  let wrapper;
-  beforeEach(() => {
-    wrapper = mount(<ReminderSetup {...props} />);
-  });
-
-  afterEach(() => {
-    wrapper.unmount();
-    jest.resetAllMocks();
-  });
-
-  it('should open the Create New Reminder Template page when action button clicked', () => {
-    wrapper.find('.action-btn').first().simulate('click');
-    expect(props.history.push).toHaveBeenCalledWith('/settings/reminder-setup/create');
-  });
-
-  it('renders correctly', () => {
+describe('<ReminderSetup />', () => {
+  const { templates, pagination } = listOfTemplates;
+  const props = {
+    fetchTemplates: jest.fn(),
+    location: {},
+    history: {
+      push: jest.fn(),
+    }
+  };
+  const state = {
+    listEmailTemplatesReducer: {
+      templates,
+      pagination,
+    }
+  };
+  const mockStore = configureStore();
+  const store = mockStore (state);
+  const wrapper = mount(
+    <Provider store={store}>
+      <MemoryRouter>
+        <ReminderSetup {...props} />
+      </MemoryRouter>
+    </Provider>
+  );
+  it('renders', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
