@@ -298,12 +298,12 @@ exports[`<Timeline /> renders correctly 1`] = `
         key="22"
       />
       <div
-        className="timeline__segment current month-view"
+        className="timeline__segment  month-view"
         data-segment-label="24"
         key="23"
       />
       <div
-        className="timeline__segment  month-view"
+        className="timeline__segment current month-view"
         data-segment-label="25"
         key="24"
       />
