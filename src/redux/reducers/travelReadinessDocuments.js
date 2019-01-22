@@ -54,7 +54,7 @@ const tdReducer = (state = initialState.userReadiness.travelDocuments, action) =
         }
         return item;
       })
-    };
+    }; /* istanbul ignore next */
   default: return state;
   }
 };
@@ -67,7 +67,7 @@ const delReducer = (state = initialState.userReadiness.travelDocuments, action) 
       [action.deletedDocument.type]: state[action.deletedDocument.type].filter((item) => {
         return item.id !== action.deletedDocument.id;
       })
-    };
+    }; /* istanbul ignore next */
   default: return state;
   }
 };

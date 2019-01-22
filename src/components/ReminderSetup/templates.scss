@@ -17,6 +17,9 @@
   }
   .off {
     background-color: #F8F8F8;
+    &:hover {
+      background-color: #F8F8F8 !important;
+    }
   }
   .on {
     pointer-events: auto;

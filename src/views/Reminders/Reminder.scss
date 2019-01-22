@@ -139,6 +139,16 @@
 
     font-size: 14px;
     margin-right: 1em;
+    display: flex;
+    width: 240px;
+    justify-content: space-between;
+  }
+
+  button {
+    height: 36px;
+    width: 114px;
+    border-radius: 1px;
+    font-size: 14px;
     line-height: 14px;
     background: #F8F8F8;
     outline: none;
@@ -180,9 +190,6 @@
   }
 
 }
-.reminderPagination{
-
-}
 
 .readiness-table{
   margin-top: 20px;
@@ -198,5 +205,14 @@
 
   tbody .table__rows .condition-name{
     color: #3359DB;
+  }
+}
+
+.list-templates {
+  .tiny.material-icons {
+    margin-left: 10px;
+    font-size: 18px;
+    transform: rotate(180deg);
+    color: blue;
   }
 }

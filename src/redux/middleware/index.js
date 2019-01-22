@@ -112,8 +112,11 @@ import {
   watchEnableEmailReminderTemplate,
 } from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
-import {watchfetchEmailReminders} from './emailRemindersSaga'
 import { watchCreateReminder } from './reminderSaga';
+import {
+  watchDisableReminderCondition,
+  watchfetchEmailReminders
+} from './emailRemindersSaga';
 
 function* rootSaga() {
   yield all([
@@ -196,6 +199,7 @@ function* rootSaga() {
     watchFetchAllEmailTemplates(),
     watchCreateReminder(),
     watchEnableEmailReminderTemplate(),
+    watchDisableReminderCondition(),
   ]);
 }
 
