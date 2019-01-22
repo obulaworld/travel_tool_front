@@ -1,11 +1,13 @@
 import {
   FETCH_ALL_EMAIL_TEMPLATES,
   FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
+  FETCH_TEMPLATE_DETAILS,
   FETCH_ALL_EMAIL_TEMPLATES_FAILURE,
   ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
 } from '../constants/actionTypes';
 
 const initialState = {
+  selectedTemplate: {},
   templates: [],
   errors:{},
   pagination: {},
@@ -32,6 +34,14 @@ const reminderSetupReducer = (state=initialState, action) => {
       isLoading: false,
       errors: action.errors
     };
+  case  FETCH_TEMPLATE_DETAILS: {
+    const { templates } = state;
+    const { id } = action;
+    return {
+      ...state,
+      selectedTemplate: templates.find(template => template.id === id) || {},
+    };
+  }
   case ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS:
     return {
       ...state,

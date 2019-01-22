@@ -67,3 +67,41 @@
     }
   }
 }
+
+
+.template-details{
+  .input-group.template-details{
+    width: 420px;
+    height: 80%;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    label span {
+      display: none;
+    }
+  
+  .subject-input{
+    cursor: text;
+    input {
+      border:none;
+      background-color: #F6F6F6;
+    }
+  }
+
+  .message-input{
+    height: 131px;
+    cursor: text;
+    
+    textarea, textarea:hover {
+      border: none;
+      background-color: #F6F6F6;
+    }
+  }
+
+  }
+  .form-input {
+    width: 100%;
+  }
+}

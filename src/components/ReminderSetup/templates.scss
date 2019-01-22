@@ -83,3 +83,35 @@
     }
   }
 }
+.visible.template-details{
+  top: 50%;
+  transform: translateY(-50%);
+  width: 480px;
+
+  hr {
+    width: calc(100% + 60px);
+    margin-top: 20px;
+    margin-bottom: 0 !important;
+  }
+}
+
+form.template-details{
+
+  input{
+    font-weight: bold;
+  }
+
+  .bg-btn--active{
+    width: 172px !important;
+  }
+
+  fieldset{
+    margin-top: 0 !important
+  }
+
+
+
+  .submit-area{
+  
+  }
+}

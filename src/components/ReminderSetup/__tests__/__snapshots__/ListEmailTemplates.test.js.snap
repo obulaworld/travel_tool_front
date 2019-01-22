@@ -2,6 +2,7 @@
 
 exports[`<ListEmailTemplates /> renders without crashing 1`] = `
 <div>
+  <div />
   <div
     className="list-templates"
   >
@@ -48,6 +49,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
         >
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -115,6 +117,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           </tr>
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -182,6 +185,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           </tr>
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -249,6 +253,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           </tr>
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -316,6 +321,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           </tr>
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -383,6 +389,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           </tr>
           <tr
             className="table__rows "
+            onClick={[Function]}
           >
             <td
               className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"

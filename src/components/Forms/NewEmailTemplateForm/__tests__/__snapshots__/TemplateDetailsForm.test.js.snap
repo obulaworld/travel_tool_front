@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
+<div>
+  <form
+    className="template-details"
+  >
+    <fieldset>
+      <div
+        className="input-group template-details"
+      >
+        <div
+          className="form-input subject-input "
+        >
+          <label
+            htmlFor="subject"
+          >
+            Subject
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <input
+            autoComplete="off"
+            className=" subject-input"
+            disabled={true}
+            label="Subject"
+            name="subject"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+          />
+          <span
+            className="error"
+          />
+        </div>
+        <div
+          className="form-input message-input "
+        >
+          <label
+            htmlFor="message"
+          >
+            Message
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <textarea
+            autoComplete="off"
+            className=" textarea-box message-input"
+            disabled={true}
+            label="Message"
+            name="message"
+            onBlur={[Function]}
+            onChange={[Function]}
+            rows="10"
+            type="textarea"
+          />
+          <span
+            className="error"
+          />
+        </div>
+      </div>
+      <hr />
+    </fieldset>
+    <fieldset>
+      <div
+        className="submit-area"
+      >
+        <button
+          className="bg-btn bg-btn--inactive"
+          id="cancel"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-btn bg-btn--active"
+          disabled={false}
+          id="submit"
+          type="submit"
+        >
+          Edit template
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+`;
