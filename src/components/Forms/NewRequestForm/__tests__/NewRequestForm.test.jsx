@@ -527,11 +527,6 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state()).toMatchObject({});
   });
 
-  it('should render a loading indicator while creating a new request', () => {
-    wrapper.setProps({ creatingRequest: true });
-    expect(wrapper.find('h5').text()).toEqual('Creating request...');
-  });
-
   it('should submit travel details ', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     localStorage.setItem('checkBox', 'clicked');

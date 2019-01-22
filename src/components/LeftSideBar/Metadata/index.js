@@ -90,13 +90,13 @@ const NavItemsMetadata = [
   },
   // Travel Readiness
   {
-    text: 'Travel Documents',
+    text: 'Documents',
     link_to: '/travel_readiness',
     activateOnLogin: true,
     isDropdown: false,
     icons: {
-      active: activeChecklistIcon,
-      inactive: inactiveChecklistIcon
+      active: activeDocumentsIcon,
+      inactive: inactiveDocumentsIcon
     }
   },
   // Trip planner
