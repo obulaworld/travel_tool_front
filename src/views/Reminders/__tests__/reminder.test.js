@@ -5,6 +5,7 @@ import configureStore from 'redux-mock-store';
 import ConnectedReminders, { Reminders } from '../index';
 import {initialState} from '../../../redux/reducers/emailReminder';
 import TemplatesPagination from '../../../components/ReminderSetup/TemplatesPagination';
+import {reminderTable} from '../ReminderTable';
 
 
 const mockStore = configureStore();
@@ -53,13 +54,18 @@ const props = {
   history: {
     push: jest.fn()
   },
+  disableReminderTemplate: jest.fn(),
   disableReminderCondition: jest.fn(),
+  openModal:jest.fn,
   fetchEmailReminder: jest.fn(),
   setItemToDisable: jest.fn(),
   shouldOpen: true,
   modalType: 'disable reminder condtion',
   closeModal: jest.fn(),
-  enableDisabledReminderCondition: jest.fn()
+  enableDisabledReminderCondition: jest.fn(),
+  reminders: [],
+  meta: {pagination: {}, documentCount: {}},
+  user: {}
 };
 
 describe('Reminder component', () => {
@@ -89,6 +95,14 @@ describe('Reminder component', () => {
 
     const visaButton = wrapper.find('#visaButton');
     expect(visaButton.text()).toEqual('Visas 0');
+  });
+
+  it('should call the setItemToDisable function', () => {
+    const shallowWrapper = mount( <Reminders {...props} />);
+    const conditionId = { id: 5 };
+    const wrapperInstance = shallowWrapper.instance();
+    wrapperInstance.setItemToDisable(false,conditionId);
+    expect(shallowWrapper.state().conditionId).toEqual(conditionId.id);
   });
 
   it('should test default button is passport', () => {

@@ -9,7 +9,7 @@ exports[`Renders renders correctly 1`] = `
   tabIndex="0"
 >
   <div
-    className="modal visible delete-checklist-item"
+    className="modal visible delete-checklist-item__disable"
     id=""
     onClick={[Function]}
     onKeyPress={[Function]}
@@ -53,33 +53,35 @@ exports[`Renders renders correctly 1`] = `
       className="modal-content"
       id=""
     >
-      <p
-        className="delete-checklist-item__reason"
-      />
-      <textarea
-        className="delete-checklist-item__input disabled"
-        defaultValue="Not working"
-        disabled={true}
-        onChange={[Function]}
-        type="text"
-      />
-      <div
-        className="delete-checklist-item__hr"
-      />
-      <fieldset>
+      <span>
+        <p
+          className="delete-checklist-item__reason"
+        />
+        <textarea
+          className="delete-checklist-item__input disabled"
+          defaultValue="Not working"
+          disabled={true}
+          onChange={[Function]}
+          type="text"
+        />
         <div
-          className="submit-area"
-        >
-          <button
-            className="bg-btn bg-btn--inactive"
-            id="cancel"
-            onClick={[Function]}
-            type="button"
+          className="delete-checklist-item__hr"
+        />
+        <fieldset>
+          <div
+            className="submit-area"
           >
-            Cancel
-          </button>
-        </div>
-      </fieldset>
+            <button
+              className="bg-btn bg-btn--inactive"
+              id="cancel"
+              onClick={[Function]}
+              type="button"
+            >
+              Cancel
+            </button>
+          </div>
+        </fieldset>
+      </span>
     </div>
   </div>
 </div>

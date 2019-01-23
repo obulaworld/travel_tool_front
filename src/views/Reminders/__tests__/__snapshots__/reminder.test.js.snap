@@ -282,7 +282,7 @@ Array [
                 <div
                     className="modal-title"
                 >
-                    Disable Reminder Condtion
+                    Disable Reminder Template
                 </div>
                 <div
                     className="lable-text modal-bar"
@@ -305,44 +305,46 @@ Array [
             className="modal-content"
             id=""
         >
-            <p
-                className="delete-checklist-item__reason"
-            >
-                Reason for Disabling
-            </p>
-            <textarea
-                className="delete-checklist-item__input"
-                defaultValue=""
-                disabled={false}
-                onChange={[Function]}
-                type="text"
-            />
-            <div
-                className="delete-checklist-item__hr"
-            />
-            <fieldset>
-                <div
-                    className="submit-area"
+            <span>
+                <p
+                    className="delete-checklist-item__reason"
                 >
-                    <button
-                        className="bg-btn bg-btn--inactive"
-                        id="cancel"
-                        onClick={[Function]}
-                        type="button"
+                    Reason for Disabling
+                </p>
+                <textarea
+                    className="delete-checklist-item__input"
+                    defaultValue=""
+                    disabled={false}
+                    onChange={[Function]}
+                    type="text"
+                />
+                <div
+                    className="delete-checklist-item__hr"
+                />
+                <fieldset>
+                    <div
+                        className="submit-area"
                     >
-                        Cancel
-                    </button>
-                    <button
-                        className="restore-checklist-items__footer--delete"
-                        disabled={true}
-                        id="oncancel"
-                        onClick={[Function]}
-                        type="button"
-                    >
-                        Disable
-                    </button>
-                </div>
-            </fieldset>
+                        <button
+                            className="bg-btn bg-btn--inactive"
+                            id="cancel"
+                            onClick={[Function]}
+                            type="button"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className="restore-checklist-items__footer--delete"
+                            disabled={true}
+                            id="oncancel"
+                            onClick={[Function]}
+                            type="button"
+                        >
+                            Disable
+                        </button>
+                    </div>
+                </fieldset>
+            </span>
         </div>
     </div>
 </div>,

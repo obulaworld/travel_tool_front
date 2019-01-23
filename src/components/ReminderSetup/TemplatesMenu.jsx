@@ -32,7 +32,7 @@ class TemplatesMenu extends Component {
     }
   };
 
-  MenuContainer = (disableEnable, openClose, data, setItemToDisable) => (
+  renderMenuContainer = (disableEnable, openClose, data, setItemToDisable) => (
     <div ref={this.setRef} className={`table__menu-container ${openClose}`}>
       <ul className="table__menu-list">
         <li className="table__menu-list-item top">
@@ -40,9 +40,9 @@ class TemplatesMenu extends Component {
         </li>
         { data && (
           <li
-            onClick={(event) => {setItemToDisable(data, disableEnable, event);}} role="presentation"
+            onClick={(event) => {setItemToDisable(disableEnable, data, null, event);}} role="presentation"
             className="table__menu-list-item bottom" id="setItem">
-            {disableEnable? <span className="enable">Enable</span> : <span className="disable">Disable</span>} 
+            {disableEnable? <span className="enable">Enable</span> : <span className="disable">Disable</span>}
           </li>
         )}
       </ul>
@@ -60,8 +60,8 @@ class TemplatesMenu extends Component {
           role="presentation"
           onClick={this.toggleMenu}
         />
-        {template && this.MenuContainer(disableEnable, openClose, template, setItemToDisable)}
-        {reminder && this.MenuContainer(disableEnable, openClose, reminder, setItemToDisable)}
+        {template ? this.renderMenuContainer(disableEnable, openClose, template, setItemToDisable) : ''}
+        {reminder ? this.renderMenuContainer(disableEnable, openClose, reminder, setItemToDisable) : ''}
       </span>
     );
   }
@@ -69,13 +69,15 @@ class TemplatesMenu extends Component {
 
 TemplatesMenu.propTypes = {
   disableEnable: PropTypes.bool,
-  template: PropTypes.object.isRequired,
-  reminder: PropTypes.object.isRequired,
+  template: PropTypes.object,
+  reminder: PropTypes.object,
   setItemToDisable: PropTypes.func.isRequired,
 };
 
 TemplatesMenu.defaultProps = {
-  disableEnable: false
+  disableEnable: false,
+  template: {},
+  reminder: {}
 };
 
 export default TemplatesMenu;

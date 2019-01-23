@@ -34,7 +34,7 @@ export class Reminders extends Component{
     fetchEmailReminder({document: 'passport'});
   }
 
-  setItemToDisable = (reminder, reason, event) => {
+  setItemToDisable = (check,reminder, reason,event) => {
     const { openModal } = this.props;
     if (reminder.disabled && event.target.textContent === 'Enable') {
       this.setState({
@@ -167,10 +167,10 @@ export class Reminders extends Component{
     const { reminders } = this.props;
     return (
       <Fragment>
-        <ReminderTable 
+        <ReminderTable
           fetchEmailReminder={fetchEmailReminder}
-          reminders={reminders} 
-          setItemToDisable={this.setItemToDisable} 
+          reminders={reminders}
+          setItemToDisable={this.setItemToDisable}
         />
       </Fragment>
     );

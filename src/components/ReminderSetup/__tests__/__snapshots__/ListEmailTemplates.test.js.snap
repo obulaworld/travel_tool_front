@@ -60,6 +60,8 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
               />
               <i
                 className="tiny material-icons"
+                onClick={[Function]}
+                role="presentation"
               >
                 error
               </i>

@@ -18,7 +18,16 @@ export const TemplatesTableHead = () => (
   </thead>
 );
 
-export const AlertIcon = (visible) => visible?<i className="tiny material-icons">error</i>:'';
+export const AlertIcon = (visible,template,setItemToDisable) => {
+  return visible?(
+    <i
+      onClick={() => setItemToDisable(false,template,template.disableReasons[0].reason)}
+      className="tiny material-icons"
+      role="presentation"
+    >
+        error
+    </i>) :'';
+};
 
 export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn, isDeleted, onClick, setItemToDisable }) => (
   <tr className={`table__rows ${isDeleted?'off':''}`}>

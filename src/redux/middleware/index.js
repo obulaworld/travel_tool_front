@@ -110,6 +110,7 @@ import {
 import {
   watchCreateEmailReminderTemplate,
   watchEnableEmailReminderTemplate,
+  watchdisableEmailTemplate
 } from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
 import { watchCreateReminder } from './reminderSaga';
@@ -202,6 +203,7 @@ function* rootSaga() {
     watchEnableEmailReminderTemplate(),
     watchDisableReminderCondition(),
     watchEnableDisabledReminderCondition(),
+    watchdisableEmailTemplate(),
   ]);
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import reminderData from '../../../redux/__mocks__/emailReminderConditionMockData';
-import ReminderTable, {ReminderDetails} from '../ReminderTable';
+import ReminderTable from '../ReminderTable';
 
 
 const props = {
@@ -34,19 +34,19 @@ describe('render reminder table', () => {
 
   it('should render table rows to allow data', () => {
     const wrapper = mount(
-      <ReminderDetails {...props} />
+      <ReminderTable reminders={reminderData} />
     );
     const details = wrapper.find('.table__rows');
-    expect(details).toBeTruthy();
+    expect(details.length).toBe(2);
   });
 
-  it('should render table rows to allow data', () => {
+  it('should call setItemToDisable function when the disabled icon is clicked', () => {
     const newProps = {
       ...props,
       disabled: true
     };
     const wrapper = mount(
-      <ReminderDetails {...newProps} />
+      <ReminderTable {...{...newProps, reminders: reminderData}} />
     );
 
     const event = { target: { preventDefault: jest.fn() } };

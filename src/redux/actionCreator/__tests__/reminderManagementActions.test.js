@@ -4,7 +4,10 @@ import {
   CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
   ENABLE_REMINDER_EMAIL_TEMPLATE,
   ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+  DISABLE_EMAIL_TEMPLATE,
+  DISABLE_EMAIL_TEMPLATE_SUCCESS,
+  DISABLE_EMAIL_TEMPLATE_FAILURE
 } from '../../constants/actionTypes';
 import {
   createReminderEmailTemplate,
@@ -12,10 +15,14 @@ import {
   createReminderEmailTemplateSuccess,
   enableReminderEmailTemplate,
   enableReminderEmailTemplateFailure,
-  enableReminderEmailTemplateSuccess
+  enableReminderEmailTemplateSuccess,
+  disableEmailTemplate,
+  disableEmailTemplateSuccess,
+  disableEmailTemplateFailure
 } from '../reminderManagementActions';
 import { payload, errors, response,
-  enableResponse, enableErrors
+  enableResponse, enableErrors, disableResponse,
+  disableErrors, disablePayload
 } from '../../__mocks__/reminderManagement';
 
 describe('Reminder Management Actions', () => {
@@ -48,6 +55,7 @@ describe('Reminder Management Actions', () => {
       expect(createReminderEmailTemplateFailure(errors)).toEqual(expected);
     });
   });
+
   describe('Reminder Enable Actions', () => {
     const templateId = 7;
     it('should return action of type ENABLE_EMAIL_TEMPLATE', () => {
@@ -67,14 +75,34 @@ describe('Reminder Management Actions', () => {
       };
       expect(enableReminderEmailTemplateSuccess(enableResponse.data.updatedTemplate)).toEqual(expected);
     });
+  });
+
+  describe('Reminder Disable Actions', () => {
+    it('should return action of type DISABLE_EMAIL_TEMPLATE', () => {
+      const expected = {
+        type: DISABLE_EMAIL_TEMPLATE,
+        templateId: disablePayload.template,
+        disableReason: disablePayload.reason
+      };
+      const disabled = disableEmailTemplate(disablePayload.template, disablePayload.reason);
+      expect(disabled).toEqual(expected);
+    });
+
+    it('should return an action of type DISABLE_EMAIL_TEMPLATE', () => {
+      const expected = {
+        type: DISABLE_EMAIL_TEMPLATE_SUCCESS,
+        disabledTemplate:disableResponse.data.updatedTemplate,
+        reason: disableResponse.data.reason
+      };
+      expect(disableEmailTemplateSuccess(disableResponse.data.updatedTemplate,disableResponse.data.reason)).toEqual(expected);
+    });
 
     it('should return an action of type DISABLE_EMAIL_TEMPLATE_FAILURE', () => {
       const expected = {
-        type: ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-        errors: enableErrors
+        type: DISABLE_EMAIL_TEMPLATE_FAILURE,
+        error: disableErrors
       };
-      expect(enableReminderEmailTemplateFailure(enableErrors)).toEqual(expected);
+      expect(disableEmailTemplateFailure(disableErrors)).toEqual(expected);
     });
   });
-
 });

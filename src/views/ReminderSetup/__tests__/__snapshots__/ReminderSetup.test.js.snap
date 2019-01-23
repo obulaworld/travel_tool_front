@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ReminderSetupConnected /> renders 1`] = `
+exports[`<ConnectedReminderSetup /> renders 1`] = `
 Array [
   <div
     className="readiness-header"
@@ -45,6 +45,7 @@ Array [
         </p>
     </div>
 </div>,
+  "",
   "",
 ]
 `;

@@ -7,22 +7,33 @@ import ListEmailTemplates from '../../components/ReminderSetup/ListEmailTemplate
 import PageHeader from '../../components/PageHeader';
 import { closeModal, openModal } from '../../redux/actionCreator/modalActions';
 import Base from '../Base';
-import {  enableReminderEmailTemplate } from '../../redux/actionCreator/reminderManagementActions';
-
+import {  enableReminderEmailTemplate, disableEmailTemplate } from '../../redux/actionCreator/reminderManagementActions';
+import DisableReminderTemplateForm from '../../components/Forms/DisableReminderTemplateForm/DisableReminderTemplate';
 import EnableEmailReminderTemplateForm
   from '../../components/Forms/EnableReminderEmailTemplateForm/EnableReminderEmailTemplateForm';
 
-export class ReminderSetup extends Base{
-  state = { templateId: '' }
+export class ReminderSetup extends Base {
+  state = { disableReason: '', templateId: '', templateName: '', templateReason:'' }
 
-  setItemToDisable = (template, disabled) => {
+  setItemToDisable = (disabled, template, reason) => {
     const { openModal } = this.props;
     if(disabled === true){
       this.setState({
         templateId: template.id,
       });
       openModal(true, 'enable reminder template');
+    }else{
+      this.setState({
+        templateId: template.id,
+        templateName: template.name,
+        templateReason: reason || ''
+      });
+      openModal(true, 'disable reminder template');
     }
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ disableReason: event.target.value });
   }
 
   enableReminderTemplate = (event) => {
@@ -32,13 +43,31 @@ export class ReminderSetup extends Base{
     enableReminderEmailTemplate(templateId);
   }
 
+  disableReminderTemplate = (event) => {
+    event.preventDefault();
+    const { disableEmailTemplate } = this.props;
+    const { templateId } = this.state;
+    disableEmailTemplate(templateId, this.state);
+    this.setState({ disableReason: null });
+  }
+
   renderEnableReminderTemplateForm() {
     const { shouldOpen, modalType, closeModal } = this.props;
     const { itemName } = this.state;
     return (
       <EnableEmailReminderTemplateForm
         shouldOpen={shouldOpen} enableReminderTemplate={this.enableReminderTemplate}
-        itemName={itemName} modalType={modalType} closeModal={closeModal} />
+        itemName={itemName} modalType={modalType} closeModal={closeModal} /> );
+  }
+
+  renderDisableReminderTemplateForm() {
+    const { shouldOpen, modalType, closeModal } = this.props;
+    const { itemName, disableReason, templateReason } = this.state;
+    return (
+      <DisableReminderTemplateForm
+        shouldOpen={shouldOpen} disableReminderTemplate={this.disableReminderTemplate}
+        handleInputChange={this.handleInputChange} itemName={itemName} disableReason={disableReason}
+        modalType={modalType} closeModal={closeModal} templateReason={templateReason} />
     );
   }
 
@@ -46,7 +75,6 @@ export class ReminderSetup extends Base{
     const { fetchTemplates, listEmailTemplatesReducer, location,
       history, openModal, closeModal, shouldOpen, modalType,
       fetchOneTemplate } = this.props;
-
     return (
       <Fragment>
         <div className="readiness-header">
@@ -72,15 +100,17 @@ export class ReminderSetup extends Base{
           modalType={modalType}
         />
         {this.renderEnableReminderTemplateForm()}
+        {this.renderDisableReminderTemplateForm()}
       </Fragment>
     );
   }
 }
 
 const mapDispatchToProps = {
-  openModal, closeModal, enableReminderEmailTemplate,
+  openModal, closeModal, enableReminderEmailTemplate, disableEmailTemplate,
   fetchTemplates: fetchAllEmailTemplates, fetchOneTemplate: fetchTemplate
 };
+
 ReminderSetup.propTypes = {
   fetchTemplates: PropTypes.func.isRequired,
   listEmailTemplatesReducer: PropTypes.object.isRequired,
@@ -101,6 +131,7 @@ ReminderSetup.defaultProps = {
 };
 
 const mapStateToProps = ({listEmailTemplatesReducer, modal}) => ({
-  listEmailTemplatesReducer, ...modal.modal
+  listEmailTemplatesReducer, ...modal.modal,
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(ReminderSetup);
