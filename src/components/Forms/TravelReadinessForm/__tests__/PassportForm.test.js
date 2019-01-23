@@ -9,9 +9,7 @@ toast.error = jest.fn();
 
 describe('<PassportForm/>',  () => {
 
-  let wrapper, createTravelReadinessDocument, editTravelReadinessDocument;
-  createTravelReadinessDocument = jest.fn();
-  editTravelReadinessDocument = jest.fn();
+  let wrapper;
 
   const props = {
     createTravelReadinessDocument: jest.fn(),
@@ -38,8 +36,6 @@ describe('<PassportForm/>',  () => {
 
   const passportFile = new Blob(['Passport file'], {type: 'application/pdf', name: 'Filename.pdf'});
 
-  const fileSize = passportFile.size * 10;
-
   const event = {
     target: {
       files: [
@@ -55,6 +51,7 @@ describe('<PassportForm/>',  () => {
 
   afterEach(() => {
     moxios.uninstall();
+    jest.resetAllMocks();
   });
 
   it('renders correctly', () => {
@@ -90,21 +87,6 @@ describe('<PassportForm/>',  () => {
       wrapperWithOtherDocumentField.find('button#submit').text()).toEqual('Save Changes');
   });
 
-  it('should upload a file', () => {
-    wrapper.find('#select-file').simulate('change', event);
-    expect(wrapper.state().image).toEqual(passportFile);
-  });
-
-  it('should upload a file for edit', () => {
-    const newProps = {
-      ...props,
-      modalType: 'edit passport'
-    };
-    const wrapper = mount(<PassportForm {...newProps} />);
-    wrapper.find('#select-file').simulate('change', event);
-    expect(wrapper.state().image).toEqual(passportFile);
-  });
-
   it('should not submit without document', () => {
     wrapper.setState({values: {...document}});
 
@@ -119,34 +101,14 @@ describe('<PassportForm/>',  () => {
       response: cloudinaryResponse
     });
 
-    wrapper.find('.passport-form').simulate('submit');
+    wrapper.find('form').simulate('submit');
 
     moxios.wait(() => {
       expect(wrapper.state().documentUploaded).toBeFalsy();
-      expect(toast.error).toHaveBeenCalledWith('Please upload a passport.');
+      expect(toast.error).toHaveBeenCalledWith('Please upload a document.');
     });
   });
 
-  it('should call the handleSubmit method for passport edits', () => {
-    const newProps = {
-      ...props,
-      modalType: 'edit passport',
-      documentType: 'passport'
-    };
-    const wrapperWithPassportField = mount(
-      <PassportForm {...newProps} />
-    );
-
-    const instance = wrapperWithPassportField.instance();
-    jest.spyOn(instance, 'handleSubmit');
-    let documentUploaded = false;
-    wrapperWithPassportField.find('form').simulate('submit', {
-      preventDefault: () => {
-        documentUploaded = true;
-      },
-    });
-    expect(documentUploaded).toBe(true);
-  });
 
   it('should submit if all the data is valid',  () => {
     wrapper.setState({values: {...document}});
@@ -164,38 +126,12 @@ describe('<PassportForm/>',  () => {
       response: cloudinaryResponse
     });
 
-    wrapper.find('.passport-form').simulate('submit');
+    wrapper.find('form').simulate('submit');
 
     moxios.wait(() => {
       expect(wrapper.state().documentUploaded).toBeTruthy();
-      expect(createTravelReadinessDocument).toHaveBeenCalledWith('passport', document);
+      expect(props.createTravelReadinessDocument).toHaveBeenCalledWith('passport', document);
     });
-  });
-
-  it('should not upload an image if it is already uploaded', () => {
-    wrapper.setState({values: {...document}});
-    wrapper.find('#select-file').simulate('change', event);
-
-
-    process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
-
-    const cloudinaryResponse = {
-      url: 'secure url'
-    };
-
-    moxios.stubRequest(process.env.REACT_APP_CLOUNDINARY_API, {
-      status: 200,
-      response: cloudinaryResponse
-    });
-
-    wrapper.setState({documentUploaded: true});
-    wrapper.find('.passport-form').simulate('submit');
-    expect(props.createTravelReadinessDocument).toHaveBeenCalled();
-  });
-
-  it('should display errors when received from the api', () => {
-    wrapper.setProps({ errors: { cloudinaryUrl: 'Please provide a passport'}});
-    expect(wrapper.state().errors).toEqual({cloudinaryUrl: 'Please provide a passport'});
   });
 
   it('should toast an error if the passport file does not upload', () => {
@@ -214,13 +150,13 @@ describe('<PassportForm/>',  () => {
     });
 
     wrapper.setState({documentUploaded: false});
-    wrapper.find('.passport-form').simulate('submit');
-    expect(toast.error).toHaveBeenCalledTimes(0);
+    wrapper.find('form').simulate('submit');
+    expect(toast.error).toHaveBeenCalled();
   });
 
   it('toasts an error if cloudinary returns an error', () => {
     moxios.stubRequest(process.env.REACT_APP_CLOUNDINARY_API, { status: 500});
-    wrapper.find('#select-file').simulate('change', event);
+    wrapper.find('input[type="file"]').simulate('change', event);
   });
 
   it('should edit if all the data is valid',  () => {
@@ -231,7 +167,7 @@ describe('<PassportForm/>',  () => {
 
     wrapper = mount(<PassportForm {...newProps} />);
     wrapper.setState({values: {...document}});
-    wrapper.find('#select-file').simulate('change', event);
+    wrapper.find('input[type="file"]').simulate('change', event);
 
 
     process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
@@ -245,7 +181,7 @@ describe('<PassportForm/>',  () => {
       response: cloudinaryResponse
     });
 
-    wrapper.find('.passport-form').simulate('submit');
+    wrapper.find('form').simulate('submit');
 
     moxios.wait(() => {
       expect(wrapper.state().documentUploaded).toBeTruthy();
@@ -253,31 +189,6 @@ describe('<PassportForm/>',  () => {
     });
   });
 
-  it('should not upload an image for edit if it is already uploaded', () => {
-    const newProps = {
-      ...props,
-      modalType: 'edit passport'
-    };
-    wrapper = mount(<PassportForm {...newProps} />);
-    wrapper.setState({values: {...document}});
-    wrapper.find('#select-file').simulate('change', event);
-
-
-    process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
-
-    const cloudinaryResponse = {
-      url: 'secure url'
-    };
-
-    moxios.stubRequest(process.env.REACT_APP_CLOUNDINARY_API, {
-      status: 200,
-      response: cloudinaryResponse
-    });
-
-    wrapper.setState({documentUploaded: true});
-    wrapper.find('.passport-form').simulate('submit');
-    expect(props.editTravelReadinessDocument).toHaveBeenCalled();
-  });
 
   it('should display an error when there is no value in input', () => {
     const formWrapper = mount(
@@ -328,10 +239,5 @@ describe('<PassportForm/>',  () => {
     };
     wrapper = mount(<PassportForm {...newProps} />);
     wrapper.setState({values: {...document}});
-  });
-
-  it('should display errors when received from the api', () => {
-    wrapper.setProps({ errors: { cloudinaryUrl: 'Please provide a document'}});
-    expect(wrapper.state().errors).toEqual({cloudinaryUrl: 'Please provide a document'});
   });
 });

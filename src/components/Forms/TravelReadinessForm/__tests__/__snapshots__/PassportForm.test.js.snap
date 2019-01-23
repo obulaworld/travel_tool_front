@@ -3,7 +3,7 @@
 exports[`<PassportForm/> renders correctly 1`] = `
 <div>
   <form
-    className="passport-form"
+    className="travel-document-form"
     onSubmit={[Function]}
   >
     <div>
@@ -301,77 +301,69 @@ exports[`<PassportForm/> renders correctly 1`] = `
             />
           </div>
         </div>
-        <div
-          className="attach-file"
-        >
-          <p>
-            Attach File
-            <span
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-            >
-              *
-            </span>
-          </p>
-          <div
-            className="document-input__input-container"
-          >
-            <label
-              className="document-input__input-container__prompts"
-              htmlFor="select-file"
-            >
-              <img
-                alt="Document Upload"
-                className="document-input__input-container__prompts__img"
-                src="document-upload-blue.svg"
-              />
-              <div
-                className="document-input__input-container__prompts__text"
-              >
-                <p>
-                  Drag file here or choose from computer
-                </p>
-              </div>
-              <input
-                accept="image/*, .pdf"
-                id="select-file"
-                onChange={[Function]}
-                type="file"
-              />
-            </label>
-          </div>
-          <span
-            className="error"
-          />
-        </div>
         <hr />
       </fieldset>
     </div>
-    <fieldset>
+    <div
+      className="travel-document-select-file"
+    >
+      <p>
+        Attach File
+      </p>
       <div
-        className="submit-area"
+        className="document-input__input-container"
       >
-        <button
-          className="bg-btn bg-btn--inactive"
-          id="cancel"
-          onClick={[Function]}
-          type="button"
+        <label
+          className="document-input__input-container__prompts"
+          htmlFor="select-file"
         >
-          Cancel
-        </button>
-        <button
-          className="bg-btn bg-btn--active"
-          disabled={true}
-          id="submit"
-          type="submit"
-        >
-          Add Passport
-        </button>
+          <img
+            alt="Document Upload"
+            className="document-input__input-container__prompts__img"
+            src="document-upload-blue.svg"
+          />
+          <div
+            className="document-input__input-container__prompts__text"
+          >
+            <p>
+              Drag file here or choose from computer
+            </p>
+          </div>
+          <input
+            id="select-file"
+            onChange={[Function]}
+            type="file"
+          />
+        </label>
       </div>
-    </fieldset>
+    </div>
+    <hr />
+    <div
+      className="travel-document-submit-area"
+    >
+      <fieldset>
+        <div
+          className="submit-area"
+        >
+          <button
+            className="bg-btn bg-btn--inactive"
+            id="cancel"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-btn bg-btn--active"
+            disabled={true}
+            id="submit"
+            type="submit"
+          >
+            Add Passport
+          </button>
+        </div>
+      </fieldset>
+    </div>
   </form>
 </div>
 `;

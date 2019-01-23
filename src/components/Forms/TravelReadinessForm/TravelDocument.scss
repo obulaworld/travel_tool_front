@@ -11,8 +11,18 @@
       width: 48%;
     }
   }
+
+  hr {
+    margin: 0;
+    width: calc(100% + 60px);
+    right: 0;
+  }
+
   .travel-document-submit-area {
-    margin-top: 3em;
+    margin-bottom: 1.5em;
+  }
+  .document-input__input-container{
+    margin-bottom: 2em;
   }
 
   .date-wrapper {
@@ -34,5 +44,13 @@
   .document-input__input-container__prompts__text p{
     color: #3359DB;
   }
-  
+
+  .progress-bar {
+    margin-top: -2px;
+    padding-top: 0;
+    height: 5px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+  }
 }

@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 class FileUploadField extends Component{
   getUrlLink = (name) => {
     const { document, modalType } = this.props;
-    if (!isEmpty(document) && (modalType === 'edit visa' || modalType === 'edit other') && name === '') {
+    if (!isEmpty(document) && (modalType.startsWith('edit')) && name === '') {
       return `${document.data.cloudinaryUrl.substring(1, 40)}...`;
     }
     return (
