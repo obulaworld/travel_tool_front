@@ -32,7 +32,11 @@ export function* postUserDataSagaAsync(action) {
       action.userData.location = process.env.REACT_APP_DEFAULT_LOCATION;
     }
 
-    const response = yield call(UserAPI.postNewUsers, action.userData);
+    const user = {
+      location: location.name
+    };
+
+    const response = yield call(UserAPI.postNewUsers, user);
     yield put(postUserDataSuccess(response.data));
     yield put(getUserDataSuccess(response.data));
   } catch (error) {

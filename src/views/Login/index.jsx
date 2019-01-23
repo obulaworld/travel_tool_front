@@ -42,10 +42,7 @@ export class Login extends Component {
     const { user, postUserData } = this.props;
     if(exp && !Utils.isExpired(exp)) {
       const users = {
-        fullName: user.UserInfo.name,
         email: user.UserInfo.email,
-        userId: user.UserInfo.id,
-        picture: user.UserInfo.picture
       };
       loginStatus();
       postUserData(users);
