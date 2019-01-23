@@ -4,16 +4,31 @@ import { Link } from 'react-router-dom';
 import withLoading from '../../components/Hoc/withLoading';
 import './TravelReadinessDocuments.scss';
 
-export const UserReadiness = ({name, userId, department, passportsCount, visasCount}) => (
-  <tr className="table__rows">
-    <td className="mdl-data-table__cell--non-numeric table__data readiness__cell-name">
-      <Link className="table__data--link" to={`/travel-readiness/${userId}`}>{name}</Link>
-    </td>
-    <td className="mdl-data-table__cell--non-numeric table__data">{department}</td>
-    <td className="mdl-data-table__cell--non-numeric table__data">{passportsCount}</td>
-    <td className="mdl-data-table__cell--non-numeric table__data">{visasCount}</td>
-  </tr>
-);
+export class UserReadiness extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    department: PropTypes.string.isRequired,
+    passportsCount: PropTypes.number.isRequired,
+    visasCount: PropTypes.number.isRequired,
+    othersCount: PropTypes.number.isRequired
+  };
+
+  render(){
+    const { name, userId, department, passportsCount, visasCount, othersCount } = this.props;
+    return (
+      <tr className="table__rows">
+        <td className="mdl-data-table__cell--non-numeric table__data readiness__cell-name">
+          <Link className="table__data--link" to={`/travel-readiness/${userId}`}>{name}</Link>
+        </td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{department}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{passportsCount}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{visasCount}</td>
+        <td className="mdl-data-table__cell--non-numeric table__data">{othersCount}</td>
+      </tr>
+    );
+  }
+}
 
 export const TableHead = () => (
   <thead>
@@ -22,6 +37,7 @@ export const TableHead = () => (
       <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">Department</th>
       <th className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left">No. of Passports</th>
       <th className="mdl-data-table__cell--non-numeric table__head">No. of Visas</th>
+      <th className="mdl-data-table__cell--non-numeric table__head">No. of Other Documents</th>
     </tr>
   </thead>
 );
@@ -32,6 +48,7 @@ export const TableBody = ({ users }) => (
       users.map(user => {
         const visasCount = user.travelDocuments.filter(document => document.type === 'visa').length;
         const passportsCount = user.travelDocuments.filter(document => document.type === 'passport').length;
+        const othersCount = user.travelDocuments.filter(document => document.type === 'other').length;
         return (
           <UserReadiness
             key={user.userId}
@@ -40,6 +57,7 @@ export const TableBody = ({ users }) => (
             department={user.department}
             visasCount={visasCount}
             passportsCount={passportsCount}
+            othersCount={othersCount}
           />
         );
       })
@@ -55,14 +73,6 @@ const ReadinessTable = ({ users }) => (
     </table>
   </div>
 );
-
-UserReadiness.propTypes = {
-  name: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
-  department: PropTypes.string.isRequired,
-  passportsCount: PropTypes.number.isRequired,
-  visasCount: PropTypes.number.isRequired,
-};
 
 ReadinessTable.propTypes = {
   users: PropTypes.array.isRequired,

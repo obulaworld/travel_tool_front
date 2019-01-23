@@ -20,6 +20,7 @@ describe('TravelReadinessDocumentsTable', () => {
       department: 'TDD',
       passportsCount: 4,
       visasCount: 2,
+      othersCount:3,
       userId: 'xlkdsf'
     };
     const wrapper = shallow(<UserReadiness {...props} />);

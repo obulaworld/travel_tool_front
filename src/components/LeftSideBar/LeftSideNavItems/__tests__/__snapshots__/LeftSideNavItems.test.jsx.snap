@@ -50,13 +50,13 @@ exports[`<LeftSideNavItems /> renders correctly 1`] = `
       >
         <img
           alt="icon"
-          src="checklist-inactive.svg"
+          src="documents-grey.svg"
         />
       </div>
       <div
         className="left-side-nav-item__nav-text"
       >
-        Travel Documents
+        Documents
       </div>
     </a>
   </li>

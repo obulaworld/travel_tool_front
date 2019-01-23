@@ -100,12 +100,12 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
             Object {
               "activateOnLogin": true,
               "icons": Object {
-                "active": "checklist-active.svg",
-                "inactive": "checklist-inactive.svg",
+                "active": "documents-blue.svg",
+                "inactive": "documents-grey.svg",
               },
               "isDropdown": false,
               "link_to": "/travel_readiness",
-              "text": "Travel Documents",
+              "text": "Documents",
             },
             Object {
               "activateOnLogin": false,
@@ -116,6 +116,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "onlyVisibleTo": Array [
                     "Super Administrator",
                     "Travel Administrator",
+                    "Travel Team Member",
                   ],
                   "text": "Travel Readiness",
                 },
@@ -125,6 +126,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "onlyVisibleTo": Array [
                     "Super Administrator",
                     "Travel Administrator",
+                    "Travel Team Member",
                   ],
                   "text": "Travel Checklist",
                 },
@@ -138,6 +140,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
               "onlyVisibleTo": Array [
                 "Super Administrator",
                 "Travel Administrator",
+                "Travel Team Member",
               ],
               "text": "Trip Planner",
             },

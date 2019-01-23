@@ -48,14 +48,9 @@ exports[`<OtherDocumentForm /> renders without crashing 1`] = `
             htmlFor="dateOfIssue"
           >
             Date of Issue
-            <span
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-            >
-               * 
+            <span>
+               
+              (Optional)
             </span>
           </label>
           <div

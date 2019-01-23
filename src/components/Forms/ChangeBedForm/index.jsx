@@ -117,8 +117,7 @@ ChangeBedForm.propTypes = {
   requesterName: PropTypes.string.isRequired,
   handleRoomSubmit: PropTypes.func.isRequired,
   bedChoices: PropTypes.array.isRequired,
-  loadingBeds: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loadingBeds: PropTypes.bool.isRequired, loading: PropTypes.bool.isRequired,
   toggleChangeRoomModal: PropTypes.func.isRequired
 };
 

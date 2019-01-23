@@ -15,7 +15,7 @@ class UserTravelReadinessDetails extends Component {
   };
 
   componentDidMount() {
-    const { fetchUserData, match: {params: {userId}} } = this.props;
+    const { fetchUserData, match: { params: { userId } } } = this.props;
     fetchUserData(userId);
   }
 
@@ -28,7 +28,7 @@ class UserTravelReadinessDetails extends Component {
   showDocumentDetail = (documentId, type) => {
     const { openModal } = this.props;
     this.setState({
-      documentId, 
+      documentId,
       activeDocument: type
     });
     openModal(true, 'document details');
@@ -38,7 +38,7 @@ class UserTravelReadinessDetails extends Component {
     const { activeDocument, documentId } = this.state;
     const { userReadiness, isLoading, shouldOpen, modalType, closeModal, location } = this.props;
     const { fullName, travelDocuments } = userReadiness;
-    const { passport, visa } = travelDocuments;
+    const { passport, visa, other } = travelDocuments;
     return (
       <Fragment>
         <div className={isLoading ? 'readiness-header' : ''}>
@@ -53,6 +53,7 @@ class UserTravelReadinessDetails extends Component {
                 <div className="open-requests">
                   <div className="button-group">
                     <Button
+                      className="document-button"
                       showBadge
                       badge={passport && passport.length}
                       text="Passports"
@@ -68,19 +69,27 @@ class UserTravelReadinessDetails extends Component {
                       buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'visa' ? 'bg-btn--active' : ''}`}
                       badgeClass={activeDocument === 'visa' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
                     />
+                    <Button
+                      showBadge
+                      badge={other && other.length}
+                      text="Others"
+                      onClick={() => this.toggleDocumentTab('other')}
+                      buttonClass={`bg-btn bg-btn--with-badge ${activeDocument === 'other' ? 'bg-btn--active' : ''}`}
+                      badgeClass={activeDocument === 'other' ? 'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+                    />
                   </div>
                 </div>
               </div>
             )
           }
         </div>
-        <TravelReadinessDetailsTable location={location} closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
+        <TravelReadinessDetailsTable location={location} closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} others={other} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = ({travelReadinessDocuments, modal}) => ({
+const mapStateToProps = ({ travelReadinessDocuments, modal }) => ({
   userReadiness: travelReadinessDocuments.userReadiness,
   isLoading: travelReadinessDocuments.isLoading,
   ...modal.modal,

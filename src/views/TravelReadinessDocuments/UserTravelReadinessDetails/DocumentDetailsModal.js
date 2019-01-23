@@ -63,7 +63,7 @@ export class DocumentDetailsModal extends Component {
 
   checkCurrentUserStatus = () => {
     const { getCurrentUserRole } = this.props;
-    const allowedRoles = ['Super Administrator', 'Travel Administrator'];
+    const allowedRoles = ['Super Administrator', 'Travel Administrator', 'Travel Team Member'];
     const allowed = getCurrentUserRole.some(role => allowedRoles.includes(role));
     if (!allowed && allowedRoles.length !== 0) {
       return false;
