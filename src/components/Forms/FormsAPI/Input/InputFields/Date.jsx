@@ -40,6 +40,7 @@ class DateInput extends Component {
           maxDate={name === 'dateOfIssue' || name === 'dateOfBirth' ? maxDate : null}
           name={name}
           onBlur={onBlur}
+          autoComplete="off"
         />
         <img className="calendar-icon" src={calendarIcon} alt="cal" />
       </div>

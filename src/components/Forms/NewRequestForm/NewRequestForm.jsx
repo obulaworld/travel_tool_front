@@ -360,8 +360,6 @@ class NewRequestForm extends PureComponent {
     const { values, selection, trips } = this.state;
     const {occupations} = this.props;
 
-    let isValid = (occupations.some((role) => role.occupationName === values.role));
-
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
@@ -382,21 +380,18 @@ class NewRequestForm extends PureComponent {
     }
 
     let data = { ...newData };
-    if (this.validate() && modalType === 'edit request' && isValid) {
+    if (this.validate() && modalType === 'edit request') {
       handleEditRequest(requestOnEdit.id, data);
-    } else if (isValid) {
-      handleCreateRequest(data);
     }
     else {
-      toast.error('the role you entered is invalid');
+      handleCreateRequest(data);
     }
     const checkBoxState = localStorage.getItem('checkBox');
     if (checkBoxState === 'clicked') {
-      if (!isEqual(newUserData, defaultUserData) && isValid) {
+      if (!isEqual(newUserData, defaultUserData)) {
         values.passportName = values.name;
         values.occupation = values.role;
         const userId = user.UserInfo.id;
-        // this adds user profile to the database *do not remove
         updateUserProfile(values, userId);
       }
     }
