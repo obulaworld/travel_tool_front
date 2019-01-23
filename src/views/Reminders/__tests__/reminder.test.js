@@ -2,17 +2,50 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import ConnectedReminders from '../index';
+import ConnectedReminders, { Reminders } from '../index';
 import {initialState} from '../../../redux/reducers/emailReminder';
 import TemplatesPagination from '../../../components/ReminderSetup/TemplatesPagination';
 
 
 const mockStore = configureStore();
 
-const initState = { 
-  emailReminders : {...initialState},
+const initState = {
+  emailReminders: {
+    ...initialState,
+    meta: {
+      documentCount: {
+        passport: 2,
+        visa: 1
+      },
+      pagination: {
+        'pageCount': 3,
+        'currentPage': 1
+      }
+    },
+    reminders: [
+      {
+        id: 3,
+        conditionName: 'PasssssT',
+        documentType: 'Passport',
+        disabled: false,
+        createdAt: '2019-01-24T16:11:09.802Z',
+        updatedAt: '2019-01-25T14:42:00.976Z',
+        userId: '-LT2Pgjb2os_fE5yxSf9',
+        user: {
+          fullName: 'Adeniyi Adeyokunnu'
+        },
+        reasons: [
+          {
+            reason: 'Home stretch',
+            conditionId: 3,
+            createdAt: '2019-01-25T14:35:39.275Z'
+          }
+        ]
+      }
+    ]
+  },
   modal: {
-    modal: {...initialState}
+    modal: { ...initialState }
   }
 };
 const store = mockStore(initState);
@@ -26,7 +59,7 @@ const props = {
   shouldOpen: true,
   modalType: 'disable reminder condtion',
   closeModal: jest.fn(),
-  reminders: []
+  enableDisabledReminderCondition: jest.fn()
 };
 
 describe('Reminder component', () => {
@@ -42,7 +75,7 @@ describe('Reminder component', () => {
     expect(wrapper).toMatchSnapshot();
     // To find two button tags on the DOM
     const buttons = wrapper.find('button');
-    expect(buttons.length).toEqual(6);
+    expect(buttons.length).toEqual(8);
   });
 
   it('should test if the two buttons are passport and visa', () => {
@@ -82,6 +115,7 @@ describe('Reminder component', () => {
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
   });
+
 
   it('should test that passport and visa button toggle when clicked',  () => {
     const wrapper = mount(

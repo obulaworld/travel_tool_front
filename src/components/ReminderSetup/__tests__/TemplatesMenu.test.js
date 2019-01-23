@@ -6,7 +6,12 @@ describe('<TemplatesMenu />', () => {
   const props = {
     disableEnable: false,
     setItemToDisable: jest.fn(),
-    
+    template: {
+      id: 'work'
+    },
+    reminder:{
+      id: 'please'
+    }
   };
   const event = {
     target: {

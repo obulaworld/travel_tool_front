@@ -7,7 +7,7 @@ describe('<TemplateDetailsModal />', () => {
     closeModal: jest.fn(), 
     templates: [],
     modalType: '', 
-    shouldOpen: jest.fn(), 
+    shouldOpen: false, 
     onetemplate: {}, 
   };
 

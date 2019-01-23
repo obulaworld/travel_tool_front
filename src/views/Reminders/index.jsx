@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import ReminderTable from './ReminderTable';
 import PageHeader from '../../components/PageHeader';
-import { fetchEmailReminder, disableReminderCondition } from '../../redux/actionCreator/emailReminderAction';
+import {
+  fetchEmailReminder,
+  disableReminderCondition,
+  enableDisabledReminderCondition
+} from '../../redux/actionCreator/emailReminderAction';
 import NoEmailReminder from '../../components/EmailReminderSetup/NoEmailReminder';
 import './Reminder.scss';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import DisableReminderTemplateForm from '../../components/Forms/DisableReminderTemplateForm/DisableReminderTemplate';
+import EnableDisabledReminderConditionForm from '../../components/Forms/EnableDisabledReminderConditionForm/EnableReminderEmailTemplateForm';
 import TemplatesPagination from '../../components/ReminderSetup/TemplatesPagination';
 
 
@@ -29,14 +34,21 @@ export class Reminders extends Component{
     fetchEmailReminder({document: 'passport'});
   }
 
-  setItemToDisable = (reminder, reason) => {
+  setItemToDisable = (reminder, reason, event) => {
     const { openModal } = this.props;
-    this.setState({
-      conditionId: reminder.id,
-      conditionName: reminder.conditionName,
-      conditionReason: reason || ''
-    });
-    openModal(true, 'disable reminder condtion');
+    if (reminder.disabled && event.target.textContent === 'Enable') {
+      this.setState({
+        conditionId: reminder.id,
+      });
+      openModal(true, 'enable disabled reminder');
+    } else {
+      this.setState({
+        conditionId: reminder.id,
+        conditionName: reminder.conditionName,
+        conditionReason: reason || ''
+      });
+      openModal(true, 'disable reminder condtion');
+    }
   }
 
   handleInputChange = (event) => {
@@ -49,6 +61,13 @@ export class Reminders extends Component{
     const { conditionId } = this.state;
     disableReminderCondition(conditionId, this.state);
     this.setState({ disableReason: null });
+  }
+
+  enableDisabledReminder = (event) => {
+    event.preventDefault();
+    const { enableDisabledReminderCondition } = this.props;
+    const { conditionId } = this.state;
+    enableDisabledReminderCondition(conditionId);
   }
 
   onPageChangeEvent = (previousOrNext) => {
@@ -82,6 +101,16 @@ export class Reminders extends Component{
         shouldOpen={shouldOpen} disableEmailReminder={this.disableEmailReminder}
         handleInputChange={this.handleInputChange} itemName={itemName} disableReason={disableReason}
         modalType={modalType} closeModal={closeModal} templateReason={templateReason} conditionReason={conditionReason} />
+    );
+  }
+
+  renderEnableDisabledReminderConditionForm() {
+    const { shouldOpen, modalType, closeModal } = this.props;
+    const { itemName } = this.state;
+    return (
+      <EnableDisabledReminderConditionForm
+        shouldOpen={shouldOpen} enableDisabledReminderCondition={this.enableDisabledReminder}
+        itemName={itemName} modalType={modalType} closeModal={closeModal} />
     );
   }
 
@@ -162,7 +191,6 @@ export class Reminders extends Component{
 
   render() {
     const { reminders, meta: {pagination} } = this.props;
-
     return (
       <Fragment>
         <PageHeader
@@ -179,13 +207,18 @@ export class Reminders extends Component{
           )
         }
         {this.renderDisableReminderConditionForm()}
+        {this.renderEnableDisabledReminderConditionForm()}
       </Fragment>
     );
   }
 }
 
 const mapDispatchToProps = {
-  openModal, closeModal, fetchEmailReminder, disableReminderCondition
+  openModal,
+  closeModal,
+  fetchEmailReminder,
+  disableReminderCondition,
+  enableDisabledReminderCondition
 };
 
 const mapStateToProps = ({ modal,emailReminders}) => ({
@@ -196,6 +229,7 @@ const mapStateToProps = ({ modal,emailReminders}) => ({
 Reminders.propTypes = {
   history: PropTypes.object.isRequired,
   disableReminderCondition: PropTypes.func.isRequired,
+  enableDisabledReminderCondition: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reminders);
