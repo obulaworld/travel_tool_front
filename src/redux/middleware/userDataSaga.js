@@ -33,7 +33,7 @@ export function* postUserDataSagaAsync(action) {
     }
 
     const user = {
-      location: location.name
+      location: action.userData.location
     };
 
     const response = yield call(UserAPI.postNewUsers, user);
