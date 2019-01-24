@@ -32,14 +32,16 @@ class TemplatesMenu extends Component {
     }
   };
 
-  MenuContainer = (disableEnable, openClose) => (
+  MenuContainer = (disableEnable, openClose, template, setItemToDisable) => (
     <div ref={this.setRef} className={`table__menu-container ${openClose}`}>
       <ul className="table__menu-list">
         <li className="table__menu-list-item top">
           <span className="edit">Edit</span>
         </li>
-        <li className="table__menu-list-item bottom">
-          <span className="disable">{disableEnable?'Enable':'Disable'}</span>
+        <li
+          onClick={() => {setItemToDisable(template, disableEnable);}} role="presentation"
+          className="table__menu-list-item bottom" id="setItem">
+          {disableEnable? <span className="enable">Enable</span> : <span className="disable">Disable</span>} 
         </li>
       </ul>
     </div>
@@ -47,7 +49,7 @@ class TemplatesMenu extends Component {
 
   render() {
     const { openClose } = this.state;
-    const { disableEnable } = this.props;
+    const { disableEnable, template, setItemToDisable } = this.props;
     return (
       <span>
         <i
@@ -56,14 +58,16 @@ class TemplatesMenu extends Component {
           role="presentation"
           onClick={this.toggleMenu}
         />
-        {this.MenuContainer(disableEnable, openClose)}
+        {this.MenuContainer(disableEnable, openClose, template, setItemToDisable)}
       </span>
     );
   }
 }
 
 TemplatesMenu.propTypes = {
-  disableEnable: PropTypes.bool.isRequired
+  disableEnable: PropTypes.bool.isRequired,
+  template: PropTypes.object.isRequired,
+  setItemToDisable: PropTypes.func.isRequired,
 };
 
 export default TemplatesMenu;

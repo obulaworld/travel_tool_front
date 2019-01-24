@@ -4,7 +4,9 @@ import TemplatesMenu from '../TemplatesMenu';
 
 describe('<TemplatesMenu />', () => {
   const props = {
-    disableEnable: false
+    disableEnable: false,
+    setItemToDisable: jest.fn(),
+    
   };
   const event = {
     target: {

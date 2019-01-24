@@ -1,7 +1,8 @@
 import {
   FETCH_ALL_EMAIL_TEMPLATES,
   FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
-  FETCH_ALL_EMAIL_TEMPLATES_FAILURE
+  FETCH_ALL_EMAIL_TEMPLATES_FAILURE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -30,6 +31,17 @@ const reminderSetupReducer = (state=initialState, action) => {
       ...state,
       isLoading: false,
       errors: action.errors
+    };
+  case ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS:
+    return {
+      ...state,
+      templates:[...state.templates].map((template) => {
+        if(template && action.enabledTemplate.id === template.id){
+          template.disabled = action.enabledTemplate.disabled;
+        }
+        return template;
+      }),
+      isLoading: false
     };
   default:
     return state;

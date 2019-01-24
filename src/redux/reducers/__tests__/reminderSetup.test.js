@@ -4,8 +4,12 @@ import {
   fetchAllEmailTemplatesFailure,
   fetchAllEmailTemplatesSuccess
 } from '../../actionCreator/listEmailTemplatesActions';
-import listOfTemplates from '../../../views/ReminderSetup/__mocks__';
+import {
+  enableReminderEmailTemplateSuccess,
+} from '../../actionCreator/reminderManagementActions';
+import templates from  '../../../views/ReminderSetup/__mocks__';
 
+const { listOfTemplates, allTemplates } = templates;
 
 describe('reminder setup reducer', () =>{
   const initialState = {
@@ -55,5 +59,16 @@ describe('reminder setup reducer', () =>{
       isLoading: false
     };
     expect(reminderSetupReducer(initialState, action)).toEqual(expectedOutput);
+  });
+  it('updates state with disabled template if action with type ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS', () => {
+    const { templates } = listOfTemplates;
+    templates[0].disabled = true;
+    const action = enableReminderEmailTemplateSuccess(templates[0], 'Reason');
+    const output = reminderSetupReducer(allTemplates, action);
+    const expectedResult = {
+      templates,
+      isLoading: false,
+    };
+    expect(output).toEqual(expectedResult);
   });
 });

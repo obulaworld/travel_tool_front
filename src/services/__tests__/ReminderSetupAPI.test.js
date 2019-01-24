@@ -17,4 +17,17 @@ describe('ReminderSetup', () => {
     expect(request.url).toEqual(`${baseUrl}/reminderManagement/emailTemplates${url}`);
     expect(response.data).toEqual();
   });
+  it('sends enable request to the api', async () => {
+    const templateId = 3;
+
+    moxios.stubRequest(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`, {
+      status: 200,
+      response: 'Reminder email template has been successfully enabled'
+    });
+
+    const response = await ReminderManagementAPI.enableEmailTemplates(templateId);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);
+    expect(response.data).toEqual('Reminder email template has been successfully enabled');
+  });
 });

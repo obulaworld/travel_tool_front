@@ -2,13 +2,18 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
 import {
   createReminderEmailTemplateFailure,
-  createReminderEmailTemplateSuccess
+  createReminderEmailTemplateSuccess,
+  enableReminderEmailTemplateFailure,
+  enableReminderEmailTemplateSuccess
 } from '../actionCreator/reminderManagementActions';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
-import {CREATE_REMINDER_EMAIL_TEMPLATE} from '../constants/actionTypes';
+import {CREATE_REMINDER_EMAIL_TEMPLATE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE,
+} from '../constants/actionTypes';
 import ReminderManagementAPI from '../../services/ReminderManagementAPI';
 import apiValidationErrorHandler from '../../services/apiValidationErrorHandler';
+import { closeModal } from '../actionCreator/modalActions';
 
 export function* createEmailReminderTemplateSaga(action){
   const { history, payload } = action;
@@ -31,4 +36,22 @@ export function* createEmailReminderTemplateSaga(action){
 
 export function* watchCreateEmailReminderTemplate(){
   yield takeLatest(CREATE_REMINDER_EMAIL_TEMPLATE, createEmailReminderTemplateSaga);
+}
+
+export function* enableEmailReminderTemplateSaga(action){
+  try{
+    const { templateId } = action;
+    const response = yield call(ReminderManagementAPI.enableEmailTemplates, templateId);
+    yield put(enableReminderEmailTemplateSuccess(response.data.updatedTemplate, templateId));
+    yield put(closeModal());
+    toast.success(response.data.message);
+  }catch(error){
+    let errorMessage = apiErrorHandler(error);
+    toast.error(errorMessage);
+    yield put(enableReminderEmailTemplateFailure(error));
+  }
+}
+
+export function* watchEnableEmailReminderTemplate(){
+  yield takeLatest(ENABLE_REMINDER_EMAIL_TEMPLATE, enableEmailReminderTemplateSaga);
 }
