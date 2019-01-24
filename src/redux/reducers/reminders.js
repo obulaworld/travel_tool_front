@@ -11,11 +11,11 @@ export const initialState = {
   },
 };
 
-const templateReducer = (templates = [], action, currentPageLastValue) => {
-  if (currentPageLastValue === action.pagination.currentPage) {
-    return templates;
-  }
-  return [...templates, ...action.templates];
+const templateReducer = (templates = [], action) => {
+  const leastTemplateId = templates.length
+    ? templates[templates.length - 1].id : action.pagination.totalCount + 1;
+  const newTemplates = action.templates.filter(template => template.id < leastTemplateId);
+  return [...templates, ...newTemplates];
 };
 
 const newReminderReducer = (reminderState = initialState.newReminder, action) => {
@@ -56,8 +56,14 @@ export default (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      templates: templateReducer(state.templates, action, state.currentPage),
+      templates: templateReducer(state.templates, action),
       currentPage: action.pagination.currentPage,
+    };
+  }
+  case types.CREATE_REMINDER_EMAIL_TEMPLATE: {
+    return {
+      ...state,
+      templates: []
     };
   }
   case types.CREATE_REMINDER:
