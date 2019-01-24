@@ -1,4 +1,6 @@
 import React from 'react';
+import sinon from 'sinon';
+import { BrowserRouter } from 'react-router-dom';
 import reminderData from '../../../redux/__mocks__/emailReminderConditionMockData';
 import ReminderTable from '../ReminderTable';
 
@@ -17,12 +19,15 @@ const props = {
       {
         reason: 'reason is reason is reason'
       }
-    ]
+    ],
+    id: 1,
+    conditionName: 'Passport Completion Email'
   },
   id: 1,
   history: {
     push: jest.fn()
-  }
+  },
+  disableEnable: false,
 };
 
 describe('render reminder table', () => {
@@ -30,7 +35,12 @@ describe('render reminder table', () => {
   it('should render reminder table', () => {
 
     const wrapper = mount(
-      <ReminderTable reminders={reminderData} />
+      <BrowserRouter>
+        <ReminderTable
+          {...props} 
+          reminders={reminderData}  
+        />
+      </BrowserRouter>
     );
     const table = wrapper.find('table');
     expect(table.length).toEqual(1);
@@ -38,7 +48,9 @@ describe('render reminder table', () => {
 
   it('should render table rows to allow data', () => {
     const wrapper = mount(
-      <ReminderTable reminders={reminderData} />
+      <BrowserRouter>
+        <ReminderTable reminders={reminderData} />
+      </BrowserRouter>
     );
     const details = wrapper.find('.table__rows');
     expect(details.length).toBe(2);
@@ -50,7 +62,10 @@ describe('render reminder table', () => {
       disabled: true
     };
     const wrapper = mount(
-      <ReminderTable {...{...newProps, reminders: reminderData}} />
+      <BrowserRouter>
+        <ReminderTable {...{...newProps, reminders: reminderData}} />
+      </BrowserRouter>
+
     );
 
     const event = { target: { preventDefault: jest.fn() } };

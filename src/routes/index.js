@@ -33,7 +33,6 @@ import {
   MANAGER
 } from '../helper/roles';
 
-
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={ConnectedLogin} />
@@ -220,9 +219,16 @@ const Routes = () => (
             }
           />
           <Route
-            path="/documents"
+            path="/settings/reminders/edit/:conditionId"
             exact
-            component={RequireAuth(ConnectedDocuments)}
+            component={
+              RequireAuth(
+                ConnectedCreateReminder,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR,
+                TRAVEL_TEAM_MEMBER
+              )
+            }
           />
           <Route
             path="/settings/reminders"

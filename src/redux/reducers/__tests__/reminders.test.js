@@ -1,5 +1,18 @@
 import reminders, { initialState } from '../reminders';
-import * as types from '../../constants/actionTypes';
+import {
+  CREATE_REMINDER,
+  CREATE_REMINDER_SUCCESS,
+  CREATE_REMINDER_FAILURE,
+  FETCH_ALL_EMAIL_TEMPLATES,
+  FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
+  CREATE_REMINDER_EMAIL_TEMPLATE,
+  GET_SINGLE_REMINDER,
+  GET_SINGLE_REMINDER_SUCCESS,
+  GET_SINGLE_REMINDER_FAILURE,
+  EDIT_REMINDER,
+  EDIT_REMINDER_SUCCESS,
+  EDIT_REMINDER_FAILURE
+} from '../../constants/actionTypes';
 
 describe('reminders reducer', () => {
   it('returns the initial state', () => {
@@ -16,7 +29,7 @@ describe('reminders reducer', () => {
       }
     };
     expect(reminders(initialState, {
-      type: types.CREATE_REMINDER,
+      type: CREATE_REMINDER,
     })).toEqual(expectedState);
   });
 
@@ -32,7 +45,7 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.CREATE_REMINDER_SUCCESS,
+      type: CREATE_REMINDER_SUCCESS,
       reminder: {id: 1}
     })).toEqual(expectedState);
   });
@@ -48,7 +61,7 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.CREATE_REMINDER_FAILURE,
+      type: CREATE_REMINDER_FAILURE,
       errors: {conditionName: 'condition name must be unique'}
     })).toEqual(expectedState);
   });
@@ -60,7 +73,7 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.FETCH_ALL_EMAIL_TEMPLATES,
+      type: FETCH_ALL_EMAIL_TEMPLATES,
     })).toEqual(expectedState);
   });
 
@@ -72,7 +85,7 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
+      type: FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
       pagination: {
         currentPage: 5
       },
@@ -89,7 +102,7 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
+      type: FETCH_ALL_EMAIL_TEMPLATES_SUCCESS,
       pagination: {
         currentPage: 0
       },
@@ -104,7 +117,134 @@ describe('reminders reducer', () => {
     };
 
     expect(reminders(initialState, {
-      type: types.CREATE_REMINDER_EMAIL_TEMPLATE
+      type: CREATE_REMINDER_EMAIL_TEMPLATE
     })).toEqual(expectedState);
   });
+
+  it('upates update single reminder state when GET_SINGLE_REMINDER is fired', () => {
+    const expectedState = {
+      ...initialState,
+      singleReminder: {
+        data: {},
+        isLoading: true,
+        errors: {},
+      }
+    };
+    expect(reminders(initialState, {
+      type: GET_SINGLE_REMINDER
+    })).toEqual(expectedState);
+  });
+
+  it('successfully returns new reminder when GET_SINGLE_REMINDER_SUCCESS is fired', () => {
+    const singleReminder ={
+      isLoading: false,
+      errors: {},
+      data: {
+        currentName: 'Passport EXpiry',
+        documenType: 'Visa',
+        reminders: [
+          {
+            frequency: '9 Days',
+            remninderTemplateId: 1,
+            id: 1,
+          }
+        ],
+      },
+    };
+    const expectedState = {
+      ...initialState,
+      singleReminder,
+    };
+
+    expect(reminders(initialState, {
+      type: GET_SINGLE_REMINDER_SUCCESS,
+      reminder: {
+        reminder: singleReminder.data
+      }
+    })).toEqual(expectedState);
+  });
+
+  it('resets the template state when GET_SINGLE_REMINDER_FAILURE is fired', () => {
+    const singleReminder ={
+      isLoading: false,
+      data: {},
+      errors: {
+        message: 'coditionId should be a number'
+      }
+    };
+    const expectedState = {
+      ...initialState,
+      singleReminder
+    };
+
+    expect(reminders(initialState, {
+      type: GET_SINGLE_REMINDER_FAILURE,
+      errors: {
+        message: 'coditionId should be a number'
+      }
+    })).toEqual(expectedState);
+  });
+
+  it('upates a reminder state when EDIT_REMINDER is fired', () => {
+    const expectedState = {
+      ...initialState,
+      updatedReminder: {
+        data: {},
+        isUpdating: true,
+        errors: {},
+      }
+    };
+    expect(reminders(initialState, {
+      type: EDIT_REMINDER
+    })).toEqual(expectedState);
+  });
+
+  it('successfully returns new reminder when EDIT_REMINDER_SUCCESS is fired', () => {
+    const updatedReminder ={
+      isUpdating: false,
+      errors: {},
+      data: {
+        currentName: 'Passport EXpiry',
+        documenType: 'Visa',
+        reminders: [
+          {
+            frequency: '9 Days',
+            remninderTemplateId: 1,
+            id: 1,
+          }
+        ],
+      },
+    };
+    const expectedState = {
+      ...initialState,
+      updatedReminder,
+    };
+
+    expect(reminders(initialState, {
+      type: EDIT_REMINDER_SUCCESS,
+      reminder: updatedReminder.data
+    })).toEqual(expectedState);
+  });
+
+  it('resets the template state when EDIT_REMINDER_FAILURE is fired', () => {
+    const updatedReminder ={
+      isUpdating: false,
+      data: {},
+      errors: {
+        message: 'coditionId should be a number'
+      }
+    };
+    const expectedState = {
+      ...initialState,
+      updatedReminder
+    };
+
+    expect(reminders(initialState, {
+      type: EDIT_REMINDER_FAILURE,
+      errors: {
+        message: 'coditionId should be a number'
+      }
+    })).toEqual(expectedState);
+  });
+
 });

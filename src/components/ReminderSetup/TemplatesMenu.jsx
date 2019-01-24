@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 class TemplatesMenu extends Component {
   state = {
@@ -32,31 +34,47 @@ class TemplatesMenu extends Component {
     }
   };
 
-  renderMenuContainer = (disableEnable, openClose, data, setItemToDisable, id, history) => (
-    <div ref={this.setRef} className={`table__menu-container ${openClose}`}>
-      <ul className="table__menu-list">
-        <li className="table__menu-list-item top">
-          <span
-            role="presentation"
-            onClick={() => history.push(`/settings/reminder-setup/update/${id}`)}
-            className="edit">
-            Edit
-          </span>
-        </li>
-        { data && (
+
+  renderMenuContainer = ({ disableEnable, openClose, data, id }) => {
+    const { conditionId, setItemToDisable, reminder   } = this.props;
+    const editReminderLink = '/settings/reminders/edit';
+    return (
+      <div ref={this.setRef} className={`table__menu-container ${openClose}`}>
+        <ul className="table__menu-list">
+          {!disableEnable && (
+            <li>
+              <Link 
+                to={
+                  !isEmpty(reminder) 
+                    ? `${editReminderLink}/${conditionId}`
+                    : `/settings/reminder-setup/update/${id}`
+                }
+                className="table__menu-list-item top"
+              >
+                <span className="edit">Edit</span>
+              </Link>
+            </li>
+          )
+          }
           <li
             onClick={(event) => {setItemToDisable(disableEnable, data, null, event);}} role="presentation"
             className="table__menu-list-item bottom" id="setItem">
             {disableEnable? <span className="enable">Enable</span> : <span className="disable">Disable</span>}
           </li>
-        )}
-      </ul>
-    </div>
-  );
+        </ul>
+      </div>
+    );
+  }
+
 
   render() {
     const { openClose } = this.state;
-    const { disableEnable, template, reminder, setItemToDisable, id, history } = this.props;
+    const { 
+      disableEnable,
+      template, 
+      reminder,
+      id
+    } = this.props;
     return (
       <span>
         <i
@@ -65,14 +83,17 @@ class TemplatesMenu extends Component {
           role="presentation"
           onClick={this.toggleMenu}
         />
-        {template ?
-          this.renderMenuContainer(disableEnable, openClose, template, setItemToDisable, id, history)
-          : ''
-        }
-        {reminder ?
-          this.renderMenuContainer(disableEnable, openClose, reminder, setItemToDisable, id, history)
-          : ''
-        }
+        {!isEmpty(template) && this.renderMenuContainer({ 
+          disableEnable, 
+          openClose, 
+          data: template, 
+          id 
+        })}
+        {!isEmpty(reminder) && this.renderMenuContainer({ 
+          disableEnable, 
+          openClose,
+          data: reminder,
+        })}
       </span>
     );
   }
@@ -82,15 +103,19 @@ TemplatesMenu.propTypes = {
   disableEnable: PropTypes.bool,
   template: PropTypes.object,
   reminder: PropTypes.object,
-  setItemToDisable: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  history: PropTypes.object.isRequired
+  setItemToDisable: PropTypes.func,
+  id: PropTypes.number,
+  conditionId: PropTypes.number,
 };
 
 TemplatesMenu.defaultProps = {
+  conditionId: 0,
+  id: 0,
   disableEnable: false,
+  reminder: {},
   template: {},
-  reminder: {}
+  setItemToDisable: () => {},
 };
+
 
 export default TemplatesMenu;

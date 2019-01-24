@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import ConnectedReminders, { Reminders } from '../index';
 import {initialState} from '../../../redux/reducers/emailReminder';
@@ -82,7 +82,9 @@ describe('Reminder component', () => {
     // The page to be rendered
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedReminders {...props} />
+        <BrowserRouter>
+          <ConnectedReminders {...props} />
+        </BrowserRouter>
       </Provider>
     );
 
@@ -95,7 +97,9 @@ describe('Reminder component', () => {
   it('should test if the two buttons are passport and visa', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedReminders {...props} />
+        <BrowserRouter>
+          <ConnectedReminders {...props} />
+        </BrowserRouter>
       </Provider>
     );
     const button = wrapper.find('#passportButton');
@@ -116,7 +120,9 @@ describe('Reminder component', () => {
   it('should test default button is passport', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedReminders {...props} />
+        <BrowserRouter>
+          <ConnectedReminders {...props} />
+        </BrowserRouter>
       </Provider>
     );
 
@@ -141,7 +147,9 @@ describe('Reminder component', () => {
   it('should test that passport and visa button toggle when clicked',  () => {
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedReminders {...props} />
+        <BrowserRouter>
+          <ConnectedReminders {...props} />
+        </BrowserRouter>
       </Provider>
     );
     wrapper.find('#passportButton').simulate('click');
@@ -158,7 +166,9 @@ describe('Reminder component', () => {
   it('should test page change function when next button is clicked on pagination', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedReminders {...props} />
+        <BrowserRouter>
+          <ConnectedReminders {...props} />
+        </BrowserRouter>
       </Provider>
     );
 

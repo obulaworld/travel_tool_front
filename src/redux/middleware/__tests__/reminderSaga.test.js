@@ -2,8 +2,18 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import toast from 'toastr';
-import { watchCreateReminder } from '../reminderSaga';
-import * as types from '../../constants/actionTypes';
+import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from '../reminderSaga';
+import {
+  CREATE_REMINDER_SUCCESS,
+  CREATE_REMINDER,
+  CREATE_REMINDER_FAILURE,
+  GET_SINGLE_REMINDER_SUCCESS,
+  GET_SINGLE_REMINDER,
+  GET_SINGLE_REMINDER_FAILURE,
+  EDIT_REMINDER_SUCCESS,
+  EDIT_REMINDER,
+  EDIT_REMINDER_FAILURE
+} from '../../constants/actionTypes';
 import ReminderAPI from '../../../services/ReminderAPI';
 
 const response = {
@@ -65,11 +75,11 @@ describe('Reminder sagas', () => {
           [call(ReminderAPI.createReminder, payload), response]
         ])
         .put({
-          type: types.CREATE_REMINDER_SUCCESS,
+          type: CREATE_REMINDER_SUCCESS,
           createdReminder: response.data,
         })
         .dispatch({
-          type: types.CREATE_REMINDER,
+          type: CREATE_REMINDER,
           reminderPayload: payload,
           history: { push: jest.fn() }
         })
@@ -82,11 +92,11 @@ describe('Reminder sagas', () => {
           [call(ReminderAPI.createReminder, payload), throwError('unable to fetch')]
         ])
         .put({
-          type: types.CREATE_REMINDER_FAILURE,
+          type: CREATE_REMINDER_FAILURE,
           errors: {},
         })
         .dispatch({
-          type: types.CREATE_REMINDER,
+          type: CREATE_REMINDER,
           payload,
           history: { push: jest.fn()}
         })
@@ -109,15 +119,145 @@ describe('Reminder sagas', () => {
           [call(ReminderAPI.createReminder, payload), throwError(error)]
         ])
         .put({
-          type: types.CREATE_REMINDER_FAILURE,
+          type: CREATE_REMINDER_FAILURE,
           errors: {
             conditionName: 'Reminder condition name already exists'
           },
         })
         .dispatch({
-          type: types.CREATE_REMINDER,
+          type: CREATE_REMINDER,
           reminderPayload: payload,
           history: { push: jest.fn()}
+        })
+        .silentRun();
+    });
+  });
+
+  describe('GetSingleReminderAsync', () => {
+    const conditionId = 1;
+    it('returns single reminder', () => {
+      return expectSaga(watchGetSingleReminder, ReminderAPI)
+        .provide([
+          [call(ReminderAPI.getSingleReminder, conditionId), response]
+        ])
+        .put({
+          type: GET_SINGLE_REMINDER_SUCCESS,
+          reminder: response.data,
+        })
+        .dispatch({
+          type: GET_SINGLE_REMINDER,
+          conditionId,
+        })
+        .silentRun();
+    });
+
+    it('handles errors from the API', () => {
+      return expectSaga(watchGetSingleReminder)
+        .provide([
+          [call(ReminderAPI.getSingleReminder, conditionId), throwError('unable to fetch')]
+        ])
+        .put({
+          type: GET_SINGLE_REMINDER_FAILURE,
+          errors: {},
+        })
+        .dispatch({
+          type: GET_SINGLE_REMINDER,
+          conditionId
+        })
+        .run();
+    });
+
+    it('handles validation errors from the API', () => {
+      const error = new Error('Condition Id should be a number');
+      error.response = {
+        data: {
+          errors: [{
+            message: 'Conddition Id should be a number',
+            name: 'conditionId'
+          }]
+        },
+        status: 422
+      };
+      return expectSaga(watchGetSingleReminder)
+        .provide([
+          [call(ReminderAPI.getSingleReminder, 'conditionId'), throwError(error)]
+        ])
+        .put({
+          type: GET_SINGLE_REMINDER_FAILURE,
+          errors: {
+            conditionId: 'Conddition Id should be a number'
+          },
+        })
+        .dispatch({
+          type: GET_SINGLE_REMINDER,
+          conditionId: 'conditionId'
+        })
+        .silentRun();
+    });
+  });
+
+  describe('EditSingleReminderAsync', () => {
+    const conditionId = 1;
+    it('updates a single reminder', () => {
+      return expectSaga(watchEditReminder, ReminderAPI)
+        .provide([
+          [call(ReminderAPI.editReminder, payload, conditionId), response]
+        ])
+        .put({
+          type: EDIT_REMINDER_SUCCESS,
+          updatedReminder: response.data,
+        })
+        .dispatch({
+          type: EDIT_REMINDER,
+          reminderPayload: payload,
+          conditionId,
+          history: { push: jest.fn()}
+        })
+        .silentRun();
+    });
+
+    it('handles errors from the API', () => {
+      return expectSaga(watchEditReminder)
+        .provide([
+          [call(ReminderAPI.editReminder, payload, conditionId), throwError('unable to fetch')]
+        ])
+        .put({
+          type: EDIT_REMINDER_FAILURE,
+          errors: {},
+        })
+        .dispatch({
+          type: EDIT_REMINDER,
+          payload,
+          conditionId
+        })
+        .run();
+    });
+
+    it('handles validation errors from the API', () => {
+      const error = new Error('Condition name must be unique');
+      error.response = {
+        data: {
+          errors: [{
+            message: 'Reminder condition name already exists',
+            name: 'conditionName'
+          }]
+        },
+        status: 422
+      };
+      return expectSaga(watchEditReminder)
+        .provide([
+          [call(ReminderAPI.editReminder, payload, conditionId), throwError(error)]
+        ])
+        .put({
+          type: EDIT_REMINDER_FAILURE,
+          errors: {
+            conditionName: 'Reminder condition name already exists'
+          },
+        })
+        .dispatch({
+          type: EDIT_REMINDER,
+          reminderPayload: payload,
+          conditionId,
         })
         .silentRun();
     });

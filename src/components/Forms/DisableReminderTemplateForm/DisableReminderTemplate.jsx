@@ -5,8 +5,10 @@ import SubmitArea from './FormFieldsets/SubmitArea';
 import './DisableReminderTemplate.scss';
 
 
-const renderHeader = (disableReminderTemplate) => {
-  return disableReminderTemplate ? 'Disable Reminder Template' : 'Disable Reminder Condition';
+const renderHeader = (modalType) => {
+  return modalType === 'disable reminder template' 
+    ? 'Disable Reminder Template' 
+    : 'Disable Reminder Condition';
 };
 
 const checkModalVisibility = (shouldOpen, modalType) => {
@@ -23,7 +25,9 @@ const renderTextArea = (conditionReason, handleInputChange) => {
         defaultValue={conditionReason}
         disabled={conditionReason ? true:false}
         className={
-          conditionReason ? 'delete-checklist-item__input disabled':'delete-checklist-item__input'}
+          conditionReason 
+            ? 'delete-checklist-item__input disabled'
+            :'delete-checklist-item__input'}
         onChange={handleInputChange}
       />
     </Fragment>
@@ -33,12 +37,15 @@ const renderTextArea = (conditionReason, handleInputChange) => {
 const renderSubmitArea = (
   closeModal,
   disableReminderTemplate,
-  disableEmailReminder, disableReason, conditionReason, mode) => {
+  disableEmailReminder,
+  disableReason, conditionReason, mode,  modalType,
+) => {
   return (
     <Fragment>
       <SubmitArea
         onCancel={closeModal}
         hasBlankFields={false}
+        modalType={modalType}
         disableReminderTemplate={disableReminderTemplate}
         disableEmailReminder={disableEmailReminder}
         disableReason={disableReason}
@@ -52,10 +59,13 @@ const renderSubmitArea = (
 
 export const FormBody = ({
   check ,
-  handleInputChange, mode,
+  handleInputChange, 
+  mode,
   disableReason,
   disableEmailReminder,
-  closeModal, disableReminderTemplate
+  modalType,
+  closeModal, 
+  disableReminderTemplate
 }) => (
   <span>
     { check ?
@@ -64,7 +74,15 @@ export const FormBody = ({
     }
     { renderTextArea(check, handleInputChange) }
     <div className="delete-checklist-item__hr" />
-    { renderSubmitArea(closeModal, disableReminderTemplate, disableEmailReminder, disableReason, check,mode ) }
+    { renderSubmitArea(
+      closeModal, 
+      disableReminderTemplate, 
+      disableEmailReminder, 
+      disableReason, 
+      check,
+      mode, 
+      modalType 
+    ) }
   </span>
 );
 
@@ -78,7 +96,9 @@ const DisableReminderTemplateForm = ({
   return(
     <Modal
       closeModal={closeModal}
-      customModalStyles={templateReason ? 'delete-checklist-item__disable': 'delete-checklist-item'}
+      customModalStyles={templateReason 
+        ? 'delete-checklist-item__disable'
+        : 'delete-checklist-item'}
       visibility={checkModalVisibility(shouldOpen,modalType)}
       title={check ? 'Disable Reason': renderHeader(disableReminderTemplate)}
     >
@@ -90,6 +110,7 @@ const DisableReminderTemplateForm = ({
         disableEmailReminder={disableEmailReminder}
         closeModal={closeModal}
         disableReminderTemplate={disableReminderTemplate}
+        modalType={modalType}
       />
     </Modal>
   );
@@ -103,6 +124,7 @@ FormBody.propTypes = {
   closeModal: PropTypes.func.isRequired,
   disableReason: PropTypes.string,
   mode: PropTypes.string,
+  modalType: PropTypes.string,
 };
 
 DisableReminderTemplateForm.propTypes = {

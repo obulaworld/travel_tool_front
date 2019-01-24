@@ -22,6 +22,16 @@ class SelectDropDown extends PureComponent {
     this.setState(state => ({...state, selectedItem}));
   }
 
+  componentWillReceiveProps(props) {
+    const { placeHolder, dropDownItems, defaultSelected } = this.props;
+    const selectedItem = dropDownItems.find(item => item.value == defaultSelected)
+      || dropDownItems[0];
+    this.setState({
+      placeHolderText: placeHolder,
+      selectedItem,
+    });
+  }
+
   selectItem = item => {
     this.setState({
       selectedItem: item,
