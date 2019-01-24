@@ -1,0 +1,15 @@
+.no-email-icon{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-30%);
+
+  img{
+    width: 250px;
+    opacity: 0.2;
+  }
+  p {
+    opacity: 0.8;
+    text-align: center;
+  }
+}

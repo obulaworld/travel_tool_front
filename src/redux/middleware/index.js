@@ -112,6 +112,7 @@ import {
   watchEnableEmailReminderTemplate,
 } from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
+import {watchfetchEmailReminders} from './emailRemindersSaga'
 import { watchCreateReminder } from './reminderSaga';
 
 function* rootSaga() {
@@ -188,9 +189,9 @@ function* rootSaga() {
     watchFetchReadinessDocumentDetails(),
     watchFetchTeammates(),
     watchVerifyTravelReadinessDocuments(),
+    watchfetchEmailReminders(),
     watchEditTravelReadinessDocument(),
     watchCreateEmailReminderTemplate(),
-    watchEditTravelReadinessDocument(),
     watchDeleteTravelReadinessDocument(),
     watchFetchAllEmailTemplates(),
     watchCreateReminder(),

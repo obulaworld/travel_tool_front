@@ -7,6 +7,7 @@ exports[`<Date /> renders as expected 1`] = `
 >
   <DatePicker
     allowSameDay={false}
+    autoComplete="off"
     calendarClassName="calendar-body"
     className=""
     dateFormat="L"

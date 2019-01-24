@@ -25,6 +25,7 @@ import attachments from './attachments';
 import maintenance from './maintenance';
 import travelReadinessDocuments from './travelReadinessDocuments';
 import teammates from './teammates';
+import emailReminders from './emailReminder';
 import listEmailTemplatesReducer from './listEmailTemplates';
 import reminders from './reminders';
 
@@ -55,6 +56,7 @@ const rootReducer = combineReducers({
   attachments,
   maintenance,
   travelReadinessDocuments,
+  emailReminders,
   teammates,
   reminderManagement,
   listEmailTemplatesReducer,
