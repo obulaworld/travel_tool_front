@@ -68,7 +68,6 @@ describe('reminders reducer', () => {
     const expectedState = {
       ...initialState,
       isLoading: false,
-      templates: [{id: 1}],
       currentPage: 5,
     };
 
@@ -95,6 +94,17 @@ describe('reminders reducer', () => {
         currentPage: 0
       },
       templates: [{id: 1}]
+    })).toEqual(expectedState);
+  });
+
+  it('resets the template state when CREATE_REMINDER_EMAIL_TEMPLATE is fired', () => {
+    const expectedState = {
+      ...initialState,
+      templates: [],
+    };
+
+    expect(reminders(initialState, {
+      type: types.CREATE_REMINDER_EMAIL_TEMPLATE
     })).toEqual(expectedState);
   });
 });
