@@ -2,11 +2,11 @@ import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router-dom';
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import CreateEmailTemplate from '../index';
+import UpdateEmailTemplate from '../index';
 
 const state = {
   reminderManagement: {
-    newEmailTemplate: {
+    updatedEmailTemplate: {
       isSaving: false,
       errors: {},
       data: {}
@@ -21,10 +21,11 @@ const props = {
   },
   match: {
     params: {}
-  }
+  },
+  editing: true
 };
 
-describe('<CreateEmailTemplate> page', () => {
+describe('<UpdateEmailTemplate> page', () => {
   let wrapper;
 
   beforeEach(() => {
@@ -33,7 +34,7 @@ describe('<CreateEmailTemplate> page', () => {
     wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <CreateEmailTemplate {...props} />
+          <UpdateEmailTemplate {...props} editing />
         </MemoryRouter>
       </Provider>
     );

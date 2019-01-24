@@ -264,5 +264,61 @@ const allTemplates =  {
   ]
 };
 
+export const reminderTemplateData =  {
+  cc: [
+    'super.modo@andela.com',
+    'wonder.woman@andela.com'
+  ],
+  id: 28,
+  name: 'Test reminder email template',
+  from: '4fr0c0d3.awesome@andela.com',
+  subject: 'Test template',
+  message: 'This is a test template with this amazing content'
+};
+
+export const enabledResponse = {
+  data: {
+    success: true,
+    message: 'Reminder email template has been successfully enabled',
+    updatedTemplate: {
+      ...reminderTemplateData,
+      disabled: false,
+      createdAt: '2019-01-28T07:08:11.845Z',
+      updatedAt: '2019-01-28T07:08:11.845Z',
+      deletedAt: null,
+      createdBy: 1
+    }
+  }
+};
+
+export const myResponse = {
+  data:{
+    success: true,
+    message: 'Email template updated successfully',
+    reminderEmailTemplate: {
+      cc: [
+        'visa.model@andela.com',
+        'visadoc.wom1an@andela.com'
+      ],
+      id: 9,
+      name: 'The visa templater',
+      from: 'visa.modo@andela.com',
+      subject: 'VisaExpiration',
+      message: 'Ensure your renew your visa soon'
+    }
+  }
+};
+
+export const errorResponse = {
+  success: false,
+  message: 'Validation failed',
+  errors: [
+    {
+      message: 'Email template name is required',
+      name: 'name'
+    }
+  ]
+};
+
 
 export default { listOfTemplates, allTemplates };

@@ -7,7 +7,7 @@ import Modal from '../modal/Modal';
 class TemplateDetailsModal extends Component {
 
     render = () => {
-      const { closeModal, modalType, shouldOpen, selectedTemplate } = this.props;
+      const { closeModal, modalType, shouldOpen, selectedTemplate, history } = this.props;
       return(
         <div>
           <Modal
@@ -16,7 +16,10 @@ class TemplateDetailsModal extends Component {
             visibility={(shouldOpen && (modalType === 'template details'))
               ? 'visible' : 'invisible'}
             title="View Details">
-            <TemplateDetailsForm closeModal={closeModal} selectedTemplate={selectedTemplate} />
+            <TemplateDetailsForm
+              closeModal={closeModal}
+              selectedTemplate={selectedTemplate}
+              history={history} />
           </Modal>
         </div>
       );
@@ -27,7 +30,8 @@ TemplateDetailsModal.propTypes = {
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
   shouldOpen: PropTypes.bool,
-  selectedTemplate: PropTypes.object
+  selectedTemplate: PropTypes.object,
+  history: PropTypes.object.isRequired
 };
 
 TemplateDetailsModal.defaultProps = {

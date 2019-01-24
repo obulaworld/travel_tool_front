@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
-  const { hasBlankFields, onCancel, send, selection, loading, reversed} = props;
+  const { hasBlankFields, onCancel, send, selection, loading, reversed, onSend} = props;
   return (
     <fieldset>
       <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
@@ -11,11 +11,11 @@ const SubmitArea = (props) => {
           reversed ? (
             <React.Fragment>
               {CancelButton(onCancel)}
-              {SubmitButton(hasBlankFields, loading, send)}
+              {SubmitButton(hasBlankFields, loading, send, onSend)}
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {SubmitButton(hasBlankFields, loading, send)}
+              {SubmitButton(hasBlankFields, loading, send, onSend)}
               {CancelButton(onCancel)}
             </React.Fragment>
           )
@@ -35,10 +35,12 @@ const CancelButton = (onCancel) => (
   </button>
 );
 
-const SubmitButton = ( hasBlankFields, loading, send) => (
+const SubmitButton = ( hasBlankFields, loading, send, onSend) => (
   <button
     type="submit" disabled={hasBlankFields || loading}
-    className="bg-btn bg-btn--active" id="submit">
+    className="bg-btn bg-btn--active" id="submit"
+    onClick={onSend}
+  >
     <ButtonLoadingIcon isLoading={loading} buttonText={send} />
   </button>
 );
@@ -50,11 +52,13 @@ SubmitArea.propTypes = {
   selection: PropTypes.string,
   loading: PropTypes.bool,
   reversed: PropTypes.bool,
+  onSend: PropTypes.func
 };
 
 SubmitArea.defaultProps = {
   hasBlankFields: false,
   reversed: false,
+  onSend: () => {}
 };
 
 SubmitArea.defaultProps = {

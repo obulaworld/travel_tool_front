@@ -45,7 +45,13 @@ export const ReminderDetails = ({
     <td className={className}>{user.fullName}</td>
     <td className={className}>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</td>
     <td className="table__data">
-      <TemplatesMenu disableEnable={disabled} reminder={reminder} setItemToDisable={setItemToDisable} />
+      <TemplatesMenu
+        disableEnable={disabled}
+        reminder={reminder}
+        setItemToDisable={setItemToDisable}
+        id={reminder.id}
+        history={{}}
+      />
     </td>
   </tr>
 );

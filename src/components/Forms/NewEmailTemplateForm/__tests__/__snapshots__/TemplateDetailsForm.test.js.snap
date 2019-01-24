@@ -91,6 +91,7 @@ exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
           className="bg-btn bg-btn--active"
           disabled={false}
           id="submit"
+          onClick={[Function]}
           type="submit"
         >
           Edit template

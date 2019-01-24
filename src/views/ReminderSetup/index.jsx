@@ -98,6 +98,7 @@ export class ReminderSetup extends Base {
           closeModal={closeModal}
           shouldOpen={shouldOpen}
           modalType={modalType}
+          history={history}
         />
         {this.renderEnableReminderTemplateForm()}
         {this.renderDisableReminderTemplateForm()}

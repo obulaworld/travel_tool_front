@@ -65,7 +65,8 @@ const props = {
   enableDisabledReminderCondition: jest.fn(),
   reminders: [],
   meta: {pagination: {}, documentCount: {}},
-  user: {}
+  user: {},
+  id: 1
 };
 
 describe('Reminder component', () => {

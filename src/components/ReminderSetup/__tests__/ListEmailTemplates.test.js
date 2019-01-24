@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import ListEmailTemplates from '../ListEmailTemplates';
 import listOfTemplates from '../../../views/ReminderSetup/__mocks__/index';
@@ -6,6 +7,10 @@ import listOfTemplates from '../../../views/ReminderSetup/__mocks__/index';
 describe('<ListEmailTemplates />', () => {
   const {templates, pagination} = listOfTemplates;
   const props = {
+    id: null,
+    history: {
+      push: jest.fn()
+    },
     fetchTemplates: jest.fn(),
     fetchOneTemplate: jest.fn(),
     setItemToDisable: jest.fn(),
@@ -30,8 +35,7 @@ describe('<ListEmailTemplates />', () => {
     location: {},
     openModal: jest.fn()
   };
-
-  const wrapper =  mount(<ListEmailTemplates {...props} />);
+  const wrapper =  mount(<MemoryRouter><ListEmailTemplates {...props} /></MemoryRouter>);
 
   it('renders without crashing', () => {
     expect(wrapper).toMatchSnapshot();
@@ -43,10 +47,8 @@ describe('<ListEmailTemplates />', () => {
   });
 
   it('calls onPageChange function', () => {
-
     wrapper.find('#next-button').simulate('click');
     expect(props.fetchTemplates).toHaveBeenCalled();
   });
-
 });
 

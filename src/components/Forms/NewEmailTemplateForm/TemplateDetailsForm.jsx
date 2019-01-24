@@ -14,6 +14,12 @@ class TemplateDetailsForm extends PureComponent {
     closeModal();
   };
 
+  onSend = (event) => {
+    event.preventDefault();
+    const { history, selectedTemplate } = this.props;
+    history.push(`/settings/reminder-setup/update/${selectedTemplate.id}`);
+  };
+
   render() {
 
     const { renderInput } = new InputRenderer({inputLabels: formMetadata });
@@ -37,6 +43,7 @@ class TemplateDetailsForm extends PureComponent {
             </fieldset>
             <SubmitArea
               onCancel={this.onCancel}
+              onSend={this.onSend}
               send="Edit template"
               reversed
             />
@@ -49,7 +56,8 @@ class TemplateDetailsForm extends PureComponent {
 
 TemplateDetailsForm.propTypes = {
   selectedTemplate: PropTypes.object,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  history: PropTypes.object.isRequired
 };
 
 TemplateDetailsForm.defaultProps = {

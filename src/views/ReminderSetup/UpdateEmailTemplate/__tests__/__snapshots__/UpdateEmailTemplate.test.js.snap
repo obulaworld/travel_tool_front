@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UpdateEmailTemplate> page Should render correctly 1`] = `
+<div>
+  <div
+    className="PageHeader"
+  >
+    <div>
+      <a
+        href="/settings/reminder-setup/"
+        onClick={[Function]}
+      >
+        <img
+          alt="icon"
+          className="header__link"
+          src="back-icon.svg"
+        />
+      </a>
+      <span
+        className="title"
+      >
+        EDIT AN EMAIL TEMPLATE
+      </span>
+    </div>
+  </div>
+  <form
+    className="new-email-template-form"
+    onSubmit={[Function]}
+  >
+    <fieldset
+      className="form-fields"
+    >
+      <div
+        className="input-group"
+      >
+        <div
+          className="form-input  "
+        >
+          <label
+            htmlFor="name"
+          >
+            Template Name
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <input
+            autoComplete="off"
+            className=" "
+            label="Template Name"
+            name="name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <span
+            className="error"
+          />
+        </div>
+        <div
+          className="emails"
+        >
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="from"
+            >
+              From
+              <span
+                style={
+                  Object {
+                    "color": "red",
+                  }
+                }
+              >
+                 * 
+              </span>
+            </label>
+            <input
+              autoComplete="off"
+              className=" "
+              label="From"
+              name="from"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="text"
+              value=""
+            />
+            <span
+              className="error"
+            />
+          </div>
+          <div
+            className="form-input  "
+          >
+            <label
+              htmlFor="cc"
+            >
+              Cc
+            </label>
+            <div
+              className="ReactTags__tags react-tags-wrapper"
+            >
+              <div
+                className="ReactTags__selected"
+              >
+                <div
+                  className="ReactTags__tagInput"
+                >
+                  <input
+                    aria-label="Add an email"
+                    className="ReactTags__tagInputField"
+                    name="cc"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onPaste={[Function]}
+                    placeholder="Add an email"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+            <span
+              className="error"
+            />
+          </div>
+        </div>
+        <div
+          className="form-input  "
+        >
+          <label
+            htmlFor="subject"
+          >
+            Email Subject
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <input
+            autoComplete="off"
+            className=" "
+            label="Email Subject"
+            name="subject"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <span
+            className="error"
+          />
+        </div>
+        <div
+          className="form-input email-message "
+        >
+          <label
+            htmlFor="message"
+          >
+            Email Message
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <textarea
+            autoComplete="off"
+            className=" textarea-box email-message"
+            label="Email Message"
+            name="message"
+            onBlur={[Function]}
+            onChange={[Function]}
+            rows="10"
+            type="textarea"
+            value=""
+          />
+          <span
+            className="error"
+          />
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div
+        className="submit-area"
+      >
+        <button
+          className="bg-btn bg-btn--active"
+          disabled={true}
+          id="submit"
+          type="submit"
+        >
+          Update
+        </button>
+        <button
+          className="bg-btn bg-btn--inactive"
+          id="cancel"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+`;

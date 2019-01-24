@@ -22,6 +22,7 @@ import ConnectedHome from '../views/Home';
 import ConnectedReminders from '../views/Reminders';
 import ConnectedCreateEmailTemplate from '../views/ReminderSetup/CreateEmailTemplate';
 import ConnectedReminderSetup from '../views/ReminderSetup';
+import UpdateEmailTemplate from '../views/ReminderSetup/UpdateEmailTemplate';
 import NotFound from '../views/ErrorPages';
 import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
 
@@ -199,6 +200,17 @@ const Routes = () => (
                 SUPER_ADMINISTRATOR,
                 TRAVEL_ADMINISTRATOR,
                 TRAVEL_TEAM_MEMBER
+              )
+            }
+          />
+          <Route
+            path="/settings/reminder-setup/update/:templateId"
+            exact
+            component={
+              RequireAuth(
+                UpdateEmailTemplate,
+                SUPER_ADMINISTRATOR,
+                TRAVEL_ADMINISTRATOR
               )
             }
           />

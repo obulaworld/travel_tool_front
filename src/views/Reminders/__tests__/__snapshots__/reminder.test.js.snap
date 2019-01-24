@@ -132,6 +132,8 @@ Array [
                                         >
                                             <span
                                                 className="edit"
+                                                onClick={[Function]}
+                                                role="presentation"
                                             >
                                                 Edit
                                             </span>
@@ -161,6 +163,8 @@ Array [
                                         >
                                             <span
                                                 className="edit"
+                                                onClick={[Function]}
+                                                role="presentation"
                                             >
                                                 Edit
                                             </span>

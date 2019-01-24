@@ -6,6 +6,9 @@ describe('<TemplateDetailsForm />', () => {
   const props = { 
     selectedTemplate: {}, 
     closeModal: jest.fn(),
+    history: {
+      push: jest.fn()
+    }
   };
 
   const event = {

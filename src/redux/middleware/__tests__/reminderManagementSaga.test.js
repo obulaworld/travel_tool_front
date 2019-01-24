@@ -1,11 +1,15 @@
 import {expectSaga} from 'redux-saga-test-plan';
 import { call } from 'redux-saga/effects';
 import {throwError} from 'redux-saga-test-plan/providers';
-import { payload, errors, response, enableResponse, disableResponse, disableErrors
+import { payload, errors, response, enableResponse,
+  disableResponse, disableErrors, getTemplateResponse
 } from '../../__mocks__/reminderManagement';
-import {watchCreateEmailReminderTemplate,
+import {
+  watchCreateEmailReminderTemplate,
   watchEnableEmailReminderTemplate,
-  watchdisableEmailTemplate
+  watchdisableEmailTemplate,
+  watchUpdateSingleReminderEmailTemplateSaga,
+  watchGetSingleEmailReminderTemplate,
 } from '../reminderManagementSaga';
 import ReminderManagementAPI from '../../../services/ReminderManagementAPI';
 
@@ -18,8 +22,17 @@ import {
   ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
   DISABLE_EMAIL_TEMPLATE,
   DISABLE_EMAIL_TEMPLATE_SUCCESS,
-  DISABLE_EMAIL_TEMPLATE_FAILURE
+  DISABLE_EMAIL_TEMPLATE_FAILURE,
+  UPDATE_REMINDER_EMAIL_TEMPLATE,
+  UPDATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+  UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+  FETCH_ONE_EMAIL_TEMPLATE_SUCCESS,
+  FETCH_ONE_EMAIL_TEMPLATE_FAILURE,
+  FETCH_ONE_EMAIL_TEMPLATE
 } from '../../constants/actionTypes';
+import {
+  reminderTemplateData, myResponse, enabledResponse
+} from '../../../views/ReminderSetup/__mocks__';
 
 describe('Reminder Management Saga', () => {
   const error = new Error('Server error, try again');
@@ -145,5 +158,83 @@ describe('Reminder Management Saga', () => {
         .silentRun();
     });
   });
-});
 
+  describe('Update single email template', () => {
+    it('edits a single email reminder template', () => {
+      const {id } = reminderTemplateData;
+      return expectSaga(watchUpdateSingleReminderEmailTemplateSaga)
+        .provide([
+          [call(ReminderManagementAPI.updateSingleEmailTemplate, id, reminderTemplateData ), myResponse]
+        ])
+        .put({
+          type: UPDATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+          response: myResponse.data
+        })
+        .dispatch({
+          type: UPDATE_REMINDER_EMAIL_TEMPLATE,
+          templateId: id,
+          payload: reminderTemplateData,
+          history: { push: jest.fn()}
+        })
+        .silentRun();
+    });
+
+    it('handles validation errors from updating an email template', () => {
+      const {id } = reminderTemplateData;
+      return expectSaga(watchUpdateSingleReminderEmailTemplateSaga)
+        .provide([
+          [call(ReminderManagementAPI.updateSingleEmailTemplate, id, reminderTemplateData),
+            throwError(validationError)]
+        ])
+        .put({
+          type: UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+          errors: errors[0].message
+        })
+        .dispatch({
+          type: UPDATE_REMINDER_EMAIL_TEMPLATE,
+          templateId: id,
+          history: { push: jest.fn()},
+          payload: reminderTemplateData
+        })
+        .silentRun();
+    });
+  });
+
+  describe('Fetch single email reminder template', () => {
+    it('fetches a single email reminder email template', () => {
+      const {id } = reminderTemplateData;
+      return expectSaga(watchGetSingleEmailReminderTemplate)
+        .provide([
+          [call(ReminderManagementAPI.getSingleEmailTemplate, id), getTemplateResponse]
+        ])
+        .put({
+          type: FETCH_ONE_EMAIL_TEMPLATE_SUCCESS,
+          response: getTemplateResponse.data
+        })
+        .dispatch({
+          type: FETCH_ONE_EMAIL_TEMPLATE,
+          templateId: id,
+          history: { push: jest.fn()}
+        })
+        .silentRun();
+    });
+
+    it('updates with errors on failed fetch ', () => {
+      const {id } = reminderTemplateData;
+      return expectSaga(watchGetSingleEmailReminderTemplate)
+        .provide([
+          [call(ReminderManagementAPI.getSingleEmailTemplate, id), throwError(error)]
+        ])
+        .put({
+          type: FETCH_ONE_EMAIL_TEMPLATE_FAILURE,
+          errors: 'Server error, try again'
+        })
+        .dispatch({
+          type: FETCH_ONE_EMAIL_TEMPLATE,
+          templateId: id,
+          history: { push: jest.fn()}
+        })
+        .silentRun();
+    });
+  });
+});

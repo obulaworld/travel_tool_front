@@ -32,11 +32,16 @@ class TemplatesMenu extends Component {
     }
   };
 
-  renderMenuContainer = (disableEnable, openClose, data, setItemToDisable) => (
+  renderMenuContainer = (disableEnable, openClose, data, setItemToDisable, id, history) => (
     <div ref={this.setRef} className={`table__menu-container ${openClose}`}>
       <ul className="table__menu-list">
         <li className="table__menu-list-item top">
-          <span className="edit">Edit</span>
+          <span
+            role="presentation"
+            onClick={() => history.push(`/settings/reminder-setup/update/${id}`)}
+            className="edit">
+            Edit
+          </span>
         </li>
         { data && (
           <li
@@ -51,7 +56,7 @@ class TemplatesMenu extends Component {
 
   render() {
     const { openClose } = this.state;
-    const { disableEnable, template, reminder, setItemToDisable } = this.props;
+    const { disableEnable, template, reminder, setItemToDisable, id, history } = this.props;
     return (
       <span>
         <i
@@ -60,8 +65,14 @@ class TemplatesMenu extends Component {
           role="presentation"
           onClick={this.toggleMenu}
         />
-        {template ? this.renderMenuContainer(disableEnable, openClose, template, setItemToDisable) : ''}
-        {reminder ? this.renderMenuContainer(disableEnable, openClose, reminder, setItemToDisable) : ''}
+        {template ?
+          this.renderMenuContainer(disableEnable, openClose, template, setItemToDisable, id, history)
+          : ''
+        }
+        {reminder ?
+          this.renderMenuContainer(disableEnable, openClose, reminder, setItemToDisable, id, history)
+          : ''
+        }
       </span>
     );
   }
@@ -72,6 +83,8 @@ TemplatesMenu.propTypes = {
   template: PropTypes.object,
   reminder: PropTypes.object,
   setItemToDisable: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 TemplatesMenu.defaultProps = {
