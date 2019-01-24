@@ -4,6 +4,7 @@ import Base from '../../Base';
 import PageHeader from '../../../components/PageHeader';
 import NewEmailTemplateForm from '../../../components/Forms/NewEmailTemplateForm';
 import {createReminderEmailTemplate} from '../../../redux/actionCreator/reminderManagementActions';
+import '../ReminderSetup.scss';
 
 class CreateEmailTemplate extends Base{
 
@@ -16,7 +17,9 @@ class CreateEmailTemplate extends Base{
             title="CREATE AN EMAIL TEMPLATE"
             iconLink="/settings/reminder-setup"
           />
-          <NewEmailTemplateForm {...this.props} />
+          <div className="reminder-email-template__container">
+            <NewEmailTemplateForm {...this.props} />
+          </div>
         </div>
       </Fragment>
     );
