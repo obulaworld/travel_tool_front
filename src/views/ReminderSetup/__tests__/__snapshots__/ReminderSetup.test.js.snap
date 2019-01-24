@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ReminderSetup /> renders 1`] = `
+exports[`<ReminderSetup /> renders correctly 1`] = `
 Array [
   <div
     className="readiness-header"
@@ -31,6 +31,7 @@ Array [
     </div>
 </div>,
   <div>
+    <div />
     <div
         className="list-templates"
     >
@@ -77,6 +78,7 @@ Array [
                 >
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -144,6 +146,7 @@ Array [
                     </tr>
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -211,6 +214,7 @@ Array [
                     </tr>
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -278,6 +282,7 @@ Array [
                     </tr>
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -345,6 +350,7 @@ Array [
                     </tr>
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
@@ -412,6 +418,7 @@ Array [
                     </tr>
                     <tr
                         className="table__rows "
+                        onClick={[Function]}
                     >
                         <td
                             className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"

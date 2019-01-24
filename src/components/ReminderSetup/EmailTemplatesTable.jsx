@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import withLoading from '../Hoc/withLoading';
-import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
 import TemplatesMenu from './TemplatesMenu';
+import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
 
 export const TemplatesTableHead = () => (
   <thead>
@@ -20,10 +20,16 @@ export const TemplatesTableHead = () => (
 
 export const AlertIcon = (visible) => visible?<i className="tiny material-icons">error</i>:'';
 
-export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn, isDeleted, setItemToDisable}) => (
+export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn, isDeleted, onClick, setItemToDisable }) => (
   <tr className={`table__rows ${isDeleted?'off':''}`}>
     <td className={`mdl-data-table__cell--non-numeric table__data ${isDeleted?'':'readiness__cell-name'}`}>
-      {templateName}
+      <span
+        className="template-name"
+        onClick={onClick}
+        role="presentation"
+      >
+        {templateName}
+      </span>
       {AlertIcon(isDeleted, template, setItemToDisable)}
     </td>
     <td className="mdl-data-table__cell--non-numeric table__data"><span /></td>
@@ -38,34 +44,47 @@ export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn
   </tr>
 );
 
-export const TemplatesTableBody = ({ templates, setItemToDisable }) => (
-  <tbody className="table__body">
-    {
-      templates.map(template => {
-        return (
-          <TemplatesTableRow
-            key={template.id}
-            template={template}
-            templateName={template.name}
-            createdBy={template.creator.fullName}
-            createdOn={template.createdAt}
-            isDeleted={template.disabled}
-            setItemToDisable={setItemToDisable}
-          />
-        );
-      })
-    }
-  </tbody>
-);
 
-export const EmailTemplatesTable = ({ templates, setItemToDisable }) => (
+export const TemplatesTableBody = ({ templates, openModal, fetchOneTemplate, setItemToDisable }) => {
+
+  const handleClick = (id) => {
+    openModal(true, 'template details');
+    fetchOneTemplate(id);
+  };
+
+  return(
+    <tbody className="table__body">
+      {
+        templates.map(template => {
+          return (
+            <TemplatesTableRow
+              key={template.id}
+              template={template}
+              templateName={template.name}
+              createdBy={template.creator.fullName}
+              createdOn={template.createdAt}
+              isDeleted={template.disabled}
+              onClick={() => handleClick(template.id)}
+              setItemToDisable={setItemToDisable}
+            />
+          );
+        })
+      }
+    </tbody>
+  );
+};
+
+export const EmailTemplatesTable = ({ templates , openModal, fetchOneTemplate, setItemToDisable}) => (
   <div className="list-templates">
     <div className="table__container">
       <table className="mdl-data-table mdl-js-data-table readiness-table">
         <TemplatesTableHead />
         <TemplatesTableBody
           templates={templates}
-          setItemToDisable={setItemToDisable} />
+          openModal={openModal}
+          fetchOneTemplate={fetchOneTemplate}
+          setItemToDisable={setItemToDisable}
+        />
       </table>
     </div>
   </div>
@@ -73,11 +92,15 @@ export const EmailTemplatesTable = ({ templates, setItemToDisable }) => (
 
 EmailTemplatesTable.propTypes = {
   templates: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  fetchOneTemplate: PropTypes.func.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
 };
 
 TemplatesTableBody.propTypes = {
   templates: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  fetchOneTemplate: PropTypes.func.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
 };
 
@@ -85,6 +108,7 @@ TemplatesTableRow.propTypes = {
   templateName: PropTypes.string.isRequired,
   createdBy: PropTypes.string.isRequired,
   createdOn: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   isDeleted: PropTypes.bool.isRequired,
   template: PropTypes.object.isRequired,
   setItemToDisable: PropTypes.func.isRequired,

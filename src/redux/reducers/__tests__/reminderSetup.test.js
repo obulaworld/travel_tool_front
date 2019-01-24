@@ -8,12 +8,20 @@ import {
   enableReminderEmailTemplateSuccess,
 } from '../../actionCreator/reminderManagementActions';
 import templates from  '../../../views/ReminderSetup/__mocks__';
+import {fetchTemplate } from '../../actionCreator/templatedetailsAction';
 
 const { listOfTemplates, allTemplates } = templates;
 
 describe('reminder setup reducer', () =>{
   const initialState = {
-    templates: [],
+    selectedTemplate: {
+      id: 1
+    },
+    templates: [
+      {
+        id: 1
+      }
+    ],
     errors:{},
     pagination: {},
     isLoading: false,
@@ -34,11 +42,21 @@ describe('reminder setup reducer', () =>{
     expect(output).toEqual(expectedOutput);
   });
 
+  it('sets selected template', () =>{
+    const action=fetchTemplate(1);
+    const expectedOutput = {...initialState};
+    const output = reminderSetupReducer(initialState, action);
+    expect(output).toEqual(expectedOutput);
+  });
+
   it('updates state with list of templates if action with type FETCH_ALL_EMAIL_TEMPLATES_SUCCESS', () => {
     const { templates, pagination } = listOfTemplates;
     const action = fetchAllEmailTemplatesSuccess(listOfTemplates);
     const output = reminderSetupReducer(initialState, action);
     const expectedResult = {
+      selectedTemplate: {
+        id: 1
+      },
       templates,
       errors: {},
       isLoading: false,
@@ -53,7 +71,14 @@ describe('reminder setup reducer', () =>{
     };
     const action = fetchAllEmailTemplatesFailure(errors);
     const expectedOutput = {
-      templates: [],
+      selectedTemplate: {
+        id: 1
+      },
+      templates: [
+        {
+          id: 1
+        }
+      ],
       errors,
       pagination: {},
       isLoading: false

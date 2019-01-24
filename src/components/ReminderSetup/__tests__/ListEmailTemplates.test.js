@@ -7,6 +7,7 @@ describe('<ListEmailTemplates />', () => {
   const {templates, pagination} = listOfTemplates;
   const props = {
     fetchTemplates: jest.fn(),
+    fetchOneTemplate: jest.fn(),
     setItemToDisable: jest.fn(),
     disableEnable: false,
     listEmailTemplatesReducer: {
@@ -26,7 +27,8 @@ describe('<ListEmailTemplates />', () => {
         disabled: true,
       }]
     },
-    location: {}
+    location: {},
+    openModal: jest.fn()
   };
 
   const wrapper =  mount(<ListEmailTemplates {...props} />);
@@ -35,11 +37,16 @@ describe('<ListEmailTemplates />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('calls the onclick function', ()=>{
+    wrapper.find('span.template-name').first().simulate('click');
+    expect(props.openModal).toHaveBeenCalled();
+  });
+
   it('calls onPageChange function', () => {
-    
+
     wrapper.find('#next-button').simulate('click');
     expect(props.fetchTemplates).toHaveBeenCalled();
   });
-  
+
 });
  

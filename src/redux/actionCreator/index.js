@@ -20,6 +20,9 @@ import {
 } from './notificationsActions';
 
 import {
+  fetchTemplate
+} from './templatedetailsAction';
+import {
   initFetchTimelineData,
   fetchTimelineDataSuccess,
   fetchTimelineDataFailure,
@@ -78,5 +81,7 @@ export {
   fetchAttachmentsFailure,
   downloadAttachments,
   downloadAttachmentsSuccess,
-  downloadAttachmentsFailure
+  downloadAttachmentsFailure,
+  //Get template details
+  fetchTemplate,
 };

@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAllEmailTemplates } from '../../redux/actionCreator/listEmailTemplatesActions';
+import { fetchTemplate } from '../../redux/actionCreator/templatedetailsAction';
+import { fetchAllEmailTemplates }from '../../redux/actionCreator/listEmailTemplatesActions';
 import ListEmailTemplates from '../../components/ReminderSetup/ListEmailTemplates';
 import PageHeader from '../../components/PageHeader';
+import { closeModal, openModal } from '../../redux/actionCreator/modalActions';
 import Base from '../Base';
 import {  enableReminderEmailTemplate } from '../../redux/actionCreator/reminderManagementActions';
-import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 
-import EnableEmailReminderTemplateForm 
+import EnableEmailReminderTemplateForm
   from '../../components/Forms/EnableReminderEmailTemplateForm/EnableReminderEmailTemplateForm';
 
 export class ReminderSetup extends Base{
@@ -42,7 +43,10 @@ export class ReminderSetup extends Base{
   }
 
   render() {
-    const { history,fetchTemplates, listEmailTemplatesReducer, location } = this.props;
+    const { fetchTemplates, listEmailTemplatesReducer, location,
+      history, openModal, closeModal, shouldOpen, modalType,
+      fetchOneTemplate } = this.props;
+
     return (
       <Fragment>
         <div className="readiness-header">
@@ -58,9 +62,14 @@ export class ReminderSetup extends Base{
         </div>
         <ListEmailTemplates
           fetchTemplates={fetchTemplates}
+          fetchOneTemplate={fetchOneTemplate}
           listEmailTemplatesReducer={listEmailTemplatesReducer}
           location={location}
           setItemToDisable={this.setItemToDisable}
+          openModal={openModal}
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
         />
         {this.renderEnableReminderTemplateForm()}
       </Fragment>
@@ -70,20 +79,26 @@ export class ReminderSetup extends Base{
 
 const mapDispatchToProps = {
   openModal, closeModal, enableReminderEmailTemplate,
-  fetchTemplates: fetchAllEmailTemplates
+  fetchTemplates: fetchAllEmailTemplates, fetchOneTemplate: fetchTemplate
 };
 ReminderSetup.propTypes = {
   fetchTemplates: PropTypes.func.isRequired,
   listEmailTemplatesReducer: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  shouldOpen: PropTypes.bool.isRequired,
-  modalType: PropTypes.string,
+  history: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
+  shouldOpen: PropTypes.bool.isRequired,
+  modalType: PropTypes.string,
+  fetchOneTemplate: PropTypes.func.isRequired,
   enableReminderTemplate: PropTypes.func,
 };
-const mapStateToProps = ({modal, listEmailTemplatesReducer}) => ({
-  ...modal.modal,
-  listEmailTemplatesReducer
+
+ReminderSetup.defaultProps = {
+  modalType: '',
+};
+
+const mapStateToProps = ({listEmailTemplatesReducer, modal}) => ({
+  listEmailTemplatesReducer, ...modal.modal
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ReminderSetup);

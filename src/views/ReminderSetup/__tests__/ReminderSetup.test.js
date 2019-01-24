@@ -15,8 +15,10 @@ describe('<ReminderSetupConnected />', () => {
     history: {
       push: jest.fn(),
     },
-    shouldOpen:true
+    openModal: jest.fn(),
+    closeModal: jest.fn()
   };
+
   const state = {
     listEmailTemplatesReducer: {
       pagination: {
@@ -31,7 +33,11 @@ describe('<ReminderSetupConnected />', () => {
       }
     },
     templateId: 1,
-    modal: { shouldOpen:true }
+    modal: {
+      shouldOpen: false,
+      modalType: '',
+    },
+    templatedetails: {},
   };
   const mockStore = configureStore();
   const store = mockStore (state);
@@ -46,7 +52,7 @@ describe('<ReminderSetupConnected />', () => {
   it('renders', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  
+
   it('should render the disable modal', () => {
     const setup = () => {
       const props = {
@@ -58,7 +64,7 @@ describe('<ReminderSetupConnected />', () => {
         fetchTemplates: jest.fn(),
         location: {},
         shouldOpen:true,
-        closeModal: jest.fn(), 
+        closeModal: jest.fn(),
         listEmailTemplatesReducer: {}
       };
       const unconnectedWrapper = shallow(<ReminderSetup {...props} />);
@@ -85,7 +91,7 @@ describe('<ReminderSetupConnected />', () => {
         },
         fetchTemplates: jest.fn(),
         location: {},
-        closeModal: jest.fn(), 
+        closeModal: jest.fn(),
         listEmailTemplatesReducer: {},
         shouldOpen:true,
       };
