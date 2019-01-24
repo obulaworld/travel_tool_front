@@ -21,7 +21,6 @@
     }
   }
   .off {
-    pointer-events: none;
     background-color: #F8F8F8;
   }
   .on {
@@ -48,6 +47,11 @@
   }
   .disable {
     color: red;
+    padding-right: 1.5em;
+    margin-left: 0.5em;
+  }
+  .enable {
+    color: inherit;
     padding-right: 1.5em;
     margin-left: 0.5em;
   }

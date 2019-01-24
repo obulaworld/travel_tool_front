@@ -9,6 +9,9 @@ class ReminderManagementAPI{
   }
   static getAllEmailTemplates = (parameters) =>
     axios.get(`${baseUrl}/reminderManagement/emailTemplates${parameters}`);
+
+    static enableEmailTemplates = (templateId) =>
+      axios.put(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);  
 }
 
 export default ReminderManagementAPI;

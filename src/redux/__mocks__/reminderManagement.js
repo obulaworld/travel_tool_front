@@ -19,6 +19,20 @@ export const errors = [{
   name: 'name'
 }];
 
+export const enableResponse = {
+  data: {
+    success: true,
+    message: 'Reminder email template has been successfully enabled',
+    updatedTemplate: {
+      name: 'jxdddddddddddddd',
+    },
+  }
+};
+
+export const enableErrors = [{
+  message : 'Possible network error',
+}];
+
 export default {
   payload,
   response,

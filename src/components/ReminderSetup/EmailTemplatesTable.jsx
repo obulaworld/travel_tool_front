@@ -20,11 +20,11 @@ export const TemplatesTableHead = () => (
 
 export const AlertIcon = (visible) => visible?<i className="tiny material-icons">error</i>:'';
 
-export const TemplatesTableRow = ({ templateName, createdBy, createdOn, isDeleted }) => (
+export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn, isDeleted, setItemToDisable}) => (
   <tr className={`table__rows ${isDeleted?'off':''}`}>
     <td className={`mdl-data-table__cell--non-numeric table__data ${isDeleted?'':'readiness__cell-name'}`}>
       {templateName}
-      {AlertIcon(isDeleted)}
+      {AlertIcon(isDeleted, template, setItemToDisable)}
     </td>
     <td className="mdl-data-table__cell--non-numeric table__data"><span /></td>
     <td className="mdl-data-table__cell--non-numeric table__data">{createdBy}</td>
@@ -33,22 +33,24 @@ export const TemplatesTableRow = ({ templateName, createdBy, createdOn, isDelete
       {moment(new Date(createdOn)).format('DD-MM-YYYY')}
     </td>
     <td className="table__data">
-      <TemplatesMenu disableEnable={isDeleted} />
+      <TemplatesMenu disableEnable={isDeleted} template={template} setItemToDisable={setItemToDisable} />
     </td>
   </tr>
 );
 
-export const TemplatesTableBody = ({ templates }) => (
+export const TemplatesTableBody = ({ templates, setItemToDisable }) => (
   <tbody className="table__body">
     {
       templates.map(template => {
         return (
           <TemplatesTableRow
             key={template.id}
+            template={template}
             templateName={template.name}
             createdBy={template.creator.fullName}
             createdOn={template.createdAt}
             isDeleted={template.disabled}
+            setItemToDisable={setItemToDisable}
           />
         );
       })
@@ -56,31 +58,36 @@ export const TemplatesTableBody = ({ templates }) => (
   </tbody>
 );
 
-export const EmailTemplatesTable = ({ templates }) => (
+export const EmailTemplatesTable = ({ templates, setItemToDisable }) => (
   <div className="list-templates">
     <div className="table__container">
       <table className="mdl-data-table mdl-js-data-table readiness-table">
         <TemplatesTableHead />
         <TemplatesTableBody
-          templates={templates} />
+          templates={templates}
+          setItemToDisable={setItemToDisable} />
       </table>
     </div>
   </div>
 );
 
 EmailTemplatesTable.propTypes = {
-  templates: PropTypes.array.isRequired
+  templates: PropTypes.array.isRequired,
+  setItemToDisable: PropTypes.func.isRequired,
 };
 
 TemplatesTableBody.propTypes = {
-  templates: PropTypes.array.isRequired
+  templates: PropTypes.array.isRequired,
+  setItemToDisable: PropTypes.func.isRequired,
 };
 
 TemplatesTableRow.propTypes = {
   templateName: PropTypes.string.isRequired,
   createdBy: PropTypes.string.isRequired,
   createdOn: PropTypes.string.isRequired,
-  isDeleted: PropTypes.bool.isRequired
+  isDeleted: PropTypes.bool.isRequired,
+  template: PropTypes.object.isRequired,
+  setItemToDisable: PropTypes.func.isRequired,
 };
 
 export default withLoading(EmailTemplatesTable, RequestPlaceholder);

@@ -107,7 +107,10 @@ import {
   watchEditTravelReadinessDocument,
   watchDeleteTravelReadinessDocument,
 } from './travelReadinessDocumentsSaga';
-import {watchCreateEmailReminderTemplate} from './reminderManagementSaga';
+import {
+  watchCreateEmailReminderTemplate,
+  watchEnableEmailReminderTemplate,
+} from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
 import { watchCreateReminder } from './reminderSaga';
 
@@ -191,6 +194,7 @@ function* rootSaga() {
     watchDeleteTravelReadinessDocument(),
     watchFetchAllEmailTemplates(),
     watchCreateReminder(),
+    watchEnableEmailReminderTemplate(),
   ]);
 }
 

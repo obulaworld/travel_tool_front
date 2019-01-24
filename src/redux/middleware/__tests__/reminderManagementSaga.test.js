@@ -1,13 +1,20 @@
 import {expectSaga} from 'redux-saga-test-plan';
 import { call } from 'redux-saga/effects';
 import {throwError} from 'redux-saga-test-plan/providers';
-import { payload, errors, response } from '../../__mocks__/reminderManagement';
-import {watchCreateEmailReminderTemplate} from '../reminderManagementSaga';
+import { payload, errors, response, enableResponse
+} from '../../__mocks__/reminderManagement';
+import {watchCreateEmailReminderTemplate,
+  watchEnableEmailReminderTemplate
+} from '../reminderManagementSaga';
 import ReminderManagementAPI from '../../../services/ReminderManagementAPI';
+
 import {
   CREATE_REMINDER_EMAIL_TEMPLATE,
   CREATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-  CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS
+  CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+  ENABLE_REMINDER_EMAIL_TEMPLATE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS
 } from '../../constants/actionTypes';
 
 describe('Reminder Management Saga', () => {
@@ -71,4 +78,43 @@ describe('Reminder Management Saga', () => {
         .silentRun();
     });
   });
+  describe('Reminder Enabling', () => {
+    const errors = new Error('Server error, try again');
+    errors.response = { status: 500};
+    const templateId = 1;
+    it('should enable a reminder email template', () => {
+  
+      return expectSaga(watchEnableEmailReminderTemplate)
+        .provide([
+          [call(ReminderManagementAPI.enableEmailTemplates, templateId), throwError(errors)]
+        ])
+        .put({
+          type: ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+          errors 
+        })
+        .dispatch({
+          type: ENABLE_REMINDER_EMAIL_TEMPLATE,
+          templateId
+          
+        })
+        .silentRun();
+    });
+    it('should enable a reminder email template', () => {
+  
+      return expectSaga(watchEnableEmailReminderTemplate)
+        .provide([
+          [call(ReminderManagementAPI.enableEmailTemplates, templateId), enableResponse]
+        ])
+        .put({
+          type: ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+          enabledTemplate: enableResponse.data.updatedTemplate, templateId
+        })
+        .dispatch({
+          type: ENABLE_REMINDER_EMAIL_TEMPLATE,
+          templateId
+        })
+        .silentRun();
+    });
+  });
 });
+

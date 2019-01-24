@@ -20,7 +20,7 @@ class ListEmailTemplates extends Component {
 
 
   render(){
-    const { listEmailTemplatesReducer: {templates, pagination } } = this.props;
+    const { listEmailTemplatesReducer: {templates, pagination }, setItemToDisable } = this.props;
     const { pageCount, currentPage } = pagination;
     return (
       <Fragment>
@@ -28,6 +28,7 @@ class ListEmailTemplates extends Component {
           <div>
             <WithLoadingEmailTemplatesTable
               templates={templates}
+              setItemToDisable={setItemToDisable}
             />
             <TemplatesPagination
               onPageChange={this.onPageChange}
@@ -45,7 +46,8 @@ class ListEmailTemplates extends Component {
 ListEmailTemplates.propTypes = {
   fetchTemplates: PropTypes.func.isRequired,
   listEmailTemplatesReducer: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  setItemToDisable: PropTypes.func.isRequired,
 };
 
 export default ListEmailTemplates;
