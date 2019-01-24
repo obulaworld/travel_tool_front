@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddInputRowButton /> renders 1`] = `
+<div
+  className="input-row-class"
+  role="button"
+  tabIndex="0"
+>
+  <button
+    className="button-class"
+    onClick={[Function]}
+    type="button"
+  >
+    <img
+      alt="clicked"
+      className="addsvg"
+      src="add.svg"
+    />
+    Add a new input row
+  </button>
+</div>
+`;

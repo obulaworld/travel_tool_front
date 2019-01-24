@@ -1,0 +1,115 @@
+.reminder-panel-header {
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  height: 201.9px;
+  width: 96.3%;
+
+  .PageHeader {
+    justify-content: unset;
+  }
+
+  .dropdown__container {
+    width: auto;
+    margin: 60px 25px 0;
+  }
+
+  .dropdown__input {
+    width: 200px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #3359DB;
+  }
+
+  .dropdown__list__item {
+    padding-left: 20px;
+    justify-content: normal;
+  }
+}
+
+.reminder-card {
+	width: 680px;
+	border: 1px solid #E4E4E4;
+	border-radius: 3px;
+  background-color: #FFFFFF;
+  margin-top: 80px;
+  padding: 44px 55px;
+}
+
+.reminders-fieldset {
+  display: flex;
+
+  .delete-icon {
+    outline: none;
+    cursor: pointer;
+  }
+
+  .dropdown-input-group, .form-input {
+    width: 230px;
+    margin-right: 50px;
+  }
+
+  p {
+    align-self: center;
+    line-height: 6.5;
+    margin: 0;
+    margin-left: -40px;
+  }
+
+  .delete-icon {
+    margin-left: auto;
+    position: static;
+  }
+
+  .dropdown-input-group {
+    display: flex;
+
+    .form-input {
+      margin-right: 0;
+    }
+  }
+
+  .period {
+    &.input.select {
+      background: #F2F2F2;
+    }
+
+    span {
+      visibility: hidden;
+    }
+  }
+
+  .input.select .select-menu {
+    max-height: 150px;
+    overflow: scroll;
+    padding-bottom: 10px;
+
+    li {
+      display: initial;
+    }
+  }
+}
+
+.add-reminder__border-dashed {
+  height: 50px;
+  width: 100%;
+  border: 1px solid #D4D4D4;
+  border-style: dashed;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  outline: none;
+}
+
+.add-reminder__button {
+  height: 21px;
+  color: #4F4F4F;
+  font-family: "DIN Pro";
+  font-size: 16px;
+  line-height: 21px;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-top: 9px;
+  outline: none;
+  cursor: pointer;
+}

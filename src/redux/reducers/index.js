@@ -26,6 +26,7 @@ import maintenance from './maintenance';
 import travelReadinessDocuments from './travelReadinessDocuments';
 import teammates from './teammates';
 import listEmailTemplatesReducer from './listEmailTemplates';
+import reminders from './reminders';
 
 
 const rootReducer = combineReducers({
@@ -55,7 +56,8 @@ const rootReducer = combineReducers({
   travelReadinessDocuments,
   teammates,
   reminderManagement,
-  listEmailTemplatesReducer
+  listEmailTemplatesReducer,
+  reminders,
 });
 
 export default rootReducer;

@@ -6,33 +6,58 @@ import DropdownOptions from './DropdownOptions';
 export default class DropdownSelect extends Component {
   static propTypes = {
     className: PropTypes.string,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool
+    ]),
     onChange: PropTypes.func.isRequired,
     choices: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.arrayOf(PropTypes.object)]).isRequired,
     value: PropTypes.string,
-    size: PropTypes.string.isRequired
+    size: PropTypes.string
   };
 
   static defaultProps = {
     className: '',
     error: '',
-    value: ''
+    value: '',
+    size: ''
   };
 
-  state = {
-    dropdownOpen: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.dropDownRef = React.createRef();
+    this.state = {
+      dropdownOpen: false
+    };
+  }
 
   getSelectOptions(choices) {
+    const { loading } = this.props;
     return (
       <DropdownOptions
         items={choices}
         handleClick={this.handleOptClick}
         getDropdownStatus={this.getDropdownStatus}
+        dropDownRef={this.dropDownRef}
+        loading={loading}
+        handleScroll={this.handleDropDownScroll}
       />
     );
+  }
+
+  handleDropDownScroll = (e) => {
+    const { templatesCount, fetchAllEmailTemplates, currentPage, pageCount } = this.props;
+    const dropDownListItemHeight = 32;
+    const listTotalHeight = templatesCount * dropDownListItemHeight;
+    const dropDownHeight = 140;
+    const scrolled = e.target.scrollTop;
+    const isAtListEnd = scrolled === listTotalHeight - dropDownHeight;
+    if (isAtListEnd && pageCount !== currentPage) {
+      fetchAllEmailTemplates(`?page=${currentPage + 1}`);
+    }
   }
 
   getDropdownStatus = () => {
@@ -44,7 +69,8 @@ export default class DropdownSelect extends Component {
   getPropsObject = () => {
     const { className, error } = this.props;
     const _props = { ...this.props };
-    ['labelNote', 'selectOptions', 'handleSelect', 'handleDropDown', 'selectedDate'].map(
+    ['labelNote', 'selectOptions', 'handleSelect', 'handleDropDown', 'currentPage',
+      'selectedDate', 'fetchAllEmailTemplates', 'templatesCount', 'loading', 'pageCount'].map(
       item => delete _props[item]
     );
 

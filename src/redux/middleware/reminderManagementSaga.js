@@ -8,6 +8,7 @@ import apiErrorHandler from '../../services/apiErrorHandler';
 
 import {CREATE_REMINDER_EMAIL_TEMPLATE} from '../constants/actionTypes';
 import ReminderManagementAPI from '../../services/ReminderManagementAPI';
+import apiValidationErrorHandler from '../../services/apiValidationErrorHandler';
 
 export function* createEmailReminderTemplateSaga(action){
   const { history, payload } = action;
@@ -17,12 +18,9 @@ export function* createEmailReminderTemplateSaga(action){
     toast.success(response.data.message);
     history.push('/settings/reminder-setup');
   }catch(error){
-    const errors = {};
+    let errors = {};
     if( error.response.status === 422){
-      const { response: { data: { errors : validationErrors }}} = error;
-      (validationErrors || []).forEach(error => {
-        errors[error.name] = error.message;
-      });
+      errors = apiValidationErrorHandler(error);
     }else{
       let errorMessage = apiErrorHandler(error);
       toast.error(errorMessage);

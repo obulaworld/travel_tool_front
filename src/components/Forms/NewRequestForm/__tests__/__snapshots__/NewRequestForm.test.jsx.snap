@@ -277,6 +277,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                     >
                       <ul
                         className="select-menu select-menu--inactive"
+                        onScroll={[Function]}
                       />
                     </div>
                   </div>

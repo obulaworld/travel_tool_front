@@ -8,6 +8,7 @@ import location from '../../../../images/location.svg';
 import addMultipleCityBtn from '../../../../images/add.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
 import TravelDetailsItem from './TravelDetailsItem';
+import AddInputRowButton from '../../AddInputRowButton';
 
 class TravelDetailsFieldset extends Component {
   componentDidMount = () => {
@@ -63,12 +64,12 @@ class TravelDetailsFieldset extends Component {
   renderAddAnotherBtn = () => {
     const { addNewTrip } = this.props;
     return (
-      <div className="add-multi-trip-area" role="button" tabIndex="0">
-        <button type="button" className="another-trip" onClick={addNewTrip}>
-          <img src={addMultipleCityBtn} alt="clicked" className="addsvg" />
-          Add another trip
-        </button>
-      </div>
+      <AddInputRowButton
+        text="Add another trip"
+        addRowHandler={addNewTrip}
+        wrapperClassName="add-multi-trip-area"
+        buttonClassName="another-trip"
+      />
     );
   };
 

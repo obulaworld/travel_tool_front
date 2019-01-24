@@ -44,14 +44,21 @@ exports[`<DropdownSelect /> renders fine 1`] = `
       </div>
     </div>
     <DropdownOptions
+      dropDownRef={
+        Object {
+          "current": null,
+        }
+      }
       getDropdownStatus={[Function]}
       handleClick={[Function]}
+      handleScroll={[Function]}
       items={
         Array [
           "manager",
           "associate",
         ]
       }
+      loading={false}
     />
   </div>
 </div>

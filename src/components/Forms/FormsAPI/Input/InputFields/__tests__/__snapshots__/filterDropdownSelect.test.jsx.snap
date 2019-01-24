@@ -30,9 +30,12 @@ exports[`<filterDropdownSelect/> shows receives error class name 1`] = `
       className="hide"
     >
       <DropdownOptions
+        dropDownRef={null}
         getDropdownStatus={[Function]}
         handleClick={[Function]}
+        handleScroll={[Function]}
         items={Array []}
+        loading={false}
       />
     </div>
   </div>

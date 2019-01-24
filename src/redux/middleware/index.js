@@ -104,10 +104,12 @@ import {
   watchFetchReadinessDocuments,
   watchFetchReadinessDocumentDetails,
   watchVerifyTravelReadinessDocuments,
-  watchEditTravelReadinessDocument, watchDeleteTravelReadinessDocument
+  watchEditTravelReadinessDocument,
+  watchDeleteTravelReadinessDocument,
 } from './travelReadinessDocumentsSaga';
 import {watchCreateEmailReminderTemplate} from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
+import { watchCreateReminder } from './reminderSaga';
 
 function* rootSaga() {
   yield all([
@@ -185,8 +187,10 @@ function* rootSaga() {
     watchVerifyTravelReadinessDocuments(),
     watchEditTravelReadinessDocument(),
     watchCreateEmailReminderTemplate(),
+    watchEditTravelReadinessDocument(),
     watchDeleteTravelReadinessDocument(),
     watchFetchAllEmailTemplates(),
+    watchCreateReminder(),
   ]);
 }
 

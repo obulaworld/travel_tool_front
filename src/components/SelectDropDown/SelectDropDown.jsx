@@ -4,10 +4,16 @@ import icon from './images/drop-down-icon.svg';
 import './SelectDropdown.scss';
 
 class SelectDropDown extends PureComponent {
-  state = {
-    isDropdownOpen: false,
-    selectedItem: {}
-  };
+  constructor(props) {
+    super(props);
+
+    const { placeHolder } = this.props;
+    this.state = {
+      isDropdownOpen: false,
+      selectedItem: {},
+      placeHolderText: placeHolder
+    };
+  }
 
   componentWillMount() {
     const { defaultSelected, dropDownItems } = this.props;
@@ -18,7 +24,8 @@ class SelectDropDown extends PureComponent {
 
   selectItem = item => {
     this.setState({
-      selectedItem: item
+      selectedItem: item,
+      placeHolderText: '', // since dropdown value is now selected
     });
   };
 
@@ -68,7 +75,7 @@ class SelectDropDown extends PureComponent {
 
   render() {
     const { dropDownIcon, dropDownItems } = this.props;
-    const { isDropdownOpen, selectedItem } = this.state;
+    const { isDropdownOpen, selectedItem, placeHolderText } = this.state;
     return (
       <div
         className={`dropdown__container ${isDropdownOpen ? 'open' : ''}`}
@@ -79,7 +86,7 @@ class SelectDropDown extends PureComponent {
           className={`dropdown__input ${isDropdownOpen ? 'clicked' : ''}`}
         >
           <div className="dropdown__input__value">
-            {selectedItem.name}
+            {placeHolderText || selectedItem.name}
           </div>
           <img
             src={dropDownIcon}
@@ -100,15 +107,17 @@ SelectDropDown.propTypes = {
   onClickItem: PropTypes.func,
   dropDownItems: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   })).isRequired,
   defaultSelected: PropTypes.string,
+  placeHolder: PropTypes.string,
 };
 
 SelectDropDown.defaultProps = {
   dropDownIcon: icon,
   defaultSelected: '',
   onClickItem: null,
+  placeHolder: '',
 };
 
 export default SelectDropDown;

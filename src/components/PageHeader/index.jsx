@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './_header.scss';
 import headerIcon from '../../images/back-icon.svg';
 
-
 class PageHeader extends PureComponent {
   renderActionButton= (actionBtnClickHandler,openModal, actionBtn) => {
     return (
@@ -27,7 +26,7 @@ class PageHeader extends PureComponent {
   render() {
     const {
       title, actionBtn, actionBtnClickHandler, openModal,titleClassName, location,
-      icon, iconLink, addLink
+      icon, iconLink, addLink, children
     } = this.props;
 
     return (
@@ -47,6 +46,7 @@ class PageHeader extends PureComponent {
             </span>
           )}
         </div>
+        {children}
         {actionBtn && this.renderActionButton(actionBtnClickHandler, openModal, actionBtn)}
       </div>
     );
@@ -64,6 +64,10 @@ PageHeader.propTypes = {
   icon: PropTypes.string,
   iconLink: PropTypes.string,
   addLink: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
 };
 
 PageHeader.defaultProps = {
@@ -74,7 +78,8 @@ PageHeader.defaultProps = {
   iconLink: '',
   addLink: false,
   actionBtnClickHandler: null,
-  openModal: () => {}
+  openModal: () => {},
+  children: '',
 };
 
 export default PageHeader;
