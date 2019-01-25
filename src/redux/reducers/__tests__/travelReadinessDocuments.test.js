@@ -268,6 +268,126 @@ describe('travel readiness reducer', () => {
     expect(newState).toEqual(expectedState);
   });
 
+  it('should handle EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS II', () => {
+    const currentState = {
+      ...initialState,
+      isLoading: false,
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [
+            {
+              id: '78687788',
+              country: 'USA',
+              type:'visa',
+            },
+            {
+              id: '879080',
+              country: 'KENYA',
+              type:'visa',
+            }
+          ],
+        },
+      },
+      document: { comments: [] },
+      errors: {}
+    };
+    const action = {
+      type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+      document: {
+        id: '78687788',
+        type:'visa',
+        country: 'USA'
+      },
+    };
+
+    const newState = travelReadinessDocuments(currentState, action);
+    const expectedState = {
+      ...initialState,
+      isLoading: false,
+      document: action.document,
+      updatingDocument: false,
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [
+            {
+              id: '78687788',
+              country: 'USA',
+              type:'visa',
+            },
+            {
+              id: '879080',
+              country: 'KENYA',
+              type:'visa',
+            }
+          ],
+        },
+      },
+    };
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+    const currentState = {
+      ...initialState,
+      isLoading: false,
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [
+            {
+              id: '78687788',
+              country: 'USA',
+              type:'visa',
+            },
+            {
+              id: '879080',
+              country: 'KENYA',
+              type:'visa',
+            }
+          ],
+        },
+      },
+      document: { comments: [] },
+      errors: {}
+    };
+    const action = {
+      type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
+      deletedDocument: { 
+        id: '78687788',
+        type:'visa',
+        country: 'USA'
+      },
+    };
+
+    const newState = travelReadinessDocuments(currentState, action);
+    const expectedState = {
+      ...initialState,
+      isLoading: false,
+      document: action.deletedDocument,
+      deletingDocument: false,
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [
+            {
+              id: '879080',
+              country: 'KENYA',
+              type:'visa',
+            }
+          ],
+        },
+      },
+    };
+
+    expect(newState).toEqual(expectedState);
+  });
+
   it('should handle DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
     const action = {
       type: types.DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
@@ -278,6 +398,10 @@ describe('travel readiness reducer', () => {
     const expectedState = { ...initialState, isLoading: false, document: action.deletedDocument, deletingDocument: false };
 
     expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS', () => {
+    expect(travelReadinessDocuments(initialState, {})).toEqual(initialState);
   });
 
   it('should handle EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE', () => {

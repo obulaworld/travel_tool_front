@@ -1,19 +1,20 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
-import {
-  FETCH_EMAIL_REMINDERS,
-  FETCH_EMAIL_REMINDERS_SUCCESS,
-  FETCH_EMAIL_REMINDERS_FAILURE
-} from '../constants/actionTypes';
 
+import { closeModal } from '../actionCreator/modalActions';
 import {
+  DISABLE_REMINDER_CONDITION,
+  FETCH_EMAIL_REMINDERS,
+} from '../constants/actionTypes';
+import {
+  disableReminderConditionSuccess,
+  disableReminderConditionFailure,
   fetchEmailReminderSuccess,
   fetchEmailReminderFailure
 } from '../actionCreator/emailReminderAction';
 
 import emailReminderAPI from '../../services/emailReminderAPI';
 import apiErrorHandler from '../../services/apiErrorHandler';
-
 
 export function* fetchEmailRemindersAsync(action) {
   try {
@@ -29,4 +30,23 @@ export function* fetchEmailRemindersAsync(action) {
 
 export function* watchfetchEmailReminders() {
   yield takeLatest(FETCH_EMAIL_REMINDERS, fetchEmailRemindersAsync);
+}
+
+export function* disableReminderConditionAsync(action) {
+  try {
+    const { conditionId, reason } = action;
+    const response = yield call(emailReminderAPI.disableEmailReminderCondition, { conditionId, reason });
+    yield put(disableReminderConditionSuccess(response.data.condition));
+    yield put(closeModal());
+    toast.success(response.data.message);
+  }
+  catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    toast.error(errorMessage);
+    yield put(disableReminderConditionFailure(errorMessage));
+  }
+}
+
+export function* watchDisableReminderCondition() {
+  yield takeLatest(DISABLE_REMINDER_CONDITION, disableReminderConditionAsync);
 }

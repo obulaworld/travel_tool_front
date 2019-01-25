@@ -9,13 +9,24 @@ import TemplatesPagination from '../../../components/ReminderSetup/TemplatesPagi
 
 const mockStore = configureStore();
 
-const initState = { emailReminders : {...initialState} };
+const initState = { 
+  emailReminders : {...initialState},
+  modal: {
+    modal: {...initialState}
+  }
+};
 const store = mockStore(initState);
-const fetchEmailReminder = jest.fn();
 const props = {
   history: {
     push: jest.fn()
   },
+  disableReminderCondition: jest.fn(),
+  fetchEmailReminder: jest.fn(),
+  setItemToDisable: jest.fn(),
+  shouldOpen: true,
+  modalType: 'disable reminder condtion',
+  closeModal: jest.fn(),
+  reminders: []
 };
 
 describe('Reminder component', () => {
@@ -31,7 +42,7 @@ describe('Reminder component', () => {
     expect(wrapper).toMatchSnapshot();
     // To find two button tags on the DOM
     const buttons = wrapper.find('button');
-    expect(buttons.length).toEqual(3);
+    expect(buttons.length).toEqual(6);
   });
 
   it('should test if the two buttons are passport and visa', () => {

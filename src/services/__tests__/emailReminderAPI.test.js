@@ -31,4 +31,24 @@ describe('EmailReminderAPI', () => {
     });
   });
 
+  it('should send a PUT request to disable a reminder with reason', async () => {
+    const conditionId = '3';
+    const reason = {
+      reason: { disableReason: 'No longer applicable' }
+    };
+
+    moxios.stubRequest(`${baseUrl}/reminders/conditions/disable/${conditionId}`, {
+      status: 200,
+      response: {
+        condition: 'Condition has been successfully disabled'
+      }
+    });
+
+    const response = await emailReminder.disableEmailReminderCondition({conditionId, reason});
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/reminders/conditions/disable/${conditionId}`);
+    expect(response.data).toEqual({
+      condition: 'Condition has been successfully disabled'
+    });
+  });
 });

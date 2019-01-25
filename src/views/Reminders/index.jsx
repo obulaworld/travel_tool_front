@@ -1,24 +1,54 @@
 import React, {Component, Fragment} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import ReminderTable from './ReminderTable';
 import PageHeader from '../../components/PageHeader';
-import {fetchEmailReminder} from '../../redux/actionCreator/emailReminderAction';
+import { fetchEmailReminder, disableReminderCondition } from '../../redux/actionCreator/emailReminderAction';
 import NoEmailReminder from '../../components/EmailReminderSetup/NoEmailReminder';
 import './Reminder.scss';
+import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
+import DisableReminderTemplateForm from '../../components/Forms/DisableReminderTemplateForm/DisableReminderTemplate';
 import TemplatesPagination from '../../components/ReminderSetup/TemplatesPagination';
 
+
 export class Reminders extends Component{
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.state = {
-      activeDocument: 'passport'
+      activeDocument: 'passport',
+      disableReason: '',
+      conditionId: '',
+      conditionName: '',
+      conditionReason: ''
     };
   }
 
   componentDidMount() {
     const {fetchEmailReminder} = this.props;
     fetchEmailReminder({document: 'passport'});
+  }
+
+  setItemToDisable = (reminder, reason) => {
+    const { openModal } = this.props;
+    this.setState({
+      conditionId: reminder.id,
+      conditionName: reminder.conditionName,
+      conditionReason: reason || ''
+    });
+    openModal(true, 'disable reminder condtion');
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ disableReason: event.target.value });
+  }
+
+  disableEmailReminder = (event) => {
+    event.preventDefault();
+    const { disableReminderCondition } = this.props;
+    const { conditionId } = this.state;
+    disableReminderCondition(conditionId, this.state);
+    this.setState({ disableReason: null });
   }
 
   onPageChangeEvent = (previousOrNext) => {
@@ -44,7 +74,16 @@ export class Reminders extends Component{
     return this.setState({activeDocument: type});
   };
 
-
+  renderDisableReminderConditionForm() {
+    const { shouldOpen, modalType, closeModal } = this.props;
+    const { itemName, disableReason, templateReason, conditionReason } = this.state;
+    return (
+      <DisableReminderTemplateForm
+        shouldOpen={shouldOpen} disableEmailReminder={this.disableEmailReminder}
+        handleInputChange={this.handleInputChange} itemName={itemName} disableReason={disableReason}
+        modalType={modalType} closeModal={closeModal} templateReason={templateReason} conditionReason={conditionReason} />
+    );
+  }
 
   renderReminderDocumentButton = (text, active, onclick, total, otherProps) => {
 
@@ -95,6 +134,32 @@ export class Reminders extends Component{
     );
   };
 
+  renderRemindersTable = () => {
+    const { reminders } = this.props;
+    return (
+      <Fragment>
+        <ReminderTable 
+          fetchEmailReminder={fetchEmailReminder}
+          reminders={reminders} 
+          setItemToDisable={this.setItemToDisable} 
+        />
+      </Fragment>
+    );
+  }
+
+  renderRemindersPagination = () => {
+    const { meta: {pagination} } = this.props;
+    return (
+      <Fragment>
+        <TemplatesPagination
+          onPageChange={this.onPageChangeEvent}
+          pageCount={pagination.pageCount?pagination.pageCount: 1}
+          currentPage={pagination.currentPage? pagination.currentPage: 1}
+        />
+      </Fragment>
+    );
+  }
+
   render() {
     const { reminders, meta: {pagination} } = this.props;
 
@@ -104,35 +169,33 @@ export class Reminders extends Component{
           title="REMINDER CONDITIONS"
         />
         {this.renderButtonGroup()}
-        { reminders.length === 0 ?
+        { reminders && reminders.length === 0 ?
           <div><NoEmailReminder /></div> :(
             <div>
               {' '}
-              <ReminderTable reminders={reminders} />
-
-              <TemplatesPagination
-                onPageChange={this.onPageChangeEvent}
-                pageCount={pagination.pageCount?pagination.pageCount: 1}
-                currentPage={pagination.currentPage? pagination.currentPage: 1}
-              />
+              { this.renderRemindersTable() }
+              { this.renderRemindersPagination() }
             </div>
           )
         }
-
-
+        {this.renderDisableReminderConditionForm()}
       </Fragment>
     );
   }
 }
 
+const mapDispatchToProps = {
+  openModal, closeModal, fetchEmailReminder, disableReminderCondition
+};
+
+const mapStateToProps = ({ modal,emailReminders}) => ({
+  ...modal.modal,
+  ...emailReminders
+});
 
 Reminders.propTypes = {
   history: PropTypes.object.isRequired,
+  disableReminderCondition: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({emailReminders}) => emailReminders;
-
-export default connect(mapStateToProps,
-  {
-    fetchEmailReminder,
-  })(Reminders);
+export default connect(mapStateToProps, mapDispatchToProps)(Reminders);
