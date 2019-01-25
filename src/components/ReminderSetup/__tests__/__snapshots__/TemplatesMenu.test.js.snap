@@ -25,6 +25,9 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
       </li>
       <li
         className="table__menu-list-item bottom"
+        id="setItem"
+        onClick={[Function]}
+        role="presentation"
       >
         <span
           className="disable"

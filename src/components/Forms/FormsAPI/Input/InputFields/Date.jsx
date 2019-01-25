@@ -19,7 +19,7 @@ class DateInput extends Component {
 
   handleChange=(date, event)=> {
     const { onChange } = this.props;
-    this.setState({selectedDate: date });
+    this.setState({ selectedDate: date });
     date && onChange(date, event);
   }
 
@@ -36,7 +36,7 @@ class DateInput extends Component {
           placeholderText="MM/DD/YYYY"
           selected={selectedDate}
           onChange={(date, event) => this.handleChange(date, event)}
-          minDate={name === 'expiryDate' ? minDate : null}
+          minDate={name === 'expiryDate' || name === 'arrivalDate-0' ? minDate : null}
           maxDate={name === 'dateOfIssue' || name === 'dateOfBirth' ? maxDate : null}
           name={name}
           onBlur={onBlur}

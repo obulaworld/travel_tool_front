@@ -48,13 +48,21 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           className="table__body"
         >
           <tr
-            className="table__rows "
-            onClick={[Function]}
+            className="table__rows off"
           >
             <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+              className="mdl-data-table__cell--non-numeric table__data "
             >
-              testing2
+              <span
+                className="template-name"
+                onClick={[Function]}
+                role="presentation"
+              />
+              <i
+                className="tiny material-icons"
+              >
+                error
+              </i>
             </td>
             <td
               className="mdl-data-table__cell--non-numeric table__data"
@@ -63,9 +71,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
             </td>
             <td
               className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
+            />
             <td
               className="mdl-data-table__cell--non-numeric table__data"
             >
@@ -103,351 +109,14 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
                     </li>
                     <li
                       className="table__menu-list-item bottom"
+                      id="setItem"
+                      onClick={[Function]}
+                      role="presentation"
                     >
                       <span
-                        className="disable"
+                        className="enable"
                       >
-                        Disable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </td>
-          </tr>
-          <tr
-            className="table__rows "
-            onClick={[Function]}
-          >
-            <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-            >
-              moses branch testing
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              21-01-2019
-            </td>
-            <td
-              className="table__data"
-            >
-              <span>
-                <i
-                  className="fa fa-ellipsis-v on"
-                  id="toggleIcon"
-                  onClick={[Function]}
-                  role="presentation"
-                />
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                    >
-                      <span
-                        className="disable"
-                      >
-                        Disable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </td>
-          </tr>
-          <tr
-            className="table__rows "
-            onClick={[Function]}
-          >
-            <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-            >
-              Passport Email Template
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              18-01-2019
-            </td>
-            <td
-              className="table__data"
-            >
-              <span>
-                <i
-                  className="fa fa-ellipsis-v on"
-                  id="toggleIcon"
-                  onClick={[Function]}
-                  role="presentation"
-                />
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                    >
-                      <span
-                        className="disable"
-                      >
-                        Disable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </td>
-          </tr>
-          <tr
-            className="table__rows "
-            onClick={[Function]}
-          >
-            <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-            >
-              Passport Email Template
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              18-01-2019
-            </td>
-            <td
-              className="table__data"
-            >
-              <span>
-                <i
-                  className="fa fa-ellipsis-v on"
-                  id="toggleIcon"
-                  onClick={[Function]}
-                  role="presentation"
-                />
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                    >
-                      <span
-                        className="disable"
-                      >
-                        Disable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </td>
-          </tr>
-          <tr
-            className="table__rows "
-            onClick={[Function]}
-          >
-            <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-            >
-              Passport Email Template
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              18-01-2019
-            </td>
-            <td
-              className="table__data"
-            >
-              <span>
-                <i
-                  className="fa fa-ellipsis-v on"
-                  id="toggleIcon"
-                  onClick={[Function]}
-                  role="presentation"
-                />
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                    >
-                      <span
-                        className="disable"
-                      >
-                        Disable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </span>
-            </td>
-          </tr>
-          <tr
-            className="table__rows "
-            onClick={[Function]}
-          >
-            <td
-              className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-            >
-              Visa renewal
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              Kevin Koech
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              <span />
-            </td>
-            <td
-              className="mdl-data-table__cell--non-numeric table__data"
-            >
-              18-01-2019
-            </td>
-            <td
-              className="table__data"
-            >
-              <span>
-                <i
-                  className="fa fa-ellipsis-v on"
-                  id="toggleIcon"
-                  onClick={[Function]}
-                  role="presentation"
-                />
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                    >
-                      <span
-                        className="disable"
-                      >
-                        Disable
+                        Enable
                       </span>
                     </li>
                   </ul>
@@ -467,7 +136,7 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
     >
       <button
         className="pagination__button"
-        disabled={true}
+        disabled={false}
         id="previous-button"
         onClick={[Function]}
         type="button"
@@ -495,19 +164,19 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
           className="pagination__current-page"
           id="current-page"
         >
-          1
+          3
         </div>
         of
         <span
           className="pagination__all-pages"
           id="page-count"
         >
-          5
+          3
         </span>
       </div>
       <button
         className="pagination__button"
-        disabled={false}
+        disabled={true}
         id="next-button"
         onClick={[Function]}
         type="button"

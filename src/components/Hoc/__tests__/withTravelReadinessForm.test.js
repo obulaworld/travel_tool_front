@@ -38,7 +38,10 @@ const OtherDocumentDefault  = withTravelReadinessForm(OtherDocumentFieldSet, 'ot
 
 const document = {
   country: 'USA',
-  image : 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpeg'
+  image : 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpeg',
+  name: 'Chris AKanmu',
+  expiryDate: '01/31/2018',
+  dateOfIssue: '01/30/2017'
 };
 
 const NewOtherDocument= withTravelReadinessForm(OtherDocumentFieldSet, 'other', {
@@ -196,6 +199,7 @@ describe('<OtherDocumentForm />', () => {
   it('should update the existing document', () => {
     wrapperWithOtherDocumentField.setProps({
       ...props,
+      modalType: 'edit',
       document: {
         data: {
           name: 'Document name',
@@ -218,7 +222,8 @@ describe('<OtherDocumentForm />', () => {
       },
       fetchingDocument: true
     });
-    expect(wrapperWithVisaDocumentField.state('values').country).toEqual('Kenya');
+    const { country } = wrapperWithVisaDocumentField.instance().props.document.data;
+    expect(country).toEqual('Kenya');
   });
 
   it('renders edit visa  modal with button text \'Save Changes\'', () => {
@@ -407,32 +412,6 @@ describe('<OtherDocumentForm />', () => {
       expect(wrapper.state().documentUploaded).toBeTruthy();
       expect(editTravelReadinessDocument).toHaveBeenCalledWith('visa', document);
     });
-  });
-
-  it('should not upload an image for edit if it is already uploaded', () => {
-    const newProps = {
-      ...props,
-      modalType: 'edit other',
-    };
-    const wrapper = mount(<OtherDocumentDefault {...newProps} />);
-    wrapper.setState({values: {...document}});
-    wrapper.find('#select-file').simulate('change', event);
-
-
-    process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
-
-    const cloudinaryResponse = {
-      url: 'secure url'
-    };
-
-    moxios.stubRequest(process.env.REACT_APP_CLOUNDINARY_API, {
-      status: 200,
-      response: cloudinaryResponse
-    });
-
-    wrapper.setState({documentUploaded: true});
-    wrapper.find('.travel-document-form').simulate('submit');
-    expect(props.editTravelReadinessDocument).toHaveBeenCalled();
   });
 
   it('should display progress when uploading', () => {
