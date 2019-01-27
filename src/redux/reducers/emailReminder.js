@@ -4,7 +4,10 @@ import {
   DISABLE_REMINDER_CONDITION_FAILURE,
   FETCH_EMAIL_REMINDERS,
   FETCH_EMAIL_REMINDERS_SUCCESS,
-  FETCH_EMAIL_REMINDERS_FAILURE
+  FETCH_EMAIL_REMINDERS_FAILURE,
+  ENABLE_DISABLED_REMINDER_CONDITION,
+  ENABLE_DISABLED_REMINDER_CONDITION_SUCCESS,
+  ENABLE_DISABLED_REMINDER_CONDITION_FAILURE
 } from '../constants/actionTypes';
 
 export const initialState = {
@@ -12,12 +15,23 @@ export const initialState = {
   reminders: [],
   error: {},
   meta: {documentCount: {}},
-  disabling: false
+  disabling: false,
+  enabling: false,
 };
 
 let remindersUpdate;
 
-const emailReminders = (state=initialState, action) => {
+const compReducer = (state, action) => {
+  remindersUpdate = state.reminders.map((list) => {
+    if (list.id === action.condition.id) {
+      return action.condition;
+    }
+    return list;
+  });
+  return [...remindersUpdate];
+};
+
+const emailReminders = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_EMAIL_REMINDERS:
     return {...state, isLoading: true};
@@ -28,19 +42,27 @@ const emailReminders = (state=initialState, action) => {
   case DISABLE_REMINDER_CONDITION:
     return {...state, disabling: true};
   case DISABLE_REMINDER_CONDITION_SUCCESS:
-    remindersUpdate = state.reminders.map((list) => {
-      if (list.id === action.condition.id) {
-        return action.condition;
-      }
-      return list;
-    });
     return {
       ...state,
       disabling: false,
-      reminders: [...remindersUpdate]
+      reminders: compReducer(state, action)
     };
   case DISABLE_REMINDER_CONDITION_FAILURE:
     return { ...state, disabling: false, error: action.error};
+  case ENABLE_DISABLED_REMINDER_CONDITION:
+    return { ...state, enabling: true };
+  case ENABLE_DISABLED_REMINDER_CONDITION_SUCCESS:
+    return {
+      ...state,
+      enabling: false,
+      reminders: compReducer(state, action)
+    };
+  case ENABLE_DISABLED_REMINDER_CONDITION_FAILURE:
+    return {
+      ...state,
+      enabling: false,
+      error: action.error
+    };
   default:
     return state;
   }

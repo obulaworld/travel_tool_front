@@ -40,7 +40,7 @@ class TemplatesMenu extends Component {
         </li>
         { data && (
           <li
-            onClick={() => {setItemToDisable(data, disableEnable);}} role="presentation"
+            onClick={(event) => {setItemToDisable(data, disableEnable, event);}} role="presentation"
             className="table__menu-list-item bottom" id="setItem">
             {disableEnable? <span className="enable">Enable</span> : <span className="disable">Disable</span>} 
           </li>
@@ -68,10 +68,14 @@ class TemplatesMenu extends Component {
 }
 
 TemplatesMenu.propTypes = {
-  disableEnable: PropTypes.bool.isRequired,
+  disableEnable: PropTypes.bool,
   template: PropTypes.object.isRequired,
   reminder: PropTypes.object.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
+};
+
+TemplatesMenu.defaultProps = {
+  disableEnable: false
 };
 
 export default TemplatesMenu;

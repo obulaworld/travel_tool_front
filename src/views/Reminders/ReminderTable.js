@@ -13,10 +13,10 @@ export const AlertIcon = (visible, reminder, setItemToDisable) => {
     <Fragment>
       {
         visible ? (
-          <i 
+          <i
             className="tiny material-icons"
-            onClick={() => {
-              setItemToDisable(reminder, reminder.reasons[0].reason);
+            onClick={(event) => {
+              setItemToDisable(reminder, reminder.reasons[0].reason, event);
             }} role="presentation"
           >
             error
@@ -74,18 +74,24 @@ ReminderDetails.propTypes = {
   documentType: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
   createdAt: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  setItemToDisable: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  setItemToDisable: PropTypes.func,
   reminder: PropTypes.object,
 };
 
 ReminderDetails.defaultProps = {
-  reminder: {}
+  reminder: {},
+  setItemToDisable: () => {},
+  disabled: false
 };
 
 reminderTable.propTypes = {
   reminders: PropTypes.array.isRequired,
-  setItemToDisable: PropTypes.func.isRequired,
+  setItemToDisable: PropTypes.func,
+};
+
+reminderTable.defaultProps = {
+  setItemToDisable: () => { }
 };
 
 

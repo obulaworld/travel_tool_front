@@ -62,15 +62,18 @@ ListEmailTemplates.propTypes = {
   listEmailTemplatesReducer: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  shouldOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func,
+  shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
-  fetchOneTemplate: PropTypes.func.isRequired,
+  fetchOneTemplate: PropTypes.func,
   setItemToDisable: PropTypes.func.isRequired,
 };
 
 ListEmailTemplates.defaultProps = {
   modalType: '',
+  shouldOpen: false,
+  fetchOneTemplate: () => {},
+  closeModal: () => { }
 };
 
 export default ListEmailTemplates;

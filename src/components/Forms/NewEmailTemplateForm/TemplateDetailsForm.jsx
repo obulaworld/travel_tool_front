@@ -20,17 +20,17 @@ class TemplateDetailsForm extends PureComponent {
     const { selectedTemplate } = this.props;
     return (
       <div>
-        
+
         <FormContext
           targetForm={this}
-          validatorName="myCustomValidator" // uses FormAPI's default validator if this is undefined 
+          validatorName="myCustomValidator" // uses FormAPI's default validator if this is undefined
         >
           <form className="template-details">
             <fieldset>
               <div className="input-group template-details">
-                {renderInput('subject', 'text', {className: 'subject-input', 
+                {renderInput('subject', 'text', {className: 'subject-input',
                   disabled: true, value: selectedTemplate.subject })}
-                {renderInput('message', 'textarea', {className: 'message-input', 
+                {renderInput('message', 'textarea', {className: 'message-input',
                   disabled: true, value: selectedTemplate.message})}
               </div>
               <hr />
@@ -47,9 +47,15 @@ class TemplateDetailsForm extends PureComponent {
   }
 }
 
-TemplateDetailsForm.propTypes = { 
-  selectedTemplate: PropTypes.object.isRequired,
-  closeModal: PropTypes.func.isRequired
+TemplateDetailsForm.propTypes = {
+  selectedTemplate: PropTypes.object,
+  closeModal: PropTypes.func
 };
+
+TemplateDetailsForm.defaultProps = {
+  selectedTemplate: {},
+  closeModal: () => {}
+};
+
 
 export default TemplateDetailsForm;

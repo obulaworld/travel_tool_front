@@ -4,7 +4,7 @@ import Modal from '../../modal/Modal';
 import SubmitArea from './FormFieldsets/SubmitArea';
 
 
-const EnableEmailReminderTemplateForm = ({ 
+const EnableEmailReminderTemplateForm = ({
   closeModal, enableReminderTemplate, shouldOpen, modalType
 }) => {
   return(
@@ -22,7 +22,7 @@ const EnableEmailReminderTemplateForm = ({
       <SubmitArea
         onCancel={closeModal}
         hasBlankFields={false}
-        enableEmailReminderTemplate={enableReminderTemplate} 
+        enableEmailReminderTemplate={enableReminderTemplate}
         send="Enable"
       />
     </Modal>
@@ -33,10 +33,11 @@ EnableEmailReminderTemplateForm.propTypes = {
   enableReminderTemplate: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
-  shouldOpen: PropTypes.bool.isRequired,
+  shouldOpen: PropTypes.bool,
 };
 
 EnableEmailReminderTemplateForm.defaultProps = {
   modalType:'',
+  shouldOpen: ''
 };
 export default EnableEmailReminderTemplateForm;

@@ -88,7 +88,7 @@ ReminderSetup.propTypes = {
   history: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
-  shouldOpen: PropTypes.bool.isRequired,
+  shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
   fetchOneTemplate: PropTypes.func.isRequired,
   enableReminderTemplate: PropTypes.func,
@@ -96,6 +96,8 @@ ReminderSetup.propTypes = {
 
 ReminderSetup.defaultProps = {
   modalType: '',
+  shouldOpen: false,
+  fetchOneTemplate: () => { }
 };
 
 const mapStateToProps = ({listEmailTemplatesReducer, modal}) => ({

@@ -51,17 +51,301 @@ Array [
     </button>
 </div>,
   <div>
+     
     <div
-        className="no-email-icon"
+        className="list-templates"
     >
-        <img
-            alt=""
-            src="no-document.svg"
-        />
-        <p>
-            No email reminders available
-        </p>
+        <div
+            className="table__container"
+        >
+            <table
+                className="mdl-data-table mdl-js-data-table readiness-table"
+            >
+                <thead>
+                    <tr>
+                        <th
+                            className="table__head mdl-data-table__cell--non-numeric"
+                        >
+                            Condition Name
+                        </th>
+                        <th
+                            className="table__head mdl-data-table__cell--non-numeric"
+                        >
+                            Document Type
+                        </th>
+                        <th
+                            className="table__head mdl-data-table__cell--non-numeric"
+                        >
+                            Created By
+                        </th>
+                        <th
+                            className="table__head mdl-data-table__cell--non-numeric"
+                        >
+                            Created on
+                        </th>
+                    </tr>
+                </thead>
+                <tbody
+                    className="table__body"
+                >
+                    <tr
+                        className="table__rows "
+                    >
+                        <td
+                            className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+                        >
+                            PasssssT
+                        </td>
+                        <td
+                            className="mdl-data-table__cell--non-numeric table__data"
+                        >
+                            Passport
+                        </td>
+                        <td
+                            className="mdl-data-table__cell--non-numeric table__data"
+                        >
+                            Adeniyi Adeyokunnu
+                        </td>
+                        <td
+                            className="mdl-data-table__cell--non-numeric table__data"
+                        >
+                            24-01-2019
+                        </td>
+                        <td
+                            className="table__data"
+                        >
+                            <span>
+                                <i
+                                    className="fa fa-ellipsis-v on"
+                                    id="toggleIcon"
+                                    onClick={[Function]}
+                                    role="presentation"
+                                />
+                                <div
+                                    className="table__menu-container "
+                                >
+                                    <ul
+                                        className="table__menu-list"
+                                    >
+                                        <li
+                                            className="table__menu-list-item top"
+                                        >
+                                            <span
+                                                className="edit"
+                                            >
+                                                Edit
+                                            </span>
+                                        </li>
+                                        <li
+                                            className="table__menu-list-item bottom"
+                                            id="setItem"
+                                            onClick={[Function]}
+                                            role="presentation"
+                                        >
+                                            <span
+                                                className="disable"
+                                            >
+                                                Disable
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    className="table__menu-container "
+                                >
+                                    <ul
+                                        className="table__menu-list"
+                                    >
+                                        <li
+                                            className="table__menu-list-item top"
+                                        >
+                                            <span
+                                                className="edit"
+                                            >
+                                                Edit
+                                            </span>
+                                        </li>
+                                        <li
+                                            className="table__menu-list-item bottom"
+                                            id="setItem"
+                                            onClick={[Function]}
+                                            role="presentation"
+                                        >
+                                            <span
+                                                className="disable"
+                                            >
+                                                Disable
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div
+        className="reminder-email-templates"
+    >
+        <div
+            className="pagination"
+        >
+            <button
+                className="pagination__button"
+                disabled={true}
+                id="previous-button"
+                onClick={[Function]}
+                type="button"
+            >
+                <span
+                    className=""
+                >
+                    Previous
+                </span>
+                <span
+                    className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+                >
+                    Previous
+                </span>
+            </button>
+            <div
+                className="pagination__items"
+            >
+                <span
+                    className="pagination__page"
+                >
+                    Page
+                </span>
+                <div
+                    className="pagination__current-page"
+                    id="current-page"
+                >
+                    1
+                </div>
+                of
+                <span
+                    className="pagination__all-pages"
+                    id="page-count"
+                >
+                    3
+                </span>
+            </div>
+            <button
+                className="pagination__button"
+                disabled={false}
+                id="next-button"
+                onClick={[Function]}
+                type="button"
+            >
+                <span
+                    className=""
+                >
+                    Next
+                </span>
+                <span
+                    className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+                >
+                    Next
+                </span>
+            </button>
+        </div>
     </div>
 </div>,
+  <div
+    className="overlay visible  "
+    onClick={null}
+    onKeyPress={[Function]}
+    role="button"
+    tabIndex="0"
+>
+    <div
+        className="modal visible delete-checklist-item"
+        id=""
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        role="button"
+        style={
+            Object {
+                "maxWidth": "",
+              }
+        }
+        tabIndex="0"
+    >
+        <div
+            className="modal-title-bar"
+        >
+            <div
+                className="modal-title-text"
+            >
+                <div
+                    className="modal-title"
+                >
+                    Disable Reminder Condtion
+                </div>
+                <div
+                    className="lable-text modal-bar"
+                >
+                    <div />
+                </div>
+            </div>
+            <button
+                className="modal-close"
+                onClick={[Function]}
+                type="button"
+            >
+                <img
+                    alt="close"
+                    src="close.svg"
+                />
+            </button>
+        </div>
+        <div
+            className="modal-content"
+            id=""
+        >
+            <p
+                className="delete-checklist-item__reason"
+            >
+                Reason for Disabling
+            </p>
+            <textarea
+                className="delete-checklist-item__input"
+                defaultValue=""
+                disabled={false}
+                onChange={[Function]}
+                type="text"
+            />
+            <div
+                className="delete-checklist-item__hr"
+            />
+            <fieldset>
+                <div
+                    className="submit-area"
+                >
+                    <button
+                        className="bg-btn bg-btn--inactive"
+                        id="cancel"
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="restore-checklist-items__footer--delete"
+                        disabled={true}
+                        id="oncancel"
+                        onClick={[Function]}
+                        type="button"
+                    >
+                        Disable
+                    </button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>,
+  "",
 ]
 `;

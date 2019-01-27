@@ -24,14 +24,17 @@ class TemplateDetailsModal extends Component {
 }
 
 TemplateDetailsModal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
   modalType: PropTypes.string,
-  shouldOpen: PropTypes.bool.isRequired,
-  selectedTemplate: PropTypes.object.isRequired
+  shouldOpen: PropTypes.bool,
+  selectedTemplate: PropTypes.object
 };
 
 TemplateDetailsModal.defaultProps = {
   modalType: '',
+  closeModal: () => { },
+  shouldOpen: false,
+  selectedTemplate:{}
 };
 
 export default TemplateDetailsModal;

@@ -37,5 +37,34 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
       </li>
     </ul>
   </div>
+  <div
+    className="table__menu-container "
+  >
+    <ul
+      className="table__menu-list"
+    >
+      <li
+        className="table__menu-list-item top"
+      >
+        <span
+          className="edit"
+        >
+          Edit
+        </span>
+      </li>
+      <li
+        className="table__menu-list-item bottom"
+        id="setItem"
+        onClick={[Function]}
+        role="presentation"
+      >
+        <span
+          className="disable"
+        >
+          Disable
+        </span>
+      </li>
+    </ul>
+  </div>
 </span>
 `;
