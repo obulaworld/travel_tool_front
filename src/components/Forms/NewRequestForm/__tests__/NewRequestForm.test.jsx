@@ -101,6 +101,10 @@ describe('<NewRequestForm />', () => {
     managers: [{
       fullName: 'Test User',
       email: 'test.user@andela.com'
+    },
+    {
+      fullName: 'Samuel Kubai',
+      email: 'samuel@andela.com'
     }],
     modalType:'new model'
   };
@@ -548,6 +552,35 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.instance().handleSubmit(event);
     expect(shallowWrapper.instance().handleSubmit.calledOnce).toEqual(true);
     expect(props.updateUserProfile).toHaveBeenCalledTimes(0);
+  });
+
+  it('should test onChangeManager()', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props}  />);
+    localStorage.setItem('checkBox', 'clicked');
+    shallowWrapper.setState({
+      values: {
+        name: 'Akanmu Chris',
+        gender: 'male',
+        department: 'Success',
+        role: 'Software Developer',
+        manager: 'dont exist',
+      },
+      trips: [],
+      selection: 'return',
+    });
+    const inputField = shallowWrapper.find('.occupationInput');
+
+    inputField.simulate('change', { target: { value: 'Samuel Kubai' } });
+    const { manager } = shallowWrapper.state('values');
+    const { manager: firstManagerError } = shallowWrapper.state('errors');
+    expect(manager).toEqual('Samuel Kubai');
+    expect(firstManagerError).toEqual('');
+
+    inputField.simulate('change', { target: { value: 'will fail' } });
+    const { manager: newManager } = shallowWrapper.state('values');
+    const { manager: secondManagerError } = shallowWrapper.state('errors');
+    expect(newManager).toEqual('will fail');
+    expect(secondManagerError).toEqual('Please select a manager from the dropdown');
   });
 
   it('should add new trip field for multi trip  ', () => {

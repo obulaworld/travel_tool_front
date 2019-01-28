@@ -17,7 +17,7 @@ class PersonalDetailsFieldset extends Component {
   };
   renderfields = collapse => {
     const { disableInputs } = this.state;
-    const { value, values, managers, occupations } = this.props;
+    const { value, managers, occupations, onChangeManager } = this.props;
     const managerChoices = managers.map(manager => manager.fullName);
     const occupationsNames = occupations.map(
       occupation => occupation.occupationName
@@ -54,7 +54,8 @@ class PersonalDetailsFieldset extends Component {
                   choices: managerChoices,
                   size: value,
                   className: 'request_dropdown',
-                  id: 'your-manager'
+                  id: 'your-manager',
+                  onChange: onChangeManager
                 })}
               </div>
             </div>
@@ -112,6 +113,7 @@ const position = PropTypes.string;
 const line = PropTypes.string;
 const values = PropTypes.object;
 const occupations = PropTypes.array;
+const onChangeManager = PropTypes.func;
 
 PersonalDetailsFieldset.propTypes = {
   managers: managers.isRequired,
@@ -120,9 +122,11 @@ PersonalDetailsFieldset.propTypes = {
   title: title.isRequired,
   position: position.isRequired,
   line: position.isRequired,
+  onChangeManager: onChangeManager.isRequired,
   values: values,
   value: PropTypes.string,
-  occupations
+  occupations,
+  
 };
 
 PersonalDetailsFieldset.defaultProps = {

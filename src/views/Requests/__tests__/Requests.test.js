@@ -193,6 +193,10 @@ const initialState = {
     shouldOpen: false,
     modalType: null
   },
+  roleUsers: [
+    { fullName: 'Samuel Kubai', email: 'samuel@andela.com' },
+    { fullName: 'Chris Akanmu', email: 'chris@andela.com' }
+  ],
   getCurrentUserRole: 'tomato',
   travelChecklist: { checklistItems: travelChecklistMockData }
 };
