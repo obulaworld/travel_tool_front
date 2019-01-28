@@ -29,8 +29,9 @@ class NewUserRoleForm extends PureComponent {
     this.state = { ...this.defaultState };
   }
   componentDidMount() {
-    const { fetchCenters } = this.props;
+    const { fetchCenters, getAllUsersEmail } = this.props;
     fetchCenters();
+    getAllUsersEmail();
   }
 
   componentWillUnmount() {
@@ -72,7 +73,7 @@ class NewUserRoleForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { updatingRole, role, centers, myTitle } = this.props;
+    const { updatingRole, role, centers, myTitle, allMails } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         {updatingRole && (
@@ -87,6 +88,7 @@ class NewUserRoleForm extends PureComponent {
             roleName={role}
             centers={centers}
             myTitle={myTitle}
+            allMails={allMails}
           />
           <hr />
           <SubmitArea
@@ -110,13 +112,16 @@ NewUserRoleForm.propTypes = {
   fetchCenters: PropTypes.func,
   role: PropTypes.string.isRequired,
   userDetail:  PropTypes.object,
-  roleId: PropTypes.string.isRequired
+  roleId: PropTypes.string.isRequired,
+  getAllUsersEmail: PropTypes.func,
+  allMails: PropTypes.array.isRequired,
 };
 
 NewUserRoleForm.defaultProps = {
   updatingRole: false,
   updateUserCenter: ()=> {},
   fetchCenters: ()=> {},
+  getAllUsersEmail: ()=> {},
   userDetail: {},
 };
 

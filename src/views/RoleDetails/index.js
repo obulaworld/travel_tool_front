@@ -14,6 +14,7 @@ import {
   showDeleteRoleModal
 } from '../../redux/actionCreator/roleActions';
 import {fetchCenters, updateUserCenter} from '../../redux/actionCreator/centersActions';
+import {getAllUsersEmail} from '../../redux/actionCreator/userActions';
 import './RoleDetails.scss';
 import NotFound from '../ErrorPages';
 
@@ -26,9 +27,10 @@ export class RoleDetails extends Component {
   componentDidMount() {
     const {
       fetchRoleUsers, match: { params }, hideDeleteRoleModal,
-      deleteModalState
+      deleteModalState,
     } = this.props;
 
+    getAllUsersEmail();
     deleteModalState === 'visible' && hideDeleteRoleModal();
     fetchRoleUsers(params.roleId);
   }
@@ -106,9 +108,10 @@ export class RoleDetails extends Component {
   }
 
   renderRoleForm() {
+    
     const { error, closeModal, shouldOpen, modalType,
-      roleName, fetchRoleUsers, fetchCenters, centers,
-      putRoleData, updateUserCenter, match } = this.props;
+      roleName, fetchRoleUsers, fetchCenters, centers, getUsersEmail: allMails,
+      putRoleData, updateUserCenter, match, getAllUsersEmail } = this.props;
     const { headTitle, userDetail } = this.state;
     const { params: {roleId } } = match;
     return (
@@ -133,6 +136,8 @@ export class RoleDetails extends Component {
           centers={centers}
           userDetail={userDetail}
           myTitle={headTitle}
+          getAllUsersEmail={getAllUsersEmail}
+          allMails={allMails}
         />
       </Modal>
     );
@@ -191,7 +196,9 @@ RoleDetails.propTypes = {
   deleteModalState: PropTypes.string.isRequired,
   showDeleteRoleModal: PropTypes.func.isRequired,
   hideDeleteRoleModal: PropTypes.func.isRequired,
-  deleteUserRole: PropTypes.func.isRequired
+  deleteUserRole: PropTypes.func.isRequired,
+  getAllUsersEmail: PropTypes.func.isRequired,
+  getUsersEmail: PropTypes.array
 };
 
 RoleDetails.defaultProps = {
@@ -200,6 +207,7 @@ RoleDetails.defaultProps = {
   modalType: '',
   roleName: '',
   centers: [],
+  getUsersEmail: []
 };
 
 const actionCreators = {
@@ -211,7 +219,8 @@ const actionCreators = {
   updateUserCenter,
   deleteUserRole,
   hideDeleteRoleModal,
-  showDeleteRoleModal
+  showDeleteRoleModal,
+  getAllUsersEmail
 };
 
 export default connect(

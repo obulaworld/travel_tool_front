@@ -6,15 +6,19 @@ import {
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAILURE,
   UPDATE_PROFILE_SUCCESS,
+  GET_ALL_EMAILS,
+  GET_ALL_EMAILS_SUCCESS,
+  GET_ALL_EMAILS_FAILURE,
 } from '../constants/actionTypes';
 
 const initialState = {
   postUserData: [],
   getUserData: {},
   currentUser: {},
-  errors: [],
+  errors: {},
   getCurrentUserRole: [],
-  isLoaded: false
+  isLoaded: false,
+  getUsersEmail: [],
 };
 const user = (state = initialState, action) => {
   switch (action.type) {
@@ -27,7 +31,7 @@ const user = (state = initialState, action) => {
       currentUser: action.response.result,
       getCurrentUserRole: action.response.result
         .roles.map(role => role.roleName),
-      errors: [],
+      errors: {},
       isLoaded: true
     };
   case UPDATE_PROFILE_SUCCESS:
@@ -35,7 +39,7 @@ const user = (state = initialState, action) => {
       ...state,
       getUserData: action.response,
       currentUser: action.response.result,
-      errors: [],
+      errors: {},
     };
   case GET_USER_DATA_FAILURE:
     return {
@@ -55,6 +59,21 @@ const user = (state = initialState, action) => {
       ...state,
       postUserData: action.response,
       errors: action.error
+    };
+  case GET_ALL_EMAILS:
+    return { 
+      ...state, 
+      getUsersEmail:[] 
+    };
+  case GET_ALL_EMAILS_SUCCESS:
+    return {
+      ...state,
+      getUsersEmail: action.response,
+    };
+  case GET_ALL_EMAILS_FAILURE:
+    return {
+      ...state,
+      errors: action.error,
     };
   default:
     return state;

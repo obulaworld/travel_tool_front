@@ -101,14 +101,30 @@ export default class filterDropdownSelect extends Component  {
     };
 
     changeText = (e) => {
-      const {onChange} = this.props;
-      onChange(e.target.value);
-      this.setState({[e.target.name]:  e.target.value});
-      this.setState(() => ({dropdownClass: 'select-dropdown'}));
+      const {onChange, name} = this.props;
+      switch(name){
+      case 'email':
+      case 'from':
+        onChange(e.target.value);
+        if(e.target.value.length> 4){    
+          this.setState({[e.target.name]:  e.target.value});
+          this.setState(() => ({dropdownClass: 'select-dropdown'}));  
+          break;
+        }
+        this.setState({[e.target.name]:  ''});
+        break;
+        
+      default :
+        onChange(e.target.value);
+        this.setState({[e.target.name]:  e.target.value});
+        this.setState(() => ({dropdownClass: 'select-dropdown'}));
+      }
+      
     };
 
     render(){
       const {choices, size, value} = this.props;
+      
       const {role, dropdownClass, manager} = this.state;
       const options = this.getSelectOptions(choices);
       return (

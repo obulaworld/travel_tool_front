@@ -20,7 +20,9 @@ const props = {
     params: {}
   },
   editing: false,
-  data: {...mockData}
+  data: {...mockData},
+  getAllUsersEmail: jest.fn(),
+  getUsersEmail: [],
 };
 
 describe('<NewEmailTemplateForm> component', () =>{

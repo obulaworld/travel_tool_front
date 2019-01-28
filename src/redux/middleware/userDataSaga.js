@@ -11,6 +11,9 @@ import {
   getUserData,
   getUserDataSuccess,
   getUserDataFailure,
+  getAllUsersEmail,
+  getAllUsersEmailSuccess,
+  getAllUsersEmailFailure,
 } from '../actionCreator/userActions';
 
 export function* watchPostUserDataSagaAsync() {
@@ -45,6 +48,22 @@ export function* postUserDataSagaAsync(action) {
     toast.error(errorMessage);
   }
 }
+
+export function* watchFetchUsersEmail() {
+  yield takeLatest(getAllUsersEmail().type, fetchAllUsersEmailSaga);
+}
+export function* fetchAllUsersEmailSaga() {
+  try {
+    const response = yield call(UserAPI.getAllUsersEmail);
+    const allEmails = response.data.result.map((text, id) => ({ 
+      id: text.email, text: text.email}));
+    yield put(getAllUsersEmailSuccess(allEmails));
+  } catch (error) {
+    let errorMessage = apiErrorHandler(error);
+    yield put(getAllUsersEmailFailure(errorMessage));
+  }
+}
+
 
 export function* watchGetUserDataSagaAsync() {
   yield takeLatest(getUserData().type, fetchUserDataSaga);

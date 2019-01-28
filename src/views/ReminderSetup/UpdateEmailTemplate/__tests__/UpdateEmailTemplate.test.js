@@ -22,7 +22,10 @@ const props = {
   match: {
     params: {}
   },
-  editing: true
+  editing: true,
+  getAllUsersEmail: jest.fn(),
+  getUsersEmail: [{id:'travela', text:'travela@travela.com'}],
+  errors: []
 };
 
 describe('<UpdateEmailTemplate> page', () => {

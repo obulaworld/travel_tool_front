@@ -13,17 +13,54 @@
   flex: 1;
 }
 
-.ReactTags__selected span.ReactTags__tag {
-  border: 1px solid #ddd;
-  background: #eee;
-  font-size: 12px;
-  display: inline-block;
-  padding: 5px;
-  margin: 0 5px;
-  cursor: move;
+.ReactTags__selected {
+  span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #eee;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 5px;
+    cursor: move;
+  }
+  a.ReactTags__remove {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+  }
 }
-.ReactTags__selected a.ReactTags__remove {
-  color: #aaa;
-  margin-left: 5px;
-  cursor: pointer;
+
+div.ReactTags__suggestions {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  width: calc(100% + -1px);
+  color: #4F4F4F;
+  font-family: 'DIN Pro';
+  z-index: 150;
+  padding: 0px 0px;
+  ul {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    display: flex;
+    padding-inline-start: 0px;
+    flex-flow: column;
+    box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    list-style-type: none;
+    width: 300px;
+  }
+  li {
+    padding: 5px 10px;
+    margin: 0;
+    mark {
+      background: white;
+      font-weight: 600;
+    }
+  }
+  ul li.ReactTags__activeSuggestion {
+    background: #F8F8F8;
+    cursor: pointer;
+    color: #3359db;
+  }
 }

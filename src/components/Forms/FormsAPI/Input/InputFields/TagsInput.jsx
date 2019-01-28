@@ -53,7 +53,7 @@ class TagsInput extends Component{
       <ReactTags
         tags={tags}
         inline
-        {...this.props}
+        {...this.props}  
         autofocus={false}
         handleAddition={this.handleAddition}
         handleDelete={this.handleDeletion}

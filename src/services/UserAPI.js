@@ -14,6 +14,11 @@ class UserAPI {
     return axios.get(`${baseUrl}/user/${id}`);
   }
 
+  static getAllUsersEmail() {
+    
+    return axios.get(`${baseUrl}/user?field=email`);
+  }
+  
   static getUserDataFromStagingApi(email) {
     const token = Cookie.get('jwt-token');
     const usersStagingUrl = process.env.REACT_APP_ALL_USERS;

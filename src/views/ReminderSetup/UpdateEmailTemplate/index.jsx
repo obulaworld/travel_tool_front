@@ -6,6 +6,7 @@ import {
   getSingleReminderEmailTemplate,
   updateSingleReminderEmailTemplate
 } from '../../../redux/actionCreator/reminderManagementActions';
+import {getAllUsersEmail} from '../../../redux/actionCreator/userActions';
 
 class UpdateEmailTemplate extends React.Component {
   render(){
@@ -27,4 +28,4 @@ const mapStateToProps = ({ reminderManagement : { updatedEmailTemplate }}) => up
 
 export default connect(
   mapStateToProps,
-  { updateSingleReminderEmailTemplate, getSingleReminderEmailTemplate })(UpdateEmailTemplate);
+  { updateSingleReminderEmailTemplate, getSingleReminderEmailTemplate, getAllUsersEmail })(UpdateEmailTemplate);

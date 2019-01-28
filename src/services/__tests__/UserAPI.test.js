@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Cookie from 'cookies-js'
+import Cookie from 'cookies-js';
 import UserAPI from '../UserAPI';
 import ProfileApi from '../ProfileApi';
 import { userResponse } from '../__mocks__/serviceMocks';
@@ -15,6 +15,25 @@ describe('UserAPI', () => {
 
   afterEach(() => {
     moxios.uninstall();
+  });
+
+  it('should send a GET request to get all users emails', async () => {
+    const data = {
+      message: 'Fetched users successfully',
+      success: true,
+      result: [{fullName: 'travela', email: 'travela@travel.com'}]
+    };
+    moxios.stubRequest(`${baseUrl}/user?field=email`, {
+      status: 200,
+      response: data,
+    });
+
+    const response = await UserAPI.getAllUsersEmail();
+    const email = moxios.requests.mostRecent();
+    expect(email.url).toEqual(`${baseUrl}/user?field=email`);
+    expect(email.config.method).toEqual('get');
+    
+    expect(response.data).toEqual(data);
   });
 
   it('should sends a GET request to get user\'s details ', async () => {
@@ -85,4 +104,6 @@ describe('UserAPI', () => {
       manager:'samuel'
     });
   });
+
+  
 });

@@ -42,7 +42,8 @@ const props = {
   deleteModalState: 'invisible',
   hideDeleteRoleModal: jest.fn(),
   showDeleteRoleModal: jest.fn(),
-  deleteUserRole: jest.fn()
+  deleteUserRole: jest.fn(),
+  getAllUsersEmail: jest.fn()
 };
 
 

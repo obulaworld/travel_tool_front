@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { isEmpty } from 'lodash';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import EmailTemplateDetails from './FormFieldSets/EmailTemplateDetails';
 import './NewEmailTemplateForm.scss';
@@ -30,13 +31,15 @@ class NewEmailTemplateForm extends React.Component {
     const {
       getSingleReminderEmailTemplate,
       match: { params: { templateId } },
-      history
+      history,
+      getAllUsersEmail,
     } = this.props;
     getSingleReminderEmailTemplate(templateId, history);
+    getAllUsersEmail();
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.data) {
+    if (nextProps.data && !isEmpty(nextProps.data.cc)) {
       const { data: { name, from, cc, subject, message, id } } = nextProps;
 
       this.setState({
@@ -83,9 +86,9 @@ class NewEmailTemplateForm extends React.Component {
   };
 
 
-  render() {
-    const { isSaving, editing } = this.props;
-    const { values, errors, hasBlankFields } = this.state;
+  render () {
+    const { isSaving, getUsersEmail, editing } = this.props;
+    const { values, errors, hasBlankFields} = this.state;
     return (
       <FormContext
         values={values}
@@ -94,7 +97,7 @@ class NewEmailTemplateForm extends React.Component {
         validatorName="validate"
       >
         <form className="new-email-template-form" onSubmit={this.handleSubmit}>
-          <EmailTemplateDetails values={values} />
+          <EmailTemplateDetails values={values} emails={getUsersEmail} />
           <SubmitArea
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
@@ -130,7 +133,9 @@ NewEmailTemplateForm.propTypes = {
   getSingleReminderEmailTemplate: PropTypes.func,
   updateSingleReminderEmailTemplate: PropTypes.func,
   match: PropTypes.object.isRequired,
-  data: PropTypes.object
+  data: PropTypes.object,
+  getAllUsersEmail: PropTypes.func.isRequired,
+  getUsersEmail: PropTypes.array.isRequired
 };
 
 export default NewEmailTemplateForm;
