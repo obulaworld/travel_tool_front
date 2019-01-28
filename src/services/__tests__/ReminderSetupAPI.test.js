@@ -29,5 +29,27 @@ describe('ReminderSetup', () => {
 
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);
     expect(response.data).toEqual('Reminder email template has been successfully enabled');
+
+  });
+
+
+  it('sends disable request to the api', async () => {
+    const templateId = '3';
+    const data = {
+      templateId: 3,
+      disableReason: {
+        disableReason: 'No longer applicable'
+      }
+    };
+
+    moxios.stubRequest(`${baseUrl}/reminderManagement/emailTemplates/disable/${templateId}`, {
+      status: 200,
+      response: 'Email template disabled successfully'
+    });
+
+    const response = await ReminderManagementAPI.disableEmailTemplate(data);
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/reminderManagement/emailTemplates/disable/${templateId}`);
+    expect(response.data).toEqual('Email template disabled successfully');
   });
 });

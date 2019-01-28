@@ -16,7 +16,7 @@ export const AlertIcon = (visible, reminder, setItemToDisable) => {
           <i
             className="tiny material-icons"
             onClick={(event) => {
-              setItemToDisable(reminder, reminder.reasons[0].reason, event);
+              setItemToDisable(false,reminder, reminder.reasons[0].reason,event);
             }} role="presentation"
           >
             error
@@ -27,25 +27,31 @@ export const AlertIcon = (visible, reminder, setItemToDisable) => {
   );
 };
 
-export const ReminderDetails = ({ reminder, conditionName, documentType, user, createdAt, disabled, setItemToDisable }) => {
-  return (
-    <tr className={`table__rows ${disabled?'off':''}`}>
-      <td className={`${className} ${disabled?'':'readiness__cell-name'}`}>
-        {conditionName}
-        {AlertIcon(disabled, reminder, setItemToDisable)}
-      </td>
-      <td className={className}>{documentType}</td>
-      <td className={className}>{user.fullName}</td>
-      <td className={className}>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</td>
-      <td className="table__data">
-        <TemplatesMenu disableEnable={disabled} reminder={reminder} setItemToDisable={setItemToDisable} />
-      </td>
-    </tr>
-  );
-};
+export const ReminderDetails = ({
+  reminder,
+  conditionName,
+  documentType,
+  user,
+  createdAt,
+  disabled,
+  setItemToDisable
+}) => (
+  <tr className={`table__rows ${disabled?'off':''}`}>
+    <td className={`${className} ${disabled?'':'readiness__cell-name'}`}>
+      {conditionName}
+      {AlertIcon(disabled, reminder, setItemToDisable)}
+    </td>
+    <td className={className}>{documentType}</td>
+    <td className={className}>{user.fullName}</td>
+    <td className={className}>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</td>
+    <td className="table__data">
+      <TemplatesMenu disableEnable={disabled} reminder={reminder} setItemToDisable={setItemToDisable} />
+    </td>
+  </tr>
+);
 
 
-const reminderTable = ({ reminders, setItemToDisable }) => {
+export const reminderTable = ({ reminders, setItemToDisable }) => {
   return (
     <div className="list-templates">
       <div className="table__container">
@@ -60,7 +66,12 @@ const reminderTable = ({ reminders, setItemToDisable }) => {
           </thead>
           <tbody className="table__body">
             {
-              reminders && reminders.map(reminder => <ReminderDetails key={reminder.id} {...reminder} setItemToDisable={setItemToDisable} reminder={reminder} />)
+              reminders && reminders.map(reminder => (
+                <ReminderDetails
+                  key={reminder.id}
+                  {...reminder}
+                  setItemToDisable={setItemToDisable}
+                  reminder={reminder} />))
             }
           </tbody>
         </table>

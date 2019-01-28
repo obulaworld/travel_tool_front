@@ -4,12 +4,14 @@ import {
   createReminderEmailTemplateFailure,
   createReminderEmailTemplateSuccess,
   enableReminderEmailTemplateFailure,
-  enableReminderEmailTemplateSuccess
+  enableReminderEmailTemplateSuccess,
+  disableEmailTemplateSuccess,
+  disableEmailTemplateFailure,
 } from '../actionCreator/reminderManagementActions';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
 import {CREATE_REMINDER_EMAIL_TEMPLATE,
-  ENABLE_REMINDER_EMAIL_TEMPLATE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE, DISABLE_EMAIL_TEMPLATE
 } from '../constants/actionTypes';
 import ReminderManagementAPI from '../../services/ReminderManagementAPI';
 import apiValidationErrorHandler from '../../services/apiValidationErrorHandler';
@@ -55,3 +57,23 @@ export function* enableEmailReminderTemplateSaga(action){
 export function* watchEnableEmailReminderTemplate(){
   yield takeLatest(ENABLE_REMINDER_EMAIL_TEMPLATE, enableEmailReminderTemplateSaga);
 }
+export function* disableEmailTemplateAsync(action) {
+  try {
+    const { templateId, disableReason } = action;
+    const response = yield call(ReminderManagementAPI.disableEmailTemplate,
+      {templateId, disableReason});
+    yield put(disableEmailTemplateSuccess(response.data.updatedTemplate, response.data.reason));
+    toast.success(response.data.message);
+    yield put(closeModal());
+  }
+  catch(error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(disableEmailTemplateFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchdisableEmailTemplate() {
+  yield takeLatest(DISABLE_EMAIL_TEMPLATE, disableEmailTemplateAsync);
+}
+

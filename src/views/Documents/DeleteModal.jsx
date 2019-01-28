@@ -24,15 +24,15 @@ class DeleteModal extends Component {
         </span>
         <div className="delete-checklist-item__hr delete-checklist-item__left" />
         <div className="delete-checklist-item__footer delete-checklist-item__right">
-          <button 
-            type="button" 
-            className="delete-checklist-item__footer--cancel" 
+          <button
+            type="button"
+            className="delete-checklist-item__footer--cancel"
             onClick={closeModal}>
             Cancel
           </button>
-          <button 
-            type="button" 
-            className="bg-btn bg-btn--active delete-document-button" 
+          <button
+            type="button"
+            className="bg-btn bg-btn--active delete-document-button"
             onClick={handleDelete}>
             Delete
           </button>

@@ -11,7 +11,14 @@ class ReminderManagementAPI{
     axios.get(`${baseUrl}/reminderManagement/emailTemplates${parameters}`);
 
     static enableEmailTemplates = (templateId) =>
-      axios.put(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);  
+      axios.put(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);
+      
+    static disableEmailTemplate({templateId, disableReason}) {
+      const reason = disableReason.disableReason;
+      return axios.put(`${resolveBaseUrl()}/reminderManagement/emailTemplates/disable/${templateId}`, {
+        reason
+      });
+    }
 }
 
 export default ReminderManagementAPI;

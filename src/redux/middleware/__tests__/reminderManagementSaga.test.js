@@ -1,10 +1,11 @@
 import {expectSaga} from 'redux-saga-test-plan';
 import { call } from 'redux-saga/effects';
 import {throwError} from 'redux-saga-test-plan/providers';
-import { payload, errors, response, enableResponse
+import { payload, errors, response, enableResponse, disableResponse, disableErrors
 } from '../../__mocks__/reminderManagement';
 import {watchCreateEmailReminderTemplate,
-  watchEnableEmailReminderTemplate
+  watchEnableEmailReminderTemplate,
+  watchdisableEmailTemplate
 } from '../reminderManagementSaga';
 import ReminderManagementAPI from '../../../services/ReminderManagementAPI';
 
@@ -14,7 +15,10 @@ import {
   CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
   ENABLE_REMINDER_EMAIL_TEMPLATE,
   ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+  DISABLE_EMAIL_TEMPLATE,
+  DISABLE_EMAIL_TEMPLATE_SUCCESS,
+  DISABLE_EMAIL_TEMPLATE_FAILURE
 } from '../../constants/actionTypes';
 
 describe('Reminder Management Saga', () => {
@@ -83,24 +87,24 @@ describe('Reminder Management Saga', () => {
     errors.response = { status: 500};
     const templateId = 1;
     it('should enable a reminder email template', () => {
-  
+
       return expectSaga(watchEnableEmailReminderTemplate)
         .provide([
           [call(ReminderManagementAPI.enableEmailTemplates, templateId), throwError(errors)]
         ])
         .put({
           type: ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-          errors 
+          errors
         })
         .dispatch({
           type: ENABLE_REMINDER_EMAIL_TEMPLATE,
           templateId
-          
+
         })
         .silentRun();
     });
     it('should enable a reminder email template', () => {
-  
+
       return expectSaga(watchEnableEmailReminderTemplate)
         .provide([
           [call(ReminderManagementAPI.enableEmailTemplates, templateId), enableResponse]
@@ -112,6 +116,31 @@ describe('Reminder Management Saga', () => {
         .dispatch({
           type: ENABLE_REMINDER_EMAIL_TEMPLATE,
           templateId
+        })
+        .silentRun();
+    });
+  });
+
+  describe('Reminder Disabling', () => {
+    const payload2 = {
+      templateId: { id: 1},
+      disableReason: 'Not needed anymore'
+    };
+    it('should disable a reminder email template', () => {
+
+      return expectSaga(watchdisableEmailTemplate)
+        .provide([
+          [call(ReminderManagementAPI.disableEmailTemplate, payload2), disableResponse]
+        ])
+        .put({
+          type: DISABLE_EMAIL_TEMPLATE_SUCCESS,
+          disabledTemplate: disableResponse.data.updatedTemplate,
+          reason: payload2.disableReason
+        })
+        .dispatch({
+          type: DISABLE_EMAIL_TEMPLATE,
+          templateId: payload2.templateId,
+          disableReason: payload2.disableReason
         })
         .silentRun();
     });

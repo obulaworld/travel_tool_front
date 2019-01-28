@@ -168,6 +168,12 @@
     margin-top: 20px;
   }
 
+  &__disable {
+    height: 375px;
+    top:20%;
+    width: 500px;
+  }
+
   &__disclaimer {
     height: auto;
     width: 181px;
@@ -201,6 +207,12 @@
     font-size: 15px;
     color: #4F4F4F;
     font-weight: 100;
+
+    &.off{
+      background-color: #F6F6F6;
+      border: none;
+      padding: 10px
+    }
   }
 
   &__input:focus {
@@ -277,6 +289,10 @@
   padding: 0 4px;
 }
 .delete-checklist-item .submit-area {
+  display: flex;
+  justify-content: flex-end;
+}
+.delete-checklist-item__disable .submit-area {
   display: flex;
   justify-content: flex-end;
 }

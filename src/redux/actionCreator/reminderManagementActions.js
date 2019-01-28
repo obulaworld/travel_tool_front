@@ -4,7 +4,10 @@ import {
   CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
   ENABLE_REMINDER_EMAIL_TEMPLATE,
   ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
-  ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE
+  ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+  DISABLE_EMAIL_TEMPLATE,
+  DISABLE_EMAIL_TEMPLATE_SUCCESS,
+  DISABLE_EMAIL_TEMPLATE_FAILURE
 } from '../constants/actionTypes';
 
 export const createReminderEmailTemplate = (payload, history) => ({
@@ -36,5 +39,22 @@ export const enableReminderEmailTemplateSuccess = (enabledTemplate, templateId )
 
 export const enableReminderEmailTemplateFailure = errors => ({
   type: ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-  errors
+  errors,
+});
+// disable email templates
+export const disableEmailTemplate = (templateId, disableReason) => ({
+  type: DISABLE_EMAIL_TEMPLATE,
+  templateId,
+  disableReason
+});
+
+export const disableEmailTemplateSuccess = (disabledTemplate, reason) => ({
+  type: DISABLE_EMAIL_TEMPLATE_SUCCESS,
+  disabledTemplate,
+  reason,
+});
+
+export const disableEmailTemplateFailure = (error) => ({
+  type: DISABLE_EMAIL_TEMPLATE_FAILURE,
+  error,
 });

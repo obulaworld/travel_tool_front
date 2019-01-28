@@ -28,6 +28,8 @@ import teammates from './teammates';
 import emailReminders from './emailReminder';
 import listEmailTemplatesReducer from './listEmailTemplates';
 import reminders from './reminders';
+import reminderTemplateDisableReducer from './reminderTemplateDisable';
+
 import enableReminderEmailTemplateReducer from './enableReminderEmailTemplate';
 
 const rootReducer = combineReducers({
@@ -61,6 +63,7 @@ const rootReducer = combineReducers({
   listEmailTemplatesReducer,
   reminders,
   enableReminderEmailTemplateReducer,
+  reminderTemplateDisableReducer
 });
 
 export default rootReducer;

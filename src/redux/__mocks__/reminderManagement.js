@@ -33,6 +33,28 @@ export const enableErrors = [{
   message : 'Possible network error',
 }];
 
+export const disablePayload = {
+  template: {},
+  reason: 'Not needed anymore'
+};
+
+export const disableResponse = {
+  data: {
+    success: false,
+    message: 'Reminder Email Template successfully disabled',
+    updatedTemplate: {
+      disable: true,
+      reason: disablePayload
+    },
+    reason: disablePayload.reason
+  }
+};
+
+export const disableErrors = [{
+  message : 'The reason is required',
+  reason: 'reason'
+}];
+
 export default {
   payload,
   response,

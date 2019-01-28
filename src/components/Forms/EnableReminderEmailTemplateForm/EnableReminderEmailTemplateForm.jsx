@@ -13,7 +13,7 @@ const EnableEmailReminderTemplateForm = ({
       customModalStyles="add-checklist-item delete-document"
       width="480px"
       visibility={
-        shouldOpen && modalType.match('enable reminder template') ? 'visible' : 'invisible'
+        shouldOpen && modalType == 'enable reminder template' ? 'visible' : 'invisible'
       }
       title="Enable Email Reminder Template"
     >

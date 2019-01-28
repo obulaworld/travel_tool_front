@@ -2,21 +2,32 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
+import sinon from 'sinon';
 import { mount } from 'enzyme';
-import ReminderSetupConnected, { ReminderSetup  } from '..';
-import listOfTemplates from '../__mocks__';
+import ConnectedReminderSetup, { ReminderSetup } from '../index';
 
-describe('<ReminderSetupConnected />', () => {
-  const { templates, pagination } = listOfTemplates;
+
+describe('<ConnectedReminderSetup />', () => {
   const props = {
     fetchTemplates: jest.fn(),
-    location: {},
     setItemToDisable: jest.fn(),
+    enableReminderEmailTemplate: jest.fn(),
+    location: {},
+    listEmailTemplatesReducer: {
+      pagination: {
+        pageCount: {},
+        currentPage: {}
+      },
+      templates: []
+    },
+    openModal: sinon.spy(),
+    disableEmailTemplate: jest.fn(),
+    closeModal: jest.fn(),
+    onCancel: jest.fn(),
     history: {
       push: jest.fn(),
     },
-    openModal: jest.fn(),
-    closeModal: jest.fn()
+    shouldOpen:true
   };
 
   const state = {
@@ -44,7 +55,7 @@ describe('<ReminderSetupConnected />', () => {
   const wrapper = mount(
     <Provider store={store}>
       <MemoryRouter>
-        <ReminderSetupConnected {...props} />
+        <ConnectedReminderSetup {...props} />
       </MemoryRouter>
     </Provider>
   );
@@ -54,58 +65,58 @@ describe('<ReminderSetupConnected />', () => {
   });
 
   it('should render the disable modal', () => {
-    const setup = () => {
-      const props = {
-        enableReminderEmailTemplate: jest.fn(),
-        openModal: jest.fn(),
-        history: {
-          push: jest.fn()
-        },
-        fetchTemplates: jest.fn(),
-        location: {},
-        shouldOpen:true,
-        closeModal: jest.fn(),
-        listEmailTemplatesReducer: {}
-      };
-      const unconnectedWrapper = shallow(<ReminderSetup {...props} />);
-      return { unconnectedWrapper, props };
-    };
-    const e = {
-      preventDefault: jest.fn()
-    };
-    const  { unconnectedWrapper, props } = setup();
-    const { enableReminderEmailTemplate } = props;
-    const inst  = unconnectedWrapper.instance();
-    inst.enableReminderTemplate(e);
-    expect(e.preventDefault).toHaveBeenCalled();
-    expect(enableReminderEmailTemplate).toHaveBeenCalled();
+    expect(wrapper.find('Modal').at(0).length).toBe(1);
   });
 
-  it('should setItem to disable', () => {
-    const setup = () => {
-      const props = {
-        enableReminderEmailTemplate: jest.fn(),
-        openModal: jest.fn(),
-        history: {
-          push: jest.fn()
-        },
-        fetchTemplates: jest.fn(),
-        location: {},
-        closeModal: jest.fn(),
-        listEmailTemplatesReducer: {},
-        shouldOpen:true,
-      };
-      const unconnectedWrapper = shallow(<ReminderSetup {...props} />);
-      return { unconnectedWrapper, props };
-    };
-    const { unconnectedWrapper, props } = setup();
+  it('should call the setItemToDisable function', () => {
+    const shallowWrapper = mount( <ReminderSetup {...props} />);
+    const templateId = { id: 5 };
+    const wrapperInstance = shallowWrapper.instance();
+    wrapperInstance.setItemToDisable(false,templateId);
+    expect(shallowWrapper.state().templateId).toEqual(templateId.id);
+  });
+
+  it('should call the openModal function', () => {
+    const shallowWrapper = mount( <ReminderSetup {...props} />);
+    const templateId = { id: 5 };
+    const wrapperInstance = shallowWrapper.instance();
+    wrapperInstance.setItemToDisable(false,templateId);
     const { openModal } = props;
-    const wrapperInstance = unconnectedWrapper.instance();
-    const template = {
-      id: 1
-    };
-    wrapperInstance.setItemToDisable(template,true);
-    expect(unconnectedWrapper.state('templateId')).toBe(1);
-    expect(openModal).toHaveBeenCalled();
-  } );
+    expect(openModal.called).toEqual(true);
+  });
+
+  it('should handle onchange function', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, shouldOpen: true, modalType: 'disable reminder template' }}
+      />
+    );
+    shallowWrapper.find('textarea').simulate('change', {
+      target: { value: 'hello'}
+    });
+    expect(shallowWrapper.state().disableReason).toEqual('hello');
+  });
+
+  it('should handle disableReminderTemplate function', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, shouldOpen: true, modalType: 'disable reminder template' }}
+      />
+    );
+    shallowWrapper.find('textarea').simulate('change', {
+      target: { value: 'hello'}
+    });
+    shallowWrapper.find('button#oncancel').at(0).simulate('click');
+    expect(shallowWrapper.state().disableReason).toEqual(null);
+  });
+
+  it('should handle enableReminderTemplate function', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, shouldOpen: true, modalType: 'enable reminder template' }}
+      />
+    );
+    shallowWrapper.find('button#oncancel').simulate('click');
+    expect(shallowWrapper.state().disableReason).toEqual('');
+  });
 });
