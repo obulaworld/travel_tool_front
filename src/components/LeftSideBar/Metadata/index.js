@@ -149,7 +149,7 @@ const NavItemsMetadata = [
         onlyVisibleTo: ['Travel Administrator']
       },
       {
-        link_to: '/settings/reminders',
+        link_to: '/settings/reminders?document=passport',
         exact: true,
         text: 'Reminder Condition',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']

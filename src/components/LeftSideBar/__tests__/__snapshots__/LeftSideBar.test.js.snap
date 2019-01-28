@@ -169,7 +169,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                 },
                 Object {
                   "exact": true,
-                  "link_to": "/settings/reminders",
+                  "link_to": "/settings/reminders?document=passport",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
                     "Super Administrator",

@@ -25,9 +25,25 @@ class LocalStorageMock {
   }
 }
 
+class URLSearchParams {
+  constructor(search){
+    const params = search.split('&');
+    this.map = {};
+    params.forEach((param) => {
+      const tokens = param.split('=');
+      this.map[tokens[0]] = tokens[1];
+    });
+  }
+
+  get(key){
+    return this.map[key];
+  }
+}
+
 global.localStorage = new LocalStorageMock;
 global.shallow = shallow;
 global.render = render;
 global.mount = mount;
+global.URLSearchParams = URLSearchParams;
 jest.mock('react-router');
 
