@@ -1,21 +1,26 @@
 import React from 'react';
 import NewEmailTemplateForm from '../index';
 
-const props = {
-  history: {
-    push: jest.fn()
-  },
-  errors: {},
-  isSaving: false,
-  createReminderEmailTemplate: jest.fn()
-};
-
 const mockData = {
   name: 'Reminder Template',
   from: 'moses.gitau@andela.com',
   cc: ['gitaumoses4@andela.com'],
   subject: 'This is the subject',
   message: 'This is the message'
+};
+
+const props = {
+  history: {
+    push: jest.fn()
+  },
+  errors: {},
+  isSaving: false,
+  createReminderEmailTemplate: jest.fn(),
+  match: {
+    params: {}
+  },
+  editing: false,
+  data: {...mockData}
 };
 
 describe('<NewEmailTemplateForm> component', () =>{

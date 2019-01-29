@@ -29,9 +29,12 @@ export const AlertIcon = (visible,template,setItemToDisable) => {
     </i>) :'';
 };
 
-export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn, isDeleted, onClick, setItemToDisable }) => (
+export const TemplatesTableRow = (
+  { template, templateName, createdBy, createdOn, isDeleted, onClick, setItemToDisable, id, history }
+) => (
   <tr className={`table__rows ${isDeleted?'off':''}`}>
-    <td className={`mdl-data-table__cell--non-numeric table__data ${isDeleted?'':'readiness__cell-name'}`}>
+    <td
+      className={`mdl-data-table__cell--non-numeric table__data ${isDeleted?'':'readiness__cell-name'}`}>
       <span
         className="template-name"
         onClick={onClick}
@@ -48,13 +51,21 @@ export const TemplatesTableRow = ({ template, templateName, createdBy, createdOn
       {moment(new Date(createdOn)).format('DD-MM-YYYY')}
     </td>
     <td className="table__data">
-      <TemplatesMenu disableEnable={isDeleted} template={template} setItemToDisable={setItemToDisable} />
+      <TemplatesMenu
+        disableEnable={isDeleted}
+        template={template}
+        setItemToDisable={setItemToDisable}
+        id={id}
+        history={history}
+      />
     </td>
   </tr>
 );
 
 
-export const TemplatesTableBody = ({ templates, openModal, fetchOneTemplate, setItemToDisable }) => {
+export const TemplatesTableBody = (
+  { templates, openModal, fetchOneTemplate, setItemToDisable, history }
+) => {
 
   const handleClick = (id) => {
     openModal(true, 'template details');
@@ -75,6 +86,8 @@ export const TemplatesTableBody = ({ templates, openModal, fetchOneTemplate, set
               isDeleted={template.disabled}
               onClick={() => handleClick(template.id)}
               setItemToDisable={setItemToDisable}
+              id={template.id}
+              history={history}
             />
           );
         })
@@ -83,7 +96,9 @@ export const TemplatesTableBody = ({ templates, openModal, fetchOneTemplate, set
   );
 };
 
-export const EmailTemplatesTable = ({ templates , openModal, fetchOneTemplate, setItemToDisable}) => (
+export const EmailTemplatesTable = (
+  { templates , openModal, fetchOneTemplate, setItemToDisable, history}
+) => (
   <div className="list-templates">
     <div className="table__container">
       <table className="mdl-data-table mdl-js-data-table readiness-table">
@@ -93,6 +108,7 @@ export const EmailTemplatesTable = ({ templates , openModal, fetchOneTemplate, s
           openModal={openModal}
           fetchOneTemplate={fetchOneTemplate}
           setItemToDisable={setItemToDisable}
+          history={history}
         />
       </table>
     </div>
@@ -104,6 +120,7 @@ EmailTemplatesTable.propTypes = {
   openModal: PropTypes.func.isRequired,
   fetchOneTemplate: PropTypes.func.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 TemplatesTableBody.propTypes = {
@@ -111,6 +128,7 @@ TemplatesTableBody.propTypes = {
   openModal: PropTypes.func.isRequired,
   fetchOneTemplate: PropTypes.func.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 TemplatesTableRow.propTypes = {
@@ -121,6 +139,8 @@ TemplatesTableRow.propTypes = {
   isDeleted: PropTypes.bool.isRequired,
   template: PropTypes.object.isRequired,
   setItemToDisable: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default withLoading(EmailTemplatesTable, RequestPlaceholder);

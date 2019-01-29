@@ -24,11 +24,26 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
       "handleSubmit": [Function],
       "props": Object {
         "createReminderEmailTemplate": [Function],
+        "data": Object {
+          "cc": Array [
+            "gitaumoses4@andela.com",
+          ],
+          "from": "moses.gitau@andela.com",
+          "message": "This is the message",
+          "name": "Reminder Template",
+          "subject": "This is the subject",
+        },
+        "editing": false,
         "errors": Object {},
+        "getSingleReminderEmailTemplate": [Function],
         "history": Object {
           "push": [Function],
         },
         "isSaving": false,
+        "match": Object {
+          "params": Object {},
+        },
+        "updateSingleReminderEmailTemplate": [Function],
       },
       "refs": Object {},
       "setState": [Function],
@@ -52,13 +67,32 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
           "_context": Object {},
           "_element": <NewEmailTemplateForm
             createReminderEmailTemplate={[Function]}
+            data={
+                    Object {
+                            "cc": Array [
+                              "gitaumoses4@andela.com",
+                            ],
+                            "from": "moses.gitau@andela.com",
+                            "message": "This is the message",
+                            "name": "Reminder Template",
+                            "subject": "This is the subject",
+                          }
+            }
+            editing={false}
             errors={Object {}}
+            getSingleReminderEmailTemplate={[Function]}
             history={
                     Object {
                             "push": [Function],
                           }
             }
             isSaving={false}
+            match={
+                    Object {
+                            "params": Object {},
+                          }
+            }
+            updateSingleReminderEmailTemplate={[Function]}
     />,
           "_forcedUpdate": false,
           "_instance": [Circular],

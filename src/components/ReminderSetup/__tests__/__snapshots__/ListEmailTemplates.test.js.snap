@@ -105,6 +105,8 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
                     >
                       <span
                         className="edit"
+                        onClick={[Function]}
+                        role="presentation"
                       >
                         Edit
                       </span>
@@ -134,6 +136,8 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
                     >
                       <span
                         className="edit"
+                        onClick={[Function]}
+                        role="presentation"
                       >
                         Edit
                       </span>

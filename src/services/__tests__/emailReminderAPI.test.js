@@ -51,4 +51,21 @@ describe('EmailReminderAPI', () => {
       condition: 'Condition has been successfully disabled'
     });
   });
+
+  it('should send a PUT request to enable a reminder', async () => {
+    const conditionId = '3';
+    moxios.stubRequest(`${baseUrl}/reminders/conditions/enable/${conditionId}`, {
+      status: 200,
+      response: {
+        condition: 'Condition has been successfully enabled'
+      }
+    });
+
+    const response = await emailReminder.enableDisabledReminderCondition({conditionId});
+
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/reminders/conditions/enable/${conditionId}`);
+    expect(response.data).toEqual({
+      condition: 'Condition has been successfully enabled'
+    });
+  });
 });

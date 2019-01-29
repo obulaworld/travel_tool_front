@@ -18,8 +18,12 @@ const props = {
         reason: 'reason is reason is reason'
       }
     ]
+  },
+  id: 1,
+  history: {
+    push: jest.fn()
   }
-}
+};
 
 describe('render reminder table', () => {
 

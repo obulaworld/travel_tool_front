@@ -19,6 +19,8 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
       >
         <span
           className="edit"
+          onClick={[Function]}
+          role="presentation"
         >
           Edit
         </span>
@@ -48,6 +50,8 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
       >
         <span
           className="edit"
+          onClick={[Function]}
+          role="presentation"
         >
           Edit
         </span>

@@ -164,13 +164,14 @@ export class Reminders extends Component{
   };
 
   renderRemindersTable = () => {
-    const { reminders } = this.props;
+    const { reminders, history } = this.props;
     return (
       <Fragment>
         <ReminderTable
           fetchEmailReminder={fetchEmailReminder}
           reminders={reminders}
           setItemToDisable={this.setItemToDisable}
+          history={history}
         />
       </Fragment>
     );

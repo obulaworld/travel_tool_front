@@ -27,7 +27,7 @@ class ListEmailTemplates extends Component {
     const {
       listEmailTemplatesReducer: {templates, pagination, selectedTemplate},
       openModal, closeModal, modalType, shouldOpen,
-      fetchOneTemplate, setItemToDisable
+      fetchOneTemplate, setItemToDisable, history
     } = this.props;
     const {pageCount, currentPage} = pagination;
     return (
@@ -37,12 +37,14 @@ class ListEmailTemplates extends Component {
             <TemplateDetailsModal
               closeModal={closeModal} modalType={modalType}
               shouldOpen={shouldOpen} templates={templates}
+              history={history}
               selectedTemplate={selectedTemplate} />
             <WithLoadingEmailTemplatesTable
               templates={templates}
               setItemToDisable={setItemToDisable}
               openModal={openModal}
               fetchOneTemplate={fetchOneTemplate}
+              history={history}
             />
             <TemplatesPagination
               onPageChange={this.onPageChange}
@@ -67,6 +69,7 @@ ListEmailTemplates.propTypes = {
   modalType: PropTypes.string,
   fetchOneTemplate: PropTypes.func,
   setItemToDisable: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 ListEmailTemplates.defaultProps = {

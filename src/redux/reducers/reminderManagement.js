@@ -1,12 +1,23 @@
 import {
   CREATE_REMINDER_EMAIL_TEMPLATE,
   CREATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-  CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS
+  CREATE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+  FETCH_ONE_EMAIL_TEMPLATE,
+  FETCH_ONE_EMAIL_TEMPLATE_FAILURE,
+  FETCH_ONE_EMAIL_TEMPLATE_SUCCESS,
+  UPDATE_REMINDER_EMAIL_TEMPLATE,
+  UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
+  UPDATE_REMINDER_EMAIL_TEMPLATE_SUCCESS
 } from '../constants/actionTypes';
 
 const initialState = {
   newEmailTemplate: {
     isSaving: false,
+    errors: {},
+    data: {}
+  },
+  updatedEmailTemplate: {
+    isUpdating: false,
     errors: {},
     data: {}
   }
@@ -29,6 +40,44 @@ export default (state = initialState, action) => {
     return {...state, newEmailTemplate: {
       isSaving: false,
       errors: action.errors || {},
+    }};
+
+  case FETCH_ONE_EMAIL_TEMPLATE:
+    return {...state, updatedEmailTemplate: {
+      isFetching: true,
+      errors: {}
+    }};
+
+  case FETCH_ONE_EMAIL_TEMPLATE_SUCCESS:
+    return {...state, updatedEmailTemplate: {
+      isFetching: false,
+      errors: {},
+      data: action.response.reminderEmailTemplate
+    }};
+
+  case FETCH_ONE_EMAIL_TEMPLATE_FAILURE:
+    return {...state, updatedEmailTemplate: {
+      isFetching: false,
+      errors: action.errors || action.error || action.message || {}
+    }};
+
+  case UPDATE_REMINDER_EMAIL_TEMPLATE:
+    return {...state, updatedEmailTemplate: {
+      isUpdating: true,
+      errors: {}
+    }};
+
+  case UPDATE_REMINDER_EMAIL_TEMPLATE_SUCCESS:
+    return {...state, updatedEmailTemplate: {
+      isUpdating: false,
+      errors: {},
+      data: action.response.reminderEmailTemplate
+    }};
+
+  case UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE:
+    return {...state, updatedEmailTemplate: {
+      isUpdating: false,
+      errors: action.errors || action.error || action.message || {}
     }};
   default:
     return state;

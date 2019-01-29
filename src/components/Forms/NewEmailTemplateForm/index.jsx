@@ -1,12 +1,12 @@
-import React  from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
-import {  FormContext , getDefaultBlanksValidatorFor} from '../FormsAPI';
+import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import EmailTemplateDetails from './FormFieldSets/EmailTemplateDetails';
 import './NewEmailTemplateForm.scss';
 import SubmitArea from './FormFieldSets/SubmitArea';
 
-class NewEmailTemplateForm extends React.Component{
-  constructor(props){
+class NewEmailTemplateForm extends React.Component {
+  constructor(props) {
     super(props);
     this.defaultState = {
       optionalFields: [
@@ -15,8 +15,7 @@ class NewEmailTemplateForm extends React.Component{
       values: {
         name: '',
         from: '',
-        cc: [
-        ],
+        cc: [],
         subject: '',
         message: ''
       },
@@ -27,16 +26,54 @@ class NewEmailTemplateForm extends React.Component{
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
+  componentDidMount() {
+    const {
+      getSingleReminderEmailTemplate,
+      match: { params: { templateId } },
+      history
+    } = this.props;
+    getSingleReminderEmailTemplate(templateId, history);
+  }
+
   componentWillReceiveProps(nextProps, nextContext) {
-    this.setState({ errors: nextProps.errors});
+    if (nextProps.data) {
+      const { data: { name, from, cc, subject, message, id } } = nextProps;
+
+      this.setState({
+        values: {
+          name,
+          from,
+          cc: cc.filter(c => c !== '').length === 0 ? null : cc,
+          subject,
+          message,
+          id
+        }
+      });
+    }
+    this.setState({errors: nextProps.errors});
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { values, hasBlankFields } = this.state;
-    if( !hasBlankFields ){
-      const { createReminderEmailTemplate, history } = this.props;
-      createReminderEmailTemplate(values, history);
+    const { cc } = values;
+    if (!hasBlankFields) {
+      const {
+        createReminderEmailTemplate, history, editing,
+        updateSingleReminderEmailTemplate
+      } = this.props;
+      if (editing) {
+        updateSingleReminderEmailTemplate(
+          values.id,
+          history,
+          {...values, cc: cc || []}
+        );
+      } else {
+        createReminderEmailTemplate(
+          {...values, cc: cc || []},
+          history
+        );
+      }
     }
   };
 
@@ -46,9 +83,9 @@ class NewEmailTemplateForm extends React.Component{
   };
 
 
-  render () {
-    const { isSaving } = this.props;
-    const { values, errors, hasBlankFields} = this.state;
+  render() {
+    const { isSaving, editing } = this.props;
+    const { values, errors, hasBlankFields } = this.state;
     return (
       <FormContext
         values={values}
@@ -61,7 +98,7 @@ class NewEmailTemplateForm extends React.Component{
           <SubmitArea
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
-            send="Save"
+            send={editing ? 'Update' : 'Save'}
             loading={isSaving}
           />
         </form>
@@ -70,11 +107,30 @@ class NewEmailTemplateForm extends React.Component{
   }
 }
 
+NewEmailTemplateForm.defaultProps = {
+  editing: false,
+  createReminderEmailTemplate: () => {
+  },
+  getSingleReminderEmailTemplate: () => {
+  },
+  updateSingleReminderEmailTemplate: () => {
+  },
+  isSaving: false,
+  data: {
+    cc: []
+  }
+};
+
 NewEmailTemplateForm.propTypes = {
   history: PropTypes.object.isRequired,
-  isSaving: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool,
   errors: PropTypes.object.isRequired,
-  createReminderEmailTemplate: PropTypes.func.isRequired
+  createReminderEmailTemplate: PropTypes.func,
+  editing: PropTypes.bool,
+  getSingleReminderEmailTemplate: PropTypes.func,
+  updateSingleReminderEmailTemplate: PropTypes.func,
+  match: PropTypes.object.isRequired,
+  data: PropTypes.object
 };
 
 export default NewEmailTemplateForm;

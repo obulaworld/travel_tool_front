@@ -8,7 +8,11 @@ describe('<TemplateDetailsModal />', () => {
     templates: [],
     modalType: '', 
     shouldOpen: false, 
-    onetemplate: {}, 
+    onetemplate: {},
+    history: {
+      push: jest.fn()
+    },
+    id: 1
   };
 
   it('renders without crashing', () => {

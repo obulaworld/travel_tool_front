@@ -10,15 +10,23 @@ class ReminderManagementAPI{
   static getAllEmailTemplates = (parameters) =>
     axios.get(`${baseUrl}/reminderManagement/emailTemplates${parameters}`);
 
-    static enableEmailTemplates = (templateId) =>
-      axios.put(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);
-      
-    static disableEmailTemplate({templateId, disableReason}) {
-      const reason = disableReason.disableReason;
-      return axios.put(`${resolveBaseUrl()}/reminderManagement/emailTemplates/disable/${templateId}`, {
+  static disableEmailTemplate({templateId, disableReason}) {
+    const reason = disableReason.disableReason;
+    return axios.put(
+      `${resolveBaseUrl()}/reminderManagement/emailTemplates/disable/${templateId}`, {
         reason
       });
-    }
+  }
+  static enableEmailTemplates = (templateId) =>
+    axios.put(`${baseUrl}/reminderManagement/emailTemplates/enable/${templateId}`);
+
+  static getSingleEmailTemplate(templateId){
+    return axios.get(`${baseUrl}/reminderManagement/emailTemplates/${templateId}`);
+  }
+
+  static updateSingleEmailTemplate(templateId, payload){
+    return axios.put(`${baseUrl}/reminderManagement/emailTemplates/${templateId}`, payload);
+  }
 }
 
 export default ReminderManagementAPI;
