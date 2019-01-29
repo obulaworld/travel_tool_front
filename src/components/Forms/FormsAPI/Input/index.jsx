@@ -24,7 +24,7 @@ class Input extends PureComponent {
   }
 
     switchTypeWithProps = (type, eventHandlers) => {
-      const { onChange } = this.props;
+      const { onChange, minDate, maxDate } = this.props;
       switch (type) {
       case 'button-toggler':
         this.props = {
@@ -35,6 +35,8 @@ class Input extends PureComponent {
       case 'date':
         this.props = {
           ...this.props,
+          minimumDate: minDate,
+          maximumDate: maxDate,
           onChange: onChange || eventHandlers.handleSelectDate,
           onBlur: eventHandlers.handleInputBlur
         };

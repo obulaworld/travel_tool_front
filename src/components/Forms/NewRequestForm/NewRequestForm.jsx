@@ -146,12 +146,11 @@ class NewRequestForm extends PureComponent {
   onChangeDate = (date, event) => {
     const { trips, selection } = this.state;
     const dateFormat = date.format('YYYY-MM-DD');
-    const dateWrapperId = event.nativeEvent.path[7].id || event.nativeEvent.path[4].id ;
+    const dateWrapperId = event.nativeEvent.path[7].id || event.nativeEvent.path[4].id;
     const dateName = dateWrapperId.split('_')[0];
     const getId = dateName.split('-')[1];
     const dateStartsWithDeparture = dateName.startsWith('departure');
     const dateStartsWithArrival = dateName.startsWith('arrival');
-
 
     if (trips[getId]) {
       if (dateStartsWithDeparture) {

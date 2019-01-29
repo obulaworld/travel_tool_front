@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import InputRenderer from '../../FormsAPI';
 import formMetadata from '../../FormsMetadata/TravelReadinessMetaData/OtherDocumentMetaData';
 
@@ -15,6 +16,7 @@ class OtherDocumentFieldSet extends Component {
             {
               labelNote: '(Optional)',
               required: false,
+              maxDate: moment()
             }
           )}
           {renderInput(
@@ -25,7 +27,7 @@ class OtherDocumentFieldSet extends Component {
               required: false,
             }
           )}
-          {renderInput('expiryDate', 'date')}
+          {renderInput('expiryDate', 'date', {minDate: moment()})}
         </div>
       </fieldset>
     );

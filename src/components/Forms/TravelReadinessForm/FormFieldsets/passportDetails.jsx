@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import toast from 'toastr';
 import { isEmpty } from 'lodash';
+import moment from 'moment';
 import InputRenderer from '../../FormsAPI';
 import formMetadata from '../../FormsMetadata/TravelReadinessFormMetadata/passportInputLabels';
 import documentUpload from '../../../../images/icons/document-upload-blue.svg';
@@ -17,9 +18,9 @@ class PassportDetailsFieldSet extends Component{
           {renderInput('passportNumber', 'text')}
           {renderInput('nationality', 'text')}
           {renderInput('dateOfBirth', 'date')}
-          {renderInput('dateOfIssue', 'date')}
+          {renderInput('dateOfIssue', 'date', {maxDate: moment()})}
           {renderInput('placeOfIssue', 'text')}
-          {renderInput('expiryDate', 'date')}
+          {renderInput('expiryDate', 'date', { minDate: moment()})}
         </div>
       </fieldset>
     );

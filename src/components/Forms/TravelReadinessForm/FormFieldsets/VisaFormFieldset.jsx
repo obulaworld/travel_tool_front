@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import InputRenderer from '../../FormsAPI';
 import formMetadata from '../../FormsMetadata/TravelReadinessMetaData/NewVisaMetadata';
 
@@ -12,8 +13,8 @@ class VisaFormFieldSet extends Component {
           {renderInput('entryType', 'dropdown-select', {
             size: ''
           })}
-          {renderInput('dateOfIssue', 'date')}
-          {renderInput('expiryDate', 'date')}
+          {renderInput('dateOfIssue', 'date', {maxDate: moment()})}
+          {renderInput('expiryDate', 'date', {minDate: moment()})}
           {renderInput('visaType', 'dropdown-select', {
             size: ''
           })}
