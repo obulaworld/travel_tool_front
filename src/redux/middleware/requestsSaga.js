@@ -45,7 +45,7 @@ export function* createNewRequestSagaAsync(action) {
     const response = yield call(
       RequestAPI.postNewRequest, action.requestData
     );
-    toast.success('Request created');
+    toast.success('Travel request created successfully. Please follow up with your manager for approval');
     yield put(createNewRequestSuccess(response.data.request));
     yield put(closeModal());
   } catch (error) {

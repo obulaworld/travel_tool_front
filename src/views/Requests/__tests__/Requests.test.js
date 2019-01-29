@@ -485,4 +485,46 @@ describe('<Requests>', () => {
     wrapper.instance().handleCloseSubmissionModal();
     expect(handleCloseSubmissionModalSpy).toHaveBeenCalledTimes(1);
   });
+
+  it('should display the travel checklist modal', () => {
+    const newProps = {
+      ...props,
+      openModal: jest.fn(),
+      match: {
+        path: '/requests/:requestId/checklist',
+        params: {requestId: 'xDh20btGx'}
+      }};
+    mount(
+      <Provider store={store}>
+        <Requests {...newProps} />
+      </Provider>
+    );
+
+    expect(newProps.openModal).toHaveBeenCalledWith(true, 'travel checklist');
+  });
+
+  it('should redirect to the requests page when the checklist modal is closed', () => {
+    const closeModal = jest.fn();
+    const history = {
+      push: jest.fn()
+    };
+    const wrapper = mount(<Requests
+      {...props}
+      shouldOpen
+      history={history}
+      modalType="travel checklist"
+      travelChecklists={{
+        checklistItems: []
+      }}
+      closeModal={closeModal}
+
+    /> );
+
+    wrapper.find('Modal').at(3).find('.modal-close').simulate('click');
+
+    expect(closeModal).toHaveBeenCalled();
+    expect(history.push).toHaveBeenCalledWith('/requests');
+
+  });
+
 });
