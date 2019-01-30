@@ -102,6 +102,11 @@ const Routes = () => (
             component={RequireAuth(ConnectedRequests)}
           />
           <Route
+            path="/requests/:requestId/checklist"
+            exact
+            component={RequireAuth(ConnectedRequests)}
+          />
+          <Route
             path="/settings/profile"
             exact
             component={RequireAuth(ConnectedUserProfile)}

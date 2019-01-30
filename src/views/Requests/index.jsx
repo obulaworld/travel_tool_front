@@ -42,8 +42,10 @@ export class Requests extends Base {
       getOccupation, fetchRoleUsers,
       page, openModal,
       match: {
-        params: { requestId }
-      }
+        params: { requestId },
+        path
+      },
+      fetchTravelChecklist,
     } = this.props;
     const { url } = this.state;
     fetchUserRequests(url);
@@ -52,7 +54,12 @@ export class Requests extends Base {
     fetchAvailableRooms();
     if (requestId) {
       this.storeRequestIdRequest(requestId);
-      openModal(true, 'request details', page);
+      if( /\/requests\/:requestId\/checklist/.test(path)){
+        fetchTravelChecklist(requestId);
+        openModal(true, 'travel checklist');
+      } else {
+        openModal(true, 'request details', page);
+      }
     }
   }
 
@@ -80,7 +87,13 @@ export class Requests extends Base {
     const { closeModal } = this.props;
     API.setToken();
     closeModal();
-  }
+  };
+
+  handleCloseChecklistsModal = () => {
+    const {history, closeModal} = this.props;
+    closeModal();
+    history.push('/requests');
+  };
 
   fetchRequests = query => {
     const { history, fetchUserRequests} = this.props;
@@ -161,6 +174,7 @@ export class Requests extends Base {
           requestData={requestData} uploadFile={uploadFile}
           deleteRequest={this.handleDeleteRequest}
           handleCloseSubmissionModal={this.handleCloseSubmissionModal}
+          handleCloseChecklistModal={this.handleCloseChecklistsModal}
         />
       </div>);
   }

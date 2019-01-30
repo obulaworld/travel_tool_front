@@ -71,7 +71,7 @@ export class Table extends Component {
       history,
       location: { pathname }
     } = this.props;
-    history.push(`${pathname}/${requestId}`);
+    history.push(`${pathname}${/\/$/.test(pathname) ? '': '/'}${requestId}`);
   };
 
   handleFileUpload = async (file, checklistItemId, tripId, checkId, requestId) => {
@@ -267,11 +267,17 @@ export class Table extends Component {
   }
 
   renderTravelCheckListModal() {
-    const { closeModal, shouldOpen, modalType, travelChecklists } = this.props;
+    const {
+      closeModal,
+      shouldOpen,
+      modalType,
+      travelChecklists ,
+      requestId,
+      handleCloseChecklistModal} = this.props;
     const { menuOpen: { id } } = this.state;
     return (
       <Modal
-        closeModal={closeModal}
+        closeDeleteModal={handleCloseChecklistModal || closeModal}
         width="600px"
         modalId="travel-checkList-modal"
         modalContentId="travel-checkList-modal-content"
@@ -281,7 +287,7 @@ export class Table extends Component {
             : 'invisible'
         }
         title="Travel Checklist"
-        modalBar={(<div className="table__modal-bar-text">{id}</div>)}
+        modalBar={(<div className="table__modal-bar-text">{id || requestId}</div>)}
       >
         <TravelChecklist travelChecklists={travelChecklists} />
       </Modal>
@@ -378,6 +384,7 @@ Table.propTypes = {
   deleteRequest: PropTypes.func,
   openModal: PropTypes.func.isRequired,
   handleCloseSubmissionModal: PropTypes.func,
+  handleCloseChecklistModal: PropTypes.func,
 };
 
 Table.defaultProps = {
@@ -401,7 +408,8 @@ Table.defaultProps = {
   fetchSubmission: () => {},
   fetchUserRequests: () => {},
   fileUploads: {},
-  handleCloseSubmissionModal: () => {}
+  handleCloseSubmissionModal: () => {},
+  handleCloseChecklistModal: null,
 };
 
 export default withLoading(Table, RequestPlaceholder);
