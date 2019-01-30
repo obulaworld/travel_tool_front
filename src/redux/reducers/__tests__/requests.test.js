@@ -103,7 +103,7 @@ describe('Requests Reducer', () => {
     });
 
     it('should handle CREATE_NEW_REQUEST_FAILURE', () => {
-      error = ['failed to add new request'];
+      error = 'failed to add new request';
       action = {
         type: 'CREATE_NEW_REQUEST_FAILURE',
         error
