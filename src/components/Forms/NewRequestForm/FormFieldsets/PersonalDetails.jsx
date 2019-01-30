@@ -15,13 +15,13 @@ class PersonalDetailsFieldset extends Component {
       disableInputs: newState
     });
   };
+
   renderfields = collapse => {
     const { disableInputs } = this.state;
-    const { value, managers, occupations, onChangeManager } = this.props;
+    const { value, managers,centers, onChangeManager } = this.props;
     const managerChoices = managers.map(manager => manager.fullName);
-    const occupationsNames = occupations.map(
-      occupation => occupation.occupationName
-    );
+
+    const centerChoices = centers.map(center => center.location.split(',')[0]);
     const { renderInput } = this.inputRenderer;
     const disabled = disableInputs;
     return (
@@ -43,7 +43,6 @@ class PersonalDetailsFieldset extends Component {
               <div className="spaces">
                 {renderInput('role', 'text', {
                   disabled: true,
-                  choices: occupationsNames,
                   size: value,
                   className: 'request_dropdown',
                   id: 'your-role'
@@ -53,10 +52,20 @@ class PersonalDetailsFieldset extends Component {
                 {renderInput('manager', 'filter-dropdown-select', {
                   choices: managerChoices,
                   size: value,
-                  className: 'request_dropdown',
+                  className: 'request_dropdown your-manager',
                   id: 'your-manager',
                   onChange: onChangeManager
                 })}
+              </div>
+              <div className="spaces">
+                {
+                  renderInput('location', 'dropdown-select', {
+                    choices: centerChoices,
+                    size: value,
+                    className: 'request_dropdown user-location',
+                    id: 'user-location'
+                  })
+                }
               </div>
             </div>
             <div className="input-group">
@@ -110,9 +119,7 @@ const collapsible = PropTypes.func;
 const collapse = PropTypes.bool;
 const title = PropTypes.string;
 const position = PropTypes.string;
-const line = PropTypes.string;
 const values = PropTypes.object;
-const occupations = PropTypes.array;
 const onChangeManager = PropTypes.func;
 
 PersonalDetailsFieldset.propTypes = {
@@ -124,15 +131,15 @@ PersonalDetailsFieldset.propTypes = {
   line: position.isRequired,
   onChangeManager: onChangeManager.isRequired,
   values: values,
+  centers: PropTypes.array,
   value: PropTypes.string,
-  occupations,
-  
+
 };
 
 PersonalDetailsFieldset.defaultProps = {
   values: {},
   value: '',
-  occupations: []
+  centers: []
 };
 
 export default PersonalDetailsFieldset;

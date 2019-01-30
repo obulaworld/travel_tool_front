@@ -29,9 +29,9 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
       onClick={[Function]}
       type="button"
     >
-      2019-01-01 - 2019-01-31
+      2019-02-01 - 2019-02-28
       <img
-        alt="2019-01-01 - 2019-01-31"
+        alt="2019-02-01 - 2019-02-28"
         src="calendar_active.svg"
       />
     </button>
@@ -247,7 +247,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Jan 31, 2019"
+                value="Feb 1, 2019"
               />
             </span>
             <span
@@ -256,7 +256,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Jan 31, 2019"
+                value="Feb 1, 2019"
               />
             </span>
           </div>
@@ -280,7 +280,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <select
                 onChange={[Function]}
-                value={0}
+                value={1}
               >
                 <option
                   key="0"
@@ -1095,7 +1095,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled"
+                        className="rdrDay"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1110,7 +1110,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span

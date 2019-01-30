@@ -20,6 +20,10 @@ const inputLabels = {
     label: 'Line Manager',
     note: '(Manager)'
   },
+
+  location: {
+    label: 'Location'
+  }
 };
 
 export default inputLabels;

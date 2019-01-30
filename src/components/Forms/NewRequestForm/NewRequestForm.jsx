@@ -13,41 +13,11 @@ import './NewRequestForm.scss';
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
-    const { modalType, requestOnEdit } = this.props;
-    const isEdit = modalType === 'edit request';
-    const { name, gender, department, role, manager } = this.getPersonalDetails(
-      modalType,
-      requestOnEdit
-    );
-    const defaultTripStateValues = this.getDefaultTripStateValues(0);
-    const editTripsStateValues = isEdit ? this.getTrips(requestOnEdit) : {};
-    const requestTrips = isEdit ? this.setTrips(requestOnEdit) : [{}];
-    this.defaultState = {
-      optionalFields: ['bedId', 'arrivalDate-1'],
-      values: {
-        name: name,
-        gender,
-        department,
-        role,
-        manager,
-        ...defaultTripStateValues,
-        ...editTripsStateValues
-      },
-      trips: requestTrips,
-      errors: {},
-      hasBlankFields: true,
-      sameOriginDestination: true,
-      checkBox: 'notClicked',
-      selection: 'return',
-      collapse: false,
-      title: 'Hide Details',
-      position: 'none',
-      line: '1px solid #E4E4E4',
-      parentIds: 1
-    };
+    this.setUp();
     this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
+
 
   componentDidMount() {
     const { modalType, managers } = this.props;
@@ -87,6 +57,41 @@ class NewRequestForm extends PureComponent {
     fetchAvailableRoomsSuccess({ beds: [] });
   }
 
+  setUp = () => {
+    const { modalType, requestOnEdit } = this.props;
+    const isEdit = modalType === 'edit request';
+    const { name, gender, department, role, manager, location } = this.getPersonalDetails(
+      modalType,
+      requestOnEdit
+    );
+    const defaultTripStateValues = this.getDefaultTripStateValues(0);
+    const editTripsStateValues = isEdit ? this.getTrips(requestOnEdit) : {};
+    const requestTrips = isEdit ? this.setTrips(requestOnEdit) : [{}];
+    this.defaultState = {
+      optionalFields: ['bedId', 'arrivalDate-1'],
+      values: {
+        name: name,
+        gender,
+        department,
+        role,
+        location,
+        manager,
+        ...defaultTripStateValues,
+        ...editTripsStateValues
+      },
+      trips: requestTrips,
+      errors: {},
+      hasBlankFields: true,
+      sameOriginDestination: true,
+      checkBox: 'notClicked',
+      selection: 'return',
+      collapse: false,
+      title: 'Hide Details',
+      position: 'none',
+      line: '1px solid #E4E4E4',
+      parentIds: 1
+    };
+  };
 
   getPersonalDetails = (modalType, detailsSource) => {
     const { userData } = this.props;
@@ -96,7 +101,8 @@ class NewRequestForm extends PureComponent {
       'gender',
       'department',
       'role',
-      'manager'
+      'manager',
+      'location'
     ];
     personalDetailsAttributes.map(attrb => {
       if(userData)  {
@@ -371,7 +377,7 @@ class NewRequestForm extends PureComponent {
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
-    const attrb = ['name', 'gender', 'role', 'department', 'manager'];
+    const attrb = ['name', 'gender', 'role', 'department', 'manager', 'location'];
     const defaultUserData = pick(userData, attrb);
     const newUserData = pick(values, attrb);
     const newData = {
@@ -401,6 +407,7 @@ class NewRequestForm extends PureComponent {
         values.occupation = values.role;
         const userId = user.UserInfo.id;
         updateUserProfile(values, userId);
+        this.savePersonalDetails({ location: values.location});
       }
     }
   };
@@ -504,7 +511,7 @@ class NewRequestForm extends PureComponent {
 
   renderPersonalDetailsFieldset = () => {
     const { collapse, title, position, line, values } = this.state;
-    const { managers, occupations } = this.props;
+    const { managers,centers } = this.props;
     return (
       <PersonalDetailsFieldset
         values={values}
@@ -515,8 +522,8 @@ class NewRequestForm extends PureComponent {
         title={title}
         position={position}
         line={line}
+        centers={centers}
         managers={managers}
-        occupations={occupations}
         value="245px"
       />
     );
@@ -540,13 +547,10 @@ class NewRequestForm extends PureComponent {
     });
   }
 
-  savePersonalDetails(name, gender, department, role, manager) {
-    // save to localstorage
-    localStorage.setItem('name', name);
-    localStorage.setItem('gender', gender);
-    localStorage.setItem('department', department);
-    localStorage.setItem('role', role);
-    localStorage.setItem('manager', manager);
+  savePersonalDetails(personalDetails) {
+    Object.keys(personalDetails).forEach( key => {
+      localStorage.setItem(key, personalDetails[key]);
+    });
   }
 
   renderTravelDetailsFieldset = () => {
@@ -631,16 +635,17 @@ NewRequestForm.propTypes = {
   fetchUserRequests: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   availableRooms: PropTypes.object.isRequired,
-  occupations: PropTypes.array.isRequired,
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  centers: PropTypes.array
 };
 
 NewRequestForm.defaultProps = {
   creatingRequest: false,
   modalType: null,
   managers: [],
-  userData: {}
+  userData: {},
+  centers: []
 };
 
 export default NewRequestForm;

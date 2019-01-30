@@ -24,6 +24,10 @@ const inputLabels = {
     label: 'From'
   },
 
+  location: {
+    label: 'Location'
+  },
+  
   destination: {
     label: 'Travel to'
   },

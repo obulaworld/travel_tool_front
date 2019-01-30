@@ -146,6 +146,7 @@ let props = {
   loading: false,
   errors: [],
   shouldOpen: false,
+  fetchCenters: jest.fn(),
   requestStatus: 'Open',
   modalType: null,
   openModal: sinon.spy(() => Promise.resolve()),
@@ -159,17 +160,6 @@ let props = {
   fileUploads: {},
   fetchSubmission: jest.fn(),
   postSubmission: jest.fn(),
-  occupations: [{
-    createdAt: '2018-08-16T11:11:52.181Z',
-    id: 1,
-    occupationName: 'Account associate',
-    updatedAt: '2018-08-16T11:11:52.181Z'
-  },{
-    createdAt: '2018-08-16T11:11:52.181Z',
-    id: 2,
-    occupationName: 'Account executive',
-    updatedAt: '2018-08-16T11:11:52.181Z'
-  }]
 };
 
 const initialState = {
@@ -220,7 +210,7 @@ describe('<Requests>', () => {
 
   it('calls the componentDidMount method', () => {
     const spy = sinon.spy(Requests.prototype, 'componentDidMount');
-    const { fetchUserRequests, fetchRoleUsers, requestId, openModal, fetchAvailableRooms } = props;
+    const { fetchUserRequests, fetchRoleUsers, requestId, openModal} = props;
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -234,7 +224,6 @@ describe('<Requests>', () => {
     expect(fetchRoleUsers.called).toEqual(true);
     expect(openModal.called).toEqual(true);
     expect(fetchRoleUsers.calledWith(53019)).toEqual(true);
-    expect(fetchAvailableRooms.called).toEqual(true);
     wrapper.unmount();
   });
 

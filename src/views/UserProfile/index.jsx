@@ -7,23 +7,25 @@ import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import ProfileForm from '../../components/Forms/ProfileForm';
 import Base from '../Base';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
-import { getOccupation } from '../../redux/actionCreator/occupationActions';
-import {getUserData} from '../../redux/actionCreator/userActions';
+import { getUserData } from '../../redux/actionCreator/userActions';
+import { fetchCenters } from '../../redux/actionCreator/centersActions';
 
 
 class UserProfile extends Base {
 
   componentDidMount() {
-    const { fetchRoleUsers, occupations, getOccupation } = this.props;
+    const {
+      fetchRoleUsers,
+      fetchCenters,
+    } = this.props;
+    
     fetchRoleUsers(53019);
-    if (!occupations.length) {
-      getOccupation();
-    }
+    fetchCenters();
   }
 
   render() {
     const { roleUsers, updateUserProfile, user,
-      fetchUserData, occupations } = this.props;
+      fetchUserData, centers } = this.props;
     return (
       <Fragment>
         <h1>PROFILE</h1>
@@ -34,7 +36,7 @@ class UserProfile extends Base {
               updateUserProfile={updateUserProfile}
               userData={fetchUserData && fetchUserData.result}
               user={user}
-              occupations={occupations}
+              centers={centers && centers.centers}
             />
           </div>
         </div>
@@ -47,18 +49,19 @@ UserProfile.defaultProps = {
   manager: []
 };
 
-export const mapStateToProps = ({ user, role, occupations}) => ({
+export const mapStateToProps = ({ user, role, centers}) => ({
   ...role,
-  ...occupations,
+  centers,
   fetchUserData: user.getUserData
 });
 
 const actionCreators = {
   updateUserProfile,
   fetchRoleUsers,
-  getOccupation,
-  getUserData
+  getUserData,
+  fetchCenters
 };
+
 export default connect(
   mapStateToProps,
   actionCreators

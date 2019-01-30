@@ -212,12 +212,12 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
       <GuestHouseDetailCard
         label="Vacant spaces"
         period="month"
-        value={0}
+        value={1}
       />
       <GuestHouseDetailCard
         label="Unavailable"
         period="month"
-        value={1}
+        value={0}
       />
     </div>
   </div>

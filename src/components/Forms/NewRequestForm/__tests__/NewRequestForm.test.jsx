@@ -1,10 +1,11 @@
 import React from 'react';
 import sinon from 'sinon';
-import { type } from 'os';
 import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
+import profileMock from '../../ProfileForm/__mocks__';
 
-localStorage.setItem = jest.fn();
+
+const { centers } = profileMock;
 
 describe('<NewRequestForm />', () => {
   let wrapper, onSubmit;
@@ -35,7 +36,6 @@ describe('<NewRequestForm />', () => {
   };
 
   const props = {
-    occupations: [{occupationName: 'Software Developer'}, {occupationName: 'HR'}],
     loading: false,
     user: {
       UserInfo: {
@@ -106,7 +106,8 @@ describe('<NewRequestForm />', () => {
       fullName: 'Samuel Kubai',
       email: 'samuel@andela.com'
     }],
-    modalType:'new model'
+    modalType:'new model',
+    centers
   };
   const event = {
     preventDefault: jest.fn(),
@@ -145,6 +146,7 @@ describe('<NewRequestForm />', () => {
   beforeEach(() => {
     process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
     wrapper = mount(<NewRequestForm {...props} />);
+    jest.resetAllMocks();
   });
 
   it('renders correctly', () => {
@@ -551,7 +553,7 @@ describe('<NewRequestForm />', () => {
     sinon.spy(shallowWrapper.instance(), 'handleSubmit');
     shallowWrapper.instance().handleSubmit(event);
     expect(shallowWrapper.instance().handleSubmit.calledOnce).toEqual(true);
-    expect(props.updateUserProfile).toHaveBeenCalledTimes(0);
+    expect(props.updateUserProfile).toHaveBeenCalledTimes(1);
   });
 
   it('should test onChangeManager()', () => {
@@ -628,7 +630,35 @@ describe('<NewRequestForm />', () => {
 
   it('should call localStorage when savePersonalDetails is called', () => {
     const wrapper = shallow(<NewRequestForm {...props} />);
-    wrapper.instance().savePersonalDetails('','','','','');
-    expect(localStorage.setItem).toHaveBeenCalled();
+    wrapper.instance().savePersonalDetails({ key: 'value'});
+    expect(localStorage.getItem('key')).toEqual('value');
+  });
+
+  it('should display a location dropdown with Andela centers as choices', () => {
+    const wrapper = mount(<NewRequestForm {...props} />);
+    const input = wrapper.find('DropdownSelect[name="location"]');
+    expect(input.props().choices).toEqual(centers.map(choice => choice.location.split(',')[0]));
+  });
+
+  it('should also update the location when a request is saved', () => {
+    const wrapper = shallow(<NewRequestForm {...props} />);
+    localStorage.setItem('checkBox', 'clicked');
+    const values = {
+      name: 'Moses Gitau',
+      gender: 'male',
+      department: 'Talent Driven Development',
+      role: 'Software Developer',
+      manager: 'Samuel Kubai',
+      location: 'San Fransisco'
+    };
+    wrapper.setState({
+      values,
+      trips: [],
+      selection: 'return',
+    });
+
+    wrapper.find('form').simulate('submit', { preventDefault: jest.fn()});
+    expect(props.updateUserProfile).toHaveBeenCalledWith(values, props.user.UserInfo.id);
+    expect(localStorage.getItem('location')).toEqual('San Fransisco');
   });
 });
