@@ -3,8 +3,8 @@ import {PropTypes} from 'prop-types';
 
 const SubmitArea = ({
   onCancel, disableEmailReminder,
-  disableReminderTemplate, disableReason,
-  templateReason, conditionReason, mode }) => {
+  modalType,
+  disableReminderTemplate, disableReason, mode }) => {
   return (
     <fieldset>
       <div className="submit-area">
@@ -18,7 +18,10 @@ const SubmitArea = ({
                 type="button"
                 className="restore-checklist-items__footer--delete"
                 id="oncancel"
-                onClick={disableReminderTemplate? disableReminderTemplate : disableEmailReminder}
+                onClick={
+                  modalType === 'disable reminder template' 
+                    ? disableReminderTemplate 
+                    : disableEmailReminder}
                 disabled={!disableReason}
               >
               Disable
@@ -36,15 +39,13 @@ SubmitArea.propTypes = {
   disableEmailReminder: PropTypes.func.isRequired,
   disableReminderTemplate: PropTypes.func.isRequired,
   disableReason: PropTypes.string,
-  conditionReason: PropTypes.string,
-  templateReason: PropTypes.string,
   mode: PropTypes.string,
+  modalType: PropTypes.string,
 };
 SubmitArea.defaultProps = {
   disableReason: null,
-  conditionReason:'',
-  templateReason: '',
-  mode: ''
+  mode: '',
+  modalType: '',
 };
 
 export default SubmitArea;

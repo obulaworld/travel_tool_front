@@ -1,5 +1,5 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import TemplatesMenu from '../TemplatesMenu';
 
@@ -28,30 +28,54 @@ describe('<TemplatesMenu />', () => {
   };
 
   it('renders without crashing', () => {
-    const wrapper = mount(<MemoryRouter><TemplatesMenu {...props} /></MemoryRouter>);
+    const wrapper = mount(
+      <BrowserRouter>
+        <TemplatesMenu {...props} />
+      </BrowserRouter>
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('opens menu container', () => {
-    const wrapper = mount(<TemplatesMenu {...props} />);
+    const wrapper = mount(
+      <BrowserRouter>
+        <TemplatesMenu {...props} />
+      </BrowserRouter>
+    );
     const toggleMenu = wrapper.find('#toggleIcon');
     expect(toggleMenu.length).toEqual(1);
     toggleMenu.simulate('click', event);
-    expect(wrapper.state().openClose).toEqual('open');
+    expect(wrapper.find('.open').length).toEqual(2);
     wrapper.unmount();
   });
 
   it('closes on click outside the component', () => {
-    const wrapper = mount(<TemplatesMenu {...props} />);
+    const wrapper = mount(
+      <BrowserRouter>
+        <TemplatesMenu {...props} />
+      </BrowserRouter>
+    );
     wrapper.simulate('mousedown');
-    expect(wrapper.state().openClose).toEqual('');
+    expect(wrapper.find('.open').length).toEqual(0);
   });
 
-  it('redirects on clicking edit on elipsis ', () => {
-    const wrapper = mount(<TemplatesMenu {...props} />);
-    const edit = wrapper.find('.edit').first();
-    expect(edit.length).toEqual(1);
-    edit.simulate('click', event);
-    expect(props.history.push).toHaveBeenCalled();
+  it('reirects to edit reminder page when edit button is cliked', () => {
+    const wrapper = mount(
+      <BrowserRouter>
+        <TemplatesMenu {...props} template={{}} />
+      </BrowserRouter>
+    );
+    const edit = wrapper.find('.table__menu-list .top');
+    expect(edit.find('a').prop('href')).toEqual('/settings/reminders/edit/0');
+  });
+
+  it('reirects to edit template page when edit button is cliked', () => {
+    const wrapper = mount(
+      <BrowserRouter>
+        <TemplatesMenu {...props} reminder={{}} />
+      </BrowserRouter>
+    );
+    const edit = wrapper.find('.table__menu-list .top');
+    expect(edit.find('a').prop('href')).toEqual('/settings/reminder-setup/update/1');
   });
 });

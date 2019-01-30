@@ -6,6 +6,11 @@ const props = {
   'documentType ':'',
   fetchAllEmailTemplates: jest.fn(),
   createReminder: jest.fn(),
+  getSingleReminder: jest.fn(),
+  editReminder: jest.fn(),
+  isEditMode: false,
+  setReminderType: jest.fn(),
+  handleDocumentTypeChange: jest.fn(),
   'history': {
     'length': 7,
     'action': 'POP',
@@ -168,108 +173,202 @@ const props = {
   ],
   'currentPage': 1,
   'pageCount': 1,
-  'loading': false
+  'loading': false,
+  'location': {
+    'pathname': '/settings/reminders/create',
+  },
 };
 
 
 describe('Reminder Form', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = mount(<ReminderForm {...props} />);
-  });
-
-  it('renders correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should update the errors state with values from props', () => {
-    sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
-    wrapper.setProps({
-      errors: {
-        conditionName: 'cannot be empty',
-      }
+  
+  describe('Create Reminder Form', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(<ReminderForm {...props} />);
     });
-    expect(wrapper.instance().componentWillReceiveProps.calledOnce).toEqual(true);
-    expect(wrapper.state().errors).toEqual({
-      conditionName: 'cannot be empty'
+
+    it('renders correctly', () => {
+      expect(wrapper).toMatchSnapshot();
     });
-  });
 
-  it('should handle adding a reminder input row', () => {
-    const addReminderButton = wrapper.find('.add-reminder__button');
-    const totalReminderInputs = wrapper.state().totalReminders;
-    addReminderButton.simulate('click');
-    expect(wrapper.state().totalReminders).toEqual(totalReminderInputs + 1);
-  });
-
-  it('should handle deleting a reminder input row', () => {
-    const deleteReminderButton = wrapper.find('.delete-icon');
-    const totalReminderInputs = wrapper.state().totalReminders;
-    deleteReminderButton.simulate('click');
-    expect(wrapper.state().totalReminders).toEqual(totalReminderInputs - 1);
-  });
-
-  it('should handle submiting a reminder', () => {
-    wrapper.setState({
-      reminders: [
-        {
-          date: '2',
-          period: 'Days',
-          reminderTemplate: '1'
+    it('should update the errors state with values from props', () => {
+      sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
+      wrapper.setProps({
+        errors: {
+          conditionName: 'cannot be empty',
         }
-      ]
+      });
+      expect(wrapper.instance().componentWillReceiveProps.calledOnce).toEqual(true);
+      expect(wrapper.state().errors).toEqual({
+        conditionName: 'cannot be empty'
+      });
     });
-    const form = wrapper.find('form');
-    form.simulate('submit');
-    expect(props.createReminder).toHaveBeenCalled();
+
+    it('should handle adding a reminder input row', () => {
+      const addReminderButton = wrapper.find('.add-reminder__button');
+      const totalReminderInputs = wrapper.state().totalReminders;
+      addReminderButton.simulate('click');
+      expect(wrapper.state().totalReminders).toEqual(totalReminderInputs + 1);
+    });
+
+    it('should handle deleting a reminder input row', () => {
+      const deleteReminderButton = wrapper.find('.delete-icon');
+      const totalReminderInputs = wrapper.state().totalReminders;
+      deleteReminderButton.simulate('click');
+      expect(wrapper.state().totalReminders).toEqual(totalReminderInputs - 1);
+    });
+
+    it('should handle submiting a reminder', () => {
+      wrapper.setState({
+        reminders: [
+          {
+            date: '2',
+            period: 'Days',
+            reminderTemplate: '1'
+          }
+        ]
+      });
+      const form = wrapper.find('form');
+      form.simulate('submit');
+      expect(props.createReminder).toHaveBeenCalled();
+    });
+
+    it('handles form cancel', () => {
+      sinon.spy(wrapper.instance(), 'handleCancel');
+      const initialState = wrapper.state();
+      wrapper.instance().handleCancel();
+      expect(wrapper.instance().handleCancel.calledOnce).toEqual(true);
+      expect(wrapper.state()).toEqual(initialState);
+    });
+
+    it('handles form input change', () => {
+      const initialState = wrapper.state();
+      sinon.spy(wrapper.instance(), 'handleInputChange');
+      wrapper.instance().handleInputChange({
+        target: {
+          name: 'date-0',
+          value: '5',
+          id: '0'
+        }
+      });
+      expect(wrapper.instance().handleInputChange.calledOnce).toEqual(true);
+      expect(wrapper.state().values).toEqual({
+        ...initialState.values,
+        'date-0': '5',
+      });
+    });
+
+    it('handles form reminder template change', () => {
+      const initialState = wrapper.state();
+      sinon.spy(wrapper.instance(), 'handleReminderTemplateChange');
+      wrapper.instance().handleReminderTemplateChange('2', '0');
+      expect(wrapper.instance().handleReminderTemplateChange.calledOnce).toEqual(true);
+      expect(wrapper.state().values).toEqual({
+        ...initialState.values,
+        'reminderTemplate-0': '2',
+      });
+    });
+
+    it('handles form reminder period change', () => {
+      const initialState = wrapper.state();
+      sinon.spy(wrapper.instance(), 'handleReminderPeriodChange');
+      wrapper.instance().handleReminderPeriodChange('Days', '0');
+      expect(wrapper.instance().handleReminderPeriodChange.calledOnce).toEqual(true);
+      expect(wrapper.state().values).toEqual({
+        ...initialState.values,
+        'period-0': 'Days',
+      });
+    });
   });
 
-  it('handles form cancel', () => {
-    sinon.spy(wrapper.instance(), 'handleCancel');
-    const initialState = wrapper.state();
-    wrapper.instance().handleCancel();
-    expect(wrapper.instance().handleCancel.calledOnce).toEqual(true);
-    expect(wrapper.state()).toEqual(initialState);
-  });
-
-  it('handles form input change', () => {
-    const initialState = wrapper.state();
-    sinon.spy(wrapper.instance(), 'handleInputChange');
-    wrapper.instance().handleInputChange({
-      target: {
-        name: 'date-0',
-        value: '5',
-        id: '0'
-      }
+  describe('Reminder Update Form', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(
+        <ReminderForm 
+          {...props} 
+          templates={[
+            {
+              id: 12,
+              name: 'Forza Visa',
+              from: 'celestine.ekoh-ordan@andela.com',
+              subject: 'This is for the visas',
+            }
+          ]}
+          isEditMode 
+        />);
     });
-    expect(wrapper.instance().handleInputChange.calledOnce).toEqual(true);
-    expect(wrapper.state().values).toEqual({
-      ...initialState.values,
-      'date-0': '5',
+
+    it('renders correctly in edit mode', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should check that editReminder has been called', () => {
+      wrapper.setProps({
+        singleReminder: {
+          data: {
+            'id': 1,
+            'conditionName': 'Travel Now',
+            'documentType': 'Visa',
+            'disabled': false,
+            'reminders': [
+              {
+                'id': 36,
+                'frequency': '9 Days',
+                'conditionId': 1,
+                'reminderEmailTemplateId': 1
+              },
+            ]
+          }
+        }
+      });
+      const form = wrapper.find('form');
+      form.simulate('submit');
+      expect(props.editReminder).toHaveBeenCalled();
+    });
+
+    it('should handle updating a reminder', () => {
+      sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
+      wrapper.setProps({
+        singleReminder: {
+          data: {
+            'id': 1,
+            'conditionName': 'Travel Now',
+            'documentType': 'Visa',
+            'disabled': false,
+            'reminders': [
+              {
+                'id': 36,
+                'frequency': '9 Days',
+                'conditionId': 1,
+                'reminderEmailTemplateId': 1
+              },
+            ]
+          }
+        }
+      });
+      expect(wrapper.instance().componentWillReceiveProps.calledOnce).toEqual(true);
+      expect(wrapper.state().values.conditionName).toEqual('Travel Now');
+    });
+
+    it('should should set errors on state if errrors occur while updating a reminder', () => {
+      sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
+      sinon.spy(wrapper.props(), 'setReminderType');
+      wrapper.setProps({
+        singleReminder: {
+          data: {
+            reminders: []
+          },
+        },
+        editModeErrors: {
+          conditionName: 'cannot be empty',
+        }
+      });
+      expect(wrapper.instance().componentWillReceiveProps.calledOnce).toEqual(true);
+      expect(wrapper.state().errors).toEqual({
+        conditionName: 'cannot be empty'
+      });
     });
   });
-
-  it('handles form reminder template change', () => {
-    const initialState = wrapper.state();
-    sinon.spy(wrapper.instance(), 'handleReminderTemplateChange');
-    wrapper.instance().handleReminderTemplateChange('2', '0');
-    expect(wrapper.instance().handleReminderTemplateChange.calledOnce).toEqual(true);
-    expect(wrapper.state().values).toEqual({
-      ...initialState.values,
-      'reminderTemplate-0': '2',
-    });
-  });
-
-  it('handles form reminder period change', () => {
-    const initialState = wrapper.state();
-    sinon.spy(wrapper.instance(), 'handleReminderPeriodChange');
-    wrapper.instance().handleReminderPeriodChange('Days', '0');
-    expect(wrapper.instance().handleReminderPeriodChange.calledOnce).toEqual(true);
-    expect(wrapper.state().values).toEqual({
-      ...initialState.values,
-      'period-0': 'Days',
-    });
-  });
-
-
 });

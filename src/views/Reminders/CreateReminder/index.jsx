@@ -2,12 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PageHeader from '../../../components/PageHeader';
+import Button from '../../../components/buttons/Buttons';
 import '../Reminder.scss';
 import ReminderForm from '../../../components/Forms/ReminderForm';
 import SelectDropDown from '../../../components/SelectDropDown/SelectDropDown';
 import downArrow from '../../../images/downArrowBlue.svg';
 import { fetchAllEmailTemplates } from '../../../redux/actionCreator/listEmailTemplatesActions';
-import { createReminder } from '../../../redux/actionCreator/reminderActions';
+import { createReminder, editReminder, getSingleReminder } from '../../../redux/actionCreator/reminderActions';
 
 const dropDownItems = [
   {
@@ -36,31 +37,61 @@ class CreateReminder extends Component {
     });
   }
 
+  isEditMode() {
+    const { location: { pathname } } = this.props;
+    const mode = pathname.split('/')[3];
+    return mode === 'edit';
+  }
+
+  renderReminderForm(documentType) {
+    const { templates, 
+      fetchAllEmailTemplates, 
+      currentPage, 
+      loading, 
+      pageCount, 
+      createReminder, 
+      getsingleReminder, 
+      singleReminder,
+      editReminder,
+      editModeErrors
+    } = this.props;
+    return (
+      <ReminderForm 
+        documentType={documentType} 
+        {...this.props} currentPage={currentPage} 
+        pageCount={pageCount} templates={templates} 
+        loading={loading} fetchAllEmailTemplates={fetchAllEmailTemplates} 
+        createReminder={createReminder}
+        editReminder={editReminder}
+        setReminderType={this.setReminderFormDocumentType}
+        getsingleReminder={getsingleReminder}
+        isEditMode={this.isEditMode()}
+        editModeErrors={editModeErrors}
+        singleReminder={singleReminder}
+      />
+    );
+  }
+
   render() {
     const { documentType } = this.state;
-    const { templates, fetchAllEmailTemplates, currentPage, loading, pageCount, createReminder } = this.props;
     return (
       <Fragment>
         <div className="reminder-panel-header">
           <PageHeader
             addLink
-            title="CREATE A REMINDER FOR"
+            title={`${this.isEditMode() ? 'EDIT A REMINDER FOR': 'CREATE A REMINDER FOR'}`}
             iconLink="/settings/reminders"
           >
             <SelectDropDown
-              placeHolder="Select Document"
-              onClickItem={this.setReminderFormDocumentType}
-              dropDownItems={dropDownItems}
-              dropDownIcon={downArrow}
+              placeHolder={!documentType ? 'Select Document' : ''} 
+              onClickItem={this.setReminderFormDocumentType} 
+              defaultSelected={documentType}
+              dropDownItems={dropDownItems} 
+              dropDownIcon={downArrow} 
             />
           </PageHeader>
           <div className="reminder-card">
-            <ReminderForm
-              documentType={documentType} {...this.props}
-              currentPage={currentPage} pageCount={pageCount}
-              templates={templates} loading={loading}
-              fetchAllEmailTemplates={fetchAllEmailTemplates} createReminder={createReminder}
-            />
+            {this.renderReminderForm(documentType)}
           </div>
         </div>
       </Fragment>
@@ -73,12 +104,16 @@ const mapStateToProps = ({reminders, listEmailTemplatesReducer}) => ({
   currentPage: reminders.currentPage,
   pageCount: listEmailTemplatesReducer.pagination.pageCount,
   loading: reminders.isLoading,
-  errors: reminders.newReminder.errors
+  errors: reminders.newReminder.errors,
+  singleReminder: reminders.singleReminder,
+  editModeErrors: reminders.updatedReminder.errors,
 });
 
 const mapDispatchToProps = {
   fetchAllEmailTemplates,
   createReminder,
+  editReminder,
+  getSingleReminder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateReminder);

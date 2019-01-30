@@ -27,34 +27,37 @@ export const AlertIcon = (visible, reminder, setItemToDisable) => {
   );
 };
 
-export const ReminderDetails = ({
-  reminder,
-  conditionName,
-  documentType,
+export const ReminderDetails = ({ 
+  reminder, 
+  conditionName, 
+  documentType, 
   user,
-  createdAt,
-  disabled,
-  setItemToDisable
-}) => (
-  <tr className={`table__rows ${disabled?'off':''}`}>
-    <td className={`${className} ${disabled?'':'readiness__cell-name'}`}>
-      {conditionName}
-      {AlertIcon(disabled, reminder, setItemToDisable)}
-    </td>
-    <td className={className}>{documentType}</td>
-    <td className={className}>{user.fullName}</td>
-    <td className={className}>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</td>
-    <td className="table__data">
-      <TemplatesMenu
-        disableEnable={disabled}
-        reminder={reminder}
-        setItemToDisable={setItemToDisable}
-        id={reminder.id}
-        history={{}}
-      />
-    </td>
-  </tr>
-);
+  createdAt, 
+  disabled, 
+  setItemToDisable, 
+  id,
+}) => {
+  return (
+    <tr className={`table__rows ${disabled ? 'off' : ''}`}>
+      <td className={`${className} ${disabled ? '' : 'readiness__cell-name'}`}>
+        {conditionName}
+        {AlertIcon(disabled, reminder, setItemToDisable)}
+      </td>
+      <td className={className}>{documentType}</td>
+      <td className={className}>{user.fullName}</td>
+      <td className={className}>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</td>
+      <td className="table__data">
+        <TemplatesMenu 
+          disableEnable={disabled} 
+          reminder={reminder} 
+          setItemToDisable={setItemToDisable} 
+          conditionId={id} 
+          id={reminder.id}
+        />
+      </td>
+    </tr>
+  );
+};
 
 
 export const reminderTable = ({ reminders, setItemToDisable }) => {
@@ -72,12 +75,15 @@ export const reminderTable = ({ reminders, setItemToDisable }) => {
           </thead>
           <tbody className="table__body">
             {
-              reminders && reminders.map(reminder => (
-                <ReminderDetails
-                  key={reminder.id}
-                  {...reminder}
-                  setItemToDisable={setItemToDisable}
-                  reminder={reminder} />))
+              reminders && reminders.map(
+                reminder => (
+                  <ReminderDetails 
+                    key={reminder.id} 
+                    {...reminder} 
+                    setItemToDisable={setItemToDisable} 
+                    reminder={reminder} 
+                  />
+                ))
             }
           </tbody>
         </table>
@@ -85,6 +91,7 @@ export const reminderTable = ({ reminders, setItemToDisable }) => {
     </div>
   );
 };
+
 
 ReminderDetails.propTypes = {
   conditionName: PropTypes.string.isRequired,
@@ -94,12 +101,14 @@ ReminderDetails.propTypes = {
   disabled: PropTypes.bool,
   setItemToDisable: PropTypes.func,
   reminder: PropTypes.object,
+  id: PropTypes.number,
 };
 
 ReminderDetails.defaultProps = {
   reminder: {},
   setItemToDisable: () => {},
-  disabled: false
+  disabled: false,
+  id: 0,
 };
 
 reminderTable.propTypes = {

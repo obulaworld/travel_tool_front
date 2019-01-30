@@ -161,7 +161,7 @@ export class Reminders extends Component{
         </button>
       </div>
     );
-  };
+  }
 
   renderRemindersTable = () => {
     const { reminders, history } = this.props;
@@ -169,7 +169,7 @@ export class Reminders extends Component{
       <Fragment>
         <ReminderTable
           fetchEmailReminder={fetchEmailReminder}
-          reminders={reminders}
+          reminders={reminders} 
           setItemToDisable={this.setItemToDisable}
           history={history}
         />

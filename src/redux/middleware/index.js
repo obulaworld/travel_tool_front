@@ -115,12 +115,12 @@ import {
   watchUpdateSingleReminderEmailTemplateSaga
 } from './reminderManagementSaga';
 import { watchFetchAllEmailTemplates } from './listEmailTemplatesSaga';
-import { watchCreateReminder } from './reminderSaga';
 import {
   watchDisableReminderCondition,
   watchfetchEmailReminders,
   watchEnableDisabledReminderCondition,
 } from './emailRemindersSaga';
+import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from './reminderSaga';
 
 function* rootSaga() {
   yield all([
@@ -207,7 +207,9 @@ function* rootSaga() {
     watchEnableDisabledReminderCondition(),
     watchdisableEmailTemplate(),
     watchUpdateSingleReminderEmailTemplateSaga(),
-    watchGetSingleEmailReminderTemplate()
+    watchGetSingleEmailReminderTemplate(),
+    watchEditReminder(),
+    watchGetSingleReminder(),
   ]);
 }
 

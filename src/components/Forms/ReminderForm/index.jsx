@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 import ReminderFormInputFields from './ReminderFormFieldSets/ReminderFormInputFields';
+import ReminderUtils from '../../../helper/reminder/ReminderUtils';
 
 class ReminderForm extends Component {
   constructor(props) {
@@ -22,15 +24,50 @@ class ReminderForm extends Component {
       errors: {},
       totalReminders: 2,
       reminders: [],
+      documentTypeChanged: false,
     };
-
     this.state = { ...this.initialState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
+  componentDidMount(){
+    const { getSingleReminder, location: { pathname }, isEditMode } = this.props;
+    const conditionId = pathname.split('/')[4];
+    if(isEditMode) {
+      getSingleReminder(conditionId);    
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { errors } = nextProps;
-    this.setState({ errors });
+    const { errors, editModeErrors, isEditMode, singleReminder: { data, isLoading }, 
+      documentType: nextDocumentType } = nextProps;
+    const { singleReminder: 
+      { data: currentReminder, 
+        isLoading: currentIsLoading }, 
+    setReminderType, documentType 
+    } = this.props;
+    
+    this.handleDocumentTypeChange(documentType, nextDocumentType);
+
+    if ((isEmpty(currentReminder) || (isLoading && !currentIsLoading)) && !isEmpty(data)) {
+      const { documentType, reminders } = data;
+      setReminderType(documentType);
+      const reminderItems = ReminderUtils.generateFormItems(reminders);
+      this.updateReminderState(reminderItems, nextProps);
+    }
+    this.setState({ errors: isEditMode ? editModeErrors : errors });
+  }
+
+  setReminderCurrentUpdateValues(reminders) {
+    return reminders
+      .map(item => {
+        return {
+          date: item.frequency.split(' ')[0],
+          period: item.frequency.split(' ')[1],
+          reminderTemplate: `${item.reminderEmailTemplateId}`,
+          id:  item.id
+        };
+      });
   }
 
   getReminderFieldsValues = (index) => ({
@@ -51,22 +88,12 @@ class ReminderForm extends Component {
 
   removeReminder = (reminderIndex) => {
     const reminderFieldDefaults = ['reminderTemplate', 'date', 'period'];
-    const { totalReminders, errors, values, reminders } = this.state;
+    const { errors, values, reminders } = this.state;
     const newValues = { ...values };
     const newErrors = { ...errors };
     const newReminders = [...reminders ];
 
-    reminderFieldDefaults.map((field) => {
-      let index = reminderIndex;
-      while (index < totalReminders) {
-        newValues[`${field}-${index}`] = newValues[`${field}-${index + 1}`];
-        index++;
-      }
-
-      delete newValues[`${field}-${index - 1}`];
-      delete errors[`${field}-${index - 1}`];
-    });
-
+    ReminderUtils.removeReminderField(reminderFieldDefaults, newValues, this.state);
     newReminders.splice(reminderIndex, 1);
 
     this.setState((prevState) => {
@@ -80,7 +107,10 @@ class ReminderForm extends Component {
   }
 
   handleCancel = () => {
-    this.setState({ ...this.initialState });
+    const { isEditMode, history } = this.props;
+    isEditMode 
+      ? history.goBack()
+      : this.setState({ ...this.initialState });
   }
 
   updateReminderFormState = (formFieldId, formFieldName, value ) => {
@@ -120,12 +150,13 @@ class ReminderForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     const { reminders, values: { conditionName } } = this.state;
-    const { createReminder, documentType, history } = this.props;
+    const { createReminder, editReminder, isEditMode, documentType, history } = this.props;
 
     const reminderList = reminders.map((reminder) => {
       return {
         frequency: `${reminder.date} ${reminder.period}`,
         reminderEmailTemplateId: reminder.reminderTemplate,
+        id: reminder.id
       };
     });
 
@@ -134,18 +165,53 @@ class ReminderForm extends Component {
       documentType,
       reminders: reminderList,
     };
+
+    if(isEditMode) {
+      const { location: { pathname }} = this.props;
+      const conditionId = pathname.split('/')[4];
+      editReminder(payload, history, conditionId);
+      return;
+    }
+
     createReminder(payload, history);
   }
 
+  handleDocumentTypeChange(documentType, nextDocumentType) {
+    if(documentType && (nextDocumentType !== documentType)){
+      this.setState({
+        documentTypeChanged: true
+      });
+    }
+  }
+
+  updateReminderState(reminderItems, nextProps) {
+    const { errors, singleReminder: { data } } = nextProps;
+    const { conditionName, reminders } = data;
+    const prevReminderValue = reminderItems.reduce((acc, curr) => {
+      return {...acc, ...curr};
+    }, {});
+    this.newState = {
+      values: {
+        conditionName,
+        ...prevReminderValue
+      },
+      totalReminders: reminders.length,
+      reminders: [
+        ...this.setReminderCurrentUpdateValues(reminders)
+      ]
+    };
+    this.setState({errors, ...this.newState });
+  }
+
+
   render() {
-    const { hasBlankFields, errors, values, totalReminders } = this.state;
+    const { hasBlankFields, errors, values, totalReminders , documentTypeChanged } = this.state;
     const {
-      documentType,
-      templates,
-      currentPage,
-      loading,
+      documentType, templates,
+      currentPage, loading,
       fetchAllEmailTemplates,
-      pageCount
+      pageCount,
+      isEditMode,
     } = this.props;
     return (
       <FormContext values={values} targetForm={this} errors={errors}>
@@ -165,7 +231,10 @@ class ReminderForm extends Component {
           />
           <SubmitArea
             send="Save"
-            hasBlankFields={hasBlankFields || !documentType}
+            hasBlankFields={
+              isEditMode ? 
+                (!documentTypeChanged && hasBlankFields) 
+                : (hasBlankFields || !documentType)}
             onCancel={this.handleCancel}
           />
         </form>
@@ -183,7 +252,14 @@ ReminderForm.propTypes = {
   loading: PropTypes.bool.isRequired,
   pageCount: PropTypes.number,
   errors: PropTypes.object,
+  editModeErrors: PropTypes.object,
   history: PropTypes.object.isRequired,
+  getSingleReminder: PropTypes.func.isRequired,
+  editReminder: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
+  singleReminder: PropTypes.object,
+  setReminderType: PropTypes.func.isRequired
 };
 
 ReminderForm.defaultProps = {
@@ -192,6 +268,14 @@ ReminderForm.defaultProps = {
   currentPage: 1,
   pageCount: 100,
   errors: {},
+  editModeErrors: {},
+  singleReminder: {
+    condition: {
+      conditionName: '',
+      documentType: 'Passport'
+    },
+    reminders: []
+  }
 };
 
 export default ReminderForm;

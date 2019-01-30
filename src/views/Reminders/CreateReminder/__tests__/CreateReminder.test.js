@@ -24,10 +24,39 @@ describe('CreateReminder', () => {
     createReminder: jest.fn(),
     history: {
       push: jest.fn(),
-    }
+    },
+    location: {
+      pathname: '/settings/reminders/create'
+    },
   };
 
 
+  it('should render the Create Reminder page without crashing', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CreateReminder {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    const passportItem = wrapper.find('#Passport-Passport');
+    passportItem.simulate('click');
+    expect(wrapper.length).toBe(1);
+    wrapper.unmount();
+  });
+});
+describe('Edit Reminder Page', () => {
+  const props = {
+    fetchAllEmailTemplates: jest.fn(),
+    createReminder: jest.fn(),
+    history: {
+      push: jest.fn(),
+    },
+    location: {
+      pathname: '/settings/reminders/edit/1'
+    },
+  };
+ 
   it('should render the Create Reminder page without crashing', () => {
     const wrapper = mount(
       <Provider store={store}>
