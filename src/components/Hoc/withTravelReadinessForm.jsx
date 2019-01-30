@@ -67,15 +67,12 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
         ...values,
         dateOfIssue: dateOfIssue === '' ? '' :
           moment(dateOfIssue)
-            .format(documentType === 'passport' ? 'YYYY/MM/DD' : 'MM/DD/YYYY'),
+            .format( 'MM/DD/YYYY'),
         expiryDate: moment(expiryDate).format(
-          documentType === 'passport' ? 'YYYY/MM/DD' : 'MM/DD/YYYY'
+          'MM/DD/YYYY'
         )
       };
-      if (documentType === 'passport') {
-        const {dateOfBirth} = values;
-        newValues.dateOfBirth = moment(dateOfBirth).format('YYYY/MM/DD');
-      }
+
       if (image) {
         const fd = new FormData();
         fd.append('file', image);

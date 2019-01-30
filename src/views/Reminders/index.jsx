@@ -15,10 +15,8 @@ import DisableReminderTemplateForm from '../../components/Forms/DisableReminderT
 import EnableDisabledReminderConditionForm from '../../components/Forms/EnableDisabledReminderConditionForm/EnableReminderEmailTemplateForm';
 import TemplatesPagination from '../../components/ReminderSetup/TemplatesPagination';
 
-
 export class Reminders extends Component{
-
-  constructor(props) {
+  constructor(props){
     super(props);
     this.state = {
       activeDocument: 'passport',
@@ -30,9 +28,17 @@ export class Reminders extends Component{
   }
 
   componentDidMount() {
-    const {fetchEmailReminder} = this.props;
-    fetchEmailReminder({document: 'passport'});
+    const { location: { search }, fetchEmailReminder} = this.props;
+    const params = new URLSearchParams(search);
+    const document = params.get('document') || 'passport';
+    const page = params.get('page') || 1;
+    fetchEmailReminder({document, page});
+    this.setCurrentDocument(document);
   }
+
+  setCurrentDocument = (activeDocument) => {
+    this.setState({ activeDocument});
+  };
 
   setItemToDisable = (check,reminder, reason,event) => {
     const { openModal } = this.props;
@@ -72,13 +78,9 @@ export class Reminders extends Component{
 
   onPageChangeEvent = (previousOrNext) => {
     const { activeDocument: document } = this.state;
-    const { fetchEmailReminder, meta: {pagination: {currentPage}} } = this.props;
-    const params = {
-      page : currentPage + (previousOrNext === 'previous' ? -1 : 1),
-      document
-    };
-    fetchEmailReminder(params);
-
+    const {  meta: {pagination: {currentPage}},  history } = this.props;
+    const page = currentPage + (previousOrNext === 'previous' ? -1 : 1);
+    history.push(`/settings/reminders?document=${document}&page=${page}`);
   };
 
 
@@ -88,9 +90,8 @@ export class Reminders extends Component{
   };
 
   toggleButton = (type) => {
-    const {fetchEmailReminder} = this.props;
-    fetchEmailReminder({ document: type});
-    return this.setState({activeDocument: type});
+    const { history } = this.props;
+    history.push(`/settings/reminders?document=${type}`);
   };
 
   renderDisableReminderConditionForm() {
@@ -115,7 +116,6 @@ export class Reminders extends Component{
   }
 
   renderReminderDocumentButton = (text, active, onclick, total, otherProps) => {
-
     let className = 'document-button_group';
     return (
       <button
@@ -230,7 +230,8 @@ const mapStateToProps = ({ modal,emailReminders}) => ({
 Reminders.propTypes = {
   history: PropTypes.object.isRequired,
   disableReminderCondition: PropTypes.func.isRequired,
-  enableDisabledReminderCondition: PropTypes.func.isRequired
+  enableDisabledReminderCondition: PropTypes.func.isRequired,
+  fetchEmailReminder: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reminders);

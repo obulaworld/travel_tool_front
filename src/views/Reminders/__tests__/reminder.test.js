@@ -4,10 +4,9 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import ConnectedReminders, { Reminders } from '../index';
 import {initialState} from '../../../redux/reducers/emailReminder';
-import TemplatesPagination from '../../../components/ReminderSetup/TemplatesPagination';
-import {reminderTable} from '../ReminderTable';
 
 
+const onPageChangeEvent = jest.fn();
 const mockStore = configureStore();
 
 const initState = {
@@ -50,14 +49,15 @@ const initState = {
   }
 };
 const store = mockStore(initState);
+
 const props = {
   history: {
     push: jest.fn()
   },
   disableReminderTemplate: jest.fn(),
   disableReminderCondition: jest.fn(),
-  openModal:jest.fn,
   fetchEmailReminder: jest.fn(),
+  openModal:jest.fn,
   setItemToDisable: jest.fn(),
   shouldOpen: true,
   modalType: 'disable reminder condtion',
@@ -65,11 +65,18 @@ const props = {
   enableDisabledReminderCondition: jest.fn(),
   reminders: [],
   meta: {pagination: {}, documentCount: {}},
+  location: {
+    search: 'document=passport'
+  },
   user: {},
   id: 1
 };
 
 describe('Reminder component', () => {
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should test two button exist (passport and visa)  ', () => {
     // The page to be rendered
@@ -119,7 +126,6 @@ describe('Reminder component', () => {
   });
   it('should render the Reminder page without crashing', () => {
 
-
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
@@ -146,6 +152,32 @@ describe('Reminder component', () => {
     wrapper.find('#visaButton').simulate('click');
     const visaButton = wrapper.find('#visaButton');
     const {className: classNameVisa} = visaButton.props();
-    expect(classNameVisa).toEqual('document-button_group__active');
+    expect(classNameVisa).toEqual('document-button_group__inactive');
+  });
+
+  it('should test page change function when next button is clicked on pagination', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <ConnectedReminders {...props} />
+      </Provider>
+    );
+
+    wrapper.find('#next-button').simulate('click');
+    expect(props.history.push).toHaveBeenCalledWith('/settings/reminders?document=passport&page=2');
+  });
+
+  it('should fetch the required data on componentDidMount', () => {
+    const newProps = {
+      ...props,
+      location: {
+        search: 'document=passport&page=2'
+      }
+    };
+    mount(
+      <Provider store={store}>
+        <Reminders {...newProps} />
+      </Provider>
+    );
+    expect(newProps.fetchEmailReminder).toHaveBeenCalledWith({document: 'passport', page: '2'});
   });
 });
