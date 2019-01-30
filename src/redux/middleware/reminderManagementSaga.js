@@ -123,9 +123,14 @@ export function* updateSingleReminderEmailTemplateSaga(action) {
     history.push('/settings/reminder-setup');
 
   } catch (error) {
-    const errors = apiErrorHandler(error);
+    let errors = {};
+    if( error.response.status === 422){
+      errors = apiValidationErrorHandler(error);
+    }else{
+      let errorMessage = apiErrorHandler(error);
+      toast.error(errorMessage);
+    }
     /* istanbul ignore next */
-    toast.error(errors);
 
     yield put(updateSingleReminderEmailTemplateFailure(errors));
 

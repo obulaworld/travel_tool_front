@@ -10,9 +10,7 @@ class NewEmailTemplateForm extends React.Component {
   constructor(props) {
     super(props);
     this.defaultState = {
-      optionalFields: [
-        'cc'
-      ],
+      optionalFields: ['cc'],
       values: {
         name: '',
         from: '',
@@ -23,24 +21,31 @@ class NewEmailTemplateForm extends React.Component {
       errors: {},
       hasBlankFields: true
     };
-    this.state = {...this.defaultState};
+    this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
   componentDidMount() {
     const {
       getSingleReminderEmailTemplate,
-      match: { params: { templateId } },
+      match: {
+        params: { templateId }
+      },
       history,
-      getAllUsersEmail,
+      getAllUsersEmail
     } = this.props;
     getSingleReminderEmailTemplate(templateId, history);
     getAllUsersEmail();
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
+    this.setState({ errors: nextProps.editing ?
+      nextProps.updatedEmailTemplate.errors :  nextProps.newEmailTemplate.errors });
+    this.setUpdateData(nextProps);
     if (nextProps.data && !isEmpty(nextProps.data.cc)) {
-      const { data: { name, from, cc, subject, message, id } } = nextProps;
+      const {
+        data: { name, from, cc, subject, message, id }
+      } = nextProps;
 
       this.setState({
         values: {
@@ -53,29 +58,45 @@ class NewEmailTemplateForm extends React.Component {
         }
       });
     }
-    this.setState({errors: nextProps.errors});
   }
 
-  handleSubmit = (event) => {
+  setUpdateData = ({ editing, updatedEmailTemplate}) => {
+    if (editing && updatedEmailTemplate.data){
+      const {data: { name, from, message, subject, id, cc} } = updatedEmailTemplate;
+      this.setState({values: {
+        name,
+        from,
+        message,
+        subject,
+        id,
+        cc: cc.filter(c => c !== '').length === 0 ? null : cc,
+      }});
+    }
+  }
+
+  hasErrors = () => {
+    const { errors, values } = this.state;
+    return Object.keys(values).some(value => errors[value]);
+  };
+
+  handleSubmit = event => {
     event.preventDefault();
     const { values, hasBlankFields } = this.state;
     const { cc } = values;
     if (!hasBlankFields) {
       const {
-        createReminderEmailTemplate, history, editing,
+        createReminderEmailTemplate,
+        history,
+        editing,
         updateSingleReminderEmailTemplate
       } = this.props;
       if (editing) {
-        updateSingleReminderEmailTemplate(
-          values.id,
-          history,
-          {...values, cc: cc || []}
-        );
+        updateSingleReminderEmailTemplate(values.id, history, {
+          ...values,
+          cc: cc || []
+        });
       } else {
-        createReminderEmailTemplate(
-          {...values, cc: cc || []},
-          history
-        );
+        createReminderEmailTemplate({ ...values, cc: cc || [] }, history);
       }
     }
   };
@@ -85,10 +106,17 @@ class NewEmailTemplateForm extends React.Component {
     history.push('/settings/reminder-setup');
   };
 
-
-  render () {
-    const { isSaving, getUsersEmail, editing } = this.props;
-    const { values, errors, hasBlankFields} = this.state;
+  render() {
+    const { newEmailTemplate, getUsersEmail, editing, updatedEmailTemplate } = this.props;
+    const {
+      values,
+      errors,
+      hasBlankFields,
+      values: { message }
+    } = this.state;
+    const disabled = hasBlankFields || this.hasErrors();
+    const loading = updatedEmailTemplate && updatedEmailTemplate.isSaving
+      || newEmailTemplate && newEmailTemplate.isSaving;
     return (
       <FormContext
         values={values}
@@ -100,9 +128,9 @@ class NewEmailTemplateForm extends React.Component {
           <EmailTemplateDetails values={values} emails={getUsersEmail} />
           <SubmitArea
             onCancel={this.handleCancel}
-            hasBlankFields={hasBlankFields}
+            hasBlankFields={disabled}
             send={editing ? 'Update' : 'Save'}
-            loading={isSaving}
+            loading={loading}
           />
         </form>
       </FormContext>
@@ -112,13 +140,10 @@ class NewEmailTemplateForm extends React.Component {
 
 NewEmailTemplateForm.defaultProps = {
   editing: false,
-  createReminderEmailTemplate: () => {
-  },
-  getSingleReminderEmailTemplate: () => {
-  },
-  updateSingleReminderEmailTemplate: () => {
-  },
-  isSaving: false,
+  createReminderEmailTemplate: () => {},
+  getSingleReminderEmailTemplate: () => {},
+  updateSingleReminderEmailTemplate: () => {},
+  updatedEmailTemplate: {},
   data: {
     cc: []
   }
@@ -126,11 +151,12 @@ NewEmailTemplateForm.defaultProps = {
 
 NewEmailTemplateForm.propTypes = {
   history: PropTypes.object.isRequired,
-  isSaving: PropTypes.bool,
   errors: PropTypes.object.isRequired,
   createReminderEmailTemplate: PropTypes.func,
   editing: PropTypes.bool,
+  newEmailTemplate: PropTypes.object.isRequired,
   getSingleReminderEmailTemplate: PropTypes.func,
+  updatedEmailTemplate: PropTypes.object,
   updateSingleReminderEmailTemplate: PropTypes.func,
   match: PropTypes.object.isRequired,
   data: PropTypes.object,

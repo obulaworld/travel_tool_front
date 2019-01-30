@@ -22,6 +22,7 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
       },
       "handleCancel": [Function],
       "handleSubmit": [Function],
+      "hasErrors": [Function],
       "props": Object {
         "createReminderEmailTemplate": [Function],
         "data": Object {
@@ -44,6 +45,9 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
         "isSaving": false,
         "match": Object {
           "params": Object {},
+        },
+        "newEmailTemplate": Object {
+          "errors": Object {},
         },
         "updateSingleReminderEmailTemplate": [Function],
       },
@@ -94,6 +98,11 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
             match={
                     Object {
                             "params": Object {},
+                          }
+            }
+            newEmailTemplate={
+                    Object {
+                            "errors": Object {},
                           }
             }
             updateSingleReminderEmailTemplate={[Function]}

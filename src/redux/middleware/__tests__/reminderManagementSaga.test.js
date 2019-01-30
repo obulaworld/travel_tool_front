@@ -188,7 +188,9 @@ describe('Reminder Management Saga', () => {
         ])
         .put({
           type: UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE,
-          errors: errors[0].message
+          errors: {
+            [errors[0].name]: errors[0].message
+          }
         })
         .dispatch({
           type: UPDATE_REMINDER_EMAIL_TEMPLATE,
