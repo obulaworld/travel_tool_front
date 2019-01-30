@@ -94,7 +94,13 @@ export class Table extends Component {
   }
 
   renderNoRequests(message) {
-    return <div className="table__requests--empty">{message}</div>;
+    return (
+      <div className="table__requests--empty">
+        {
+          message
+        }
+      </div>
+    );
   }
 
   renderError(error) {

@@ -101,6 +101,7 @@ export function* deleteRequestSaga(action) {
   try {
     const response = yield call(RequestAPI.deleteRequest, action.requestId);
     yield put(deleteRequestSuccess(response.data.message, action.requestId));
+    toast.success(`${response.data.message}`);
 
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

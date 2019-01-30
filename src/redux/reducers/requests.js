@@ -38,16 +38,20 @@ const requests = (state = initialState, action) => {
       ...state,
       isDeleting: true,
     };
-  case DELETE_REQUEST_SUCCESS:
+  case DELETE_REQUEST_SUCCESS: {
+    const requests = state.requests.filter(request =>
+      request.id !== action.requestId);
     return {
       ...state,
       isDeleting: false,
-      message: action.message,
+      message: requests.length === 0
+        ? 'You do not have any requests at the moment'
+        : action.message,
       openRequestsCount: state.openRequestsCount > 0 ?
         state.openRequestsCount - 1 : state.openRequestsCount,
-      requests: state.requests.filter(request =>
-        request.id !== action.requestId) 
+      requests
     };
+  }
   case DELETE_REQUEST_FAILURE:
     return {
       ...state,

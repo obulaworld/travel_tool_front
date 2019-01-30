@@ -386,6 +386,28 @@ describe('Requests Reducer', () => {
       });
     });
 
+    it('returns the correct message when no requests exist', () => {
+      const initialState = {
+        requestData: {
+          trips: [],
+          comments: []
+        },
+        requestOnEdit: {},
+        comments: [],
+        isDeleting: true,
+        requests: []
+      };
+      const action = {
+        type: 'DELETE_REQUEST_SUCCESS',
+        message: 'You do not have any requests at the moment',
+      };
+      expect(requests(initialState, action)).toEqual({
+        ...initialState,
+        isDeleting: false,
+        message: 'You do not have any requests at the moment'
+      });
+    });
+
     it('returns the correct state for DELETE_REQUEST_FAILURE action', () => {
       const action = {
         type: 'DELETE_REQUEST_FAILURE',
