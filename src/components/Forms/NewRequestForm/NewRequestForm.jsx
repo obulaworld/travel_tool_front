@@ -50,7 +50,8 @@ class NewRequestForm extends PureComponent {
   }
 
   componentDidMount() {
-    const { modalType } = this.props;
+    const { modalType, managers } = this.props;
+    const { values } = this.state;
     if (modalType === 'edit request') {
       const { trips } = this.state;
       trips.map(eachTrip => {
@@ -62,6 +63,12 @@ class NewRequestForm extends PureComponent {
       });
       this.handleEditForm();
     }
+    const managerChoices = managers.map(manager => manager.fullName);
+    // if manager in manager input box is not in database
+    if (
+      values.manager !== ''
+      && managerChoices.indexOf(values.manager) === -1
+    ) this.setManagerError();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -111,6 +118,7 @@ class NewRequestForm extends PureComponent {
     trips.map(trip => allTrips.push(trip));
     return allTrips;
   };
+
   getTrips = requestOnEdit => {
     const { trips } = requestOnEdit;
     const tripsStateValues = [];
@@ -124,6 +132,7 @@ class NewRequestForm extends PureComponent {
     });
     return tripsStateValues;
   };
+
   handleEditForm = () => {
     const { requestOnEdit } = this.props;
     const event = {
@@ -317,13 +326,15 @@ class NewRequestForm extends PureComponent {
       this.collapsible();
     }
   };
+
   getDefaultTripStateValues = index => ({
     [`origin-${index}`]: '',
     [`destination-${index}`]: '',
     [`arrivalDate-${index}`]: null,
     [`departureDate-${index}`]: null,
     [`bed-${index}`]: ''
-  })
+  });
+
   refreshValues = (prevState, tripType) => {
     // squash state.values to the shape defaultState keeping the values from state
     const { values, trips } = prevState;
@@ -358,8 +369,6 @@ class NewRequestForm extends PureComponent {
       user
     } = this.props;
     const { values, selection, trips } = this.state;
-    const {occupations} = this.props;
-
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
@@ -395,6 +404,33 @@ class NewRequestForm extends PureComponent {
         updateUserProfile(values, userId);
       }
     }
+  };
+
+  onChangeManager = value => {
+    const { managers } = this.props;
+    // save input
+    this.setState((prevState) => {
+      const newState = { ...prevState.values, manager: value };
+      return { ...prevState, values: { ...newState } };
+    });
+    const managerChoices = managers.map(manager => manager.fullName);
+    // if typed manager is not in the database return error
+    if (managerChoices.indexOf(value) === -1) return this.setManagerError();
+    // clear out error message
+    return this.setState((prevState) => {
+      const newError =  { ...prevState.errors, manager: '' };
+      return { ...prevState, errors: { ...newError } };
+    });
+  }
+
+  setManagerError = () => {
+    return this.setState((prevState) => {
+      const newError =  {
+        ...prevState.errors,
+        manager: 'Please select a manager from the dropdown'
+      };
+      return { ...prevState, errors: { ...newError } };
+    });
   };
 
   addNewTrip = () => {
@@ -441,11 +477,13 @@ class NewRequestForm extends PureComponent {
       return { trips, values, parentIds, errors };
     }, this.validate);
   };
+
   handleClearForm = () => {
     this.setState({ ...this.defaultState });
     let { closeModal } = this.props;
     closeModal(true, 'create request');
   };
+
   collapsible = () => {
     const { collapse } = this.state;
     if (!collapse) {
@@ -472,6 +510,7 @@ class NewRequestForm extends PureComponent {
       <PersonalDetailsFieldset
         values={values}
         savePersonalDetails={this.savePersonalDetails}
+        onChangeManager={this.onChangeManager}
         collapsible={this.collapsible}
         collapse={collapse}
         title={title}
@@ -537,8 +576,6 @@ class NewRequestForm extends PureComponent {
   renderForm = () => {
     const { errors, values, hasBlankFields, selection, sameOriginDestination} = this.state;
     const { modalType, creatingRequest } = this.props;
-
-
     const { requestOnEdit } = this.props;
     const { name, gender, department, role, manager } = requestOnEdit || {};
     const { name: stateName, manager: stateManager, gender: stateGender,
@@ -563,7 +600,10 @@ class NewRequestForm extends PureComponent {
             onLoad={this.handleScriptLoad} />
           <SubmitArea
             onCancel={this.handleClearForm}
-            hasBlankFields={hasBlankFields}
+            hasBlankFields={
+              !hasBlankFields && !errors.manager
+                ? false : true
+            }
             sameOriginDestination={sameOriginDestination}
             selection={selection}
             loading={creatingRequest}
