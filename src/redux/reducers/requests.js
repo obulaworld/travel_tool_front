@@ -93,7 +93,7 @@ const requests = (state = initialState, action) => {
     return {
       ...state,
       creatingRequest: false,
-      errors: [...action.error]
+      errors: [action.error]
     };
   case FETCH_USER_REQUEST_DETAILS:
     return {
