@@ -14,13 +14,19 @@ exports[`<NewUserRoleForm /> <PersonalDetails /> renders correctly 1`] = `
     >
       <Input
         autoComplete="off"
-        className=""
+        choices={
+          Array [
+            "travela@travela.com",
+          ]
+        }
+        className="email_dropdown"
         disabled={true}
         label="Andela Email Address"
         labelNote=""
         name="email"
         onChange={null}
-        type="text"
+        size=""
+        type="filter-dropdown-select"
       />
     </div>
     <div>
@@ -62,7 +68,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
         }
       >
         <div
-          className="form-input  "
+          className="form-input email_dropdown "
         >
           <label
             htmlFor="email"
@@ -78,17 +84,47 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                * 
             </span>
           </label>
-          <input
-            autoComplete="off"
-            className=" "
-            disabled={false}
-            label="Andela Email Address"
-            name="email"
-            onBlur={[Function]}
-            onChange={[Function]}
-            type="text"
-            value="tomato@andela.com"
-          />
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": "",
+                }
+              }
+            >
+              <input
+                autoComplete="off"
+                choices={
+                  Array [
+                    "travela@travela.com",
+                  ]
+                }
+                className="occupationInput"
+                disabled={false}
+                label="Andela Email Address"
+                name="role"
+                onChange={[Function]}
+                size=""
+                type="text"
+                value="tomato@andela.com"
+              />
+              <div
+                className="hide"
+              >
+                <ul
+                  className="select-menu select-menu--inactive"
+                  onScroll={[Function]}
+                />
+              </div>
+            </div>
+          </div>
           <span
             className="error"
           />

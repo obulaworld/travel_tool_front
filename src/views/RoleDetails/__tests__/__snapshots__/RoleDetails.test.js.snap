@@ -17,6 +17,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
     width="480px"
   >
     <NewUserRoleForm
+      allMails={Array []}
       centers={
         Array [
           Object {},
@@ -25,6 +26,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
       closeModal={[Function]}
       errors=""
       fetchCenters={[Function]}
+      getAllUsersEmail={[Function]}
       getRoleData={[Function]}
       handleUpdateRole={[Function]}
       myTitle="Add User"

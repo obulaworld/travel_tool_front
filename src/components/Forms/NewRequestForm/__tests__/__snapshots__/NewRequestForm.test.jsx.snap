@@ -225,7 +225,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
-                className="form-input request_dropdown "
+                className="form-input request_dropdown error"
               >
                 <label
                   htmlFor="manager"
@@ -261,9 +261,11 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                       choices={
                         Array [
                           "Test User",
+                          "Samuel Kubai",
                         ]
                       }
                       className="occupationInput"
+                      error="Please select a manager from the dropdown"
                       id="your-manager"
                       label="Your Manager"
                       name="role"
@@ -284,7 +286,9 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                 </div>
                 <span
                   className="error"
-                />
+                >
+                  Please select a manager from the dropdown
+                </span>
               </div>
             </div>
           </div>

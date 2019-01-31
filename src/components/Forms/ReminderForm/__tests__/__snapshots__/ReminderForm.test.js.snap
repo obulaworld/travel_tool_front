@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Reminder Form renders correctly 1`] = `
+exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
 <form
   onSubmit={[Function]}
 >
@@ -511,6 +511,661 @@ exports[`Reminder Form renders correctly 1`] = `
                   tabIndex="0"
                 >
                   eight
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="dropdown-input-group"
+      >
+        <div
+          className="form-input  "
+        >
+          <label
+            htmlFor="date-1"
+          >
+            Date
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <div>
+            <input
+              autoComplete="off"
+              className=" "
+              id={1}
+              label="Date"
+              min={1}
+              name="date-1"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="number"
+              value=""
+            />
+            <div
+              className="style-number"
+            >
+              <img
+                alt="icn"
+                className="image1"
+                src="form_select_dropdown.svg"
+              />
+              <img
+                alt="icn"
+                className="image2"
+                src="form_select_dropdown.svg"
+              />
+            </div>
+          </div>
+          <span
+            className="error"
+          />
+        </div>
+        <div
+          className="form-input period "
+        >
+          <label
+            htmlFor="period-1"
+          >
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              autoComplete="off"
+              choices={
+                Array [
+                  "Days",
+                  "Weeks",
+                  "Months",
+                  "Years",
+                ]
+              }
+              className="input select  period"
+              error=""
+              label=""
+              name="period-1"
+              onChange={[Function]}
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              size=""
+              tabIndex="0"
+              type="dropdown-select"
+              value="Months"
+            >
+              <div
+                className="value"
+                style={
+                  Object {
+                    "width": "",
+                  }
+                }
+              >
+                Months
+                <div
+                  className="select-dropdown inactive"
+                >
+                  <img
+                    alt="icn"
+                    src="form_select_dropdown.svg"
+                  />
+                </div>
+              </div>
+              <ul
+                className="select-menu select-menu--inactive"
+                onScroll={[Function]}
+              >
+                <li
+                  id="choice"
+                  key="Days"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Days
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Weeks"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Weeks
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Months"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Months
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Years"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Years
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <span
+            className="error"
+          />
+        </div>
+      </div>
+      <p>
+        To Expiry
+      </p>
+      <button
+        className="delete-icon"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="clicked"
+          className="addsvg"
+          src="delete.svg"
+        />
+      </button>
+    </div>
+    <div
+      className="add-reminder__border-dashed"
+      role="button"
+      tabIndex="0"
+    >
+      <button
+        className="add-reminder__button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="clicked"
+          className="addsvg"
+          src="add.svg"
+        />
+        Add a Reminder
+      </button>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div
+      className="submit-area"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        id="cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        id="submit"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;
+
+exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset>
+    <div
+      className="form-input  "
+    >
+      <label
+        htmlFor="conditionName"
+      >
+        Condition Name
+        <span
+          style={
+            Object {
+              "color": "red",
+            }
+          }
+        >
+           * 
+        </span>
+      </label>
+      <input
+        autoComplete="off"
+        className=" "
+        label="Condition Name"
+        name="conditionName"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+      <span
+        className="error"
+      />
+    </div>
+    <div
+      className="reminders-fieldset"
+      key="0"
+    >
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="reminderTemplate-0"
+        >
+          Reminder 1
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+             * 
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            autoComplete="off"
+            choices={
+              Array [
+                Object {
+                  "label": "Forza Visa",
+                  "value": "12",
+                },
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Reminder 1"
+            name="reminderTemplate-0"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            size=""
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": "",
+                }
+              }
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+              onScroll={[Function]}
+            >
+              <li
+                id="choice"
+                key="12"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Forza Visa
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="dropdown-input-group"
+      >
+        <div
+          className="form-input  "
+        >
+          <label
+            htmlFor="date-0"
+          >
+            Date
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <div>
+            <input
+              autoComplete="off"
+              className=" "
+              id={0}
+              label="Date"
+              min={1}
+              name="date-0"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="number"
+              value=""
+            />
+            <div
+              className="style-number"
+            >
+              <img
+                alt="icn"
+                className="image1"
+                src="form_select_dropdown.svg"
+              />
+              <img
+                alt="icn"
+                className="image2"
+                src="form_select_dropdown.svg"
+              />
+            </div>
+          </div>
+          <span
+            className="error"
+          />
+        </div>
+        <div
+          className="form-input period "
+        >
+          <label
+            htmlFor="period-0"
+          >
+            <span
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+            >
+               * 
+            </span>
+          </label>
+          <div
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              autoComplete="off"
+              choices={
+                Array [
+                  "Days",
+                  "Weeks",
+                  "Months",
+                  "Years",
+                ]
+              }
+              className="input select  period"
+              error=""
+              label=""
+              name="period-0"
+              onChange={[Function]}
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              size=""
+              tabIndex="0"
+              type="dropdown-select"
+              value="Months"
+            >
+              <div
+                className="value"
+                style={
+                  Object {
+                    "width": "",
+                  }
+                }
+              >
+                Months
+                <div
+                  className="select-dropdown inactive"
+                >
+                  <img
+                    alt="icn"
+                    src="form_select_dropdown.svg"
+                  />
+                </div>
+              </div>
+              <ul
+                className="select-menu select-menu--inactive"
+                onScroll={[Function]}
+              >
+                <li
+                  id="choice"
+                  key="Days"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Days
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Weeks"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Weeks
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Months"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Months
+                  </div>
+                </li>
+                <li
+                  id="choice"
+                  key="Years"
+                >
+                  <div
+                    id="choice"
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Years
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <span
+            className="error"
+          />
+        </div>
+      </div>
+      <p>
+        To Expiry
+      </p>
+    </div>
+    <div
+      className="reminders-fieldset"
+      key="1"
+    >
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="reminderTemplate-1"
+        >
+          Reminder 2
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+             * 
+          </span>
+        </label>
+        <div
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            autoComplete="off"
+            choices={
+              Array [
+                Object {
+                  "label": "Forza Visa",
+                  "value": "12",
+                },
+              ]
+            }
+            className="input select  "
+            error=""
+            label="Reminder 2"
+            name="reminderTemplate-1"
+            onChange={[Function]}
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            size=""
+            tabIndex="0"
+            type="dropdown-select"
+            value=""
+          >
+            <div
+              className="value"
+              style={
+                Object {
+                  "width": "",
+                }
+              }
+            >
+               
+              <div
+                className="select-dropdown inactive"
+              >
+                <img
+                  alt="icn"
+                  src="form_select_dropdown.svg"
+                />
+              </div>
+            </div>
+            <ul
+              className="select-menu select-menu--inactive"
+              onScroll={[Function]}
+            >
+              <li
+                id="choice"
+                key="12"
+              >
+                <div
+                  id="choice"
+                  onClick={[Function]}
+                  onKeyPress={[Function]}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Forza Visa
                 </div>
               </li>
             </ul>

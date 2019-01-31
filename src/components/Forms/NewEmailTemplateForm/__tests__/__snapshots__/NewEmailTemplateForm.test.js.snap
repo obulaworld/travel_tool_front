@@ -35,7 +35,9 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
         },
         "editing": false,
         "errors": Object {},
+        "getAllUsersEmail": [Function],
         "getSingleReminderEmailTemplate": [Function],
+        "getUsersEmail": Array [],
         "history": Object {
           "push": [Function],
         },
@@ -80,7 +82,9 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
             }
             editing={false}
             errors={Object {}}
+            getAllUsersEmail={[Function]}
             getSingleReminderEmailTemplate={[Function]}
+            getUsersEmail={Array []}
             history={
                     Object {
                             "push": [Function],
@@ -116,6 +120,7 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
                     onSubmit={[Function]}
             >
                     <EmailTemplateDetails
+                            emails={Array []}
                             values={
                                     Object {
                                             "cc": Array [],
@@ -159,6 +164,7 @@ exports[`<NewEmailTemplateForm> component should render correctly 1`] = `
     onSubmit={[Function]}
   >
     <EmailTemplateDetails
+      emails={Array []}
       values={
         Object {
           "cc": Array [],

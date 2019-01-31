@@ -84,16 +84,38 @@ exports[`<UpdateEmailTemplate> page Should render correctly 1`] = `
                  * 
               </span>
             </label>
-            <input
-              autoComplete="off"
-              className=" "
-              label="From"
-              name="from"
-              onBlur={[Function]}
-              onChange={[Function]}
-              type="text"
-              value=""
-            />
+            <div
+              style={
+                Object {
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                className="value"
+                style={
+                  Object {
+                    "width": "",
+                  }
+                }
+              >
+                <input
+                  autoComplete="off"
+                  choices={
+                    Array [
+                      "travela@travela.com",
+                    ]
+                  }
+                  className="occupationInput"
+                  label="From"
+                  name="role"
+                  onChange={[Function]}
+                  size=""
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
             <span
               className="error"
             />

@@ -127,47 +127,18 @@ Array [
                                     <ul
                                         className="table__menu-list"
                                     >
-                                        <li
-                                            className="table__menu-list-item top"
-                                        >
-                                            <span
-                                                className="edit"
+                                        <li>
+                                            <a
+                                                className="table__menu-list-item top"
+                                                href="/settings/reminders/edit/3"
                                                 onClick={[Function]}
-                                                role="presentation"
                                             >
-                                                Edit
-                                            </span>
-                                        </li>
-                                        <li
-                                            className="table__menu-list-item bottom"
-                                            id="setItem"
-                                            onClick={[Function]}
-                                            role="presentation"
-                                        >
-                                            <span
-                                                className="disable"
-                                            >
-                                                Disable
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div
-                                    className="table__menu-container "
-                                >
-                                    <ul
-                                        className="table__menu-list"
-                                    >
-                                        <li
-                                            className="table__menu-list-item top"
-                                        >
-                                            <span
-                                                className="edit"
-                                                onClick={[Function]}
-                                                role="presentation"
-                                            >
-                                                Edit
-                                            </span>
+                                                <span
+                                                    className="edit"
+                                                >
+                                                    Edit
+                                                </span>
+                                            </a>
                                         </li>
                                         <li
                                             className="table__menu-list-item bottom"
@@ -286,7 +257,7 @@ Array [
                 <div
                     className="modal-title"
                 >
-                    Disable Reminder Template
+                    Disable Reminder Condition
                 </div>
                 <div
                     className="lable-text modal-bar"

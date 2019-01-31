@@ -68,6 +68,10 @@
   }
 }
 
+.modal__modal2 {
+  white-space: pre-line;
+}
+
 @media screen and (max-width: 320px) {
   .delete-modal-overlay {
     top: -125px !important;
