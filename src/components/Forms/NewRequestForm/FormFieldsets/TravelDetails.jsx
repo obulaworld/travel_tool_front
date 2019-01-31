@@ -25,7 +25,7 @@ class TravelDetailsFieldset extends Component {
   customPropsForArrival = (values, name) => ({
     className: 'arrival-date',
     disabled: !values[name],
-    minDate: moment(values[name]),
+    minDate: values[name]? moment(values[name]) : moment(),
     placeholderText: !values[name]
       ? 'select depart date first'
       : 'select return date'
