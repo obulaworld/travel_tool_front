@@ -36,7 +36,7 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
       const { data } = document;
       return this.setState(prevState => {
         const newValues = { ...prevState.values, ...data };
-        return { ...prevState, id: document.id, documentUploaded: true, values: {...newValues} };
+        return { ...prevState, id: document.id, documentUploaded: true, values: {...newValues}, imageChanged:true };
       });
     }
 
@@ -146,7 +146,7 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
                 <hr />
                 <div className="travel-document-submit-area">
                   <SubmitArea
-                    onCancel={this.onCancel} hasBlankFields={hasBlankFields && !imageChanged}
+                    onCancel={this.onCancel} hasBlankFields={hasBlankFields || !imageChanged}
                     send={
                       (modalType.startsWith('edit')) ? 'Save Changes' :
                         submitButton[documentType]}
