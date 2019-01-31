@@ -31,9 +31,10 @@ describe('User Reducer', () => {
     postUserData: [],
     getUserData: {},
     currentUser: {},
-    errors: [],
+    errors: {},
     getCurrentUserRole: [],
-    isLoaded: false
+    isLoaded: false, 
+    getUsersEmail: [],
   };
 
   it('should return proper initial state', done => {
@@ -94,6 +95,37 @@ describe('User Reducer', () => {
   it('dispatches action POST_USER_DATA_FAILURE', done => {
     const action = {
       type: actionTypes.POST_USER_DATA_FAILURE,
+      error: 'Possible network error, please reload the page'
+    };
+    const newState = userReducer(initialState, action);
+    expect(newState.errors).toEqual(
+      'Possible network error, please reload the page'
+    );
+    done();
+  });
+
+  it('dispatches action GET_ALL_EMAILS', done => {
+    const action = {
+      type: actionTypes.GET_ALL_EMAILS
+    };
+    const newState = userReducer(initialState, action);
+    expect(newState).toEqual(initialState);
+    done();
+  });
+
+  it('dispatches action GET_ALL_EMAILS_SUCCESS', done => {
+    const action = {
+      type: actionTypes.GET_ALL_EMAILS_SUCCESS,
+      response: user
+    };
+    const newState = userReducer(initialState, action);
+    expect(newState.getUsersEmail).toEqual(user);
+    done();
+  });
+
+  it('dispatches action GET_ALL_EMAILS_FAILURE', done => {
+    const action = {
+      type: actionTypes.GET_ALL_EMAILS_FAILURE,
       error: 'Possible network error, please reload the page'
     };
     const newState = userReducer(initialState, action);

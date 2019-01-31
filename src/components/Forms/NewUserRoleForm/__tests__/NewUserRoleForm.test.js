@@ -29,6 +29,8 @@ describe('<NewUserRoleForm />', () => {
     },
     centers: [{location: 'Kigali, Rwanda'}],
     roleId: '33589',
+    getAllUsersEmail: jest.fn(),
+    allMails: [{id:'travela', text:'travela@travela.com'}],
   };
 
   beforeEach(() => {
@@ -49,15 +51,6 @@ describe('<NewUserRoleForm />', () => {
     expect(personalDetails).toHaveLength(1);
   });
 
-  it('picks input values', () => {
-    wrapper.find('input[name="email"]').simulate('change', {
-      target: {
-        email: 'email',
-        value: 'Tomato Guy'
-      }
-    });
-    expect(wrapper.state().values.email).toBe('Tomato Guy');
-  });
 
   it('validates form before sending data', () => {
     const form = wrapper.find('form');
@@ -120,7 +113,9 @@ describe('<NewUserRoleForm />', () => {
         location: []
       }],
       roleName: 'travel team member',
-      validate: true
+      validate: true,
+      getAllUsersEmail: jest.fn(),
+      allMails: [{id:'travela', text:'travela@travela.com'}],
     };
 
     beforeEach(() => {

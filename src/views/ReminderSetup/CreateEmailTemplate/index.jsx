@@ -5,6 +5,7 @@ import PageHeader from '../../../components/PageHeader';
 import NewEmailTemplateForm from '../../../components/Forms/NewEmailTemplateForm';
 import {createReminderEmailTemplate} from '../../../redux/actionCreator/reminderManagementActions';
 import '../ReminderSetup.scss';
+import {getAllUsersEmail} from '../../../redux/actionCreator/userActions';
 
 class CreateEmailTemplate extends Base{
 
@@ -26,7 +27,9 @@ class CreateEmailTemplate extends Base{
   }
 }
 
-const mapStateToProps = ({ reminderManagement : { newEmailTemplate }}) => newEmailTemplate;
+const mapStateToProps = ({ reminderManagement : { newEmailTemplate }}) => ({
+  newEmailTemplate,
+});
 
 
-export default connect(mapStateToProps, { createReminderEmailTemplate }) (CreateEmailTemplate);
+export default connect(mapStateToProps, { createReminderEmailTemplate, getAllUsersEmail }) (CreateEmailTemplate);

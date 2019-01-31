@@ -21,7 +21,11 @@ const props = {
   },
   match: {
     params: {}
-  }
+  },
+  isSaving: false,
+  getAllUsersEmail: jest.fn(),
+  getUsersEmail: [{id:'travela', text:'travela@travela.com'}],
+  errors: {}
 };
 
 describe('<CreateEmailTemplate> page', () => {

@@ -6,7 +6,8 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import UserAPI from '../../../services/UserAPI';
 import {
   watchPostUserDataSagaAsync,
-  watchGetUserDataSagaAsync
+  watchGetUserDataSagaAsync,
+  watchFetchUsersEmail,
 } from '../userDataSaga';
 import user from '../../__mocks__/user';
 
@@ -21,6 +22,13 @@ const secondResp = {
     values: [{
       location: { name: 'Lagos' }
     }]
+  }
+};
+const thirdResponse = {
+  data: {
+    result: [
+      {fullName:'', email: 'travela@andela.com'}]
+    
   }
 };
 
@@ -92,6 +100,39 @@ describe('User Saga', () => {
         })
         .silentRun();
     });
+  });
+
+  describe('Fetch user emails saga', () => {
+    it('successfully runs saga to fetch user emails', () => {
+      
+      return expectSaga(watchFetchUsersEmail)
+        .provide([[call(UserAPI.getAllUsersEmail), thirdResponse]])
+        .put({
+          type: 'GET_ALL_EMAILS_SUCCESS',
+          response: [ { id: 'travela@andela.com', text: 'travela@andela.com' } ]
+        })
+        .dispatch({
+          type: 'GET_ALL_EMAILS',
+        })
+        .silentRun();
+    });
+
+  
+    
+    it('fails to get user emails', () => {
+      return expectSaga(watchFetchUsersEmail, UserAPI)
+        .provide([[call(UserAPI.getAllUsersEmail), throwError(error)]])
+        .put({
+          type: 'GET_ALL_EMAILS_FAILURE',
+          error
+        })
+        .dispatch({
+          type: 'GET_ALL_EMAILS',
+        })
+        .silentRun();
+    });
+
+    
   });
 
 });

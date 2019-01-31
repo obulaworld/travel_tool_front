@@ -7,7 +7,9 @@ import {KeyCodes} from '../../FormsAPI/Input/InputFields/TagsInput';
 class EmailTemplateDetails extends Component{
 
   render () {
-    const { values: { cc }} = this.props;
+    const { values: { cc }, emails} = this.props;
+    const selectEmail = emails.map(email=>email.text);
+    formMetaData.dropdownSelectOptions.from = selectEmail;
     this.inputRenderer = new InputRenderer(formMetaData);
     const { renderInput } = this.inputRenderer;
     return (
@@ -15,9 +17,12 @@ class EmailTemplateDetails extends Component{
         <div className="input-group">
           {renderInput('name','text')}
           <div className="emails">
-            {renderInput('from','text')}
+            {renderInput('from','filter-dropdown-select', { size: '' })}
             {renderInput('cc', 'tags',
               {
+                minQueryLength:4,
+                autocomplete:1,
+                suggestions:emails,
                 placeholder: `${ cc && cc.length < 10 ? 'Add an email': ''}`,
                 required: false,
                 max: 10,
@@ -34,6 +39,7 @@ class EmailTemplateDetails extends Component{
 }
 
 EmailTemplateDetails.propTypes = {
-  values: PropTypes.object.isRequired
+  values: PropTypes.object.isRequired,
+  emails: PropTypes.array.isRequired
 };
 export default EmailTemplateDetails;

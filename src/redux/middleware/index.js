@@ -10,7 +10,8 @@ import {
 } from './requestsSaga';
 import {
   watchPostUserDataSagaAsync,
-  watchGetUserDataSagaAsync
+  watchGetUserDataSagaAsync,
+  watchFetchUsersEmail
 } from './userDataSaga';
 import {
   watchGetRoleDataSagaAsync,
@@ -210,6 +211,7 @@ function* rootSaga() {
     watchGetSingleEmailReminderTemplate(),
     watchEditReminder(),
     watchGetSingleReminder(),
+    watchFetchUsersEmail(),
   ]);
 }
 

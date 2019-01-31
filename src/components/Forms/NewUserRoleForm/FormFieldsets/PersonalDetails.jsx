@@ -17,19 +17,30 @@ class PersonalDetailsFiedset extends Component {
         size: ''
       });
   }
+
+  renderRmailField(emails, renderInput) {
+    
+  }
   render() {
-    this.inputRenderer = new InputRenderer(formMetadata);
-    const { renderInput } = this.inputRenderer;
-    const { roleName, centers, myTitle } = this.props;
+    
+    const { roleName, centers, myTitle, allMails } = this.props;
     const checkStatus = myTitle === 'Change Center';
     const centerLocations = centers && centers.map(center => center.location);
     formMetadata.dropdownSelectOptions.center = centerLocations;
+    const emails = allMails.map(email=>email.text);
+    formMetadata.dropdownSelectOptions.email = emails;
+    this.inputRenderer = new InputRenderer(formMetadata);
+    const { renderInput } = this.inputRenderer;
 
     return (
       <fieldset className="personal-details">
         <div>
           <div style={{ paddingTop: '14px' }}>
-            {renderInput('email', 'text', { disabled: checkStatus })}
+            {renderInput('email', 'filter-dropdown-select', 
+              { className: 'email_dropdown', 
+                disabled: checkStatus, size: '' 
+              })
+            }
           </div>
           <div>{centers && this.renderCenterField(roleName, renderInput)}</div>
         </div>
@@ -41,11 +52,13 @@ class PersonalDetailsFiedset extends Component {
 const roleName = PropTypes.string;
 const centers = PropTypes.array;
 const myTitle = PropTypes.string;
+const allMails = PropTypes.array;
 
 PersonalDetailsFiedset.propTypes = {
   roleName: roleName.isRequired,
   centers: centers.isRequired,
-  myTitle: myTitle.isRequired
+  myTitle: myTitle.isRequired,
+  allMails: allMails.isRequired,
 };
 
 export default PersonalDetailsFiedset;
