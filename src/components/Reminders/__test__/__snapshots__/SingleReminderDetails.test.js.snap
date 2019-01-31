@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SingleReminderDetails /> should render correctly 1`] = `
+<div>
+  <div
+    className="overlay visible  "
+    onClick={null}
+    onKeyPress={[Function]}
+    role="button"
+    tabIndex="0"
+  >
+    <div
+      className="modal visible template-details"
+      id=""
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="button"
+      style={
+        Object {
+          "maxWidth": "504px",
+        }
+      }
+      tabIndex="0"
+    >
+      <div
+        className="modal-title-bar"
+      >
+        <div
+          className="modal-title-text"
+        >
+          <div
+            className="modal-title"
+          >
+            undefined Reminder Expiry
+          </div>
+          <div
+            className="lable-text modal-bar"
+          >
+            <div />
+          </div>
+        </div>
+        <button
+          className="modal-close"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="close"
+            src="close.svg"
+          />
+        </button>
+      </div>
+      <div
+        className="modal-content"
+        id=""
+      >
+        <div
+          className="reminder_details"
+        >
+          <div>
+            <p
+              className="frequncy_count"
+            >
+              Reminder
+               
+              1
+            </p>
+            <div
+              className="reminder__condition"
+            >
+              <p>
+                Passport Expiry
+              </p>
+              <span
+                className="frequency"
+              >
+                This reminder will be sent 2 Months to Expiry
+              </span>
+            </div>
+          </div>
+          <div>
+            <p
+              className="frequncy_count"
+            >
+              Reminder
+               
+              2
+            </p>
+            <div
+              className="reminder__condition"
+            >
+              <p>
+                Passport Expiry
+              </p>
+              <span
+                className="frequency"
+              >
+                This reminder will be sent 3 Weeks to Expiry
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -100,6 +100,7 @@ const singleReminderReducer = (singleReminder = initialState.singleReminder, act
   case GET_SINGLE_REMINDER: {
     return {
       ...singleReminder,
+      data: {},
       isLoading: true,
       errors: {}
     };

@@ -287,7 +287,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
           documentId,
         })
-        .run();
+        .silentRun();
     });
 
     it('handles errors from fetching', () => {
@@ -303,7 +303,7 @@ describe('Travel Readiness Documents saga', () => {
           type: types.DELETE_TRAVEL_READINESS_DOCUMENT,
           documentId,
         })
-        .run();
+        .silentRun();
     });
   });
 });

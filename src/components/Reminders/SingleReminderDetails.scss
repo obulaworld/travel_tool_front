@@ -1,0 +1,66 @@
+.reminder__deatails {
+  .template-details .modal-content {
+    margin-bottom: 20px;
+    hr {
+      margin-left: -7.2%;
+      box-sizing: border-box;	
+      height: 1px;	
+      width: 479.6px;	
+      border: 1px solid #F8F8F8;
+      margin-bottom: 40px !important;
+    }
+  }
+  .modal-title-bar .modal-title-text {
+    height: 27px;	
+    width: 213px;	
+    color: #3359DB;	
+    font-size: 21px;	
+    font-weight: 500;	
+    line-height: 27px;
+  }
+  .reminder_details {
+    margin: 3px auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    overflow-y: scroll;
+    margin-top: 30px;
+    p {
+      height: 20px;	
+      width: 78px;	
+      color: #4F4F4F;	
+      font-family: "DIN Pro";	
+      font-size: 15px;	
+      line-height: 20px;
+    }
+    .reminder__condition {
+      height: 68px;	
+      width: 420px;
+      display: flex;
+      justify-content: center;
+      border-radius: 2px;	
+      background-color: #F6F6F6;
+      flex-direction: column;
+      margin-bottom: 42px;
+      p, span {
+        padding-left: 8px;
+      }
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
+      .frequency {
+        height: 18px;	
+        width: 182px;	
+        color: #878787;	
+        font-size: 14px;	
+        line-height: 18px;
+      }
+    }
+  }
+  .submit-area {
+    .bg-btn--active {
+      margin-right: 0;
+    }
+  }
+}
+
