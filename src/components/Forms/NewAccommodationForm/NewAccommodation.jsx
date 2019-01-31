@@ -225,7 +225,7 @@ class NewAccommodation extends PureComponent {
     const { modalType } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
-        <form onSubmit={this.handleInputSubmit} className="new-request">
+        <form onSubmit={this.handleInputSubmit} className="new-guesthouse">
           <AccommodationDetails
             values={values} handleDropDown={this.handleDropDown}
             displayImage={this.displayImage} addRoomOnClick={this.addRoomOnClick}

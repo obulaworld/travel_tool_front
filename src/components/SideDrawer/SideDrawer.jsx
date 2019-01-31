@@ -8,12 +8,15 @@ import closeBtn from '../../images/close-btn.svg';
 
 export class SideDrawer extends PureComponent {
   render() {
-    const { selectedLink, user, handleShowDrawer, showDrawer, location } = this.props;
+    const { user, handleShowDrawer, showDrawer, location } = this.props;
     const showDrawerTransition = showDrawer === 'none'? 
       'side-drawer__slide-in' : 'side-drawer__slide-out';
-    return ( // eslint-disable-line
+    return (
       <div className={`side-drawer ${showDrawerTransition}`}>
-        <div className="side-drawer__cancel-btn">
+        <div
+          className={
+            `side-drawer__cancel-btn ${showDrawer === 'none' ? 'hidden' : ''}`
+          }>
           <button type="button" onClick={handleShowDrawer}>
             <img src={closeBtn} alt="close" />
           </button>
@@ -36,15 +39,15 @@ export class SideDrawer extends PureComponent {
     );
   }
 }
+
 SideDrawer.propTypes = {
-  selectedLink: PropTypes.string,
   user: PropTypes.object.isRequired,
   showDrawer: PropTypes.string,
   location: PropTypes.object,
   handleShowDrawer: PropTypes.func.isRequired
 };
+
 SideDrawer.defaultProps = {
-  selectedLink: '',
   showDrawer: 'block',
   location: {}
 };

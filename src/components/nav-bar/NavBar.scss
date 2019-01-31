@@ -17,21 +17,20 @@
 }
 
 .hamburger {
-    display: none;
+    background-color: transparent;
+    border: 0;
+    color: gray;
     cursor: pointer;
+    display: none;
     @media (max-width: 836px) {
         display: block;
         font-size: 39px;
-        color: black;
         position: absolute;
         left: 12px;
-        top: 6px;
+        top: 0.25em;
     }
     @media (max-width: 479px) {
-        font-size: 24px;
         left: 2px;
-        top: 2.6%;
-        color: gray;
     }
 }
 
@@ -82,7 +81,6 @@
         }
         @media (max-width: 479px) {
             height: auto;
-            box-shadow: 0px 1px 5px 0px rgba(94, 94, 94, 0.25);
         }
     }
     &__badge {
@@ -110,7 +108,10 @@
             font-size: 30px;
         }
         &--btn {
+            background-color: transparent;
+            border: 0;
             display: none;
+            outline: none!important;
             @media (max-width: 479px) {
                 display: block;
             }

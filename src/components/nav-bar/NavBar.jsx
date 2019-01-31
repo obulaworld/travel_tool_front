@@ -186,7 +186,7 @@ export class NavBar extends PureComponent {
         <nav className="mdl-navigation">
           {this.renderNotification()}
           <div className="navbar__user-icon navbar__nav-size 
-                            mdl-cell--hide-tablet mdl-cell--hide-phone">
+            mdl-cell--hide-tablet mdl-cell--hide-phone">
             {this.renderUserIcons()}
           </div>
         </nav>
@@ -195,7 +195,7 @@ export class NavBar extends PureComponent {
   }
 
   render() {
-    const {handleHideSearchBar, handleShowDrawer, openSearch, clickPage } = this.props;
+    const {handleHideSearchBar, handleShowDrawer, openSearch } = this.props;
     let showSearch='none';
     if(openSearch) {
       showSearch='block';
@@ -229,13 +229,11 @@ NavBar.propTypes = {
   handleHideSearchBar: PropTypes.func.isRequired,
   openSearch: PropTypes.bool,
   handleShowDrawer: PropTypes.func,
-  clickPage: PropTypes.bool,
   notifications: PropTypes.array
 };
 
 NavBar.defaultProps = {
   openSearch: false,
-  clickPage: true,
   handleShowDrawer:()=>{},
   notifications: []
 };
