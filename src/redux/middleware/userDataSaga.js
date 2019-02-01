@@ -75,9 +75,10 @@ export function* fetchUserDataSaga(action) {
     const dataFromStagingApi = yield call(UserAPI.getUserDataFromStagingApi,
       response.data.result.email,
     );
+    const { data: { result: { location : userLocation }}} = response;
     const location = (dataFromStagingApi.data.values[0].location)
       ? dataFromStagingApi.data.values[0].location.name : process.env.REACT_APP_DEFAULT_LOCATION;
-    response.data.result.location = location;
+    response.data.result.location = userLocation || location;
     yield put(getUserDataSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

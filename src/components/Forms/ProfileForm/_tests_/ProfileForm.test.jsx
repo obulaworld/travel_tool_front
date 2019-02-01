@@ -1,6 +1,8 @@
 import React from 'react';
 import  ProfileForm  from '../index';
+import mocks from '../__mocks__';
 
+const { values, managers, centers } = mocks;
 describe ('<ProfileForm />', () =>{
   let wrapper, onSubmit;
   onSubmit = jest.fn();
@@ -23,20 +25,12 @@ describe ('<ProfileForm />', () =>{
     updateUserProfile: jest.fn(() => {}),
     getUserData: jest.fn(() => {}),
     onChange: jest.fn(() => {}),
+    getCenters: jest.fn(),
     size:10,
-    userData: {},
-    managers: [
-      {
-        fullName: 'Test User',
-        email: 'test.user@andela.com'
-      }
-    ],
+    managers,
+    centers,
     userData: {
-      passportName: 'John Doe', 
-      gender: 'Female', 
-      department: 'Success',
-      occupation: 'CEO',
-      manager: 'Juliet Doe'
+      ...values,
     }
   };
 
@@ -62,11 +56,32 @@ describe ('<ProfileForm />', () =>{
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
 
-  it('sets default state when clear button is clicked',() =>{
-    wrapper.setState({hasBlankFields: false});
+  it('sets default state and restore values when clear button is clicked',() =>{
+    wrapper.setProps({ userData: values});
+    wrapper.setState({
+      values: {
+        name: 'Moffat Gitau',
+        gender: 'Male',
+        department: 'Success',
+        role: 'Technical Team Lead',
+        manager: 'Samuel Kubai',
+        location: 'Nairobi'
+      }, hasBlankFields: false});
+
     const button = wrapper.find('#btn-cancel');
     button.simulate('click');
-    const onSubmit = jest.fn();
-    expect(onSubmit).toHaveBeenCalledTimes(0);
+
+    const expected = values;
+    delete expected.passportName;
+    
+    expect(wrapper.state('values')).toEqual(expected);
   });
+
+  it('should ensure the location has AutoComplete feature with only the city names', () => {
+    const input = wrapper.find('DropdownSelect[name="location"]');
+    expect(input.props().choices).toEqual(centers.map(
+      center => center.location.split(',')[0]
+    ));
+  });
+
 });

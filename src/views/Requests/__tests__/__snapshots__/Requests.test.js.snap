@@ -163,6 +163,7 @@ exports[`<Requests> renders as expected 1`] = `
           ],
         }
       }
+      centers={Array []}
       closeModal={[Function]}
       creatingRequest={false}
       errors={Array []}
@@ -174,22 +175,6 @@ exports[`<Requests> renders as expected 1`] = `
       loading={false}
       managers={Array []}
       modalType={null}
-      occupations={
-        Array [
-          Object {
-            "createdAt": "2018-08-16T11:11:52.181Z",
-            "id": 1,
-            "occupationName": "Account associate",
-            "updatedAt": "2018-08-16T11:11:52.181Z",
-          },
-          Object {
-            "createdAt": "2018-08-16T11:11:52.181Z",
-            "id": 2,
-            "occupationName": "Account executive",
-            "updatedAt": "2018-08-16T11:11:52.181Z",
-          },
-        ]
-      }
       requestOnEdit={
         Object {
           "createdAt": "2018-09-26T15:15:49.808Z",

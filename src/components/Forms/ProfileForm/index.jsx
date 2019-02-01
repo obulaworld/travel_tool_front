@@ -20,7 +20,11 @@ class ProfileForm extends PureComponent {
         gender: '',
         department: '',
         role: '',
-        manager: ''
+        manager: '',
+        location: ''
+      },
+      userProfile: {
+
       },
       errors: {},
       hasBlankFields: true,
@@ -38,7 +42,7 @@ class ProfileForm extends PureComponent {
     const { userData } = nextProps;
 
     if(userData !== undefined){
-      const { passportName, gender, department, occupation, manager } = userData;
+      const { passportName, gender, department, occupation, manager, location } = userData;
       this.setState((prevState) => ({
         ...prevState,
         values: {
@@ -46,42 +50,49 @@ class ProfileForm extends PureComponent {
           gender: Validator.databaseValueValidator(gender),
           department: Validator.databaseValueValidator(department),
           role: Validator.databaseValueValidator(occupation),
-          manager: Validator.databaseValueValidator(manager)
+          manager: Validator.databaseValueValidator(manager),
+          location: Validator.databaseValueValidator(location)
         }
       }));
+      this.setState((prevState => ( { userProfile: prevState.values})));
     }
   }
 
   submitProfileForm = event => {
     event.preventDefault();
-    const { updateUserProfile, user, occupations } = this.props;
+    const { updateUserProfile, user} = this.props;
 
     const userId = user.UserInfo.id;
     const { values } = this.state;
     if (this.validate) {
       let data = { ...values };
-      let isValid = occupations.some((role) => role.occupationName === data.role);
       data.passportName = data.name;
-      data.occupation = isValid ? data.role: '';
+      data.occupation = data.role;
+
       updateUserProfile(data, userId, true);
       this.setState({hasBlankFields: true});
+      localStorage.setItem('location', values.location);
     }
   };
 
   handleClearForm = () => {
-    this.setState({ ...this.defaultState });
+    this.setState((prevState => ({
+      ...this.defaultState,
+      values: {...prevState.userProfile},
+      userProfile: prevState.userProfile
+    })));
   };
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { managers, occupations } = this.props;
+    const { managers, centers } = this.props;
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={this.submitProfileForm} className="new-profile">
           <ProfileDetails
             values={values}
             managers={managers}
-            occupations={occupations} />
+            centers={centers} />
           {hasBlankFields? (
             <div className="submit-area">
               <button
@@ -115,11 +126,11 @@ ProfileForm.propTypes = {
   managers: PropTypes.array,
   user: PropTypes.object.isRequired,
   userData: PropTypes.object.isRequired,
-  occupations: PropTypes.array
+  centers: PropTypes.array
 };
 ProfileForm.defaultProps = {
   managers: [],
-  occupations: []
+  centers: []
 };
 
 export default ProfileForm;

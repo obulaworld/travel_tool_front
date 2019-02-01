@@ -23,6 +23,7 @@ import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistA
 import { 
   fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
+import {fetchCenters} from '../../redux/actionCreator/centersActions';
 
 export class Requests extends Base {
   constructor(props) {
@@ -38,8 +39,7 @@ export class Requests extends Base {
 
   componentDidMount() {
     const {
-      fetchUserRequests, fetchAvailableRooms,
-      getOccupation, fetchRoleUsers,
+      fetchUserRequests, fetchRoleUsers, fetchCenters,
       page, openModal,
       match: {
         params: { requestId },
@@ -50,8 +50,6 @@ export class Requests extends Base {
     const { url } = this.state;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
-    getOccupation();
-    fetchAvailableRooms();
     if (requestId) {
       this.storeRequestIdRequest(requestId);
       if( /\/requests\/:requestId\/checklist/.test(path)){
@@ -61,6 +59,7 @@ export class Requests extends Base {
         openModal(true, 'request details', page);
       }
     }
+    fetchCenters();
   }
 
   handleDeleteRequest = (requestId) => {
@@ -184,7 +183,8 @@ export class Requests extends Base {
       user, createNewRequest,
       loading,errors,closeModal,shouldOpen,
       modalType, roleUsers,requestOnEdit,editRequest,
-      fetchUserRequests,occupations,
+      fetchUserRequests,
+      centers,
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest
     } = this.props;
     const { url } = this.state;
@@ -199,8 +199,9 @@ export class Requests extends Base {
       >
         <NewRequestForm
           updateUserProfile={updateUserProfile} user={user} errors={errors}
-          userData={userData && userData.result} occupations={occupations}
+          userData={userData && userData.result}
           handleCreateRequest={createNewRequest}
+          centers={centers && centers.centers}
           handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
           managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
           requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
@@ -281,18 +282,19 @@ Requests.defaultProps = {
   modalType: '',
   user: {}
 };
-export const mapStateToProps = ({requests, modal, role, user, occupations,
-  travelChecklist, availableRooms, submissions, fileUploads }) => ({
+export const mapStateToProps = ({requests, modal, role, user,
+  travelChecklist, availableRooms, submissions, fileUploads, centers }) => ({
   ...requests,
   ...modal.modal,
   ...role,
-  ...occupations,
   travelChecklists: travelChecklist,
   userData: user.getUserData,
+  centers,
   availableRooms,
   submissionInfo: submissions,
   fileUploads
 });
+
 const actionCreators = {
   fetchUserRequests,
   createNewRequest,
@@ -306,6 +308,7 @@ const actionCreators = {
   fetchTravelChecklist,
   fetchAvailableRooms,
   fetchSubmission,
+  fetchCenters,
   postSubmission,
   fetchAvailableRoomsSuccess,
   uploadFile,
