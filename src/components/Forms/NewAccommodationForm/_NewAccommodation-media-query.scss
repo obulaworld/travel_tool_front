@@ -1,0 +1,58 @@
+@media screen and (max-width: 768px) {
+
+  form.new-guesthouse {
+
+    fieldset {
+
+      .aline-box {
+        display: block;
+
+        .upload-image {
+          img {
+            margin: 0 auto;
+          }
+        }
+
+        .image-rectangle {
+          width: 100%;
+        }
+
+        .image-space {
+          margin: 2em 0;
+          text-align: center;
+          width: 100%;
+        }
+      }
+
+      .input-group.reduce-margin {
+
+        .guest-house-input {
+          margin: 0.5em 0;
+          width: 100%;
+
+          .form-input {
+            margin: 0;
+          }
+        }
+      }
+
+      .add-cancel {
+
+        .room-rectangle {
+
+          .style-input-box {
+            display: block;
+
+            .room {
+              width: 100%;
+            }
+          }
+        }
+
+        .cancel-button {
+          margin: 10em 0;
+        }
+      }
+    }
+  }
+}
