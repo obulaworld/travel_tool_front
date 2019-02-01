@@ -101,48 +101,6 @@ exports[`<ListEmailTemplates /> renders without crashing 1`] = `
                     className="table__menu-list"
                   >
                     <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                        onClick={[Function]}
-                        role="presentation"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
-                      className="table__menu-list-item bottom"
-                      id="setItem"
-                      onClick={[Function]}
-                      role="presentation"
-                    >
-                      <span
-                        className="enable"
-                      >
-                        Enable
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  className="table__menu-container "
-                >
-                  <ul
-                    className="table__menu-list"
-                  >
-                    <li
-                      className="table__menu-list-item top"
-                    >
-                      <span
-                        className="edit"
-                        onClick={[Function]}
-                        role="presentation"
-                      >
-                        Edit
-                      </span>
-                    </li>
-                    <li
                       className="table__menu-list-item bottom"
                       id="setItem"
                       onClick={[Function]}

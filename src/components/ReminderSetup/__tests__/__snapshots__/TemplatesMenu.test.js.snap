@@ -14,16 +14,18 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
     <ul
       className="table__menu-list"
     >
-      <li
-        className="table__menu-list-item top"
-      >
-        <span
-          className="edit"
+      <li>
+        <a
+          className="table__menu-list-item top"
+          href="/settings/reminders/edit/0"
           onClick={[Function]}
-          role="presentation"
         >
-          Edit
-        </span>
+          <span
+            className="edit"
+          >
+            Edit
+          </span>
+        </a>
       </li>
       <li
         className="table__menu-list-item bottom"
@@ -45,16 +47,18 @@ exports[`<TemplatesMenu /> renders without crashing 1`] = `
     <ul
       className="table__menu-list"
     >
-      <li
-        className="table__menu-list-item top"
-      >
-        <span
-          className="edit"
+      <li>
+        <a
+          className="table__menu-list-item top"
+          href="/settings/reminders/edit/0"
           onClick={[Function]}
-          role="presentation"
         >
-          Edit
-        </span>
+          <span
+            className="edit"
+          >
+            Edit
+          </span>
+        </a>
       </li>
       <li
         className="table__menu-list-item bottom"
