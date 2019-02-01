@@ -232,7 +232,7 @@ describe('Travel Readiness Documents saga', () => {
         ])
         .put({
           type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-          documentUpdate: response.data.updatedDocument
+          document: response.data.updatedDocument
         })
         .dispatch({
           type: types.EDIT_TRAVEL_READINESS_DOCUMENT,

@@ -155,7 +155,7 @@ describe('Travel Readiness Documents actions', () => {
       const mockDocumentData = { id: 'docIDD' };
       const expectedAction = {
         type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-        documentUpdate: mockDocumentData,
+        document: mockDocumentData,
       };
 
       const action = actions.editTravelReadinessDocumentSuccess(mockDocumentData);
