@@ -5,7 +5,6 @@ import axios from 'axios';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import {FormContext} from '../Forms/FormsAPI';
-import formatDate from '../../helper/formatDate';
 import '../Forms/TravelReadinessForm/TravelDocument.scss';
 import DocumentAPI from '../../services/DocumentAPI';
 import FileUploadField from '../Forms/TravelReadinessForm/FormFieldsets/FileUploadField';
@@ -23,7 +22,7 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
     componentWillReceiveProps(nextProps) {
       const { errors, document, modalType } = nextProps;
       if(/edit/.test(modalType) && !isEmpty(document)){
-        return this.updateFormFields(document, modalType);
+        return this.updateFormFields(document);
       }
       return this.setState({errors, uploadingDocument: false});
     }
@@ -33,19 +32,8 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
       fetchUserData(user.currentUser.userId);
     }
 
-    updateFormFields = (document, modalType) => {
+    updateFormFields = (document) => {
       const { data } = document;
-      if(modalType === 'edit passport') {
-        return this.setState(prevState => {
-          const newValues = {
-            ...prevState.values,
-            ...data, dateOfBirth: formatDate(data.dateOfBirth),
-            dateOfIssue: formatDate(data.dateOfIssue),
-            expiryDate: formatDate(data.expiryDate)
-          };
-          return { ...prevState, id: document.id, values: {...newValues} };
-        });
-      }
       return this.setState(prevState => {
         const newValues = { ...prevState.values, ...data };
         return { ...prevState, id: document.id, documentUploaded: true, values: {...newValues} };

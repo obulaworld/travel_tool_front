@@ -67,9 +67,9 @@ export const editTravelReadinessDocument = (documentType, payload, documentId) =
   documentId
 });
 
-export const editTravelReadinessDocumentSuccess = (documentUpdate) => ({
+export const editTravelReadinessDocumentSuccess = (document) => ({
   type: types.EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS,
-  documentUpdate
+  document
 });
 
 export const editTravelReadinessDocumentFailure = (error) => ({
