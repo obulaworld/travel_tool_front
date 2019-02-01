@@ -1,6 +1,7 @@
 import toast from 'toastr';
 import moxios from 'moxios';
 import React from 'react';
+import moment from 'moment';
 import PassportForm from '../PassportForm';
 import PassportDetailsFieldSet from '../FormFieldsets/passportDetails';
 
@@ -239,5 +240,15 @@ describe('<PassportForm/>',  () => {
     };
     wrapper = mount(<PassportForm {...newProps} />);
     wrapper.setState({values: {...document}});
+  });
+
+  it('should show the year from 18 years ago on the birthdate', () => {
+    wrapper = mount(<PassportForm {...props} />);
+
+    wrapper.find('input[name="dateOfBirth"]').simulate('click');
+
+    const datePicker = wrapper.find('DateInput[name="dateOfBirth"]').find('DatePicker');
+    expect(datePicker.props().showYearDropdown).toBeTruthy();
+    expect(moment(datePicker.props().maxDate).year()).toEqual(moment().subtract(18,'year').year());
   });
 });
