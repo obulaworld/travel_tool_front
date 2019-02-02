@@ -15,11 +15,14 @@ export class DocumentDetailsAttachment extends Component {
   }
 
   generateFileName(document) {
-    const fileName = document.type === 'passport'
-      ? `${document.data.placeOfIssue} Passport`
-      : `${document.data.country} Visa`;
-
-    return fileName;
+    let fileName;
+    if (document.type === 'passport') {
+      return fileName = `${document.data.placeOfIssue} Passport`;
+    } else if (document.type === 'visa') {
+      return fileName = `${document.data.country} Visa`;
+    } else {
+      return fileName = `${document.data.name}`;
+    }
   }
 
   render() {

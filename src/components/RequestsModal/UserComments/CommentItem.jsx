@@ -111,7 +111,7 @@ export default class CommentItem extends Component {
                 editReady={editReady}
                 editComment={editComment}
                 comment={commentToEdit}
-                requestId={comment.requestId}
+                requestId={comment.requestId || comment.documentId}
                 id={comment.id}
               />
               {renderCancelButton()}

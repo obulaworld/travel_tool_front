@@ -426,4 +426,126 @@ describe('travel readiness reducer', () => {
 
     expect(newState).toEqual(expectedState);
   });
+
+  it('returns the correct state for CREATE_COMMENT_SUCCESS action', () => {
+    const action = {
+      type: 'CREATE_COMMENT_SUCCESS',
+      comment: {
+        id: 'ls92T30EF',
+        comment: 'Now ready'
+      },
+    };
+    expect(travelReadinessDocuments(initialState, action)).toEqual({
+      ...initialState,
+      document: {
+        ...initialState.document,
+        comments: [
+          action.comment.comment,
+          ...initialState.document.comments
+        ],
+      },
+      comments: [
+        action.comment.comment,
+        ...initialState.document.comments
+      ],
+    });
+  });
+
+  it('returns the correct state for EDIT_COMMENT_SUCCESS action', () => {
+    const action = {
+      type: 'EDIT_COMMENT_SUCCESS',
+      comment: {
+        id: 'ls92T30EF',
+        comment: 'No longer ready',
+        isEdited: false
+      },
+    };
+    const initialStateCustom = {
+      users: [],
+      isLoading: false,
+      error: '',
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [],
+        },
+      },
+      errors: {},
+      document: {
+        comments: [
+          {
+            id: 'ls92T30EF',
+            comment: 'Now ready',
+            isEdited: true
+          },
+        ],
+      },
+      comments: [
+        {
+          id: 'ls92T30EF',
+          comment: 'Now ready',
+          isEdited: true
+        },
+      ],
+      fetchingDocument: false,
+    };
+    expect(travelReadinessDocuments(initialStateCustom, action)).toEqual({
+      ...initialStateCustom,
+      document: {
+        ...initialStateCustom.document,
+        comments: [
+          ...initialStateCustom.document.comments
+        ],
+      },
+      comments: [
+        ...initialStateCustom.document.comments
+      ],
+    });
+  });
+
+  it('returns the correct state for DELETE_COMMENT_SUCCESS action', () => {
+    const action = {
+      type: 'DELETE_COMMENT_SUCCESS',
+      commentId: 'ls92T30EF',
+    };
+    const initialStateCustom = {
+      users: [],
+      isLoading: false,
+      error: '',
+      userReadiness: {
+        fullName: '',
+        travelDocuments: {
+          passport: [],
+          visa: [],
+        },
+      },
+      errors: {},
+      document: {
+        comments: [
+          {
+            id: 'ls92T30EF',
+            comment: 'Now ready',
+            isEdited: true
+          },
+        ],
+      },
+      comments: [
+        {
+          id: 'ls92T30EF',
+          comment: 'Now ready',
+          isEdited: true
+        },
+      ],
+      fetchingDocument: false,
+    };
+    expect(travelReadinessDocuments(initialStateCustom, action)).toEqual({
+      ...initialStateCustom,
+      document: {
+        ...initialStateCustom.document,
+        comments: [],
+      },
+      comments: [],
+    });
+  });
 });
