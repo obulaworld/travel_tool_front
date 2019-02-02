@@ -756,7 +756,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Save
+        <undefined />
       </button>
     </div>
   </fieldset>
@@ -1411,7 +1411,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
         id="submit"
         type="submit"
       >
-        Save
+        <undefined />
       </button>
     </div>
   </fieldset>

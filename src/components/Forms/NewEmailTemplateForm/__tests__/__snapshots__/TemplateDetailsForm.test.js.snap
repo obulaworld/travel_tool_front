@@ -94,7 +94,7 @@ exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
           onClick={[Function]}
           type="submit"
         >
-          Edit template
+          <undefined />
         </button>
       </div>
     </fieldset>

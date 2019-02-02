@@ -10,7 +10,7 @@
 }
 
 form fieldset:last-child .submit-area {
-  width: 100%;
+  width: 96.5%;
 }
 
 .document-input {
@@ -69,6 +69,7 @@ form fieldset:last-child .submit-area {
   border-radius: 50%;
   display: inline-block;
   width: 10px;
+  margin-right: 10px;
   height: 10px;
   animation: spin .5s linear infinite;
 }

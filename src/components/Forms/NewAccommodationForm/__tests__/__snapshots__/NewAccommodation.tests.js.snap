@@ -2,7 +2,7 @@
 
 exports[`<NewAccommodation /> renders correctly 1`] = `
 <form
-  className="new-request"
+  className="new-guesthouse"
   onSubmit={[Function]}
 >
   <fieldset>
@@ -446,7 +446,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Save
+        <undefined />
       </button>
     </div>
   </fieldset>

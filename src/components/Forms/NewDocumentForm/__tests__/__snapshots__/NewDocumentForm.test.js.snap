@@ -99,7 +99,7 @@ exports[`<NewDocumentForm /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Add 
+        <undefined />
       </button>
     </div>
   </fieldset>

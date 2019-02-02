@@ -24,9 +24,9 @@ class NewAccommodation extends PureComponent {
         preview: imageUrl, ...defaultRoom, ...this.populateRoomsDefaultStateValues(rooms)},
       guestHouseCenter: location,
       rooms: isEdit ? guestHouse.rooms : [{}],
-      errors: {}, isSubmitting: false,
+      errors: {},
       documentId: isEdit ? guestHouse.rooms.length: 1,
-      hasBlankFields: isEdit ? false : true, loaded: 0, progress: false };
+      hasBlankFields: true, loaded: 0, progress: false };
     this.state = { ...this.defaultState };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
@@ -36,6 +36,7 @@ class NewAccommodation extends PureComponent {
   }
   componentWillUnmount() {
     const { fetchAccommodation, guestHouse, modalType, initFetchTimelineData } = this.props;
+    AccommodationAPI.setToken();
     this.handleFormCancel();
     if (modalType == 'edit accommodation') {
       const cloneStartDate = moment().startOf('month').clone();
@@ -126,7 +127,7 @@ class NewAccommodation extends PureComponent {
       } else if (name.startsWith('bedCount')) {
         rooms[parentid].bedCount = value;}
     } else { rooms.push({ [name.split('-')[0]]: value });}
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       values: { ...prevState.values, [rooms]: value } }), this.validate);
   };
 
@@ -138,7 +139,7 @@ class NewAccommodation extends PureComponent {
         rooms[parentid].roomType = choice;
       } else {
         rooms.push({ [name.split('-')[0]]: choice });}
-      this.setState(prevState => ({ 
+      this.setState(prevState => ({
         values: { ...prevState.values, [rooms]: choice } }), this.validate);
     }};
   handleFormCancel = () => {
@@ -174,8 +175,14 @@ class NewAccommodation extends PureComponent {
   };
   handleInputSubmit = async event => {
     event.preventDefault();
-    this.setState({ hasBlankFields: true, isSubmitting: true });
-    const { createAccommodation, editAccommodation, guestHouse, modalType } = this.props;
+    this.setState({ hasBlankFields: true });
+    const {
+      createAccommodation,
+      editAccommodation,
+      guestHouse,
+      modalType,
+      savingAccommodation } = this.props;
+    savingAccommodation(true);
     const { values, rooms, guestHouseCenter} = this.state;
     const fd = new FormData();
     fd.append('file', values.image);
@@ -195,7 +202,8 @@ class NewAccommodation extends PureComponent {
         }
       } catch (error) {
         errorMessage('Unable to upload Image');
-        this.setState({ hasBlankFields: false, isSubmitting: false });
+        this.setState({ hasBlankFields: false});
+        savingAccommodation(false);
         AccommodationAPI.setToken();
       }
       AccommodationAPI.setToken();
@@ -208,21 +216,19 @@ class NewAccommodation extends PureComponent {
       };
       if (this.validate() && modalType === 'edit accommodation') {
         editAccommodation(guestHouse.id, guestHouseData);
-        this.setState({ isSubmitting: false });
       } else {
         createAccommodation(guestHouseData);
-        this.setState({ isSubmitting: false });
       }
     } else {
       errorMessage('The location you provided does not exist');
-      this.setState({ isSubmitting: false  });
+      savingAccommodation(false);
       return this.state;
     }
   };
   render() {
-    const { values, errors, hasBlankFields, documentId, rooms, isSubmitting } = this.state;
+    const { values, errors, hasBlankFields, documentId, rooms } = this.state;
     const currentHasBlankFields = (rooms.length !== 0) ? hasBlankFields : !hasBlankFields;
-    const { modalType } = this.props;
+    const { modalType, isSaving } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
         <form onSubmit={this.handleInputSubmit} className="new-guesthouse">
@@ -241,7 +247,7 @@ class NewAccommodation extends PureComponent {
             hasBlankFields={currentHasBlankFields}
             send={modalType === 'edit accommodation' ? 'Save changes' : 'Save'}
             modalType={modalType}
-            loading={isSubmitting} />
+            loading={isSaving} />
         </form>
       </FormContext>
     );
@@ -255,10 +261,12 @@ NewAccommodation.propTypes = {
   modalType: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func,
+  isSaving: PropTypes.bool,
 };
 
 NewAccommodation.defaultProps = {
   editAccommodation: () => {},
-  createAccommodation: () => {}
+  createAccommodation: () => {},
+  isSaving: false
 };
 export default NewAccommodation;

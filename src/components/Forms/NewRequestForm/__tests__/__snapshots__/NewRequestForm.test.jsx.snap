@@ -897,7 +897,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           id="submit"
           type="submit"
         >
-          Send Request
+          <undefined />
         </button>
       </div>
     </fieldset>

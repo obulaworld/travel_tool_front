@@ -8,13 +8,14 @@ import { initFetchTimelineData } from '../../../redux/actionCreator';
 import {
   editAccommodation,
   fetchAccommodation,
-  disableAccommodation
+  disableAccommodation,
+  savingAccommodation
 } from '../../../redux/actionCreator/accommodationActions';
 import greyBedIcon from '../../../images/icons/accomodation_inactive.svg';
 import Modal from '../../../components/modal/Modal';
 import { NewAccommodationForm } from '../../../components/Forms';
 import  MaintainceForm  from '../../../components/Forms/MaintainanceForm';
-import addmaintenanceRecord, 
+import addmaintenanceRecord,
 { deleteMaintenanceRecord, updateMaintenanceRecord } from '../../../redux/actionCreator/maintenanceAction';
 import {
   openModal,
@@ -63,7 +64,7 @@ export class GuestHouseDetails extends PureComponent {
     return (
       <div className="guesthouse-details-wrapper--top">
         <div className="details-wrapper-top-right">
-          <div 
+          <div
             className="back-button" role="presentation" onClick={history.goBack}
           >
             <div className="arrow">
@@ -91,7 +92,7 @@ export class GuestHouseDetails extends PureComponent {
           </div>
           <div>
             <img src={disable_icon} alt="Edit Link" className="edit-icon" />
-            <button 
+            <button
               id="handleOnDisableId" type="button" className="edit-btn" onClick={this.handleOnDisable}
             >
               Disable Guest House
@@ -127,13 +128,13 @@ export class GuestHouseDetails extends PureComponent {
     const maintainances = room.maintainances[0];
     if(maintainances){
       let isUnderMaintenance = false;
-      const { specialCase, acceptableRange } = 
+      const { specialCase, acceptableRange } =
       this.isUnderMaintenance(maintainances, startDate, endDate);
       isUnderMaintenance = acceptableRange || specialCase;
       if( timelineViewType==='week'){
         const weekStartDate = cloneStart.subtract(16, 'days').startOf('week');
         const weekEndDate = weekStartDate.clone().add(1, 'week').subtract(1, 'day');
-        const { specialCase, acceptableRange } = 
+        const { specialCase, acceptableRange } =
         this.isUnderMaintenance(maintainances, weekStartDate , weekEndDate);
         isUnderMaintenance = acceptableRange || specialCase;
       }
@@ -144,7 +145,7 @@ export class GuestHouseDetails extends PureComponent {
   getAvailableBedsCount = rooms => {
     if (rooms.length !== 0) {
       const room = (rooms.map(room =>
-        room.faulty && this.checkMaintenance(room) ? 
+        room.faulty && this.checkMaintenance(room) ?
           [] : room.beds
       ));
       return room.map(bed => bed? bed.filter(b => !b.booked): []).reduce((acc, val) => acc+val.length, 0);
@@ -195,8 +196,9 @@ export class GuestHouseDetails extends PureComponent {
 
 
   renderEditAccommodationForm() {
-    const { 
-      closeModal, modal, guestHouse, initFetchTimelineData, fetchAccommodation, editAccommodation, editingAccommodation,
+    const {
+      closeModal, modal, guestHouse, initFetchTimelineData, isLoading, isSaving,
+      fetchAccommodation, editAccommodation, editingAccommodation, savingAccommodation
     } = this.props;
     const { shouldOpen, modalType } = modal;
     return (
@@ -207,9 +209,16 @@ export class GuestHouseDetails extends PureComponent {
         title={`Edit ${guestHouse.houseName}`}
       >
         <NewAccommodationForm
-          closeModal={closeModal} modalType={modalType || ''} fetchAccommodation={fetchAccommodation}
-          editAccommodation={editAccommodation} editingAccommodation={editingAccommodation}
-          guestHouse={guestHouse} initFetchTimelineData={initFetchTimelineData}
+          closeModal={closeModal}
+          modalType={modalType || ''}
+          fetchAccommodation={fetchAccommodation}
+          editAccommodation={editAccommodation}
+          editingAccommodation={editingAccommodation}
+          isLoading={isLoading}
+          isSaving={isSaving}
+          guestHouse={guestHouse}
+          initFetchTimelineData={initFetchTimelineData}
+          savingAccommodation={savingAccommodation}
         />
       </Modal>
     );
@@ -221,10 +230,10 @@ export class GuestHouseDetails extends PureComponent {
     const { shouldOpen, modalType } = modal;
     const { period } = this.state;
 
-   
+
     return (
       (
-      
+
         <div className="guesthouse-details-wrapper">
           {this.renderEditAccommodationForm()}
           {this.renderDisableAccommodationModal()}
@@ -291,11 +300,14 @@ GuestHouseDetails.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired, loadingBeds: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired, isLoading: PropTypes.bool.isRequired,
   maintenanceDetails: PropTypes.object, disableAccommodation: PropTypes.func.isRequired,
-  accommodation: PropTypes.object, 
+  accommodation: PropTypes.object, isSaving: PropTypes.bool,
+  savingAccommodation: PropTypes.func,
 };
 
 GuestHouseDetails.defaultProps = {
   initFetchTimelineData: () => { },
+  savingAccommodation: () => {},
+  isSaving: false,
   guestHouse: {},
   maintenance: {},
   maintenanceDetails: {},
@@ -307,12 +319,14 @@ GuestHouseDetails.defaultProps = {
 const mapStateToProps = (state) => ({
   guestHouse: state.accommodation.guestHouse,
   isLoading: state.accommodation.isLoading,
+  isSaving: state.accommodation.isSaving,
   user: state.auth.user.UserInfo,
   modal: state.modal.modal,
   availableBeds: state.availableRooms.beds,
   loadingBeds: state.availableRooms.isLoading,
   loading: state.trips.loading,
   editingAccommodation: state.accommodation.editingAccommodation,
+  createAccommodationLoading: state.accommodation.createAccommodationLoading,
   maintenance: state.maintenance,
   maintenanceDetails: state.maintenance,
   accommodation:state.accommodation
@@ -322,7 +336,7 @@ const actionCreators = {
   initFetchTimelineData, updateRoomState,
   openModal, closeModal, editAccommodation,
   fetchAccommodation, addmaintenanceRecord,
-  deleteMaintenanceRecord, updateTripRoom,
+  deleteMaintenanceRecord, updateTripRoom, savingAccommodation,
   fetchAvailableRooms, updateMaintenanceRecord, disableAccommodation
 };
 

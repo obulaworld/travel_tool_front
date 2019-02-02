@@ -31,7 +31,9 @@ exports[`<Accommodation /> renders correctly 1`] = `
       fetchAccommodation={[Function]}
       guestHouse={Object {}}
       initFetchTimelineData={[Function]}
+      isSaving={false}
       modalType=""
+      savingAccommodation={[Function]}
     />
   </Modal>
   <Modal

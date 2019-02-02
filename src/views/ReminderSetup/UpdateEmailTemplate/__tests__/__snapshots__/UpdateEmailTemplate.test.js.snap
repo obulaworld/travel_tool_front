@@ -232,7 +232,7 @@ exports[`<UpdateEmailTemplate> page Should render correctly 1`] = `
           id="submit"
           type="submit"
         >
-          Update
+          <undefined />
         </button>
         <button
           className="bg-btn bg-btn--inactive"

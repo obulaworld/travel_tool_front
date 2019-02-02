@@ -241,7 +241,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
         id="submit"
         type="submit"
       >
-        Submit
+        <undefined />
       </button>
     </div>
   </fieldset>

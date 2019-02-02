@@ -19,11 +19,11 @@ describe('Accommodation Reducer', () => {
     disabledGuestHouses: [],
     disabling: false,
     restoring: false,
-    isLoading: false
+    isLoading: false,
   };
 
   it('should return proper initial state', done => {
-    expect(accommodationReducer(undefined, {})).toEqual(initialState);
+    expect(accommodationReducer(undefined, {})).toEqual({...{...initialState, isSaving: false}});
     done();
   });
 

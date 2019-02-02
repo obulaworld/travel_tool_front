@@ -108,7 +108,9 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
         disabled={true}
         id="submit"
         type="submit"
-      />
+      >
+        <undefined />
+      </button>
     </div>
   </fieldset>
 </form>

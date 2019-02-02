@@ -13,7 +13,8 @@ import {
   RESTORE_DISABLED_ACCOMMODATION_FAILURE,
   EDIT_ACCOMMODATION_DATA,
   EDIT_ACCOMMODATION_DATA_SUCCESS,
-  EDIT_ACCOMMODATION_DATA_FAILURE
+  EDIT_ACCOMMODATION_DATA_FAILURE,
+  SAVING_ACCOMMODATION
 } from '../../constants/actionTypes';
 
 import {
@@ -31,7 +32,8 @@ import {
   restoreDisabledAccommodationFailure,
   editAccommodation,
   editAccommodationSuccess,
-  editAccommodationFailure
+  editAccommodationFailure,
+  savingAccommodation
 } from '../accommodationActions';
 
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
@@ -211,7 +213,7 @@ describe('Accommodation actions test', () => {
 
     it('should return action of type FETCH_DISABLED_ACCOMMODATION_SUCCESS',
       () => {
-        
+
         const response = {
           data: {
             guestHouses: disabledGuestHouses,
@@ -286,5 +288,29 @@ describe('Accommodation actions test', () => {
         const newAction = restoreDisabledAccommodationFailure(error);
         expect(newAction).toEqual(expectedAction);
       });
+  });
+
+  describe('Accommodation loader', () => {
+    it('should return action of type SAVING_ACCOMMODATION with condition true', () => {
+      const expectedAction = {
+        type: SAVING_ACCOMMODATION,
+        condition: true
+      };
+
+      const newAction = savingAccommodation(true);
+
+      expect(newAction).toEqual(expectedAction);
+    });
+
+    it('should return action of type SAVING_ACCOMMODATION with condition false', () => {
+      const expectedAction = {
+        type: SAVING_ACCOMMODATION,
+        condition: false
+      };
+
+      const newAction = savingAccommodation(false);
+
+      expect(newAction).toEqual(expectedAction);
+    });
   });
 });
