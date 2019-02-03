@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import Cookies from 'cookies-js';
 import ConnectedNavBar from '../../components/nav-bar/NavBar';
 import ConnectedLeftSideBar from '../../components/LeftSideBar/LeftSideBar';
 import ConnectedNotificationPane from '../../components/notification-pane/NotificationPane';
@@ -9,6 +10,7 @@ import ConnectedSideDrawer from '../../components/SideDrawer/SideDrawer';
 import upic from '../../images/upic.svg';
 import './Layout.scss';
 import {getUserData} from '../../redux/actionCreator/userActions';
+import LoaderPage from '../../components/LoaderPage';
 
 export class Layout extends Component {
 
@@ -137,6 +139,12 @@ export class Layout extends Component {
   }
 
   render () {
+    const {isLoaded} = this.props;
+    const token = Cookies.get('jwt-token');
+    if(!isLoaded && token){
+      return <LoaderPage />;
+    }
+   
     const { hideOverlay, openSearch } = this.state;
     const overlayClass = hideOverlay ? 'none': 'block';
     return (
