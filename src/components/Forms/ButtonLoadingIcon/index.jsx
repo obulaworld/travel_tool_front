@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ButtonLoadingIcon = ({ isLoading, buttonText }) => (
   <React.Fragment>
-    { isLoading && <i className="loading-icon" /> }
+    { isLoading ? <i className="loading-icon" /> : '' }
     { buttonText }
   </React.Fragment>
 );

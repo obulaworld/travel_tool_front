@@ -18,7 +18,8 @@ import {
   fetchDisabledAccommodationSuccess,
   fetchDisabledAccommodationFailure,
   restoreDisabledAccommodationSuccess,
-  restoreDisabledAccommodationFailure
+  restoreDisabledAccommodationFailure,
+  savingAccommodation,
 } from '../actionCreator/accommodationActions';
 import { closeModal } from '../actionCreator/modalActions';
 
@@ -27,7 +28,7 @@ import {
   EDIT_ACCOMMODATION_DATA,
   DISABLE_ACCOMMODATION,
   FETCH_DISABLED_ACCOMMODATION,
-  RESTORE_DISABLED_ACCOMMODATION
+  RESTORE_DISABLED_ACCOMMODATION,
 } from '../constants/actionTypes';
 
 
@@ -40,11 +41,13 @@ export function* accommodationSagaAsync(action) {
   try {
     response = yield call(AccommodationAPI.postAccommodation, action.accommodationData);
     yield put(createAccommodationSuccess(response.data));
+    yield put(savingAccommodation(false));
     yield put(closeModal());
     toast.success('Guest House added');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(createAccommodationFailure(errorMessage));
+    yield put(savingAccommodation(false));
     toast.error(errorMessage);
   }
 }
@@ -94,6 +97,7 @@ export function* editAccommodationAsync(action) {
     const { guestHouseId, guestHouseData} = action;
     const response = yield call(AccommodationAPI.editAccommodation, guestHouseData, guestHouseId);
     yield put(editAccommodationSuccess(response.data.guestHouse));
+    yield put(savingAccommodation(false));
     yield put(closeModal());
     toast.success('Guest House Updated Successfully');
   }
@@ -101,6 +105,7 @@ export function* editAccommodationAsync(action) {
     const errorMessage = apiErrorHandler(error);
     toast.error(errorMessage);
     yield put(editAccommodationFailure(errorMessage));
+    yield put(savingAccommodation(false));
   }
 }
 /* istanbul ignore next */
@@ -143,7 +148,6 @@ export function* fetchDisabledAccommodationSaga() {
 export function* watchFetchDisabledAccommodation() {
   yield takeLatest(FETCH_DISABLED_ACCOMMODATION, fetchDisabledAccommodationSaga);
 }
-
 
 export function* restoreDisabledAccommodationAsync(action, data) {
   try {

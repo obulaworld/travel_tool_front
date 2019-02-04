@@ -10,21 +10,21 @@ const SubmitArea = (props) => {
       <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
         { modalType === 'edit accomodation' ? (
           <button
-            type="button" 
-            className="bg-btn bg-btn--inactive" 
+            type="button"
+            className="bg-btn bg-btn--inactive"
             id="oncancel" onClick={onEditCancel}>
           Cancel
           </button>)
           : (
             <button
-              type="button" 
-              className="bg-btn bg-btn--inactive" 
+              type="button"
+              className="bg-btn bg-btn--inactive"
               onClick={onCancel} id="cancel">
               Cancel
             </button>
           )}
         <button
-          type="submit" 
+          type="submit"
           disabled={hasBlankFields || loading || (sameOriginDestination && disableOnChangeProfile)}
           className="bg-btn bg-btn--active" id="submit">
           <ButtonLoadingIcon isLoading={loading} buttonText={send} />

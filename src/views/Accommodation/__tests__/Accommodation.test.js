@@ -21,7 +21,7 @@ const props = {
   editAccommodation: jest.fn(),
   shouldOpen: false,
   modalType: '',
-  openModal: jest.fn(),
+  openModal: sinon.spy(),
   onNotificationToggle: jest.fn(),
   restoreGuestHouse: sinon.spy(),
   closeModal: sinon.spy(() => Promise.resolve()),
@@ -123,5 +123,20 @@ describe('<Accommodation />', () => {
     wrapper.find('button#cancel').simulate('click');
     expect(props.closeModal.calledWith(true, 'add accommodation')).toBeTruthy();
   });
+
+  it('should call open modal with true when .restore-acc-btn is clicked', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Accommodation
+            {...{ ...props, shouldOpen: true, modalType: 'new model' }}
+          />
+        </MemoryRouter>
+      </Provider>
+    );
+    wrapper.find('.restore-acc-btn').at(0).simulate('click');
+    expect(props.openModal.calledWith(true, 'restore guesthouse')).toBeTruthy();
+  });
+
 
 });

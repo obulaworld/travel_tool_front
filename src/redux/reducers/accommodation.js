@@ -19,11 +19,12 @@ import {
   FETCH_DISABLED_ACCOMMODATION_FAILURE,
   RESTORE_DISABLED_ACCOMMODATION,
   RESTORE_DISABLED_ACCOMMODATION_SUCCESS,
-  RESTORE_DISABLED_ACCOMMODATION_FAILURE
+  RESTORE_DISABLED_ACCOMMODATION_FAILURE,
+  SAVING_ACCOMMODATION
 } from '../constants/actionTypes';
 
-import { 
-  disableGuestHouseSuccessState, restoreGuestHouseSuccessState 
+import {
+  disableGuestHouseSuccessState, restoreGuestHouseSuccessState
 } from '../../helper/accommodationReducer';
 
 const initialState = {
@@ -41,6 +42,7 @@ const initialState = {
   disabling: false,
   restoring: false,
   isLoading: false,
+  isSaving: false,
 };
 
 const accommodation = (state = initialState, action) => {
@@ -48,13 +50,15 @@ const accommodation = (state = initialState, action) => {
   case CREATE_ACCOMMODATION_DATA:
     return { ...state, createAccommodationLoading: true };
   case CREATE_ACCOMMODATION_DATA_SUCCESS:
-    return { 
+    return {
       ...state, createAccommodationLoading: false,
       postAccommodationData: action.accommodationData, };
   case CREATE_ACCOMMODATION_DATA_FAILURE:
     return { ...state, createAccommodationLoading: false, errors: action.error, };
   case FETCH_ACCOMMODATION_CENTRES:
     return { ...state, isLoading: true };
+  case SAVING_ACCOMMODATION:
+    return { ...state, isSaving: action.condition };
   case FETCH_ACCOMMODATION_CENTRES_SUCCESS:
     return {
       ...state, isLoading: false, guestHouses: action.guestHouses
@@ -90,7 +94,7 @@ const accommodation = (state = initialState, action) => {
   case FETCH_DISABLED_ACCOMMODATION_FAILURE:
     return {  ...state, isLoading: false, error: action.error };
   case RESTORE_DISABLED_ACCOMMODATION:
-    return { ...state, isLoading: true, 
+    return { ...state, isLoading: true,
       restoring: true, disabledguestHouse: action.guestHouseData };
   case RESTORE_DISABLED_ACCOMMODATION_SUCCESS:
     return restoreGuestHouseSuccessState(state, action);

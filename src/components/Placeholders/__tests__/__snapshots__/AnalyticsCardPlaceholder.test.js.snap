@@ -5,7 +5,8 @@ exports[`<AnalyticsCardPlaceholder /> should render without crashing 1`] = `
   className="analytics-card"
 >
   <ContentLoader
-    height={350}
+    height={250}
+    preserveAspectRatio="none"
     primaryColor="#dfdfdf"
     secondaryColor="#ffffff"
     speed={1.5}

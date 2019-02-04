@@ -361,7 +361,7 @@ exports[`<PassportForm/> renders correctly 1`] = `
             id="submit"
             type="submit"
           >
-            Add Passport
+            <undefined />
           </button>
         </div>
       </fieldset>

@@ -14,7 +14,8 @@ import {
   FETCH_DISABLED_ACCOMMODATION_FAILURE,
   RESTORE_DISABLED_ACCOMMODATION,
   RESTORE_DISABLED_ACCOMMODATION_SUCCESS,
-  RESTORE_DISABLED_ACCOMMODATION_FAILURE
+  RESTORE_DISABLED_ACCOMMODATION_FAILURE,
+  SAVING_ACCOMMODATION
 } from '../../constants/actionTypes';
 import guestHouses from '../../../views/Accommodation/__mocks__/mockData/guestHouses';
 import disabledGuestHouses from '../../../views/Accommodation/__mocks__/mockData/disabledGuestHouses';
@@ -49,13 +50,13 @@ describe('Accommodation Reducer', () => {
       disabledGuestHouses: [],
       disabling: false,
       restoring: false,
-      isLoading: false
+      isLoading: false,
     };
 
     const error = 'Error fetching accommodation centres, network error';
     it('returns the correct initial state', () => {
       expect(accommodation(undefined, {})).toEqual({
-        ...initialState,
+        ...{...initialState, isSaving: false},
         'guestHouseData': {}
       });
     });
@@ -421,7 +422,7 @@ describe('Accommodation Reducer', () => {
       });
     });
 
-    it(`should handle FETCH_DISABLED_ACCOMMODATION_SUCCESS 
+    it(`should handle FETCH_DISABLED_ACCOMMODATION_SUCCESS
     action`, () => {
       const action = {
         type: FETCH_DISABLED_ACCOMMODATION_SUCCESS,
@@ -434,7 +435,7 @@ describe('Accommodation Reducer', () => {
       });
     });
 
-    it(`should handle FETCH_DISABLED_ACCOMMODATION_FAILURE 
+    it(`should handle FETCH_DISABLED_ACCOMMODATION_FAILURE
     action`, () => {
       const action = {
         type: FETCH_DISABLED_ACCOMMODATION_FAILURE,
@@ -520,6 +521,30 @@ describe('Accommodation Reducer', () => {
         error: 'Failed to restore guest house'
       };
       expect(newState).toMatchObject(expectedState);
+    });
+
+    it(`returns the correct state for ACCOMMODATION_LOADER when given false parameter
+    action`, () => {
+      const action = {
+        type: SAVING_ACCOMMODATION,
+        condition: false
+      };
+      expect(accommodation(initialState, action)).toEqual({
+        ...initialState,
+        isSaving: false,
+      });
+    });
+
+    it(`returns the correct state for ACCOMMODATION_LOADER when given true parameter
+    action`, () => {
+      const action = {
+        type: SAVING_ACCOMMODATION,
+        condition: true
+      };
+      expect(accommodation(initialState, action)).toEqual({
+        ...initialState,
+        isSaving: true,
+      });
     });
   });
 });

@@ -10,7 +10,8 @@ import {
   fetchAccommodation,
   editAccommodation,
   fetchDisabledAccommodation,
-  restoreDisabledAccommodation
+  restoreDisabledAccommodation,
+  savingAccommodation
 } from '../../redux/actionCreator/accommodationActions';
 import { initFetchTimelineData } from '../../redux/actionCreator';
 import WithLoadingCentreGrid from '../../components/CentreGrid';
@@ -29,8 +30,8 @@ export class Accommodation extends Component {
   }
 
   handleOnRestore = (id) => {
-    let { openModal, disabledGuestHouses } = this.props;   
-    const disabledGuestHouse = disabledGuestHouses.find(item => item.id === id);    
+    let { openModal, disabledGuestHouses } = this.props;
+    const disabledGuestHouse = disabledGuestHouses.find(item => item.id === id);
     this.setState({ disabledGuestHouse });
     openModal(true, 'restore guesthouse');
   }
@@ -58,6 +59,8 @@ export class Accommodation extends Component {
       fetchAccommodation,
       editAccommodation,
       createAccommodationLoading,
+      savingAccommodation,
+      isSaving,
     } = this.props;
     return (
       <Modal
@@ -76,6 +79,8 @@ export class Accommodation extends Component {
           editAccommodation={editAccommodation}
           createAccommodationLoading={createAccommodationLoading}
           initFetchTimelineData={initFetchTimelineData}
+          savingAccommodation={savingAccommodation}
+          isSaving={isSaving}
           guestHouse={{}}
         />
       </Modal>
@@ -151,10 +156,12 @@ Accommodation.propTypes = {
   ),
   disabledGuestHouses: PropTypes.array,
   isLoading: PropTypes.bool,
+  isSaving: PropTypes.bool,
   accommodationError: PropTypes.string,
   fetchAccommodation: PropTypes.func.isRequired,
   editAccommodation: PropTypes.func.isRequired,
   restoreDisabledAccommodation: PropTypes.func.isRequired,
+  savingAccommodation: PropTypes.func,
 };
 
 Accommodation.defaultProps = {
@@ -162,7 +169,9 @@ Accommodation.defaultProps = {
   disabledGuestHouses: [],
   accommodationError: '',
   isLoading: false,
+  isSaving: false,
   modalType: '',
+  savingAccommodation: () => {}
 };
 
 const actionCreators = {
@@ -173,7 +182,8 @@ const actionCreators = {
   fetchAccommodation,
   initFetchTimelineData,
   fetchDisabledAccommodation,
-  restoreDisabledAccommodation
+  restoreDisabledAccommodation,
+  savingAccommodation
 };
 
 export const mapStateToProps = ({ accommodation, modal, user }) => ({

@@ -414,7 +414,7 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
             id="submit"
             type="submit"
           >
-            Add Visa
+            <undefined />
           </button>
         </div>
       </fieldset>

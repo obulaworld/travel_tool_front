@@ -69,7 +69,10 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
         }
       }
       initFetchTimelineData={[Function]}
+      isLoading={false}
+      isSaving={false}
       modalType=""
+      savingAccommodation={[Function]}
     />
   </Modal>
   <Modal

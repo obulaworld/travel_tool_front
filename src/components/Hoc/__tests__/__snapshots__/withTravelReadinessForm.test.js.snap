@@ -231,7 +231,7 @@ exports[`<OtherDocumentForm /> renders without crashing 1`] = `
             id="submit"
             type="submit"
           >
-            Add Document
+            <undefined />
           </button>
         </div>
       </fieldset>

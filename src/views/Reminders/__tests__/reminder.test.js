@@ -176,6 +176,17 @@ describe('Reminder component', () => {
     expect(props.history.push).toHaveBeenCalledWith('/settings/reminders?document=passport&page=2');
   });
 
+  it('should test page change function when next button is clicked on pagination', () => {
+    const wrapper = mount(
+
+      <Reminders {...{...props, shouldOpen: true, modalType: 'enable disabled reminder'}} />
+
+    );
+
+    wrapper.find('#oncancel').simulate('click');
+    expect(wrapper.state().conditionId).toEqual('');
+  });
+
   it('should fetch the required data on componentDidMount', () => {
     const newProps = {
       ...props,

@@ -137,6 +137,7 @@ form.new-guesthouse {
       .cancel-button{
         margin: 3.5em 0;
         position: absolute;
+        cursor: pointer;
         right: 0.5em;
       }
     }
@@ -150,7 +151,7 @@ form.new-guesthouse {
 
       .set-width{
         display: flex;
-
+        cursor: pointer;
         .add-sug-room{
           margin: 1em;
         }
