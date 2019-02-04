@@ -7,9 +7,8 @@ describe('Add passport page ', () => {
   });
   describe('Add passport form', () => {
     before(() => {
-      cy.get('button#passportButton')
-        .wait(2000)
-        .click();
+      cy.get('#passportButton')
+        .should('have.class', 'documents-button-group__button--active');
       cy.get('button.documents-button-group__button')
         .click();
     });
