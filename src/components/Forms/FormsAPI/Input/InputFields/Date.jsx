@@ -30,7 +30,9 @@ class DateInput extends Component {
       name,
       onBlur,
       minimumDate,
-      maximumDate
+      maximumDate,
+      openToDate,
+      showYearDropdown
     } = this.props;
     const { selectedDate } = this.state;
     return (
@@ -48,6 +50,8 @@ class DateInput extends Component {
           maxDate={maximumDate}
           onBlur={onBlur}
           autoComplete="off"
+          openToDate={openToDate}
+          showYearDropdown={showYearDropdown}
         />
         <img className="calendar-icon" src={calendarIcon} alt="cal" />
       </div>
@@ -62,7 +66,9 @@ DateInput.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   minimumDate: PropTypes.object,
-  maximumDate: PropTypes.object
+  maximumDate: PropTypes.object,
+  openToDate: PropTypes.object,
+  showYearDropdown: PropTypes.bool
 };
 
 DateInput.defaultProps = {
@@ -70,7 +76,9 @@ DateInput.defaultProps = {
   error: '',
   name: '',
   minimumDate: undefined,
-  maximumDate: undefined
+  maximumDate: undefined,
+  openToDate: moment(),
+  showYearDropdown: false
 };
 
 export default DateInput;

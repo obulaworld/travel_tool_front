@@ -17,7 +17,11 @@ class PassportDetailsFieldSet extends Component{
           {renderInput('name', 'text', {className: 'fluid'})}
           {renderInput('passportNumber', 'text')}
           {renderInput('nationality', 'text')}
-          {renderInput('dateOfBirth', 'date')}
+          {renderInput('dateOfBirth', 'date', {
+            openToDate: moment().subtract( 18, 'years'),
+            maxDate: moment().subtract( 18, 'years').add(1, 'month'),
+            showYearDropdown: true
+          })}
           {renderInput('dateOfIssue', 'date', {maxDate: moment()})}
           {renderInput('placeOfIssue', 'text')}
           {renderInput('expiryDate', 'date', { minDate: moment()})}

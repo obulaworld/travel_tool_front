@@ -463,3 +463,47 @@ input[type="number"]::-webkit-inner-spin-button {
 .error{
   border: red;
 }
+
+.react-datepicker {
+
+  &__year{
+    &-dropdown {
+      background: white;
+      padding: 1em;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    &-option {
+      font-size: 1.3em;
+
+      &:first-child:hover{
+        background: none;
+        transform: translateY(-1px);
+      }
+      &:last-child:hover{
+        background: none;
+        transform: translateY(1px);
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, .1);
+      }
+    }
+  }
+
+  &__navigation{
+    &--years {
+      top: 0 !important;
+      border: none;
+      width: 20px;
+      height: 20px;
+      background: #3359DB;
+      position: relative;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 28%, 0% 50%);
+
+      &-previous {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
