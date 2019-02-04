@@ -7,6 +7,7 @@ import {
 } from '../../../mockData/checklistSubmissionMockData';
 import tripRequest from '../../../mockData/checklistSubmissionMocks';
 
+
 describe('SubmissionItem Component', () => {
   let props = {
     postSubmission: jest.fn(),
@@ -126,6 +127,35 @@ describe('SubmissionItem Component', () => {
     const error = wrapper.find('.submission-progress__error');
     expect(error.length).toBe(1);
     expect(error.text()).toBe('*All Fields are required');
+  });
+
+  it('should save as the user is typing, 1 second after the user stops typing', () => {
+    props.checklistItem = LagosSubmission.checklist[3];
+    props.tripType = 'multi';
+    const wrapper = setup(props);
+    const event = {
+      target: {value: '', name: 'airline'}
+    };
+
+    window.clearTimeout = jest.fn();
+    window.setTimeout = jest.fn((func) => { func();});
+
+    const airlineInput = wrapper.find('.airline');
+    expect(airlineInput.length).toBe(1);
+
+    const handleTicketSubmitSpy = jest
+      .spyOn(wrapper.instance(), 'handleTicketSubmit');
+
+    const handleTextAreaSubmitSpy = jest
+      .spyOn(wrapper.instance(), 'handleTextAreaSubmit');
+
+    airlineInput.simulate('focus');
+    airlineInput.simulate('change', event);
+
+    expect(clearTimeout).toHaveBeenCalled();
+    expect(setTimeout.mock.calls[0][1]).toEqual(1000);
+    expect(handleTicketSubmitSpy).toHaveBeenCalled();
+    expect(handleTextAreaSubmitSpy).toHaveBeenCalled();
   });
 
   it('should show error if all ticket field is not filled', () => {

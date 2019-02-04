@@ -64,4 +64,11 @@ describe('ChecklistSubmission Component', () => {
     const spinner = wrapper.find('.loader');
     expect(spinner.length).toBe(1);
   });
+
+  it('should close the modal when the done button is clicked', () => {
+    const wrapper = setup(props);
+    wrapper.find('button.bg-btn').simulate('click');
+
+    expect(props.closeModal).toHaveBeenCalled();
+  });
 });

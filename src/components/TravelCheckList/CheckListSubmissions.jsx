@@ -48,7 +48,7 @@ class CheckListSubmissions extends Component {
   }
 
   renderSubmissions = () => {
-    const {submissions} = this.props;
+    const {submissions, closeModal} = this.props;
     return (
       <Fragment>
         <div className="travelCheckList">
@@ -63,9 +63,19 @@ class CheckListSubmissions extends Component {
               )
           }
         </div>
+        <div className="travelCheckList__submit-area">
+          <button
+            type="button"
+            className="bg-btn bg-btn--active"
+            onClick={() => {closeModal();}}
+            disabled={false}
+          >
+            Close
+          </button>
+        </div>
       </Fragment>
     );
-  }
+  };
 
   render() {
     const {isLoading} = this.props;
@@ -90,6 +100,7 @@ CheckListSubmissions.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   handleFileUpload: PropTypes.func.isRequired,
   itemsToCheck: PropTypes.array.isRequired,
+  closeModal: PropTypes.func.isRequired,
   tripType: PropTypes.string.isRequired,
   request: PropTypes.object,
   requestId: PropTypes.string.isRequired,

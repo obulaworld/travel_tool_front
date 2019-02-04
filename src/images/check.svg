@@ -15,7 +15,7 @@
                             <mask id="mask-2" fill="white">
                                 <use xlink:href="#path-1"></use>
                             </mask>
-                            <use id="icon/toggle/check_box_24px" fill="#FFAF30" fill-rule="nonzero" xlink:href="#path-1"></use>
+                            <use id="icon/toggle/check_box_24px" fill="#72D11F" fill-rule="nonzero" xlink:href="#path-1"></use>
                         </g>
                     </g>
                 </g>
