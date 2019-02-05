@@ -20,7 +20,8 @@ export function* createReminderAsync(action) {
     const response = yield call(ReminderAPI.createReminder, reminderPayload);
     yield put(createReminderSuccess(response.data));
     toast.success(response.data.message);
-    history.push('/settings/reminders');
+    const { data: {reminder: {condition:{documentType} } }}= response;
+    history.push(`/settings/reminders?document=${documentType.toLowerCase()}`);
   } catch (error) {
     let errors = {};
     if(error.response && error.response.status === 422) {

@@ -44,11 +44,30 @@ describe('CreateReminder', () => {
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
   });
+
+  it('Should select the document type on first attempt', ()=> {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CreateReminder {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find('.dropdown__input__value').text()).toContain('Select Document');
+    const documentDropdown = wrapper.find('.dropdown__container');
+    documentDropdown.simulate('click');
+    const documentOpen =  wrapper.find('.dropdown__container.open');
+    const passport = documentOpen.find('#Passport-Passport');
+    expect(passport.text()).toContain('Passport');
+    passport.simulate('click');
+    expect(wrapper.find('.dropdown__input__value').text()).toContain('Passport');
+  });
 });
 describe('Edit Reminder Page', () => {
   const props = {
     fetchAllEmailTemplates: jest.fn(),
-    createReminder: jest.fn(),
+    editReminder: jest.fn(),
+    isEditMode: jest.fn(),
     history: {
       push: jest.fn(),
     },
@@ -58,17 +77,21 @@ describe('Edit Reminder Page', () => {
   };
  
   it('should render the Create Reminder page without crashing', () => {
-    const wrapper = mount(
+    const parentWrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
           <CreateReminder {...props} />
         </MemoryRouter>
       </Provider>
     );
-    const passportItem = wrapper.find('#Passport-Passport');
-    passportItem.simulate('click');
-    expect(wrapper.length).toBe(1);
-    
-    wrapper.unmount();
+    const wrapper = parentWrapper.find('CreateReminder');
+    wrapper.instance().setState({
+      documentType:'Visa'
+    });
+
+    parentWrapper.setProps({ ...props });
+    parentWrapper.find('#Visa-Visa').simulate('click');
+    expect(parentWrapper.length).toBe(1);
+    parentWrapper.unmount();
   });
 });
