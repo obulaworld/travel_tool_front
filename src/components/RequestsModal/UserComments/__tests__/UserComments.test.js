@@ -11,21 +11,32 @@ const comments = [{
   id: '1', // commentItem expects this to be a string
   userName: 'Smith Allen',
   picture: '/path/to/image',
-  createdAt: '',
+  createdAt: '2018-08-16 012:11:52.181+01',
   comment: 'Can you clarify why',
   userEmail: 'ik@gmail.com',
   isEdited: true,
 }];
 
-const secondComments = [{
-  id: 1,
-  userName: 'Smith Allen',
-  picture: '/path/to/image',
-  createdAt: '',
-  comment: 'Can you clarify why',
-  userEmail: 'ik@gmail.com',
-  isEdited: false,
-}];
+const secondComments = [
+  {
+    id: 1,
+    userName: 'Smith Allen',
+    picture: '/path/to/image',
+    createdAt: '2018-08-16 012:11:52.181+01',
+    comment: 'Can you clarify why',
+    userEmail: 'ik@gmail.com',
+    isEdited: false,
+  },
+  {
+    id: 2,
+    userName: 'Smith Allen',
+    picture: '/path/to/image',
+    createdAt: '2018-08-17 012:11:52.181+01',
+    comment: 'Can you clarify why you clarified',
+    userEmail: 'ik@gmail.com',
+    isEdited: false,
+  }
+];
 
 describe('UserComments component', () => {
   const wrapper = shallow(<UserComments

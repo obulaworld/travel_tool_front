@@ -6,7 +6,7 @@ exports[`UserComments component should match snapshot 1`] = `
   comment={
     Object {
       "comment": "Can you clarify why",
-      "createdAt": "",
+      "createdAt": "2018-08-16 012:11:52.181+01",
       "id": "1",
       "isEdited": true,
       "picture": "/path/to/image",
@@ -30,30 +30,58 @@ exports[`UserComments component should match snapshot 1`] = `
 `;
 
 exports[`UserComments component should match snapshot 2`] = `
-<CommentItem
-  activeCommentId=""
-  comment={
-    Object {
-      "comment": "Can you clarify why",
-      "createdAt": "",
-      "id": 1,
-      "isEdited": false,
-      "picture": "/path/to/image",
-      "userEmail": "ik@gmail.com",
-      "userName": "Smith Allen",
+Array [
+  <CommentItem
+    activeCommentId=""
+    comment={
+        Object {
+            "comment": "Can you clarify why you clarified",
+            "createdAt": "2018-08-17 012:11:52.181+01",
+            "id": 2,
+            "isEdited": false,
+            "picture": "/path/to/image",
+            "userEmail": "ik@gmail.com",
+            "userName": "Smith Allen",
+          }
     }
-  }
-  commentToEdit=""
-  currentUser={Object {}}
-  deleteComment={[Function]}
-  editComment={[Function]}
-  editReady={false}
-  editedLabel=""
-  email=""
-  formatDate={[Function]}
-  handleNoEdit={[Function]}
-  key="1"
-  renderCancelButton={[Function]}
-  resetEditing={[Function]}
-/>
+    commentToEdit=""
+    currentUser={Object {}}
+    deleteComment={[Function]}
+    editComment={[Function]}
+    editReady={false}
+    editedLabel=""
+    email=""
+    formatDate={[Function]}
+    handleNoEdit={[Function]}
+    key="2"
+    renderCancelButton={[Function]}
+    resetEditing={[Function]}
+/>,
+  <CommentItem
+    activeCommentId=""
+    comment={
+        Object {
+            "comment": "Can you clarify why",
+            "createdAt": "2018-08-16 012:11:52.181+01",
+            "id": 1,
+            "isEdited": false,
+            "picture": "/path/to/image",
+            "userEmail": "ik@gmail.com",
+            "userName": "Smith Allen",
+          }
+    }
+    commentToEdit=""
+    currentUser={Object {}}
+    deleteComment={[Function]}
+    editComment={[Function]}
+    editReady={false}
+    editedLabel=""
+    email=""
+    formatDate={[Function]}
+    handleNoEdit={[Function]}
+    key="1"
+    renderCancelButton={[Function]}
+    resetEditing={[Function]}
+/>,
+]
 `;

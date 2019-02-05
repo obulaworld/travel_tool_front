@@ -90,11 +90,19 @@ Array [
                 >
                     <tr
                         className="table__rows "
+                        key="3"
                     >
                         <td
-                            className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+                            className="mdl-data-table__cell--non-numeric table__data 
+                                  readiness__cell-name"
                         >
-                            PasssssT
+                            <span
+                                className="reminder__condition-name"
+                                onClick={[Function]}
+                                role="presentation"
+                            >
+                                PasssssT
+                            </span>
                         </td>
                         <td
                             className="mdl-data-table__cell--non-numeric table__data"
@@ -155,6 +163,9 @@ Array [
                                     </ul>
                                 </div>
                             </span>
+                            <div
+                                className="reminder__deatails"
+                            />
                         </td>
                     </tr>
                 </tbody>

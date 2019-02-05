@@ -64,6 +64,17 @@ describe('Notification Item Component', () => {
     expect(props.markSingleAsRead).toHaveBeenCalledWith(12);
   });
 
+  it('should render unread notifications', () => {
+    const wrapper = shallow(<NotificationItem {...props} />);
+    expect(wrapper.find('div.message-opened').exists()).toBe(false);
+  });
+
+  it('should render read notifications', () => {
+    const newProps = {...props, notificationStatus: 'read'};
+    const wrapper = shallow(<NotificationItem {...newProps} />);
+    expect(wrapper.find('div.message-opened').exists()).toBe(true);
+  });
+
   it('should change notication image icon to open when notification is read',
     () => {
       const wrapper = shallow(<NotificationItem {...props} />);

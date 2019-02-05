@@ -58,7 +58,7 @@ export default class NotificationItem extends PureComponent {
 
   render() {
     const { name, image, message } = this.props;
-    const bgColorClass = this.checkMarkedAsRead ? 'message-opened' : '';
+    const bgColorClass = this.checkMarkedAsRead() ? 'message-opened' : '';
 
     return (
       <div className={`notification-item ${bgColorClass}`}>

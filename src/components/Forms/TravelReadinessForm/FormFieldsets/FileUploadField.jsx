@@ -9,8 +9,11 @@ class FileUploadField extends Component{
       return `${document.data && document.data.cloudinaryUrl.substring(0, 40)}...`;
     }
     return (
-      name !== '' ? name :
-        'Drag file here or choose from computer'
+      name !== ''
+        ? name.length > 50
+          ? `${name.substring(0, 50)}...`
+          : name
+        : 'Drag file here or choose from computer'
     );
   };
 
