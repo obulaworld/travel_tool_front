@@ -149,8 +149,10 @@ form .form-input {
     transition: transform 0.4s ease-out;
     transform-origin: top;
     box-sizing: border-box;
+    max-height: 110px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     li {
-      display: flex;
       align-items: center;
       cursor: pointer;
       height: 32px;
