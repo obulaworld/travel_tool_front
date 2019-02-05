@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReminderItem /> should render correctly 1`] = `
+<div>
+  <p
+    className="frequncy_count"
+  >
+    Reminder
+     
+    1
+  </p>
+  <div
+    className="reminder__condition"
+  >
+    <p>
+      Passport Expiry
+    </p>
+    <span
+      className="frequency"
+    >
+      This reminder will be sent 2 Months to Expiry
+    </span>
+  </div>
+</div>
+`;

@@ -100,7 +100,7 @@ describe('Reminder sagas', () => {
           payload,
           history: { push: jest.fn()}
         })
-        .run();
+        .silentRun();
     });
 
     it('handles validation errors from the API', () => {
@@ -164,7 +164,7 @@ describe('Reminder sagas', () => {
           type: GET_SINGLE_REMINDER,
           conditionId
         })
-        .run();
+        .silentRun();
     });
 
     it('handles validation errors from the API', () => {
@@ -230,7 +230,7 @@ describe('Reminder sagas', () => {
           payload,
           conditionId
         })
-        .run();
+        .silentRun();
     });
 
     it('handles validation errors from the API', () => {

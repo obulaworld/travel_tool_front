@@ -22,6 +22,19 @@ const initState = {
         'currentPage': 1
       }
     },
+    singleReminder: {
+      data: {
+        conditionName: 'Passport',
+        documentType: 'passport',
+        id: 1,
+        reminders: [
+          {
+            frequency: '2 Weeks',
+            id: 1,
+          }
+        ]
+      }
+    },
     reminders: [
       {
         id: 3,

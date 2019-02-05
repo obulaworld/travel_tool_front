@@ -8,12 +8,14 @@ import {
   disableReminderCondition,
   enableDisabledReminderCondition
 } from '../../redux/actionCreator/emailReminderAction';
+import { getSingleReminder } from '../../redux/actionCreator/reminderActions';
 import NoEmailReminder from '../../components/EmailReminderSetup/NoEmailReminder';
 import './Reminder.scss';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import DisableReminderTemplateForm from '../../components/Forms/DisableReminderTemplateForm/DisableReminderTemplate';
 import EnableDisabledReminderConditionForm from '../../components/Forms/EnableDisabledReminderConditionForm/EnableReminderEmailTemplateForm';
 import TemplatesPagination from '../../components/ReminderSetup/TemplatesPagination';
+
 
 export class Reminders extends Component{
   constructor(props){
@@ -135,7 +137,7 @@ export class Reminders extends Component{
 
 
   renderButtonGroup = () => {
-    const {meta, history} = this.props;
+    const {meta, history } = this.props;
     return (
       <div className="document_header_group_button">
         <div>
@@ -164,14 +166,18 @@ export class Reminders extends Component{
   }
 
   renderRemindersTable = () => {
-    const { reminders, history } = this.props;
+    const { reminders, history, getSingleReminder, singleReminder } = this.props;
+    const  { activeDocument } = this.state;
     return (
       <Fragment>
         <ReminderTable
           fetchEmailReminder={fetchEmailReminder}
+          activeDocument={activeDocument}
           reminders={reminders} 
           setItemToDisable={this.setItemToDisable}
           history={history}
+          getSingleReminder={getSingleReminder}
+          singleReminder={singleReminder}
         />
       </Fragment>
     );
@@ -219,12 +225,14 @@ const mapDispatchToProps = {
   closeModal,
   fetchEmailReminder,
   disableReminderCondition,
-  enableDisabledReminderCondition
+  enableDisabledReminderCondition,
+  getSingleReminder,
 };
 
-const mapStateToProps = ({ modal,emailReminders}) => ({
+const mapStateToProps = ({ modal, emailReminders, reminders }) => ({
   ...modal.modal,
-  ...emailReminders
+  ...emailReminders,
+  ...reminders
 });
 
 Reminders.propTypes = {
