@@ -139,9 +139,9 @@ export class Layout extends Component {
   }
 
   render () {
-    const {isLoaded} = this.props;
+    const { isLoaded, location: { pathname } } = this.props;
     const token = Cookies.get('jwt-token');
-    if(!isLoaded && token){
+    if(!isLoaded && token && pathname === '/home'){
       return <LoaderPage />;
     }
    
