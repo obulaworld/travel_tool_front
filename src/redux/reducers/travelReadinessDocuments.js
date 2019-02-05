@@ -20,8 +20,11 @@ import {
   DELETE_TRAVEL_READINESS_DOCUMENT,
   DELETE_TRAVEL_READINESS_DOCUMENT_SUCCESS,
   DELETE_TRAVEL_READINESS_DOCUMENT_FAILURE,
-  CREATE_COMMENT_SUCCESS
+  CREATE_COMMENT_SUCCESS,
+  EDIT_COMMENT_SUCCESS,
+  DELETE_COMMENT_SUCCESS
 } from '../constants/actionTypes';
+import { commentsUpdate } from './requests';
 
 export const initialState = {
   users: [],
@@ -42,6 +45,7 @@ export const initialState = {
   fetchingDocument: false,
 };
 
+let comments;
 const tdReducer = (state = initialState.userReadiness.travelDocuments, action) => {
   switch(action.type) {
   case VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS:
@@ -49,9 +53,7 @@ const tdReducer = (state = initialState.userReadiness.travelDocuments, action) =
     return {
       ...state,
       [action.document.type]: state[action.document.type].map((item) => {
-        if (item.id === action.document.id) {
-          return action.document;
-        }
+        if (item.id === action.document.id) { return action.document; }
         return item;
       })
     }; /* istanbul ignore next */
@@ -226,6 +228,26 @@ export default (state = initialState, action) => {
         ...state.document.comments,
         action.comment.comment
       ],
+    };
+  case EDIT_COMMENT_SUCCESS:
+    comments = commentsUpdate(state.document.comments, action);
+    return {
+      ...state,
+      document: {
+        ...state.document,
+        comments
+      },
+      comments
+    };
+  case DELETE_COMMENT_SUCCESS:
+    comments = state.document.comments.filter(comment => comment.id !== action.commentId);
+    return {
+      ...state,
+      document: {
+        ...state.document,
+        comments
+      },
+      comments
     };
   default: return state;
   }

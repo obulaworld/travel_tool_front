@@ -30,6 +30,17 @@ const initialState = {
   comments: [],
 };
 
+export const commentsUpdate = (commentsArray, action) => {
+  const updatedCommentArray = commentsArray.map(comment => {
+    if (comment.id === action.comment.id) {
+      comment.comment = action.comment.comment;
+      comment.isEdited = action.comment.isEdited;
+    }
+    return comment;
+  });
+  return updatedCommentArray;
+};
+
 let editedRequestIndex, comments;
 const requests = (state = initialState, action) => {
   switch (action.type) {
@@ -162,13 +173,7 @@ const requests = (state = initialState, action) => {
       ],
     };
   case EDIT_COMMENT_SUCCESS:
-    comments = state.comments.map(comment => {
-      if (comment.id === action.comment.id) {
-        comment.comment = action.comment.comment;
-        comment.isEdited = action.comment.isEdited;
-      }
-      return comment;
-    });
+    comments = commentsUpdate(state.comments, action);
     return {
       ...state,
       requestData: {
