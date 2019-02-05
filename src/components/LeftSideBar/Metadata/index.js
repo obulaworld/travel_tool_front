@@ -74,7 +74,7 @@ const NavItemsMetadata = [
       {
         link_to: '/residence/manage',
         text: 'Manage',
-        onlyVisibleTo: ['Travel Administrator', 'Super Administrator'],
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
         exact: false
       },
       {
@@ -146,7 +146,7 @@ const NavItemsMetadata = [
         link_to: '/settings/roles/339458',
         exact: true,
         text: 'Travel team',
-        onlyVisibleTo: ['Travel Administrator']
+        onlyVisibleTo: ['Travel Administrator', 'Travel Team Member']
       },
       {
         link_to: '/settings/reminders?document=passport',
@@ -158,7 +158,7 @@ const NavItemsMetadata = [
         link_to: '/settings/reminder-setup',
         exact: true,
         text: 'Reminder Setup',
-        onlyVisibleTo: ['Travel Administrator', 'Super Administrator']
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
       },
     ],
     icons: {

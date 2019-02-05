@@ -121,7 +121,8 @@ const Routes = () => (
             component={RequireAuth(
               ConnectedAccommodation,
               SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -170,65 +171,59 @@ const Routes = () => (
             component={RequireAuth(
               ConnectedRoleDetails,
               SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
             path="/settings/reminder-setup"
             exact
-            component={
-              RequireAuth(
-                ConnectedReminderSetup,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedReminderSetup,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/reminder-setup/create"
             exact
-            component={
-              RequireAuth(
-                ConnectedCreateEmailTemplate,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              ConnectedCreateEmailTemplate,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/reminders/create"
             exact
-            component={
-              RequireAuth(
-                ConnectedCreateReminder,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER
-              )
-            }
+            component={RequireAuth(
+              ConnectedCreateReminder,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/reminder-setup/update/:templateId"
             exact
-            component={
-              RequireAuth(
-                UpdateEmailTemplate,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR
-              )
-            }
+            component={RequireAuth(
+              UpdateEmailTemplate,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/reminders/edit/:conditionId"
             exact
-            component={
-              RequireAuth(
-                ConnectedCreateReminder,
-                SUPER_ADMINISTRATOR,
-                TRAVEL_ADMINISTRATOR,
-                TRAVEL_TEAM_MEMBER
-              )
-            }
+            component={RequireAuth(
+              ConnectedCreateReminder,
+              SUPER_ADMINISTRATOR,
+              TRAVEL_ADMINISTRATOR,
+              TRAVEL_TEAM_MEMBER
+            )}
           />
           <Route
             path="/settings/reminders"
