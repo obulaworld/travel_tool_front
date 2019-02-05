@@ -23,13 +23,13 @@ describe('Analytics Pagination', () => {
     const { pagination, handlePagination } = props;
     pagination.prevPage = 0;
     const wrapper = shallow(<AnalyticsPagination pagination={pagination} handlePagination={handlePagination} />);
-    expect(wrapper.find('#Previous').props()).toHaveProperty('className', 'pg--button disabled');
+    expect(wrapper.find('#Previous').props()).toHaveProperty('className', 'pg--button button-disabled');
   });
   it('should render disabled Next button when currentPage === pageCount', () => {
     const { pagination, handlePagination } = props;
     pagination.currentPage = 2;
     const wrapper = shallow(<AnalyticsPagination pagination={pagination} handlePagination={handlePagination} />);
-    expect(wrapper.find('#Next').props()).toHaveProperty('className', 'pg--button disabled');
+    expect(wrapper.find('#Next').props()).toHaveProperty('className', 'pg--button button-disabled');
   });
   it('should render Showing page 1 of 1 page when pageCount is 1', () => {
     pagination.currentPage = 1;

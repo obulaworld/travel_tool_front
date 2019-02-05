@@ -16,7 +16,7 @@ class AnalyticsPagination extends PureComponent{
     const renderButton = (text, disabled) => (
       <button
         id={text} 
-        className={`pg--button ${disabled && 'disabled'}`} onClick={this.handleClick} type="button">
+        className={`pg--button ${disabled && 'button-disabled'}`} onClick={this.handleClick} type="button">
         {text}
       </button>
     );

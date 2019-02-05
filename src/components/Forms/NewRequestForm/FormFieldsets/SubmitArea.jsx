@@ -4,7 +4,7 @@ import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = (props) => {
   const { hasBlankFields,sameOriginDestination, onCancel, send, modalType,
-    onEditCancel, selection, loading, disableOnChangeProfile } = props;
+    onEditCancel, selection, loading, isCreating, disableOnChangeProfile } = props;
   return (
     <fieldset>
       <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
@@ -25,9 +25,9 @@ const SubmitArea = (props) => {
           )}
         <button
           type="submit"
-          disabled={hasBlankFields || loading || (sameOriginDestination && disableOnChangeProfile)}
+          disabled={hasBlankFields || loading || isCreating || (sameOriginDestination && disableOnChangeProfile)}
           className="bg-btn bg-btn--active" id="submit">
-          <ButtonLoadingIcon isLoading={loading} buttonText={send} />
+          <ButtonLoadingIcon isLoading={loading || isCreating} buttonText={send} />
         </button>
       </div>
     </fieldset>
@@ -43,6 +43,7 @@ SubmitArea.propTypes = {
   onEditCancel: PropTypes.func,
   selection: PropTypes.string,
   loading: PropTypes.bool,
+  isCreating: PropTypes.bool,
   disableOnChangeProfile: PropTypes.bool
 };
 
@@ -50,6 +51,7 @@ SubmitArea.defaultProps = {
   modalType: '',
   selection: '',
   loading: false,
+  isCreating: false,
   disableOnChangeProfile: false,
   sameOriginDestination: false,
   onEditCancel: () => {}

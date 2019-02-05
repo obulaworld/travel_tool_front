@@ -17,7 +17,7 @@ const initialState = {
     data: {}
   },
   updatedEmailTemplate: {
-    isUpdating: false,
+    isSaving: false,
     errors: {},
     data: {}
   }
@@ -63,20 +63,20 @@ export default (state = initialState, action) => {
 
   case UPDATE_REMINDER_EMAIL_TEMPLATE:
     return {...state, updatedEmailTemplate: {
-      isUpdating: true,
+      isSaving: true,
       errors: {}
     }};
 
   case UPDATE_REMINDER_EMAIL_TEMPLATE_SUCCESS:
     return {...state, updatedEmailTemplate: {
-      isUpdating: false,
+      isSaving: false,
       errors: {},
       data: action.response.reminderEmailTemplate
     }};
 
   case UPDATE_REMINDER_EMAIL_TEMPLATE_FAILURE:
     return {...state, updatedEmailTemplate: {
-      isUpdating: false,
+      isSaving: false,
       errors: action.errors || action.error || action.message || {}
     }};
   default:
