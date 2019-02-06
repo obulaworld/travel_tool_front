@@ -29,12 +29,13 @@
     }
 
     &:hover{
-      font-size: 17px;
+      font-size: 16px;
     }
   }
 }
-.disabled{
+.button-disabled{
   color: #BCBCBC;
+  cursor: no-drop;
 
   &:hover{
     font-size: 15px;

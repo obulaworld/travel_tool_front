@@ -23,7 +23,7 @@ describe('Reminder Email Templates reducer', () => {
       data: {}
     },
     updatedEmailTemplate: {
-      isUpdating: false,
+      isSaving: false,
       errors: {},
       data: {}
     }
@@ -106,7 +106,7 @@ describe('Reminder Email Templates reducer', () => {
       reminderTemplateData
     );
     const expectedOutput = {
-      isUpdating: true,
+      isSaving: true,
       errors: {}
     };
     const output = reminderTemplatesReducer(initialState, action);
@@ -118,7 +118,7 @@ describe('Reminder Email Templates reducer', () => {
       reminderEmailTemplate: reminderTemplateData
     });
     const expectedOutput = {
-      isUpdating: false,
+      isSaving: false,
       data: {...reminderTemplateData},
       errors: {}
     };
@@ -131,7 +131,7 @@ describe('Reminder Email Templates reducer', () => {
       ...errorResponse
     });
     const expectedOutput = {
-      isUpdating: false,
+      isSaving: false,
       errors: {...errorResponse}
     };
     const output = reminderTemplatesReducer(initialState, action);

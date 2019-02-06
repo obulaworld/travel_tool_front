@@ -53,7 +53,9 @@ class CreateReminder extends Component {
       getsingleReminder, 
       singleReminder,
       editReminder,
-      editModeErrors
+      editModeErrors,
+      isCreating,
+      isUpdating
     } = this.props;
     return (
       <ReminderForm 
@@ -68,6 +70,8 @@ class CreateReminder extends Component {
         isEditMode={this.isEditMode()}
         editModeErrors={editModeErrors}
         singleReminder={singleReminder}
+        isCreating={isCreating}
+        isUpdating={isUpdating}
       />
     );
   }
@@ -105,8 +109,10 @@ const mapStateToProps = ({reminders, listEmailTemplatesReducer}) => ({
   pageCount: listEmailTemplatesReducer.pagination.pageCount,
   loading: reminders.isLoading,
   errors: reminders.newReminder.errors,
+  isCreating: reminders.newReminder.isCreating,
   singleReminder: reminders.singleReminder,
   editModeErrors: reminders.updatedReminder.errors,
+  isUpdating: reminders.updatedReminder.isUpdating,
 });
 
 const mapDispatchToProps = {

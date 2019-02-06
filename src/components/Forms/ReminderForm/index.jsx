@@ -5,6 +5,7 @@ import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import SubmitArea from '../NewRequestForm/FormFieldsets/SubmitArea';
 import ReminderFormInputFields from './ReminderFormFieldSets/ReminderFormInputFields';
 import ReminderUtils from '../../../helper/reminder/ReminderUtils';
+import Preloader from '../../Preloader/Preloader';
 
 class ReminderForm extends Component {
   constructor(props) {
@@ -207,75 +208,68 @@ class ReminderForm extends Component {
   render() {
     const { hasBlankFields, errors, values, totalReminders , documentTypeChanged } = this.state;
     const {
-      documentType, templates,
-      currentPage, loading,
-      fetchAllEmailTemplates,
-      pageCount,
-      isEditMode,
+      documentType, templates, currentPage, loading,
+      fetchAllEmailTemplates, pageCount, isUpdating,
+      isEditMode, isCreating, singleReminder
     } = this.props;
+    const { isLoading } = singleReminder;
     return (
-      <FormContext values={values} targetForm={this} errors={errors}>
-        <form onSubmit={this.handleFormSubmit}>
-          <ReminderFormInputFields
-            totalReminders={totalReminders}
-            addNewReminder={this.addNewReminder}
-            removeReminder={this.removeReminder}
-            onInputChange={this.handleInputChange}
-            onReminderTemplateChange={this.handleReminderTemplateChange}
-            onReminderPeriodChange={this.handleReminderPeriodChange}
-            templates={templates}
-            currentPage={currentPage}
-            loading={loading}
-            pageCount={pageCount}
-            fetchAllEmailTemplates={fetchAllEmailTemplates}
-          />
-          <SubmitArea
-            send="Save"
-            hasBlankFields={
-              isEditMode ? 
-                (!documentTypeChanged && hasBlankFields) 
-                : (hasBlankFields || !documentType)}
-            onCancel={this.handleCancel}
-          />
-        </form>
-      </FormContext>
+      <div>
+        {isLoading ? <Preloader /> : (
+          <FormContext values={values} targetForm={this} errors={errors}>
+            <form onSubmit={this.handleFormSubmit}>
+              <ReminderFormInputFields
+                totalReminders={totalReminders} addNewReminder={this.addNewReminder}
+                removeReminder={this.removeReminder} onInputChange={this.handleInputChange}
+                onReminderTemplateChange={this.handleReminderTemplateChange}
+                onReminderPeriodChange={this.handleReminderPeriodChange}
+                templates={templates} currentPage={currentPage}
+                loading={loading} pageCount={pageCount}
+                fetchAllEmailTemplates={fetchAllEmailTemplates}
+              />
+              <SubmitArea
+                send="Save"
+                hasBlankFields={
+                  isEditMode ? 
+                    (!documentTypeChanged && hasBlankFields) 
+                    : (hasBlankFields || !documentType)}
+                isCreating={isCreating || isUpdating} onCancel={this.handleCancel}
+              />
+            </form>
+          </FormContext>)}
+      </div>
     );
   }
 }
 
 ReminderForm.propTypes = {
-  documentType: PropTypes.string,
-  templates: PropTypes.array,
+  documentType: PropTypes.string, templates: PropTypes.array,
   currentPage: PropTypes.number,
   fetchAllEmailTemplates: PropTypes.func.isRequired,
   createReminder: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  pageCount: PropTypes.number,
-  errors: PropTypes.object,
-  editModeErrors: PropTypes.object,
-  history: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired, isCreating: PropTypes.bool,
+  pageCount: PropTypes.number, errors: PropTypes.object,
+  editModeErrors: PropTypes.object, history: PropTypes.object.isRequired,
   getSingleReminder: PropTypes.func.isRequired,
   editReminder: PropTypes.func.isRequired,
-  isEditMode: PropTypes.bool.isRequired,
+  isEditMode: PropTypes.bool.isRequired, isUpdating: PropTypes.bool,
   location: PropTypes.object.isRequired,
   singleReminder: PropTypes.object,
   setReminderType: PropTypes.func.isRequired
 };
 
 ReminderForm.defaultProps = {
-  documentType: '',
-  templates: [],
-  currentPage: 1,
-  pageCount: 100,
-  errors: {},
-  editModeErrors: {},
+  documentType: '', templates: [], 
+  currentPage: 1, pageCount: 100,
+  errors: {}, editModeErrors: {},
   singleReminder: {
     condition: {
       conditionName: '',
       documentType: 'Passport'
     },
     reminders: []
-  }
+  },
+  isCreating: false, isUpdating: false
 };
 
 export default ReminderForm;
