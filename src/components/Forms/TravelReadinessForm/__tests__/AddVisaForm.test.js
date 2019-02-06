@@ -16,7 +16,7 @@ const textFile = new Blob(['This is a text file'], {type : 'text/plain'});
 textFile.name = 'textFile.txt';
 
 const validFile = new Blob(['This is a valid png file'], {type : 'image/png', size: 1092});
-validFile.name = 'file.png';
+validFile.name = 'filenamewhichistoolongibetyoucantreadthiscozitsgreaterthan50characters.png';
 
 toast.error = jest.fn();
 const event = {

@@ -59,7 +59,11 @@ export class UserComments extends Component {
   render() {
     const { commentToEdit, activeCommentId, commentToDelete, editReady } = this.state;
     const { comments, email, deleteComment, currentUser } = this.props;
-    return comments && comments.map((comment) => {
+    const sortedComments = comments.sort(function(a, b){
+      const firstDate = new Date(a.createdAt), secondDate = new Date(b.createdAt);
+      return secondDate - firstDate;
+    });
+    return sortedComments && sortedComments.map((comment) => {
       const editedLabel = comment.isEdited  ? '<span>(edited)</span>' : '';
       return (
         <CommentItem

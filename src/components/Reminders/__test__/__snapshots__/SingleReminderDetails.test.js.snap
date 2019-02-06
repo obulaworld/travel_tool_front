@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SingleReminderDetails /> should render correctly 1`] = `
-<div>
+<div
+  className="reminder__deatails"
+>
   <div
     className="overlay visible  "
     onClick={null}
@@ -31,7 +33,7 @@ exports[`<SingleReminderDetails /> should render correctly 1`] = `
           <div
             className="modal-title"
           >
-            undefined Reminder Expiry
+            Passport Expiry Reminder
           </div>
           <div
             className="lable-text modal-bar"
@@ -74,7 +76,7 @@ exports[`<SingleReminderDetails /> should render correctly 1`] = `
               <span
                 className="frequency"
               >
-                This reminder will be sent 2 Months to Expiry
+                To be sent 2 Months to Expiry
               </span>
             </div>
           </div>
@@ -95,10 +97,38 @@ exports[`<SingleReminderDetails /> should render correctly 1`] = `
               <span
                 className="frequency"
               >
-                This reminder will be sent 3 Weeks to Expiry
+                To be sent 3 Weeks to Expiry
               </span>
             </div>
           </div>
+        </div>
+        <hr />
+        <div
+          className="submit-area"
+        >
+          <fieldset>
+            <div
+              className="submit-area"
+            >
+              <button
+                className="bg-btn bg-btn--inactive"
+                id="cancel"
+                onClick={[Function]}
+                type="button"
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-btn bg-btn--active"
+                disabled={false}
+                id="submit"
+                onClick={[Function]}
+                type="submit"
+              >
+                <undefined />
+              </button>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>

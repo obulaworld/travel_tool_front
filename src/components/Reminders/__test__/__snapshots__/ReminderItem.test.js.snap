@@ -18,7 +18,7 @@ exports[`<ReminderItem /> should render correctly 1`] = `
     <span
       className="frequency"
     >
-      This reminder will be sent 2 Months to Expiry
+      To be sent 2 Months to Expiry
     </span>
   </div>
 </div>
