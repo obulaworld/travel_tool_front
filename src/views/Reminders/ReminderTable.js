@@ -3,9 +3,11 @@ import { PropTypes } from 'prop-types';
 import moment from 'moment';
 import './Reminder.scss';
 import withLoading from '../../components/Hoc/withLoading';
+import ReminderPlaceHolder from '../../components/Placeholders/ReminderPlaceHolder';
 import AlertIcon from '../../components/Reminders/AlertIcon';
 import TemplatesMenu from '../../components/ReminderSetup/TemplatesMenu';
 import SingleReminderDetails from '../../components/Reminders/SingleReminderDetails';
+import NoEmailReminder from '../../components/EmailReminderSetup/NoEmailReminder';
 
 const headClassName = 'table__head mdl-data-table__cell--non-numeric';
 const className = 'mdl-data-table__cell--non-numeric table__data';
@@ -102,30 +104,38 @@ class ReminderTable  extends Component{
   }
 
   render() {
-    const { reminders,  } = this.props;
+    const { reminders } = this.props;
     return (
-      <div className="list-templates">
-        <div className="table__container">
-          <table className="mdl-data-table mdl-js-data-table readiness-table">
-            <thead>
-              <tr>
-                <th className={headClassName}>Condition Name</th>
-                <th className={headClassName}>Document Type</th>
-                <th className={headClassName}>Created By</th>
-                <th className={headClassName}>Created on</th>
-              </tr>
-            </thead>
-            <tbody className="table__body">
-              {
-                reminders && reminders.map(
-                  reminder => (
-                    this.renderTableDetails({ ...reminder, reminder, key: reminder.id })
-                  ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <Fragment>
+        {     
+          !reminders.length 
+            ? <NoEmailReminder />
+            : (
+              <div className="list-templates">
+                <div className="table__container">
+                  <table className="mdl-data-table mdl-js-data-table readiness-table">
+                    <thead>
+                      <tr>
+                        <th className={headClassName}>Condition Name</th>
+                        <th className={headClassName}>Document Type</th>
+                        <th className={headClassName}>Created By</th>
+                        <th className={headClassName}>Created on</th>
+                      </tr>
+                    </thead>
+                    <tbody className="table__body">
+                      {
+                        reminders && reminders.map(
+                          reminder => (
+                            this.renderTableDetails({ ...reminder, reminder, key: reminder.id })
+                          ))
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )
+        }
+      </Fragment>
     );
   }
 }
@@ -145,4 +155,4 @@ ReminderTable.defaultProps = {
 
 
 
-export default withLoading(ReminderTable);
+export default withLoading(ReminderTable, ReminderPlaceHolder);

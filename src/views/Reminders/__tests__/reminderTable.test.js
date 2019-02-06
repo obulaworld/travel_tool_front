@@ -141,6 +141,42 @@ describe('render reminder table', () => {
       expect(handleCloseModal).toHaveBeenCalled();
       expect(reminderItems).toHaveLength(0);
     });
+
+    it('should display a loader while the table content is being fetched', () =>{
+      const newProps = {
+        ...props,
+        disabled: false,
+        isLoading: true
+      };
+      const wrapper = mount(
+        <BrowserRouter>
+          <ReminderTable {...{...newProps, reminders: reminderData}} />
+        </BrowserRouter>
+      );
+
+      const reminderTableLoader = wrapper.find('ReminderPlaceHolder');
+      const reminderTable = wrapper.find('ReminderTable');
+      expect(reminderTableLoader).toHaveLength(1);
+      expect(reminderTable).toHaveLength(0);
+    });
+
+    it('should remove a loader when the table content is fetched', () =>{
+      const newProps = {
+        ...props,
+        disabled: false,
+        isLoading: false
+      };
+      const wrapper = mount(
+        <BrowserRouter>
+          <ReminderTable {...{...newProps, reminders: reminderData}} />
+        </BrowserRouter>
+      );
+
+      const reminderTableLoader = wrapper.find('ReminderPlaceHolder');
+      const reminderTable = wrapper.find('ReminderTable');
+      expect(reminderTableLoader).toHaveLength(0);
+      expect(reminderTable).toHaveLength(1);
+    });
   });
   
 });

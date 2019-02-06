@@ -68,6 +68,7 @@ describe('Edit Reminder Page', () => {
     const passportItem = wrapper.find('#Passport-Passport');
     passportItem.simulate('click');
     expect(wrapper.length).toBe(1);
+    
     wrapper.unmount();
   });
 });
