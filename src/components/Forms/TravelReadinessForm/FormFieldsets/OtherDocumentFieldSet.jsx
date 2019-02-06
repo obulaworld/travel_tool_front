@@ -16,7 +16,8 @@ class OtherDocumentFieldSet extends Component {
             {
               labelNote: '(Optional)',
               required: false,
-              maxDate: moment()
+              maxDate: moment(),
+              showYearDropdown: true
             }
           )}
           {renderInput(
@@ -27,7 +28,10 @@ class OtherDocumentFieldSet extends Component {
               required: false,
             }
           )}
-          {renderInput('expiryDate', 'date', {minDate: moment()})}
+          {renderInput('expiryDate', 'date', {
+            minDate: moment(),
+            showYearDropdown: true
+          })}
         </div>
       </fieldset>
     );

@@ -22,9 +22,15 @@ class PassportDetailsFieldSet extends Component{
             maxDate: moment().subtract( 18, 'years').add(1, 'month'),
             showYearDropdown: true
           })}
-          {renderInput('dateOfIssue', 'date', {maxDate: moment()})}
+          {renderInput('dateOfIssue', 'date', {
+            maxDate: moment(),
+            showYearDropdown: true
+          })}
           {renderInput('placeOfIssue', 'text')}
-          {renderInput('expiryDate', 'date', { minDate: moment()})}
+          {renderInput('expiryDate', 'date', {
+            minDate: moment(),
+            showYearDropdown: true
+          })}
         </div>
       </fieldset>
     );
