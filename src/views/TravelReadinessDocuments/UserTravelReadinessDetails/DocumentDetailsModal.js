@@ -149,12 +149,11 @@ export class DocumentDetailsModal extends Component {
   }
 
   render() {
-    const { documentType, document, userData, user: { picture }, fetchingDocument, error, email, currentUser } = this.props;
-    const userInfo = {
-      ...userData,
-      name: userData.fullName,
-      role: userData.occupation,
-    };
+    const { documentType, document, userData, user: { picture, id: userId }, fetchingDocument,
+      error, email, currentUser } = this.props;
+    const userInfo = { ...userData, name: userData.fullName, role: userData.occupation };
+    const { userId: owner } = document;
+    const selfOwned = owner && (owner === userId);
 
     if (!fetchingDocument && !document.data) {
       return <NotFound redirectLink="/travel-readiness" errorMessage={error} />;
@@ -164,18 +163,16 @@ export class DocumentDetailsModal extends Component {
       <Fragment>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           <UserInfo requestData={userInfo} />
-          {this.checkCurrentUserStatus() ? this.renderVerificationButton() : this.renderRequesterVerificationStatus()}
+          { this.checkCurrentUserStatus() && !selfOwned && !fetchingDocument  ? this.renderVerificationButton()
+            : !fetchingDocument && this.renderRequesterVerificationStatus()}
         </div>
         <div className="modal__travel-doc-details">
-          {
-            fetchingDocument && <Preloader />
-          }
-          {
-            !fetchingDocument && this.renderDocuments(this.generateDocumentData(documentType, document))
+          { fetchingDocument && <Preloader /> }
+          { !fetchingDocument && this.renderDocuments(this.generateDocumentData(documentType, document))
           }
         </div>
         {
-          fetchingDocument ? <Preloader /> : <ConnectedDocumentDetailsAttachment documentData={document} />
+          !fetchingDocument && <ConnectedDocumentDetailsAttachment documentData={document} />
         }
         <AddComment image={picture} />
         <ConnectedCommentBox requestId={null} documentId={document.id} />

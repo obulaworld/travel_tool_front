@@ -42,14 +42,16 @@ const props = {
     occupation: 'Software Developer'
   },
   user: {
-    picture: 'http://pix.els'
+    picture: 'http://pix.els',
+    id: '-LBMwfvmCERSFGfylyg'
   },
   fetchingDocument: false,
   document: {
     isVerified: false,
     data: {
       id: 'ckls'
-    }
+    },
+    userId: '-LBMwfvmCERSFGfylyg'
   },
   fetchDocumentDetails: jest.fn(),
   documentId: 'xifslke',
@@ -106,6 +108,9 @@ describe('DocumentDetailsModal', () => {
   it('should simulate verify documents click', () => {
     const updatedProps = {
       ...props,
+      user: {
+        id: '-LBMwfvmCERSFGfylygF4k3'
+      },
       getCurrentUserRole: ['Travel Administrator']
     };
     const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
@@ -128,6 +133,20 @@ describe('DocumentDetailsModal', () => {
     };
     const wrapper = shallow(<DocumentDetailsModal {...updatedProps} />);
     expect(wrapper.find(TravelDocumentField).length).toBe(6);
+  });
+
+  it('should render doc status when current user is owner; verify button otherwise', () => {
+    const wrapper = shallow(<DocumentDetailsModal {...props} />);
+    const verifyBtn = wrapper.find('.status__verify');
+    expect(verifyBtn.text()).toContain('Pending');
+    wrapper.setProps({
+      ...props,
+      user: {
+        id: '-LBMwfvmCERSFGfylygF4k3'
+      },
+      getCurrentUserRole: ['Travel Administrator']
+    });
+    expect(wrapper.find('Button[buttonClass="button__verify"]').props().text).toContain('Verify');
   });
 
   describe('TravelDocumentField', () => {
