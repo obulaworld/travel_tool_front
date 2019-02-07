@@ -13,6 +13,7 @@ const props = {
   history: {
     push: jest.fn()
   },
+  updateSingleReminderEmailTemplate: jest.fn(),
   errors: {},
   isSaving: false,
   createReminderEmailTemplate: jest.fn(),
@@ -23,6 +24,13 @@ const props = {
   data: {...mockData},
   getAllUsersEmail: jest.fn(),
   getUsersEmail: [],
+  newEmailTemplate: {
+    errors: {}
+  }
+};
+
+const event = {
+  preventDefault: jest.fn()
 };
 
 describe('<NewEmailTemplateForm> component', () =>{
@@ -60,7 +68,14 @@ describe('<NewEmailTemplateForm> component', () =>{
 
   it('should display errors when received from the props', () => {
     const errors = { name: 'The name should be more than 3 characters'};
-    wrapper.setProps({ errors});
+    wrapper.setProps({ newEmailTemplate: {errors}, errors});
     expect(wrapper.state('errors')).toEqual(errors);
+  });
+
+  it('should update single reminder template', () =>{
+    const wrapper = shallow(<NewEmailTemplateForm {...props} editing />);
+    wrapper.setState({ editing: true, hasBlankFields: false });
+    wrapper.find('form').simulate('submit',event );
+    expect(props.updateSingleReminderEmailTemplate).toHaveBeenCalled();
   });
 });

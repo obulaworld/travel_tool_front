@@ -27,9 +27,8 @@ class CreateEmailTemplate extends Base{
   }
 }
 
-const mapStateToProps = ({ reminderManagement : { newEmailTemplate }}) => ({
-  newEmailTemplate,
-  isSaving: newEmailTemplate.isSaving,
+const mapStateToProps = ({ reminderManagement }) => ({
+  ...reminderManagement
 });
 
 

@@ -1,10 +1,11 @@
 export default function apiValidationErrorHandler(error) {
-  let errors = {};
-  const { response: { data: { errors: validationErrors } } } = error;
+  let validationErrors = {};
 
-  (validationErrors || []).forEach(error => {
-    errors[error.name] = error.message;
+  const { response: { data: { errors } }} = error;
+
+  (errors || []).forEach(error => {
+    validationErrors[error.name] = error.message;
   });
 
-  return errors;
+  return validationErrors;
 }

@@ -16,6 +16,9 @@ const state = {
 
 const props = {
   createReminderEmailTemplate: jest.fn(),
+  newEmailTemplate: {
+    isSaving: true
+  },
   history: {
     push: jest.fn(),
   },
@@ -25,7 +28,7 @@ const props = {
   editing: true,
   getAllUsersEmail: jest.fn(),
   getUsersEmail: [{id:'travela', text:'travela@travela.com'}],
-  errors: []
+  errors: {}
 };
 
 describe('<UpdateEmailTemplate> page', () => {

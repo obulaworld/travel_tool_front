@@ -22,6 +22,12 @@ describe('<TemplateDetailsForm />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('calls onsend on clicking the submit button', () =>{
+    const wrapper = mount(<TemplateDetailsForm {...props} />);
+    wrapper.find('button#submit').simulate('click');
+    expect(props.history.push).toHaveBeenCalled();
+  });
+
   it('calls oncancel function', () => {
     const wrapper = mount(<TemplateDetailsForm {...props} />);
     wrapper.find('button#cancel').simulate('click');

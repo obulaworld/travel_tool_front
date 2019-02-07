@@ -23,7 +23,7 @@ class UpdateEmailTemplate extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ reminderManagement : { updatedEmailTemplate }}) => updatedEmailTemplate;
+const mapStateToProps = ({ reminderManagement }) => ({...reminderManagement});
 
 
 export default connect(

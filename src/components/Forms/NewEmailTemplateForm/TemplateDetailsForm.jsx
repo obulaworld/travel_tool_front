@@ -16,7 +16,8 @@ class TemplateDetailsForm extends PureComponent {
 
   onSend = (event) => {
     event.preventDefault();
-    const { history, selectedTemplate } = this.props;
+    const { history, selectedTemplate, closeModal } = this.props;
+    closeModal();
     history.push(`/settings/reminder-setup/update/${selectedTemplate.id}`);
   };
 
