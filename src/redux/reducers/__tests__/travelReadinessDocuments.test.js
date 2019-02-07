@@ -194,7 +194,7 @@ describe('travel readiness reducer', () => {
     };
 
     const newState = travelReadinessDocuments(initialState, action);
-    const expectedState = { ...initialState, updatingDocument: true, document: { comments: [] }, fetchingDocument: true };
+    const expectedState = { ...initialState, updatingDocument: true };
 
     expect(newState).toEqual(expectedState);
   });

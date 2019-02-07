@@ -11,7 +11,7 @@ import RequestApproval from './CommentBox/RequestApproval';
 import ConnectedUserComments from './UserComments/UserComments';
 import UserInfo from './UserInfo/UserInfo';
 import RequestDetailsHeader from './RequestDetailsHeader';
-import ConfirmDialog from './ConfirmDialog/ConfirmDialog';
+import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 import Preloader from '../Preloader/Preloader';
 import RequestModalHelper, { buttonTextValuePair } from './RequestModalHelper';
 import NotFound from '../../views/ErrorPages';

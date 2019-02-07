@@ -23,7 +23,6 @@ class TravelReadiness extends PureComponent {
       fetchReadiness({page: '1', limit: '9', type:'json', travelFlow, range:newRange });
     }
   }
-
   renderReadinessDetails = (item, index) => {
     const { departureDate } = item;
     return (

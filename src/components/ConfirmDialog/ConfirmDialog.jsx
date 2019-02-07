@@ -1,20 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../../modal/Modal';
+import Modal from '../modal/Modal';
 import './ConfirmDialog.scss';
 
 class ConfirmDialog extends Component {
-  renderConfirmModal() {
-    const {
-      id,
-      modalInvisible,
-      buttonSelected,
-      renderDialogText,
-      closeDeleteModal,
-      handleApprove,
-      handleReject
-    } = this.props;
-    return (
+
+  renderModal = (id,renderDialogText, modalInvisible, closeDeleteModal,buttonSelected,handleApprove, handleReject, handleVerify) => {
+    return(
       <Modal
         customModalStyles="delete-comment-modal"
         customOverlayStyle={
@@ -32,12 +24,30 @@ class ConfirmDialog extends Component {
           type="button"
           id={buttonSelected}
           onClick={
-            (['Approve', 'Verify'].includes(buttonSelected)) ? handleApprove(id) : handleReject(id)
+            (['Approve', 'Verify'].includes(buttonSelected)) ? handleApprove && handleApprove(id)
+              || handleVerify : handleReject(id)
           }
         >
           {buttonSelected}
         </button>
       </Modal>
+    );
+  };
+
+  renderConfirmModal() {
+    const {
+      id,
+      modalInvisible,
+      buttonSelected,
+      renderDialogText,
+      closeDeleteModal,
+      handleApprove,
+      handleReject,
+      handleVerify
+    } = this.props;
+    return (
+      this.renderModal(id,renderDialogText, modalInvisible, closeDeleteModal,buttonSelected,
+        handleApprove,handleReject,handleVerify)
     );
   }
 
@@ -56,6 +66,7 @@ ConfirmDialog.propTypes = {
   buttonSelected: PropTypes.oneOfType([
     PropTypes.bool, PropTypes.string
   ]),
+  handleVerify: PropTypes.func,
   renderDialogText: PropTypes.func.isRequired,
   closeDeleteModal: PropTypes.func.isRequired,
   handleApprove: PropTypes.func.isRequired,
@@ -65,7 +76,8 @@ ConfirmDialog.propTypes = {
 ConfirmDialog.defaultProps = {
   id: '',
   modalInvisible: true,
-  buttonSelected: null
+  buttonSelected: null,
+  handleVerify: () => {}
 };
 
 export default ConfirmDialog;
