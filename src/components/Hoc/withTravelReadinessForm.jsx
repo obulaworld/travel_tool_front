@@ -92,7 +92,7 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
         } catch (e) {
           toast.error('Error uploading document. Please try again!');
         }
-      } 
+      }
       if (/edit/.test(modalType)) {
         editTravelReadinessDocument(documentType, newValues, id);
       } else {
@@ -106,6 +106,7 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
     handleUpload = (e) => {
       e.preventDefault();
       const image = e.target.files[0];
+      if( !image ) return;
       if (!['image/jpeg', 'image/png'].includes(image.type)) {
         return toast.error('Invalid file type. Please upload an image');
       }

@@ -489,4 +489,17 @@ describe('<OtherDocumentForm />', () => {
     wrapper.find('.travel-document-form').simulate('submit');
     expect(toast.error).toHaveBeenCalledTimes(0);
   });
+
+  it('should not change the image when no image is selected', () => {
+    const noImage = {...event, target: { files: [null]}};
+    const fileInput = wrapper.find('input[type="file"]');
+
+    fileInput.simulate('change', event);
+
+    const { target: { files: expected }} = event;
+    expect(wrapper.state('image')).toEqual(expected[0]);
+    fileInput.simulate('change', noImage);
+
+    expect(wrapper.state('image')).toEqual(expected[0]);
+  });
 });
