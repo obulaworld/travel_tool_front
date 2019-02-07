@@ -17,7 +17,7 @@ export class DocumentDetailsAttachment extends Component {
   generateFileName(document) {
     let fileName;
     if (document.type === 'passport') {
-      return fileName = `${document.data.placeOfIssue} Passport`;
+      return fileName = `${document.data.nationality} Passport`;
     } else if (document.type === 'visa') {
       return fileName = `${document.data.country} Visa`;
     } else {
