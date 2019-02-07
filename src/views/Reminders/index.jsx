@@ -135,7 +135,6 @@ export class Reminders extends Component{
     );
   };
 
-
   renderButtonGroup = () => {
     const {meta, history } = this.props;
     return (
@@ -166,7 +165,7 @@ export class Reminders extends Component{
   }
 
   renderRemindersTable = () => {
-    const { reminders, history, getSingleReminder, singleReminder } = this.props;
+    const { reminders, history, getSingleReminder, singleReminder, isLoading } = this.props;
     const  { activeDocument } = this.state;
     return (
       <Fragment>
@@ -176,6 +175,7 @@ export class Reminders extends Component{
           reminders={reminders} 
           setItemToDisable={this.setItemToDisable}
           history={history}
+          isLoading={isLoading}
           getSingleReminder={getSingleReminder}
           singleReminder={singleReminder}
         />
@@ -197,22 +197,18 @@ export class Reminders extends Component{
   }
 
   render() {
-    const { reminders, meta: {pagination} } = this.props;
+    const { reminders, meta: {pagination}, isLoading } = this.props;
     return (
       <Fragment>
         <PageHeader
           title="REMINDER CONDITIONS"
         />
-        {this.renderButtonGroup()}
-        { reminders && reminders.length === 0 ?
-          <div><NoEmailReminder /></div> :(
-            <div>
-              {' '}
-              { this.renderRemindersTable() }
-              { this.renderRemindersPagination() }
-            </div>
-          )
-        }
+        {!isLoading && this.renderButtonGroup()}
+        <div>
+          {' '}
+          { this.renderRemindersTable() }
+          {(!isLoading && reminders.length !== 0) && this.renderRemindersPagination() }
+        </div>
         {this.renderDisableReminderConditionForm()}
         {this.renderEnableDisabledReminderConditionForm()}
       </Fragment>
@@ -231,8 +227,8 @@ const mapDispatchToProps = {
 
 const mapStateToProps = ({ modal, emailReminders, reminders }) => ({
   ...modal.modal,
+  ...reminders,
   ...emailReminders,
-  ...reminders
 });
 
 Reminders.propTypes = {

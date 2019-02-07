@@ -70,6 +70,7 @@ const props = {
   disableReminderTemplate: jest.fn(),
   disableReminderCondition: jest.fn(),
   fetchEmailReminder: jest.fn(),
+  getSingleReminder: jest.fn(),
   openModal:jest.fn,
   setItemToDisable: jest.fn(),
   shouldOpen: true,
@@ -80,6 +81,9 @@ const props = {
   meta: {pagination: {}, documentCount: {}},
   location: {
     search: 'document=passport'
+  },
+  singleReminder: {
+    data: {}
   },
   user: {},
   id: 1
@@ -96,7 +100,7 @@ describe('Reminder component', () => {
     const wrapper = mount(
       <Provider store={store}>
         <BrowserRouter>
-          <ConnectedReminders {...props} />
+          <ConnectedReminders {...{...props, isLoading: false }} />
         </BrowserRouter>
       </Provider>
     );
@@ -180,7 +184,12 @@ describe('Reminder component', () => {
     const wrapper = mount(
       <Provider store={store}>
         <BrowserRouter>
-          <ConnectedReminders {...props} />
+          <ConnectedReminders 
+            {
+            ...{...props, 
+              isLoading: false
+            }
+            } />
         </BrowserRouter>
       </Provider>
     );
@@ -192,7 +201,11 @@ describe('Reminder component', () => {
   it('should test page change function when next button is clicked on pagination', () => {
     const wrapper = mount(
 
-      <Reminders {...{...props, shouldOpen: true, modalType: 'enable disabled reminder'}} />
+      <Reminders {
+      ...{...props, 
+        isLoading: false, shouldOpen: true, 
+        modalType: 'enable disabled reminder'}} 
+      />
 
     );
 
