@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import axios from 'axios';
+import toast from 'toastr';
+import { isEqual } from 'lodash';
 import RequestsModal from '../RequestsModal/RequestsModal';
 import  CheckListSubmissions  from '../TravelCheckList/CheckListSubmissions';
 import Modal from '../modal/Modal';
@@ -10,6 +12,9 @@ import withLoading from '../Hoc/withLoading';
 import TableMenu from '../TableMenu/TableMenu';
 import TravelChecklist from '../TravelCheckList';
 import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
+import getTripDuration from '../../helper/getTripDuration';
+import formatTripType from '../../helper/formatTripType';
+import retrieveStatusTag from '../../helper/retrieveStatusTag';
 
 export class Table extends Component {
   state = {
@@ -18,15 +23,18 @@ export class Table extends Component {
       id: null
     }
   };
-  getDuration(trips) {
-    const returnDates = trips.map(trip => new Date(trip.returnDate));
-    const departureDates = trips.map(trip => new Date(trip.departureDate));
-    const minDeparture = Math.min.apply(null, departureDates);
-    const maxReturn = Math.max.apply(null, returnDates);
-    const duration = Math.abs(
-      moment(maxReturn).diff(moment(minDeparture), 'days')
-    );
-    return `${duration + 1} days`;
+  
+  componentDidUpdate(prevProps){
+    const {
+      requests,
+      openChecklist,
+      requestId
+    } = this.props;
+    const { requests: prevRequests } = prevProps;
+    if(!isEqual(requests, prevRequests) && openChecklist) {
+      const request = requests.find(request => request.id === requestId);
+      this.renderPopUp(request, requestId);
+    }
   }
 
   getRequestStatusClassName(status) {
@@ -37,7 +45,25 @@ export class Table extends Component {
     return newStatus;
   }
 
-  toggleMenu = (requestId, request) => {
+  renderPopUp = (request, requestId) => {
+    const { openModal } = this.props;
+    // if request does not exist
+    if(!request) return toast.error('This checklist cannot be found!');
+    // if document has not been approved
+    if(request.status !== 'Approved') return openModal(true, 'travel checklist');
+    // if document has been approved
+    this.toggleMenu(requestId, request, true);
+  }
+
+  toggleMenu = (requestId, request, status) => {
+    const { setOpenChecklist, openModal } = this.props;
+    if(status) {
+      this.setState(
+        () => ({ menuOpen: { open: true, id: request.id, request } }),
+        () => openModal(true, 'upload submissions')
+      );
+      return setOpenChecklist(false);
+    }
     const { menuOpen } = this.state;
     if (menuOpen.id !== requestId) {
       return this.setState({
@@ -56,15 +82,6 @@ export class Table extends Component {
       }
     });
   }
-  formatTripType = tripType => {
-    if (tripType === 'oneWay') {
-      return 'One-way';
-    }
-    return tripType
-      .charAt(0)
-      .toUpperCase()
-      .concat(tripType.toLowerCase().slice(1));
-  };
 
   handleClickRequest = requestId => {
     const {
@@ -78,14 +95,6 @@ export class Table extends Component {
     const { uploadFile } = this.props;
     delete axios.defaults.headers.common['Authorization'];
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
-  }
-
-  retrieveStatusTag = (requestData, type) => {
-    let tag = 'Manager Stage';
-    if (requestData.status && requestData.status === 'Approved') {
-      tag = 'Travel Stage';
-    }
-    return tag;
   }
 
   fetchRequestChecklist(trips){
@@ -170,9 +179,9 @@ export class Table extends Component {
 
   renderRequest(request, type) {
     const { trips, travelCompletion } = request;
-    const tripTypeFormatted = this.formatTripType(request.tripType);
+    const tripTypeFormatted = formatTripType(request.tripType);
     const travelDuration =
-      request.tripType !== 'oneWay' ? this.getDuration(trips) : 'Not applicable';
+      request.tripType !== 'oneWay' ? getTripDuration(trips) : 'Not applicable';
     return (
       <tr key={request.id} className="table__row">
         {this.renderApprovalsIdCell(request)}
@@ -259,7 +268,7 @@ export class Table extends Component {
         }
         title={`#${requestId} Request Details`}
         modalBar={
-          <div className="table__modal-bar-text">{this.retrieveStatusTag(requestData, type)}</div>
+          <div className="table__modal-bar-text">{retrieveStatusTag(requestData, type)}</div>
         }
       >
         {(type === 'verifications') &&
@@ -381,6 +390,7 @@ Table.propTypes = {
   fetchUserRequests: PropTypes.func,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  openChecklist: PropTypes.bool,
   uploadTripSubmissions: PropTypes.func,
   fetchSubmission: PropTypes.func,
   postSubmission: PropTypes.func,
@@ -391,6 +401,7 @@ Table.propTypes = {
   openModal: PropTypes.func.isRequired,
   handleCloseSubmissionModal: PropTypes.func,
   handleCloseChecklistModal: PropTypes.func,
+  setOpenChecklist: PropTypes.func,
 };
 
 Table.defaultProps = {
@@ -416,6 +427,8 @@ Table.defaultProps = {
   fileUploads: {},
   handleCloseSubmissionModal: () => {},
   handleCloseChecklistModal: null,
+  openChecklist: false,
+  setOpenChecklist: () => {}
 };
 
 export default withLoading(Table, RequestPlaceholder);

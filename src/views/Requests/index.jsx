@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import WithLoadingTable from '../../components/Table';
 import RequestPanelHeader from '../../components/RequestPanelHeader/RequestPanelHeader';
 import Utils from '../../helper/Utils';
@@ -26,15 +27,13 @@ import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 import {fetchCenters} from '../../redux/actionCreator/centersActions';
 
 export class Requests extends Base {
-  constructor(props) {
-    super(props);
-  }
   state = {
     hideNewRequestModal: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
     url: this.props.location.search,
     requestForEdit: null,
-    requestId: ''
+    requestId: '',
+    openChecklist: false
   };
 
   componentDidMount() {
@@ -47,14 +46,15 @@ export class Requests extends Base {
       },
       fetchTravelChecklist,
     } = this.props;
+
     const { url } = this.state;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
     if (requestId) {
       this.storeRequestIdRequest(requestId);
-      if( /\/requests\/:requestId\/checklist/.test(path)){
+      if(/\/requests\/:requestId\/checklist/.test(path)){
         fetchTravelChecklist(requestId);
-        openModal(true, 'travel checklist');
+        this.setOpenChecklist(true);
       } else {
         openModal(true, 'request details', page);
       }
@@ -62,6 +62,28 @@ export class Requests extends Base {
     fetchCenters();
   }
 
+  componentDidUpdate (prevProps) {
+    const {
+      requests,
+      fetchSubmission,
+      match: {
+        params: { requestId },
+      },
+    } = this.props;
+    const { openChecklist } = this.state;
+    const { requests: prevRequests } = prevProps;
+    if(!isEqual(requests, prevRequests) && openChecklist) {
+      const request = requests.find(request => request.id === requestId);
+      // if request does not exist
+      if(!request) return null;
+      fetchSubmission({ requestId, tripType: request.tripType });
+    }
+  }
+
+  setOpenChecklist = (status) => {
+    this.setState({ openChecklist: status });
+  }
+  
   handleDeleteRequest = (requestId) => {
     const { deleteRequest } = this.props;
     deleteRequest(requestId);
@@ -153,7 +175,7 @@ export class Requests extends Base {
       travelChecklists, fetchSubmission, postSubmission, submissionInfo,
       isFetching, requestData, uploadFile, fileUploads, fetchUserRequests
     } = this.props;
-    const { url, requestId } = this.state;
+    const { url, requestId, openChecklist } = this.state;
     return (
       <div className="rp-table">
         <WithLoadingTable
@@ -174,6 +196,7 @@ export class Requests extends Base {
           deleteRequest={this.handleDeleteRequest}
           handleCloseSubmissionModal={this.handleCloseSubmissionModal}
           handleCloseChecklistModal={this.handleCloseChecklistsModal}
+          openChecklist={openChecklist} setOpenChecklist={this.setOpenChecklist}
         />
       </div>);
   }
@@ -255,7 +278,10 @@ Requests.propTypes = {
   editRequest: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
   creatingRequest: PropTypes.bool,
-  errors: PropTypes.array,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
   shouldOpen: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   openModal: PropTypes.func.isRequired,

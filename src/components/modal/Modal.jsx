@@ -34,6 +34,9 @@ class Modal extends PureComponent {
       let urlArr = url.split('/');
       url = urlArr.slice(0, urlArr.length - 1).join('/');
     }
+    if(/checklist/.test(url)) {
+      url = '/requests';
+    }
     return (
       <div className="modal-title-bar">
         <div className="modal-title-text">

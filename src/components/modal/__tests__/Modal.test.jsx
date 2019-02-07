@@ -10,7 +10,8 @@ describe('<Modal />', () => {
       title: 'test modal',
       visibility: 'visible',
       closeModal: jest.fn(),
-      closeDeleteModal: jest.fn()
+      closeDeleteModal: jest.fn(),
+      requestId: '34uoj31OJ' 
     };
     wrapper = shallow(
       <Modal {...props}>

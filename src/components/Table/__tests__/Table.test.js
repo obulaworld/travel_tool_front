@@ -78,6 +78,7 @@ const props = {
   travelChecklists: {},
   showTravelChecklist: jest.fn(),
   fetchSubmission: jest.fn(),
+  setOpenChecklist: jest.fn(),
   submissionInfo
 };
 
@@ -139,9 +140,25 @@ describe('<Requests />', () => {
     expect(wrapper.state().menuOpen.id).toBe('xDh20btGz');
   });
 
-  it('should display Stage based on the request status', () => {
-    const wrapper = mount(<Table {...props} />);
-    expect(wrapper.instance().retrieveStatusTag({ status: 'Open',}, '')).toEqual('Manager Stage');
-    expect(wrapper.instance().retrieveStatusTag({ status: 'Approved',}, '')).toEqual('Travel Stage');
+  it('should not update state when requestId is not found in requests array', () => {
+    const prevProps = {
+      ...props,
+      requests: []
+    };
+    const wrapper = mount(<Table {...prevProps} />);
+    wrapper.setProps({ ...props, openChecklist: true, requestId: 'xDh20btGz' });
+    const { id } = wrapper.state('menuOpen');
+    expect(id).toBe(null);
+  });
+
+  it('should update state when requestId is found in requests array', () => {
+    const prevProps = {
+      ...props,
+      requests: []
+    };
+    const wrapper = mount(<Table {...prevProps} />);
+    wrapper.setProps({ ...props, openChecklist: true, requestId: 'xDh20btGx' });
+    const { id } = wrapper.state('menuOpen');
+    expect(id).toBe('xDh20btGx');
   });
 });
