@@ -76,6 +76,21 @@ class CreateReminder extends Component {
     );
   }
 
+  renderDropdown() {
+    const { documentType } = this.state;
+    if(documentType || !this.isEditMode()) {
+      return (
+        <SelectDropDown
+          placeHolder={documentType || 'Select Document'} 
+          onClickItem={this.setReminderFormDocumentType} 
+          defaultSelected={documentType}
+          dropDownItems={dropDownItems}
+          dropDownIcon={downArrow}
+        />
+      );
+    }
+  }
+
   render() {
     const { documentType } = this.state;
     return (
@@ -86,13 +101,7 @@ class CreateReminder extends Component {
             title={`${this.isEditMode() ? 'EDIT A REMINDER FOR': 'CREATE A REMINDER FOR'}`}
             iconLink="/settings/reminders"
           >
-            <SelectDropDown
-              placeHolder={!documentType ? 'Select Document' : ''} 
-              onClickItem={this.setReminderFormDocumentType} 
-              defaultSelected={documentType}
-              dropDownItems={dropDownItems} 
-              dropDownIcon={downArrow} 
-            />
+            { this.renderDropdown()}
           </PageHeader>
           <div className="reminder-card">
             {this.renderReminderForm(documentType)}

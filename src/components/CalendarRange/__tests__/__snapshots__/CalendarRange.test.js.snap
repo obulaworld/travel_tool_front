@@ -199,7 +199,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
         >
           <input
             readOnly={true}
-            value="Feb 6, 2019"
+            value="Feb 7, 2019"
           />
         </span>
         <span
@@ -208,7 +208,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
         >
           <input
             readOnly={true}
-            value="Feb 6, 2019"
+            value="Feb 7, 2019"
           />
         </span>
       </div>
@@ -1203,7 +1203,7 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
                     </span>
                   </button>
                   <button
-                    className="rdrDay rdrDayDisabled"
+                    className="rdrDay"
                     onBlur={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
@@ -1218,7 +1218,6 @@ exports[`<ButtonGroup /> should render successfully 1`] = `
                         "color": "#3d91ff",
                       }
                     }
-                    tabIndex={-1}
                     type="button"
                   >
                     <span
