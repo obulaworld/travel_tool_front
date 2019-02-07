@@ -46,7 +46,7 @@ class SubmissionsUtils extends Component {
       <div className="travelSubmission--item__textarea">
         <textarea
           placeholder="input information here..." name="submissionText" rows="4" cols="80"
-          className="textArea" value={submissionText} onChange={this.handleInputChange} 
+          className="textArea" value={submissionText} onChange={this.handleInputChange}
           type="submit" onBlur={handleTextAreaSubmit}
         />
         {
@@ -77,7 +77,7 @@ class SubmissionsUtils extends Component {
         {
           itemsToCheck.includes(checkId) && (
             <img
-              src={check} alt="check_icon" 
+              src={check} alt="check_icon"
               className="travelCheckList--input__check-image__ticket visible"
             />
           )
@@ -100,13 +100,13 @@ class SubmissionsUtils extends Component {
             <img src={uploadIcon} alt="upload_icon" className="travelSubmission--input__image" />
           </div>
           <input
-            type="file" name="file" className="uploadedFile" 
+            type="file" name="file" className="uploadedFile"
             onChange={handleUpload} disabled={isUploading} />
         </div>
         {
           itemsToCheck.includes(checkId) && (
             <img
-              src={check} alt="check_icon" 
+              src={check} alt="check_icon"
               className="travelCheckList--input__check-image__ticket visible" />
           )
         }
@@ -126,13 +126,17 @@ class SubmissionsUtils extends Component {
   };
 
   validateDates = (name, value) => {
-    const fields = ['departureDate', 'departureTime', 
-      'arrivalTime', 'returnDepartureTime', 'returnTime'];
+    const fields = ['departureDate', 'departureTime',
+      'arrivalTime'];
+    const { tripType } = this.props;
+    if( tripType === 'return'){
+      fields.push('returnDepartureTime', 'returnTime');
+    }
     const values = {...this.state, [name]: value};
     let allValid = true;
     for (let i = 1; i < fields.length; i++) {
       const max = i === fields.length - 1 ? null : fields[i + 1];
-      if (!this.validateDate(fields[i], 
+      if (!this.validateDate(fields[i],
         values[fields[i]], values[fields[i - 1]], max && values[max])) {
         allValid = false;
       }
@@ -153,10 +157,7 @@ class SubmissionsUtils extends Component {
 
   handleTicketSubmit = () => {
     const {handleTicketSubmit} = this.props;
-    const {isValid} = this.state;
-    if (isValid) {
-      handleTicketSubmit();
-    }
+    handleTicketSubmit();
   };
 
   renderTicketInput = (type, placeholder, label, name, tripId, value, min = null, max = null) => {
@@ -165,7 +166,7 @@ class SubmissionsUtils extends Component {
       <div className="airline-name">
         <span id="label">{label}</span>
         <input
-          id={`${name}-${tripId}`} type={type} value={value || ''} 
+          id={`${name}-${tripId}`} type={type} value={value || ''}
           onChange={this.handleInputChange} onBlur={this.handleTicketSubmit}
           name={name} placeholder={placeholder} className={name} min={min} max={max}
         />
@@ -180,7 +181,7 @@ class SubmissionsUtils extends Component {
     const { checklistItem, itemsToCheck, tripType, airline, ticketNumber,
       checkId, returnTicketNumber, returnAirline } = this.props;
     const {name, submissions: {tripId}} = checklistItem;
-    const { departureDate, departureTime, arrivalTime, 
+    const { departureDate, departureTime, arrivalTime,
       returnDepartureTime, returnTime, arrivalDate } = this.state;
     return (
       name.toLowerCase().includes('travel ticket') &&
@@ -223,7 +224,7 @@ class SubmissionsUtils extends Component {
           </div>
           {itemsToCheck.includes(checkId) && (
             <img
-              src={check} alt="check_icon" 
+              src={check} alt="check_icon"
               className="travelCheckList--input__check-image__ticket visible" />
           )}
         </form>
@@ -256,7 +257,7 @@ class SubmissionsUtils extends Component {
 SubmissionsUtils.propTypes = {
   checklistItem: PropTypes.object.isRequired, utilsType: PropTypes.string,
   checkId: PropTypes.string.isRequired, returnTicketNumber: PropTypes.string.isRequired,
-  submissionText: PropTypes.string.isRequired, ticketNumber: PropTypes.string.isRequired, 
+  submissionText: PropTypes.string.isRequired, ticketNumber: PropTypes.string.isRequired,
   airline: PropTypes.string.isRequired, returnAirline: PropTypes.string.isRequired,
   handleUpload: PropTypes.func.isRequired, setTicketFields: PropTypes.func.isRequired,
   setTextArea: PropTypes.func.isRequired, postSuccess: PropTypes.array.isRequired,

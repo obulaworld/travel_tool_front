@@ -1,15 +1,30 @@
-#travel-checkList-modal {
-    max-height: 90vh;
-    overflow-y: scroll
-  }
+#checklist-submission-modal {
+    top: 65px;
+}
+
+#checklist-submission-modal-content {
+  padding: 0;
+  max-height: 2000px !important;
+}
+
 .travelCheckList {
     font-family: "DIN Pro";
+    padding: 0 30px;
+
     &__not-found {
       font-size: 18px;
       padding: 20px;
       text-align: center;
       color: #999999;
     }
+
+    &__submit-area {
+      padding: 20px 20px 20px 20px;
+      background-color: rgba(153, 153, 153, 0.05);
+      display: flex;
+      flex-direction: row-reverse;
+    }
+
     &__destination:first-child {
       margin: 20px 0;
     }
@@ -110,7 +125,7 @@
                 span {
                     float: left;
                     margin-bottom: 5px;
-                    white-space: nowrap; 
+                    white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     text-transform: capitalize;
@@ -118,7 +133,7 @@
                 input {
                     width: 160px;
                     height: 36px;
-                    margin: 5px 0;              
+                    margin: 5px 0;
                     border: 1px solid #D4D4D4;
                     border-radius: 2px;
                     background-color: #FFFFFF;
@@ -214,7 +229,7 @@
             margin-bottom: 5px;
             background-color: #F8F8F8;
             border: 1px dashed #D4D4D4;
-            position: relative;    
+            position: relative;
             &__ {
                 height: 41px;
                 width: 100%;
@@ -222,7 +237,7 @@
                 margin: 10px 0;
                 margin-bottom: 5px;
                 background-color: #F8F8F8;
-                position: relative;  
+                position: relative;
                 margin: 0px;
                 display: inline-flex;
                 align-items: center;
@@ -236,7 +251,7 @@
                     outline: none;
                     cursor: pointer;
                 }
-            } 
+            }
             input[type=file] {
                 height: 41px;
                 width: 100%;
@@ -244,7 +259,7 @@
                 position: absolute;
                 right: 0px;
                 bottom: 0px;
-                outline: none;       
+                outline: none;
             }
         }
         &__download-field{

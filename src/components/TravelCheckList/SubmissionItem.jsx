@@ -83,6 +83,12 @@ class SubmissionItem extends Component {
 
   handleInputChange = (name, value) => {
     this.setState({[name]: value});
+
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.handleTicketSubmit();
+      this.handleTextAreaSubmit();
+    }, 1000);
   };
 
   submitTextArea = () => {
