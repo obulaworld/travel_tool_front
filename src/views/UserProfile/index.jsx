@@ -21,11 +21,14 @@ class UserProfile extends Base {
     
     fetchRoleUsers(53019);
     fetchCenters();
+  
+    
   }
+ 
 
   render() {
     const { roleUsers, updateUserProfile, user,
-      fetchUserData, centers } = this.props;
+      fetchUserData, centers, fetchPostUserData } = this.props;
     return (
       <Fragment>
         <h1>PROFILE</h1>
@@ -35,6 +38,7 @@ class UserProfile extends Base {
               managers={roleUsers}
               updateUserProfile={updateUserProfile}
               userData={fetchUserData && fetchUserData.result}
+              userDataUpdate={fetchPostUserData}
               user={user}
               centers={centers && centers.centers}
             />
@@ -52,7 +56,8 @@ UserProfile.defaultProps = {
 export const mapStateToProps = ({ user, role, centers}) => ({
   ...role,
   centers,
-  fetchUserData: user.getUserData
+  fetchUserData: user.getUserData,
+  fetchPostUserData: user.postUserData
 });
 
 const actionCreators = {

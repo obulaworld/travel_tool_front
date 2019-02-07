@@ -21,7 +21,7 @@ class ProfileForm extends PureComponent {
         department: '',
         role: '',
         manager: '',
-        location: ''
+        location: '',
       },
       userProfile: {
 
@@ -39,15 +39,16 @@ class ProfileForm extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps){
-    const { userData } = nextProps;
+    const { userData, userDataUpdate: { result } } = nextProps;
 
     if(userData !== undefined){
       const { passportName, gender, department, occupation, manager, location } = userData;
+      const userGender = result ? result.gender : gender;
       this.setState((prevState) => ({
         ...prevState,
         values: {
           name: Validator.databaseValueValidator(passportName),
-          gender: Validator.databaseValueValidator(gender),
+          gender: Validator.databaseValueValidator(userGender),
           department: Validator.databaseValueValidator(department),
           role: Validator.databaseValueValidator(occupation),
           manager: Validator.databaseValueValidator(manager),
@@ -126,9 +127,11 @@ ProfileForm.propTypes = {
   managers: PropTypes.array,
   user: PropTypes.object.isRequired,
   userData: PropTypes.object.isRequired,
-  centers: PropTypes.array
+  centers: PropTypes.array,
+  userDataUpdate: PropTypes.array,
 };
 ProfileForm.defaultProps = {
+  userDataUpdate: [],
   managers: [],
   centers: []
 };

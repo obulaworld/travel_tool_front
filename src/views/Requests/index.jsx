@@ -179,7 +179,7 @@ export class Requests extends Base {
   }
   renderNewRequestForm() {
     const {
-      updateUserProfile, userData,
+      updateUserProfile, userData, fetchPostUserData,
       user, createNewRequest,
       loading,errors,closeModal,shouldOpen,
       modalType, roleUsers,requestOnEdit,editRequest,
@@ -200,6 +200,7 @@ export class Requests extends Base {
         <NewRequestForm
           updateUserProfile={updateUserProfile} user={user} errors={errors}
           userData={userData && userData.result}
+          userDataUpdate={fetchPostUserData}
           handleCreateRequest={createNewRequest}
           centers={centers && centers.centers}
           handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
@@ -289,6 +290,7 @@ export const mapStateToProps = ({requests, modal, role, user,
   ...role,
   travelChecklists: travelChecklist,
   userData: user.getUserData,
+  fetchPostUserData: user.postUserData,
   centers,
   availableRooms,
   submissionInfo: submissions,

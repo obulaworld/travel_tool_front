@@ -58,6 +58,7 @@ describe('<NewRequestForm />', () => {
       updatedAt: '2018-09-16T07:53:48.835Z',
       roleId: 401938
     },
+    userDataUpdate:[],
     requestOnEdit: {
       id: '1',
       name: 'Seun Undefined',

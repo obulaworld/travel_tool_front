@@ -31,7 +31,8 @@ describe ('<ProfileForm />', () =>{
     centers,
     userData: {
       ...values,
-    }
+    },
+    userDataUpdate: []
   };
 
   beforeEach(() => {
