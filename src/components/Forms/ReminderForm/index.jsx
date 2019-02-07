@@ -47,7 +47,6 @@ class ReminderForm extends Component {
         isLoading: currentIsLoading }, 
     setReminderType, documentType 
     } = this.props;
-    
     this.handleDocumentTypeChange(documentType, nextDocumentType);
 
     if ((isEmpty(currentReminder) || (isLoading && !currentIsLoading)) && !isEmpty(data)) {
@@ -94,9 +93,8 @@ class ReminderForm extends Component {
     const newErrors = { ...errors };
     const newReminders = [...reminders ];
 
-    ReminderUtils.removeReminderField(reminderFieldDefaults, newValues, this.state);
+    ReminderUtils.removeReminderField(reminderFieldDefaults, newValues, this.state, reminderIndex);
     newReminders.splice(reminderIndex, 1);
-
     this.setState((prevState) => {
       return {
         totalReminders: prevState.totalReminders - 1,
