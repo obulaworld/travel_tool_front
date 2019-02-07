@@ -219,6 +219,37 @@ describe('Reminder Form', () => {
       expect(wrapper.state().totalReminders).toEqual(totalReminderInputs - 1);
     });
 
+    it('should delete a reminder row, and the key values in the state', () => {
+      const deleteReminderButton = wrapper.find('.delete-icon');
+      const currentFormValues = { 
+        conditionName: '',
+        'reminderTemplate-0': '',
+        'date-0': '',
+        'period-0': 'Months',
+        'reminderTemplate-1': '',
+        'date-1': '',
+        'period-1': 'Months' 
+      } ;
+
+      const updatedFormValues = {
+        'reminderTemplate-0': '',
+        'date-0': '',
+        'period-0': 'Months'
+      };
+
+      expect(wrapper.state().values).toMatchObject(currentFormValues);
+      expect(wrapper.state().values['date-1']).toBe('');
+      expect(wrapper.state().values['reminderTemplate-1']).toBe('');
+      expect(wrapper.state().totalReminders).toEqual(2);
+
+      deleteReminderButton.simulate('click');
+
+      expect(wrapper.state().values).toMatchObject(updatedFormValues);
+      expect(wrapper.state().values['date-1']).toBe(undefined);
+      expect(wrapper.state().values['reminderTemplate-1']).toBe(undefined);
+      expect(wrapper.state().totalReminders).toEqual(1);
+    });
+
     it('should handle submiting a reminder', () => {
       wrapper.setState({
         reminders: [
