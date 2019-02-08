@@ -94,7 +94,7 @@ class NewRequestForm extends PureComponent {
   };
 
   getPersonalDetails = (modalType, detailsSource) => {
-    const { userData } = this.props;
+    const { userData, userDataUpdate : { result } } = this.props;
     const personalDetails = {};
     const personalDetailsAttributes = [
       'name',
@@ -104,12 +104,14 @@ class NewRequestForm extends PureComponent {
       'manager',
       'location'
     ];
+    const userGender = result ? result.gender : userData.gender;
     personalDetailsAttributes.map(attrb => {
       if(userData)  {
         if (modalType === 'edit request')
           return (personalDetails[attrb] = detailsSource[attrb]);
         userData.name = userData.passportName;
         userData.role = userData.occupation;
+        userData.gender = userGender;
         let value = userData[attrb];
         value = !/^null|undefined$/.test(value) ? value : '';
         return (personalDetails[attrb] = value);
@@ -637,7 +639,8 @@ NewRequestForm.propTypes = {
   availableRooms: PropTypes.object.isRequired,
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
-  centers: PropTypes.array
+  centers: PropTypes.array,
+  userDataUpdate: PropTypes.array,
 };
 
 NewRequestForm.defaultProps = {
@@ -645,7 +648,8 @@ NewRequestForm.defaultProps = {
   modalType: null,
   managers: [],
   userData: {},
-  centers: []
+  centers: [],
+  userDataUpdate: [],
 };
 
 export default NewRequestForm;
