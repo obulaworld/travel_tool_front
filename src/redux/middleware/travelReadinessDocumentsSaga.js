@@ -8,9 +8,9 @@ import apiErrorHandler from '../../services/apiErrorHandler';
 import * as actions from '../actionCreator/travelReadinessDocumentsActions';
 import { closeModal } from '../actionCreator/modalActions';
 
-export function* fetchUsersReadinessDocumentsAsync() {
+export function* fetchUsersReadinessDocumentsAsync(action) {
   try {
-    const response = yield call(TravelReadinessDocumentsAPI.getAllUsersReadiness);
+    const response = yield call(TravelReadinessDocumentsAPI.getAllUsersReadiness, action.query);
     yield put(actions.fetchAllUsersReadinessDocumentsSuccess(response.data.users));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

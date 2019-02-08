@@ -17,16 +17,17 @@ describe('TravelReadinessDocumentsAPI', () => {
     const data = {
       message: 'Fetched users successfully',
       success: true,
-      users: [{id: 1}, {id: 2}]
+      users: [{id: 1}, {id: 2}],
+      searchQuery: 'uchechukwu'
     };
-    moxios.stubRequest(`${baseUrl}/travelreadiness/users`, {
+    moxios.stubRequest(`${baseUrl}/travelreadiness/users?searchQuery=uchechukwu`, {
       status: 200,
       response: data,
     });
 
-    const response = await TravelReadinessDocumentsAPI.getAllUsersReadiness();
+    const response = await TravelReadinessDocumentsAPI.getAllUsersReadiness('uchechukwu');
 
-    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/users`);
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelreadiness/users?searchQuery=uchechukwu`);
     expect(response.data).toEqual(data);
   });
 

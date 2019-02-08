@@ -4,8 +4,8 @@ import { resolveBaseUrl } from '.';
 const baseUrl = resolveBaseUrl();
 
 class TravelReadinessDocumentsAPI {
-  static getAllUsersReadiness() {
-    return axios.get(`${baseUrl}/travelreadiness/users`);
+  static getAllUsersReadiness(query) {
+    return axios.get(`${baseUrl}/travelreadiness/users?searchQuery=${query}`);
   }
 
   static getUserReadiness(userId) {

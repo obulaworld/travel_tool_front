@@ -1,8 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import * as types from '../constants/actionTypes';
 
-export const fetchAllUsersReadinessDocuments = () => ({
+export const fetchAllUsersReadinessDocuments = (query) => ({
   type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS,
+  query,
 });
 
 export const fetchAllUsersReadinessDocumentsSuccess = (users) => ({
