@@ -103,9 +103,7 @@ class CreateReminder extends Component {
           >
             { this.renderDropdown()}
           </PageHeader>
-          <div className="reminder-card">
-            {this.renderReminderForm(documentType)}
-          </div>
+          {this.renderReminderForm(documentType)}
         </div>
       </Fragment>
     );

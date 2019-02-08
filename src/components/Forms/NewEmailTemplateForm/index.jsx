@@ -5,6 +5,7 @@ import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import EmailTemplateDetails from './FormFieldSets/EmailTemplateDetails';
 import './NewEmailTemplateForm.scss';
 import SubmitArea from './FormFieldSets/SubmitArea';
+import Preloader from '../../Preloader/Preloader';
 
 class NewEmailTemplateForm extends React.Component {
   constructor(props) {
@@ -106,8 +107,23 @@ class NewEmailTemplateForm extends React.Component {
     history.push('/settings/reminder-setup');
   };
 
-  render() {
+  renderEmailTemplate(disabled, values){
     const { newEmailTemplate, getUsersEmail, editing, updatedEmailTemplate } = this.props;
+    const loading = updatedEmailTemplate && updatedEmailTemplate.isSaving
+      || newEmailTemplate && newEmailTemplate.isSaving;
+    return (
+      <form className="new-email-template-form" onSubmit={this.handleSubmit}>
+        <EmailTemplateDetails values={values} emails={getUsersEmail} />
+        <SubmitArea
+          onCancel={this.handleCancel}
+          hasBlankFields={disabled}
+          send={editing ? 'Update' : 'Save'}
+          loading={loading}
+        />
+      </form>
+    );
+  }
+  render() {
     const {
       values,
       errors,
@@ -115,8 +131,8 @@ class NewEmailTemplateForm extends React.Component {
       values: { message }
     } = this.state;
     const disabled = hasBlankFields || this.hasErrors();
-    const loading = updatedEmailTemplate && updatedEmailTemplate.isSaving
-      || newEmailTemplate && newEmailTemplate.isSaving;
+    const { updatedEmailTemplate } = this.props;
+    const { isFetching } = updatedEmailTemplate;
     return (
       <FormContext
         values={values}
@@ -124,15 +140,11 @@ class NewEmailTemplateForm extends React.Component {
         targetForm={this}
         validatorName="validate"
       >
-        <form className="new-email-template-form" onSubmit={this.handleSubmit}>
-          <EmailTemplateDetails values={values} emails={getUsersEmail} />
-          <SubmitArea
-            onCancel={this.handleCancel}
-            hasBlankFields={disabled}
-            send={editing ? 'Update' : 'Save'}
-            loading={loading}
-          />
-        </form>
+        {
+          isFetching
+            ? <Preloader />
+            :this.renderEmailTemplate(disabled, values)
+        }
       </FormContext>
     );
   }

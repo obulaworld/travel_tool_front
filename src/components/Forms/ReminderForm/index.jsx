@@ -215,25 +215,27 @@ class ReminderForm extends Component {
       <div>
         {isLoading ? <Preloader /> : (
           <FormContext values={values} targetForm={this} errors={errors}>
-            <form onSubmit={this.handleFormSubmit}>
-              <ReminderFormInputFields
-                totalReminders={totalReminders} addNewReminder={this.addNewReminder}
-                removeReminder={this.removeReminder} onInputChange={this.handleInputChange}
-                onReminderTemplateChange={this.handleReminderTemplateChange}
-                onReminderPeriodChange={this.handleReminderPeriodChange}
-                templates={templates} currentPage={currentPage}
-                loading={loading} pageCount={pageCount}
-                fetchAllEmailTemplates={fetchAllEmailTemplates}
-              />
-              <SubmitArea
-                send="Save"
-                hasBlankFields={
-                  isEditMode ? 
-                    (!documentTypeChanged && hasBlankFields) 
-                    : (hasBlankFields || !documentType)}
-                isCreating={isCreating || isUpdating} onCancel={this.handleCancel}
-              />
-            </form>
+            <div className="reminder-card">
+              <form onSubmit={this.handleFormSubmit}>
+                <ReminderFormInputFields
+                  totalReminders={totalReminders} addNewReminder={this.addNewReminder}
+                  removeReminder={this.removeReminder} onInputChange={this.handleInputChange}
+                  onReminderTemplateChange={this.handleReminderTemplateChange}
+                  onReminderPeriodChange={this.handleReminderPeriodChange}
+                  templates={templates} currentPage={currentPage}
+                  loading={loading} pageCount={pageCount}
+                  fetchAllEmailTemplates={fetchAllEmailTemplates}
+                />
+                <SubmitArea
+                  send="Save"
+                  hasBlankFields={
+                    isEditMode ? 
+                      (!documentTypeChanged && hasBlankFields) 
+                      : (hasBlankFields || !documentType)}
+                  isCreating={isCreating || isUpdating} onCancel={this.handleCancel}
+                />
+              </form>
+            </div>
           </FormContext>)}
       </div>
     );

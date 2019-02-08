@@ -78,4 +78,17 @@ describe('<NewEmailTemplateForm> component', () =>{
     wrapper.find('form').simulate('submit',event );
     expect(props.updateSingleReminderEmailTemplate).toHaveBeenCalled();
   });
+
+  it('should display <Preloader /> component if isFetching is true', () =>{
+    const wrapper = shallow(<NewEmailTemplateForm {...props} editing />);
+    wrapper.setProps({ updatedEmailTemplate: {isFetching: true} });
+    expect(wrapper.find('Preloader').text()).toBe('<Preloader />');
+  });
+
+  it('should display Form component if isFetching is fasle', () =>{
+    const wrapper = shallow(<NewEmailTemplateForm {...props} editing />);
+    wrapper.setProps({ updatedEmailTemplate: {isFetching: false} });
+    expect(wrapper.find('EmailTemplateDetails').text()).toBe('<EmailTemplateDetails />');
+    expect(wrapper.find('SubmitArea').text()).toBe('<SubmitArea />');
+  });
 });
