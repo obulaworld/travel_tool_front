@@ -304,8 +304,11 @@ class NewRequestForm extends PureComponent {
         trips = requestOnEdit.trips;
       } else {
         parentIds = 2;
-        trips = [].concat([trips[0] || {}, {}]);
-        secondTripStateValues = this.getDefaultTripStateValues(1);
+        trips = [].concat([trips[0] || {}, {
+          origin: trips[0].destination,
+          departureDate: trips[0].returnDate
+        }]);
+        secondTripStateValues = this.getDefaultTripStateValues(1, trips[1]);
       }
       this.setState(prevState => ({
         parentIds,
@@ -334,11 +337,11 @@ class NewRequestForm extends PureComponent {
     }
   };
 
-  getDefaultTripStateValues = index => ({
-    [`origin-${index}`]: '',
+  getDefaultTripStateValues = (index, valueObj) => ({
+    [`origin-${index}`]: valueObj && valueObj.origin || '',
     [`destination-${index}`]: '',
     [`arrivalDate-${index}`]: null,
-    [`departureDate-${index}`]: null,
+    [`departureDate-${index}`]: valueObj && moment(valueObj.departureDate) || null,
     [`bed-${index}`]: ''
   });
 
