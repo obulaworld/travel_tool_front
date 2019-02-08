@@ -34,7 +34,7 @@ class Modal extends PureComponent {
       let urlArr = url.split('/');
       url = urlArr.slice(0, urlArr.length - 1).join('/');
     }
-    if(/checklist/.test(url)) {
+    if (/requests\/\w+\/checklist/.test(url)) {
       url = '/requests';
     }
     return (
