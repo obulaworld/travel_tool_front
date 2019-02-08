@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import PageHeader from '../../components/PageHeader';
 import ReadinessTable from './TravelReadinessDocumentsTable';
 import './TravelReadinessDocuments.scss';
@@ -10,12 +11,17 @@ class TravelReadinessDocuments extends Component {
   state = {};
 
   componentDidMount() {
-    const { fetchUsers } = this.props;
-    fetchUsers();
+    const { fetchUsers, location: { search } } = this.props;
+    let searchParams = search.split('=')[1];
+    if(!searchParams) searchParams = '';
+    fetchUsers(searchParams);
   }
 
   render() {
     const { users, isLoading } = this.props;
+    const body = isEmpty(users)
+      ? <h1 id="no-results">No records found</h1>
+      : <ReadinessTable isLoading={isLoading} users={users} />;
     return (
       <Fragment>
         <div className="readiness-header">
@@ -23,7 +29,7 @@ class TravelReadinessDocuments extends Component {
             title="TRAVEL READINESS"
           />
         </div>
-        <ReadinessTable isLoading={isLoading} users={users} />
+        {body}
       </Fragment>
     );
   }
@@ -42,6 +48,6 @@ TravelReadinessDocuments.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(TravelReadinessDocuments);

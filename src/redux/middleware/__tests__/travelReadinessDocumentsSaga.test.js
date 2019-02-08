@@ -18,11 +18,13 @@ toast.success = jest.fn();
 
 describe('Travel Readiness Documents saga', () => {
   describe('fetchUsersReadinessDocumentsAsync', () => {
+    const query = 'uchechukwu';
     const response = {
       data: {
         success: true,
         message: 'Successfully fetched users',
         users: [{id: 1}, {id: 2}],
+        searchQuery: 'uchechukwu'
       }
     };
 
@@ -32,14 +34,15 @@ describe('Travel Readiness Documents saga', () => {
     it('fetches all users and their readiness documents', () => {
       return expectSaga(watchFetchUsersReadinessDocuments)
         .provide([
-          [call(TravelReadinessDocumentsAPI.getAllUsersReadiness), response]
+          [call(TravelReadinessDocumentsAPI.getAllUsersReadiness, query), response]
         ])
         .put({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS,
-          users: response.data.users
+          users: response.data.users,
         })
         .dispatch({
-          type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS
+          type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS,
+          query
         })
         .silentRun();
     });
@@ -47,14 +50,15 @@ describe('Travel Readiness Documents saga', () => {
     it('handles errors from fetching', () => {
       return expectSaga(watchFetchUsersReadinessDocuments)
         .provide([
-          [call(TravelReadinessDocumentsAPI.getAllUsersReadiness), throwError(error)]
+          [call(TravelReadinessDocumentsAPI.getAllUsersReadiness, query), throwError(error)]
         ])
         .put({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_FAILURE,
           error: error.message
         })
         .dispatch({
-          type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS
+          type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS,
+          query
         })
         .silentRun();
     });

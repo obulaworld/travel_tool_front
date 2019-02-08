@@ -18,7 +18,10 @@ const store = configureStore()(state);
 
 describe('TravelReadinessDocuments', () => {
   const props = {
-    users
+    users,
+    location: {
+      search: 'successs'
+    }
   };
 
   it('should render the Travel Readiness page without crashing', () => {
