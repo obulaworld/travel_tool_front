@@ -80,6 +80,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
                     "Super Administrator",
+                    "Travel Team Member",
                   ],
                   "text": "Manage",
                 },
@@ -164,6 +165,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "link_to": "/settings/roles/339458",
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
+                    "Travel Team Member",
                   ],
                   "text": "Travel team",
                 },
@@ -183,6 +185,7 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   "onlyVisibleTo": Array [
                     "Travel Administrator",
                     "Super Administrator",
+                    "Travel Team Member",
                   ],
                   "text": "Reminder Setup",
                 },

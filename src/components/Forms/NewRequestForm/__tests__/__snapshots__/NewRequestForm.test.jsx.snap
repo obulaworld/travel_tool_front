@@ -199,12 +199,6 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                 </label>
                 <input
                   autoComplete="off"
-                  choices={
-                    Array [
-                      "Software Developer",
-                      "HR",
-                    ]
-                  }
                   className=" request_dropdown"
                   disabled={true}
                   id="your-role"
@@ -225,7 +219,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
               className="spaces"
             >
               <div
-                className="form-input request_dropdown error"
+                className="form-input request_dropdown your-manager error"
               >
                 <label
                   htmlFor="manager"
@@ -289,6 +283,188 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
                 >
                   Please select a manager from the dropdown
                 </span>
+              </div>
+            </div>
+            <div
+              className="spaces"
+            >
+              <div
+                className="form-input request_dropdown user-location "
+              >
+                <label
+                  htmlFor="location"
+                >
+                  Location
+                  <span
+                    style={
+                      Object {
+                        "color": "red",
+                      }
+                    }
+                  >
+                     * 
+                  </span>
+                </label>
+                <div
+                  style={
+                    Object {
+                      "position": "relative",
+                    }
+                  }
+                >
+                  <div
+                    autoComplete="off"
+                    choices={
+                      Array [
+                        "Lagos",
+                        "Nairobi",
+                        "Kigali",
+                        "New York",
+                        "Kampala",
+                        "San Francisco",
+                        "Austin",
+                      ]
+                    }
+                    className="input select  request_dropdown user-location"
+                    error=""
+                    id="user-location"
+                    label="Location"
+                    name="location"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onKeyPress={[Function]}
+                    role="button"
+                    size="245px"
+                    tabIndex="0"
+                    type="dropdown-select"
+                    value=""
+                  >
+                    <div
+                      className="value"
+                      style={
+                        Object {
+                          "width": "245px",
+                        }
+                      }
+                    >
+                       
+                      <div
+                        className="select-dropdown inactive"
+                      >
+                        <img
+                          alt="icn"
+                          src="form_select_dropdown.svg"
+                        />
+                      </div>
+                    </div>
+                    <ul
+                      className="select-menu select-menu--inactive"
+                      onScroll={[Function]}
+                    >
+                      <li
+                        id="choice"
+                        key="Lagos"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Lagos
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="Nairobi"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Nairobi
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="Kigali"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Kigali
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="New York"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          New York
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="Kampala"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Kampala
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="San Francisco"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          San Francisco
+                        </div>
+                      </li>
+                      <li
+                        id="choice"
+                        key="Austin"
+                      >
+                        <div
+                          id="choice"
+                          onClick={[Function]}
+                          onKeyPress={[Function]}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          Austin
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <span
+                  className="error"
+                />
               </div>
             </div>
           </div>
@@ -721,7 +897,7 @@ exports[`<NewRequestForm /> renders correctly 1`] = `
           id="submit"
           type="submit"
         >
-          Send Request
+          <undefined />
         </button>
       </div>
     </fieldset>
