@@ -1,6 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
 import ReminderForm from '..';
+import DropdownSelect from '../../FormsAPI/Input/InputFields/DropdownSelect';
 
 const props = {
   'documentType ':'',
@@ -159,7 +160,7 @@ const props = {
     'from': 'celestine.ekoh-ordan@andela.com',
     'subject': 'Visa Expiry',
     'message': 'Dear Andelan, your visa is about to expire.',
-    'disabled': false,
+    'disabled': true,
     'createdAt': '2019-01-22T11:24:24.755Z',
     'updatedAt': '2019-01-22T11:24:24.755Z',
     'deletedAt': null,
@@ -310,6 +311,11 @@ describe('Reminder Form', () => {
         ...initialState.values,
         'period-0': 'Days',
       });
+    });
+
+    it('should only render enabled templates on dropdown list', () => {
+      const templateDropdown = wrapper.find(DropdownSelect).first();
+      expect(templateDropdown.props().templatesCount).toEqual(4);
     });
   });
 
