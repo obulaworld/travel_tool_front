@@ -24,6 +24,10 @@ describe('Travel Readiness Documents saga', () => {
         success: true,
         message: 'Successfully fetched users',
         users: [{id: 1}, {id: 2}],
+        meta: {
+          currentPage: 1,
+          pageCount: 1,
+        },
         searchQuery: 'uchechukwu'
       }
     };
@@ -39,6 +43,7 @@ describe('Travel Readiness Documents saga', () => {
         .put({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS,
           users: response.data.users,
+          meta: response.data.meta,
         })
         .dispatch({
           type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS,

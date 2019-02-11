@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import PageHeader from '../../components/PageHeader';
 import ReadinessTable from './TravelReadinessDocumentsTable';
+import Pagination from '../../components/Pagination/Pagination';
 import './TravelReadinessDocuments.scss';
 import { fetchAllUsersReadinessDocuments } from '../../redux/actionCreator/travelReadinessDocumentsActions';
 
@@ -12,16 +13,39 @@ class TravelReadinessDocuments extends Component {
 
   componentDidMount() {
     const { fetchUsers, location: { search } } = this.props;
-    let searchParams = search.split('=')[1];
+    const params = new URLSearchParams(search);
+    let searchParams = params.get('search');
+    const page = params.get('page') || 1;
     if(!searchParams) searchParams = '';
-    fetchUsers(searchParams);
+    const withPagination = `${searchParams}&page=${page}`;
+    fetchUsers(withPagination);
+  }
+
+  onPageChange = (page) => {
+    const { location: { search }, history } = this.props;
+    const params = new URLSearchParams(search);
+    let searchParams = params.get('search');
+    if(searchParams) {
+      const searchWithPagination = `search=${searchParams}&page=${page}`;
+      history.push(`/travel-readiness?${searchWithPagination}`);
+    } else {
+      history.push(`/travel-readiness?page=${page}`);
+    }
+  }
+
+  renderPagination() {
+    const { meta: { pageCount, currentPage } } = this.props;
+    return (
+      <Pagination 
+        currentPage={currentPage}
+        pageCount={pageCount} 
+        onPageChange={(page) => this.onPageChange(page)} 
+      />
+    );
   }
 
   render() {
     const { users, isLoading } = this.props;
-    const body = isEmpty(users)
-      ? <h1 id="no-results">No records found</h1>
-      : <ReadinessTable isLoading={isLoading} users={users} />;
     return (
       <Fragment>
         <div className="readiness-header">
@@ -29,7 +53,8 @@ class TravelReadinessDocuments extends Component {
             title="TRAVEL READINESS"
           />
         </div>
-        {body}
+        <ReadinessTable isLoading={isLoading} users={users} />
+        {!isEmpty(users) && this.renderPagination()}
       </Fragment>
     );
   }
@@ -37,6 +62,7 @@ class TravelReadinessDocuments extends Component {
 
 const mapStateToProps = ({travelReadinessDocuments}) => ({
   users: travelReadinessDocuments.users,
+  meta: travelReadinessDocuments.meta,
   isLoading: travelReadinessDocuments.isLoading,
 });
 
@@ -48,6 +74,8 @@ TravelReadinessDocuments.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TravelReadinessDocuments);

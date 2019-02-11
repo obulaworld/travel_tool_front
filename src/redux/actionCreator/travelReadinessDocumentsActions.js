@@ -6,9 +6,10 @@ export const fetchAllUsersReadinessDocuments = (query) => ({
   query,
 });
 
-export const fetchAllUsersReadinessDocumentsSuccess = (users) => ({
+export const fetchAllUsersReadinessDocumentsSuccess = (data) => ({
   type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS,
-  users,
+  users: data.users,
+  meta: data.meta,
 });
 
 export const fetchAllUsersReadinessDocumentsFailure = (error) => ({

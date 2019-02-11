@@ -60,6 +60,105 @@ const users = [
     'createdAt': '2019-01-08T06:37:34.532Z',
     'updatedAt': '2019-01-08T08:14:37.897Z',
     'travelDocuments': []
+  },
+  {
+    'id': 2,
+    'fullName': 'Celestine1 Ekoh-Ordan',
+    'userId': '-LMIzC-bcfffffCc10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 3,
+    'fullName': 'Celestine2 Ekoh-Ordan',
+    'userId': '-LMIzC-bcgsdvcc10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 4,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCc1csah0w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 5,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCcsch10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 6,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bcvgCc10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 7,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCc10cxzw7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 8,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCccsvzhx10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 9,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCcscdh10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 10,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCc10wvd7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 11,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bdshvCc10w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
+  },
+  {
+    'id': 12,
+    'fullName': 'Black Window',
+    'userId': '-LMIzC-bCc1sdhvc0w7Uqc7-A',
+    'department': 'Talent & Development',
+    'createdAt': '2019-01-08T06:37:34.532Z',
+    'updatedAt': '2019-01-08T08:14:37.897Z',
+    'travelDocuments': []
   }
 ];
 

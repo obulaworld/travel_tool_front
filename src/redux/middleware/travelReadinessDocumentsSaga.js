@@ -11,7 +11,7 @@ import { closeModal } from '../actionCreator/modalActions';
 export function* fetchUsersReadinessDocumentsAsync(action) {
   try {
     const response = yield call(TravelReadinessDocumentsAPI.getAllUsersReadiness, action.query);
-    yield put(actions.fetchAllUsersReadinessDocumentsSuccess(response.data.users));
+    yield put(actions.fetchAllUsersReadinessDocumentsSuccess(response.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(actions.fetchAllUsersReadinessDocumentsFailure(errorMessage));

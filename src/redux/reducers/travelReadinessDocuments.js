@@ -28,6 +28,7 @@ import { commentsUpdate } from './requests';
 
 export const initialState = {
   users: [],
+  meta: { pageCount: 1, currentPage: 1 },
   isLoading: false,
   error: '',
   userReadiness: {
@@ -78,14 +79,15 @@ export default (state = initialState, action) => {
   switch (action.type) {
   case FETCH_ALL_USERS_READINESS_DOCUMENTS:
     return {
-      ...state,
+      ...state, users: [],
       isLoading: true,
     };
   case FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS:
     return {
       ...state,
       isLoading: false,
-      users: action.users
+      users: action.users,
+      meta: action.meta,
     };
   case FETCH_ALL_USERS_READINESS_DOCUMENTS_FAILURE:
     return {

@@ -94,11 +94,20 @@ describe('travel readiness reducer', () => {
   it('should handle FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS', () => {
     const action = {
       type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS,
-      users: [{ id: 1 }]
+      users: [{ id: 1 }],
+      meta: {
+        pageCount: 1,
+        currentPage: 1,
+      }
     };
 
     const newState = travelReadinessDocuments(initialState, action);
-    const expectedState = { ...initialState, isLoading: false, users: action.users };
+    const expectedState = { 
+      ...initialState,
+      isLoading: false,
+      users: action.users, 
+      meta: action.meta,
+    };
 
     expect(newState).toEqual(expectedState);
   });

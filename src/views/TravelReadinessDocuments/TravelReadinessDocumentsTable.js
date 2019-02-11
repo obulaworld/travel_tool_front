@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import { Link } from 'react-router-dom';
 import withLoading from '../../components/Hoc/withLoading';
 import './TravelReadinessDocuments.scss';
@@ -67,10 +68,15 @@ export const TableBody = ({ users }) => (
 
 const ReadinessTable = ({ users }) => (
   <div className="table__container">
-    <table className="mdl-data-table mdl-js-data-table readiness-table">
-      <TableHead />
-      <TableBody users={users} />
-    </table>
+    { isEmpty(users)
+      ? <h1 id="no-results">No results</h1>
+      : (
+        <table className="mdl-data-table mdl-js-data-table readiness-table">
+          <TableHead />
+          <TableBody users={users} />
+        </table>
+      )
+    }
   </div>
 );
 
