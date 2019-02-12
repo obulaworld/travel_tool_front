@@ -16,8 +16,13 @@ const props = {
   currentPage: 3,
   loading: false,
   pageCount: 4,
+  values: {
+    'date-0': 1,
+    'date-1': 2,
+    'date-2': 10
+  },
   fetchAllEmailTemplates: jest.fn(),
-}
+};
 describe('ReminderFormInputFields', () => {
   const setup = (props) => shallow(<ReminderFormInputFields {...props} />);
   it('should render correctly', () => {
@@ -37,5 +42,16 @@ describe('ReminderFormInputFields', () => {
     const remindersFieldset = wrapper.find('.reminders-fieldset');
     const totalInputs = remindersFieldset.find(Input);
     expect(totalInputs.length).toBe(9); // 3 input fields per reminder
+  });
+
+  it('should render the correct singular or plural form of dates', () => {
+    const wrapper = setup(props);
+
+    const singular = ['Day', 'Week', 'Month', 'Year'];
+    const plural = singular.map((period) => `${period}s`);
+
+    expect(wrapper.find('Input[name="period-0"]').props().choices).toEqual(singular);
+    expect(wrapper.find('Input[name="period-1"]').props().choices).toEqual(plural);
+    expect(wrapper.find('Input[name="period-2"]').props().choices).toEqual(plural);
   });
 });

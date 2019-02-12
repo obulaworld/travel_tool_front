@@ -1,6 +1,6 @@
 const dropdownSelectOptions = {
   reminderTemplate: [],
-  period: ['Days', 'Weeks', 'Months', 'Years']
+  period: ['Day', 'Week', 'Month', 'Year']
 };
 
 export default dropdownSelectOptions;

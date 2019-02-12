@@ -27,17 +27,25 @@ exports[`CommentItem component should match snapshot 1`] = `
     >
       <button
         className="edit-button "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Edit
+        <ButtonLoadingIcon
+          buttonText="Edit"
+          isLoading={false}
+        />
       </button>
       <button
         className="modal__delete-btn "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Delete
+        <ButtonLoadingIcon
+          buttonText="Delete"
+          isLoading={false}
+        />
         <Modal
           closeDeleteModal={[Function]}
           closeModal={null}
@@ -110,17 +118,25 @@ exports[`CommentItem component should match snapshot 2`] = `
     >
       <button
         className="edit-button "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Edit
+        <ButtonLoadingIcon
+          buttonText="Edit"
+          isLoading={false}
+        />
       </button>
       <button
         className="modal__delete-btn "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Delete
+        <ButtonLoadingIcon
+          buttonText="Delete"
+          isLoading={false}
+        />
         <Modal
           closeDeleteModal={[Function]}
           closeModal={null}
@@ -194,17 +210,25 @@ exports[`CommentItem component should match snapshot 3`] = `
     >
       <button
         className="edit-button "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Edit
+        <ButtonLoadingIcon
+          buttonText="Edit"
+          isLoading={false}
+        />
       </button>
       <button
         className="modal__delete-btn "
+        disabled={false}
         onClick={[Function]}
         type="button"
       >
-        Delete
+        <ButtonLoadingIcon
+          buttonText="Delete"
+          isLoading={false}
+        />
         <Modal
           closeDeleteModal={[Function]}
           closeModal={null}

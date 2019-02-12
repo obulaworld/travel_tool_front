@@ -200,6 +200,19 @@ class ReminderForm extends Component {
     this.setState({errors, ...this.newState });
   }
 
+  renderSubmitArea =(isEditMode, documentTypeChanged, documentType,
+    isCreating, isUpdating, hasBlankFields) => {
+    return (
+      <SubmitArea
+        send="Save"
+        hasBlankFields={isEditMode ? (!documentTypeChanged && hasBlankFields)
+          : (hasBlankFields || !documentType)}
+        isCreating={isCreating || isUpdating}
+        onCancel={this.handleCancel}
+      />
+    );
+  };
+
 
   render() {
     const { hasBlankFields, errors, values, totalReminders , documentTypeChanged } = this.state;
@@ -222,16 +235,11 @@ class ReminderForm extends Component {
                   onReminderPeriodChange={this.handleReminderPeriodChange}
                   templates={templates} currentPage={currentPage}
                   loading={loading} pageCount={pageCount}
+                  values={values}
                   fetchAllEmailTemplates={fetchAllEmailTemplates}
                 />
-                <SubmitArea
-                  send="Save"
-                  hasBlankFields={
-                    isEditMode ?
-                      (!documentTypeChanged && hasBlankFields)
-                      : (hasBlankFields || !documentType)}
-                  isCreating={isCreating || isUpdating} onCancel={this.handleCancel}
-                />
+                {this.renderSubmitArea(isEditMode,documentTypeChanged,documentType,
+                  isCreating,isUpdating, hasBlankFields)}
               </form>
             </div>
           </FormContext>)}
@@ -257,7 +265,8 @@ ReminderForm.propTypes = {
 };
 
 ReminderForm.defaultProps = {
-  documentType: '', templates: [],
+  documentType: '',
+  templates: [],
   currentPage: 1, pageCount: 100,
   errors: {}, editModeErrors: {},
   singleReminder: {
