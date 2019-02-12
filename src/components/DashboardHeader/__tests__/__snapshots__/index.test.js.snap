@@ -247,7 +247,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Feb 11, 2019"
+                value="Feb 12, 2019"
               />
             </span>
             <span
@@ -256,7 +256,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
             >
               <input
                 readOnly={true}
-                value="Feb 11, 2019"
+                value="Feb 12, 2019"
               />
             </span>
           </div>
@@ -1381,7 +1381,7 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                         </span>
                       </button>
                       <button
-                        className="rdrDay rdrDayDisabled rdrDayWeekend rdrDayEndOfWeek rdrDayEndOfMonth"
+                        className="rdrDay rdrDayWeekend rdrDayEndOfWeek rdrDayEndOfMonth"
                         onBlur={[Function]}
                         onFocus={[Function]}
                         onKeyDown={[Function]}
@@ -1396,7 +1396,6 @@ exports[`<DashboardHeader /> renders as expected 1`] = `
                             "color": "#3d91ff",
                           }
                         }
-                        tabIndex={-1}
                         type="button"
                       >
                         <span

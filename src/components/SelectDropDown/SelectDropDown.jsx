@@ -74,7 +74,7 @@ class SelectDropDown extends PureComponent {
   }
 
   render() {
-    const { dropDownIcon, dropDownItems } = this.props;
+    const { dropDownIcon, dropDownItems, dropDownClass } = this.props;
     const { isDropdownOpen, selectedItem, placeHolderText } = this.state;
     return (
       <div
@@ -83,7 +83,7 @@ class SelectDropDown extends PureComponent {
         onClick={() => this.showDropdownItems()}
       >
         <div
-          className={`dropdown__input ${isDropdownOpen ? 'clicked' : ''}`}
+          className={`dropdown__input ${isDropdownOpen ? 'clicked' : ''} ${ dropDownClass }`}
         >
           <div className="dropdown__input__value">
             {placeHolderText || selectedItem.name}
@@ -110,12 +110,14 @@ SelectDropDown.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   })).isRequired,
   defaultSelected: PropTypes.string,
+  dropDownClass: PropTypes.string,
   placeHolder: PropTypes.string,
 };
 
 SelectDropDown.defaultProps = {
   dropDownIcon: icon,
   defaultSelected: '',
+  dropDownClass: '',
   onClickItem: null,
   placeHolder: '',
 };

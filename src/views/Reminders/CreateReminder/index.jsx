@@ -21,7 +21,7 @@ const dropDownItems = [
   },
 ];
 
-class CreateReminder extends Component {
+export class CreateReminder extends Component {
   state = {
     documentType: ''
   };
@@ -44,13 +44,13 @@ class CreateReminder extends Component {
   }
 
   renderReminderForm(documentType) {
-    const { templates, 
-      fetchAllEmailTemplates, 
-      currentPage, 
-      loading, 
-      pageCount, 
-      createReminder, 
-      getsingleReminder, 
+    const { templates,
+      fetchAllEmailTemplates,
+      currentPage,
+      loading,
+      pageCount,
+      createReminder,
+      getsingleReminder,
       singleReminder,
       editReminder,
       editModeErrors,
@@ -58,11 +58,11 @@ class CreateReminder extends Component {
       isUpdating
     } = this.props;
     return (
-      <ReminderForm 
-        documentType={documentType} 
-        {...this.props} currentPage={currentPage} 
-        pageCount={pageCount} templates={templates} 
-        loading={loading} fetchAllEmailTemplates={fetchAllEmailTemplates} 
+      <ReminderForm
+        documentType={documentType}
+        {...this.props} currentPage={currentPage}
+        pageCount={pageCount} templates={templates}
+        loading={loading} fetchAllEmailTemplates={fetchAllEmailTemplates}
         createReminder={createReminder}
         editReminder={editReminder}
         setReminderType={this.setReminderFormDocumentType}
@@ -78,13 +78,15 @@ class CreateReminder extends Component {
 
   renderDropdown() {
     const { documentType } = this.state;
+    const dropDownClass = documentType === '' ? 'dropdown__input_error' : '';
     if(documentType || !this.isEditMode()) {
       return (
         <SelectDropDown
-          placeHolder={documentType || 'Select Document'} 
-          onClickItem={this.setReminderFormDocumentType} 
+          placeHolder={documentType || 'Select Document'}
+          onClickItem={this.setReminderFormDocumentType}
           defaultSelected={documentType}
           dropDownItems={dropDownItems}
+          dropDownClass={dropDownClass}
           dropDownIcon={downArrow}
         />
       );

@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {PropTypes} from 'prop-types';
+import { Link } from 'react-router-dom';
 import countryUtils from '../../helper/countryUtils';
 import SubmissionItem from './SubmissionItem';
 import Preloader from '../Preloader/Preloader';
@@ -49,6 +50,10 @@ class CheckListSubmissions extends Component {
 
   renderSubmissions = () => {
     const {submissions, closeModal} = this.props;
+    let url = location.pathname;
+    if (/requests\/\w+\/checklist/.test(url)) {
+      url = '/requests';
+    }
     return (
       <Fragment>
         <div className="travelCheckList">
@@ -64,14 +69,16 @@ class CheckListSubmissions extends Component {
           }
         </div>
         <div className="travelCheckList__submit-area">
-          <button
-            type="button"
-            className="bg-btn bg-btn--active"
-            onClick={() => {closeModal();}}
-            disabled={false}
-          >
-            Close
-          </button>
+          <Link to={url}>
+            <button
+              type="button"
+              className="bg-btn bg-btn--active"
+              onClick={() => {closeModal();}}
+              disabled={false}
+            >
+              Close
+            </button>
+          </Link>
         </div>
       </Fragment>
     );

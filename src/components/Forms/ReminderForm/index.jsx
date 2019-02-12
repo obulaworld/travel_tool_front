@@ -10,12 +10,10 @@ import Preloader from '../../Preloader/Preloader';
 class ReminderForm extends Component {
   constructor(props) {
     super(props);
-
     const initialReminderFieldsValues = {
       ...this.getReminderFieldsValues(0),
       ...this.getReminderFieldsValues(1),
     };
-
     this.initialState = {
       values: {
         conditionName: '',
@@ -35,17 +33,17 @@ class ReminderForm extends Component {
     const { getSingleReminder, location: { pathname }, isEditMode } = this.props;
     const conditionId = pathname.split('/')[4];
     if(isEditMode) {
-      getSingleReminder(conditionId);    
+      getSingleReminder(conditionId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { errors, editModeErrors, isEditMode, singleReminder: { data, isLoading }, 
+    const { errors, editModeErrors, isEditMode, singleReminder: { data, isLoading },
       documentType: nextDocumentType } = nextProps;
-    const { singleReminder: 
-      { data: currentReminder, 
-        isLoading: currentIsLoading }, 
-    setReminderType, documentType 
+    const { singleReminder:
+      { data: currentReminder,
+        isLoading: currentIsLoading },
+    setReminderType, documentType
     } = this.props;
     this.handleDocumentTypeChange(documentType, nextDocumentType);
 
@@ -107,7 +105,7 @@ class ReminderForm extends Component {
 
   handleCancel = () => {
     const { isEditMode, history } = this.props;
-    isEditMode 
+    isEditMode
       ? history.goBack()
       : this.setState({ ...this.initialState });
   }
@@ -229,8 +227,8 @@ class ReminderForm extends Component {
                 <SubmitArea
                   send="Save"
                   hasBlankFields={
-                    isEditMode ? 
-                      (!documentTypeChanged && hasBlankFields) 
+                    isEditMode ?
+                      (!documentTypeChanged && hasBlankFields)
                       : (hasBlankFields || !documentType)}
                   isCreating={isCreating || isUpdating} onCancel={this.handleCancel}
                 />
@@ -259,7 +257,7 @@ ReminderForm.propTypes = {
 };
 
 ReminderForm.defaultProps = {
-  documentType: '', templates: [], 
+  documentType: '', templates: [],
   currentPage: 1, pageCount: 100,
   errors: {}, editModeErrors: {},
   singleReminder: {

@@ -12,7 +12,7 @@ class TravelChecklist extends PureComponent {
     const countryFlagUrl = countryUtils.getCountryFlagUrl(list.destinationName);
     const { destinationName, checklist } = list;
     const location = localStorage.getItem('location');
-    const newChecklist = destinationName.includes(location) ? 
+    const newChecklist = destinationName.includes(location) ?
       checklist.filter(item => item.name === 'Travel Ticket Details') : checklist;
     return (
       <Fragment key={keyIndex}>

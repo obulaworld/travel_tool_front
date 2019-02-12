@@ -23,7 +23,7 @@ export class Table extends Component {
       id: null
     }
   };
-  
+
   componentDidUpdate(prevProps){
     const {
       requests,
@@ -146,7 +146,7 @@ export class Table extends Component {
 
   renderApprovalsIdCell(request) {
     return (
-      <td className="mdl-data-table__cell--non-numeric 
+      <td className="mdl-data-table__cell--non-numeric
                       table__data freeze">
         <div
           onKeyPress={() => {}}
@@ -304,7 +304,10 @@ export class Table extends Component {
         title="Travel Checklist"
         modalBar={(<div className="table__modal-bar-text">{id || requestId}</div>)}
       >
-        <TravelChecklist travelChecklists={travelChecklists} />
+        <TravelChecklist
+          travelChecklists={travelChecklists}
+          handleCloseChecklistModal={handleCloseChecklistModal}
+        />
       </Modal>
     );
   }
@@ -341,6 +344,7 @@ export class Table extends Component {
           itemsToCheck={itemsToCheck} isLoading={isFetching} fileUploads={fileUploads}
           handleFileUpload={this.handleFileUpload} postSuccess={postSuccess}
           isUploadingStage2={isUploading}
+          handleCloseSubmissionModal={handleCloseSubmissionModal}
         />
       </Modal>
     );

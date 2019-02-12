@@ -62,6 +62,17 @@ describe('CreateReminder', () => {
     passport.simulate('click');
     expect(wrapper.find('.dropdown__input__value').text()).toContain('Passport');
   });
+
+  it('should have a select document dropdown input with a dropdown__input_error class', () => {
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CreateReminder {...props} />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find('.dropdown__input').hasClass('dropdown__input_error')).toBe(true);
+  });
 });
 describe('Edit Reminder Page', () => {
   const props = {
@@ -75,7 +86,7 @@ describe('Edit Reminder Page', () => {
       pathname: '/settings/reminders/edit/1'
     },
   };
- 
+
   it('should render the Create Reminder page without crashing', () => {
     const parentWrapper = mount(
       <Provider store={store}>
