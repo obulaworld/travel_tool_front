@@ -14,13 +14,33 @@ describe('Travel Readiness Documents actions', () => {
     });
 
     it('should return action type FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS', () => {
-      const mockUsers = [{id: 1}, {id: 2}];
+      const mockData = {
+        users: [
+          {
+            id: 1,
+            fullName: 'Andela man',
+            userId: 'JFENDGVHVHBVNDK',
+            email: 'andela.man@andela.com',
+          }, 
+          {
+            id: 2,
+            fullName: 'John Man',
+            userId: '_JFENHGFFGGGDVNDK',
+            email: 'john.man@andela.com',
+          }
+        ],
+        meta: {
+          currentPage: 1,
+          pageCount: 1,
+        }
+      };
       const expectedAction = {
         type: types.FETCH_ALL_USERS_READINESS_DOCUMENTS_SUCCESS,
-        users: mockUsers,
+        users: mockData.users,
+        meta: mockData.meta
       };
 
-      const action = actions.fetchAllUsersReadinessDocumentsSuccess(mockUsers);
+      const action = actions.fetchAllUsersReadinessDocumentsSuccess(mockData);
       expect(action).toEqual(expectedAction);
     });
 
