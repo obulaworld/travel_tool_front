@@ -18,6 +18,14 @@
   cursor: not-allowed !important;
 }
 
+.button__updating{
+  @extend .button__verify;
+  &:hover  {
+    border: 1px solid #d4d4d4;
+  }
+  cursor: not-allowed !important;
+}
+
 .status__verified{
   font-size: 11px !important;
   font-weight: 500 !important;

@@ -227,6 +227,7 @@ exports[`<Requests> renders as expected 1`] = `
           "userId": "-LJNw1BsT0LP_E4l2peP",
         }
       }
+      userDataUpdate={Array []}
     />
   </Modal>
   <div

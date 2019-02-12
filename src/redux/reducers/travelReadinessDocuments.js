@@ -42,6 +42,7 @@ export const initialState = {
   document: {
     comments: [],
   },
+  updatingDocument: false,
   comments: [],
   fetchingDocument: false,
 };
@@ -138,11 +139,7 @@ export default (state = initialState, action) => {
   case VERIFY_TRAVEL_READINESS_DOCUMENT:
     return {
       ...state,
-      fetchingDocument: true,
       updatingDocument: true,
-      document: {
-        comments: [],
-      },
     };
   case VERIFY_TRAVEL_READINESS_DOCUMENT_SUCCESS:
   case EDIT_TRAVEL_READINESS_DOCUMENT_SUCCESS:

@@ -7,12 +7,13 @@ import ConnectedCommentBox from '../../../components/RequestsModal/CommentBox/Co
 // import FileAttachment from '../../Attachments';
 import { fetchTravelReadinessDocument, verifyTravelReadinessDocument } from '../../../redux/actionCreator/travelReadinessDocumentsActions';
 import Preloader from '../../../components/Preloader/Preloader';
-import Button from '../../../components/buttons/Buttons';
 import NotFound from '../../ErrorPages';
 import ConnectedDocumentDetailsAttachment from './DocumentDetailsAttachment';
 import './VerifyTravelReadinessDocument.scss';
-import checkUserPermission from '../../../helper/permissions';
 import ConnectedUserComments from '../../../components/RequestsModal/UserComments/UserComments';
+import {buttonTextValuePair} from '../../../components/RequestsModal/RequestModalHelper';
+import  ConfirmDialog from '../../../components/ConfirmDialog/ConfirmDialog';
+import ButtonLoadingIcon from '../../../components/Forms/ButtonLoadingIcon';
 
 export const TravelDocumentField = ({ label, value }) => (
   <div>
@@ -28,7 +29,10 @@ export const TravelDocumentField = ({ label, value }) => (
 );
 
 export class DocumentDetailsModal extends Component {
-  state = {  }
+  state = {
+    modalInvisible: true,
+    buttonSelected: '',
+  }
 
   static propTypes = {
     document: PropTypes.object.isRequired,
@@ -36,6 +40,7 @@ export class DocumentDetailsModal extends Component {
     documentId: PropTypes.string.isRequired,
     user: PropTypes.object.isRequired,
     documentType: PropTypes.string.isRequired,
+    updatingDocument: PropTypes.bool.isRequired,
     fetchDocumentDetails: PropTypes.func.isRequired,
     fetchingDocument: PropTypes.bool.isRequired,
     error: PropTypes.string,
@@ -58,8 +63,14 @@ export class DocumentDetailsModal extends Component {
 
   verifyDocumentDetails = () => {
     const { documentId, verifyDocument } = this.props;
+    this.setState({ modalInvisible: true});
     verifyDocument(documentId);
   }
+
+  handleConfirmModal = (button) => () => {
+    const { modalInvisible } = this.state;
+    this.setState({ modalInvisible: !modalInvisible, buttonSelected: button});
+  };
 
   checkCurrentUserStatus = () => {
     const { getCurrentUserRole } = this.props;
@@ -71,12 +82,12 @@ export class DocumentDetailsModal extends Component {
       return true;
     }
   }
-  
+
   generateDocumentData(documentType, document) {
     const { data } = document;
     switch(documentType){
-    case 'passport': 
-      return [ 
+    case 'passport':
+      return [
         { key: 'Passport Number', value: data.passportNumber },
         { key: 'Nationality', value: data.nationality },
         { key: 'Date of Birth', value: data.dateOfBirth },
@@ -92,7 +103,7 @@ export class DocumentDetailsModal extends Component {
         { key: 'Date of Issue', value: data.dateOfIssue },
         { key: 'Expiry Date', value: data.expiryDate },
       ];
-    case 'other': 
+    case 'other':
       return [
         { key: 'Document Name', value: data.name },
         { key: 'Document Id', value: data.documentId || 'N/A' },
@@ -103,33 +114,39 @@ export class DocumentDetailsModal extends Component {
       return;
     }
   }
-  
+
   renderDocuments(documentData) {
     return (
       documentData
         .map(
           document => (
-            <TravelDocumentField 
-              key={document.key} 
-              label={document.key} 
-              value={document.value} 
+            <TravelDocumentField
+              key={document.key}
+              label={document.key}
+              value={document.value}
             />
           ))
     );
   }
 
   renderVerificationButton = () => {
-    const { document } = this.props;
+    const { document, updatingDocument } = this.props;
     return (
       <span className="modal__button-below">
         <span className="modal__dialog-btn">
-          <Button
-            text={document.isVerified ? 'Verified' : 'Verify'}
-            onClick={this.verifyDocumentDetails}
-            buttonType="button"
-            buttonClass={document.isVerified ? 'button__verified' : 'button__verify'}
-            disabled={document.isVerified ? true : false}
-          />
+          <button
+            className={document.isVerified ? 'button__verified'
+              : ( updatingDocument ? 'button__updating' : 'button__verify')}
+            onClick={this.handleConfirmModal('Verify')}
+            type="button"
+            id="verify_button"
+            disabled={updatingDocument || document.isVerified}
+          >
+            <ButtonLoadingIcon
+              isLoading={updatingDocument}
+              buttonText={document.isVerified ? 'Verified' : 'Verify'}
+            />
+          </button>
         </span>
       </span>
     );
@@ -148,9 +165,25 @@ export class DocumentDetailsModal extends Component {
     );
   }
 
+  renderConfirmDialog = (modalInvisible, buttonSelected, handleConfirmModal) => {
+    return(
+      <ConfirmDialog
+        modalInvisible={modalInvisible}
+        buttonSelected={buttonTextValuePair[buttonSelected]}
+        renderDialogText={() => 'verification'}
+        closeDeleteModal={handleConfirmModal}
+        handleApprove={()=>{}}
+        handleReject={()=>{}}
+        handleVerify={this.verifyDocumentDetails}
+      />
+    );
+  }
+
   render() {
     const { documentType, document, userData, user: { picture, id: userId }, fetchingDocument,
       error, email, currentUser } = this.props;
+    const { modalInvisible, buttonSelected} = this.state;
+    const { handleConfirmModal, renderConfirmDialog } = this;
     const userInfo = { ...userData, name: userData.fullName, role: userData.occupation };
     const { userId: owner } = document;
     const selfOwned = owner && (owner === userId);
@@ -165,6 +198,7 @@ export class DocumentDetailsModal extends Component {
           <UserInfo requestData={userInfo} />
           { this.checkCurrentUserStatus() && !selfOwned && !fetchingDocument  ? this.renderVerificationButton()
             : !fetchingDocument && this.renderRequesterVerificationStatus()}
+          {renderConfirmDialog(modalInvisible, buttonSelected, handleConfirmModal)}
         </div>
         <div className="modal__travel-doc-details">
           { fetchingDocument && <Preloader /> }
@@ -197,6 +231,7 @@ const mapStateToProps = ({ user, auth, travelReadinessDocuments }, state) => ({
   user: auth.user.UserInfo,
   document: travelReadinessDocuments.document,
   fetchingDocument: travelReadinessDocuments.fetchingDocument,
+  updatingDocument: travelReadinessDocuments.updatingDocument,
   error: travelReadinessDocuments.error,
   getCurrentUserRole: user.getCurrentUserRole,
   currentUser: user.currentUser,
