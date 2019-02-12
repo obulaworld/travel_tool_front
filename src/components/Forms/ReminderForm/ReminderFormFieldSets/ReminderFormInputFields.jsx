@@ -11,8 +11,13 @@ class ReminderFormInputFields extends Component {
 
   renderTemplateDropDown(reminderIndex) {
     const { renderInput } = this.inputRenderer;
-    const { templates, currentPage, loading, pageCount, fetchAllEmailTemplates, onReminderTemplateChange } = this.props;
-
+    const {
+      templates,
+      currentPage,
+      loading,
+      pageCount,
+      fetchAllEmailTemplates,
+      onReminderTemplateChange } = this.props;
     const templateChoices = templates.map(item => ({ value: `${item.id}`, label: item.name }));
 
     return renderInput(`reminderTemplate-${reminderIndex}`, 'dropdown-select', {

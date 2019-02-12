@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import CheckListSubmissions from '../CheckListSubmissions';
 import {
   checklistSubmission, fileUploadStore,
@@ -25,7 +26,7 @@ describe('ChecklistSubmission Component', () => {
     request: {...tripRequest},
   };
 
-  const setup = (props) => mount(<CheckListSubmissions {...props} />);
+  const setup = (props) => mount(<BrowserRouter><CheckListSubmissions {...props} /></BrowserRouter>);
 
   it ('should render the component', () => {
     const wrapper = setup(props);
