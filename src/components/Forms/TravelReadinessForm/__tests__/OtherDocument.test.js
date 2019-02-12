@@ -52,6 +52,7 @@ describe('<OtherDocumentForm />', () => {
       process.env.REACT_APP_CLOUNDINARY_API,
       { status: 200, data: { url: 'url' } }
     );
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
     wrapper.state().file = validFile;
     wrapper.find('.travel-document-form').simulate('submit', event);
     moxios.wait(() => {

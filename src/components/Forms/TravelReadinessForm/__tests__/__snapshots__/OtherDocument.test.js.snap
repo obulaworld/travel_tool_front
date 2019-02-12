@@ -113,6 +113,7 @@ exports[`<OtherDocumentForm /> renders without crashing 1`] = `
             onChange={[Function]}
             required={false}
             type="text"
+            value=""
           />
           <span
             className="error"

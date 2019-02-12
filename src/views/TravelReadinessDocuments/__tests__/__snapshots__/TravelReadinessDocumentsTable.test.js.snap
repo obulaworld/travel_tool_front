@@ -22,6 +22,105 @@ exports[`TravelReadinessDocumentsTable renders TableBody 1`] = `
     userId="-LMIzC-bCc10w7Uqc7-A"
     visasCount={0}
   />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bcfffffCc10w7Uqc7-A"
+    name="Celestine1 Ekoh-Ordan"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bcfffffCc10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bcgsdvcc10w7Uqc7-A"
+    name="Celestine2 Ekoh-Ordan"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bcgsdvcc10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCc1csah0w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCc1csah0w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCcsch10w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCcsch10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bcvgCc10w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bcvgCc10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCc10cxzw7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCc10cxzw7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCccsvzhx10w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCccsvzhx10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCcscdh10w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCcscdh10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCc10wvd7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCc10wvd7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bdshvCc10w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bdshvCc10w7Uqc7-A"
+    visasCount={0}
+  />
+  <UserReadiness
+    department="Talent & Development"
+    key="-LMIzC-bCc1sdhvc0w7Uqc7-A"
+    name="Black Window"
+    othersCount={0}
+    passportsCount={0}
+    userId="-LMIzC-bCc1sdhvc0w7Uqc7-A"
+    visasCount={0}
+  />
 </tbody>
 `;
 

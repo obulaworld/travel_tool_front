@@ -50,7 +50,10 @@ exports[`Render CommentBox component should match snapshot 1`] = `
         onClick={[Function]}
         type="submit"
       >
-        Post
+        <ButtonLoadingIcon
+          buttonText="Post"
+          isLoading={false}
+        />
       </button>
     </span>
   </div>

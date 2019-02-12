@@ -8,6 +8,7 @@ export default withTravelReadinessForm(OtherDocumentFieldSet,'other',
       name: '',
       dateOfIssue: '',
       expiryDate: '',
+      documentId: ''
     },
     image: '',
     imageChanged: false,

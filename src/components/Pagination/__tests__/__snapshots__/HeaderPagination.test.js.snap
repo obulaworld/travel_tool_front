@@ -18,6 +18,7 @@ exports[`<HeaderPagination /> should render successfully 1`] = `
   >
     <SelectDropDown
       defaultSelected=""
+      dropDownClass=""
       dropDownIcon="drop-down-icon.svg"
       dropDownItems={
         Array [
@@ -36,9 +37,7 @@ exports[`<HeaderPagination /> should render successfully 1`] = `
         ]
       }
       onClickItem={[Function]}
-      page=""
       placeHolder=""
-      reminderDocument=""
     />
   </div>
 </div>

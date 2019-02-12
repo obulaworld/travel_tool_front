@@ -44,7 +44,7 @@ function validate(field)  {
   return !hasBlankFields;
 }
 
-const isOptional = (field, optionalFields) => {
+export const isOptional = (field, optionalFields) => {
   return optionalFields && optionalFields
     .some(expr => new RegExp(expr).test(field));
 };
