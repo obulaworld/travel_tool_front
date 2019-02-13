@@ -10,7 +10,7 @@ describe('Render CommentBox component', () => {
     handleNoEdit: jest.fn(),
     handleSubmit: () => {},
     event: {
-      preventDefault: jest.fn().mockImplementation() 
+      preventDefault: jest.fn().mockImplementation()
     }
   };
   const event = {
@@ -129,5 +129,18 @@ describe('Render CommentBox component', () => {
     button.simulate('click', event);
     expect(event.preventDefault).toHaveBeenCalled();
     localStorage.removeItem('comment');
+  });
+
+  it('should display a loader while saving a comment', () => {
+    const event = { preventDefault: jest.fn(), value: 'VALUE' };
+    const wrapper = shallow(<CommentBox
+      {...props} createComment={() => {
+        wrapper.setProps({creatingComment: true});
+      }} />);
+    wrapper.setState({ submitReady: true, text: 'Can you clarify why' });
+    const button = wrapper.find('#post-submit');
+    button.simulate('click', event);
+
+    expect(wrapper.find('ButtonLoadingIcon[buttonText="Post"]').props().isLoading).toBeTruthy();
   });
 });

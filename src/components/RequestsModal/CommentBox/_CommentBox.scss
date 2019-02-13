@@ -42,6 +42,10 @@ p {
     margin: 20px 0 20px 0;
     cursor: pointer;
 
+    &:disabled {
+      cursor: default;
+    }
+
     &--active {
       border: none;
       background-color: #3359db;

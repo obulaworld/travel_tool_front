@@ -8,7 +8,7 @@ const props = {
       picture: '/path/to/image',
       fullName: 'Smith Allen',
     },
-    id: 1,
+    id: '1',
     userId: 1,
     createdAt: '',
     comment: 'Can you clarify why',
@@ -22,6 +22,8 @@ const props = {
   activeCommentId: '',
   resetEditing: jest.fn(),
   editComment: jest.fn(),
+  commentOnEdit: '',
+  editingComment: false,
   handleNoEdit: jest.fn(),
   formatDate: jest.fn(),
   renderCancelButton: jest.fn(),
@@ -34,7 +36,10 @@ const props = {
 
 
 describe('CommentItem component', () => {
-  const wrapper = shallow(<CommentItem {...props} />);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<CommentItem {...props} />);
+  });
 
   it('should match snapshot', () => {
     expect(wrapper).toMatchSnapshot();
@@ -126,6 +131,7 @@ describe('CommentItem component', () => {
       editReady={false}
       commentToEdit="Can you clarify why"
       activeCommentId="1"
+      commentOnEdit="1"
       resetEditing={jest.fn()}
       editComment={jest.fn()}
       formatDate={jest.fn()}
@@ -156,5 +162,18 @@ describe('CommentItem component', () => {
     const confirmDeleteCommentSpy = jest.spyOn(wrapper.instance(), 'confirmDeleteComment');
     wrapper.find('.delete-comment-modal__btn').simulate('click');
     expect(confirmDeleteCommentSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('should display loader when editing a comment', () => {
+    wrapper.setProps({ editComment: (comment) => {
+      wrapper.setProps({editingComment: true, commentOnEdit: comment.id, activeCommentId: comment.id});
+    }});
+    wrapper.find('.edit-button').simulate('click');
+    expect(wrapper.find('ButtonLoadingIcon[buttonText="Edit"]').props().isLoading).toBeTruthy();
+  });
+
+  it('should display loader when deleting a comment', () => {
+    wrapper.find('.delete-comment-modal__btn').simulate('click');
+    expect(wrapper.find('ButtonLoadingIcon[buttonText="Delete"]').props().isLoading).toBeTruthy();
   });
 });

@@ -14,6 +14,7 @@ export class UserComments extends Component {
     commentToEdit: '',
     activeCommentId: '',
     editReady: false,
+    commentOnEdit: '',
   };
   editComment = (comment) => {
     localStorage.setItem('comment', comment.comment);
@@ -21,6 +22,7 @@ export class UserComments extends Component {
       activeCommentId: comment.id,
       commentToEdit: comment.comment,
       editReady: true,
+      commentOnEdit: comment.id,
     });
   }
 
@@ -57,8 +59,9 @@ export class UserComments extends Component {
   }
 
   render() {
-    const { commentToEdit, activeCommentId, commentToDelete, editReady } = this.state;
-    const { comments, email, deleteComment, currentUser } = this.props;
+    const { commentToEdit, activeCommentId,commentOnEdit,editReady } = this.state;
+    const { comments, email, deleteComment, currentUser,
+      editingComment } = this.props;
     const sortedComments = comments.sort(function(a, b){
       const firstDate = new Date(a.createdAt), secondDate = new Date(b.createdAt);
       return secondDate - firstDate;
@@ -70,13 +73,14 @@ export class UserComments extends Component {
           key={comment.id}
           comment={comment}
           deleteComment={deleteComment}
+          editingComment={editingComment}
           email={email}
+          commentOnEdit={commentOnEdit}
           editReady={editReady}
           handleNoEdit={this.handleNoEdit}
           editedLabel={editedLabel}
           commentToEdit={commentToEdit}
           activeCommentId={activeCommentId}
-          commentToDelete={commentToDelete}
           renderCancelButton={this.renderCancelButton}
           resetEditing={this.resetEditing}
           editComment={this.editComment}
@@ -93,13 +97,15 @@ UserComments.propTypes = {
   email:PropTypes.string,
   deleteComment: PropTypes.func,
   currentUser: PropTypes.object,
+  editingComment: PropTypes.bool,
 };
 
 UserComments.defaultProps = {
   deleteComment: () => {},
   comments: [],
   email: '',
-  currentUser: {}
+  currentUser: {},
+  editingComment: false,
 };
 
 
@@ -107,4 +113,6 @@ const actionCreators = {
   deleteComment,
 };
 
-export default connect(undefined, actionCreators)(UserComments);
+const mapStateToProps = ({comments: { editingComment}}) => ({ editingComment});
+
+export default connect(mapStateToProps, actionCreators)(UserComments);

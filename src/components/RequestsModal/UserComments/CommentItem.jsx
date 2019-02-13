@@ -4,14 +4,16 @@ import Modal from '../../modal/Modal';
 import ImageLink from '../../image-link/ImageLink';
 import ConnectedCommentBox from '../CommentBox/CommentBox';
 import './UserComments.scss';
+import ButtonLoadingIcon from '../../Forms/ButtonLoadingIcon';
 
 export default class CommentItem extends Component {
   state = {
-    deleteModalState: 'invisible'
+    deleteModalState: 'invisible',
+    deletingComment: false
   };
 
   handleDeleteComment = () => {
-    this.setState({ deleteModalState: 'visible' });
+    this.setState({ deleteModalState: 'visible'});
   };
 
   closeDeleteCommentModal = () => {
@@ -21,11 +23,12 @@ export default class CommentItem extends Component {
   confirmDeleteComment = () => {
     const { deleteComment, comment } = this.props;
     deleteComment(comment.requestId, comment.id);
-    this.setState({ deleteModalState: 'invisible' });
+    this.setState({ deleteModalState: 'invisible', deletingComment: true });
   };
 
   renderDeleteOption = () => {
-    const { deleteModalState } = this.state;
+    const { deleteModalState, deletingComment } = this.state;
+    const { editingComment, commentOnEdit, comment } = this.props;
     return (
       <button
         type="button"
@@ -33,8 +36,9 @@ export default class CommentItem extends Component {
         className={`modal__delete-btn ${
           deleteModalState === 'visible' ? 'blue-text' : ''
         }`}
+        disabled={deletingComment || (commentOnEdit === comment.id && editingComment)}
       >
-        Delete
+        <ButtonLoadingIcon isLoading={deletingComment} buttonText="Delete" />
         <Modal
           customModalStyles="delete-comment-modal"
           customOverlayStyle="delete-modal-overlay"
@@ -71,8 +75,11 @@ export default class CommentItem extends Component {
       renderCancelButton,
       editComment,
       editReady,
-      currentUser
+      currentUser,
+      editingComment,
+      commentOnEdit,
     } = this.props;
+    const { deletingComment } = this.state;
     return (
       <div className="modal__modal1" key={comment.id}>
         <hr />
@@ -95,9 +102,12 @@ export default class CommentItem extends Component {
                   activeCommentId === comment.id ? 'active' : ''
                 }`}
                 type="button"
+                disabled={(commentOnEdit === comment.id && editingComment) || deletingComment}
                 onClick={() => editComment(comment)}
               >
-                Edit
+                <ButtonLoadingIcon
+                  isLoading={commentOnEdit === comment.id && editingComment}
+                  buttonText="Edit" />
               </button>
               {this.renderDeleteOption()}
             </span>
@@ -132,6 +142,11 @@ export default class CommentItem extends Component {
   }
 }
 
+CommentItem.defaultProps = {
+  commentOnEdit: null,
+  editingComment: false
+};
+
 CommentItem.propTypes = {
   comment: PropTypes.object.isRequired,
   deleteComment: PropTypes.func.isRequired,
@@ -140,10 +155,12 @@ CommentItem.propTypes = {
   email: PropTypes.string.isRequired,
   editedLabel: PropTypes.string.isRequired,
   commentToEdit: PropTypes.string.isRequired,
+  commentOnEdit: PropTypes.string,
   activeCommentId: PropTypes.string.isRequired,
   resetEditing: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
   renderCancelButton: PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired,
+  editingComment: PropTypes.bool,
 };

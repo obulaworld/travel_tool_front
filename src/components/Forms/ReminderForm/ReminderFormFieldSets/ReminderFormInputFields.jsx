@@ -9,6 +9,20 @@ import * as formMetaData from '../../FormsMetadata/ReminderForm/index';
 class ReminderFormInputFields extends Component {
   state = {};
 
+
+  processFormMetadata = (reminderIndex) => {
+    const { dropdownSelectOptions, inputLabels } = formMetaData;
+
+    const { props : { values} } = this;
+    const value = values[`date-${reminderIndex}`];
+
+    const period =dropdownSelectOptions.period.map((period) => (
+      parseInt(value) === 1 || !value ? period : `${period}s`
+    ));
+
+    return {dropdownSelectOptions: {...dropdownSelectOptions, period}, inputLabels};
+  };
+
   renderTemplateDropDown(reminderIndex) {
     const { renderInput } = this.inputRenderer;
     const {
@@ -33,7 +47,7 @@ class ReminderFormInputFields extends Component {
   }
 
   renderDatePeriodInputGroup(reminderIndex) {
-    const { renderInput } = this.inputRenderer;
+    const { renderInput } = new InputRenderer(this.processFormMetadata(reminderIndex));
     const { onReminderPeriodChange, onInputChange } = this.props;
     return (
       <Fragment>
@@ -63,7 +77,6 @@ class ReminderFormInputFields extends Component {
   }
 
   renderReminder(reminderIndex) {
-    const { renderInput } = this.inputRenderer;
     return (
       <div key={reminderIndex} className="reminders-fieldset">
         {this.renderTemplateDropDown(reminderIndex)}
@@ -98,7 +111,6 @@ class ReminderFormInputFields extends Component {
     );
   }
 
-
   render() {
     this.inputRenderer = new InputRenderer(formMetaData);
     const { totalReminders } = this.props;
@@ -122,6 +134,7 @@ ReminderFormInputFields.propTypes = {
   templates: PropTypes.array,
   currentPage: PropTypes.number,
   loading: PropTypes.bool.isRequired,
+  values: PropTypes.object.isRequired,
   pageCount: PropTypes.number,
   fetchAllEmailTemplates: PropTypes.func.isRequired,
 };

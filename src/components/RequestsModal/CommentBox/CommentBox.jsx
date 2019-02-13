@@ -9,6 +9,7 @@ import {
 } from '../../../redux/actionCreator/commentsActions';
 import 'react-quill/dist/quill.snow.css';
 import './_CommentBox.scss';
+import ButtonLoadingIcon from '../../Forms/ButtonLoadingIcon';
 
 export class CommentBox extends Component {
   constructor(props) {
@@ -20,6 +21,16 @@ export class CommentBox extends Component {
     };
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    const { creatingComment } = nextProps;
+    if( !creatingComment) {
+      this.setState({
+        text: '',
+        submitReady: !this.emptyText()
+      });
+    }
+  };
+
   handleKeyUp = event => {
     if (event.target.innerText.trim().length >= 1) {
       this.setState({
@@ -29,7 +40,7 @@ export class CommentBox extends Component {
     } else {
       this.setState({
         text: '',
-        submitReady: false
+        submitReady: !this.emptyText()
       });
     }
   };
@@ -37,7 +48,7 @@ export class CommentBox extends Component {
   handleChange = value => {
     this.setState({
       text: value,
-      submitReady: true
+      submitReady: !this.emptyText()
     });
   };
 
@@ -52,10 +63,10 @@ export class CommentBox extends Component {
   handleBlur = event => {
     event.target.editorContainer.style.border = '1px solid #E4E4E4';
     const { text } = this.state;
-    if (text == '') {
+    if (text === '') {
       this.setState({
         text: '',
-        submitReady: false
+        submitReady: !this.emptyText()
       });
     }
   };
@@ -68,7 +79,6 @@ export class CommentBox extends Component {
       createComment(requestId, documentId, this.sanitizeInputData(text));
     }
     this.setState({
-      text: '',
       submitReady: false
     });
   };
@@ -103,9 +113,14 @@ export class CommentBox extends Component {
     afterSubmit();
   };
 
+  emptyText = () => {
+    const { text } = this.state;
+    return text === '' || text === '<p><br></p>';
+  };
+
   renderButtons = () => {
-    const { submitReady, text } = this.state;
-    const { comment } = this.props;
+    const { submitReady } = this.state;
+    const { comment , creatingComment } = this.props;
     const status = submitReady ? '--active' : '';
     return (
       <span className="editor__btn-wrap">
@@ -116,9 +131,9 @@ export class CommentBox extends Component {
               onClick={this.handleEditComment}
               className={`editor__post-btn editor__post-btn${status}
               --active post-btn-text edit-buttons`}
-              disabled={!text && true}
+              disabled={!submitReady}
             >
-              Save
+              <ButtonLoadingIcon isLoading={creatingComment} buttonText="Save" />
             </button>
           </div>
         ) : (
@@ -127,9 +142,9 @@ export class CommentBox extends Component {
             type="submit"
             id="post-submit"
             onClick={this.handleSubmit}
-            disabled={!text && true}
+            disabled={!submitReady}
           >
-            Post
+            <ButtonLoadingIcon isLoading={creatingComment} buttonText="Post" />
           </button>
         )}
       </span>
@@ -175,6 +190,7 @@ CommentBox.propTypes = {
   documentId: PropTypes.string,
   comment: PropTypes.string,
   id: PropTypes.string,
+  creatingComment: PropTypes.bool,
   afterSubmit: PropTypes.func,
   handleNoEdit: PropTypes.func,
   startSubmitReady: PropTypes.bool
@@ -183,6 +199,7 @@ CommentBox.propTypes = {
 CommentBox.defaultProps = {
   afterSubmit: () => {},
   requestId: '',
+  creatingComment: false,
   documentId: '',
   comment: '',
   id: '',
@@ -190,8 +207,13 @@ CommentBox.defaultProps = {
   startSubmitReady: false
 };
 
+const mapStateToProps = ({ comments }) => ({
+  creatingComment: comments.creatingComment,
+  editingComment: comments.editingComment
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createComment, editComment }
 )(CommentBox);
 

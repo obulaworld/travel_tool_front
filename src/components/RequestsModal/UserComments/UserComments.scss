@@ -128,9 +128,20 @@
 
 .modal__delete-btn {
   position: relative;
+  width: fit-content;
+
   &:hover{
     color: #3359db;
     text-decoration: underline;
     cursor: pointer;
+  }
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+.edit-button {
+  &:disabled {
+    pointer-events: none;
   }
 }
