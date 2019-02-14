@@ -267,10 +267,10 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   autoComplete="off"
                   choices={
                     Array [
-                      "Days",
-                      "Weeks",
-                      "Months",
-                      "Years",
+                      "Day",
+                      "Week",
+                      "Month",
+                      "Year",
                     ]
                   }
                   className="input select  period"
@@ -294,7 +294,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                       }
                     }
                   >
-                    Months
+                     
                     <div
                       className="select-dropdown inactive"
                     >
@@ -310,7 +310,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   >
                     <li
                       id="choice"
-                      key="Days"
+                      key="Day"
                     >
                       <div
                         id="choice"
@@ -319,12 +319,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Days
+                        Day
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Weeks"
+                      key="Week"
                     >
                       <div
                         id="choice"
@@ -333,12 +333,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Weeks
+                        Week
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Months"
+                      key="Month"
                     >
                       <div
                         id="choice"
@@ -347,12 +347,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Months
+                        Month
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Years"
+                      key="Year"
                     >
                       <div
                         id="choice"
@@ -361,7 +361,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Years
+                        Year
                       </div>
                     </li>
                   </ul>
@@ -603,10 +603,10 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   autoComplete="off"
                   choices={
                     Array [
-                      "Days",
-                      "Weeks",
-                      "Months",
-                      "Years",
+                      "Day",
+                      "Week",
+                      "Month",
+                      "Year",
                     ]
                   }
                   className="input select  period"
@@ -630,7 +630,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                       }
                     }
                   >
-                    Months
+                     
                     <div
                       className="select-dropdown inactive"
                     >
@@ -646,7 +646,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   >
                     <li
                       id="choice"
-                      key="Days"
+                      key="Day"
                     >
                       <div
                         id="choice"
@@ -655,12 +655,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Days
+                        Day
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Weeks"
+                      key="Week"
                     >
                       <div
                         id="choice"
@@ -669,12 +669,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Weeks
+                        Week
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Months"
+                      key="Month"
                     >
                       <div
                         id="choice"
@@ -683,12 +683,12 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Months
+                        Month
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Years"
+                      key="Year"
                     >
                       <div
                         id="choice"
@@ -697,7 +697,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                         role="button"
                         tabIndex="0"
                       >
-                        Years
+                        Year
                       </div>
                     </li>
                   </ul>
@@ -982,10 +982,10 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   autoComplete="off"
                   choices={
                     Array [
-                      "Days",
-                      "Weeks",
-                      "Months",
-                      "Years",
+                      "Day",
+                      "Week",
+                      "Month",
+                      "Year",
                     ]
                   }
                   className="input select  period"
@@ -1009,7 +1009,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                       }
                     }
                   >
-                    Months
+                     
                     <div
                       className="select-dropdown inactive"
                     >
@@ -1025,7 +1025,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   >
                     <li
                       id="choice"
-                      key="Days"
+                      key="Day"
                     >
                       <div
                         id="choice"
@@ -1034,12 +1034,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Days
+                        Day
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Weeks"
+                      key="Week"
                     >
                       <div
                         id="choice"
@@ -1048,12 +1048,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Weeks
+                        Week
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Months"
+                      key="Month"
                     >
                       <div
                         id="choice"
@@ -1062,12 +1062,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Months
+                        Month
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Years"
+                      key="Year"
                     >
                       <div
                         id="choice"
@@ -1076,7 +1076,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Years
+                        Year
                       </div>
                     </li>
                   </ul>
@@ -1264,10 +1264,10 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   autoComplete="off"
                   choices={
                     Array [
-                      "Days",
-                      "Weeks",
-                      "Months",
-                      "Years",
+                      "Day",
+                      "Week",
+                      "Month",
+                      "Year",
                     ]
                   }
                   className="input select  period"
@@ -1291,7 +1291,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                       }
                     }
                   >
-                    Months
+                     
                     <div
                       className="select-dropdown inactive"
                     >
@@ -1307,7 +1307,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   >
                     <li
                       id="choice"
-                      key="Days"
+                      key="Day"
                     >
                       <div
                         id="choice"
@@ -1316,12 +1316,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Days
+                        Day
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Weeks"
+                      key="Week"
                     >
                       <div
                         id="choice"
@@ -1330,12 +1330,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Weeks
+                        Week
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Months"
+                      key="Month"
                     >
                       <div
                         id="choice"
@@ -1344,12 +1344,12 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Months
+                        Month
                       </div>
                     </li>
                     <li
                       id="choice"
-                      key="Years"
+                      key="Year"
                     >
                       <div
                         id="choice"
@@ -1358,7 +1358,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                         role="button"
                         tabIndex="0"
                       >
-                        Years
+                        Year
                       </div>
                     </li>
                   </ul>

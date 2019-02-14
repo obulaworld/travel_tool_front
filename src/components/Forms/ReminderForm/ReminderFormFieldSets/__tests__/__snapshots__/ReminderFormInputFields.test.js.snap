@@ -55,10 +55,10 @@ exports[`ReminderFormInputFields should render correctly 1`] = `
         autoComplete="off"
         choices={
           Array [
-            "Days",
-            "Weeks",
-            "Months",
-            "Years",
+            "Day",
+            "Week",
+            "Month",
+            "Year",
           ]
         }
         className="period"

@@ -90,7 +90,7 @@ describe('<PassportForm/>',  () => {
 
   it('should not submit without document', () => {
     wrapper.setState({values: {...document}});
-
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
     process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
 
     const cloudinaryResponse = {
@@ -114,7 +114,7 @@ describe('<PassportForm/>',  () => {
   it('should submit if all the data is valid',  () => {
     wrapper.setState({values: {...document}});
     wrapper.find('#select-file').simulate('change', event);
-
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
 
     process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
 
@@ -138,6 +138,7 @@ describe('<PassportForm/>',  () => {
   it('should toast an error if the passport file does not upload', () => {
     wrapper.setState({values: {...document}});
     wrapper.find('#select-file').simulate('change', event);
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
 
     process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
 
@@ -169,7 +170,7 @@ describe('<PassportForm/>',  () => {
     wrapper = mount(<PassportForm {...newProps} />);
     wrapper.setState({values: {...document}});
     wrapper.find('input[type="file"]').simulate('change', event);
-
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
 
     process.env.REACT_APP_CLOUNDINARY_API = 'https://mock-passport-cloudinary-api-succeed';
 
@@ -195,6 +196,7 @@ describe('<PassportForm/>',  () => {
     const formWrapper = mount(
       <PassportForm {...props} documentType="passport" />
     );
+    formWrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
     let documentUploaded = false;
     formWrapper.find('form').simulate('submit', {
       preventDefault: () => {

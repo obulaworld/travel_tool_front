@@ -196,6 +196,7 @@ exports[`Render RequestsModal component should match snapshot 1`] = `
       closeDeleteModal={[Function]}
       handleApprove={[Function]}
       handleReject={[Function]}
+      handleVerify={[Function]}
       id="xDh20cuGx"
       modalInvisible={true}
       renderDialogText={[Function]}

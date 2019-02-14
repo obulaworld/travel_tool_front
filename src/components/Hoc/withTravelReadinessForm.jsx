@@ -11,6 +11,7 @@ import FileUploadField from '../Forms/TravelReadinessForm/FormFieldsets/FileUplo
 import SubmitArea from '../Forms/TravelReadinessForm/FormFieldsets/SubmitArea';
 import Preloader from '../Preloader/Preloader';
 import documentUpload from '../../images/icons/document-upload-blue.svg';
+import { isOptional } from '../Forms/FormsAPI/formValidator';
 
 export default function TravelReadinessForm (FormFieldSet, documentType, defaultFormState) {
   class BaseForm extends Component {
@@ -51,6 +52,13 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
       const {values, image, errors, id} = this.state;
       const {createTravelReadinessDocument, editTravelReadinessDocument, modalType} = this.props;
       const {dateOfIssue, expiryDate} = values;
+      const { name } = this.state;
+      if(name){
+        values.imageName = name;
+      }else{
+        const {document: {data: { imageName }}} = this.props;
+        values.imageName = imageName;
+      }
       const newValues = {
         ...values,
         dateOfIssue: dateOfIssue === '' ? '' :
@@ -114,7 +122,10 @@ export default function TravelReadinessForm (FormFieldSet, documentType, default
         return toast.error('File is too large');
       }
       const {name} = image;
-      this.setState({name, image, imageChanged: true});
+      const { values, optionalFields } = this.state;
+      const hasBlankFields = Object.keys(values)
+        .some(key => !values[key] && !isOptional(key, optionalFields));
+      this.setState({name, image, imageChanged: true, hasBlankFields: hasBlankFields || false });
     };
 
     render() {

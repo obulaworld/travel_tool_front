@@ -52,6 +52,7 @@ describe('<AddVisaForm />', () => {
       { status: 200, data: { url: 'url' } }
     );
     wrapper.state().file = validFile;
+    wrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
     wrapper.find('.travel-document-form').simulate('submit', event);
     moxios.wait(() => {
       expect(props.createTravelReadinessDocument).toHaveBeenCalled();

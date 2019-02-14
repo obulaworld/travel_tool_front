@@ -176,7 +176,7 @@ describe('<OtherDocumentForm />', () => {
   it('should upload a file for edit', () => {
     const newProps = {
       ...props,
-      modalType: 'edit visa'
+      modalType: 'edit visa',
     };
     const wrapper = mount(<VisaDefault {...newProps} />);
     wrapper.find('#select-file').simulate('change', event);
@@ -238,7 +238,8 @@ describe('<OtherDocumentForm />', () => {
     const newProps = {
       ...props,
       modalType: 'edit visa',
-      documentType: 'visa'
+      documentType: 'visa',
+      document: {data: { imageName: 'image.jpg' }}
     };
     const wrapperWithOtherDocumentField = mount(
       <NewOtherDocument {...newProps} />
@@ -266,7 +267,8 @@ describe('<OtherDocumentForm />', () => {
     const newProps = {
       ...props,
       modalType: 'edit visa',
-      documentType: 'visa'
+      documentType: 'visa',
+      document: {data: { imageName: 'image.jpg' }}
     };
     const wrapperWithOtherDocumentField = mount(
       <NewOtherDocumentII {...newProps} />
@@ -287,8 +289,9 @@ describe('<OtherDocumentForm />', () => {
     const wrapperWithOtherDocumentField = mount(
       <NewOtherDocument {...props} />
     );
-
+    
     let documentUploaded = false;
+    wrapperWithOtherDocumentField.setProps({document: {data: { imageName: 'image.jpg' }}});
     wrapperWithOtherDocumentField.find('form').simulate('submit', {
       preventDefault: () => {
         documentUploaded = true;
@@ -304,7 +307,8 @@ describe('<OtherDocumentForm />', () => {
         type: 'visa',
         data: {
           country: 'Naija',
-          cloudinaryUrl: 'image.jpg'
+          cloudinaryUrl: 'image.jpg',
+          imageName: 'image.jpg'
         }
       },
       currentDocument: {},
@@ -323,6 +327,7 @@ describe('<OtherDocumentForm />', () => {
       },
     });
     expect(documentUploaded).toBe(true);
+    expect(wrapperWithOtherDocumentField.find('FileUploadField').text()).toContain('image.jpg');
   });
 
   it('should call the handleSubmit method for editing others', () => {
@@ -333,7 +338,8 @@ describe('<OtherDocumentForm />', () => {
         data: {
           name: 'other',
           documentId: '1234',
-          cloudinaryUrl: 'image.jpg'
+          cloudinaryUrl: 'image.jpg',
+          imageName: 'image.jpg'
         }
       },
       currentDocument: {},
@@ -352,6 +358,78 @@ describe('<OtherDocumentForm />', () => {
       },
     });
     expect(documentUploaded).toBe(true);
+    expect(wrapperWithOtherDocumentField.find('FileUploadField').text()).toContain('image.jpg');
+  });
+  it('should display cloudinary url incase the imageName is not specified', () => {
+    const newProps = {
+      ...props,
+      document: {
+        type: 'other',
+        data: {
+          name: 'other',
+          documentId: '1234',
+          cloudinaryUrl: 'http://cloudinary/image.jpg'
+        }
+      },
+      currentDocument: {},
+      handleSubmit: jest.fn(),
+      modalType: 'edit other',
+    };
+
+    const wrapperWithOtherDocumentField = mount(
+      <NewOtherDocument {...newProps} />
+    );
+    expect(wrapperWithOtherDocumentField.find('FileUploadField').text()).toContain('http://cloudinary/image.jpg');
+  });
+
+  it('should return hasBlankFields==true if name is missing but image in uploaded', () => {
+    const newProps = {
+      ...props,
+      document: {
+        type: 'other',
+        data: {
+          name: 'other',
+          documentId: '1234',
+          cloudinaryUrl: 'http://cloudinary/image.jpg'
+        }
+      },
+      currentDocument: {},
+      handleSubmit: jest.fn(),
+      modalType: 'edit other',
+    };
+
+    const wrapperWithOtherDocumentField = mount(
+      <NewOtherDocument {...newProps} handleUpload={jest.fn()} />
+    );
+    wrapperWithOtherDocumentField.instance().setState({
+      imageChanged: true,
+      image: 'image.jpg',
+      values:{
+        name: '',
+        dateOfIssue: '02/01/2019',
+        expiryDate: '03/02/2019',
+        image: 'image.jpg'}
+    });
+    const validFile = new Blob(['This is a valid png file'], {type : 'image/png', size: 1092});
+    validFile.name = 'file.png';
+    const event = {
+      preventDefault: jest.fn(),
+      target:{
+        files: [validFile]
+      }}
+    wrapperWithOtherDocumentField.instance().handleUpload(event);
+    expect(wrapperWithOtherDocumentField.instance().state.hasBlankFields).toBe(true);
+    wrapperWithOtherDocumentField.instance().setState({
+      imageChanged: true,
+      image: 'image.jpg',
+      values:{
+        name: 'Kalyango',
+        dateOfIssue: '02/01/2019',
+        expiryDate: '03/02/2019',
+        image: 'image.jpg'}
+    });
+    wrapperWithOtherDocumentField.instance().handleUpload(event);
+    expect(wrapperWithOtherDocumentField.instance().state.hasBlankFields).toBe(false);
   });
 
   it('should create visa if all the data is valid',  () => {
@@ -427,6 +505,7 @@ describe('<OtherDocumentForm />', () => {
       <VisaDefault {...props} />
     );
     let documentUploaded = false;
+    formWrapper.setProps({document: {data: { imageName: 'image.jpg' }}});
     formWrapper.find('form').simulate('submit', {
       preventDefault: () => {
         documentUploaded = true;

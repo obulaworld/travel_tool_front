@@ -968,7 +968,7 @@ exports[`<LoaderBody /> renders correctly 1`] = `
       <p
         className="loader__body-text"
       >
-        When preparing to travel, lay out all your clothes and all your money. Then take half the clothes and twice the money.
+        Forget champagne and caviar – Taste the world instead!
       </p>
     </div>
   </div>
