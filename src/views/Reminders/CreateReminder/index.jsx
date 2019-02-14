@@ -28,7 +28,7 @@ export class CreateReminder extends Component {
 
   componentDidMount() {
     const { fetchAllEmailTemplates } = this.props;
-    fetchAllEmailTemplates('');
+    fetchAllEmailTemplates('?disabled=false&paginate=false');
   }
 
   setReminderFormDocumentType = (documentType) => {
@@ -113,7 +113,7 @@ export class CreateReminder extends Component {
 }
 
 const mapStateToProps = ({reminders, listEmailTemplatesReducer}) => ({
-  templates: reminders.templates,
+  templates: listEmailTemplatesReducer.templates,
   currentPage: reminders.currentPage,
   pageCount: listEmailTemplatesReducer.pagination.pageCount,
   loading: reminders.isLoading,

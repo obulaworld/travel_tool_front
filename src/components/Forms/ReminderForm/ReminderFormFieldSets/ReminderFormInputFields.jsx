@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
 import addButton from '../../../../images/add.svg';
@@ -23,6 +24,16 @@ class ReminderFormInputFields extends Component {
     return {dropdownSelectOptions: {...dropdownSelectOptions, period}, inputLabels};
   };
 
+  selectEnabledTemplates = () => {
+    const { templates } = this.props;
+    return templates
+      .map(template => (
+        { value: `${template.id}`,
+          label: template.name
+        }
+      ));
+  };
+
   renderTemplateDropDown(reminderIndex) {
     const { renderInput } = this.inputRenderer;
     const {
@@ -32,12 +43,12 @@ class ReminderFormInputFields extends Component {
       pageCount,
       fetchAllEmailTemplates,
       onReminderTemplateChange } = this.props;
-    const templateChoices = templates.map(item => ({ value: `${item.id}`, label: item.name }));
+    const choices = this.selectEnabledTemplates();
 
     return renderInput(`reminderTemplate-${reminderIndex}`, 'dropdown-select', {
       label: `Reminder ${reminderIndex + 1}`,
-      choices: templateChoices,
-      templatesCount: templateChoices.length,
+      choices,
+      templatesCount: choices.length,
       currentPage: currentPage,
       loading: loading,
       pageCount: pageCount,
