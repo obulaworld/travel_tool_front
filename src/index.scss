@@ -56,3 +56,8 @@ body {
   line-height: 21px;
   text-transform: none;
 }
+
+// allow clicking content behind a toast
+#toast-container {
+  pointer-events: none !important;
+}

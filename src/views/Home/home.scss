@@ -25,6 +25,8 @@
     .photo {
       background-color: blue;
       width: 38.89%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .details {
@@ -43,10 +45,8 @@
 
       .confirm {
         height: 42px;
-        width: 508px;
         color: #4F4F4F;
         font-size: 16px;
-        line-height: 21px;
       }
 
       & a {
@@ -181,7 +181,6 @@
     color: #999999;
     font-family: "DIN Pro";
     font-size: 15px;
-    line-height: 0;
   }
 
   & .new-request {

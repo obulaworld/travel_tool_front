@@ -56,7 +56,8 @@ describe('<NewRequestForm />', () => {
       gender: 'Male',
       createdAt: '2018-09-14T12:48:11.266Z',
       updatedAt: '2018-09-16T07:53:48.835Z',
-      roleId: 401938
+      roleId: 401938,
+      location: 'Kigali'
     },
     userDataUpdate:[],
     requestOnEdit: {
@@ -661,5 +662,11 @@ describe('<NewRequestForm />', () => {
     wrapper.find('form').simulate('submit', { preventDefault: jest.fn()});
     expect(props.updateUserProfile).toHaveBeenCalledWith(values, props.user.UserInfo.id);
     expect(localStorage.getItem('location')).toEqual('San Fransisco');
+  });
+
+  it('should set the location when on edit', () => {
+    const wrapper = shallow(<NewRequestForm {...props} modalType="edit-request" />);
+    expect(wrapper.state().values.location).toEqual('Kigali');
+
   });
 });

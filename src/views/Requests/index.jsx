@@ -21,7 +21,7 @@ import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
 import { fetchTravelChecklist } from '../../redux/actionCreator/travelChecklistActions';
-import { 
+import {
   fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 import {fetchCenters} from '../../redux/actionCreator/centersActions';
@@ -83,7 +83,7 @@ export class Requests extends Base {
   setOpenChecklist = (status) => {
     this.setState({ openChecklist: status });
   }
-  
+
   handleDeleteRequest = (requestId) => {
     const { deleteRequest } = this.props;
     deleteRequest(requestId);
@@ -207,10 +207,11 @@ export class Requests extends Base {
       loading,errors,closeModal,shouldOpen,
       modalType, roleUsers,requestOnEdit,editRequest,
       fetchUserRequests,
-      centers,
+      centers, userData: { result: { location}},
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest
     } = this.props;
     const { url } = this.state;
+
     return (
       <Modal
         closeModal={closeModal}
@@ -228,7 +229,8 @@ export class Requests extends Base {
           centers={centers && centers.centers}
           handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
           managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
-          requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
+          requestOnEdit={{...requestOnEdit, location}}
+          fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
           creatingRequest={creatingRequest}

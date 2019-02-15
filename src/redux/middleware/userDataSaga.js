@@ -22,26 +22,12 @@ export function* watchPostUserDataSagaAsync() {
 
 export function* postUserDataSagaAsync(action) {
   try {
-    const dataFromStagingApi = yield call(UserAPI.getUserDataFromStagingApi,
-      action.userData.email,
-    );
-    const location = dataFromStagingApi.data.values[0].location;
-
-    if (location !== null) {
-      localStorage.setItem('location', location.name);
-      action.userData.location = location.name;
-    } else {
-      localStorage.setItem('location', process.env.REACT_APP_DEFAULT_LOCATION);
-      action.userData.location = process.env.REACT_APP_DEFAULT_LOCATION;
-    }
-
-    const user = {
-      location: action.userData.location
-    };
-
-    const response = yield call(UserAPI.postNewUsers, user);
+    const response = yield call(UserAPI.postNewUsers, action.userData);
+    const { data: { result: { location: userLocation }}} = response;
     yield put(postUserDataSuccess(response.data));
     yield put(getUserDataSuccess(response.data));
+
+    localStorage.setItem('location', userLocation);
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(postUserDataFailure(errorMessage));
@@ -55,7 +41,7 @@ export function* watchFetchUsersEmail() {
 export function* fetchAllUsersEmailSaga() {
   try {
     const response = yield call(UserAPI.getAllUsersEmail);
-    const allEmails = response.data.result.map((text, id) => ({ 
+    const allEmails = response.data.result.map((text, id) => ({
       id: text.email, text: text.email}));
     yield put(getAllUsersEmailSuccess(allEmails));
   } catch (error) {

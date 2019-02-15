@@ -41,6 +41,13 @@ export const commentsUpdate = (commentsArray, action) => {
   return updatedCommentArray;
 };
 
+const getRequestOnEdit = (state, action) => (
+  {
+    ...state.requests.find(
+      request => request.id === action.requestId)
+  }
+);
+
 let editedRequestIndex, comments;
 const requests = (state = initialState, action) => {
   switch (action.type) {
@@ -119,7 +126,7 @@ const requests = (state = initialState, action) => {
       ...state,
       fetchingRequest: false,
       requestData: action.requestData,
-      comments: action.requestData.comments.sort( 
+      comments: action.requestData.comments.sort(
         (commentDate1, commentDate2) =>  (commentDate1.createdAt > commentDate2.createdAt))
     };
   case FETCH_USER_REQUEST_DETAILS_FAILURE:
@@ -136,7 +143,7 @@ const requests = (state = initialState, action) => {
   case FETCH_EDIT_REQUEST:
     return {
       ...state,
-      requestOnEdit: state.requests.filter(request => request.id === action.requestId)[0]
+      requestOnEdit: getRequestOnEdit(state, action)
     };
   case EDIT_REQUEST_SUCCESS:
     editedRequestIndex = state.requests.findIndex((request) => {
@@ -196,5 +203,6 @@ const requests = (state = initialState, action) => {
     return state;
   }
 };
+
 
 export default requests;
