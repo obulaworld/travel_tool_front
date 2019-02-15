@@ -138,7 +138,6 @@ workflows:
       - build:
           requires:
             - checkout_code
-          <<: *filters
       - deployment:
           requires:
             - checkout_code
