@@ -39,9 +39,9 @@ class ProfileForm extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps){
-    const { userData, userDataUpdate: { result } } = nextProps;
+    const { userData, userDataUpdate: { result }, managers, isUpdating } = nextProps;
 
-    if(userData !== undefined){
+    if(userData !== undefined && !isUpdating){
       const { passportName, gender, department, occupation, manager, location } = userData;
       const userGender = result ? result.gender : gender;
       this.setState((prevState) => ({
@@ -55,8 +55,38 @@ class ProfileForm extends PureComponent {
           location: Validator.databaseValueValidator(location)
         }
       }));
-      this.setState((prevState => ( { userProfile: prevState.values})));
+      this.checkManager(managers);
+      this.setState((prevState => ( {
+        userProfile: prevState.values,
+        hasBlankFields: true
+      })));
     }
+  }
+
+  checkManager = (managers,value) => {
+    const { values } = this.state;
+    const managerChoices = managers.map(manager => manager.fullName);
+    const manager = value ? value : values.manager;
+
+    // if manager in manager input box is not in database
+    if ( managerChoices.indexOf(manager) === -1){
+      this.setManagerError();
+    } else {
+      this.setState((prevState) => {
+        const newError =  { ...prevState.errors, manager: '' };
+        return { ...prevState, errors: { ...newError }, hasBlankFields: false };
+      });
+    }
+  }
+
+  onChangeManager = value => {
+    const { managers } = this.props;
+    // save input
+    this.setState((prevState) => {
+      const newState = { ...prevState.values, manager: value };
+      return { ...prevState, values: { ...newState } };
+    });
+    this.checkManager(managers,value);
   }
 
   submitProfileForm = event => {
@@ -76,6 +106,16 @@ class ProfileForm extends PureComponent {
     }
   };
 
+  setManagerError = () => {
+    return this.setState((prevState) => {
+      const newError =  {
+        ...prevState.errors,
+        manager: 'Please select a manager from the dropdown'
+      };
+      return { ...prevState, errors: { ...newError } };
+    });
+  };
+
   handleClearForm = () => {
     this.setState((prevState => ({
       ...this.defaultState,
@@ -84,38 +124,50 @@ class ProfileForm extends PureComponent {
     })));
   };
 
+  renderUpdateButtons = (hasBlankFields) => {
+    return (
+      <div className="submit-area ">
+        <button
+          type="submit"
+          className="bg-btn bg-btn--active"
+          disabled={hasBlankFields}
+        >
+                Save Changes
+        </button>
+        <button
+          type="button"
+          className="bg-btn bg-btn--inactive"
+          onClick={this.handleClearForm} id="btn-cancel">
+                Cancel
+        </button>
+      </div>
+    );
+  }
+
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { managers, centers } = this.props;
+    const { managers, centers, isUpdating } = this.props;
     return (
       <FormContext targetForm={this} validatorName="validate" values={values} errors={errors}>
         <form onSubmit={this.submitProfileForm} className="new-profile">
           <ProfileDetails
             values={values}
+            onChangeManager={this.onChangeManager}
             managers={managers}
             centers={centers} />
-          {hasBlankFields? (
+          {hasBlankFields || errors.manager || isUpdating ? (
             <div className="submit-area">
               <button
                 type="submit"
+                id="btn-update"
                 disabled={hasBlankFields}
                 className="profile-bg-btn bg-btn bg-btn--inactive">
+                { isUpdating ? <i className="loading-icon" /> : '' }
                 Save Changes
               </button>
             </div>
-          ) : (
-            <div className="submit-area ">
-              <button type="submit" className="bg-btn bg-btn--active">
-                Save Changes
-              </button>
-              <button
-                type="button" 
-                className="bg-btn bg-btn--inactive" 
-                onClick={this.handleClearForm} id="btn-cancel">
-                Cancel
-              </button>
-            </div>
-          )}
+          ) : this.renderUpdateButtons(hasBlankFields)
+          }
         </form>
       </FormContext>
     );
@@ -129,11 +181,13 @@ ProfileForm.propTypes = {
   userData: PropTypes.object.isRequired,
   centers: PropTypes.array,
   userDataUpdate: PropTypes.array,
+  isUpdating: PropTypes.bool
 };
 ProfileForm.defaultProps = {
   userDataUpdate: [],
   managers: [],
-  centers: []
+  centers: [],
+  isUpdating: false
 };
 
 export default ProfileForm;

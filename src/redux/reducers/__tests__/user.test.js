@@ -33,12 +33,12 @@ describe('User Reducer', () => {
     currentUser: {},
     errors: {},
     getCurrentUserRole: [],
-    isLoaded: false, 
+    isLoaded: false,
     getUsersEmail: [],
   };
 
   it('should return proper initial state', done => {
-    expect(userReducer(undefined, {})).toEqual(initialState);
+    expect(userReducer(undefined, {})).toEqual({...initialState, isUpdating: false});
     done();
   });
 
@@ -132,6 +132,25 @@ describe('User Reducer', () => {
     expect(newState.errors).toEqual(
       'Possible network error, please reload the page'
     );
+    done();
+  });
+
+  it('dispatches action UPDATE_USER_PROFILE:', done => {
+    const action = {
+      type: actionTypes.UPDATE_USER_PROFILE
+    };
+    const newState = userReducer( { ...initialState, isUpdating: false }, action);
+    expect(newState.isUpdating).toEqual(true);
+    done();
+  });
+
+  it('dispatches action UPDATE_USER_PROFILE_SUCCESS', done => {
+    const action = {
+      type: actionTypes.UPDATE_PROFILE_SUCCESS,
+      response: res,
+    };
+    const newState = userReducer({...initialState, isUpdating: false}, action);
+    expect(newState.isUpdating).toEqual(false);
     done();
   });
 });

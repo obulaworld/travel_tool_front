@@ -5,7 +5,7 @@ import * as formMetadata from '../../FormsMetadata/NewProfileMetadata';
 
 class ProfileDetailsFieldSets extends Component {
 
-  renderFieldSet = (renderInput) =>  (
+  renderFieldSet = (renderInput, onChangeManager) =>  (
     <fieldset className="personal-details">
       <div className="legend">
         <span className="personal-details-text">
@@ -27,7 +27,9 @@ class ProfileDetailsFieldSets extends Component {
           {renderInput('department', 'text', { disabled: true })}
         </div>
         {renderInput('manager', 'filter-dropdown-select', {
-          className: 'profile_dropdown no-disable', size: '' })}
+          className: 'profile_dropdown no-disable manager',
+          onChange: onChangeManager,
+          size: '' })}
         {renderInput('location', 'dropdown-select', {
           className: 'profile_dropdown no-disable', size: ''
         })}
@@ -36,7 +38,7 @@ class ProfileDetailsFieldSets extends Component {
   );
 
   render() {
-    const { managers, centers} = this.props;
+    const { managers, centers, onChangeManager} = this.props;
 
     const managerNames = managers.map(manager => manager.fullName);
     const centerNames = centers.map(center => center.location.split(',')[0]);
@@ -48,16 +50,18 @@ class ProfileDetailsFieldSets extends Component {
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
 
-    return (this.renderFieldSet(renderInput) );
+    return (this.renderFieldSet(renderInput, onChangeManager) );
   }
 }
 ProfileDetailsFieldSets.propTypes = {
   managers: PropTypes.array,
-  centers: PropTypes.array
+  centers: PropTypes.array,
+  onChangeManager: PropTypes.func
 };
 
 ProfileDetailsFieldSets.defaultProps = {
   managers: [],
-  centers: []
+  centers: [],
+  onChangeManager: () => {}
 };
 export default ProfileDetailsFieldSets;

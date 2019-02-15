@@ -7,6 +7,7 @@ import {
   GET_USER_DATA_FAILURE,
   UPDATE_PROFILE_SUCCESS,
   GET_ALL_EMAILS,
+  UPDATE_USER_PROFILE,
   GET_ALL_EMAILS_SUCCESS,
   GET_ALL_EMAILS_FAILURE,
 } from '../constants/actionTypes';
@@ -19,6 +20,7 @@ const initialState = {
   getCurrentUserRole: [],
   isLoaded: false,
   getUsersEmail: [],
+  isUpdating: false
 };
 const user = (state = initialState, action) => {
   switch (action.type) {
@@ -34,12 +36,15 @@ const user = (state = initialState, action) => {
       errors: {},
       isLoaded: true
     };
+  case UPDATE_USER_PROFILE:
+    return { ...state, isUpdating: true };
   case UPDATE_PROFILE_SUCCESS:
     return {
       ...state,
       getUserData: action.response,
       currentUser: action.response.result,
       errors: {},
+      isUpdating: false
     };
   case GET_USER_DATA_FAILURE:
     return {
@@ -61,9 +66,9 @@ const user = (state = initialState, action) => {
       errors: action.error
     };
   case GET_ALL_EMAILS:
-    return { 
-      ...state, 
-      getUsersEmail:[] 
+    return {
+      ...state,
+      getUsersEmail:[]
     };
   case GET_ALL_EMAILS_SUCCESS:
     return {
