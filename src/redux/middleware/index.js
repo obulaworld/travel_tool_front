@@ -122,6 +122,7 @@ import {
   watchEnableDisabledReminderCondition,
 } from './emailRemindersSaga';
 import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from './reminderSaga';
+import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
 
 function* rootSaga() {
   yield all([
@@ -212,6 +213,7 @@ function* rootSaga() {
     watchEditReminder(),
     watchGetSingleReminder(),
     watchFetchUsersEmail(),
+    watchFetchAllTravelReasons(),
   ]);
 }
 

@@ -29,8 +29,8 @@ import emailReminders from './emailReminder';
 import listEmailTemplatesReducer from './listEmailTemplates';
 import reminders from './reminders';
 import reminderTemplateDisableReducer from './reminderTemplateDisable';
-
 import enableReminderEmailTemplateReducer from './enableReminderEmailTemplate';
+import listTravelReasons from './listTravelReasons';
 
 const rootReducer = combineReducers({
   auth,
@@ -63,7 +63,8 @@ const rootReducer = combineReducers({
   listEmailTemplatesReducer,
   reminders,
   enableReminderEmailTemplateReducer,
-  reminderTemplateDisableReducer
+  reminderTemplateDisableReducer,
+  listTravelReasons,
 });
 
 export default rootReducer;

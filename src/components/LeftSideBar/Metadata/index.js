@@ -160,6 +160,12 @@ const NavItemsMetadata = [
         text: 'Reminder Setup',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
       },
+      {
+        link_to: '/settings/travel-reason',
+        exact: true,
+        text: 'Travel Reason',
+        onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
+      },
     ],
     icons: {
       active: activeSettingsIcon,
