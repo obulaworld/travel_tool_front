@@ -6,11 +6,12 @@ import PageHeader from '../../components/PageHeader';
 import ReadinessTable from './TravelReadinessDocumentsTable';
 import Pagination from '../../components/Pagination/Pagination';
 import './TravelReadinessDocuments.scss';
+import '../../components/Forms/NewDocumentForm/NewDocumentForm.scss';
+import '../../components/Preloader/Preloader.scss';
 import { fetchAllUsersReadinessDocuments } from '../../redux/actionCreator/travelReadinessDocumentsActions';
 
 class TravelReadinessDocuments extends Component {
   state = {};
-
   componentDidMount() {
     const { fetchUsers, location: { search } } = this.props;
     const params = new URLSearchParams(search);
