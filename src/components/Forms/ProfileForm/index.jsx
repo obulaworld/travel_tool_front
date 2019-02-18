@@ -180,8 +180,11 @@ ProfileForm.propTypes = {
   user: PropTypes.object.isRequired,
   userData: PropTypes.object.isRequired,
   centers: PropTypes.array,
-  userDataUpdate: PropTypes.array,
-  isUpdating: PropTypes.bool
+  isUpdating: PropTypes.bool,
+  userDataUpdate: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
 };
 ProfileForm.defaultProps = {
   userDataUpdate: [],

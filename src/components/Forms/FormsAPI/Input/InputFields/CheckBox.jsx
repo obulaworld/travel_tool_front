@@ -40,5 +40,8 @@ export default class CheckBox extends Component {
 CheckBox.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]).isRequired
 };

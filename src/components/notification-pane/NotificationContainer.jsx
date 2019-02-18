@@ -13,6 +13,10 @@ export default class NotificationContainer extends PureComponent {
     this.getUnreadNotificationsCount = this.getUnreadNotificationsCount.bind(this);
   }
 
+  componentDidMount() {
+    this.getUnreadNotificationsCount();
+  }
+
   getUnreadNotificationsCount() {
     const { title, generalNotifications, pendingNotifications } = this.props;
     const notificationStatus =
@@ -96,7 +100,6 @@ export default class NotificationContainer extends PureComponent {
     const customClass = title === 'Pending Approvals' ? 'pending' : 'general';
     const number = title === 'Pending Approvals'
       ? pendingNotifications.length : generalNotifications.length;
-    this.getUnreadNotificationsCount();
     return (
       <div className="notification-container">
         <div className={`notification-container__header--${customClass}`}>

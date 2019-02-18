@@ -136,10 +136,16 @@ RoleDetailsTable.propTypes = {
   roleUsers: PropTypes.array,
   handleEditCenter: PropTypes.func,
   handleDeleteUserRole: PropTypes.func,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   roleName: PropTypes.string,
   deleteModalState: PropTypes.string,
-  deleteModalRoleId: PropTypes.number,
+  deleteModalRoleId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   hideDeleteRoleModal: PropTypes.func,
   showDeleteRoleModal: PropTypes.func,
 };

@@ -33,7 +33,6 @@ export class RoleDetails extends Component {
       fetchRoleUsers, match: { params }, hideDeleteRoleModal,
       deleteModalState,
     } = this.props;
-
     getAllUsersEmail();
     deleteModalState === 'visible' && hideDeleteRoleModal();
     fetchRoleUsers(params.roleId, page);
@@ -208,7 +207,9 @@ RoleDetails.propTypes = {
   updatingRole: PropTypes.bool,
   closeModal: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.bool
+  ]),
   isFetching: PropTypes.bool,
   getCurrentUserRole: PropTypes.array.isRequired,
   history: PropTypes.shape({}).isRequired,
@@ -221,7 +222,9 @@ RoleDetails.propTypes = {
   centers: PropTypes.array,
   putRoleData: PropTypes.func.isRequired,
   updateUserCenter: PropTypes.func.isRequired,
-  deleteModalRoleId: PropTypes.number.isRequired,
+  deleteModalRoleId: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.number
+  ]).isRequired,
   deleteModalState: PropTypes.string.isRequired,
   showDeleteRoleModal: PropTypes.func.isRequired,
   hideDeleteRoleModal: PropTypes.func.isRequired,
@@ -234,9 +237,7 @@ RoleDetails.propTypes = {
 
 RoleDetails.defaultProps = {
   isFetching: false,
-  location: {
-    search: ''
-  },
+  location: { search: '' },
   error: '',
   modalType: '',
   roleName: '',
@@ -244,10 +245,7 @@ RoleDetails.defaultProps = {
   isUpatingCenter: false,
   centers: [],
   getUsersEmail: [],
-  meta: {
-    currentPage: 1,
-    pageCount: 0,
-  }
+  meta: { currentPage: 1, pageCount: 0 }
 };
 
 const actionCreators = {

@@ -22,11 +22,11 @@ export function* watchPostUserDataSagaAsync() {
 
 export function* postUserDataSagaAsync(action) {
   try {
-    const response = yield call(UserAPI.postNewUsers, action.userData);
-    const { data: { result: { location: userLocation }}} = response;
+    const postUser = yield call(UserAPI.postNewUsers, action.userData);
+    const { data: { result: { location: userLocation, userId }}} = postUser;
+    const response = yield call(UserAPI.getUserData, userId);
     yield put(postUserDataSuccess(response.data));
     yield put(getUserDataSuccess(response.data));
-
     localStorage.setItem('location', userLocation);
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../../modal/Modal';
 import ImageLink from '../../image-link/ImageLink';
@@ -30,15 +30,17 @@ export default class CommentItem extends Component {
     const { deleteModalState, deletingComment } = this.state;
     const { editingComment, commentOnEdit, comment } = this.props;
     return (
-      <button
-        type="button"
-        onClick={this.handleDeleteComment}
-        className={`modal__delete-btn ${
-          deleteModalState === 'visible' ? 'blue-text' : ''
-        }`}
-        disabled={deletingComment || (commentOnEdit === comment.id && editingComment)}
-      >
-        <ButtonLoadingIcon isLoading={deletingComment} buttonText="Delete" />
+      <Fragment>
+        <button
+          type="button"
+          onClick={this.handleDeleteComment}
+          className={`modal__delete-btn ${
+            deleteModalState === 'visible' ? 'blue-text' : ''
+          }`}
+          disabled={deletingComment || (commentOnEdit === comment.id && editingComment)}
+        >
+          <ButtonLoadingIcon isLoading={deletingComment} buttonText="Delete" />
+        </button>
         <Modal
           customModalStyles="delete-comment-modal"
           customOverlayStyle="delete-modal-overlay"
@@ -58,7 +60,7 @@ export default class CommentItem extends Component {
             Delete
           </button>
         </Modal>
-      </button>
+      </Fragment>
     );
   };
 

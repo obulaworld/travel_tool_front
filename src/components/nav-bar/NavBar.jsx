@@ -18,18 +18,22 @@ import './NavBar.scss';
 
 export class NavBar extends PureComponent {
 
-    state = {
-      hideLogoutDropdown: true,
-      keyword: ''
-    };
+  state = {
+    hideLogoutDropdown: true,
+    keyword: ''
+  };
 
-    
-    debouncer = debounce(
-      (history, pathName, queryString) =>
-        (history.push(`${pathName}${queryString}`)),
-      2000,
-      { trailing: true }
-    );
+  
+  debouncer = debounce(
+    (history, pathName, queryString) =>
+      (history.push(`${pathName}${queryString}`)),
+    2000,
+    { trailing: true }
+  );
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.hideDropdown);
+  }
   
   getUnreadNotificationsCount = () => {
     const { notifications } = this.props;

@@ -4,34 +4,12 @@ import selectDropdownIcon from '../../../../../images/icons/form_select_dropdown
 import DropdownOptions from './DropdownOptions';
 
 export default class DropdownSelect extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    error: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool
-    ]),
-    onChange: PropTypes.func.isRequired,
-    choices: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.arrayOf(PropTypes.object)]).isRequired,
-    value: PropTypes.string,
-    size: PropTypes.string
-  };
-
-  static defaultProps = {
-    className: '',
-    error: '',
-    value: '',
-    size: ''
-  };
-
   constructor(props) {
     super(props);
-
-    this.dropDownRef = React.createRef();
     this.state = {
       dropdownOpen: false
     };
+    this.dropDownRef = React.createRef();
   }
 
   getSelectOptions(choices) {
@@ -114,10 +92,14 @@ export default class DropdownSelect extends Component {
 
   render() {
     const { choices, value, size } = this.props;
+    const attributes = this.getPropsObject();
+    /* Next line deletes error key and value, else DOM element will throw an
+    error since error is not a valid HTML attribute */
+    delete attributes.error;
     const options = this.getSelectOptions(choices);
     return (
       <div style={{ position: 'relative' }}>
-        <div {...this.getPropsObject()}>
+        <div {...attributes}>
           <div className="value" style={{ width: size }}>
             {this.valueToChoiceLabel(choices, value)}
             <div className={`select-dropdown ${this.getDropdownStatus()}`}>
@@ -130,3 +112,28 @@ export default class DropdownSelect extends Component {
     );
   }
 }
+
+
+DropdownSelect.propTypes = {
+  className: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  onChange: PropTypes.func.isRequired,
+  choices: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object)]).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  size: PropTypes.string
+};
+
+DropdownSelect.defaultProps = {
+  className: '',
+  error: '',
+  value: '',
+  size: ''
+};

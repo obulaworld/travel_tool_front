@@ -635,14 +635,17 @@ NewRequestForm.propTypes = {
   managers: PropTypes.array,
   creatingRequest: PropTypes.bool,
   modalType: PropTypes.string,
-  requestOnEdit: PropTypes.object.isRequired,
+  requestOnEdit: PropTypes.object,
   fetchUserRequests: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   availableRooms: PropTypes.object.isRequired,
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   centers: PropTypes.array,
-  userDataUpdate: PropTypes.array,
+  userDataUpdate: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
 };
 
 NewRequestForm.defaultProps = {
@@ -652,6 +655,7 @@ NewRequestForm.defaultProps = {
   userData: {},
   centers: [],
   userDataUpdate: [],
+  requestOnEdit: {}
 };
 
 export default NewRequestForm;

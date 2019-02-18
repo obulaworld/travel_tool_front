@@ -55,6 +55,7 @@ export class GuestHouseDetails extends PureComponent {
     const { id } = guestHouse;
     disableAccommodation(id, history);
   }
+
   handlePeriod = (period, startDate, timelineViewType) => {
     this.setState({period, startDate, timelineViewType});
   }
@@ -228,9 +229,7 @@ export class GuestHouseDetails extends PureComponent {
     const { guestHouse, updateRoomState, availableBeds,fetchAvailableRooms, loadingBeds, maintenance, openModal,closeModal,
       modal, loading, isLoading, addmaintenanceRecord, deleteMaintenanceRecord, updateMaintenanceRecord, maintenanceDetails, accommodation } = this.props;
     const { shouldOpen, modalType } = modal;
-    const { period } = this.state;
-
-
+    const { period, disableGustHouseButtonState } = this.state;
     return (
       (
 
@@ -278,6 +277,7 @@ export class GuestHouseDetails extends PureComponent {
             availableBeds={availableBeds} fetchAvailableRooms={fetchAvailableRooms} handlePeriod={this.handlePeriod}
             loadingBeds={loadingBeds} loading={loading} editMaintenance={maintenance}
             updateMaintenanceRecord={updateMaintenanceRecord} maintenanceDetails={maintenanceDetails}
+            disableGustHouseButtonState={disableGustHouseButtonState}
           />
         </div>
       ));

@@ -193,9 +193,19 @@ AnalyticsReport.propTypes = {
   exportReadiness: PropTypes.func.isRequired,
   context: PropTypes.shape({
     state: PropTypes.shape({
-      start: PropTypes.string.isRequired,
-      end: PropTypes.string.isRequired
-    }).isRequired,
-    handleFilter: PropTypes.func.isRequired
-  }).isRequired
+      start: PropTypes.string,
+      end: PropTypes.string
+    }),
+    handleFilter: PropTypes.func
+  })
+};
+
+AnalyticsReport.defaultProps = {
+  context: {
+    state: {
+      start: '',
+      end: ''
+    },
+    handleFilter: () => {}
+  }
 };

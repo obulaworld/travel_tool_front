@@ -31,14 +31,12 @@ class PersonalDetailsFiedset extends Component {
     formMetadata.dropdownSelectOptions.email = emails;
     this.inputRenderer = new InputRenderer(formMetadata);
     const { renderInput } = this.inputRenderer;
-
     return (
       <fieldset className="personal-details">
         <div>
           <div style={{ paddingTop: '14px' }}>
             {renderInput('email', 'filter-dropdown-select', 
-              { className: 'email_dropdown', 
-                value: '',
+              { className: 'email_dropdown',
                 disabled: checkStatus, size: '' 
               })
             }

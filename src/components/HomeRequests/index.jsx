@@ -65,13 +65,12 @@ const HomeRequests = ({ requests, isLoading, openModal }) => {
 
 HomeRequests.propTypes = {
   requests: PropTypes.array,
-  isLoading: PropTypes.bool,
+  isLoading: PropTypes.bool.isRequired,
   openModal: PropTypes.func.isRequired,
 };
 
 HomeRequests.defaultProps = {
-  requests: [],
-  isLoading: false,
+  requests: []
 };
 
 export default HomeRequests;

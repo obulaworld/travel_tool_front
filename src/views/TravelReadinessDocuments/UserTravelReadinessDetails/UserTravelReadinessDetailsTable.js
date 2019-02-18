@@ -247,8 +247,8 @@ export class UserTravelReadinessDetailsTable extends Component {
         <table className="mdl-data-table mdl-js-data-table readiness-table">
           {this.renderTableHead()}
           {this.renderTableBody()}
-          {this.renderDocumentModal()}
         </table>
+        {this.renderDocumentModal()}
       </div>
     );
   }

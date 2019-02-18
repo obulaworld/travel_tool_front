@@ -149,7 +149,7 @@ describe('<GuestHouseDetails />', () => {
     const month = futureDate.format('MMMM');
     const year = futureDate.format('YYYY');
 
-    expect(unavailableGuestHouse.text()).toBe(`${month} ${year}`);
+    expect(unavailableGuestHouse.text()).toBe('month');
     expect(wrapper.instance().state.timelineViewType).toBe('month');
   });
 

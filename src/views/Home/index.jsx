@@ -65,10 +65,10 @@ export class Home extends Component {
     const {
       updateUserProfile, userData,
       user, createNewRequest,
-      loading, errors, closeModal, shouldOpen,
+      errors, closeModal, shouldOpen,
       modalType, roleUsers, requestOnEdit, editRequest,
       fetchUserRequests, occupations,
-      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest
+      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess
     } = this.props;
     const { url } = this.state;
     return (
@@ -84,12 +84,11 @@ export class Home extends Component {
           updateUserProfile={updateUserProfile} user={user} errors={errors}
           userData={userData && userData.result} occupations={occupations}
           handleCreateRequest={createNewRequest}
-          handleEditRequest={editRequest} loading={loading} closeModal={closeModal}
+          handleEditRequest={editRequest} closeModal={closeModal}
           managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
           requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
-          creatingRequest={creatingRequest}
         />
       </Modal>
     );
@@ -155,13 +154,14 @@ Home.propTypes = {
   fetchTeammates: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
   getOccupation: PropTypes.func.isRequired,
-  creatingRequest: PropTypes.bool.isRequired,
   requests: PropTypes.array,
-  isFetching: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool,
   teammates: PropTypes.object,
   userData: PropTypes.object,
-  loading: PropTypes.bool.isRequired,
-  errors: PropTypes.array,
+  errors: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired,
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
   roleUsers: PropTypes.array,
@@ -177,7 +177,6 @@ Home.defaultProps = {
   requests: [],
   teammates: {},
   userData: {},
-  errors: [],
   shouldOpen: true,
   modalType: '',
   roleUsers: [],
@@ -186,7 +185,8 @@ Home.defaultProps = {
   availableRooms: {},
   location: { url: '' },
   user: {},
-  department: ''
+  department: '',
+  isFetching: false
 };
 
 export default connect(mapStateToProps, actionCreators)(Home);

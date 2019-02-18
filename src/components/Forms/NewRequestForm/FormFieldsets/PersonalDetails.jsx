@@ -7,20 +7,26 @@ import Checkbox from '../../../CheckBox/index';
 
 class PersonalDetailsFieldset extends Component {
   state = {
-    disableInputs: ''
+    disableInputs:
+      localStorage.getItem('checkBox') === 'clicked'
+        ? 'disable-details' : ''
   };
+
   handleDisableInputs = value => {
+    const { disableInputs } = this.state;
     const newState = value === 'clicked' ? 'disable-details' : '';
-    this.setState({
-      disableInputs: newState
-    });
+    /** Do not update state if the new value is equal to value already in state */
+    if(newState !== disableInputs) {
+      this.setState({
+        disableInputs: newState
+      });
+    }
   };
 
   renderfields = collapse => {
     const { disableInputs } = this.state;
     const { value, managers,centers, onChangeManager } = this.props;
     const managerChoices = managers.map(manager => manager.fullName);
-
     const centerChoices = centers.map(center => center.location.split(',')[0]);
     const { renderInput } = this.inputRenderer;
     const disabled = disableInputs;

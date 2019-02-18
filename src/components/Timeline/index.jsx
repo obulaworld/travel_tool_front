@@ -42,9 +42,15 @@ class Timeline extends PureComponent {
   componentWillReceiveProps(nextProps) {
     this.loadAvailableBeds(nextProps);
   }
-
+  
   componentDidUpdate() {
-    this.updateTimelineSegmentWidth();
+    const { handlePeriod, disableGustHouseButtonState } = this.props;
+    const { timelineStartDate, timelineViewType } = this.state;
+    if (!disableGustHouseButtonState) {
+      this.updateTimelineSegmentWidth();
+      const period = this.constructSelectedPeriodDisplay();
+      handlePeriod(period, timelineStartDate, timelineViewType);
+    }
   }
 
 
@@ -154,7 +160,6 @@ class Timeline extends PureComponent {
     const {timelineStartDate, timelineViewType} = this.state;
     const { handlePeriod } = this.props;
     let current = moment().startOf('day');
-    handlePeriod(period, timelineStartDate, timelineViewType);
     if(timelineViewType === 'year') // counts by months
       current = current.startOf('month');
     // don't mutate the timelineStartDate in state
@@ -458,6 +463,7 @@ Timeline.propTypes = {
   loadingBeds: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   handlePeriod: PropTypes.func.isRequired,
+  disableGustHouseButtonState: PropTypes.bool.isRequired
 };
 
 Timeline.defaultProps = {

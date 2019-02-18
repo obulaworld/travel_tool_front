@@ -34,7 +34,7 @@ class Attachments extends Component {
           {isFetching ? ( <Preloader spinnerClass="loader" />) : fileSubmissions.length > 0 ? (
             <div className="attachment-modals">
               {fileSubmissions.map(submission => (
-                <div className="mask" key={submission.url}> 
+                <div className="mask" key={submission.url || 'submission'}> 
                   {/* Some attachements might have same but never same url*/}
                   <div className="rectangle">
                     <a href={submission.url} target="_blank" rel="noopener noreferrer">

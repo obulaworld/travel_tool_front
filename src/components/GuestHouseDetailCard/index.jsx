@@ -25,7 +25,10 @@ class GuestHouseDetailCard extends PureComponent {
 
 GuestHouseDetailCard.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   period:  PropTypes.string.isRequired,
 };
 

@@ -7,26 +7,6 @@ import './_modal.scss';
 
 
 class Modal extends PureComponent {
-  static propTypes = {
-    visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
-    closeModal: PropTypes.func,
-    title: PropTypes.string,
-    modalId: PropTypes.string,
-    modalContentId: PropTypes.string,
-    width:  PropTypes.string,
-    showOverlay: PropTypes.bool,
-    modalBar: PropTypes.object,
-    customModalStyles: PropTypes.string,
-    closeDeleteModal: PropTypes.func,
-    requestId: PropTypes.string,
-    customOverlayStyle: PropTypes.string,
-    children: PropTypes.oneOfType([
-      PropTypes.shape({}),
-      PropTypes.array
-    ])
-  };
-
-
   renderModalHeader = () => {
     const { title, closeModal, modalBar, closeDeleteModal, requestId } = this.props;
     let url = location.pathname;
@@ -113,6 +93,26 @@ class Modal extends PureComponent {
     );
   }
 }
+
+
+Modal.propTypes = {
+  visibility: PropTypes.oneOf(['visible', 'invisible']).isRequired,
+  closeModal: PropTypes.func,
+  title: PropTypes.string,
+  modalId: PropTypes.string,
+  modalContentId: PropTypes.string,
+  width:  PropTypes.string,
+  showOverlay: PropTypes.bool,
+  modalBar: PropTypes.object,
+  customModalStyles: PropTypes.string,
+  closeDeleteModal: PropTypes.func,
+  requestId: PropTypes.string,
+  customOverlayStyle: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.array
+  ])
+};
 
 Modal.defaultProps = {
   title: '',

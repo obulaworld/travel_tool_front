@@ -75,7 +75,7 @@ class TravelCalendar extends PureComponent {
     downloadCalendarAnalytics({type: 'file', filter});
   }
 
-  renderButton (icon, text, onclickFunction) {
+  renderButton (icon, text, onclickFunction, status) {
     const {isCalendarOpen, filter} = this.state;
     const {travelCalendar:{ travelCalendarData }} = this.props;
     const showDown = travelCalendarData.data.length;
@@ -88,7 +88,9 @@ class TravelCalendar extends PureComponent {
         <button
           type="button"
           className={text==='Pick a date'?'action-btn--calender':'actions__btn'}
-          onClick={onclickFunction}>
+          onClick={onclickFunction}
+          disabled={status}
+        >
           <Fragment>
             {text==='Pick a date' && <div>{`${range.start} - ${range.end}`}</div>}
             <img className="actions__btn--icon" src={icon} alt={text} />
@@ -154,12 +156,16 @@ class TravelCalendar extends PureComponent {
   }
 
   renderCalendarHeader () {
+    const { 
+      travelCalendar: { travelCalendarError }
+    } = this.props;
+    const status = !travelCalendarError ? false : true;
     return (
       <div className="calendar-header">
         <p className="title">Travel Calendar</p>
         <div className="actions">
-          {this.renderButton(activeCalendar, 'Pick a date', this.handleCalendar)}
-          {this.renderButton(download, 'Export', this.getTravelCalendarCSV)}
+          {this.renderButton(activeCalendar, 'Pick a date', this.handleCalendar, false)}
+          {this.renderButton(download, 'Export', this.getTravelCalendarCSV, status)}
         </div>
       </div>
     );

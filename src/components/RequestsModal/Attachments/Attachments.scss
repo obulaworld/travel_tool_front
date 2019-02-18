@@ -1,5 +1,5 @@
 .attachments {
-  width: fit-content;
+  width: 100%;
   margin-bottom: 15px;
 }
 .attachment-modals {
@@ -18,23 +18,22 @@
 .mask {
   display: flex;
   flex-direction: row;
-  max-width: 162px;
   margin: 0px 16px 19px 0px;
   box-sizing: border-box;
   height: 72px;
-  width: 22%;
-  min-width: 162px;
+  width: 100%;
   border: 1px solid #D4D4D4;
   border-radius: 2px;
   background-color: #FFFFFF;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
   .rectangle {
     height: 70px;
-    width: 50px;
+    width: 6em;
     background-color: #F8F8F8;
+    text-align: center;
   }
   .rectangle-2{
-    width: 112px;
+    width: 100%;
     .section-1 {
       height: 60%;
       max-height: 60%;
@@ -51,7 +50,6 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        max-width: 85%;
         a {
           color: #323232;
         }
@@ -83,7 +81,7 @@
   width: 37px;
   border-radius: 2px;
   box-shadow: 0 0 3px 0 rgba(0,0,0,0.1);
-  margin: 12px 6px 11px 7px;
+  margin: 0.8em 0 0;
 }
 
 .attachment-icon {

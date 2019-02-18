@@ -84,11 +84,12 @@ describe('User Saga', () => {
         .silentRun();
     });
 
-    it('successufullt runs saga to post user data', () => {
+    it('successfully runs saga to post user data', () => {
       return expectSaga(watchPostUserDataSagaAsync, UserAPI)
         .provide([
           [matchers.call.fn(UserAPI.getUserDataFromStagingApi, email), secondResp],
           [matchers.call.fn(UserAPI.postNewUsers, id), response],
+          [matchers.call.fn(UserAPI.getUserData, id), response],
         ])
         .put({
           type: 'POST_USER_DATA_SUCCESS',
