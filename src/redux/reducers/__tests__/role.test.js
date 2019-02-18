@@ -56,6 +56,7 @@ describe('Role Reducer', () => {
     deleteModalState: 'invisible',
     deleteModalRoleId: '',
     roleUsers: [],
+    meta: {},
     roles: [],
     role: {}
   };

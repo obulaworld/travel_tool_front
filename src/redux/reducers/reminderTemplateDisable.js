@@ -24,6 +24,11 @@ const reminderTemplateDisableReducer = (state=initialState, action) => {
       isLoading: false,
       errors: action.error
     };
+  case DISABLE_EMAIL_TEMPLATE_SUCCESS:
+    return {
+      ...state,
+      isLoading: false
+    };
   default:
     return state;
   }

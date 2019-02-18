@@ -24,7 +24,7 @@ class TemplateDetailsForm extends PureComponent {
   render() {
 
     const { renderInput } = new InputRenderer({inputLabels: formMetadata });
-    const { selectedTemplate } = this.props;
+    const { selectedTemplate, isLoading } = this.props;
     return (
       <div>
 
@@ -44,6 +44,7 @@ class TemplateDetailsForm extends PureComponent {
             </fieldset>
             <SubmitArea
               onCancel={this.onCancel}
+              loading={isLoading}
               onSend={this.onSend}
               send="Edit template"
               reversed
@@ -57,12 +58,14 @@ class TemplateDetailsForm extends PureComponent {
 
 TemplateDetailsForm.propTypes = {
   selectedTemplate: PropTypes.object,
+  isLoading: PropTypes.bool,
   closeModal: PropTypes.func,
   history: PropTypes.object.isRequired
 };
 
 TemplateDetailsForm.defaultProps = {
   selectedTemplate: {},
+  isLoading: false,
   closeModal: () => {}
 };
 

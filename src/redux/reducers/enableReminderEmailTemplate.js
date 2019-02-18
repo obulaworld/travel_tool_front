@@ -1,5 +1,6 @@
 import {
   ENABLE_REMINDER_EMAIL_TEMPLATE,
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
   ENABLE_REMINDER_EMAIL_TEMPLATE_FAILURE
 } from '../constants/actionTypes';
   
@@ -23,6 +24,11 @@ const enableReminderEmailTemplateReducer = (state=initialState, action) => {
       ...state,
       isLoading: false,
       errors: action.errors
+    };
+  case ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS: 
+    return  {
+      ...state,
+      isLoading: false
     };
   default:
     return state;

@@ -67,7 +67,7 @@ class ListEmailTemplates extends Component {
 }
 
 ListEmailTemplates.propTypes = {
-  fetchTemplates: PropTypes.func.isRequired,
+  fetchTemplates: PropTypes.func.isRequired, 
   listEmailTemplatesReducer: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,

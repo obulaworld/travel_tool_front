@@ -13,8 +13,9 @@ class RoleAPI {
     return axios.get(`${baseUrl}/user/roles`);
   }
 
-  static getRoleUsers(roleId) {
-    return axios.get(`${baseUrl}/user/roles/${roleId}`);
+  static getRoleUsers(roleId, page) {
+    let  currentPage = page ? `page=${page}`: 'allPage=true';
+    return axios.get(`${baseUrl}/user/roles/${roleId}?${currentPage}`);
   }
 
   static deleteUserRole(userId, roleId) {

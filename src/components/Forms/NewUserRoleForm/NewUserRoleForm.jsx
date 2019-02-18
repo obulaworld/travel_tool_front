@@ -76,12 +76,6 @@ class NewUserRoleForm extends PureComponent {
     const { updatingRole, role, centers, myTitle, allMails } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
-        {updatingRole && (
-          <h5 style={{ display: 'flex', justifyContent: 'center', fontFamily: 'DIN Pro' }}
-          >
-          Updating role...
-          </h5>
-        )}
         <form onSubmit={this.handleSubmit} className="new-request">
           <PersonalDetailsFieldset
             values={values}
@@ -93,6 +87,7 @@ class NewUserRoleForm extends PureComponent {
           <hr />
           <SubmitArea
             onCancel={this.handleCancel}
+            loading={updatingRole}
             hasBlankFields={hasBlankFields}
             send="Submit"
           />

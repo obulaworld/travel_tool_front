@@ -8,14 +8,31 @@ import ConnectedRoleDetails, { RoleDetails } from '../index';
 
 let wrapper;
 const props = {
-  roleUsers: [{
-    id: 1,
-    fullName: 'A user',
-    centers: [{
-      id: 12345,
-      location: 'Lagos, Nigeria'
-    }]
-  }],
+  roleUsers: [
+    {
+      id: 1,
+      fullName: 'A user',
+      centers: [{
+        id: 12345,
+        location: 'Lagos, Nigeria'
+      }]
+    },
+    {
+      id: 2,
+      fullName: 'B user',
+      centers: [{
+        id: 44445,
+        location: 'Lagos, Nigeria'
+      }]
+    }
+  ],
+  meta: {
+    currentPage: 1,
+    pageCount: 2,
+  },
+  update: {
+    isLoading: false,
+  },
   closeModal: jest.fn(),
   fetchRoleUsers: sinon.spy(),
   updateUserCenter: jest.fn(),
@@ -34,9 +51,22 @@ const props = {
       roleId: '335498'
     }
   },
+  location: {
+    search: 'search',
+    pathname: '/settings/roles/10948'
+  },
   roleName: 'Travel team member',
   fetchCenters: sinon.spy(),
-  centers: [{}],
+  centers: [
+    {
+      id: 1444,
+      location: 'Nairobi, Kenya'
+    },
+    {
+      id: 33441,
+      location: 'Lagos, Nigeria'
+    }
+  ],
   putRoleData: sinon.spy(),
   deleteModalRoleId: 1,
   deleteModalState: 'invisible',
@@ -51,7 +81,12 @@ const initialState = {
   modal: {
     shouldOpen: false,
     modalType: null
-  }
+  },
+  centers: {
+    update: {
+      isLoading: false,
+    },
+  },
 };
 
 
@@ -60,6 +95,7 @@ const user = {
   role: ['Travel team member'],
   center: 'lagos'
 };
+
 
 const mockStore = configureStore();
 const store = mockStore(initialState);
@@ -88,7 +124,7 @@ describe('<ROleDetails />', () => {
       .dive()
       .find('RoleDetailsTable')
       .dive();
-    expect(roleDetailsTable.find('.table__rows').length).toEqual(1);
+    expect(roleDetailsTable.find('.table__rows').length).toEqual(2);
   });
 
 
@@ -140,5 +176,81 @@ describe('<ROleDetails />', () => {
     });
     expect(wrapper.length).toBe(1);
     wrapper.unmount();
+  });
+
+  it('should not render pagination with no user roles data', (done) => {
+    const newProps = { ...props, roleUsers: [] };
+    wrapper = shallow(<RoleDetails {...newProps} />);
+    const pagination = wrapper.find('Pagination');
+    expect(pagination.length).toBe(0);
+    done();
+  });
+
+  it('should render pagination with user roles data', (done) => {
+    const newProps = { ...props, };
+    wrapper = shallow(<RoleDetails {...newProps} />);
+    const pagination = wrapper.find('Pagination');
+    expect(pagination.length).toBe(1);
+    done();
+  });
+
+  it('should call handlePageChange with page = 2 when next page button is clicked', () => {
+    const wrapper = mount(
+      <RoleDetails {...props} />
+    );
+    const onPageChange = jest.spyOn(wrapper.instance(), 'handlePageChange');
+
+    wrapper.find('#next-button').simulate('click');
+    expect(onPageChange).toHaveBeenCalledWith(2);
+    expect(props.history.push)
+      .toHaveBeenCalledWith('/settings/roles/10948?page=2');
+  }); 
+
+  it('should show loading icon when the `updatingRole` is true', () => {
+    const newProps = {
+      ...props,
+      shouldOpen: true,
+      updatingRole: true
+    };
+    const wrapper = mount(
+      <RoleDetails {...newProps} />
+    );
+    expect(wrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should show loading icon when the `isUpatingCenter` is true', () => {
+    const newProps = {
+      ...props,
+      shouldOpen: true,
+      isUpatingCenter: true
+    };
+    const wrapper = mount(
+      <RoleDetails {...newProps} />
+    );
+    expect(wrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should not show loading icon when the `updatingRole` is false', () => {
+    const newProps = {
+      ...props,
+      shouldOpen: true,
+      updatingRole: false
+    };
+    const wrapper = mount(
+      <RoleDetails {...newProps} />
+    );
+    expect(wrapper.find('i.loading-icon').length).toBe(0);
+  });
+
+  it('should not show loading icon when the `isUpatingCenter` is false', () => {
+    const newProps = {
+      ...props,
+      shouldOpen: true,
+      isUpatingCenter: false
+    };
+    const wrapper = mount(
+      <RoleDetails {...newProps} />
+    );
+    expect(wrapper.find('i.loading-icon').length).toBe(0);
   });
 });

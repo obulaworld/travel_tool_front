@@ -49,18 +49,20 @@ describe('Role Actions', () => {
   it('should return action type FETCH_ROLE_USERS', () => {
     const expectedAction = {
       type: FETCH_ROLE_USERS,
-      roleId: 53098
+      roleId: 53098,
+      page: 1
     };
-    const createdAction = fetchRoleUsers(53098);
+    const createdAction = fetchRoleUsers(53098, 1);
     expect(createdAction).toEqual(expectedAction);
   });
 
   it('should return action type FETCH_ROLE_USERS_SUCCESS', () => {
-    const { roleName, users } = fetchRoleUsersResponse;
+    const { roleName, users, meta } = fetchRoleUsersResponse;
     const expectedAction = {
       type: FETCH_ROLE_USERS_SUCCESS,
       roleName,
-      users
+      users,
+      meta,
     };
     const createdAction = fetchRoleUsersSuccess(fetchRoleUsersResponse);
     expect(createdAction).toEqual(expectedAction);

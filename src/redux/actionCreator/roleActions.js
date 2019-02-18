@@ -35,7 +35,7 @@ export const getRoleDataFailure = error => ({
   error,
 });
 
-export const putRoleData  = roleData => ({
+export const putRoleData  = (roleData) => ({
   type: PUT_ROLE_DATA,
   roleData,
 });
@@ -50,15 +50,17 @@ export const putRoleDataFailure = error => ({
   error,
 });
 
-export const fetchRoleUsers = roleId => ({
+export const fetchRoleUsers = (roleId, page) => ({
   type: FETCH_ROLE_USERS,
-  roleId
+  roleId,
+  page,
 });
 
-export const fetchRoleUsersSuccess = ({roleName, users}) => ({
+export const fetchRoleUsersSuccess = ({roleName, users, meta}) => ({
   type: FETCH_ROLE_USERS_SUCCESS,
   users,
-  roleName
+  roleName,
+  meta,
 });
 
 export const fetchRoleUsersFailure = error => ({
@@ -108,10 +110,11 @@ export const addRoleFailure = (error) => ({
   error
 });
 
-export const updateRole = (roleId, newRoleData) => ({
+export const updateRole = (roleId, newRoleData, history) => ({
   type: UPDATE_ROLE,
   roleId,
-  newRoleData
+  newRoleData,
+  history
 });
 
 export const updateRoleSuccess = (role) => ({

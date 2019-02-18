@@ -38,7 +38,11 @@ const renderSubmitArea = (
   closeModal,
   disableReminderTemplate,
   disableEmailReminder,
-  disableReason, conditionReason, mode,  modalType,
+  disableReason, 
+  conditionReason,
+  mode,
+  modalType,
+  isDisabling,
 ) => {
   return (
     <Fragment>
@@ -46,6 +50,7 @@ const renderSubmitArea = (
         onCancel={closeModal}
         hasBlankFields={false}
         modalType={modalType}
+        isDisabling={isDisabling}
         disableReminderTemplate={disableReminderTemplate}
         disableEmailReminder={disableEmailReminder}
         disableReason={disableReason}
@@ -61,6 +66,7 @@ export const FormBody = ({
   check ,
   handleInputChange, 
   mode,
+  isDisabling,
   disableReason,
   disableEmailReminder,
   modalType,
@@ -81,14 +87,15 @@ export const FormBody = ({
       disableReason, 
       check,
       mode, 
-      modalType 
+      modalType,
+      isDisabling
     ) }
   </span>
 );
 
 const DisableReminderTemplateForm = ({
   closeModal, disableEmailReminder, disableReminderTemplate,
-  shouldOpen, modalType, handleInputChange,
+  shouldOpen, modalType, handleInputChange, isDisabling,
   disableReason, conditionReason, templateReason
 }) => {
   const check = conditionReason || templateReason;
@@ -104,6 +111,7 @@ const DisableReminderTemplateForm = ({
     >
       <FormBody
         check={check}
+        isDisabling={isDisabling}
         handleInputChange={handleInputChange}
         mode={mode}
         disableReason={disableReason}
@@ -125,6 +133,7 @@ FormBody.propTypes = {
   disableReason: PropTypes.string,
   mode: PropTypes.string,
   modalType: PropTypes.string,
+  isDisabling: PropTypes.bool
 };
 
 DisableReminderTemplateForm.propTypes = {
@@ -137,6 +146,7 @@ DisableReminderTemplateForm.propTypes = {
   conditionReason: PropTypes.string,
   templateReason: PropTypes.string,
   shouldOpen: PropTypes.bool.isRequired,
+  isDisabling: PropTypes.bool,
 };
 
 FormBody.defaultProps = {
@@ -145,6 +155,7 @@ FormBody.defaultProps = {
   conditionReason:'',
   templateReason: '',
   mode: '',
+  isDisabling: false
 };
 
 DisableReminderTemplateForm.defaultProps = {
@@ -153,6 +164,7 @@ DisableReminderTemplateForm.defaultProps = {
   conditionReason:'',
   templateReason: '',
   disableEmailReminder: () => {},
-  disableReminderTemplate: () => {}
+  disableReminderTemplate: () => {},
+  isDisabling: false,
 };
 export default DisableReminderTemplateForm;

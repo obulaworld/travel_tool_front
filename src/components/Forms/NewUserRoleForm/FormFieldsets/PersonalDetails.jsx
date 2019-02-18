@@ -38,6 +38,7 @@ class PersonalDetailsFiedset extends Component {
           <div style={{ paddingTop: '14px' }}>
             {renderInput('email', 'filter-dropdown-select', 
               { className: 'email_dropdown', 
+                value: '',
                 disabled: checkStatus, size: '' 
               })
             }

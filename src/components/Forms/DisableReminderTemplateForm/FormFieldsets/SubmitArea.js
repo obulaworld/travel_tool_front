@@ -1,10 +1,12 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 const SubmitArea = ({
   onCancel, disableEmailReminder,
-  modalType,
+  modalType, isDisabling,
   disableReminderTemplate, disableReason, mode }) => {
+
   return (
     <fieldset>
       <div className="submit-area">
@@ -24,7 +26,7 @@ const SubmitArea = ({
                     : disableEmailReminder}
                 disabled={!disableReason}
               >
-              Disable
+                <ButtonLoadingIcon isLoading={isDisabling} buttonText="Disable" />
               </button>
             )
             : ''
@@ -36,6 +38,7 @@ const SubmitArea = ({
 
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
+  isDisabling: PropTypes.bool,
   disableEmailReminder: PropTypes.func.isRequired,
   disableReminderTemplate: PropTypes.func.isRequired,
   disableReason: PropTypes.string,
@@ -46,6 +49,7 @@ SubmitArea.defaultProps = {
   disableReason: null,
   mode: '',
   modalType: '',
+  isDisabling: false,
 };
 
 export default SubmitArea;

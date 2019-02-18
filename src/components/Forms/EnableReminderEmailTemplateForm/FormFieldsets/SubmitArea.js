@@ -1,7 +1,9 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
-const SubmitArea = ({ onCancel, enableEmailReminderTemplate }) => {
+
+const SubmitArea = ({ onCancel, enableEmailReminderTemplate, isLoading }) => {
 
   return (
     <fieldset>
@@ -14,7 +16,7 @@ const SubmitArea = ({ onCancel, enableEmailReminderTemplate }) => {
           className="bg-btn bg-btn--active"
           id="oncancel" onClick={enableEmailReminderTemplate}
         >
-          Enable
+          <ButtonLoadingIcon isLoading={isLoading} buttonText="Enable" />
         </button>
       </div>
     </fieldset>
@@ -23,7 +25,12 @@ const SubmitArea = ({ onCancel, enableEmailReminderTemplate }) => {
 
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
   enableEmailReminderTemplate: PropTypes.func.isRequired,
+};
+
+SubmitArea.defaultProps = {
+  isLoading: false,
 };
 
 export default SubmitArea;

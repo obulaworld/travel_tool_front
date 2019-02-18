@@ -213,6 +213,70 @@ describe('Reminder component', () => {
     expect(wrapper.state().conditionId).toEqual('');
   });
 
+  it('should show loading icon on enable button when `isEnablingReminder` is true', () => {
+    const wrapper = mount(
+
+      <Reminders {
+      ...{...props, 
+        isLoading: false, 
+        shouldOpen: true,
+        isEnablingReminder: true,
+        modalType: 'enable disabled reminder'}} 
+      />
+
+    );
+
+    expect(wrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should not show loading icon when on enable button `isEnablingReminder` a reminder', () => {
+    const wrapper = mount(
+
+      <Reminders {
+      ...{...props, 
+        isLoading: false, 
+        shouldOpen: true,
+        isEnablingReminder: false,
+        modalType: 'disable reminder condtion'}} 
+      />
+
+    );
+
+    expect(wrapper.find('i.loading-icon').length).toBe(0);
+  });
+
+  it('should show loading icon on disbable button when `isDisabling` is true', () => {
+    const wrapper = mount(
+
+      <Reminders {
+      ...{...props, 
+        isLoading: false, 
+        shouldOpen: true,
+        isDisabling: true,
+        modalType: 'disable reminder condtion'}} 
+      />
+
+    );
+
+    expect(wrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should not show loading icon on disbable button when `isDisabling` is true', () => {
+    const wrapper = mount(
+
+      <Reminders {
+      ...{...props, 
+        isLoading: false, 
+        shouldOpen: true,
+        isDisabling: false,
+        modalType: 'enable disabled reminder'}} 
+      />
+
+    );
+
+    expect(wrapper.find('i.loading-icon').length).toBe(0);
+  });
+
   it('should fetch the required data on componentDidMount', () => {
     const newProps = {
       ...props,

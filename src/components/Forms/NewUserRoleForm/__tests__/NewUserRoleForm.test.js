@@ -60,9 +60,8 @@ describe('<NewUserRoleForm />', () => {
 
   it('should render a loading indicator while updating a new role', () => {
     wrapper.setProps({ updatingRole: true });
-    expect(wrapper.find('h5').text()).toEqual('Updating role...');
+    expect(wrapper.find('i.loading-icon')).toHaveLength(1);
   });
-
 
   it('calls on submit when all details are correct', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');

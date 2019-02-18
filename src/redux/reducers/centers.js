@@ -7,7 +7,13 @@ import {
   UPDATE_USER_CENTER_FAILURE,
 } from '../constants/actionTypes';
 
-const centers = (state = {}, action) => {
+const initialSate = {
+  update: { 
+    isLoading: false 
+  } 
+};
+
+const centers = (state = initialSate, action) => {
   switch(action.type) {
   case FETCH_CENTERS:
     return {...state, isLoading: true };
@@ -18,13 +24,24 @@ const centers = (state = {}, action) => {
     return {
       ...state, isLoading: false, centersError: action.error };
   case UPDATE_USER_CENTER:
-    return { ...state, isLoading: true };
+    return {
+      ...state, 
+      update: { 
+        isLoading: true 
+      } 
+    };
   case UPDATE_USER_CENTER_SUCCESS:
-    return {...state, isLoading: false, userCenter: action.userCenter };
+    return {
+      ...state, 
+      update: { 
+        isLoading: false
+      } ,
+      userCenter: action.userCenter 
+    };
   case UPDATE_USER_CENTER_FAILURE:
     return {
       ...state,
-      isLoading: false,
+      update: { isLoading: false } ,
       userCenterError: action.userCenterError
     };
   default:

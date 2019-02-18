@@ -5,6 +5,10 @@ import {
   enableReminderEmailTemplateFailure,
 } from '../../actionCreator/reminderManagementActions';
 
+import {
+  ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+} from '../../constants/actionTypes';
+
 describe('enable reminder email template reducer', () =>{
   const initialState = {
     templates: [],
@@ -41,5 +45,25 @@ describe('enable reminder email template reducer', () =>{
       templates: [],
     };
     expect(enableReminderEmailTemplateReducer(initialState, action)).toEqual(expectedOutput);
+  });
+
+  it('should handle ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS', () => {
+    const initialState = {
+      templates: [],
+      errors:{},
+      pagination: {},
+      isLoading: false,
+    };
+    const action = {
+      type: ENABLE_REMINDER_EMAIL_TEMPLATE_SUCCESS,
+    };
+    const newState = enableReminderEmailTemplateReducer(initialState, action);
+    const expectedState = {
+      ...initialState,
+      isLoading: false
+
+    };
+
+    expect(newState).toEqual(expectedState);
   });
 });

@@ -1,9 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
+import { isEmpty } from 'lodash';
 import {PropTypes} from 'prop-types';
 import WithLoadingRoleDetailsTable from '../../components/RoleDetailsTable';
 import PageHeader from '../../components/PageHeader';
 import Modal from '../../components/modal/Modal';
+import Pagination from '../../components/Pagination/Pagination';
 import {NewUserRoleForm} from '../../components/Forms';
 import {closeModal, openModal} from '../../redux/actionCreator/modalActions';
 import {
@@ -17,6 +19,7 @@ import {fetchCenters, updateUserCenter} from '../../redux/actionCreator/centersA
 import {getAllUsersEmail} from '../../redux/actionCreator/userActions';
 import './RoleDetails.scss';
 import NotFound from '../ErrorPages';
+import Utils from '../../helper/Utils';
 
 export class RoleDetails extends Component {
   state = {
@@ -25,6 +28,7 @@ export class RoleDetails extends Component {
   }
 
   componentDidMount() {
+    const page = Utils.getCurrentPage(this);
     const {
       fetchRoleUsers, match: { params }, hideDeleteRoleModal,
       deleteModalState,
@@ -32,7 +36,7 @@ export class RoleDetails extends Component {
 
     getAllUsersEmail();
     deleteModalState === 'visible' && hideDeleteRoleModal();
-    fetchRoleUsers(params.roleId);
+    fetchRoleUsers(params.roleId, page);
   }
 
   handleDeleteUserRole = (user) => {
@@ -57,6 +61,11 @@ export class RoleDetails extends Component {
       headTitle: 'Change Center',
       userDetail: user
     });
+  }
+
+  handlePageChange = (page) => {
+    const { location: { pathname }, history } = this.props;
+    history.push(`${pathname}?page=${page}`);
   }
 
   renderUserRolePanelHeader() {
@@ -108,12 +117,14 @@ export class RoleDetails extends Component {
   }
 
   renderRoleForm() {
-    
-    const { error, closeModal, shouldOpen, modalType,
+    const { 
+      error, closeModal, shouldOpen, modalType, isUpatingCenter,
       roleName, fetchRoleUsers, fetchCenters, centers, getUsersEmail: allMails,
-      putRoleData, updateUserCenter, match, getAllUsersEmail } = this.props;
+      putRoleData, updateUserCenter, match, getAllUsersEmail, updatingRole } = this.props;
     const { headTitle, userDetail } = this.state;
     const { params: {roleId } } = match;
+    const page = Utils.getCurrentPage(this);
+
     return (
       <Modal
         closeModal={closeModal}
@@ -127,9 +138,10 @@ export class RoleDetails extends Component {
         <NewUserRoleForm
           role={roleName}
           roleId={roleId}
+          updatingRole={updatingRole || isUpatingCenter}
           errors={error}
           closeModal={closeModal}
-          getRoleData={() => fetchRoleUsers(roleId)}
+          getRoleData={() => fetchRoleUsers(roleId, page)}
           handleUpdateRole={putRoleData}
           fetchCenters={fetchCenters}
           updateUserCenter={updateUserCenter}
@@ -144,10 +156,24 @@ export class RoleDetails extends Component {
   }
 
   renderUserRolePage() {
+    const { 
+      roleUsers,
+      meta: { currentPage, pageCount }
+    } = this.props;
+
     return (
       <Fragment>
         {this.renderUserRolePanelHeader()}
         {this.renderRoles()}
+        {!isEmpty(roleUsers) 
+        && (
+          <Pagination
+            currentPage={currentPage}
+            pageCount={pageCount}
+            onPageChange={(page) => this.handlePageChange(page)}
+          />
+        )
+        }
       </Fragment>
     );
   }
@@ -172,11 +198,14 @@ export const mapStateToProps = ({ modal, role, user, centers }) => ({
   ...user,
   ...modal.modal,
   ...role,
-  ...centers
+  ...centers,
+  isUpatingCenter: centers.update.isLoading
 });
 
 RoleDetails.propTypes = {
   roleUsers: PropTypes.array.isRequired,
+  location: PropTypes.object,
+  updatingRole: PropTypes.bool,
   closeModal: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
   error: PropTypes.string,
@@ -198,16 +227,27 @@ RoleDetails.propTypes = {
   hideDeleteRoleModal: PropTypes.func.isRequired,
   deleteUserRole: PropTypes.func.isRequired,
   getAllUsersEmail: PropTypes.func.isRequired,
-  getUsersEmail: PropTypes.array
+  getUsersEmail: PropTypes.array,
+  meta: PropTypes.object,
+  isUpatingCenter: PropTypes.bool,
 };
 
 RoleDetails.defaultProps = {
   isFetching: false,
+  location: {
+    search: ''
+  },
   error: '',
   modalType: '',
   roleName: '',
+  updatingRole: false,
+  isUpatingCenter: false,
   centers: [],
-  getUsersEmail: []
+  getUsersEmail: [],
+  meta: {
+    currentPage: 1,
+    pageCount: 0,
+  }
 };
 
 const actionCreators = {

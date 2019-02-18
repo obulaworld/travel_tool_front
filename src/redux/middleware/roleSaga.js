@@ -19,7 +19,7 @@ export function* watchFetchRoleUsers() {
 let response;
 export function* fetchRoleUsersSaga(action) {
   try {
-    response = yield call(RoleAPI.getRoleUsers, action.roleId);
+    response = yield call(RoleAPI.getRoleUsers, action.roleId, action.page);
     yield put(fetchRoleUsersSuccess(response.data.result));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);

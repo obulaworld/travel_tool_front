@@ -52,20 +52,36 @@ export class ReminderSetup extends Base {
   }
 
   renderEnableReminderTemplateForm() {
-    const { shouldOpen, modalType, closeModal } = this.props;
+    const { 
+      shouldOpen,
+      modalType,
+      closeModal,
+      enableReminderEmailTemplateReducer: {
+        isLoading: isEnabling
+      },
+    } = this.props;
     const { itemName } = this.state;
     return (
       <EnableEmailReminderTemplateForm
-        shouldOpen={shouldOpen} enableReminderTemplate={this.enableReminderTemplate}
+        isEnabling={isEnabling}
+        shouldOpen={shouldOpen} enableReminder={this.enableReminderTemplate}
         itemName={itemName} modalType={modalType} closeModal={closeModal} /> );
   }
 
   renderDisableReminderTemplateForm() {
-    const { shouldOpen, modalType, closeModal } = this.props;
+    const { 
+      shouldOpen, 
+      modalType, 
+      closeModal, 
+      reminderTemplateDisableReducer: {
+        isLoading: isDisabling 
+      }
+    } = this.props;
     const { itemName, disableReason, templateReason } = this.state;
     return (
       <DisableReminderTemplateForm
         shouldOpen={shouldOpen} disableReminderTemplate={this.disableReminderTemplate}
+        isDisabling={isDisabling}
         handleInputChange={this.handleInputChange} itemName={itemName} disableReason={disableReason}
         modalType={modalType} closeModal={closeModal} templateReason={templateReason} />
     );
@@ -116,7 +132,10 @@ const mapDispatchToProps = {
 
 ReminderSetup.propTypes = {
   fetchTemplates: PropTypes.func.isRequired,
+  isDisabling: PropTypes.bool,
   listEmailTemplatesReducer: PropTypes.object.isRequired,
+  enableReminderEmailTemplateReducer: PropTypes.object.isRequired,
+  reminderTemplateDisableReducer: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   openModal: PropTypes.func.isRequired,
@@ -130,11 +149,20 @@ ReminderSetup.propTypes = {
 ReminderSetup.defaultProps = {
   modalType: '',
   shouldOpen: false,
+  isDisabling: false,
   fetchOneTemplate: () => { }
 };
 
-const mapStateToProps = ({listEmailTemplatesReducer, modal}) => ({
-  listEmailTemplatesReducer, ...modal.modal,
+const mapStateToProps = ({
+  listEmailTemplatesReducer, 
+  modal, 
+  reminderTemplateDisableReducer,
+  enableReminderEmailTemplateReducer
+}) => ({
+  listEmailTemplatesReducer, 
+  ...modal.modal,
+  reminderTemplateDisableReducer,
+  enableReminderEmailTemplateReducer,
   isLoading: listEmailTemplatesReducer.isLoading
 });
 

@@ -15,6 +15,9 @@ import {
   createReminderEmailTemplateFailure,
   enableReminderEmailTemplateSuccess
 } from '../../actionCreator/reminderManagementActions';
+import {
+  DISABLE_EMAIL_TEMPLATE_SUCCESS
+} from '../../constants/actionTypes';
 import templates from  '../../../views/ReminderSetup/__mocks__';
 import {fetchTemplate } from '../../actionCreator/templatedetailsAction';
 
@@ -148,6 +151,26 @@ describe('reminder setup reducer', () =>{
     const expectedOutput = { ...initialState, isLoading: true };
     const output = reminderTemplateDisableReducer(initialState, action);
     expect(output).toEqual(expectedOutput);
+  });
+
+  it('updates `isLoading` to false when DISABLE_EMAIL_TEMPLATE_SUCCESS is fired', () => {
+    const initialState = {
+      templates: [],
+      errors:{},
+      pagination: {},
+      isLoading: false,
+    };
+
+    const action = {
+      type: DISABLE_EMAIL_TEMPLATE_SUCCESS,
+    };
+
+    const output = reminderTemplateDisableReducer(initialState, action);
+    const expectedResult = {
+      ...initialState,
+      isLoading: false,
+    };
+    expect(output).toEqual(expectedResult);
   });
 
   it('updates application state with a list of errors', () => {

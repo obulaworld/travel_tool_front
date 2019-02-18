@@ -5,7 +5,7 @@ import SubmitArea from './FormFieldsets/SubmitArea';
 
 
 const EnableEmailReminderTemplateForm = ({
-  closeModal, enableReminderTemplate, shouldOpen, modalType
+  closeModal, enableReminder, shouldOpen, modalType, isEnabling
 }) => {
   return(
     <Modal
@@ -13,7 +13,10 @@ const EnableEmailReminderTemplateForm = ({
       customModalStyles="add-checklist-item delete-document"
       width="480px"
       visibility={
-        shouldOpen && modalType == 'enable reminder template' ? 'visible' : 'invisible'
+        shouldOpen && 
+        modalType=== 'enable reminder template' 
+        || modalType === 'enable disabled reminder' 
+          ? 'visible' : 'invisible'
       }
       title="Enable Email Reminder Template"
     >
@@ -22,7 +25,8 @@ const EnableEmailReminderTemplateForm = ({
       <SubmitArea
         onCancel={closeModal}
         hasBlankFields={false}
-        enableEmailReminderTemplate={enableReminderTemplate}
+        isLoading={isEnabling}
+        enableEmailReminderTemplate={enableReminder}
         send="Enable"
       />
     </Modal>
@@ -30,14 +34,16 @@ const EnableEmailReminderTemplateForm = ({
 };
 
 EnableEmailReminderTemplateForm.propTypes = {
-  enableReminderTemplate: PropTypes.func.isRequired,
+  enableReminder: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   shouldOpen: PropTypes.bool,
+  isEnabling: PropTypes.bool
 };
 
 EnableEmailReminderTemplateForm.defaultProps = {
   modalType:'',
-  shouldOpen: ''
+  shouldOpen: '',
+  isEnabling: false,
 };
 export default EnableEmailReminderTemplateForm;

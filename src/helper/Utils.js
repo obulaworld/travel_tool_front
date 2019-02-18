@@ -163,6 +163,13 @@ class Utils {
   static makeTitleCase(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
+
+  static  getCurrentPage(context) {
+    const { location: { search } } = context.props;
+    const pathParams = new URLSearchParams(search);
+    const page = pathParams.get('page') || 1;
+    return page;
+  }
 }
 
 export default Utils;

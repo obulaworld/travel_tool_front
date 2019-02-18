@@ -13,6 +13,12 @@ describe('<ConnectedReminderSetup />', () => {
     setItemToDisable: jest.fn(),
     enableReminderEmailTemplate: jest.fn(),
     location: {},
+    enableReminderEmailTemplateReducer: {
+      isLoading: false,
+    },
+    reminderTemplateDisableReducer: {
+      isLoading: false
+    },
     listEmailTemplatesReducer: {
       pagination: {
         pageCount: {},
@@ -47,6 +53,12 @@ describe('<ConnectedReminderSetup />', () => {
         deletedAt: null,
         disabled: true,
       }]
+    },
+    enableReminderEmailTemplateReducer: {
+      isLoading: false,
+    },
+    reminderTemplateDisableReducer: {
+      isLoading: false
     },
     templateId: 1,
     modal: {
@@ -113,6 +125,66 @@ describe('<ConnectedReminderSetup />', () => {
     });
     shallowWrapper.find('button#oncancel').at(0).simulate('click');
     expect(shallowWrapper.state().disableReason).toEqual(null);
+  });
+
+  it('should show loading icon when `enableReminderEmailTemplateReducer.isLoading is true`', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, 
+          shouldOpen: true, 
+          modalType: 'enable reminder template',
+          enableReminderEmailTemplateReducer: {
+            isLoading: true,
+          }
+        }}
+      />
+    );
+    expect(shallowWrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should not show icon when `enableReminderEmailTemplateReducer.isLoading is false`', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, 
+          shouldOpen: true, 
+          modalType: 'enable reminder template',
+          enableReminderEmailTemplateReducer: {
+            isLoading: false,
+          }
+        }}
+      />
+    );
+    expect(shallowWrapper.find('i.loading-icon').length).toBe(0);
+  });
+
+  it('should show loading icon when `reminderTemplateDisableReducer.isLoading is true`', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, 
+          shouldOpen: true, 
+          modalType: 'disable reminder template',
+          reminderTemplateDisableReducer: {
+            isLoading: true,
+          }
+        }}
+      />
+    );
+    expect(shallowWrapper.find('i.loading-icon').length).toBe(1);
+  });
+
+  it('should not show loading icon when `reminderTemplateDisableReducer.isLoading is false`', () => {
+    const shallowWrapper = mount(
+      <ReminderSetup
+        {...{ ...props, 
+          shouldOpen: true, 
+          modalType: 'enable reminder template',
+          reminderTemplateDisableReducer: {
+            isLoading: true,
+          }
+        }}
+      />
+    );
+    expect(shallowWrapper.find('i.loading-icon').length).toBe(0);
   });
 
   it('should handle enableReminderTemplate function', () => {

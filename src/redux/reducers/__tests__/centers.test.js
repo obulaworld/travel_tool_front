@@ -19,7 +19,11 @@ const centersResponse = [{
 
 describe('Centers Reducer', () => {
   describe('Fetch Centers Reducer', () => {
-    const initialState = {};
+    const initialState = {
+      update: {
+        isLoading: false,
+      }
+    };
     it('returns the correct initial state', () => {
       expect(centers(undefined, {})).toEqual({
         ...initialState
@@ -59,25 +63,33 @@ describe('Centers Reducer', () => {
   });
 
   describe('Update user Center Reducer', () => {
-    const initialState = {};
+    const initialState = {
+      update: {
+        isLoading: false
+      }
+    };
     it('returns the correct state for UPDATE_USER_CENTER', () => {
       const action = {
         type: UPDATE_USER_CENTER
       };
       expect(centers(initialState, action)).toEqual({
         ...initialState,
-        isLoading: true
+        update: {
+          isLoading: true
+        }
       });
     });
     it('returns the correct state for UPDATE_USER_CENTER_SUCCESS', () => {
       const action = {
         type: UPDATE_USER_CENTER_SUCCESS,
-        userCenter: centersResponse
+        userCenter: centersResponse,
       };
       expect(centers(initialState, action)).toEqual({
         ...initialState,
-        isLoading: false,
-        userCenter: action.userCenter
+        userCenter: action.userCenter,
+        update: {
+          isLoading: false
+        }
       });
     });
     it('returns the correct state for UPDATE_USER_CENTER_FAILURE', () => {
@@ -87,8 +99,10 @@ describe('Centers Reducer', () => {
       };
       expect(centers(initialState, action)).toEqual({
         ...initialState,
-        isLoading: false,
-        centersError: action.userCenterError
+        centersError: action.userCenterError,
+        update: {
+          isLoading: false
+        }
       });
     });
   });

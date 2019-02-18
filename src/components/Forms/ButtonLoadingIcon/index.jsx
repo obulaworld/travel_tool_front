@@ -10,7 +10,11 @@ const ButtonLoadingIcon = ({ isLoading, buttonText }) => (
 
 ButtonLoadingIcon.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
+};
+
+ButtonLoadingIcon.defaultProps = {
+  buttonText: '',
 };
 
 export default ButtonLoadingIcon;

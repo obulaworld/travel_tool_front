@@ -13,7 +13,7 @@ import NoEmailReminder from '../../components/EmailReminderSetup/NoEmailReminder
 import './Reminder.scss';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import DisableReminderTemplateForm from '../../components/Forms/DisableReminderTemplateForm/DisableReminderTemplate';
-import EnableDisabledReminderConditionForm from '../../components/Forms/EnableDisabledReminderConditionForm/EnableReminderEmailTemplateForm';
+import EnableDisabledReminderConditionForm from '../../components/Forms/EnableReminderEmailTemplateForm/EnableReminderEmailTemplateForm';
 import TemplatesPagination from '../../components/ReminderSetup/TemplatesPagination';
 
 
@@ -97,23 +97,36 @@ export class Reminders extends Component{
   };
 
   renderDisableReminderConditionForm() {
-    const { shouldOpen, modalType, closeModal } = this.props;
+    const { shouldOpen, modalType, closeModal, isDisabling } = this.props;
     const { itemName, disableReason, templateReason, conditionReason } = this.state;
     return (
       <DisableReminderTemplateForm
-        shouldOpen={shouldOpen} disableEmailReminder={this.disableEmailReminder}
-        handleInputChange={this.handleInputChange} itemName={itemName} disableReason={disableReason}
-        modalType={modalType} closeModal={closeModal} templateReason={templateReason} conditionReason={conditionReason} />
+        shouldOpen={shouldOpen} 
+        disableEmailReminder={this.disableEmailReminder}
+        handleInputChange={this.handleInputChange} 
+        itemName={itemName}
+        disableReason={disableReason}
+        modalType={modalType}
+        closeModal={closeModal}
+        templateReason={templateReason}
+        conditionReason={conditionReason}
+        isDisabling={isDisabling}
+      />
     );
   }
 
   renderEnableDisabledReminderConditionForm() {
-    const { shouldOpen, modalType, closeModal } = this.props;
+    const { shouldOpen, modalType, closeModal, isEnablingReminder } = this.props;
     const { itemName } = this.state;
     return (
       <EnableDisabledReminderConditionForm
-        shouldOpen={shouldOpen} enableDisabledReminderCondition={this.enableDisabledReminder}
-        itemName={itemName} modalType={modalType} closeModal={closeModal} />
+        shouldOpen={shouldOpen} 
+        isEnabling={isEnablingReminder}
+        enableReminder={this.enableDisabledReminder}
+        itemName={itemName} 
+        modalType={modalType} 
+        closeModal={closeModal} 
+      />
     );
   }
 
@@ -229,6 +242,8 @@ const mapStateToProps = ({ modal, emailReminders, reminders }) => ({
   ...modal.modal,
   ...reminders,
   ...emailReminders,
+  isDisabling: emailReminders.disabling,
+  isEnablingReminder: emailReminders.enabling,
 });
 
 Reminders.propTypes = {

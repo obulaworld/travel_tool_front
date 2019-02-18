@@ -49,7 +49,12 @@ export const fetchRoleUsersResponse = {
       email: 'test.user@andela.com',
       fullName: 'Test User'
     }
-  ]
+  ],
+  meta: {
+    currentPage: 1,
+    count: 1,
+    pageCount: 1,
+  }
 };
 
 export const fetchTeammatesResponse = {
