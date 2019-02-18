@@ -85,6 +85,17 @@ describe('<TableMenu />', () => {
     expect(wrapper.find('img').length).toBe(31);
   });
 
+  it('should not render the ellipses on verifications table', () => {
+    wrapper = mount(<TableMenu {...props} />);
+    expect(wrapper.find('.fa-ellipsis-v').length).toBe(10);
+
+    wrapper.setProps({
+      type: 'verifications'
+    });
+
+    expect(wrapper.find('.fa-ellipsis-v').length).toBe(9);
+  });
+
   it('should render Onclick request works as exepected', () => {
     wrapper = mount(<TableMenu {...props} />);
 

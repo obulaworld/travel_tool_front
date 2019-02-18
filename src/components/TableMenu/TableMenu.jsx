@@ -132,7 +132,7 @@ class TableMenu extends PureComponent {
 
     return (
       <div>
-        {this.handleIconOpentoggle(toggleMenu, request, 'toggleIcon')}
+        {!(type === 'verifications') && this.handleIconOpentoggle(toggleMenu, request, 'toggleIcon')}
         <div className={`table__menu-container ${this.openToggleMenu(request) ? 'open' : ''}`}>
           {type === 'requests' && (
             <ul className="table__menu-list">
