@@ -24,7 +24,7 @@ import ConnectedReminderSetup from '../views/ReminderSetup';
 import UpdateEmailTemplate from '../views/ReminderSetup/UpdateEmailTemplate';
 import NotFound from '../views/ErrorPages';
 import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
-import ConnectedTravelReasons from '../views/TravelReasons/index';
+import ConnectedTravelReasons from '../views/TravelReasons';
 
 import {
   TRAVEL_ADMINISTRATOR,
@@ -220,9 +220,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedCreateReminder,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -230,16 +228,15 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedReminders,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
             path="/settings/travel-reason"
-            exact component={RequireAuth(
-              ConnectedTravelReasons, SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
+            exact
+            component={RequireAuth(
+              ConnectedTravelReasons,
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route component={RequireAuth(NotFound)} />

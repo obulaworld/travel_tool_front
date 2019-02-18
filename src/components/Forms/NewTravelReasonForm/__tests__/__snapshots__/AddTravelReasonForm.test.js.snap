@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddTravelReason /> renders without crashing 1`] = `
+<form
+  className="new-request"
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="add-checklist"
+  >
+    <div
+      className="input-group"
+    >
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="title"
+        >
+          Title
+          <span
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          >
+             * 
+          </span>
+        </label>
+        <input
+          autoComplete="off"
+          className=" "
+          label="Title"
+          name="title"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+      <div
+        className="form-input  "
+      >
+        <label
+          htmlFor="description"
+        >
+          Description
+          <span>
+             
+            (Optional)
+          </span>
+        </label>
+        <textarea
+          autoComplete="off"
+          className=" textarea-box "
+          label="Description"
+          name="description"
+          onBlur={[Function]}
+          onChange={[Function]}
+          required={false}
+          rows="10"
+          type="textarea"
+          value=""
+        />
+        <span
+          className="error"
+        />
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div
+      className="submit-area delete-checklist-item__right"
+    >
+      <button
+        className="bg-btn bg-btn--inactive"
+        id="cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="bg-btn bg-btn--active"
+        disabled={true}
+        type="submit"
+      >
+        <undefined />
+      </button>
+    </div>
+  </fieldset>
+</form>
+`;

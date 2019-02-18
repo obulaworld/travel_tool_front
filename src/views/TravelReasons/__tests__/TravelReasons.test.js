@@ -10,19 +10,36 @@ describe('<ConnectedTravelReasons />', () => {
   const { metaData3: {travelReasons, pagination}} = mockData;
   const props = {
     fetchAllTravelReasonsAction: jest.fn(),
-    listTravelReasons: {
-      pagination,
-      travelReasons
+    createTravelReason: jest.fn(),
+    travelReason: {
+      pagination
     },
-    location: {}
+    location: {},
+    modal: {
+      modal: {
+        modal: {
+          openModal: jest.fn(),
+          closeModal: jest.fn(),
+          shouldOpen: false
+        }
+      }
+    }
   };
 
   const state = {
-    listTravelReasons: {
+    travelReason: {
       errors: {},
-      travelReasons,
       pagination,
       isLoading: false
+    },
+    modal: {
+      modal: {
+        modal: {
+          openModal: jest.fn(),
+          closeModal: jest.fn(),
+          shouldOpen: false
+        }
+      }
     }
   };
   const mockStore = configureStore();

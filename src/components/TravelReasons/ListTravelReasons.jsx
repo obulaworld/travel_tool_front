@@ -29,7 +29,7 @@ class ListTravelReasons extends Component {
         onPageChange={onPageChange} />
     );
   };
-    
+
   render(){
     const { listTravelReasons: {travelReasons, pagination} } = this.props;
     const { currentPage,  pageCount } = pagination;

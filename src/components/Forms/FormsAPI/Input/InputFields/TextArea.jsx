@@ -11,6 +11,7 @@ const TextArea = (props) => {
 
   return (
     <textarea
+      data-gramm_editor="false"
       rows="10"
       {...textAreaProps}
       className={`${className} textarea-box ${textAreaProps.className}`}

@@ -1,4 +1,4 @@
-import listTravelReasons from '../listTravelReasons';
+import listTravelReasons from '../travelReason';
 import {
   fetchAllTravelReasons,
   fetchAllTravelReasonsFailure,

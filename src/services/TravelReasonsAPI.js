@@ -7,6 +7,11 @@ class TravelReasonsAPI {
   static getAllTravelReasons(query){
     return axios.get(`${baseUrl}/request/reasons${query}`);
   }
+
+
+  static createTravelReasons(query) {
+    return axios.post(`${baseUrl}/request/reasons`, query);
+  }
 }
 
 export default TravelReasonsAPI;

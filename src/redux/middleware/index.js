@@ -123,6 +123,7 @@ import {
 } from './emailRemindersSaga';
 import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from './reminderSaga';
 import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
+import { watchCreateTravelReason } from './travelReasonsSaga';
 
 function* rootSaga() {
   yield all([
@@ -214,6 +215,7 @@ function* rootSaga() {
     watchGetSingleReminder(),
     watchFetchUsersEmail(),
     watchFetchAllTravelReasons(),
+    watchCreateTravelReason(),
   ]);
 }
 
