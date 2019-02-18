@@ -50,5 +50,17 @@ describe('<ListEmailTemplates />', () => {
     wrapper.find('#next-button').simulate('click');
     expect(props.fetchTemplates).toHaveBeenCalled();
   });
+
+  it('should display a loader while the table content is being fetched', () =>{
+    const wrapper = mount(
+      <ListEmailTemplates
+        {...{ ...props, isLoading: true }}
+      />
+    );
+    const reminderTemplateTableLoader = wrapper.find('ReminderTemplatePlaceholder');
+    const reminderTemplateTable = wrapper.find('EmailTemplatesTable');
+    expect(reminderTemplateTableLoader).toHaveLength(1);
+    expect(reminderTemplateTable).toHaveLength(0);
+  });
 });
 

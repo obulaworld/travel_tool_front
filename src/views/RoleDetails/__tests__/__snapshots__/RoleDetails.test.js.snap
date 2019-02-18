@@ -53,6 +53,7 @@ exports[`<ROleDetails /> renders correctly 1`] = `
           hideDeleteRoleModal={[Function]}
           icon="back-icon.svg"
           iconLink="/settings/roles"
+          isLoading={false}
           location=""
           openModal={[Function]}
           title="Travel team members"

@@ -183,7 +183,7 @@ Array [
                         </div>
                     </div>
                     <div
-                        className="form-input profile_dropdown no-disable "
+                        className="form-input profile_dropdown no-disable manager "
                     >
                         <label
                             htmlFor="manager"
@@ -307,6 +307,7 @@ Array [
                 <button
                     className="profile-bg-btn bg-btn bg-btn--inactive"
                     disabled={true}
+                    id="btn-update"
                     type="submit"
                 >
                     Save Changes

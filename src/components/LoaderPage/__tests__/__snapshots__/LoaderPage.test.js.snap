@@ -968,7 +968,7 @@ exports[`<LoaderBody /> renders correctly 1`] = `
       <p
         className="loader__body-text"
       >
-        Forget champagne and caviar – Taste the world instead!
+        We wander for distraction, but we travel for fulfilment.
       </p>
     </div>
   </div>

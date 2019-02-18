@@ -23,37 +23,44 @@ class ListEmailTemplates extends Component {
     fetchTemplates(`${search}${search ? '&' : '?'}page=${previousOrNext === 'previous' ? currentPage - 1 : currentPage + 1}`);
   };
 
+  renderPagination = (pageCount, currentPage) => {
+    return (
+      <TemplatesPagination
+        onPageChange={this.onPageChange}
+        pageCount={pageCount ? pageCount : 1}
+        currentPage={currentPage ? currentPage : 1}
+      />
+    );
+  };
+
   render() {
     const {
       listEmailTemplatesReducer: {templates, pagination, selectedTemplate},
       openModal, closeModal, modalType, shouldOpen,
-      fetchOneTemplate, setItemToDisable, history
+      fetchOneTemplate, setItemToDisable, history, isLoading
     } = this.props;
     const {pageCount, currentPage} = pagination;
     return (
       <Fragment>
-        {templates.length > 0 ? (
+        <WithLoadingEmailTemplatesTable
+          templates={templates}
+          setItemToDisable={setItemToDisable}
+          openModal={openModal}
+          fetchOneTemplate={fetchOneTemplate}
+          history={history}
+          isLoading={isLoading}
+        />
+        {templates.length > 0 && !isLoading ? (
           <div>
             <TemplateDetailsModal
               closeModal={closeModal} modalType={modalType}
               shouldOpen={shouldOpen} templates={templates}
               history={history}
               selectedTemplate={selectedTemplate} />
-            <WithLoadingEmailTemplatesTable
-              templates={templates}
-              setItemToDisable={setItemToDisable}
-              openModal={openModal}
-              fetchOneTemplate={fetchOneTemplate}
-              history={history}
-            />
-            <TemplatesPagination
-              onPageChange={this.onPageChange}
-              pageCount={pageCount ? pageCount : 1}
-              currentPage={currentPage ? currentPage : 1}
-            />
+            {this.renderPagination(pageCount,currentPage)}
           </div>
         ) :
-          (<NoTemplates />)}
+          ('')}
       </Fragment>
     );
   }
@@ -69,12 +76,14 @@ ListEmailTemplates.propTypes = {
   modalType: PropTypes.string,
   fetchOneTemplate: PropTypes.func,
   setItemToDisable: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool
 };
 
 ListEmailTemplates.defaultProps = {
   modalType: '',
   shouldOpen: false,
+  isLoading: false,
   fetchOneTemplate: () => {},
   closeModal: () => { }
 };

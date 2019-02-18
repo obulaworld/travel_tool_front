@@ -36,12 +36,17 @@ describe('<ConnectedReminderSetup />', () => {
         pageCount: 3,
         currentPage: 3
       },
-      templates: {
+      templates: [{
+        id: 1,
         name: '',
         creator : {
-          fullname: ''
+          fullName: ''
         },
-      }
+        createdAt: '2019-01-21T07:33:26.123Z',
+        updatedAt: '2019-01-21T07:33:26.123Z',
+        deletedAt: null,
+        disabled: true,
+      }]
     },
     templateId: 1,
     modal: {

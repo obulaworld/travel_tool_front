@@ -2,80 +2,88 @@
 
 exports[`<ListTravelReasons /> renders without crashing 1`] = `
 Array [
-  <table
-    className="mdl-data-table mdl-js-data-table readiness-table"
+  <div
+    className="list-reasons"
 >
-    <thead>
-        <tr>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head"
-            >
-                Reason
-            </th>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-            >
-                <span />
-            </th>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-            >
-                Created By
-            </th>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-            >
-                <span />
-            </th>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head"
-            >
-                Created On
-            </th>
-            <th
-                className="mdl-data-table__cell--non-numeric table__head"
-            />
-        </tr>
-    </thead>
-    <tbody
-        className="table__body"
+    <div
+        className="table__container"
     >
-        <tr
-            className="table__rows"
+        <table
+            className="mdl-data-table mdl-js-data-table readiness-table"
         >
-            <td
-                className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+            <thead>
+                <tr>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head"
+                    >
+                        Reason
+                    </th>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                    >
+                        <span />
+                    </th>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                    >
+                        Created By
+                    </th>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                    >
+                        <span />
+                    </th>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head"
+                    >
+                        Created On
+                    </th>
+                    <th
+                        className="mdl-data-table__cell--non-numeric table__head"
+                    />
+                </tr>
+            </thead>
+            <tbody
+                className="table__body"
             >
-                Annual Off-site
-            </td>
-            <td
-                className="mdl-data-table__cell--non-numeric table__data"
-            />
-            <td
-                className="mdl-data-table__cell--non-numeric table__data"
-            >
-                Kevin Koech
-            </td>
-            <td
-                className="mdl-data-table__cell--non-numeric table__data"
-            />
-            <td
-                className="mdl-data-table__cell--non-numeric table__data"
-            >
-                18-01-2019
-            </td>
-            <td
-                className="mdl-data-table__cell--non-numeric table__data"
-            >
-                <i
-                    className="fa fa-ellipsis-v on"
-                    id="toggleIcon"
-                    role="presentation"
-                />
-            </td>
-        </tr>
-    </tbody>
-</table>,
+                <tr
+                    className="table__rows"
+                >
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+                    >
+                        Annual off-site
+                    </td>
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data"
+                    />
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data"
+                    >
+                        Kevin Koech
+                    </td>
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data"
+                    />
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data"
+                    >
+                        18-01-2019
+                    </td>
+                    <td
+                        className="mdl-data-table__cell--non-numeric table__data"
+                    >
+                        <i
+                            className="fa fa-ellipsis-v on"
+                            id="toggleIcon"
+                            role="presentation"
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>,
   <div
     className="reminder-email-templates"
 >

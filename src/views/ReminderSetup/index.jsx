@@ -74,7 +74,7 @@ export class ReminderSetup extends Base {
   render() {
     const { fetchTemplates, listEmailTemplatesReducer, location,
       history, openModal, closeModal, shouldOpen, modalType,
-      fetchOneTemplate } = this.props;
+      fetchOneTemplate, isLoading } = this.props;
     return (
       <Fragment>
         <div className="readiness-header">
@@ -85,6 +85,7 @@ export class ReminderSetup extends Base {
               actionBtnClickHandler={() => {
                 history.push('/settings/reminder-setup/create');
               }}
+              isLoading={isLoading}
             />
           </div>
         </div>
@@ -93,6 +94,7 @@ export class ReminderSetup extends Base {
           fetchOneTemplate={fetchOneTemplate}
           listEmailTemplatesReducer={listEmailTemplatesReducer}
           location={location}
+          isLoading={isLoading}
           setItemToDisable={this.setItemToDisable}
           openModal={openModal}
           closeModal={closeModal}
@@ -133,6 +135,7 @@ ReminderSetup.defaultProps = {
 
 const mapStateToProps = ({listEmailTemplatesReducer, modal}) => ({
   listEmailTemplatesReducer, ...modal.modal,
+  isLoading: listEmailTemplatesReducer.isLoading
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReminderSetup);

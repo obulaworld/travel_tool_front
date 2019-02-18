@@ -189,6 +189,16 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   ],
                   "text": "Reminder Setup",
                 },
+                Object {
+                  "exact": true,
+                  "link_to": "/settings/travel-reason",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                    "Travel Team Member",
+                  ],
+                  "text": "Travel Reason",
+                },
               ],
               "icons": Object {
                 "active": "settings_active.svg",

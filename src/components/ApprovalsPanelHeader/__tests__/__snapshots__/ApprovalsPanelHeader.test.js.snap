@@ -10,6 +10,7 @@ exports[`should render approvals header correctly 1`] = `
     addLink={false}
     icon="back-icon.svg"
     iconLink=""
+    isLoading={false}
     location=""
     openModal={[Function]}
     title="APPROVALS"

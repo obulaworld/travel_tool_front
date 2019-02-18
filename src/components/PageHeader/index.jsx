@@ -26,9 +26,8 @@ class PageHeader extends PureComponent {
   render() {
     const {
       title, actionBtn, actionBtnClickHandler, openModal,titleClassName, location,
-      icon, iconLink, addLink, children
+      icon, iconLink, addLink, children, isLoading
     } = this.props;
-
     return (
       <div className="PageHeader">
         <div>
@@ -47,7 +46,7 @@ class PageHeader extends PureComponent {
           )}
         </div>
         {children}
-        {actionBtn && this.renderActionButton(actionBtnClickHandler, openModal, actionBtn)}
+        {actionBtn && !isLoading && this.renderActionButton(actionBtnClickHandler, openModal, actionBtn)}
       </div>
     );
   }
@@ -64,6 +63,7 @@ PageHeader.propTypes = {
   icon: PropTypes.string,
   iconLink: PropTypes.string,
   addLink: PropTypes.bool,
+  isLoading: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -77,6 +77,7 @@ PageHeader.defaultProps = {
   icon: headerIcon,
   iconLink: '',
   addLink: false,
+  isLoading: false,
   actionBtnClickHandler: null,
   openModal: () => {},
   children: '',

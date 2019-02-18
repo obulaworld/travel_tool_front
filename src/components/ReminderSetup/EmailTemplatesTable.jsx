@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import withLoading from '../Hoc/withLoading';
 import TemplatesMenu from './TemplatesMenu';
-import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
+import NoTemplates from './NoTemplates';
+import ReminderTemplatePlaceholder from '../Placeholders/ReminderTemplatePlaceholder';
 
 export const TemplatesTableHead = () => (
   <thead>
@@ -99,20 +100,25 @@ export const TemplatesTableBody = (
 export const EmailTemplatesTable = (
   { templates , openModal, fetchOneTemplate, setItemToDisable, history}
 ) => (
-  <div className="list-templates">
-    <div className="table__container">
-      <table className="mdl-data-table mdl-js-data-table readiness-table">
-        <TemplatesTableHead />
-        <TemplatesTableBody
-          templates={templates}
-          openModal={openModal}
-          fetchOneTemplate={fetchOneTemplate}
-          setItemToDisable={setItemToDisable}
-          history={history}
-        />
-      </table>
-    </div>
-  </div>
+  <Fragment>
+    {templates.length > 0 ? (
+      <div className="list-templates">
+        <div className="table__container">
+          <table className="mdl-data-table mdl-js-data-table readiness-table">
+            <TemplatesTableHead />
+            <TemplatesTableBody
+              templates={templates}
+              openModal={openModal}
+              fetchOneTemplate={fetchOneTemplate}
+              setItemToDisable={setItemToDisable}
+              history={history}
+            />
+          </table>
+        </div>
+      </div>
+    ) :
+      (<NoTemplates />)}
+  </Fragment>
 );
 
 EmailTemplatesTable.propTypes = {
@@ -143,4 +149,4 @@ TemplatesTableRow.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export default withLoading(EmailTemplatesTable, RequestPlaceholder);
+export default withLoading(EmailTemplatesTable, ReminderTemplatePlaceholder);
