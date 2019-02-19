@@ -25,7 +25,7 @@ import UpdateEmailTemplate from '../views/ReminderSetup/UpdateEmailTemplate';
 import NotFound from '../views/ErrorPages';
 import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
 import ConnectedTravelReasons from '../views/TravelReasons';
-
+import TravelStipendsRoute from './routes';
 import {
   TRAVEL_ADMINISTRATOR,
   SUPER_ADMINISTRATOR,
@@ -239,6 +239,7 @@ const Routes = () => (
               SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
+          <TravelStipendsRoute />
           <Route component={RequireAuth(NotFound)} />
         </Switch>
       </LayoutShell>

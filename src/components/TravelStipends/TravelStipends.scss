@@ -1,0 +1,67 @@
+.card {
+  margin: 47px 22px 22px 0px;
+  height: 198px;
+  font-size: 15px;
+  color: #4F4F4F;
+  line-height: 20px;
+  box-sizing: border-box;
+  font-family: "DIN Pro";
+  background-color: #FFFFFF;
+  width: 197px;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.1);
+  display: inline-block;
+
+
+  &_title {
+    height: 23px;	
+    width: 118px;	
+    color: #3359DB;	
+    font-family: "DIN Pro";	
+    font-size: 18px;	
+    font-weight: 500;	
+    line-height: 23px;	
+    text-align: center;
+    margin: 23.5px 0px 23px 0px;
+    padding: 0 39px 0px 39px;
+    float:clear;
+  }
+
+  &_stipend {
+    height: 46px;	
+    width: 100px;	
+    color: #4A4A4A;	
+    font-family: "DIN Pro";	
+    font-size: 36px;
+    font-weight: 500;	
+    line-height: 46px;
+    text-align: center;	
+    margin: 23px 30px 24px 30px;
+    padding: 0 20px 0px 20px;
+    font-weight: bold;
+    overflow: hidden;
+    word-wrap: break-word;
+
+  }
+
+  &_icon {
+    float: right;
+    right: 0px;
+    margin: 10px 0px 0px 0px;
+  }
+
+  &_p {
+    height: 18px;	
+    width: 83px;	
+    color: #4A4A4A;	
+    font-family: "DIN Pro";	
+    font-size: 14px;	
+    font-weight: 500;	
+    line-height: 18px;	
+    text-align: center;
+    padding: 0px 57px 17.5px 57px;
+  }
+}
+
+
+

@@ -166,6 +166,12 @@ const NavItemsMetadata = [
         text: 'Travel Reason',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
       },
+      {
+        text: 'Travel Stipend',
+        link_to: '/settings/travelStipend',
+        exact: true,
+        onlyVisibleTo: ['Super Administrator', 'Travel Administrator', 'Travel Team Member']
+      },
     ],
     icons: {
       active: activeSettingsIcon,
