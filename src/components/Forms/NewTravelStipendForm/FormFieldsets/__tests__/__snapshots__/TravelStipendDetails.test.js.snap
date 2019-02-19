@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TravelStipendFieldset /> should match snapshot 1`] = `
+<fieldset
+  className="personal-details"
+>
+  <div>
+    <div>
+      <div
+        className="input-group"
+      >
+        <div
+          className="spaces"
+        >
+          <Input
+            autoComplete="off"
+            choices={Array []}
+            className="request_dropdown stipend-location"
+            id="user-location"
+            label="Select Location"
+            labelNote=""
+            name="center"
+            onChange={null}
+            size=""
+            type="dropdown-select"
+          />
+        </div>
+        <div
+          className="spaces"
+        >
+          <Input
+            autoComplete="off"
+            className="request_dropdown stipend-amount"
+            id="your-manager"
+            label="Enter Amount in Dollars ($)"
+            labelNote=""
+            name="stipend"
+            onChange={null}
+            size=""
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+`;

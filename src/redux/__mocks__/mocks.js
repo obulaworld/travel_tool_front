@@ -38,6 +38,13 @@ export const createRequestMock = {
   }
 };
 
+export const createStipendMock = {
+  requestObj: {
+    center: 'Kigali',
+    stipend: 1234
+  }
+};
+
 export const fetchRoleUsersResponse = {
   id: 53019,
   roleName: 'Manager',

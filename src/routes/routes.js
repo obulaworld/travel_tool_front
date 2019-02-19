@@ -6,14 +6,13 @@ import {
   TRAVEL_ADMINISTRATOR,
   SUPER_ADMINISTRATOR,
   TRAVEL_TEAM_MEMBER,
-  MANAGER
 } from '../helper/roles';
 
 import ConnectedTravelStipend from '../views/TravelStipends';
 
 const TravelStipendsRoute = () => (
   <Route
-    path="/settings/travelStipend"
+    path="/settings/travelStipends"
     exact
     component={RequireAuth(
       ConnectedTravelStipend,

@@ -125,7 +125,11 @@ import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from '
 import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
 import { watchCreateTravelReason } from './travelReasonsSaga';
 import {
-  watchgetAllTravelStipends
+  
+} from './travelStipendsSaga';
+import { 
+         watchCreateTravelStipendAsync,
+         watchgetAllTravelStipends
 } from './travelStipendsSaga';
 
 function* rootSaga() {
@@ -219,7 +223,8 @@ function* rootSaga() {
     watchFetchUsersEmail(),
     watchFetchAllTravelReasons(),
     watchCreateTravelReason(),
-    watchgetAllTravelStipends()
+    watchgetAllTravelStipends(),
+    watchCreateTravelStipendAsync()
   ]);
 }
 

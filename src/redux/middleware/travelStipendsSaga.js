@@ -1,9 +1,39 @@
-import {takeLatest, call, put} from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import toast from 'toastr';
-import {FETCH_ALL_TRAVEL_STIPENDS} from '../constants/actionTypes';
-import {fetchAllTravelStipendsFailure, fetchAllTravelStipendsSuccess} from '../actionCreator/travelStipendsActions';
-import apiErrorHandler from '../../services/apiErrorHandler';
+import {
+  CREATE_TRAVEL_STIPEND,
+  FETCH_ALL_TRAVEL_STIPENDS
+} from '../constants/actionTypes';
 import TravelStipendsAPI from '../../services/TravelStipendsAPI';
+import apiErrorHandler from '../../services/apiErrorHandler';
+import {
+  createTravelStipendSuccess,
+  createTravelStipendFailure,
+  fetchAllTravelStipendsFailure,
+  fetchAllTravelStipendsSuccess
+} from '../actionCreator/travelStipendsActions';
+import { closeModal } from '../actionCreator/modalActions';
+
+export function* createTravelStipendSagaAsync(action) {
+  const { history } = action;
+  try {
+    const response = yield call(
+      TravelStipendsAPI.postTravelStipend, action.requestData
+    );
+    yield put(createTravelStipendSuccess(response.data));
+    toast.success(response.data.message);
+    yield put(closeModal());
+    history.push('/settings/travelStipends');
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(createTravelStipendFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchCreateTravelStipendAsync() {
+  yield takeLatest(CREATE_TRAVEL_STIPEND, createTravelStipendSagaAsync);
+}
 
 export function* getAllTravelStipendsSaga(){
   try{
@@ -18,4 +48,3 @@ export function* getAllTravelStipendsSaga(){
 export function* watchgetAllTravelStipends(){
   yield takeLatest(FETCH_ALL_TRAVEL_STIPENDS, getAllTravelStipendsSaga);
 }
-
