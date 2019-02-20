@@ -14,7 +14,7 @@ const defaultProps = {
     state: { range: {
       start: '2018-05-20',
       end: '2018-07-22'
-    }, start: '2018-05-20', end:'2018-07-22'},
+    }},
     handleFilter: jest.fn()
   },
   fetchDepartmentTrips: jest.fn(),
@@ -87,5 +87,45 @@ describe('Test suite for Analytics Report Component', () => {
     const button = wrapper.find('#btnExportTripsPerMonth');
     button.simulate('click');
     expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
+  });
+
+  it('should call fetchDepartmentTrips if it a new start date is selected', () => {
+    const wrapper = setup();
+    wrapper.setProps({
+      context: {
+        state: { range: {
+          start: '2018-06-21',
+          end: '2018-07-22'
+        }},
+        handleFilter: jest.fn()
+      }
+    });
+    expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
+    expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalledWith({
+      filterBy: 'month',
+      type: 'json',
+      firstDate: '2018-06-21',
+      lastDate: '2018-07-22'
+    });
+  });
+
+  it('should call fetchDepartmentTrips if it a new end date is selected', () => {
+    const wrapper = setup();
+    wrapper.setProps({
+      context: {
+        state: { range: {
+          start: '2018-05-20',
+          end: '2018-08-29'
+        }},
+        handleFilter: jest.fn()
+      }
+    });
+    expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalled();
+    expect(defaultProps.fetchDepartmentTrips).toHaveBeenCalledWith({
+      filterBy: 'month',
+      type: 'json',
+      firstDate: '2018-05-20',
+      lastDate: '2018-08-29'
+    });
   });
 });

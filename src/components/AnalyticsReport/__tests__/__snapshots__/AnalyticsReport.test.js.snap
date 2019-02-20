@@ -20,7 +20,6 @@ exports[`Test suite for Analytics Report Component should match the snapshot 1`]
     }
     renderButton={[Function]}
     renderNotFound={[Function]}
-    renderSpinner={[Function]}
   />
   <div
     className="analyticsReport__card"

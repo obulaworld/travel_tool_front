@@ -66,6 +66,13 @@ describe('Travel Calendar', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('checks that download method is called when button is clicked', () => {
+    const btn = wrapper.find('.actions__btn');
+    btn.simulate('click');
+    expect(props.downloadCalendarAnalytics).toHaveBeenCalled();
+    expect(props.downloadCalendarAnalytics).toHaveBeenCalledWith({type: 'file', filter, page: 1});
+  });
+
   it('checks that handle change is invoked', () => {
     wrapper.instance().handleChange('This is a range');
     expect(props.fetchCalendarAnalytics).toHaveBeenCalled();
@@ -77,10 +84,20 @@ describe('Travel Calendar', () => {
     expect(wrapper.state().isCalendarOpen).toBe(true);
   });
 
-  it('checks that download method is called when button is clicked', () => {
-    const btn = wrapper.find('.actions__btn');
-    btn.simulate('click');
-    expect(props.downloadCalendarAnalytics).toHaveBeenCalled();
+  it('renders the loader when travel calendar data is being fetched', () => {
+    const newProps = {...props, travelCalendar: {
+      travelCalendarError: '',
+      isLoading: true,
+      travelCalendarData: {
+        data: [],
+        pagination: {}
+      }
+    },};
+
+    const wrapper = shallow(
+      <TravelCalendar {...newProps} />
+    );
+    expect (wrapper.find('TravelCalendarPlaceholder').length).toEqual(3);
   });
 
   describe('test handlePagination', () => {

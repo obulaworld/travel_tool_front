@@ -40,7 +40,7 @@ const analytics = (state = initialState, action) => {
       departmentTrips: { ...state.departmentTrips,  loading: false,  report: action.report }};
 
   case FETCH_DEPARTMENT_TRIPS_ANALYTICS_FAILURE:
-    return { ...state, 
+    return { ...state,
       departmentTrips: { ...state.departmentTrips, loading: false,  error: action.error }};
 
   default:

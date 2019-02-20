@@ -1,6 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { format, startOfISOWeek, endOfISOWeek } from 'date-fns';
+import { format } from 'date-fns';
 import moment from 'moment';
 import './TravelCalendar.scss';
 import Utils from '../../helper/Utils';
@@ -34,7 +34,6 @@ class TravelCalendar extends PureComponent {
     const {fetchCalendarAnalytics} = this.props;
     const {filter} = this.state;
     const query = Utils.manageRangeFilter(range);
-    const label = Utils.manageFilterBtnLabel(range);
     if(query !== filter){
       this.setState(prevState => ({
         ...prevState,
@@ -71,8 +70,9 @@ class TravelCalendar extends PureComponent {
 
   getTravelCalendarCSV = () => {
     const {downloadCalendarAnalytics} = this.props;
-    const {filter} = this.state;
-    downloadCalendarAnalytics({type: 'file', filter});
+    const {filter: activeFilter, page } = this.state;
+    const filter = Utils.manageRangeFilter(activeFilter);
+    downloadCalendarAnalytics({type: 'file', filter, page});
   }
 
   renderButton (icon, text, onclickFunction, status) {
@@ -103,16 +103,6 @@ class TravelCalendar extends PureComponent {
           </div>
         )}
       </Fragment>
-    );
-  }
-
-  renderSpinner () {
-    return (
-      <div className="analyticsReport__report-details">
-        <br />
-        <div className="analyticsReport__spinner" />
-        <p className="analyticsReport__text-center">generating report...</p>
-      </div>
     );
   }
 
@@ -156,7 +146,7 @@ class TravelCalendar extends PureComponent {
   }
 
   renderCalendarHeader () {
-    const { 
+    const {
       travelCalendar: { travelCalendarError }
     } = this.props;
     const status = !travelCalendarError ? false : true;

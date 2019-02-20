@@ -18,17 +18,17 @@ const readiness = (state = initialState, action) => {
   case FETCH_TRAVEL_READINESS:
     return {...state, isLoading: true, error: '' };
   case FETCH_TRAVEL_READINESS_SUCCESS:
-    return { ...state, 
-      readiness: response.readiness, 
+    return { ...state,
+      readiness: response.readiness,
       pagination:response.pagination, isLoading: false, error: '' };
   case FETCH_TRAVEL_READINESS_FAILURE:
     return { ...state, error, isLoading: false, readiness: [] };
   case EXPORT_TRAVEL_READINESS:
-    return {...state, isLoading:true, error: '' };
+    return {...state, isExporting:true, error: '' };
   case EXPORT_TRAVEL_READINESS_SUCCESS:
-    return { ...state, isLoading: false, error: '' };
+    return { ...state, isExporting: false, error: '' };
   case EXPORT_TRAVEL_READINESS_FAILURE:
-    return { ...state, isLoading: false, error };
+    return { ...state, isExporting: false, error };
   default: return state;
   }
 };

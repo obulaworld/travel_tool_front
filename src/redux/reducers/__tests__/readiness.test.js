@@ -21,8 +21,8 @@ import {
 
 describe('Test suite for readiness reducer', () => {
   const initialState = {
-    readiness: [], 
-    isLoading:false, 
+    readiness: [],
+    isLoading:false,
     error: '',
     pagination: {}
   };
@@ -37,22 +37,22 @@ describe('Test suite for readiness reducer', () => {
     expect(newState.isLoading).toBe(true);
     done();
   });
-  it('`should update isLoading state to true for EXPORT_TRAVEL_READINESS', (done) => {
+  it('`should update isExporting state to true for EXPORT_TRAVEL_READINESS', (done) => {
     const action = exportReadiness();
     const newState = readiness(initialState, action);
-    expect(newState.isLoading).toBe(true);
+    expect(newState.isExporting).toBe(true);
     done();
   });
-  it('`should update isLoading state to false for EXPORT_TRAVEL_READINESS_SUCCESS', (done) => {
+  it('should update isExporting state to false for EXPORT_TRAVEL_READINESS_SUCCESS', (done) => {
     const action = exportReadinessSuccess();
     const newState = readiness(initialState, action);
-    expect(newState.isLoading).toBe(false);
+    expect(newState.isExporting).toBe(false);
     done();
   });
-  it('`should update isLoading state to false for EXPORT_TRAVEL_READINESS_FAILURE', (done) => {
+  it('should update isExporting state to false for EXPORT_TRAVEL_READINESS_FAILURE', (done) => {
     const action = exportReadinessFailure();
     const newState = readiness(initialState, action);
-    expect(newState.isLoading).toBe(false);
+    expect(newState.isExporting).toBe(false);
     done();
   });
 

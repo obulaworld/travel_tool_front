@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { format } from 'date-fns';
 
 export const { Consumer, Provider } = React.createContext();
 
 export default class FilterContext extends Component {
   constructor(props) {
     super(props);
+    const { user } = props;
     const start = moment().startOf('month').format('YYYY-MM-DD');
     const end = moment().endOf('month').format('YYYY-MM-DD');
-    const [city] = localStorage.getItem('location').split(',');
+    const [city] = (localStorage.getItem('location') || user.location).split(',');
     this.state = {
       range: {start, end},
       city
@@ -36,8 +36,13 @@ export default class FilterContext extends Component {
 }
 
 FilterContext.propTypes = {
+  user: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired
+};
+
+FilterContext.defaultProps = {
+  user: {}
 };

@@ -23,7 +23,7 @@ export class Dashboard extends Component {
       downloadCalendarAnalytics, downloadAnalytics, currentUser } = this.props;
     return (
       <div id="dashboard">
-        <FilterContext>
+        <FilterContext user={currentUser}>
           <Consumer>
             {(context) => (
               <Fragment>

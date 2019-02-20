@@ -104,16 +104,6 @@ export default class AnalyticsReport extends Component {
     );
   };
 
-  renderSpinner = () => {
-    return (
-      <div className="analyticsReport__report-details">
-        <br />
-        <div className="analyticsReport__spinner" />
-        <p className="analyticsReport__text-center">generating report...</p>
-      </div>
-    );
-  };
-
   renderTripDetailsHeader = () => {
     return (
       <Fragment>
@@ -158,7 +148,6 @@ export default class AnalyticsReport extends Component {
           fetchReadiness={fetchReadiness}
           exportReadiness={exportReadiness}
           range={range}
-          renderSpinner={this.renderSpinner}
         />
         <div className="analyticsReport__card">
           {loading ? (
