@@ -3,6 +3,12 @@
   padding-bottom: 20px;
 }
 
+#restore-checklist:disabled{
+  background-color: rgba(51,89,219,0.3);
+  border: none;
+  cursor: not-allowed;
+}
+
 .loader {
   display: flex;
   justify-content: flex-start;

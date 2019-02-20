@@ -8,7 +8,7 @@ import SubmitArea from './FormFieldsets/SubmitArea';
 const DeleteRequestForm = ({ 
   closeModal, deleteChecklistItem, itemName, 
   shouldOpen, modalType, handleInputChange,
-  deleteReason
+  deleteReason, deletingChecklist
 }) => {
   return(
     <Modal
@@ -24,10 +24,11 @@ const DeleteRequestForm = ({
       <span className="delete-checklist-item__disclaimer">
         <img src={error} alt="profile" className="delete-checklist-item__disclaimer--error" />
         <strong>{ itemName }</strong>
-         will be removed from guest travel checklist
+          will be removed from guest travel checklist
       </span>
       <div className="delete-checklist-item__hr" />
       <SubmitArea
+        loading={deletingChecklist}
         onCancel={closeModal}
         hasBlankFields={false}
         deleteChecklistItem={deleteChecklistItem}
@@ -47,12 +48,14 @@ DeleteRequestForm.propTypes = {
   modalType: PropTypes.string,
   deleteReason: PropTypes.string,
   shouldOpen: PropTypes.bool.isRequired,
-  itemName: PropTypes.string
+  itemName: PropTypes.string,
+  deletingChecklist: PropTypes.bool,
 };
 
 DeleteRequestForm.defaultProps = {
   modalType:'',
   deleteReason: '',
-  itemName: ''
+  itemName: '',
+  deletingChecklist: false
 };
 export default DeleteRequestForm;

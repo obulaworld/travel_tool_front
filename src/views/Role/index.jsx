@@ -63,7 +63,7 @@ export class Role extends Component {
 
   renderRoleForm() {
     const { roleErrors, closeModal, shouldOpen, modalType,
-      addRole, isAddingRole, updateRole } = this.props;
+      addRole, isAddingRole, updateRole, isLoading } = this.props;
     const { headTitle, roleDetail } = this.state;
     return (
       <Modal
@@ -72,6 +72,7 @@ export class Role extends Component {
         visibility={shouldOpen && modalType === 'new model' ? 'visible' : 'invisible'}
         title={headTitle}>
         <AddRoleForm
+          updatingRole={isLoading}
           addRole={addRole}
           errors={roleErrors}
           closeModal={closeModal}

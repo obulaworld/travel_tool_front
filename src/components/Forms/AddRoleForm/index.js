@@ -53,23 +53,16 @@ class AddRoleForm extends PureComponent {
 
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { addingRole, myTitle } = this.props;
+    const { addingRole, myTitle, updatingRole } = this.props;
     return (
       <FormContext targetForm={this} values={values} errors={errors} validatorName="validate">
-        {addingRole && (
-          <h5
-            id="add-role-status"
-            style={{ display: 'flex', justifyContent: 'center', fontFamily: 'DIN Pro' }}
-          >
-          Adding role...
-          </h5>
-        )}
         <form onSubmit={this.handleSubmit} className="new-request" id="add-role-form">
           <AddRoleFields
             values={values}
           />
           <hr />
           <SubmitArea
+            isCreating={addingRole || updatingRole}
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
             send={myTitle}
@@ -83,6 +76,7 @@ class AddRoleForm extends PureComponent {
 AddRoleForm.propTypes = {
   addRole: PropTypes.func.isRequired,
   addingRole: PropTypes.bool,
+  updatingRole: PropTypes.bool,
   myTitle: PropTypes.string,
   roleDetail: PropTypes.object,
   updateRole: PropTypes.func
@@ -90,6 +84,7 @@ AddRoleForm.propTypes = {
 
 AddRoleForm.defaultProps = {
   addingRole: false,
+  updatingRole: false,
   myTitle: '',
   roleDetail: {},
   updateRole: () => {}

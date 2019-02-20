@@ -6,15 +6,6 @@ import withLoading from '../../components/Hoc/withLoading';
 import './TravelReadinessDocuments.scss';
 
 export class UserReadiness extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    userId: PropTypes.string.isRequired,
-    department: PropTypes.string.isRequired,
-    passportsCount: PropTypes.number.isRequired,
-    visasCount: PropTypes.number.isRequired,
-    othersCount: PropTypes.number.isRequired
-  };
-
   render(){
     const { name, userId, department, passportsCount, visasCount, othersCount } = this.props;
     return (
@@ -82,6 +73,19 @@ const ReadinessTable = ({ users }) => (
 
 ReadinessTable.propTypes = {
   users: PropTypes.array.isRequired,
+};
+
+UserReadiness.propTypes = {
+  name: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+  department: PropTypes.string,
+  passportsCount: PropTypes.number.isRequired,
+  visasCount: PropTypes.number.isRequired,
+  othersCount: PropTypes.number.isRequired
+};
+
+UserReadiness.defaultProps = {
+  department: ''
 };
 
 TableBody.propTypes = {

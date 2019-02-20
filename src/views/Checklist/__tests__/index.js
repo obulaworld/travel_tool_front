@@ -48,7 +48,7 @@ const props = {
   shouldOpen: false,
   modalType: 'edit cheklistItem',
   checklistItems: travelChecklistMockData,
-  deletedChecklistItems: [
+  deletedCheckListItems: [
     travelChecklistMockData[0].checklist[0]
   ],
   currentUser: {
@@ -220,16 +220,16 @@ describe('<Checklist> component', () => {
     const checklistItemId = 1;
     const wrapper = mount( <Checklist {...props} />);
     const wrapperInstance = wrapper.instance();
-    const deletedChecklistItems = [{
+    const deletedCheckListItems = [{
       id: checklistItemId,
       name: 'visa application'
     }];
     wrapper.setProps({
-      deletedChecklistItems
+      deletedCheckListItems
     });
     wrapper.setState({
-      restoreItemData: deletedChecklistItems[0],
-      checklistItemName: deletedChecklistItems[0].name
+      restoreItemData: deletedCheckListItems[0],
+      checklistItemName: deletedCheckListItems[0].name
     });
     wrapperInstance.setItemToRestore(checklistItemId)();
     expect(wrapper.state().checklistItemId).toEqual(checklistItemId);
@@ -237,7 +237,7 @@ describe('<Checklist> component', () => {
 });
 
 describe('<Checklist> component without created or deleted travel checklist items',() => {
-  
+
   const secondaryInitialState ={
     ...initialState,
     travelChecklist: {
@@ -248,7 +248,7 @@ describe('<Checklist> component without created or deleted travel checklist item
     ...props,
     modalType: '',
     checklistItems: [],
-    deletedChecklistItems: [],
+    deletedCheckListItems: [],
   };
 
   const store = mockStore(secondaryInitialState);

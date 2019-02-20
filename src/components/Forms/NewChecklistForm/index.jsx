@@ -34,7 +34,7 @@ export default class NewChecklistForm extends PureComponent {
   componentDidMount() {
     this.handleBlanksOnEditing();
   }
-  
+
   handleCancel = () => {
     const { closeModal } = this.props;
     this.setState({ ...this.defaultState });
@@ -94,11 +94,14 @@ export default class NewChecklistForm extends PureComponent {
       });
     }
   }
-  
+
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { modalType } = this.props;
-
+    const {
+      modalType,
+      creatingChecklist,
+      updatingChecklist
+    } = this.props;
     return (
       <FormContext values={values} targetForm={this} errors={errors} validatorName="validate">
         <form onSubmit={this.handleSubmit} className="new-request">
@@ -109,6 +112,7 @@ export default class NewChecklistForm extends PureComponent {
           />
           <hr />
           <SubmitArea
+            isCreating={creatingChecklist || updatingChecklist}
             onCancel={this.handleCancel}
             hasBlankFields={hasBlankFields}
             send={modalType === 'edit cheklistItem' ? 'Save Item' : 'Add Item'}
@@ -126,9 +130,13 @@ NewChecklistForm.propTypes = {
   updateTravelChecklist: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   checklistItem: PropTypes.object,
+  creatingChecklist: PropTypes.bool,
+  updatingChecklist: PropTypes.bool,
 };
 
 NewChecklistForm.defaultProps = {
   checklistItem: null,
-  modalType: null
+  modalType: null,
+  creatingChecklist: false,
+  updatingChecklist: false
 };

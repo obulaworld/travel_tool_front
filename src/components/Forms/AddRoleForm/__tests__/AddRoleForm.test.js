@@ -125,10 +125,9 @@ describe('<AddRoleForm />', () => {
     });
   });
 
-  it('displays status text when role is being added', () => {
+  it('displays button with loading icon when role is being added', () => {
     const props = propsFactory({ addingRole : true });
     const wrapper = mount(<AddRoleForm {...props} />);
-    const statusText= wrapper.find('h5#add-role-status');
-    expect(statusText.text()).toEqual('Adding role...');
+    expect(wrapper.find('ButtonLoadingIcon').prop('isLoading')).toEqual(true);
   });
 });
