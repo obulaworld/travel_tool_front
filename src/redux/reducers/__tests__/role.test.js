@@ -261,7 +261,8 @@ describe('Role Reducer', () => {
       };
       expect(roleReducer(initialState, action)).toEqual({
         isAddingRole: false,
-        addRoleError: 'An error occurred',
+        error: 'An error occurred',
+        roles: []
       });
     });
   });

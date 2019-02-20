@@ -104,8 +104,9 @@ const role = (state = initialState, action) => {
     };
   case ADD_ROLE_FAILURE:
     return {
+      ...state,
       isAddingRole: false,
-      addRoleError: action.error
+      error: action.error
     };
   case UPDATE_ROLE:
     return { ...state, isLoading: true };
