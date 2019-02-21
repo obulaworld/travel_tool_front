@@ -141,11 +141,11 @@ describe('<VerificationsPage>', () => {
       expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1&status=approved');
     });
 
-    it('it filters Verifications by status=past', () => {
-      const openButton = wrapper.find('#past-button');
-      openButton.simulate('click');
-      expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1&status=verified');
-    });
+    // it('it filters Verifications by status=past', () => {
+    //   const openButton = wrapper.find('#past-button');
+    //   openButton.simulate('click');
+    //   expect(props.history.push).toHaveBeenCalledWith('/requests/my-verifications?page=1&status=verified');
+    // });
 
     it('it fetches all Verifications by clicking all', () => {
       const openButton = wrapper.find('#all-button');
