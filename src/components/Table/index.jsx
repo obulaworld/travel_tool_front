@@ -131,14 +131,18 @@ export class Table extends Component {
           >
             {request.status}
           </div>
-          <TableMenu
-            deleteRequest={deleteRequest} editRequest={editRequest}
-            showTravelChecklist={showTravelChecklist} closeModal={closeModal}
-            uploadTripSubmissions={uploadTripSubmissions}
-            requestStatus={request.status} type={type} modalType={modalType}
-            menuOpen={menuOpen} request={request} openModal={openModal}
-            toggleMenu={this.toggleMenu} shouldOpen={shouldOpen}
-          />
+          {
+            type !== 'approvals' && (
+              <TableMenu
+                deleteRequest={deleteRequest} editRequest={editRequest}
+                showTravelChecklist={showTravelChecklist} closeModal={closeModal}
+                uploadTripSubmissions={uploadTripSubmissions}
+                requestStatus={request.status} type={type} modalType={modalType}
+                menuOpen={menuOpen} request={request} openModal={openModal}
+                toggleMenu={this.toggleMenu} shouldOpen={shouldOpen}
+              />
+            )
+          }
         </div>
       </div>
     );

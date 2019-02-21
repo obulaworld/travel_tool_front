@@ -20,6 +20,7 @@ import updateUserProfile from '../../redux/actionCreator/userProfileActions';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
+import {fetchCenters} from '../../redux/actionCreator/centersActions';
 
 export class Home extends Component {
   constructor(props) {
@@ -34,10 +35,10 @@ export class Home extends Component {
 
   componentDidMount() {
     const { url } = this.state;
-    const { fetchUserRequests, fetchRoleUsers, getOccupation } = this.props;
+    const { fetchUserRequests, fetchRoleUsers, fetchCenters } = this.props;
     fetchUserRequests(url);
     fetchRoleUsers(53019);
-    getOccupation();
+    fetchCenters();
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -59,17 +60,17 @@ export class Home extends Component {
     const { openModal } = this.props;
 
     openModal(true, 'new request');
-  }
+  };
 
   renderNewRequestForm() {
     const {
-      updateUserProfile, userData,
-      user, createNewRequest,
-      errors, closeModal, shouldOpen,
-      modalType, roleUsers, requestOnEdit, editRequest,
-      fetchUserRequests, occupations,
+      updateUserProfile, userData, user, createNewRequest,
+      loading, errors, closeModal, shouldOpen, modalType,
+      roleUsers, requestOnEdit, editRequest, fetchUserRequests,
+      fetchPostUserData, creatingRequest, centers,
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess
     } = this.props;
+    const { result: { location }} = userData;
     const { url } = this.state;
     return (
       <Modal
@@ -81,14 +82,14 @@ export class Home extends Component {
         title="New Travel Request"
       >
         <NewRequestForm
-          updateUserProfile={updateUserProfile} user={user} errors={errors}
-          userData={userData && userData.result} occupations={occupations}
-          handleCreateRequest={createNewRequest}
-          handleEditRequest={editRequest} closeModal={closeModal}
-          managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
-          requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
-          fetchAvailableRooms={fetchAvailableRooms}
+          availableRooms={availableRooms} centers={centers && centers.centers}
+          closeModal={closeModal} creatingRequest={creatingRequest} errors={errors}
+          loading={loading} fetchAvailableRooms={fetchAvailableRooms}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
+          fetchUserRequests={() => fetchUserRequests(url)} handleCreateRequest={createNewRequest}
+          handleEditRequest={editRequest} managers={roleUsers} modalType={modalType}
+          requestOnEdit={{...requestOnEdit, location}} updateUserProfile={updateUserProfile}
+          user={user} userData={userData && userData.result} userDataUpdate={fetchPostUserData}
         />
       </Modal>
     );
@@ -116,77 +117,88 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = ({requests, user, role, availableRooms, occupations, modal, teammates}) => ({
+const mapStateToProps = ({
+  requests, user, role, availableRooms,
+  occupations, modal, teammates, centers
+}) => ({
   ...requests,
   ...role,
   ...occupations,
   ...modal.modal,
+  centers,
   teammates: teammates,
   isFetching: requests.isLoading,
   userData: user.getUserData,
   availableRooms,
+  fetchPostUserData: user.postUserData,
   department: user.currentUser.department
 });
 
 const actionCreators = {
-  fetchUserRequests,
-  updateUserProfile,
+  closeModal,
   createNewRequest,
   editRequest,
-  openModal,
   fetchAvailableRooms,
   fetchAvailableRoomsSuccess,
-  closeModal,
-  fetchTeammates,
+  fetchCenters,
   fetchRoleUsers,
+  fetchTeammates,
+  fetchUserRequests,
   getOccupation,
+  openModal,
+  updateUserProfile,
 };
 
 Home.propTypes = {
-  fetchUserRequests: PropTypes.func.isRequired,
-  updateUserProfile: PropTypes.func.isRequired,
-  createNewRequest: PropTypes.func.isRequired,
-  editRequest: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
-  fetchAvailableRooms: PropTypes.func.isRequired,
-  fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
+  availableRooms: PropTypes.object,
+  centers: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
-  fetchTeammates: PropTypes.func.isRequired,
-  fetchRoleUsers: PropTypes.func.isRequired,
-  getOccupation: PropTypes.func.isRequired,
-  requests: PropTypes.array,
-  isFetching: PropTypes.bool,
-  teammates: PropTypes.object,
-  userData: PropTypes.object,
+  createNewRequest: PropTypes.func.isRequired,
+  creatingRequest: PropTypes.bool,
+  department: PropTypes.string,
+  editRequest: PropTypes.func.isRequired,
   errors: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
   ]).isRequired,
-  shouldOpen: PropTypes.bool,
-  modalType: PropTypes.string,
-  roleUsers: PropTypes.array,
-  requestOnEdit: PropTypes.object,
-  occupations: PropTypes.array,
-  availableRooms: PropTypes.object,
+  fetchAvailableRooms: PropTypes.func.isRequired,
+  fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
+  fetchPostUserData: PropTypes.array,
+  fetchRoleUsers: PropTypes.func.isRequired,
+  fetchTeammates: PropTypes.func.isRequired,
+  fetchUserRequests: PropTypes.func.isRequired,
+  fetchCenters: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
   location: PropTypes.object,
-  department: PropTypes.string,
-  user: PropTypes.object
+  loading: PropTypes.bool.isRequired,
+  modalType: PropTypes.string,
+  openModal: PropTypes.func.isRequired,
+  requestOnEdit: PropTypes.object,
+  requests: PropTypes.array,
+  roleUsers: PropTypes.array,
+  shouldOpen: PropTypes.bool,
+  teammates: PropTypes.object,
+  updateUserProfile: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  userData: PropTypes.object,
 };
 
 Home.defaultProps = {
-  requests: [],
-  teammates: {},
-  userData: {},
-  shouldOpen: true,
-  modalType: '',
-  roleUsers: [],
-  requestOnEdit: {},
-  occupations: [],
   availableRooms: {},
-  location: { url: '' },
-  user: {},
+  centers: {},
+  creatingRequest: false,
   department: '',
-  isFetching: false
+  fetchPostUserData: [],
+  isFetching: false,
+  location: { url: '' },
+  modalType: '',
+  requestOnEdit: {},
+  requests: [],
+  roleUsers: [],
+  shouldOpen: true,
+  teammates: {},
+  user: {},
+  userData: {},
 };
 
 export default connect(mapStateToProps, actionCreators)(Home);

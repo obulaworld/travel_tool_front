@@ -6,6 +6,8 @@ import configureStore from 'redux-mock-store';
 
 import ConnectedHome, { Home } from '..';
 
+process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
+
 const initialState = {
   payload: [],
   error: '',
@@ -37,6 +39,11 @@ beforeEach(() => {
       search: '?location'
     },
     user: {},
+    userData: {
+      result: {
+        location: 'Nairobi Kenya'
+      }
+    },
     creatingRequest: false,
     availableRooms: {},
     requestOnEdit: {},
@@ -45,6 +52,17 @@ beforeEach(() => {
     fetchUserRequests: jest.fn(),
     occupations: [],
     updateUserProfile: jest.fn(),
+    errors: {},
+    centers: {
+      centers: [
+        {
+          location: 'Nairobi, Kenya',
+        },
+        {
+          location: 'Lagos, Nigeria'
+        }
+      ]
+    },
     createNewRequest: jest.fn(),
     editRequest: jest.fn(),
     openModal: jest.fn(),
@@ -52,9 +70,9 @@ beforeEach(() => {
     fetchAvailableRoomsSuccess: jest.fn(),
     closeModal: jest.fn(),
     fetchRoleUsers: jest.fn(),
-    getOccupation: jest.fn(),
     loading: false,
-    isFetching: false
+    isFetching: false,
+    fetchCenters: jest.fn()
   };
 });
 
@@ -81,7 +99,6 @@ describe('<Home />', () => {
     expect(props.fetchTeammates).toHaveBeenCalled();
     expect(props.fetchUserRequests).toHaveBeenCalled();
     expect(props.fetchRoleUsers).toHaveBeenCalled();
-    expect(props.getOccupation).toHaveBeenCalled();
     expect(wrapper.instance().state.department).toBe('Success');
   });
 
@@ -96,5 +113,16 @@ describe('<Home />', () => {
     });
     expect(props.fetchTeammates).toHaveBeenCalled();
     expect(wrapper.instance().state.department).toBe('TDD');
+  });
+
+  it('should populate the location on the new request dialog', () => {
+    wrapper = mount(
+      <MemoryRouter>
+        <Home {...props} modalType="new request" shouldOpen />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find('DropdownSelect[name="location"]')
+      .props().value).toEqual('Nairobi Kenya');
   });
 });

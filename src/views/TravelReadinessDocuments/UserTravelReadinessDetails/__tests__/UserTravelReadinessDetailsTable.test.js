@@ -142,4 +142,21 @@ describe('UserTravelReadinessDetailsTable', () => {
     expect(wrapper.find('.table__container')).toBeTruthy();
   });
 
+  it('should not display the ellipsis if the viewType is for the document verifier', () => {
+    const documents = [ 'passport', 'visa', 'other'];
+    documents.forEach((activeDocument) => {
+      const props = {
+        ...defaultProps,
+        passports,
+        visas,
+        viewType: 'verifier',
+        others: otherDocuments,
+        activeDocument,
+      };
+
+      const wrapper = shallow(<UserTravelReadinessDetailsTable {...props} />);
+      expect(wrapper.find('TableMenu').length).toEqual(0);
+    });
+  });
+
 });

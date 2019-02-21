@@ -83,7 +83,21 @@ class UserTravelReadinessDetails extends Component {
             )
           }
         </div>
-        <TravelReadinessDetailsTable location={location} closeModal={closeModal} shouldOpen={shouldOpen} modalType={modalType} isLoading={isLoading} activeDocument={activeDocument} passports={passport} visas={visa} others={other} handleShowDocument={this.showDocumentDetail} documentId={documentId} userData={userReadiness} />
+        <TravelReadinessDetailsTable
+          activeDocument={activeDocument}
+          closeModal={closeModal}
+          documentId={documentId}
+          handleShowDocument={this.showDocumentDetail}
+          isLoading={isLoading}
+          location={location}
+          modalType={modalType}
+          others={other}
+          viewType="verifier"
+          passports={passport}
+          shouldOpen={shouldOpen}
+          userData={userReadiness}
+          visas={visa}
+        />
       </Fragment>
     );
   }
