@@ -14,7 +14,8 @@ export class Verifications extends Base {
     clickPage: true,
     activeStatus: Utils.getActiveStatus(this.props.location.search),
     searchQuery:  this.props.location.search,
-    requestId: ''
+    requestId: '',
+    requestData: {},
   }
 
   componentDidMount () {
@@ -22,11 +23,15 @@ export class Verifications extends Base {
     const { searchQuery } = this.state;
     const prefix = (searchQuery.indexOf('?') < 0) ? '?' : '&';
     fetchUserApprovals(`${searchQuery}${prefix}verified=true`);
-    
+
     if(requestId){
       this.storeRequestIdApproval(requestId);
       openModal(true, 'request details', page);
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({requestData: nextProps.requests.requestData});
   }
 
   storeRequestIdApproval = (requestId)=> {
@@ -36,9 +41,8 @@ export class Verifications extends Base {
   renderApprovalsTable(){
     const { approvals, history, location, openModal, closeModal,
       shouldOpen, modalType, submissionInfo } = this.props;
-    const {requestId} = this.state;
-    const requestData = approvals.approvals ? 
-      approvals.approvals.filter(approval => (approval.id === requestId))[0] : {};
+    const {requestId, requestData } = this.state;
+
     return(
       <WithLoadingTable
         requests={approvals.approvals}
@@ -61,7 +65,7 @@ export class Verifications extends Base {
   }
 
   fetchFilteredApprovals = (query) => {
-    const { history, location, fetchUserApprovals } = this.props;
+    const { history, fetchUserApprovals } = this.props;
     const prefix = (query.indexOf('?') < 0) ? '?' : '&';
     history.push(`/requests/my-verifications${query}`);
     fetchUserApprovals(`${query}${prefix}verified=true`);
@@ -104,9 +108,10 @@ export class Verifications extends Base {
       </div>
     );
   }
-  
+
   render() {
-    const { approvals, getCurrentUserRole, history, match } = this.props;
+    const { approvals, getCurrentUserRole, history } = this.props;
+
     const { isLoading } = approvals;
     if (!isLoading && getCurrentUserRole.length > 0) {
       const allowedRoles = ['Travel Administrator', 'Super Administrator', 'Travel Team Member'];
@@ -128,7 +133,8 @@ const mapStateToProps = (state) => ({
   approvals: state.approvals,
   ...state.modal.modal,
   submissionInfo: state.submissions,
-  getCurrentUserRole: state.user.getCurrentUserRole
+  getCurrentUserRole: state.user.getCurrentUserRole,
+  requests: state.requests
 });
 
 const actionCreators = {
