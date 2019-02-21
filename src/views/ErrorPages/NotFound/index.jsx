@@ -27,9 +27,13 @@ class NotFound extends Component {
     );
   }
 }
+
 NotFound.propTypes = {
   redirectLink: PropTypes.string,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ])
 };
 
 NotFound.defaultProps = {

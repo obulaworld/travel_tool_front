@@ -256,7 +256,10 @@ RequestDetailsModal.propTypes = {
   navigatedPage: PropTypes.string,
   email:PropTypes.object,
   updateError: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string
+  ]),
   redirectLink:PropTypes.string.isRequired
 };
 
