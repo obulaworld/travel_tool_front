@@ -1,0 +1,53 @@
+.modal{
+  &--view-reason {
+    top: 22%;
+    position: absolute;
+    height: 420px;
+  }
+}
+
+.bg-btn--reason{
+  float: right;
+  margin-right: 0;
+}
+
+.reason-details{
+  .preloader {
+    height: 200px;
+  }
+  .spinner {
+    position: unset;
+    display: flex;
+    align-self: center;
+  }
+  .input-group.reason-details{
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    label span {
+      display: none;
+    }
+    .title-input{
+      cursor: text;
+      input {
+        border:none;
+        background-color: #F6F6F6;
+      }
+    }
+
+    .description-input{
+      height: 131px;
+      cursor: text;
+      textarea, textarea:hover {
+        border: none;
+        background-color: #F6F6F6;
+      }
+    }
+  }
+
+  .form-input {
+    width: 100%;
+  }
+}

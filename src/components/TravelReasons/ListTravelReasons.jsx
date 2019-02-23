@@ -2,7 +2,6 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import LoadingTravelReasonsTable from './TravelReasonsTable';
 import TemplatesPagination from '../ReminderSetup/TemplatesPagination';
-import NoTemplates from '../ReminderSetup/NoTemplates';
 
 class ListTravelReasons extends Component {
   componentDidMount() {
@@ -31,27 +30,48 @@ class ListTravelReasons extends Component {
   };
 
   render(){
-    const { listTravelReasons: {travelReasons, pagination} } = this.props;
+    const {
+      listTravelReasons: { travelReasons, pagination, isLoading, reasonDetails, isFetching },
+      renderDisplayTravelReasonDetails,
+      shouldOpen,
+      closeModal,
+      modalType,
+    } = this.props;
     const { currentPage,  pageCount } = pagination;
     return (
-      travelReasons && travelReasons.length > 0?
-        (
-          <Fragment>
-            <LoadingTravelReasonsTable
-              reasons={travelReasons}
-            />
-            {this.Pagination(currentPage, pageCount, this.onPageChange)}
-          </Fragment>
-        )
-        : <NoTemplates message="No Travel Reasons have been created" />
+      <Fragment>
+        <LoadingTravelReasonsTable
+          reasons={travelReasons}
+          isLoading={isLoading}
+          shouldOpen={shouldOpen}
+          closeModal={closeModal}
+          modalType={modalType}
+          reasonDetails={reasonDetails}
+          isFetching={isFetching}
+          renderDisplayTravelReasonDetails={renderDisplayTravelReasonDetails}
+        />
+        {!isLoading && pageCount === 0 ? null : this.Pagination(currentPage, pageCount, this.onPageChange)}
+      </Fragment>
     );
   }
 }
 
 ListTravelReasons.propTypes = {
-  fetchAllTravelReasonsAction: PropTypes.func.isRequired,
+  fetchAllTravelReasonsAction: PropTypes.func,
   listTravelReasons: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  renderDisplayTravelReasonDetails: PropTypes.func,
+  shouldOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
+  modalType: PropTypes.string,
+};
+
+ListTravelReasons.defaultProps = {
+  renderDisplayTravelReasonDetails: null,
+  shouldOpen: false,
+  closeModal: null,
+  fetchAllTravelReasonsAction: null,
+  modalType: '',
 };
 
 export default ListTravelReasons;

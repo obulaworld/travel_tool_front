@@ -4,16 +4,21 @@ import {
   CREATE_TRAVEL_REASON_FAILURE,
   FETCH_ALL_TRAVEL_REASONS,
   FETCH_ALL_TRAVEL_REASONS_FAILURE,
-  FETCH_ALL_TRAVEL_REASONS_SUCCESS
+  FETCH_ALL_TRAVEL_REASONS_SUCCESS,
+  VIEW_TRAVEL_REASON_DETAILS,
+  VIEW_TRAVEL_REASON_DETAILS_SUCCESS,
+  VIEW_TRAVEL_REASON_DETAILS_FAILURE
 } from '../constants/actionTypes';
 
 export const initialState = {
   newReason: {},
   isCreating: false,
+  isFetching: false,
   errors: {},
   travelReasons: [],
   pagination: {},
-  isLoading: false
+  isLoading: false,
+  reasonDetails: {}
 };
 
 const travelReason = (state = initialState, action) => {
@@ -37,6 +42,14 @@ const travelReason = (state = initialState, action) => {
     };
   case FETCH_ALL_TRAVEL_REASONS_FAILURE:
     return { ...state, errors: action.errors, isLoading: false };
+  case VIEW_TRAVEL_REASON_DETAILS: { return { ...state, isFetching: true, errors: {} }; }
+  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS: {
+    return {
+      ...state, isFetching: false, reasonDetails: { ...action.response.travelReason }, errors: {}
+    };}
+  case VIEW_TRAVEL_REASON_DETAILS_FAILURE: {
+    return { ...state, isFetching: false, errors: action.error };
+  }
   default: return state;
   }
 };

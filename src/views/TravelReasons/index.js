@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import PageHeader from '../../components/PageHeader';
 import CreateTravelReasonModal from '../../components/TravelReasonsModal/TravelReasonsModal';
-import { createTravelReason } from '../../redux/actionCreator/travelReasonsActions';
+import { createTravelReason, viewTravelDetails } from '../../redux/actionCreator/travelReasonsActions';
 import ListTravelReasons from '../../components/TravelReasons/ListTravelReasons';
 import { fetchAllTravelReasons } from '../../redux/actionCreator/listTravelReasonsActions';
 
@@ -12,6 +12,12 @@ export class TravelReasons extends Component {
   renderCreateTravelReasonModal = () => {
     const { openModal } = this.props;
     openModal(true, 'create travel reasons');
+  };
+
+  renderDisplayTravelReasonDetails = (id) => {
+    const { openModal, viewTravelDetails } = this.props;
+    viewTravelDetails(id);
+    openModal(true, `view travel reason details-${id}`);
   };
 
   createNewTravelReason = (body) => {
@@ -26,14 +32,15 @@ export class TravelReasons extends Component {
       closeModal,
       shouldOpen,
       modalType,
-      travelReason
+      travelReason, travelReason: { isLoading }
     } = this.props;
+
     return (
       <Fragment>
         <div className="reasons-header">
           <PageHeader
-            title="MANAGE TRAVEL REASONS"
-            actionBtn="Add Reason"
+            title="TRAVEL REASONS"
+            actionBtn={isLoading ? '' : 'ADD REASON'}
             actionBtnClickHandler={this.renderCreateTravelReasonModal}
           />
         </div>
@@ -48,6 +55,10 @@ export class TravelReasons extends Component {
           listTravelReasons={travelReason}
           fetchAllTravelReasonsAction={fetchAllTravelReasonsAction}
           location={location}
+          shouldOpen={shouldOpen}
+          closeModal={closeModal}
+          modalType={modalType}
+          renderDisplayTravelReasonDetails={this.renderDisplayTravelReasonDetails}
         />
       </Fragment>
     );
@@ -59,6 +70,7 @@ TravelReasons.propTypes = {
   closeModal: PropTypes.func,
   shouldOpen: PropTypes.bool,
   modalType: PropTypes.string,
+  viewTravelDetails: PropTypes.func,
   createTravelReason: PropTypes.func,
   travelReason: PropTypes.object,
   fetchAllTravelReasonsAction: PropTypes.func.isRequired,
@@ -69,10 +81,11 @@ TravelReasons.propTypes = {
 TravelReasons.defaultProps = {
   openModal: null,
   closeModal: null,
-  modalType: '',
   createTravelReason: null,
+  viewTravelDetails: null,
   travelReason: {},
   shouldOpen: false,
+  modalType: '',
   history: {
     push: () => {}
   }
@@ -87,6 +100,7 @@ const actionCreators = {
   openModal,
   closeModal,
   createTravelReason,
+  viewTravelDetails,
   fetchAllTravelReasonsAction: fetchAllTravelReasons
 };
 

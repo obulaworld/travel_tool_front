@@ -32,4 +32,16 @@ describe('TravelReasonsAPI', () => {
     expect(request.url).toEqual(`${baseUrl}/request/reasons`);
     expect(response.status).toEqual(201);
   });
+
+  it('sends a request to the API to retrieve a travel reason\'s details', async () => {
+    const id = 1;
+
+    moxios.stubRequest(`${baseUrl}/request/reasons/${id}`, { status: 200 });
+
+    const response = await TravelReasonsAPI.viewTravelReasonDetails(id);
+    const request = (moxios.requests.mostRecent());
+
+    expect(request.url).toEqual(`${baseUrl}/request/reasons/${id}`);
+    expect(response.status).toEqual(200);
+  });
 });

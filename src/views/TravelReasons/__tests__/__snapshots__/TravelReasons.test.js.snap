@@ -12,7 +12,7 @@ Array [
             <span
                 className="title"
             >
-                Travel Reasons
+                TRAVEL REASONS
             </span>
         </div>
         <div>
@@ -21,130 +21,94 @@ Array [
                 onClick={[Function]}
                 type="button"
             >
-                Add Reason
-            </button>
-        </div>
-    </div>
-</div>,
-  Array [
-    <div
-      className="list-reasons"
->
-      <div
-            className="table__container"
-      >
-            <table
-                  className="mdl-data-table mdl-js-data-table readiness-table"
-            >
-                  <thead>
-                        <tr>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head"
-                              >
-                                    Reason
-                              </th>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-                              >
-                                    <span />
-                              </th>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-                              >
-                                    Created By
-                              </th>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
-                              >
-                                    <span />
-                              </th>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head"
-                              >
-                                    Created On
-                              </th>
-                              <th
-                                    className="mdl-data-table__cell--non-numeric table__head"
-                              />
-                        </tr>
-                  </thead>
-                  <tbody
-                        className="table__body"
-                  >
-                        <tr
-                              className="table__rows"
-                        >
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
-                              >
-                                    Annual off-site
-                              </td>
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data"
-                              />
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data"
-                              >
-                                    Kevin Koech
-                              </td>
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data"
-                              />
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data"
-                              >
-                                    18-01-2019
-                              </td>
-                              <td
-                                    className="mdl-data-table__cell--non-numeric table__data"
-                              >
-                                    <i
-                                          className="fa fa-ellipsis-v on"
-                                          id="toggleIcon"
-                                          role="presentation"
-                                    />
-                              </td>
-                        </tr>
-                  </tbody>
-            </table>
-      </div>
-</div>,
-    <div
-        className="PageHeader"
-    >
-        <div>
-            <span
-                className="title"
-            >
-                MANAGE TRAVEL REASONS
-            </span>
-        </div>
-        <div>
-            <button
-                className="action-btn btn-new-request"
-                onClick={[Function]}
-                type="button"
-            >
-                Add Reason
+                ADD REASON
             </button>
         </div>
     </div>
 </div>,
   "",
-  <div
-    className="no-templates list-templates"
->
+  Array [
     <div
-        className="content"
-    >
-        <img
-            alt=""
-            src="no-document.svg"
-        />
-        <p>
-            No Travel Reasons have been created
-        </p>
-    </div>
+      className="no-templates list-templates"
+>
+      <div
+            className="content"
+      >
+            <img
+                  alt=""
+                  src="no-document.svg"
+            />
+            <p>
+                  No Travel Reasons have been created
+            </p>
+      </div>
 </div>,
+    <div
+      className="reminder-email-templates"
+>
+      <div
+            className="pagination"
+      >
+            <button
+                  className="pagination__button"
+                  disabled={false}
+                  id="previous-button"
+                  onClick={[Function]}
+                  type="button"
+            >
+                  <span
+                        className=""
+                  >
+                        Previous
+                  </span>
+                  <span
+                        className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+                  >
+                        Previous
+                  </span>
+            </button>
+            <div
+                  className="pagination__items"
+            >
+                  <span
+                        className="pagination__page"
+                  >
+                        Page
+                  </span>
+                  <div
+                        className="pagination__current-page"
+                        id="current-page"
+                  >
+                        3
+                  </div>
+                  of
+                  <span
+                        className="pagination__all-pages"
+                        id="page-count"
+                  >
+                        3
+                  </span>
+            </div>
+            <button
+                  className="pagination__button"
+                  disabled={true}
+                  id="next-button"
+                  onClick={[Function]}
+                  type="button"
+            >
+                  <span
+                        className=""
+                  >
+                        Next
+                  </span>
+                  <span
+                        className=" mdl-cell--hide-desktop mdl-cell--hide-tablet"
+                  >
+                        Next
+                  </span>
+            </button>
+      </div>
+</div>,
+  ],
 ]
 `;

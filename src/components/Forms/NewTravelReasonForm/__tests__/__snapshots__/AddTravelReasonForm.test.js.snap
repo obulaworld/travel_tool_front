@@ -57,6 +57,7 @@ exports[`<AddTravelReason /> renders without crashing 1`] = `
         <textarea
           autoComplete="off"
           className=" textarea-box "
+          data-gramm_editor="false"
           label="Description"
           name="description"
           onBlur={[Function]}

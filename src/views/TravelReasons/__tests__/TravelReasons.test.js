@@ -11,10 +11,18 @@ describe('<ConnectedTravelReasons />', () => {
   const props = {
     fetchAllTravelReasonsAction: jest.fn(),
     createTravelReason: jest.fn(),
+    viewTravelDetails: jest.fn(),
+    openModal: jest.fn(),
+    closeModal: jest.fn(),
+    shouldOpen: false,
+    modalType: '',
     travelReason: {
       pagination
     },
     location: {},
+    history: {
+      push: jest.fn()
+    },
     modal: {
       modal: {
         modal: {

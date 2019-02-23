@@ -8,9 +8,12 @@ class TravelReasonsAPI {
     return axios.get(`${baseUrl}/request/reasons${query}`);
   }
 
-
   static createTravelReasons(query) {
     return axios.post(`${baseUrl}/request/reasons`, query);
+  }
+
+  static viewTravelReasonDetails(id) {
+    return axios.get(`${baseUrl}/request/reasons/${id}`);
   }
 }
 

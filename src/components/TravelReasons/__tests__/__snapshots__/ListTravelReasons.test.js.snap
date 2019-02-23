@@ -52,7 +52,13 @@ Array [
                     <td
                         className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
                     >
-                        Annual off-site
+                        <span
+                            className="document-name"
+                            onClick={[Function]}
+                            role="presentation"
+                        >
+                            Annual off-site
+                        </span>
                     </td>
                     <td
                         className="mdl-data-table__cell--non-numeric table__data"
