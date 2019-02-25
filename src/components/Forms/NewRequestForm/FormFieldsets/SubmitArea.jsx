@@ -38,7 +38,7 @@ class SubmitArea extends Component{
       return(
         <fieldset className="submit__area-border">
           <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
-            {send==='Next' && this.commentSession() }
+            { send==='Next' && this.commentSession() }
             { onCancel ? (modalType === 'edit accomodation' ? (
               <button
                 type="button"

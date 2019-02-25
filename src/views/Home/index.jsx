@@ -7,8 +7,6 @@ import { fetchTeammates } from '../../redux/actionCreator/homeActions';
 import GetStarted from '../../components/GetStated';
 import Teammates from '../../components/Teammates';
 import HomeRequests from '../../components/HomeRequests';
-import Modal from '../../components/modal/Modal';
-import { NewRequestForm } from '../../components/Forms';
 
 import {
   fetchAvailableRooms, fetchAvailableRoomsSuccess
@@ -17,7 +15,6 @@ import {
   fetchUserRequests, createNewRequest, editRequest,
 } from '../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../redux/actionCreator/userProfileActions';
-import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../redux/actionCreator/occupationActions';
 
@@ -55,11 +52,6 @@ export class Home extends Component {
     return null;
   }
 
-  handleOpenModal = () => {
-    const { openModal } = this.props;
-
-    openModal(true, 'new request');
-  }
 
   render() {
     const { requests, isFetching, teammates } = this.props;
@@ -81,11 +73,10 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = ({requests, user, role, availableRooms, occupations, modal, teammates}) => ({
+const mapStateToProps = ({requests, user, role, availableRooms, occupations, teammates}) => ({
   ...requests,
   ...role,
   ...occupations,
-  ...modal.modal,
   teammates: teammates,
   isFetching: requests.isLoading,
   userData: user.getUserData,
@@ -98,10 +89,8 @@ const actionCreators = {
   updateUserProfile,
   createNewRequest,
   editRequest,
-  openModal,
   fetchAvailableRooms,
   fetchAvailableRoomsSuccess,
-  closeModal,
   fetchTeammates,
   fetchRoleUsers,
   getOccupation,
@@ -109,7 +98,6 @@ const actionCreators = {
 
 Home.propTypes = {
   fetchUserRequests: PropTypes.func.isRequired,
-  openModal: PropTypes.func.isRequired,
   fetchAvailableRooms: PropTypes.func.isRequired,
   fetchTeammates: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,

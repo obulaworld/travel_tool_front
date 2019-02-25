@@ -752,7 +752,7 @@ describe('<NewRequestForm />', () => {
     const event = {
       preventDefault: jest.fn(),
       target: {
-        name: 'Name',
+        name: 'Next',
       }
     };
     nextButton.simulate('click', event);
@@ -769,7 +769,7 @@ describe('<NewRequestForm />', () => {
     const event = {
       preventDefault: jest.fn(),
       target: {
-        name: 'Name',
+        name: 'Next',
       }
     };
     nextButton.simulate('click', event);
@@ -815,6 +815,13 @@ describe('<NewRequestForm />', () => {
     });
 
 
+  });
+  it('should return null when user clicks others', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 2
+    });
+    expect(shallowWrapper.instance().handleReasonsId('Other..')).toEqual(null);
   });
 
 });

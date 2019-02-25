@@ -45,6 +45,12 @@ class TravelDetailsFieldset extends Component {
           id="oneWay"
           defaultChecked={selection === 'oneWay'}
         />
+        <RadioButton
+          name="Return Trip"
+          value="return"
+          id="return"
+          defaultChecked={selection === 'return'}
+        />
       </div>
     );
   };

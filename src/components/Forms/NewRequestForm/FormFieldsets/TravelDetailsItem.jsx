@@ -326,7 +326,9 @@ class TravelDetailsItem extends Component {
      let reasonsLimit =  this.reasonsWarningColor(charLength, 140);
 
      return (
-       <div className="other__reason" onChange={typedReason => handleReason(typedReason.target.value, itemId, 'other')}>
+       <div
+         className="other__reason" onChange={typedReason => 
+           handleReason(typedReason.target.value, itemId, 'other')}>
          { reason === 'Other..' ? (
            <Fragment>
              { renderInput(`otherReasons-${itemId}`, 'textarea', {

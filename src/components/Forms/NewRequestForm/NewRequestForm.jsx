@@ -88,7 +88,7 @@ class NewRequestForm extends PureComponent {
       hasBlankFields: true,
       sameOriginDestination: true,
       checkBox: 'notClicked',
-      selection: 'oneWay',
+      selection: 'return',
       collapse: false,
       title: 'Hide Details',
       position: 'none',

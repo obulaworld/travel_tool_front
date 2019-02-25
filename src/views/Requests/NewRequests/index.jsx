@@ -63,7 +63,8 @@ export class NewRequests extends Base {
   }
 }
 
-export const mapStateToProps = ({requests, user, role, availableRooms, occupations, modal, teammates, travelReason: listTravelReasons}) => ({
+export const mapStateToProps = ({ requests, user, role, availableRooms, occupations, 
+  teammates, travelReason: listTravelReasons}) => ({
   ...requests,
   ...role,
   ...occupations,

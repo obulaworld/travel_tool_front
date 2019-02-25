@@ -24,7 +24,7 @@ const requestOnEdit = {
   role: 'Learning Facilitator'
 };
 
-const props = {
+let props = {
   itemId: 0,
   selection: 'multi',
   addNewTrip: jest.fn(),
