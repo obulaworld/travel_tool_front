@@ -6,7 +6,7 @@ import DataRow from '../DataRow';
 import './index.scss';
 // { renderRequests().map(item => <DataRow key={item.id} item={item} />) }
 
-const HomeRequests = ({ requests, isLoading, openModal }) => {
+const HomeRequests = ({ requests, isLoading }) => {
   const renderRequests = () => {
     let data;
     if(requests) {
@@ -53,9 +53,9 @@ const HomeRequests = ({ requests, isLoading, openModal }) => {
                 </div>
               </div>
             ) : (
-              <div className="centered-flex">
+              <div className="centered-flex home__new-request">
                 <p className="message">You haven’t made any requests</p>
-                <button type="button" onClick={openModal} className="new-request">New Request</button>
+                <Link className="blue-text" to="/requests/new-request">New Request</Link>
               </div>
             )
       }
@@ -66,7 +66,6 @@ const HomeRequests = ({ requests, isLoading, openModal }) => {
 HomeRequests.propTypes = {
   requests: PropTypes.array,
   isLoading: PropTypes.bool.isRequired,
-  openModal: PropTypes.func.isRequired,
 };
 
 HomeRequests.defaultProps = {

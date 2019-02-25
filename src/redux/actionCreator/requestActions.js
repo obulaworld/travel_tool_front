@@ -35,9 +35,10 @@ export const fetchUserRequestsFailure = error => ({
   error
 });
 
-export const createNewRequest = (requestData) => ({
+export const createNewRequest = (requestData, history) => ({
   type: CREATE_NEW_REQUEST,
   requestData,
+  history
 });
 
 export const createNewRequestSuccess = (newRequest) => ({

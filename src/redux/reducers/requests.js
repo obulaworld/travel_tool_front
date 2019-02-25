@@ -107,7 +107,6 @@ const requests = (state = initialState, action) => {
       ...state,
       creatingRequest: false,
       request: action.newRequest,
-      requests: [action.newRequest, ...state.requests],
       openRequestsCount: state.openRequestsCount + 1,
       errors: []
     };

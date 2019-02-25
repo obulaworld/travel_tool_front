@@ -8,13 +8,17 @@ import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
-import './NewRequestForm.scss';
+import RequestTabHeader from '../../RequestTab/RequestTabHead';
+import './NewRequestPage.scss';
+import tabIcons from '../../../images/icons/new-request-icons';
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
     this.setUp();
-    this.state = { ...this.defaultState };
+    this.state = { 
+      ...this.defaultState 
+    };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
@@ -37,6 +41,7 @@ class NewRequestForm extends PureComponent {
     // if manager in manager input box is not in database
     if (
       values.manager !== ''
+      && managerChoices === []
       && managerChoices.indexOf(values.manager) === -1
     ) this.setManagerError();
   }
@@ -53,7 +58,6 @@ class NewRequestForm extends PureComponent {
   componentWillUnmount() {
     const { fetchUserRequests, fetchAvailableRoomsSuccess } = this.props;
     fetchUserRequests();
-    this.handleClearForm();
     fetchAvailableRoomsSuccess({ beds: [] });
   }
 
@@ -68,7 +72,7 @@ class NewRequestForm extends PureComponent {
     const editTripsStateValues = isEdit ? this.getTrips(requestOnEdit) : {};
     const requestTrips = isEdit ? this.setTrips(requestOnEdit) : [{}];
     this.defaultState = {
-      optionalFields: ['bedId', 'arrivalDate-1'],
+      optionalFields: ['bedId', 'arrivalDate-1', 'arrivalDate-0'],
       values: {
         name: name,
         gender,
@@ -84,12 +88,19 @@ class NewRequestForm extends PureComponent {
       hasBlankFields: true,
       sameOriginDestination: true,
       checkBox: 'notClicked',
-      selection: 'return',
+      selection: 'oneWay',
       collapse: false,
       title: 'Hide Details',
       position: 'none',
       line: '1px solid #E4E4E4',
-      parentIds: 1
+      parentIds: 1,
+      steps:[
+        { id:1, name:'Personal Information', status:'You are currently here', icon: tabIcons.personal },
+        { id:2, name:'Trip Details', status:'', icon: tabIcons.tripDetails },
+        { id:3, name:'Travel Stipends', status:'', icon: tabIcons.stipend },
+        { id:4, name:'Travel Checklist', status:'', icon: tabIcons.checkList }
+      ],
+      currentTab: 1,
     };
   };
 
@@ -342,7 +353,9 @@ class NewRequestForm extends PureComponent {
     [`destination-${index}`]: '',
     [`arrivalDate-${index}`]: null,
     [`departureDate-${index}`]: valueObj && moment(valueObj.departureDate) || null,
-    [`bed-${index}`]: ''
+    [`reasons-${index}`]: '',
+    [`bed-${index}`]: '',
+    
   });
 
   refreshValues = (prevState, tripType) => {
@@ -376,7 +389,8 @@ class NewRequestForm extends PureComponent {
       requestOnEdit,
       updateUserProfile,
       userData,
-      user
+      user,
+      history
     } = this.props;
     const { values, selection, trips } = this.state;
     userData.name = userData.passportName;
@@ -403,7 +417,7 @@ class NewRequestForm extends PureComponent {
       handleEditRequest(requestOnEdit.id, data);
     }
     else {
-      handleCreateRequest(data);
+      handleCreateRequest(data, history);
     }
     const checkBoxState = localStorage.getItem('checkBox');
     if (checkBoxState === 'clicked') {
@@ -489,11 +503,6 @@ class NewRequestForm extends PureComponent {
     }, this.validate);
   };
 
-  handleClearForm = () => {
-    this.setState({ ...this.defaultState });
-    let { closeModal } = this.props;
-    closeModal(true, 'create request');
-  };
 
   collapsible = () => {
     const { collapse } = this.state;
@@ -514,9 +523,29 @@ class NewRequestForm extends PureComponent {
     }
   };
 
+  nextStep = (e) => {
+    e.preventDefault();
+    const {  steps, currentTab } = this.state;
+    const newSteps = steps;
+    const prev = steps[currentTab-1];
+    const next = steps[currentTab]; 
+    prev.status = '';
+    next.status = 'You are currently here';
+    this.setState({ 
+      steps: newSteps,
+      currentTab: currentTab + 1,
+    });
+
+  }
+
+  backToTripDetails = () => {
+    this.setState({ currentTab: 2 });
+  }
+
   renderPersonalDetailsFieldset = () => {
-    const { collapse, title, position, line, values } = this.state;
-    const { managers,centers } = this.props;
+    const { collapse, title, position, line, values,
+      hasBlankFields, errors } = this.state;
+    const { managers,creatingRequest } = this.props;
     return (
       <PersonalDetailsFieldset
         values={values}
@@ -527,9 +556,15 @@ class NewRequestForm extends PureComponent {
         title={title}
         position={position}
         line={line}
-        centers={centers}
         managers={managers}
         value="245px"
+        hasBlankFields={
+          !errors.manager
+            ? false : true
+        }
+        loading={creatingRequest}
+        send="Next"
+        completePersonalDetails={this.nextStep}
       />
     );
   };
@@ -552,6 +587,41 @@ class NewRequestForm extends PureComponent {
     });
   }
 
+  handleReason = (reason, tripIndex, other) => {
+    const fieldName = `reasons-${tripIndex}`;
+    this.setState(prevState => {
+      const { trips } = prevState;
+      if (trips[tripIndex]) {
+        if(other) {
+          trips[tripIndex].otherTravelReasons = reason;
+        } else {
+          trips[tripIndex].travelReasons = this.handleReasonsId(reason);
+          return {
+            ...prevState,
+            values: {
+              ...prevState.values,
+              [fieldName]: reason
+            },
+            trips
+          };
+        }
+      }
+    });
+  };
+
+  handleReasonsId(reason) {
+    const { listTravelReasons } = this.props;
+    if (reason === 'Other..') {
+      return null;
+    } else {
+      const foundReason = listTravelReasons.travelReasons.find((travelReason) => {
+        return travelReason.title === reason;
+      });
+      return foundReason.id;
+    }
+  }
+
+
   savePersonalDetails(personalDetails) {
     Object.keys(personalDetails).forEach( key => {
       localStorage.setItem(key, personalDetails[key]);
@@ -560,7 +630,8 @@ class NewRequestForm extends PureComponent {
 
   renderTravelDetailsFieldset = () => {
     const { selection, parentIds, values } = this.state;
-    const { fetchAvailableRooms, availableRooms, modalType, requestOnEdit } = this.props;
+    const { fetchAvailableRooms, availableRooms, 
+      modalType, requestOnEdit, listTravelReasons } = this.props;
     return (
       <TravelDetailsFieldset
         fetchAvailableRooms={fetchAvailableRooms}
@@ -568,6 +639,7 @@ class NewRequestForm extends PureComponent {
         value="232px"
         selection={selection}
         handleDate={this.onChangeDate}
+        handleReason={this.handleReason}
         handlePickBed={this.handlePickBed}
         handleRadioButtonChange={this.handleRadioButton}
         onChangeInput={this.onChangeInput}
@@ -577,12 +649,80 @@ class NewRequestForm extends PureComponent {
         availableRooms={availableRooms}
         modalType={modalType}
         requestOnEdit={requestOnEdit}
+        listTravelReasons={listTravelReasons}
       />
     );
   };
 
+  renderSubmitArea = (hasBlankFields, errors, sameOriginDestination, 
+    selection, creatingRequest, disableOnChangeProfile, modalType) => {
+    return (
+      <div className="trip__tab-body">
+        {this.renderTravelDetailsFieldset()}
+        <Script
+          url={process.env.REACT_APP_CITY}
+          onCreate={this.handleScriptCreate}
+          onError={this.handleScriptError}
+          onLoad={this.handleScriptLoad} />
+        <SubmitArea
+          hasBlankFields={
+            !hasBlankFields && !errors.manager
+              ? false : true
+          }
+          sameOriginDestination={sameOriginDestination}
+          selection={selection}
+          loading={creatingRequest}
+          disableOnChangeProfile={disableOnChangeProfile}
+          send={modalType === 'edit request' ? 'Update Request' : 'Next'} 
+          nextStep={this.nextStep}
+        />
+      </div>
+    );
+  }
+
+   renderTravelStipend = () => {
+     const { currentTab } = this.state;
+     return(
+       <div className="personal-rectangle">
+         <div>
+           <h1> Travel Stipends goes here...</h1> 
+         </div>
+         <div className="request-submit-area submit-area">
+           <button
+             onClick={e => this.nextStep(e)}
+             type="button"
+             className="bg-btn bg-btn--active" id="stipend-next">
+            Next
+           </button>
+         </div>
+       </div>
+     );
+   }
+  renderTravelCheckList =  ( hasBlankFields, errors, selection, creatingRequest) => {
+    return(
+      <div className="personal-rectangle">
+        <div>
+          <h1> Travel Checklist goes...</h1> 
+        </div>
+        <div className="request-submit-area submit-area">
+          <SubmitArea
+            hasBlankFields={
+              !hasBlankFields
+                ? false : true
+            }
+            onCancel={this.backToTripDetails}
+            selection={selection}
+            loading={creatingRequest}
+            send="Submit"
+          />
+        </div>
+      </div>
+    );
+  }
+
   renderForm = () => {
-    const { errors, values, hasBlankFields, selection, sameOriginDestination} = this.state;
+    const { errors, values, hasBlankFields, selection, 
+      sameOriginDestination, steps, currentTab} = this.state;
     const { modalType, creatingRequest } = this.props;
     const { requestOnEdit } = this.props;
     const { name, gender, department, role, manager } = requestOnEdit || {};
@@ -592,32 +732,28 @@ class NewRequestForm extends PureComponent {
       department === stateDepartment && role === stateRole && manager === stateManager)
       ? true : false;
     return (
-      <FormContext
-        targetForm={this}
-        values={values}
-        errors={errors}
-        validatorName="validate">
-        <form onSubmit={this.handleSubmit} className="new-request">
-          {this.renderPersonalDetailsFieldset()}
-          {this.renderTravelDetailsFieldset()}
-          <Script
-            url={process.env.REACT_APP_CITY}
-            onCreate={this.handleScriptCreate}
-            onError={this.handleScriptError}
-            onLoad={this.handleScriptLoad} />
-          <SubmitArea
-            onCancel={this.handleClearForm}
-            hasBlankFields={
-              !hasBlankFields && !errors.manager
-                ? false : true
+      <div className="width-91">
+        <RequestTabHeader steps={steps} currentTab={currentTab} />
+        <FormContext
+          targetForm={this}
+          values={values}
+          errors={errors}
+          validatorName="validate">
+          <form
+            onSubmit={this.handleSubmit}
+            className="new-request">
+            { currentTab === 1 && this.renderPersonalDetailsFieldset()}
+            { currentTab === 2 && this.renderSubmitArea(hasBlankFields, 
+              errors, sameOriginDestination, selection, creatingRequest, 
+              disableOnChangeProfile, modalType)
             }
-            sameOriginDestination={sameOriginDestination}
-            selection={selection}
-            loading={creatingRequest}
-            disableOnChangeProfile={disableOnChangeProfile}
-            send={modalType === 'edit request' ? 'Update Request' : 'Send Request'} />
-        </form>
-      </FormContext>
+            { currentTab === 3 && this.renderTravelStipend()}
+            { currentTab === 4 && this.renderTravelCheckList(hasBlankFields, 
+              errors,selection, creatingRequest)}
+          </form>
+        </FormContext>
+      </div>
+      
     );
   };
 
@@ -640,12 +776,12 @@ NewRequestForm.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired,
   availableRooms: PropTypes.object.isRequired,
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  centers: PropTypes.array,
   userDataUpdate: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
   ]),
+  listTravelReasons: PropTypes.object,
+  history: PropTypes.object,
 };
 
 NewRequestForm.defaultProps = {
@@ -653,9 +789,10 @@ NewRequestForm.defaultProps = {
   modalType: null,
   managers: [],
   userData: {},
-  centers: [],
   userDataUpdate: [],
-  requestOnEdit: {}
+  requestOnEdit: {},
+  listTravelReasons: {},
+  history: {}
 };
 
 export default NewRequestForm;

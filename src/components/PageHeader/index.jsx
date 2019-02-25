@@ -10,7 +10,7 @@ class PageHeader extends PureComponent {
       <div>
         <button
           onClick={() => {
-            actionBtnClickHandler ?
+            actionBtn === 'New Request' || actionBtnClickHandler ?
               actionBtnClickHandler():
               openModal(true, 'new model'); }
           }

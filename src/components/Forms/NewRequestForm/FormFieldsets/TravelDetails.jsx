@@ -45,18 +45,6 @@ class TravelDetailsFieldset extends Component {
           id="oneWay"
           defaultChecked={selection === 'oneWay'}
         />
-        <RadioButton
-          name="Return Trip"
-          value="return"
-          id="return"
-          defaultChecked={selection === 'return'}
-        />
-        <RadioButton
-          name="Multi City Trip"
-          value="multi"
-          id="multi"
-          defaultChecked={selection === 'multi'}
-        />
       </div>
     );
   };
@@ -110,11 +98,13 @@ class TravelDetailsFieldset extends Component {
     const {
       values,
       handleDate,
+      handleReason,
       handlePickBed,
       removeTrip,
       availableRooms,
       modalType,
-      requestOnEdit
+      requestOnEdit,
+      listTravelReasons
     } = this.props;
 
     const { renderInput } = this.inputRenderer;
@@ -125,6 +115,7 @@ class TravelDetailsFieldset extends Component {
         selection={selection}
         values={values}
         handleDate={handleDate}
+        handleReason={handleReason}
         handlePickBed={handlePickBed}
         removeTrip={removeTrip}
         availableRooms={availableRooms}
@@ -136,6 +127,7 @@ class TravelDetailsFieldset extends Component {
         modalType={modalType}
         requestOnEdit={requestOnEdit}
         parentIds={parentIds}
+        listTravelReasons={listTravelReasons}
       />
     );
   };
@@ -144,7 +136,7 @@ class TravelDetailsFieldset extends Component {
     const forms = [];
     for (let i = 0; i < parentIds; i += 1) {
       forms.push(
-        <div id={i} key={i}>
+        <div className="trip__detail-col" id={i} key={i}>
           {this.renderTravelDetails(i, selection, onChangeInput, parentIds)}
         </div>
       );
@@ -159,20 +151,10 @@ class TravelDetailsFieldset extends Component {
     const { parentIds, existingTrips } = this.props;
     return (
       <fieldset className="travel-details">
-        <legend
-          className="line"
-          style={{
-            marginBottom: '6px',
-            borderBottom: '1px solid #E4E4E4',
-            fontFamily: 'DIN Pro Medium',
-            fontSize: '18px',
-            paddingTop: '5px'
-          }}
-        >
-          Travel Details
-        </legend>
         {this.renderRadioButton(handleRadioButtonChange)}
-        {this.renderForms(parentIds, selection, onChangeInput, existingTrips)}
+        <div className="trip__detail-row">
+          {this.renderForms(parentIds, selection, onChangeInput, existingTrips)}
+        </div>
         {selection === 'multi' && this.renderAddAnotherBtn()}
       </fieldset>
     );
@@ -193,6 +175,8 @@ const fetchAvailableRooms = PropTypes.func;
 const availableRooms = PropTypes.object;
 const modalType = PropTypes.string;
 const requestOnEdit = PropTypes.object;
+const handleReason = PropTypes.func;
+const listTravelReasons = PropTypes.object;
 
 TravelDetailsFieldset.propTypes = {
   values: values.isRequired,
@@ -207,12 +191,16 @@ TravelDetailsFieldset.propTypes = {
   handlePickBed: handlePickBed.isRequired,
   fetchAvailableRooms: fetchAvailableRooms.isRequired,
   availableRooms: availableRooms.isRequired,
-  modalType: modalType.isRequired,
-  requestOnEdit: requestOnEdit.isRequired
+  modalType: modalType,
+  requestOnEdit: requestOnEdit.isRequired,
+  handleReason: handleReason.isRequired,
+  listTravelReasons: listTravelReasons.isRequired,
+
 };
 
 TravelDetailsFieldset.defaultProps = {
-  existingTrips: null
+  existingTrips: null,
+  modalType: null
 };
 
 export default TravelDetailsFieldset;

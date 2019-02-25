@@ -10,7 +10,8 @@ const props = {
   getRequestsWithLimit: jest.fn(),
   fetchRequests: jest.fn(),
   openModal: jest.fn(),
-  requestsLength: 2
+  requestsLength: 2,
+  openNewRequestPage: jest.fn(),
 };
 
 describe('<RequestPanelHeader />', () => {

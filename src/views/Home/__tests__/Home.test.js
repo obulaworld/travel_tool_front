@@ -72,7 +72,8 @@ beforeEach(() => {
     fetchRoleUsers: jest.fn(),
     loading: false,
     isFetching: false,
-    fetchCenters: jest.fn()
+    fetchCenters: jest.fn(),
+    getOccupation: jest.fn()
   };
 });
 
@@ -115,14 +116,4 @@ describe('<Home />', () => {
     expect(wrapper.instance().state.department).toBe('TDD');
   });
 
-  it('should populate the location on the new request dialog', () => {
-    wrapper = mount(
-      <MemoryRouter>
-        <Home {...props} modalType="new request" shouldOpen />
-      </MemoryRouter>
-    );
-
-    expect(wrapper.find('DropdownSelect[name="location"]')
-      .props().value).toEqual('Nairobi Kenya');
-  });
 });

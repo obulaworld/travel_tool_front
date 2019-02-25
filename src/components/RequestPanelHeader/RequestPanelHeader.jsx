@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PageHeader from '../PageHeader';
 import ButtonGroup from '../button-group/ButtonGroup';
 import HeaderPagination from '../Pagination/HeaderPagination';
 import './Request.scss';
 
-class RequestPanelHeader extends PureComponent {
+class RequestPanelHeader extends Component {
   renderButtonGroup = () => {
     const {
       openRequestsCount,
@@ -27,10 +27,10 @@ class RequestPanelHeader extends PureComponent {
   };
 
   render() {
-    const { requestsLength, getRequestsWithLimit, openModal, url, loading } = this.props;
+    const { requestsLength, getRequestsWithLimit, openModal, url, loading, openNewRequestPage } = this.props;
     return (
       <div className="request-panel-header">
-        <PageHeader title="REQUESTS" actionBtn="New Request" openModal={openModal} />
+        <PageHeader actionBtnClickHandler={openNewRequestPage} title="REQUESTS" actionBtn="New Request" openModal={openModal} />
         {
           requestsLength > 0 && !loading && (
             <div className="open-requests">
@@ -52,7 +52,8 @@ RequestPanelHeader.propTypes = {
   fetchRequests: PropTypes.func.isRequired,
   requestsLength: PropTypes.number,
   openModal: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  openNewRequestPage: PropTypes.func.isRequired
 };
 
 RequestPanelHeader.defaultProps = {

@@ -21,6 +21,12 @@ const props = {
   availableRooms:{ beds },
   handleRadioButtonChange: jest.fn(),
   onChangeInput: jest.fn(),
+  listTravelReasons: { 
+    travelReasons: [
+      {id: 1, title: 'Bootcamp'}
+    ]
+  },
+  handleReason: jest.fn(),
   modalType: 'edit request',
   requestOnEdit: {
     createdAt: '2018-12-24T18:04:30.487Z',

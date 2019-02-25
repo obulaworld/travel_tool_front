@@ -341,20 +341,6 @@ describe('<Requests>', () => {
     const wrapper = shallow(<Requests {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('should set `visibility` prop to `invisible` when cancel button is clicked', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter>
-          <Requests
-            {...{ ...props, shouldOpen: true, modalType: 'new model' }}
-          />
-        </MemoryRouter>
-      </Provider>
-    );
-    wrapper.find('button#cancel').simulate('click');
-    expect(props.closeModal.calledWith(true, 'create request')).toBeTruthy();
-  });
   
   it('should set `shouldOpen` prop to `true` when new request button is clicked', () => {
     const wrapper = mount(

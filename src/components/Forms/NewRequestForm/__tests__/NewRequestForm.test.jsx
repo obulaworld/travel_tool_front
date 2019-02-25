@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 import profileMock from '../../ProfileForm/__mocks__';
+import tabIcons from '../../../../images/icons/new-request-icons';
 
 
 const { centers } = profileMock;
@@ -109,7 +110,15 @@ describe('<NewRequestForm />', () => {
       email: 'samuel@andela.com'
     }],
     modalType:'new model',
-    centers
+    listTravelReasons: { 
+      travelReasons: [
+        {id: 1, title: 'Bootcamp'}
+      ]
+    },
+    centers,
+    history:{
+      push: jest.fn()
+    }
   };
   const event = {
     preventDefault: jest.fn(),
@@ -136,17 +145,23 @@ describe('<NewRequestForm />', () => {
     trips: requestOnEdit.trips || [{}],
     errors: {},
     hasBlankFields: true,
-    selection: 'return',
+    selection: 'oneWay',
     collapse: false,
     title: 'Hide Details',
     position: 'none',
     line: '1px solid #E4E4E4',
-    parentIds: 1
+    parentIds: 1,
+    steps:[
+      { id:1, name:'Personal Information', status:'', icon: tabIcons.personal },
+      { id:2, name:'Trip Details', status:'', icon: tabIcons.tripDetails },
+      { id:3, name:'Travel Stipends', status:'', icon: tabIcons.stipend },
+      { id:4, name:'Travel Checklist', status:'', icon: tabIcons.checkList }
+    ],
+    currentTab: 1,
   };
-
+  process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
 
   beforeEach(() => {
-    process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
     wrapper = mount(<NewRequestForm {...props} />);
     jest.resetAllMocks();
   });
@@ -155,9 +170,9 @@ describe('<NewRequestForm />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders three fieldsets', () => {
-    const fieldsets = wrapper.find('fieldset');
-    expect(fieldsets).toHaveLength(3);
+  it('renders 4 svg images', () => {
+    const fieldsets = wrapper.find('svg');
+    expect(fieldsets).toHaveLength(4);
   });
 
   it('renders the personal details fieldset', () => {
@@ -165,14 +180,9 @@ describe('<NewRequestForm />', () => {
     expect(personalDetails).toHaveLength(1);
   });
 
-  it('renders the travel details fieldset', () => {
-    const personalDetails = wrapper.find('fieldset.travel-details');
-    expect(personalDetails).toHaveLength(1);
-  });
-
-  it('renders four buttons', () => {
+  it('renders three buttons', () => {
     const buttons = wrapper.find('button');
-    expect(buttons).toHaveLength(4);
+    expect(buttons).toHaveLength(3);
   });
 
   it('picks input values', () => {
@@ -185,12 +195,6 @@ describe('<NewRequestForm />', () => {
     });
     wrapper.update();
     expect(wrapper.state().values.name).toBe('John Mutuma');
-  });
-
-  it('validates input on blur', () => {
-    wrapper.find('input[name="arrivalDate-0"]').simulate('blur');
-    wrapper.update();
-    expect(wrapper.state().errors['arrivalDate-0']).toBe('This field is required');
   });
 
   it('validates form before sending data', () => {
@@ -286,6 +290,7 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.setState({
       selection: 'multi',
       parentIds: 2,
+      currentTab: 2,
       trips: [
         {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
@@ -308,6 +313,7 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.setState({
       selection: 'multi',
       parentIds: 2,
+      currentTab: 2,
       trips: [
         {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
@@ -330,6 +336,7 @@ describe('<NewRequestForm />', () => {
     shallowWrapper.setState({
       selection: 'multi',
       parentIds: 2,
+      currentTab: 2,
       trips: [
         {destination: 'Amsterdam North Holland', origin: 'Lagos Nigeria', departureDate: '2018-09-24', returnDate: '2018-09-30', bedId: beds[0].id},
       ]
@@ -413,7 +420,7 @@ describe('<NewRequestForm />', () => {
 
   it('should update trip selection to oneWay on select oneWay radio', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
-    shallowWrapper.setState({ selection: 'return' });
+    shallowWrapper.setState({ selection: 'return', currentTab: 2 });
     const event = {
       preventDefault: jest.fn(),
       target: {
@@ -456,29 +463,14 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().collapsible.calledOnce).toEqual(true);
   });
 
-  it('selects female gender on button click', () => {
-    let femaleButton = wrapper.find('button[data-value="Female"]');
+  it('should not be able to selects female gender on button click', () => {
+    let femaleButton = wrapper.find('button[data-value="Male"]');
     femaleButton.simulate('click', {
       target: {
         name: 'gender',
         getAttribute: () => {},
         dataset: {
           value: 'Female'
-        }
-      }
-    });
-
-    expect(wrapper.state('values').gender).toBe('Female');
-  });
-
-  it('selects male gender on button click', () => {
-    let maleButton = wrapper.find('button[data-value="Male"]');
-    maleButton.simulate('click', {
-      target: {
-        name: 'gender',
-        getAttribute: () => {},
-        dataset: {
-          value: 'Male'
         }
       }
     });
@@ -500,7 +492,7 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state('values').gender).toBe('Male');
   });
 
-  it('selects gender with browsers that do not support custom datasets', () => {
+  it('should not selects gender with browsers that do not support custom datasets', () => {
     let femaleButton = wrapper.find('button[data-value="Female"]');
     femaleButton.simulate('click', {
       target: {
@@ -509,7 +501,7 @@ describe('<NewRequestForm />', () => {
       }
     });
 
-    expect(wrapper.state('values').gender).toBe('Female');
+    expect(wrapper.state('values').gender).toBe('Male');
   });
 
   it('should not toggle the modal if request submission failed', () => {
@@ -527,12 +519,6 @@ describe('<NewRequestForm />', () => {
     const componentWillUnmount = jest.spyOn(wrapper.instance(), 'componentWillUnmount');
     wrapper.unmount();
     expect(componentWillUnmount).toHaveBeenCalledTimes(1);
-  });
-
-  it('should call handleClearForm', () => {
-    const wrapper = shallow(<NewRequestForm {...props} />);
-    wrapper.find('SubmitArea').dive().find('#cancel').simulate('click');
-    expect(wrapper.state()).toMatchObject({});
   });
 
   it('should submit travel details ', () => {
@@ -597,6 +583,8 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().addNewTrip.calledOnce).toEqual(true);
   });
 
+  
+
   xit('should save return hasBlankTrips', () => {
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     sinon.spy(shallowWrapper.instance(), 'hasBlankTrips');
@@ -636,11 +624,6 @@ describe('<NewRequestForm />', () => {
     expect(localStorage.getItem('key')).toEqual('value');
   });
 
-  it('should display a location dropdown with Andela centers as choices', () => {
-    const wrapper = mount(<NewRequestForm {...props} />);
-    const input = wrapper.find('DropdownSelect[name="location"]');
-    expect(input.props().choices).toEqual(centers.map(choice => choice.location.split(',')[0]));
-  });
 
   it('should also update the location when a request is saved', () => {
     const wrapper = shallow(<NewRequestForm {...props} />);
@@ -669,4 +652,169 @@ describe('<NewRequestForm />', () => {
     expect(wrapper.state().values.location).toEqual('Kigali');
 
   });
+
+  it('should set the location when on edit', () => {
+    const wrapper = shallow(<NewRequestForm {...props} modalType="edit request" />);
+    wrapper.setState({
+      trips: [ { id: '1',
+        origin: 'Nairobi Kenya',
+        destination: 'Lagos Nigeria',
+        departureDate: '2018-09-30',
+        returnDate: '2018-09-30',
+        createdAt: '2018-09-27T18:49:03.626Z',
+        updatedAt: '2018-09-27T18:49:43.803Z',
+        requestId: 'NfR-9KoCP',
+        accomodationType: 'Not Required',
+        bedId: 1 } ]
+    });
+    expect(wrapper.state().trips[0].origin).toEqual('Nairobi Kenya');
+
+  });
+  it('should to change to the next step ', () => {
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    const event = {
+      preventDefault: jest.fn(),
+    };
+    sinon.spy(shallowWrapper.instance(), 'nextStep');
+    shallowWrapper.instance().nextStep(event);
+    expect(shallowWrapper.instance().nextStep.calledOnce).toEqual(true);
+  });
+  it('should call handleReasons  ', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 2,
+      trips:[{travelReasons:1}]
+    });
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'reason-0'
+      },
+    };
+
+    const selectField = shallowWrapper.find('DropdownSelect[name="reasons-0"]');
+    expect(selectField.props().choices).toEqual(['Other..', 'Bootcamp']);
+    selectField.simulate('change', { target: { value: 'Bootcamp' } });
+    const travelReasons = shallowWrapper.state('trips');
+    expect(travelReasons[0].travelReasons).toEqual(1);
+
+
+    sinon.spy(shallowWrapper.instance(), 'handleReason');
+    shallowWrapper.instance().handleReason('Bootcamp', 0, null);
+    expect(shallowWrapper.instance().handleReason.calledOnce).toEqual(true);
+  });
+  it('should call handleReasons for other reasons ', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 2,
+      trips:[{otherTravelReasons:1}]
+    });
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'reason-0'
+      },
+    };
+
+    const selectField = shallowWrapper.find('DropdownSelect[name="reasons-0"]');
+    selectField.simulate('change', { target: { value: 'Other..' } });
+    const travelReasons = shallowWrapper.state('trips');
+    expect(travelReasons[0].otherTravelReasons).toEqual(1);
+    sinon.spy(shallowWrapper.instance(), 'handleReason');
+    shallowWrapper.instance().handleReason('Bootcamp', null, 'conference');
+    expect(shallowWrapper.instance().handleReason.calledOnce).toEqual(true);
+
+  });
+  it('should display next step on personal information  ', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 1
+    });
+    const nextButton = shallowWrapper.find('#submit');
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'Next',
+      }
+    };
+    nextButton.simulate('click', event);
+    sinon.spy(shallowWrapper.instance(), 'renderTravelStipend');
+    expect(event.preventDefault).toBeCalled();
+    expect(shallowWrapper.state().currentTab).toEqual(2);
+  });
+
+  it('should display next step on submitArea', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 2
+    });
+    const nextButton = shallowWrapper.find('#submit');
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'Name',
+      }
+    };
+    nextButton.simulate('click', event);
+    expect(shallowWrapper.state().currentTab).toEqual(2);
+
+  });
+
+  it('should display next step on trip stipend  ', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 3
+    });
+    const nextButton = shallowWrapper.find('#stipend-next');
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'Name',
+      }
+    };
+    nextButton.simulate('click', event);
+    sinon.spy(shallowWrapper.instance(), 'renderTravelStipend');
+    expect(event.preventDefault).toBeCalled();
+    expect(shallowWrapper.state().currentTab).toEqual(4);
+  });
+  it('should display trip checkList  ', () => {
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 4,
+      errors: { manager:'' }
+    });
+    sinon.spy(shallowWrapper.instance(), 'renderTravelCheckList');
+    shallowWrapper.instance().renderTravelCheckList();
+    expect(shallowWrapper.instance().renderTravelCheckList.calledOnce).toEqual(true);
+  });
+  describe('Travel Details', ()=>{
+    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      currentTab: 2
+    });
+    it('should display trip submitArea  ', () => {
+      sinon.spy(shallowWrapper.instance(), 'renderSubmitArea');
+      shallowWrapper.instance().renderSubmitArea({...props});
+      expect(shallowWrapper.instance().renderSubmitArea.calledOnce).toEqual(true);
+    });
+    it('renders the travel details fieldset', () => {
+      const travelDetails = shallowWrapper.find('fieldset.travel-details');
+      expect(travelDetails).toHaveLength(1);
+    });
+
+    it('validates input on blur', () => {
+      
+      shallowWrapper.find('input[name="departureDate-0"]').simulate('blur');
+      shallowWrapper.update();
+      expect(shallowWrapper.state().errors['departureDate-0']).toBe('This field is required');
+    });
+
+    it('should return to trip details', ()=>{
+      shallowWrapper.instance().backToTripDetails();
+      expect(shallowWrapper.state().currentTab).toEqual(2);
+    });
+
+
+  });
+
 });

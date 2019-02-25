@@ -3,7 +3,7 @@ import {PropTypes} from 'prop-types';
 
 
 const ButtonToggler = (props) => {
-  const {value, onChange, choices, name, className} = props;
+  const {value, onChange, choices, name, className, disabled} = props;
 
   const choiceButtons = choices
     .map(choice => {
@@ -18,6 +18,7 @@ const ButtonToggler = (props) => {
           data-value={choice.value || choice}
           type="button"
           className={`bg-btn bg-btn--${status}`}
+          disabled={disabled}
         >
           {choice.label || choice}
         </button>
@@ -37,11 +38,13 @@ ButtonToggler.propTypes = {
   choices: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   className: PropTypes.string,
+  disabled: PropTypes.bool
 
 };
 
 ButtonToggler.defaultProps = {
-  className: ''
+  className: '',
+  disabled: false
 };
 
 export default ButtonToggler;

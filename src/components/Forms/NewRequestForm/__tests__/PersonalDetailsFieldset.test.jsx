@@ -12,6 +12,7 @@ describe('<PersonalDetailsFieldset/>',()=> {
     values: {},
     savePersonalDetails: jest.fn(),
     onChangeManager: jest.fn(),
+    hasBlankFields: true
   };
   it('tests handleDisableInputs', ()=>{
     const wrapper = shallow(<PersonalDetailsFieldset {...props} />);

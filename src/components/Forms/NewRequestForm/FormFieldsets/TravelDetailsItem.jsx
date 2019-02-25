@@ -5,15 +5,19 @@ import location from '../../../../images/location.svg';
 import deleteBtnRed from '../../../../images/delete.svg';
 
 class TravelDetailsItem extends Component {
-  state = {
-    choices: [],
-    bedOnEdit: null,
-    gender: null,
-    trip: null,
-    missingRequiredFields: true,
-    accommodationType: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      choices: [],
+      bedOnEdit: null,
+      gender: null,
+      trip: null,
+      missingRequiredFields: true,
+      accommodationType: null
+    };
+  }
 
+ 
   componentDidMount() {
     const { itemId, modalType, requestOnEdit, values } = this.props;
     this.loadState(requestOnEdit, itemId, modalType, values);
@@ -27,6 +31,7 @@ class TravelDetailsItem extends Component {
     }
     this.validateTripDetails(values, itemId, selection);
   }
+
 
   validateTripRecord = (values, itemId) => {
     const { trip, gender } = this.state;
@@ -200,7 +205,7 @@ class TravelDetailsItem extends Component {
 
     const { choices, missingRequiredFields } = this.state;
     return (
-      <div className="travel-to">
+      <div className="travel-to bed__option">
         {availableRooms.isLoading && availableRooms.rowId === itemId ? (
           <div className="travel-input-area__spinner" />
         ) : null}
@@ -236,7 +241,7 @@ class TravelDetailsItem extends Component {
               {renderInput(`bed-${itemId}`, 'text', {
                 value: '',
                 className: 'room-dropdown',
-                placeholder: 'Choose rooms',
+                placeholder: 'Select Accomodation',
                 disabled: missingRequiredFields
               })}
               <img
@@ -259,60 +264,140 @@ class TravelDetailsItem extends Component {
     );
   };
 
-  validateTripDetails(values, i, selection) {
-    const isValid =
+  renderTravelReasons = () => {
+    const {
+      itemId,
+      selection,
+      values,
+      renderInput,
+      handleReason,
+      listTravelReasons,
+    } = this.props;
+    const reasonChoices = this.handleReasonsList(listTravelReasons.travelReasons);
+    return (
+      <div className="travel-to reasons__option">
+        {renderInput(`reasons-${itemId}`, 'dropdown-select', {
+          className: 'reasons__dropdown',
+          placeholder: 'Select Reason',
+          parentid: itemId,
+          size: '100%',
+          choices: reasonChoices,
+          onChange: value => handleReason(value, itemId, null),
+        })}
+
+      </div>
+    );
+  };
+
+   reasonsWarningColor = (length, max) => {
+     const charLeft = max - length;
+     switch(true){
+     case (charLeft===0):
+       return { color:'red', charLeft: `You have reached a maximum of ${max} Characters`};
+     case (charLeft < 11):
+       return {color:'red', charLeft };
+     case (charLeft < 20):
+       return {color:'#E67373', charLeft };
+     default:
+       return {color: '#3359db', charLeft};
+     }
+   }
+
+   handleReasonsList(reasons) {
+     const reasonsList = ['Other..'];
+     if(reasons) {
+       reasons.map((reason) => {
+         reasonsList.push(reason.title);
+       });
+     }
+     return reasonsList;
+   }
+
+   renderOtherTravelReasons = () => {
+     const{ itemId,
+       selection,
+       values,
+       renderInput,
+       handleReason,
+     } = this.props;
+     const reason = values[`reasons-${itemId}`];
+     const characters = values[`otherReasons-${itemId}`];
+     let charLength = characters ? characters.trim().length : '';
+     let reasonsLimit =  this.reasonsWarningColor(charLength, 140);
+
+     return (
+       <div className="other__reason" onChange={typedReason => handleReason(typedReason.target.value, itemId, 'other')}>
+         { reason === 'Other..' ? (
+           <Fragment>
+             { renderInput(`otherReasons-${itemId}`, 'textarea', {
+               maxLength:'140',
+               rows:'20',
+               parentid: itemId,
+             }) }
+             <div className="character__conditions" style={{ color: `${reasonsLimit.color}` }}>
+               {reasonsLimit.charLeft}
+             </div>
+           </Fragment>)
+           : ''
+         }
+
+       </div>
+     );
+   }
+
+
+   validateTripDetails(values, i, selection) {
+     const isValid =
       values.gender &&
       values[`destination-${i}`] &&
       values[`departureDate-${i}`];
 
-    if (isValid && selection === 'oneWay') {
-      this.setState({
-        missingRequiredFields: false
-      });
-    }
+     if (isValid && selection === 'oneWay') {
+       this.setState({ missingRequiredFields: false });
+     }
 
-    if (isValid && values[`arrivalDate-${i}`]) {
-      this.setState({
-        missingRequiredFields: false
-      });
-    }
+     if (isValid && values[`arrivalDate-${i}`]) {
+       this.setState({ missingRequiredFields: false });
+     }
 
-    if (isValid && selection === 'multi' && values[`arrivalDate-${i-1}`]) {
-      this.setState({
-        missingRequiredFields: false
-      });
-    }
-  }
+     if (isValid && selection === 'multi' && values[`arrivalDate-${i-1}`]) {
+       this.setState({ missingRequiredFields: false });
+     }
+   }
 
-  render() {
-    const { itemId, selection, removeTrip, values } = this.props;
-    return (
-      <Fragment>
-        <div className="travel-input-area">
-          <div className="input-group" id={`trip${itemId}`}>
-            <div className={`rectangle ${selection}`}>
-              <div className="style-details">
-                {this.renderLocation('origin')}
-                {this.renderLocation('destination')}
-                {this.renderDeparture()}
-                {selection !== 'oneWay' ? this.renderArrival() : null}
-                {this.renderBedDropdown()}
-              </div>
-            </div>
-            {selection === 'multi' && itemId >= 2 && (
-              <button
-                type="button"
-                className="delete-icon"
-                onClick={() => removeTrip(itemId)}
-              >
-                <img src={deleteBtnRed} alt="clicked" className="addsvg" />
-              </button>
-            )}
-          </div>
-        </div>
-      </Fragment>
-    );
-  }
+   render() {
+     const { itemId, selection, removeTrip, values } = this.props;
+     return (
+       <Fragment>
+         <div className="travel-input-area">
+           <div className="input-group" id={`trip${itemId}`}>
+             <div className={`rectangle-trip ${selection}`}>
+               <div className="style-details-trip ">
+                 {this.renderLocation('origin')}
+                 {this.renderLocation('destination')}
+                 <div className="travel__duration">
+                   {this.renderDeparture()}
+                   {selection !== 'oneWay' ? this.renderArrival() : null}
+                 </div>
+                 {this.renderTravelReasons()}
+                 {this.renderBedDropdown()}
+                 {this.renderOtherTravelReasons()}
+               </div>
+             </div>
+             {selection === 'multi' && itemId >= 2 && (
+               <button
+                 type="button"
+                 className="delete-icon"
+                 onClick={() => removeTrip(itemId)}
+               >
+                 <img src={deleteBtnRed} alt="clicked" className="addsvg" />
+               </button>
+             )}
+           </div>
+         </div>
+       </Fragment>
+     );
+   }
 }
 
 export default TravelDetailsItem;
@@ -322,6 +407,7 @@ const values = PropTypes.object;
 const selection = PropTypes.string;
 const onChangeInput = PropTypes.func;
 const handleDate = PropTypes.func;
+const handleReason = PropTypes.func;
 const removeTrip = PropTypes.func;
 const handlePickBed = PropTypes.func;
 const availableRooms = PropTypes.object;
@@ -331,6 +417,7 @@ const customPropsForArrival = PropTypes.func;
 const fetchRoomsOnFocus = PropTypes.func;
 const modalType = PropTypes.string;
 const requestOnEdit = PropTypes.object;
+const listTravelReasons = PropTypes.object;
 
 TravelDetailsItem.propTypes = {
   itemId: itemId.isRequired,
@@ -338,6 +425,7 @@ TravelDetailsItem.propTypes = {
   selection: selection.isRequired,
   onChangeInput: onChangeInput.isRequired,
   handleDate: handleDate.isRequired,
+  handleReason: handleReason.isRequired,
   removeTrip: removeTrip.isRequired,
   handlePickBed: handlePickBed.isRequired,
   availableRooms: availableRooms.isRequired,
@@ -345,11 +433,14 @@ TravelDetailsItem.propTypes = {
   customPropsForDeparture: customPropsForDeparture.isRequired,
   customPropsForArrival: customPropsForArrival.isRequired,
   fetchRoomsOnFocus: fetchRoomsOnFocus.isRequired,
-  modalType: modalType.isRequired,
+  modalType: modalType,
   requestOnEdit: requestOnEdit.isRequired,
-  parentIds: PropTypes.number
+  parentIds: PropTypes.number,
+  listTravelReasons: listTravelReasons,
 };
 
 TravelDetailsItem.defaultProps = {
-  parentIds: 0
+  parentIds: 0,
+  modalType: null,
+  listTravelReasons: {},
 };

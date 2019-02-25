@@ -4,6 +4,7 @@ import InputRenderer from '../../FormsAPI';
 import * as formMetadata from '../../FormsMetadata/NewRequestFormMetadata';
 import expand from '../../../../images/expand_more_24px.svg';
 import Checkbox from '../../../CheckBox/index';
+import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
 class PersonalDetailsFieldset extends Component {
   state = {
@@ -25,13 +26,13 @@ class PersonalDetailsFieldset extends Component {
 
   renderfields = collapse => {
     const { disableInputs } = this.state;
-    const { value, managers,centers, onChangeManager } = this.props;
+    const { value, managers, onChangeManager,
+      hasBlankFields, loading, send, completePersonalDetails } = this.props;
     const managerChoices = managers.map(manager => manager.fullName);
-    const centerChoices = centers.map(center => center.location.split(',')[0]);
     const { renderInput } = this.inputRenderer;
     const disabled = disableInputs;
     return (
-      <div>
+      <div className="personal-rectangle">
         {!collapse ? (
           <div>
             <div className={`input-group ${disabled}`}>
@@ -40,7 +41,7 @@ class PersonalDetailsFieldset extends Component {
                   className: 'request_dropdown', disabled: true })}
               </div>
               <div className="spaces">
-                {renderInput('gender', 'button-toggler')}
+                {renderInput('gender', 'button-toggler', {disabled: true})}
               </div>
               {renderInput('department', 'text', { disabled: true, size: value,
                 className: 'request_dropdown'})}
@@ -65,19 +66,24 @@ class PersonalDetailsFieldset extends Component {
               </div>
               <div className="spaces">
                 {
-                  renderInput('location', 'dropdown-select', {
-                    choices: centerChoices,
+                  renderInput('location', 'text', {
+                    disabled:true,
                     size: value,
                     className: 'request_dropdown user-location',
-                    id: 'user-location'
+                    id: 'user-location',
                   })
                 }
               </div>
             </div>
-            <div className="input-group">
-              <Checkbox
-                handleDisableInputs={this.handleDisableInputs}
-              />
+            <div className="request-submit-area">
+              <button
+                onClick={e => completePersonalDetails(e)}
+                type="submit"
+                disabled={hasBlankFields}
+                className="bg-btn bg-btn--active"
+                id="submit">
+                <ButtonLoadingIcon isLoading={loading} buttonText={send} />
+              </button>
             </div>
           </div>
         ) : null}
@@ -93,27 +99,6 @@ class PersonalDetailsFieldset extends Component {
       values.state === 'clicked' ? 'disable-details' : null;
     return (
       <fieldset className={`personal-details ${disabledFields}`}>
-        <legend
-          style={{
-            width: '100%',
-            borderBottom: line,
-            fontFamily: 'DIN Pro Medium',
-            fontSize: '18px',
-            paddingTop: '12px'
-          }}>
-          Personal Details
-          <span className="required-field">* Required Field</span>
-          <span
-            className="hide-details"
-            onClick={collapsible}
-            onKeyPress={this.handleKeyDown}
-            role="button"
-            tabIndex={0}
-            style={{ outline: 'none' }}>
-            <img src={expand} alt="clicked" className="expand" style={{ transform: position }} />
-            {!title ? 'Hide Details' : title}
-          </span>
-        </legend>
         {this.renderfields(collapse)}
       </fieldset>
     );
@@ -137,15 +122,20 @@ PersonalDetailsFieldset.propTypes = {
   line: position.isRequired,
   onChangeManager: onChangeManager.isRequired,
   values: values,
-  centers: PropTypes.array,
   value: PropTypes.string,
+  hasBlankFields: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
+  send: PropTypes.string,
+  completePersonalDetails: PropTypes.func
 
 };
 
 PersonalDetailsFieldset.defaultProps = {
   values: {},
   value: '',
-  centers: []
+  loading: false,
+  send: '',
+  completePersonalDetails: () => {}
 };
 
 export default PersonalDetailsFieldset;

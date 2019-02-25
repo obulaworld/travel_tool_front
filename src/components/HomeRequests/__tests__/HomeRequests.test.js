@@ -13,13 +13,11 @@ const props = {
     }]
   }],
   isLoading: false,
-  openModal: jest.fn()
 };
 
 const props2 = {
   requests: [],
   isLoading: false,
-  openModal: jest.fn()
 };
 
 describe('<HomeRequests />', () => {

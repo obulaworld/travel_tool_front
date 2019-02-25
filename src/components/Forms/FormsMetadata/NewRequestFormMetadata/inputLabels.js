@@ -17,11 +17,11 @@ const inputLabels = {
   },
 
   manager: {
-    label: 'Your Manager',
+    label: 'Line Manager',
   },
 
   origin: {
-    label: 'From'
+    label: 'Where are you leaving from?'
   },
 
   location: {
@@ -29,7 +29,7 @@ const inputLabels = {
   },
   
   destination: {
-    label: 'Travel to'
+    label: 'Where are you going to?'
   },
 
   otherDestination: {
@@ -37,11 +37,11 @@ const inputLabels = {
   },
 
   departureDate: {
-    label: 'Depart'
+    label: 'When are you leaving?'
   },
 
   arrivalDate: {
-    label: 'Return'
+    label: 'When are you returning?'
   },
 
   leavingDate: {
@@ -49,11 +49,19 @@ const inputLabels = {
   },
 
   bed: {
-    label: 'Available rooms'
+    label: 'Accomodation Option'
   },
 
   newBed: {
     label: 'Other Available Rooms'
+  },
+
+  reasons: {
+    label: 'Travel Reasons'
+  },
+
+  otherReasons: {
+    label: ''
   }
 };
 

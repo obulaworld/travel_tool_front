@@ -137,18 +137,13 @@ describe('Requests Reducer', () => {
           destination: 'New York',
           manager: 'Samuel Kubai'
         },
-        requests: [{
-          name: 'Ademola Ariya',
-          origin: 'Lagos',
-          destination: 'New York',
-          manager: 'Samuel Kubai'
-        }],
+        requests: [],
         openRequestsCount: 1,
         errors: []
       };
 
       expect(newState).toEqual(receivedState);
-      expect(requests(newState, action).requests).toHaveLength(2);
+      expect(requests(newState, action).requests).toHaveLength(0);
     });
   });
 

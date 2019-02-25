@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ConnectedLogin from '../views/Login';
 import ConnectedDashboard from '../views/Dashboard';
 import ConnectedRequests from '../views/Requests';
+import ConnectedNewRequests from '../views/Requests/NewRequests';
 import ConnectedGuestHouseDetails from '../views/Accommodation/FullGuestHouseDetails';
 import RequireAuth from '../hoc/authHoc';
 import ConnectedApprovals from '../views/Approvals';
@@ -87,6 +88,11 @@ const Routes = () => (
             component={RequireAuth(ConnectedRequests)}
           />
           <Route
+            path="/requests/new-request"
+            exact
+            component={RequireAuth(ConnectedNewRequests)}
+          />
+          <Route
             path="/travel_readiness"
             exact
             component={RequireAuth(ConnectedReadiness)}
@@ -151,9 +157,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedTravelReadinessDocuments,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -161,9 +165,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedUserTravelReadinessDetails,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -171,9 +173,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedRoleDetails,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -181,9 +181,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedReminderSetup,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -191,9 +189,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedCreateEmailTemplate,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -201,9 +197,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedCreateReminder,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route
@@ -211,9 +205,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               UpdateEmailTemplate,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route

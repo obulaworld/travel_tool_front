@@ -46,8 +46,15 @@ const props = {
   fetchRoomsOnFocus: jest.fn(),
   availableRooms: { beds },
   modalType: 'edit request',
-  requestOnEdit
+  requestOnEdit,
+  listTravelReasons: { 
+    travelReasons: [
+      {id:1,title:'Bootcamp'}
+    ]
+  },
+  handleReason : jest.fn()
 };
+
 
 const setup = (props) => shallow(<TravelDetailsItem {...props} />);
 
@@ -79,6 +86,29 @@ describe('Test Suite for <TravelDetailsItem />', () => {
     expect(props.onChangeInput).toHaveBeenCalled();
   });
 
+  it('should update state with bedId when accomodationType is Hotel Booking', () => {
+    const wrapper = mount(<TravelDetailsItem {...props} />);
+    wrapper.setState({
+      accommodationType: 'Hotel Booking',
+      bedOnEdit: []
+    });
+    wrapper.instance().setBedChoices('creat', '', []);
+    expect(wrapper.state().choices[1].value).toEqual(-1);
+    
+  });
+
+  it('should update state with bedId when accomodationType is not required', () => {
+    const wrapper = mount(<TravelDetailsItem {...props} />);
+    wrapper.setState({
+      accommodationType: 'Not Required',
+      bedOnEdit: []
+    });
+    wrapper.instance().setBedChoices('creat', '', []);
+    expect(wrapper.state().choices[1].value).toEqual(-2);
+    
+  });
+  
+
   it('should call handleDate prop function when handleDate is called and trip type is oneWay', () => {
     const newProps = {...props};
     newProps.selection = 'oneWay';
@@ -91,14 +121,14 @@ describe('Test Suite for <TravelDetailsItem />', () => {
     const newProps = {...props};
     newProps.selection = 'oneWay';
     const wrapper = setup(newProps);
-    expect(props.renderInput).toHaveBeenCalledTimes(91);
+    expect(props.renderInput).toHaveBeenCalled();
   });
 
   it('should render properly if selection is return', () => {
     const newProps = {...props};
     newProps.selection = 'return';
     const wrapper = setup(newProps);
-    expect(props.renderInput).toHaveBeenCalledTimes(106);
+    expect(props.renderInput).toHaveBeenCalled();
   });
 
   it('should render properly if selection is multi', () => {
@@ -106,6 +136,14 @@ describe('Test Suite for <TravelDetailsItem />', () => {
     newProps.selection = 'multi';
     const wrapper = setup(newProps);
     expect(props.renderInput).toHaveBeenCalled();
+  });
+
+  it('should change reason text color to red', () => {
+    const wrapper = mount(<TravelDetailsItem {...props} />);
+    wrapper.instance().reasonsWarningColor(140, 140);
+    expect(wrapper.instance().reasonsWarningColor(140, 140)).toEqual({ color:'red', charLeft: `You have reached a maximum of ${140} Characters`});
+    expect(wrapper.instance().reasonsWarningColor(137, 140)).toEqual({ color:'red', charLeft: 3});
+    expect(wrapper.instance().reasonsWarningColor(117, 140)).toEqual({charLeft: 23, color: '#3359db'});
   });
 });
 

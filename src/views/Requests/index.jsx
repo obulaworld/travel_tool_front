@@ -80,6 +80,11 @@ export class Requests extends Base {
     }
   }
 
+  openNewRequestPage = () => {
+    const { history } = this.props;
+    history.push('/requests/new-request');
+  }
+
   setOpenChecklist = (status) => {
     this.setState({ openChecklist: status });
   }
@@ -164,6 +169,7 @@ export class Requests extends Base {
           shouldOpen={shouldOpen}
           modalType={modalType}
           loading={isFetching}
+          openNewRequestPage={this.openNewRequestPage}
         />
       </div>
     );
