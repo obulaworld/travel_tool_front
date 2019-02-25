@@ -147,9 +147,7 @@ const Routes = () => (
             exact
             component={RequireAuth(
               ConnectedChecklist,
-              SUPER_ADMINISTRATOR,
-              TRAVEL_ADMINISTRATOR,
-              TRAVEL_TEAM_MEMBER
+              SUPER_ADMINISTRATOR, TRAVEL_ADMINISTRATOR, TRAVEL_TEAM_MEMBER
             )}
           />
           <Route

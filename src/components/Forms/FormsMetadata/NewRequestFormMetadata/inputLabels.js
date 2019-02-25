@@ -45,7 +45,7 @@ const inputLabels = {
   },
 
   leavingDate: {
-    label: 'Leaving'
+    label: 'Next trip departure?'
   },
 
   bed: {
@@ -59,7 +59,6 @@ const inputLabels = {
   reasons: {
     label: 'Travel Reasons'
   },
-
   otherReasons: {
     label: ''
   }

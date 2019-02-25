@@ -9,7 +9,7 @@ import {
   fetchUserRequests, createNewRequest, editRequest,
 } from '../../../redux/actionCreator/requestActions';
 import updateUserProfile from '../../../redux/actionCreator/userProfileActions';
-import { openModal, closeModal } from '../../../redux/actionCreator/modalActions';
+import { openModal } from '../../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../../redux/actionCreator/occupationActions';
 import {fetchAllTravelReasons} from '../../../redux/actionCreator/listTravelReasonsActions';
@@ -37,7 +37,7 @@ export class NewRequests extends Base {
       updateUserProfile, userData, fetchPostUserData,
       user, createNewRequest, listTravelReasons,
       loading, errors,
-      roleUsers, requestOnEdit, editRequest,
+      modalType, roleUsers, requestOnEdit, editRequest,
       fetchUserRequests, occupations,
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
       fetchAllTravelReasons, history
@@ -49,7 +49,7 @@ export class NewRequests extends Base {
         userData={userData && userData.result} occupations={occupations}
         handleCreateRequest={createNewRequest}
         handleEditRequest={editRequest} loading={loading}
-        managers={roleUsers} availableRooms={availableRooms}
+        managers={roleUsers} availableRooms={availableRooms} modalType={modalType}
         fetchAvailableRooms={fetchAvailableRooms}
         fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
         creatingRequest={creatingRequest}
@@ -63,17 +63,17 @@ export class NewRequests extends Base {
   }
 }
 
-export const mapStateToProps = ({ requests, user, role, availableRooms, occupations, 
-  teammates, travelReason: listTravelReasons}) => ({
+const mapStateToProps = ({requests, user, role, availableRooms, occupations, modal, teammates, travelReason}) => ({
   ...requests,
   ...role,
   ...occupations,
+  ...modal.modal,
   teammates: teammates,
   isFetching: requests.isLoading,
   userData: user.getUserData,
   availableRooms,
   department: user.currentUser.department,
-  listTravelReasons,
+  listTravelReasons: travelReason,
 });
 
 const actionCreators = {

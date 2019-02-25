@@ -1,7 +1,7 @@
 import React from 'react';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
-import NewRequest, { NewRequests } from '../NewRequests';
+import { NewRequests } from '../NewRequests';
 import travelChecklistMockData from '../../../mockData/travelChecklistMockData';
 import beds from '../../AvailableRooms/__mocks__/mockData/availableRooms';
 import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';

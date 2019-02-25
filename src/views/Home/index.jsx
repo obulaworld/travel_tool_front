@@ -52,7 +52,6 @@ export class Home extends Component {
     return null;
   }
 
-
   render() {
     const { requests, isFetching, teammates } = this.props;
     return (

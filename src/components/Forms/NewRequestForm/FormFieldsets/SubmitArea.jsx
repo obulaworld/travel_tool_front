@@ -8,7 +8,7 @@ class SubmitArea extends Component{
     super(props);
   }
 
-    commentSession = () => {
+    commentSession = () =>{
       return(
         <div>
           <img src={commentIcon} alt="" />
@@ -19,7 +19,6 @@ class SubmitArea extends Component{
       );
     }
     submitButton = (hasBlankFields, loading, isCreating, sameOriginDestination, disableOnChangeProfile, send, nextStep) =>{
-
       return(
         <button 
           type="submit"
@@ -32,29 +31,41 @@ class SubmitArea extends Component{
       );
     }
 
-    render() {
+    renderCancelButton(modalType, onEditCancel, onCancel) {
+      return (modalType === 'edit accomodation' ? (
+        <button
+          type="button"
+          className="bg-btn bg-btn--inactive"
+          id="oncancel" onClick={onEditCancel}>
+          Cancel
+        </button>)
+        : (
+          <button
+            type="button"
+            className="bg-btn bg-btn--inactive"
+            onClick={onCancel} id="cancel">
+              Cancel
+          </button>
+        ));
+    }
+
+
+    render(){
       const { hasBlankFields,sameOriginDestination, onCancel, send, modalType,
         onEditCancel, selection, loading, isCreating, disableOnChangeProfile, nextStep } = this.props;
       return(
         <fieldset className="submit__area-border">
           <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
-            { send==='Next' && this.commentSession() }
-            { onCancel ? (modalType === 'edit accomodation' ? (
-              <button
-                type="button"
-                className="bg-btn bg-btn--inactive"
-                id="oncancel" onClick={onEditCancel}>
-                Cancel
-              </button>)
+            {send==='Next' && this.commentSession() }
+            { onCancel ? this.renderCancelButton(modalType, onEditCancel, onCancel) : (<div />)}
+            { send === 'Next' ? (
+              this.submitButton(hasBlankFields, loading, isCreating, sameOriginDestination, disableOnChangeProfile, send, nextStep)
+            )
               : (
-                <button
-                  type="button"
-                  className="bg-btn bg-btn--inactive"
-                  onClick={onCancel} id="cancel">
-                    Cancel
-                </button>
-              )) : (<div />)}
-            { this.submitButton(hasBlankFields, loading, isCreating, sameOriginDestination, disableOnChangeProfile, send, nextStep) }
+                this.submitButton(hasBlankFields, loading, isCreating, sameOriginDestination, disableOnChangeProfile, send)
+                
+              )
+            }
           </div>
         </fieldset>
 
@@ -75,7 +86,7 @@ SubmitArea.propTypes = {
   loading: PropTypes.bool,
   isCreating: PropTypes.bool,
   disableOnChangeProfile: PropTypes.bool,
-  nextStep: PropTypes.func
+  nextStep: PropTypes.func,
 
 };
 

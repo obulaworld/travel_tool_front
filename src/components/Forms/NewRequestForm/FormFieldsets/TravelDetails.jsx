@@ -51,6 +51,12 @@ class TravelDetailsFieldset extends Component {
           id="return"
           defaultChecked={selection === 'return'}
         />
+        <RadioButton
+          name="Multi City Trip"
+          value="multi"
+          id="multi"
+          defaultChecked={selection === 'multi'}
+        />
       </div>
     );
   };
@@ -173,16 +179,16 @@ const selection = PropTypes.string;
 const onChangeInput = PropTypes.func;
 const addNewTrip = PropTypes.func;
 const handleDate = PropTypes.func;
+const handleReason = PropTypes.func;
 const removeTrip = PropTypes.func;
 const parentIds = PropTypes.number;
 const existingTrips = PropTypes.func;
 const handlePickBed = PropTypes.func;
 const fetchAvailableRooms = PropTypes.func;
 const availableRooms = PropTypes.object;
+const listTravelReasons = PropTypes.object;
 const modalType = PropTypes.string;
 const requestOnEdit = PropTypes.object;
-const handleReason = PropTypes.func;
-const listTravelReasons = PropTypes.object;
 
 TravelDetailsFieldset.propTypes = {
   values: values.isRequired,
@@ -191,17 +197,16 @@ TravelDetailsFieldset.propTypes = {
   onChangeInput: onChangeInput.isRequired,
   addNewTrip: addNewTrip.isRequired,
   handleDate: handleDate.isRequired,
+  handleReason: handleReason.isRequired,
   removeTrip: removeTrip.isRequired,
   parentIds: parentIds.isRequired,
   existingTrips: existingTrips,
   handlePickBed: handlePickBed.isRequired,
   fetchAvailableRooms: fetchAvailableRooms.isRequired,
   availableRooms: availableRooms.isRequired,
-  modalType: modalType,
-  requestOnEdit: requestOnEdit.isRequired,
-  handleReason: handleReason.isRequired,
   listTravelReasons: listTravelReasons.isRequired,
-
+  modalType: modalType,
+  requestOnEdit: requestOnEdit.isRequired
 };
 
 TravelDetailsFieldset.defaultProps = {

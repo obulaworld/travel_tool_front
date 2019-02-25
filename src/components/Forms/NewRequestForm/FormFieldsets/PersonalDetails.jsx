@@ -32,9 +32,9 @@ class PersonalDetailsFieldset extends Component {
     const { renderInput } = this.inputRenderer;
     const disabled = disableInputs;
     return (
-      <div className="personal-rectangle">
+      <div>
         {!collapse ? (
-          <div>
+          <div className="personal-rectangle">
             <div className={`input-group ${disabled}`}>
               <div className="spaces">
                 {renderInput('name', 'text', { 
@@ -67,7 +67,7 @@ class PersonalDetailsFieldset extends Component {
               <div className="spaces">
                 {
                   renderInput('location', 'text', {
-                    disabled:true,
+                    disabled: true,
                     size: value,
                     className: 'request_dropdown user-location',
                     id: 'user-location',
@@ -79,9 +79,9 @@ class PersonalDetailsFieldset extends Component {
               <button
                 onClick={e => completePersonalDetails(e)}
                 type="submit"
-                disabled={hasBlankFields}
                 className="bg-btn bg-btn--active"
-                id="submit">
+                id="submit"
+                disabled={hasBlankFields}>
                 <ButtonLoadingIcon isLoading={loading} buttonText={send} />
               </button>
             </div>
@@ -127,7 +127,6 @@ PersonalDetailsFieldset.propTypes = {
   loading: PropTypes.bool,
   send: PropTypes.string,
   completePersonalDetails: PropTypes.func
-
 };
 
 PersonalDetailsFieldset.defaultProps = {

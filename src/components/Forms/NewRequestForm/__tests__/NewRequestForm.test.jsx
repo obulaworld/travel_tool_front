@@ -83,7 +83,8 @@ describe('<NewRequestForm />', () => {
           createdAt: '2018-09-27T18:49:03.626Z',
           updatedAt: '2018-09-27T18:49:43.803Z',
           requestId: 'NfR-9KoCP',
-          bedId: beds[0].id
+          bedId: beds[0].id,
+          otherTravelReasons: 'my reason'
         }
       ]
     },
@@ -126,6 +127,9 @@ describe('<NewRequestForm />', () => {
       name: 'oneWay'
     },
   };
+  const handleSubmit = jest.fn();
+  const handleCreateRequest = jest.fn();
+  const backToTripDetails = jest.fn();
 
   const { requestOnEdit } = props;
   const user = localStorage.getItem('name');
@@ -760,6 +764,74 @@ describe('<NewRequestForm />', () => {
 
   });
 
+  it('should set otherTravelReasons in state when handleReason is called', () => {
+    const tripIndex = 0
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      trips: [
+        {otherTravelReasons: ''},
+      ]
+    });
+    shallowWrapper.instance().handleReason('reason', tripIndex, 'other');
+    expect(shallowWrapper.state().trips[tripIndex].otherTravelReasons).toEqual('reason');
+  });
+
+  it('should set travelReasons in state when handleReason is called', () => {
+    const tripIndex = 0
+    const listTravelReasons = {
+      travelReasons: [
+        {title: 'reason', id: 2}
+      ]
+    }
+    const shallowWrapper = shallow(<NewRequestForm {...props} listTravelReasons={listTravelReasons} />);
+    shallowWrapper.setState({
+      trips: [
+        {travelReasons: ''},
+      ]
+    });
+    shallowWrapper.instance().handleReason('reason', tripIndex, null);
+    expect(shallowWrapper.state().trips[tripIndex].travelReasons).toEqual(2);
+  });
+
+  it('should not set travelReasons in state when handleReason is called with other reasons', () => {
+    const tripIndex = 0
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      trips: [
+        {travelReasons: ''},
+      ]
+    });
+    shallowWrapper.instance().handleReason('Other..', tripIndex, null);
+    expect(shallowWrapper.state().trips[tripIndex].travelReasons).toEqual(null);
+  });
+
+  it('should set currentTab in state to 2 when backToTripDetails is called', () => {
+    const tripIndex = 0
+    const shallowWrapper = shallow(<NewRequestForm {...props} backToTripDetails={backToTripDetails} />);
+    shallowWrapper.setState({
+      currentTab: 0
+    });
+    shallowWrapper.instance().backToTripDetails();
+    expect(shallowWrapper.state().currentTab).toEqual(2);
+  });
+
+  it('should call handleCreateRequest to create a request when handleSubmit is called', () => {
+    const tripIndex = 0
+    const shallowWrapper = shallow(<NewRequestForm
+      {...props}
+      handleCreateRequest={handleCreateRequest}
+      handleSubmit={handleSubmit}
+    />);
+    shallowWrapper.setState({
+      selection: 'oneWay',
+    });
+    const event = {
+      preventDefault: jest.fn(),
+    };
+    shallowWrapper.instance().handleSubmit(event);
+    expect(handleCreateRequest).toBeCalled();
+  });
+
   it('should display next step on trip stipend  ', () => {
     const shallowWrapper = mount(<NewRequestForm {...props} />);
     shallowWrapper.setState({
@@ -803,7 +875,6 @@ describe('<NewRequestForm />', () => {
     });
 
     it('validates input on blur', () => {
-      
       shallowWrapper.find('input[name="departureDate-0"]').simulate('blur');
       shallowWrapper.update();
       expect(shallowWrapper.state().errors['departureDate-0']).toBe('This field is required');

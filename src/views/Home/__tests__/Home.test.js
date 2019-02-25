@@ -63,7 +63,6 @@ beforeEach(() => {
         }
       ]
     },
-    createNewRequest: jest.fn(),
     editRequest: jest.fn(),
     openModal: jest.fn(),
     fetchAvailableRooms: jest.fn(),
@@ -115,5 +114,4 @@ describe('<Home />', () => {
     expect(props.fetchTeammates).toHaveBeenCalled();
     expect(wrapper.instance().state.department).toBe('TDD');
   });
-
 });

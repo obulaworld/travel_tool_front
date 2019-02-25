@@ -50,8 +50,9 @@ class RequestTabHead extends Component {
           {steps && steps.map(step => this.renderTab(step, currentTab, step.icon))}
         </div>
       </div>
-    );
+    );  
   }
+
 }
 
 RequestTabHead.propTypes = {
@@ -61,4 +62,3 @@ RequestTabHead.propTypes = {
 
 
 export default RequestTabHead;
-

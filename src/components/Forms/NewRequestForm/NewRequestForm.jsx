@@ -9,14 +9,14 @@ import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import RequestTabHeader from '../../RequestTab/RequestTabHead';
-import './NewRequestPage.scss';
+import './NewRequestForm.scss';
 import tabIcons from '../../../images/icons/new-request-icons';
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
     this.setUp();
-    this.state = { 
+    this.state = {
       ...this.defaultState 
     };
     this.validate = getDefaultBlanksValidatorFor(this);
@@ -355,7 +355,6 @@ class NewRequestForm extends PureComponent {
     [`departureDate-${index}`]: valueObj && moment(valueObj.departureDate) || null,
     [`reasons-${index}`]: '',
     [`bed-${index}`]: '',
-    
   });
 
   refreshValues = (prevState, tripType) => {
@@ -503,12 +502,11 @@ class NewRequestForm extends PureComponent {
     }, this.validate);
   };
 
-
   collapsible = () => {
     const { collapse } = this.state;
     if (!collapse) {
       this.setState({
-        collapse: true,
+        collapse: false,
         title: 'Show Details',
         position: 'rotate(266deg)',
         line: 'none'
@@ -543,9 +541,8 @@ class NewRequestForm extends PureComponent {
   }
 
   renderPersonalDetailsFieldset = () => {
-    const { collapse, title, position, line, values,
-      hasBlankFields, errors } = this.state;
-    const { managers,creatingRequest } = this.props;
+    const { collapse, title, position, line, values, hasBlankFields, errors } = this.state;
+    const { managers, creatingRequest } = this.props;
     return (
       <PersonalDetailsFieldset
         values={values}
@@ -620,7 +617,6 @@ class NewRequestForm extends PureComponent {
       return foundReason.id;
     }
   }
-
 
   savePersonalDetails(personalDetails) {
     Object.keys(personalDetails).forEach( key => {
@@ -721,7 +717,7 @@ class NewRequestForm extends PureComponent {
   }
 
   renderForm = () => {
-    const { errors, values, hasBlankFields, selection, 
+    const { errors, values, hasBlankFields, selection,
       sameOriginDestination, steps, currentTab} = this.state;
     const { modalType, creatingRequest } = this.props;
     const { requestOnEdit } = this.props;
@@ -739,21 +735,22 @@ class NewRequestForm extends PureComponent {
           values={values}
           errors={errors}
           validatorName="validate">
-          <form
-            onSubmit={this.handleSubmit}
-            className="new-request">
-            { currentTab === 1 && this.renderPersonalDetailsFieldset()}
-            { currentTab === 2 && this.renderSubmitArea(hasBlankFields, 
-              errors, sameOriginDestination, selection, creatingRequest, 
-              disableOnChangeProfile, modalType)
+
+          <form onSubmit={this.handleSubmit} className="new-request">
+            { currentTab === 1 &&
+              this.renderPersonalDetailsFieldset()}
+            { currentTab === 2 && this.renderSubmitArea(
+              hasBlankFields, errors, sameOriginDestination,
+              selection, creatingRequest, disableOnChangeProfile, modalType)
             }
-            { currentTab === 3 && this.renderTravelStipend()}
-            { currentTab === 4 && this.renderTravelCheckList(hasBlankFields, 
-              errors,selection, creatingRequest)}
+            { currentTab === 3 &&
+              this.renderTravelStipend()}
+            { currentTab === 4 &&
+              this.renderTravelCheckList(hasBlankFields, errors, selection, creatingRequest)}
+
           </form>
         </FormContext>
       </div>
-      
     );
   };
 

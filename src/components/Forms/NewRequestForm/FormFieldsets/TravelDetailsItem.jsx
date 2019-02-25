@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Moment from 'moment';
 import { PropTypes } from 'prop-types';
 import location from '../../../../images/location.svg';
-import deleteBtnRed from '../../../../images/delete.svg';
+import deleteBtn from '../../../../images/icons/new-request-icons/deleteBtn.svg';
 
 class TravelDetailsItem extends Component {
   constructor(props) {
@@ -273,7 +273,15 @@ class TravelDetailsItem extends Component {
       handleReason,
       listTravelReasons,
     } = this.props;
-    const reasonChoices = this.handleReasonsList(listTravelReasons.travelReasons);
+    const reasonChoices = (reasons) => {
+      const reasonsList = ['Other..'];
+      if(reasons) {
+        reasons.map((reason) => {
+          reasonsList.push(reason.title);
+        });
+      }
+      return reasonsList;
+    };
     return (
       <div className="travel-to reasons__option">
         {renderInput(`reasons-${itemId}`, 'dropdown-select', {
@@ -281,7 +289,7 @@ class TravelDetailsItem extends Component {
           placeholder: 'Select Reason',
           parentid: itemId,
           size: '100%',
-          choices: reasonChoices,
+          choices: reasonChoices(listTravelReasons.travelReasons),
           onChange: value => handleReason(value, itemId, null),
         })}
 
@@ -289,117 +297,121 @@ class TravelDetailsItem extends Component {
     );
   };
 
-   reasonsWarningColor = (length, max) => {
-     const charLeft = max - length;
-     switch(true){
-     case (charLeft===0):
-       return { color:'red', charLeft: `You have reached a maximum of ${max} Characters`};
-     case (charLeft < 11):
-       return {color:'red', charLeft };
-     case (charLeft < 20):
-       return {color:'#E67373', charLeft };
-     default:
-       return {color: '#3359db', charLeft};
-     }
-   }
+  reasonsWarningColor = (length, max) =>{
+    const charLeft = max - length;
+    switch(true){
+    case (charLeft===0):
+      return { color:'red', charLeft: `You have reached a maximum of ${140} Characters`};
+    case (charLeft < 11):
+      return {color:'red', charLeft };
+    case (charLeft < 20):
+      return {color:'#E67373', charLeft };
+    default:
+      return {color: '#3359db', charLeft};
+    }
+  }
 
-   handleReasonsList(reasons) {
-     const reasonsList = ['Other..'];
-     if(reasons) {
-       reasons.map((reason) => {
-         reasonsList.push(reason.title);
-       });
-     }
-     return reasonsList;
-   }
+  renderOtherTravelReasons =()=>{
+    const{ itemId,
+      selection,
+      values,
+      renderInput,
+      handleReason,
+    } = this.props;
+    const reason = values[`reasons-${itemId}`];
+    const characters = values[`otherReasons-${itemId}`];
+    let charLength = characters ? characters.trim().length : '';
+    let reasonsLimit =  this.reasonsWarningColor(charLength, 140);
 
-   renderOtherTravelReasons = () => {
-     const{ itemId,
-       selection,
-       values,
-       renderInput,
-       handleReason,
-     } = this.props;
-     const reason = values[`reasons-${itemId}`];
-     const characters = values[`otherReasons-${itemId}`];
-     let charLength = characters ? characters.trim().length : '';
-     let reasonsLimit =  this.reasonsWarningColor(charLength, 140);
+    return (
+      <div className="other__reason" onChange={typedReason => handleReason(typedReason.target.value, itemId, 'other')}>
+        { reason === 'Other..' ? (
+          <Fragment>
+            {renderInput(`otherReasons-${itemId}`, 'textarea', {
+              maxLength:'140',
+              rows:'20',
+              parentid: itemId,
+            })}
+            <div className="character__conditions" style={{ color: `${reasonsLimit.color}` }}>
+              {reasonsLimit.charLeft}
+            </div>
+          </Fragment>)
+          : ''
+        }
 
-     return (
-       <div
-         className="other__reason" onChange={typedReason => 
-           handleReason(typedReason.target.value, itemId, 'other')}>
-         { reason === 'Other..' ? (
-           <Fragment>
-             { renderInput(`otherReasons-${itemId}`, 'textarea', {
-               maxLength:'140',
-               rows:'20',
-               parentid: itemId,
-             }) }
-             <div className="character__conditions" style={{ color: `${reasonsLimit.color}` }}>
-               {reasonsLimit.charLeft}
-             </div>
-           </Fragment>)
-           : ''
-         }
+      </div>
+    );
+  }
 
-       </div>
-     );
-   }
+  validateTripDetails(values, i, selection) {
+    const isValid =
+    values.gender &&
+    values[`destination-${i}`] &&
+    values[`departureDate-${i}`];
 
+    if (isValid && selection === 'oneWay') {
+      this.setState({ missingRequiredFields: false });
+    }
 
-   validateTripDetails(values, i, selection) {
-     const isValid =
-      values.gender &&
-      values[`destination-${i}`] &&
-      values[`departureDate-${i}`];
+    if (isValid && values[`arrivalDate-${i}`]) {
+      this.setState({ missingRequiredFields: false });
+    }
 
-     if (isValid && selection === 'oneWay') {
-       this.setState({ missingRequiredFields: false });
-     }
+    if (isValid && selection === 'multi' && values[`arrivalDate-${i-1}`]) {
+      this.setState({ missingRequiredFields: false });
+    }
+  }
 
-     if (isValid && values[`arrivalDate-${i}`]) {
-       this.setState({ missingRequiredFields: false });
-     }
+  renderTravelHead(itemId, selection) {
+    return (
+      <Fragment>
+        {selection === 'multi' ? (
+          <div className="trip-heading-rectangle">
+            Trip
+            {` ${itemId + 1}`}
+            <div className="trip-heading-line" />
+          </div>
+        ) : null}
+      </Fragment>
+    );
+  }
 
-     if (isValid && selection === 'multi' && values[`arrivalDate-${i-1}`]) {
-       this.setState({ missingRequiredFields: false });
-     }
-   }
+  render() {
+    const { itemId, selection, removeTrip, values } = this.props;
+    const { 'reasons-0': reason } = values;
+    return (
+      <Fragment>
+        <div className="travel-input-area">
+          <div className="input-group" id={`trip${itemId}`}>
+            {this.renderTravelHead(itemId, selection)}
+            <div className={`rectangle ${selection}`}>
+              <div className="style-details">
+                {this.renderLocation('origin')}
+                {this.renderLocation('destination')}
+                <div className="travel__duration">
+                  {this.renderDeparture()}
+                  {selection !== 'oneWay' ? this.renderArrival() : null}
 
-   render() {
-     const { itemId, selection, removeTrip, values } = this.props;
-     return (
-       <Fragment>
-         <div className="travel-input-area">
-           <div className="input-group" id={`trip${itemId}`}>
-             <div className={`rectangle-trip ${selection}`}>
-               <div className="style-details-trip ">
-                 {this.renderLocation('origin')}
-                 {this.renderLocation('destination')}
-                 <div className="travel__duration">
-                   {this.renderDeparture()}
-                   {selection !== 'oneWay' ? this.renderArrival() : null}
-                 </div>
-                 {this.renderTravelReasons()}
-                 {this.renderBedDropdown()}
-                 {this.renderOtherTravelReasons()}
-               </div>
-             </div>
-             {selection === 'multi' && itemId >= 2 && (
-               <button
-                 type="button"
-                 className="delete-icon"
-                 onClick={() => removeTrip(itemId)}
-               >
-                 <img src={deleteBtnRed} alt="clicked" className="addsvg" />
-               </button>
-             )}
-           </div>
-         </div>
-       </Fragment>
-     );
-   }
+                </div>
+                {this.renderTravelReasons()}
+                {this.renderBedDropdown()}
+                {this.renderOtherTravelReasons()}
+              </div>
+            </div>
+            {selection === 'multi' && itemId >= 2 && (
+              <button
+                type="button"
+                className="delete-icon"
+                onClick={() => removeTrip(itemId)}
+              >
+                <img src={deleteBtn} alt="clicked" className="addsvg" />
+              </button>
+            )}
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
 }
 
 export default TravelDetailsItem;

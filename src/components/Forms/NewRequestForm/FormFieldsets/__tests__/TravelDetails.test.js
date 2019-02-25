@@ -46,7 +46,7 @@ const props = {
     userId: '-LOYLrl_4orw7UDhj6mo',
     selection: 'multi',
     value: '232px'
-  }
+  },
 };
 
 const setup = (props) => shallow(<TravelDetails {...props} />);
