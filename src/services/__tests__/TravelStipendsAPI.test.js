@@ -1,5 +1,6 @@
 import moxios from 'moxios';
 import TravelStipendsAPI from '../TravelStipendsAPI';
+import RequestAPI from "../RequestAPI";
 
 describe('TravelStipendsAPI', () => {
   const baseUrl = 'http://127.0.0.1:5000/api/v1';
@@ -16,5 +17,21 @@ describe('TravelStipendsAPI', () => {
     expect(stipends.url).toEqual(`${baseUrl}/travelStipend`);
     expect(stipends.config.method).toEqual('get');
     expect(response.status).toEqual(200);
+  });
+
+  it('should send a DELETE request to the API', async () => {
+    const stipendId = '1';
+    moxios.stubRequest(`${baseUrl}/travelStipend/${stipendId}`, {
+      status: 200,
+      response: {
+        message: 'Travel stipend deleted successfully'
+      }
+    });
+    const response = await TravelStipendsAPI.deleteTravelStipend(stipendId);
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/travelStipend/${stipendId}`);
+    expect(moxios.requests.mostRecent().config.method).toEqual('delete');
+    expect(response.data).toEqual({
+      message: 'Travel stipend deleted successfully'
+    });
   });
 });

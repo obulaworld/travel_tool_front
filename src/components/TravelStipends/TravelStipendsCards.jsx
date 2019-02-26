@@ -3,22 +3,32 @@ import './TravelStipends.scss';
 import PropTypes from 'prop-types';
 import withLoading from '../Hoc/withLoading';
 import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
+import ContextMenu from '../ContextMenu/ContextMenu';
+import MenuItem from '../ContextMenu/MenuItem';
 
+const handleDelete = (id, openModal, fetchSingleTravelStipend) => {
+  openModal(true, 'Delete Stipend');
+  fetchSingleTravelStipend(id);
+};
 
-export const TravelStipendsCard = ({location, stipend}) =>
-  (
+export const TravelStipendsCard = ({location, stipend,openModal, id, fetchSingleTravelStipend}) => {
+  return  (
     <div className="card">
-      <i
-        className="fa fa-ellipsis-v on card_icon"
-        id="toggleIcon"
-        role="presentation"
-      />
+      <div className="travel_stipend_menu">
+        <ContextMenu classNames="table__menu-container">
+          <MenuItem
+            classNames="delete"
+            onClick={() => handleDelete(id, openModal, fetchSingleTravelStipend)}>
+          Delete
+          </MenuItem>
+        </ContextMenu>
+      </div>
       <div className="card_title">
         {location}
         {' '}
       </div>
       <div className="card_stipend">
-        &#36; 
+        &#36;
         {stipend}
         {' '}
       </div>
@@ -26,9 +36,11 @@ export const TravelStipendsCard = ({location, stipend}) =>
     </div>
   );
 
+};
+
 
 export const TravelStipendsCards = (
-  { stipends }
+  { stipends, openModal,fetchSingleTravelStipend }
 ) => {
 
   return(
@@ -38,8 +50,11 @@ export const TravelStipendsCards = (
           return (
             <TravelStipendsCard
               key={stipend.id}
+              id={stipend.id}
               location={stipend.center.location}
               stipend={stipend.amount}
+              openModal={openModal}
+              fetchSingleTravelStipend={fetchSingleTravelStipend}
             />
           );
         })
@@ -48,14 +63,25 @@ export const TravelStipendsCards = (
   );
 };
 
+TravelStipendsCard.propTypes = {
+  location: PropTypes.string.isRequired,
+  fetchSingleTravelStipend: PropTypes.func.isRequired,
+  stipend: PropTypes.number.isRequired,
+  openModal: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired
+};
+
 
 TravelStipendsCards.propTypes = {
-  stipends: PropTypes.array.isRequired
+  stipends: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
+  fetchSingleTravelStipend: PropTypes.func.isRequired,
 };
 
 TravelStipendsCard.propTypes = {
   location: PropTypes.string.isRequired,
   stipend: PropTypes.number.isRequired
 };
+
 
 export default withLoading(TravelStipendsCards, RequestPlaceholder);

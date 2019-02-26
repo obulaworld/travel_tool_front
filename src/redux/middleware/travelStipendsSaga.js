@@ -1,18 +1,21 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import {takeLatest, call, put} from 'redux-saga/effects';
 import toast from 'toastr';
 import {
   CREATE_TRAVEL_STIPEND,
-  FETCH_ALL_TRAVEL_STIPENDS
+  FETCH_ALL_TRAVEL_STIPENDS,
+  DELETE_TRAVEL_STIPEND
 } from '../constants/actionTypes';
-import TravelStipendsAPI from '../../services/TravelStipendsAPI';
-import apiErrorHandler from '../../services/apiErrorHandler';
 import {
+  deleteTravelStipendSuccess,
   createTravelStipendSuccess,
   createTravelStipendFailure,
   fetchAllTravelStipendsFailure,
-  fetchAllTravelStipendsSuccess
+  fetchAllTravelStipendsSuccess,
+  deleteTravelStipendFailure
 } from '../actionCreator/travelStipendsActions';
-import { closeModal } from '../actionCreator/modalActions';
+import apiErrorHandler from '../../services/apiErrorHandler';
+import TravelStipendsAPI from '../../services/TravelStipendsAPI';
+import {closeModal} from '../actionCreator/modalActions';
 
 export function* createTravelStipendSagaAsync(action) {
   const { history } = action;
@@ -48,3 +51,26 @@ export function* getAllTravelStipendsSaga(){
 export function* watchgetAllTravelStipends(){
   yield takeLatest(FETCH_ALL_TRAVEL_STIPENDS, getAllTravelStipendsSaga);
 }
+
+export function* deleteTravelStipendSaga(action) {
+  const { stipendId } = action;
+  try {
+    const response = yield call(TravelStipendsAPI.deleteTravelStipend, stipendId);
+    yield put(deleteTravelStipendSuccess(response.data.message, stipendId));
+    yield put(closeModal());
+    toast.success(response.data.message);
+
+
+  } catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(deleteTravelStipendFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchDeleteTravelStipend(){
+  yield takeLatest(DELETE_TRAVEL_STIPEND, deleteTravelStipendSaga);
+}
+
+
+

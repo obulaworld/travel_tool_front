@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import mockData from '../../../mockData/travelStipend';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import {  MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { TravelStipends, mapStateToProps } from '..';
 
@@ -34,6 +34,8 @@ let props = {
   openModal: sinon.spy(() => Promise.resolve()),
   closeModal: sinon.spy(() => Promise.resolve()),
   fetchAllTravelStipends: jest.fn(),
+  fetchSingleTravelStipend: jest.fn(),
+  deleteTravelStipend: jest.fn()
 };
 
 const initialState = {
@@ -73,11 +75,14 @@ describe('<TravelStipends>', () => {
   });
 
   it('renders as expected', () => {
-    const wrapper = mount(<TravelStipends {...props} />);
+    const wrapper = mount(
+      <MemoryRouter>
+        <TravelStipends {...props} />
+      </MemoryRouter>);
     expect(wrapper).toMatchSnapshot();
   });
 
-  
+
   it('should set `shouldOpen` prop to `true` when add stipend button is clicked', () => {
     const wrapper = mount(
       <Provider store={store}>
@@ -86,15 +91,9 @@ describe('<TravelStipends>', () => {
         </MemoryRouter>
       </Provider>
     );
-    wrapper.find('button.action-btn').simulate('click');
+    wrapper.find('button.btn-new-request').simulate('click');
     expect(wrapper.find('TravelStipends').props().shouldOpen).toBe(true);
     expect(props.openModal.called).toBe(true);
-    expect(
-      wrapper
-        .find('Modal')
-        .at(0)
-        .props().visibility
-    ).toEqual('visible');
   });
 
   it('should set `visibility` prop to `visible` when add stipend button is clicked', () => {
@@ -107,13 +106,28 @@ describe('<TravelStipends>', () => {
         </MemoryRouter>
       </Provider>
     );
-    wrapper.find('button.action-btn').simulate('click');
+    wrapper.find('button.btn-new-request').simulate('click');
     expect(
       wrapper
         .find('Modal')
         .at(0)
         .props().visibility
     ).toEqual('visible');
+  });
+
+  it('should close modal when close button is clicked', ()=>{
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <TravelStipends
+            {...{ ...props, shouldOpen: true, modalType: 'create travel stipend' }}
+          />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    wrapper.find('button.modal-close').simulate('click');
+    expect(props.closeModal.called).toBe(true);
   });
 
   it('maps state to props and return the expected object', () => {

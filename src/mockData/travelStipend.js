@@ -10,7 +10,14 @@ const mockData = {
       center: {location: 'Kampala, Uganda'},
       amount: 345
     }
-  ]
+  ],
+
+  selectedStipend: {
+    id: 29,
+    amount: 500,
+    creator: {fullName:'Mirriam Maina',id:1},
+    center: {location:'Kampala, Uganda'}
+  }
 };
 
 export default mockData;

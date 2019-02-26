@@ -1,18 +1,20 @@
 import { call } from 'redux-saga/effects';
-import { expectSaga } from 'redux-saga-test-plan';
-import { throwError } from 'redux-saga-test-plan/providers';
+import {expectSaga} from 'redux-saga-test-plan';
+import {throwError} from 'redux-saga-test-plan/providers';
 import * as matchers from 'redux-saga-test-plan/matchers';
+import {watchgetAllTravelStipends, watchDeleteTravelStipend,  watchCreateTravelStipendAsync,} from '../travelStipendsSaga';
 import TravelStipendsAPI from '../../../services/TravelStipendsAPI';
 import {
-  watchCreateTravelStipendAsync,
-  watchgetAllTravelStipends
-} from '../travelStipendsSaga';
-import {
+  DELETE_TRAVEL_STIPEND_SUCCESS,
   FETCH_ALL_TRAVEL_STIPENDS,
   FETCH_ALL_TRAVEL_STIPENDS_FAILURE,
-  FETCH_ALL_TRAVEL_STIPENDS_SUCCESS
+  FETCH_ALL_TRAVEL_STIPENDS_SUCCESS,
+  DELETE_TRAVEL_STIPEND_FAILURE,
+  DELETE_TRAVEL_STIPEND
 } from '../../constants/actionTypes';
 import mockData from '../../../mockData/travelStipend';
+
+
 
 describe('Travel stipends Saga', () => {
   const { stipends} = mockData;
@@ -51,61 +53,114 @@ describe('Travel stipends Saga', () => {
       .silentRun();
   });
 
-  describe('Create Travel Stipend Saga', () => {
-    const action = {
-      requestData: {
-        center: 'Kigali',
-        stipend: 1234
-      }
-    };
+});
 
-    const response = {
-      data: { newStipend: {
-        center: 'Kigali',
-        stipend: 1234
-      }
-      }
-    };
 
-    const error = {
-      response: {
-        status: 422,
-        data: {
-          errors: [{msg: 'Center is required'}, {msg: 'Stipend is required'}]
-        }
+describe('Create Travel Stipend Saga', () => {
+  const action = {
+    requestData: {
+      center: 'Kigali',
+      stipend: 1234
+    }
+  };
+
+  const response = {
+    data: { newStipend: {
+      center: 'Kigali',
+      stipend: 1234
+    }
+    }
+  };
+
+  const error = {
+    response: {
+      status: 422,
+      data: {
+        errors: [{msg: 'Center is required'}, {msg: 'Stipend is required'}]
       }
-    };
+    }
+  };
 
-    it('Posts a new stipend successfully', () => {
-      return expectSaga(watchCreateTravelStipendAsync, TravelStipendsAPI)
-        .provide([
-          [matchers.call.fn(TravelStipendsAPI.postTravelStipend, action.requestData), response]
-        ])
-        .put({
-          type: 'CREATE_TRAVEL_STIPEND_SUCCESS',
-          newStipend: response.data
-        })
-        .dispatch({
-          type: 'CREATE_TRAVEL_STIPEND',
-          requestData: action.requestData
-        })
-        .silentRun();
-    });
+  it('Posts a new stipend successfully', () => {
+    return expectSaga(watchCreateTravelStipendAsync, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(TravelStipendsAPI.postTravelStipend, action.requestData), response]
+      ])
+      .put({
+        type: 'CREATE_TRAVEL_STIPEND_SUCCESS',
+        newStipend: response.data
+      })
+      .dispatch({
+        type: 'CREATE_TRAVEL_STIPEND',
+        requestData: action.requestData
+      })
+      .silentRun();
+  });
 
-    it('throws error while creating a new request', () => {
-      return expectSaga(watchCreateTravelStipendAsync, TravelStipendsAPI)
-        .provide([
-          [matchers.call.fn(TravelStipendsAPI.postTravelStipend, action.requestData), throwError(error)]
-        ])
-        .put({
-          type: 'CREATE_TRAVEL_STIPEND_FAILURE',
-          error: 'Center is required, Stipend is required'
-        })
-        .dispatch({
-          type: 'CREATE_TRAVEL_STIPEND',
-          requestData: action.requestData
-        })
-        .silentRun();
-    });
+  it('throws error while creating a new request', () => {
+    return expectSaga(watchCreateTravelStipendAsync, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(TravelStipendsAPI.postTravelStipend, action.requestData), throwError(error)]
+      ])
+      .put({
+        type: 'CREATE_TRAVEL_STIPEND_FAILURE',
+        error: 'Center is required, Stipend is required'
+      })
+      .dispatch({
+        type: 'CREATE_TRAVEL_STIPEND',
+        requestData: action.requestData
+      })
+      .silentRun();
+  });
+});
+
+describe('Delete travel stipend saga', () => {
+  const action = {
+    stipendId: 5
+  };
+
+  const response = {
+    data: {
+      message: 'Successfully deleted travel stipend',
+      stipendId: 5
+    }
+  };
+
+  const stipendId = 5;
+
+  const error = 'Possible network error, please reload the page';
+
+
+  it('deletes a travel stipend', () => {
+    return expectSaga(watchDeleteTravelStipend,TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(TravelStipendsAPI.deleteTravelStipend, action.stipendId), response]
+      ])
+      .put({
+        type: 'DELETE_TRAVEL_STIPEND_SUCCESS',
+        deleteMessage: response.data.message,
+        stipendId: response.data.stipendId
+      })
+      .dispatch({
+        type: 'DELETE_TRAVEL_STIPEND',
+        stipendId,
+      })
+      .silentRun();
+  });
+
+  it('throws error if delete travel stipend fails', () => {
+    return expectSaga(watchDeleteTravelStipend, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(TravelStipendsAPI.deleteTravelStipend, action.stipendId), throwError(error)]
+      ])
+      .put({
+        type: 'DELETE_TRAVEL_STIPEND_FAILURE',
+        error
+      })
+      .dispatch({
+        type: 'DELETE_TRAVEL_STIPEND',
+        stipendId
+      })
+      .silentRun();
   });
 });

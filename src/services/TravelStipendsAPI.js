@@ -9,6 +9,11 @@ class TravelStipendsAPI {
   }
   static getAllTravelStipends = () =>
     axios.get(`${baseUrl}/travelStipend`);
+
+  static deleteTravelStipend = (stipendId) => {
+    return axios.delete(`${baseUrl}/travelStipend/${stipendId}`);
+  }
+
 }
 
 export default TravelStipendsAPI;

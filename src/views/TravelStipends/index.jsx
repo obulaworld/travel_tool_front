@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import Modal from '../../components/modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import {fetchCenters} from '../../redux/actionCreator/centersActions';
-import { 
-  createTravelStipend, 
-  fetchAllTravelStipends
+import {
+  createTravelStipend,
+  fetchAllTravelStipends,
+  deleteTravelStipend,
+  fetchSingleTravelStipend,
 } from '../../redux/actionCreator/travelStipendsActions';
 import { NewTravelStipendForm }  from '../../components/Forms';
 import PageHeader from '../../components/PageHeader';
@@ -41,17 +43,18 @@ export class TravelStipends extends Component {
       >
         <NewTravelStipendForm
           history={history}
-          closeModal={closeModal}  
+          closeModal={closeModal}
           handleCreateTravelStipend={createTravelStipend}
-          centers={centers && centers.centers}  
-          travelStipends={travelStipends}                   
+          centers={centers && centers.centers}
+          travelStipends={travelStipends}
         />
       </Modal>
     );
   }
 
   render() {
-    const {fetchAllTravelStipends, travelStipends } = this.props;
+    const {fetchAllTravelStipends, travelStipends,
+      fetchSingleTravelStipend, deleteTravelStipend, shouldOpen,modalType , openModal, closeModal} = this.props;
     return (
       <Fragment>
         <div className="travelStipends--header">
@@ -66,6 +69,13 @@ export class TravelStipends extends Component {
           history={history}
           listAllTravelStipends={travelStipends}
           fetchAllTravelStipends={fetchAllTravelStipends}
+          travelStipends={travelStipends}
+          deleteTravelStipend={deleteTravelStipend}
+          fetchSingleTravelStipend={fetchSingleTravelStipend}
+          openModal={openModal}
+          closeModal={closeModal}
+          shouldOpen={shouldOpen}
+          modalType={modalType}
         />
       </Fragment>
     );
@@ -79,6 +89,8 @@ TravelStipends.propTypes = {
   modalType: PropTypes.string,
   centers: PropTypes.object.isRequired,
   fetchCenters: PropTypes.func.isRequired,
+  deleteTravelStipend: PropTypes.func.isRequired,
+  fetchSingleTravelStipend: PropTypes.func.isRequired,
   createTravelStipend: PropTypes.func,
   travelStipends: PropTypes.object,
   fetchAllTravelStipends: PropTypes.func.isRequired,
@@ -107,7 +119,9 @@ const actionCreators = {
   closeModal,
   fetchCenters,
   createTravelStipend,
-  fetchAllTravelStipends
+  fetchAllTravelStipends,
+  deleteTravelStipend,
+  fetchSingleTravelStipend
 };
 
 export default connect(mapStateToProps, actionCreators)(TravelStipends);

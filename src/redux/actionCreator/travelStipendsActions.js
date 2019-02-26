@@ -2,6 +2,10 @@ import {
   FETCH_ALL_TRAVEL_STIPENDS,
   FETCH_ALL_TRAVEL_STIPENDS_SUCCESS,
   FETCH_ALL_TRAVEL_STIPENDS_FAILURE,
+  DELETE_TRAVEL_STIPEND,
+  DELETE_TRAVEL_STIPEND_SUCCESS,
+  DELETE_TRAVEL_STIPEND_FAILURE,
+  FETCH_SINGLE_TRAVEL_STIPEND,
   CREATE_TRAVEL_STIPEND,
   CREATE_TRAVEL_STIPEND_SUCCESS,
   CREATE_TRAVEL_STIPEND_FAILURE,
@@ -19,6 +23,11 @@ export const fetchAllTravelStipendsSuccess = ({ stipends }) => ({
   stipends
 });
 
+export const fetchSingleTravelStipend = (stipendId) => ({
+  type: FETCH_SINGLE_TRAVEL_STIPEND,
+  stipendId
+});
+
 export const fetchAllTravelStipendsFailure = error => ({
   type: FETCH_ALL_TRAVEL_STIPENDS_FAILURE,
   error
@@ -28,13 +37,29 @@ export const createTravelStipend = (requestData, history) => ({
   requestData,
   history
 });
-  
+
 export const createTravelStipendSuccess = (newStipend) => ({
   type: CREATE_TRAVEL_STIPEND_SUCCESS,
   newStipend,
 });
-  
+
 export const createTravelStipendFailure = (error) => ({
   type: CREATE_TRAVEL_STIPEND_FAILURE,
+  error,
+});
+
+export const deleteTravelStipend = (stipendId) => ({
+  type: DELETE_TRAVEL_STIPEND,
+  stipendId
+});
+
+export const deleteTravelStipendSuccess = (deleteMessage, stipendId) => ({
+  type: DELETE_TRAVEL_STIPEND_SUCCESS,
+  deleteMessage,
+  stipendId
+
+});
+export const deleteTravelStipendFailure = (error) => ({
+  type: DELETE_TRAVEL_STIPEND_FAILURE,
   error,
 });

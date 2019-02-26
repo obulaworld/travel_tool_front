@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoTravelStipends /> renders without crashing 1`] = `
+<div
+  className="no-templates list-templates"
+>
+  <div
+    className="content"
+  >
+    <img
+      alt=""
+      src="no-document.svg"
+    />
+    <p>
+      No Travel Stipends have been created
+    </p>
+  </div>
+</div>
+`;

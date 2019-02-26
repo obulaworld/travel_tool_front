@@ -3,15 +3,39 @@
 exports[`<ListTravelStipends /> renders without crashing 1`] = `
 <div>
   <div>
+    <div />
     <div>
       <div
         className="card"
       >
-        <i
-          className="fa fa-ellipsis-v on card_icon"
-          id="toggleIcon"
-          role="presentation"
-        />
+        <div
+          className="travel_stipend_menu"
+        >
+          <span>
+            <i
+              className="fa fa-ellipsis-v on"
+              onClick={[Function]}
+              role="presentation"
+            />
+            <div
+              className="context-menu table__menu-container false"
+            >
+              <ul
+                className="table__menu-list"
+              >
+                <li
+                  className="delete"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <span>
+                    Delete
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
         <div
           className="card_title"
         >
@@ -34,11 +58,34 @@ exports[`<ListTravelStipends /> renders without crashing 1`] = `
       <div
         className="card"
       >
-        <i
-          className="fa fa-ellipsis-v on card_icon"
-          id="toggleIcon"
-          role="presentation"
-        />
+        <div
+          className="travel_stipend_menu"
+        >
+          <span>
+            <i
+              className="fa fa-ellipsis-v on"
+              onClick={[Function]}
+              role="presentation"
+            />
+            <div
+              className="context-menu table__menu-container false"
+            >
+              <ul
+                className="table__menu-list"
+              >
+                <li
+                  className="delete"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <span>
+                    Delete
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
         <div
           className="card_title"
         >

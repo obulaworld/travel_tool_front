@@ -123,8 +123,12 @@ import {
 } from './emailRemindersSaga';
 import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from './reminderSaga';
 import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
+import {
+  watchCreateTravelStipendAsync,
+  watchDeleteTravelStipend,
+  watchgetAllTravelStipends
+} from './travelStipendsSaga';
 import {watchCreateTravelReason, watchEditTravelReason, watchDeleteTravelReason, watchViewTravelReasonDetails} from './travelReasonsSaga';
-import {  watchCreateTravelStipendAsync, watchgetAllTravelStipends } from './travelStipendsSaga';
 
 function* rootSaga() {
   yield all([
@@ -218,7 +222,7 @@ function* rootSaga() {
     watchFetchAllTravelReasons(),
     watchCreateTravelReason(),
     watchgetAllTravelStipends(),
-    watchCreateTravelStipendAsync(),
+    watchDeleteTravelStipend(),
     watchEditTravelReason(),
     watchCreateTravelStipendAsync(),
     watchViewTravelReasonDetails(),
