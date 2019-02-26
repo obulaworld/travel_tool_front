@@ -12,7 +12,10 @@ import {
   EDIT_TRAVEL_REASON,
   VIEW_TRAVEL_REASON_DETAILS,
   VIEW_TRAVEL_REASON_DETAILS_SUCCESS,
-  VIEW_TRAVEL_REASON_DETAILS_FAILURE
+  VIEW_TRAVEL_REASON_DETAILS_FAILURE,
+  DELETE_TRAVEL_REASON,
+  DELETE_TRAVEL_REASON_SUCCESS,
+  DELETE_TRAVEL_REASON_FAILURE
 } from '../constants/actionTypes';
 
 
@@ -26,7 +29,71 @@ export const initialState = {
   travelReasons: [],
   pagination: {},
   isLoading: false,
-  reasonDetails: {}
+  reasonDetails: {},
+  isDeleting: false
+};
+let newReasons;
+
+const deleteReasonReducer = (action) => {
+  switch (action.type) {
+  case DELETE_TRAVEL_REASON:
+    return true;
+  case DELETE_TRAVEL_REASON_SUCCESS:
+  case DELETE_TRAVEL_REASON_FAILURE:
+    return false;
+  }
+};
+const deleteTravelReasonsReducer = (state, action) => {
+  switch (action.type) {
+  case DELETE_TRAVEL_REASON_SUCCESS:
+    newReasons = state.travelReasons.filter(reason => reason.id !== action.reasonId);
+    return newReasons;
+  case DELETE_TRAVEL_REASON:
+    return state.travelReasons;
+  case DELETE_TRAVEL_REASON_FAILURE:
+    return state.travelReasons;
+  }
+};
+
+const deleteReasonReducerError = (state, action) => {
+  switch (action.type) {
+  case DELETE_TRAVEL_REASON:
+    return state.errors;
+  case DELETE_TRAVEL_REASON_FAILURE:
+    return action.error;
+  case DELETE_TRAVEL_REASON_SUCCESS:
+    return '';
+  }
+};
+
+const viewReasonReducer = (action) => {
+  switch (action.type) {
+  case VIEW_TRAVEL_REASON_DETAILS:
+    return true;
+  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS:
+  case VIEW_TRAVEL_REASON_DETAILS_FAILURE:
+    return false;
+  }
+};
+
+const viewReasonReducerError = (action) => {
+  switch (action.type) {
+  case VIEW_TRAVEL_REASON_DETAILS:
+  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS:
+    return {};
+  case VIEW_TRAVEL_REASON_DETAILS_FAILURE:
+    return action.error;
+  }
+};
+
+const viewReasonReducerSuccess = (state, action) => {
+  switch (action.type) {
+  case VIEW_TRAVEL_REASON_DETAILS:
+  case VIEW_TRAVEL_REASON_DETAILS_FAILURE:
+    return state.reasonDetails;
+  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS:
+    return { ...action.response.travelReason };
+  }
 };
 
 const editTravelReason = (state = initialState, action) => {
@@ -64,32 +131,34 @@ const travelReason = (state = initialState, action) => {
   switch (action.type) {
   case CREATE_TRAVEL_REASON: { return { ...state, isCreating: true, errors: {} }; }
   case CREATE_TRAVEL_REASON_SUCCESS:
-  {
-    return {
-      ...state, isCreating: false, newReason: action.response.travelReason, errors: {}
-    };
-  }
+    return { ...state, isCreating: false,
+      newReason: action.response.travelReason, errors: {}};
   case CREATE_TRAVEL_REASON_FAILURE: {
-    return { ...state, isCreating: false, errors: action.error };
-  }
+    return { ...state, isCreating: false, errors: action.error };}
   case FETCH_ALL_TRAVEL_REASONS: return { ...state, isLoading: true };
   case FETCH_ALL_TRAVEL_REASONS_SUCCESS:
+    return { ...state,
+      travelReasons: action.travelReasons, pagination: action.pagination,
+      isLoading: false };
+  case FETCH_ALL_TRAVEL_REASONS_FAILURE: return {
+    ...state, errors: action.errors, isLoading: false };
+  case VIEW_TRAVEL_REASON_DETAILS:
+  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS:
+  case VIEW_TRAVEL_REASON_DETAILS_FAILURE:
+    return { ...state,
+      isFetching: viewReasonReducer(action),
+      errors: viewReasonReducerError(action),
+      reasonDetails: viewReasonReducerSuccess(state,action),
+    };
+  case DELETE_TRAVEL_REASON_SUCCESS:
+  case DELETE_TRAVEL_REASON:
+  case DELETE_TRAVEL_REASON_FAILURE:
     return {
       ...state,
-      travelReasons: action.travelReasons,
-      pagination: action.pagination,
-      isLoading: false
+      isDeleting: deleteReasonReducer(action),
+      error: deleteReasonReducerError(state, action),
+      travelReasons: deleteTravelReasonsReducer(state, action)
     };
-  case FETCH_ALL_TRAVEL_REASONS_FAILURE:
-    return { ...state, errors: action.errors, isLoading: false };
-  case VIEW_TRAVEL_REASON_DETAILS: { return { ...state, isFetching: true, errors: {} }; }
-  case VIEW_TRAVEL_REASON_DETAILS_SUCCESS: {
-    return {
-      ...state, isFetching: false, reasonDetails: { ...action.response.travelReason }, errors: {}
-    };}
-  case VIEW_TRAVEL_REASON_DETAILS_FAILURE: {
-    return { ...state, isFetching: false, errors: action.error };
-  }
   default: {
     return editTravelReason(state, action);
   }

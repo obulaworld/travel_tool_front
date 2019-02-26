@@ -3,5 +3,6 @@
 exports[`<HtmlInput /> renders as expected 1`] = `
 <input
   className=" undefined"
+  value=""
 />
 `;

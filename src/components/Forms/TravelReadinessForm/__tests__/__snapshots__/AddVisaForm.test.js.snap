@@ -74,7 +74,6 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                 ]
               }
               className="input select  "
-              error=""
               label="Entry Type"
               name="entryType"
               onChange={[Function]}
@@ -288,7 +287,6 @@ exports[`<AddVisaForm /> renders without crashing 1`] = `
                 ]
               }
               className="input select  "
-              error=""
               label="Select Visa Type"
               name="visaType"
               onChange={[Function]}

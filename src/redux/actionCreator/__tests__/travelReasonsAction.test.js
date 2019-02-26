@@ -146,4 +146,33 @@ describe('Travel Reasons actions', () => {
       expect(action).toEqual(expectedAction);
     });
   });
+
+  describe('Delete reason Actions', () => {
+    it('should return action of type DELETE_DOCUMENT', () => {
+      const expectedAction = {
+        type: 'DELETE_TRAVEL_REASON',
+        reasonId: 2,
+      };
+      const newAction = actions.deleteTravelReason(2);
+      expect(newAction).toEqual(expectedAction);
+    });
+
+    it('should return action of type DELETE_TRAVEL_REASON_SUCCESS', () => {
+      const expectedAction = {
+        type: 'DELETE_TRAVEL_REASON_SUCCESS',
+        reasonId: 2,
+      };
+      const newAction = actions.deleteTravelReasonSuccess(2);
+      expect(newAction).toEqual(expectedAction);
+    });
+
+    it('should return action of type DELETE_TRAVEL_REASON_FAILURE', () => {
+      const expectedAction = {
+        type: 'DELETE_TRAVEL_REASON_FAILURE',
+        error: 'Travel Reason not found'
+      };
+      const newAction = actions.deleteTravelReasonFailure('Travel Reason not found');
+      expect(newAction).toEqual(expectedAction);
+    });
+  });
 });

@@ -10,6 +10,15 @@ exports[`Test Suite for <TravelDetailsItem /> should match snapshot 1`] = `
       id="trip0"
     >
       <div
+        className="trip-heading-rectangle"
+      >
+        Trip
+         1
+        <div
+          className="trip-heading-line"
+        />
+      </div>
+      <div
         className="rectangle multi"
       >
         <div
@@ -36,15 +45,26 @@ exports[`Test Suite for <TravelDetailsItem /> should match snapshot 1`] = `
             />
           </div>
           <div
-            className="others-width"
-            role="presentation"
+            className="travel__duration"
+          >
+            <div
+              className="others-width"
+              role="presentation"
+            />
+            <div
+              className="others-width"
+              role="presentation"
+            />
+          </div>
+          <div
+            className="travel-to reasons__option"
           />
           <div
-            className="others-width"
-            role="presentation"
+            className="travel-to bed__option"
           />
           <div
-            className="travel-to"
+            className="other__reason"
+            onChange={[Function]}
           />
         </div>
       </div>

@@ -199,6 +199,16 @@ exports[`<LeftSideBar /> renders correctly 1`] = `
                   ],
                   "text": "Travel Reason",
                 },
+                Object {
+                  "exact": true,
+                  "link_to": "/settings/travelStipends",
+                  "onlyVisibleTo": Array [
+                    "Travel Administrator",
+                    "Super Administrator",
+                    "Travel Team Member",
+                  ],
+                  "text": "Travel Stipend",
+                },
               ],
               "icons": Object {
                 "active": "settings_active.svg",

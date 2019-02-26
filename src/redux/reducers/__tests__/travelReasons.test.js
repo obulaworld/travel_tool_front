@@ -134,6 +134,13 @@ describe('Create Travel Reason actions', () => {
 });
 
 describe('View Travel Reason Details actions', () => {
+  const currentState = {
+    ...initialState,
+    travelReasons: [
+
+    ]
+  };
+  let action, newState, expectedState, error, mockComments;
   it('should return initial state', () => {
     expect(travelReasonReducer(undefined, {})).toEqual(initialState);
   });
@@ -181,4 +188,63 @@ describe('View Travel Reason Details actions', () => {
       expect(newState).toEqual(expectedState);
       expect(newState.isFetching).toBe(false);
     });
+  it('should handle DELETE_TRAVEL_REASON', () => {
+    action = {
+      type: 'DELETE_TRAVEL_REASON',
+      reasonId: 2,
+    };
+
+    newState = travelReasonReducer(currentState, action);
+    expectedState = {
+      ...initialState,
+      isDeleting: true,
+      error: {},
+    };
+
+    expect(newState).toEqual(expectedState);
+  });
+});
+describe('Delete travel reasons Reducer', () => {
+  const currentState = {
+    ...initialState,
+    travelReasons: [
+
+    ]
+  };
+  let action, newState, expectedState, error, mockComments;
+  it('should handle DELETE_TRAVEL_REASON_SUCCESS', () => {
+    action = {
+      type: 'DELETE_TRAVEL_REASON_SUCCESS',
+      reasonId: 2,
+      deletedReason: {
+        id: 2,
+      }
+    };
+
+    newState = travelReasonReducer(currentState, action);
+    expectedState = {
+      ...initialState,
+      travelReasons: [],
+      isDeleting: false,
+      error: ''
+    };
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should handle DELETE_TRAVEL_REASON_FAILURE', () => {
+    error = 'Travel Reason not found';
+    action = {
+      type: 'DELETE_TRAVEL_REASON_FAILURE',
+      error
+    };
+
+    newState = travelReasonReducer(initialState, action);
+    expectedState = {
+      ...initialState,
+      travelReasons: [],
+      isDeleting: false,
+      error: 'Travel Reason not found'
+    };
+    expect(newState).toMatchObject(expectedState);
+  });
 });

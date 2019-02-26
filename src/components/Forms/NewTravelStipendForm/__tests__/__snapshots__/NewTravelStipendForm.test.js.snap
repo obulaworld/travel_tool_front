@@ -55,7 +55,6 @@ exports[`<NewTravelStipendForm /> renders correctly 1`] = `
                       ]
                     }
                     className="input select  request_dropdown stipend-location"
-                    error=""
                     id="user-location"
                     label="Select Location"
                     name="center"
@@ -251,7 +250,7 @@ exports[`<NewTravelStipendForm /> renders correctly 1`] = `
         </button>
         <button
           className="bg-btn bg-btn--active"
-          disabled={false}
+          disabled={true}
           id="submit"
           type="submit"
         >

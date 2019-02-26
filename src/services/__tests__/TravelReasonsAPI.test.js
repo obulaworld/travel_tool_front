@@ -60,4 +60,16 @@ describe('TravelReasonsAPI', () => {
     expect(request.url).toEqual(`${baseUrl}/request/reasons/${id}`);
     expect(response.status).toEqual(200);
   });
+
+  it('should send a DELETE request to delete a trave reason', async () => {
+    const reasonId = 3;
+    moxios.stubRequest(`${baseUrl}/request/reasons/${reasonId}`, {
+      status: 200,
+      response: 'Travel reason deleted successfully'
+    });
+
+    const response = await TravelReasonsAPI.deleteTravelReason(reasonId);
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/request/reasons/${reasonId}`);
+    expect(response.data).toEqual('Travel reason deleted successfully');
+  });
 });

@@ -278,6 +278,11 @@ $border-color: #e4e4e4;
     background-color: #FF5359;
     border: none;
   }
+  .delete-document-button__disabled {
+    background-color: rgba(255,83,89,.3);
+    cursor: not-allowed;
+    border: 1px rgba(255,83,89,.3);
+  }
 
   .delete-document-button-yes {
     background-color: #3359db;

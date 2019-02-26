@@ -71,6 +71,7 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
           <textarea
             autoComplete="off"
             className=" textarea-box "
+            data-gramm_editor="false"
             id="add-role-description"
             label="Description"
             name="description"
@@ -91,7 +92,9 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
     </div>
   </fieldset>
   <hr />
-  <fieldset>
+  <fieldset
+    className="submit__area-border"
+  >
     <div
       className="submit-area"
     >
@@ -107,6 +110,7 @@ exports[`<AddRoleForm /> renders correctly 1`] = `
         className="bg-btn bg-btn--active"
         disabled={true}
         id="submit"
+        onClick={[Function]}
         type="submit"
       >
         <undefined />

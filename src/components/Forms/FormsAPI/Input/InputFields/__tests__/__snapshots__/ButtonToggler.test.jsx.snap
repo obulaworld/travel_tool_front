@@ -7,6 +7,7 @@ exports[`<ButtonToggler /> renders as expected 1`] = `
   <button
     className="bg-btn bg-btn--active"
     data-value="male"
+    disabled={false}
     key="male"
     name="gender"
     onClick={[Function]}
@@ -17,6 +18,7 @@ exports[`<ButtonToggler /> renders as expected 1`] = `
   <button
     className="bg-btn bg-btn--inactive"
     data-value="female"
+    disabled={false}
     key="female"
     name="gender"
     onClick={[Function]}

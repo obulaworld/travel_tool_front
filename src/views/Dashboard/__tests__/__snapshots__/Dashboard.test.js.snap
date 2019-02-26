@@ -4,7 +4,14 @@ exports[`<Dashboard /> renders correctly 1`] = `
 <div
   id="dashboard"
 >
-  <FilterContext>
+  <FilterContext
+    user={
+      Object {
+        "email": "william.sserubiri@andela.com",
+        "id": 2,
+      }
+    }
+  >
     <ContextConsumer>
       <Component />
     </ContextConsumer>

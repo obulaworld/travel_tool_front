@@ -123,7 +123,7 @@ import {
 } from './emailRemindersSaga';
 import { watchCreateReminder, watchEditReminder, watchGetSingleReminder } from './reminderSaga';
 import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
-import {watchCreateTravelReason, watchEditTravelReason, watchViewTravelReasonDetails} from './travelReasonsSaga';
+import {watchCreateTravelReason, watchEditTravelReason, watchDeleteTravelReason, watchViewTravelReasonDetails} from './travelReasonsSaga';
 import {  watchCreateTravelStipendAsync, watchgetAllTravelStipends } from './travelStipendsSaga';
 
 function* rootSaga() {
@@ -222,6 +222,7 @@ function* rootSaga() {
     watchEditTravelReason(),
     watchCreateTravelStipendAsync(),
     watchViewTravelReasonDetails(),
+    watchDeleteTravelReason()
   ]);
 }
 

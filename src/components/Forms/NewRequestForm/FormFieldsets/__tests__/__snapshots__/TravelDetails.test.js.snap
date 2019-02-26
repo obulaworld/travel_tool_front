@@ -4,20 +4,6 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
 <fieldset
   className="travel-details"
 >
-  <legend
-    className="line"
-    style={
-      Object {
-        "borderBottom": "1px solid #E4E4E4",
-        "fontFamily": "DIN Pro Medium",
-        "fontSize": "18px",
-        "marginBottom": "6px",
-        "paddingTop": "5px",
-      }
-    }
-  >
-    Travel Details
-  </legend>
   <div
     className="trip-align"
     onChange={[Function]}
@@ -42,199 +28,215 @@ exports[`<TravelDetails /> should match snapshot 1`] = `
     />
   </div>
   <div
-    id={0}
-    key="0"
+    className="trip__detail-row"
   >
-    <TravelDetailsItem
-      availableRooms={
-        Object {
-          "beds": Array [
-            Object {
-              "bedName": "bed 1",
-              "booked": false,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 1,
-              "roomId": "room-id-1",
-              "rooms": Object {
-                "bedCount": 2,
+    <div
+      className="trip__detail-col"
+      id={0}
+      key="0"
+    >
+      <TravelDetailsItem
+        availableRooms={
+          Object {
+            "beds": Array [
+              Object {
+                "bedName": "bed 1",
+                "booked": false,
                 "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
+                "id": 1,
+                "roomId": "room-id-1",
+                "rooms": Object {
+                  "bedCount": 2,
                   "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
+                  "faulty": false,
+                  "guestHouseId": "guest-house-1",
+                  "guestHouses": Object {
+                    "bathRooms": 1,
+                    "createdAt": "2018-08-16T11:11:52.181Z",
+                    "houseName": "Mini flat-B",
+                    "id": "guest-house-1",
+                    "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                    "location": "Lagos,Nigeria",
+                    "updatedAt": "2018-08-16T11:11:52.181Z",
+                    "userId": "-LJV4b1QTCYewOtk5F63",
+                  },
+                  "id": "room-id-1",
+                  "roomName": "Kwetu",
+                  "roomType": "ensuited",
                   "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
                 },
-                "id": "room-id-1",
-                "roomName": "Kwetu",
-                "roomType": "ensuited",
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
-              "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-            Object {
-              "bedName": "bed 2",
-              "booked": false,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 2,
-              "roomId": "room-id-1",
-              "rooms": Object {
-                "bedCount": 2,
+              Object {
+                "bedName": "bed 2",
+                "booked": false,
                 "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
+                "id": 2,
+                "roomId": "room-id-1",
+                "rooms": Object {
+                  "bedCount": 2,
                   "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
+                  "faulty": false,
+                  "guestHouseId": "guest-house-1",
+                  "guestHouses": Object {
+                    "bathRooms": 1,
+                    "createdAt": "2018-08-16T11:11:52.181Z",
+                    "houseName": "Mini flat-B",
+                    "id": "guest-house-1",
+                    "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                    "location": "Lagos,Nigeria",
+                    "updatedAt": "2018-08-16T11:11:52.181Z",
+                    "userId": "-LJV4b1QTCYewOtk5F63",
+                  },
+                  "id": "room-id-1",
+                  "roomName": "Kwetu",
+                  "roomType": "ensuited",
                   "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
                 },
-                "id": "room-id-1",
-                "roomName": "Kwetu",
-                "roomType": "ensuited",
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
-              "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-            Object {
-              "bedName": "bed 1",
-              "booked": false,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 3,
-              "roomId": "room-id-2",
-              "rooms": Object {
-                "bedCount": 3,
+              Object {
+                "bedName": "bed 1",
+                "booked": false,
                 "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
+                "id": 3,
+                "roomId": "room-id-2",
+                "rooms": Object {
+                  "bedCount": 3,
                   "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
+                  "faulty": false,
+                  "guestHouseId": "guest-house-1",
+                  "guestHouses": Object {
+                    "bathRooms": 1,
+                    "createdAt": "2018-08-16T11:11:52.181Z",
+                    "houseName": "Mini flat-B",
+                    "id": "guest-house-1",
+                    "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                    "location": "Lagos,Nigeria",
+                    "updatedAt": "2018-08-16T11:11:52.181Z",
+                    "userId": "-LJV4b1QTCYewOtk5F63",
+                  },
+                  "id": "room-id-2",
+                  "roomName": "Menengai",
+                  "roomType": "ensuited",
                   "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
                 },
-                "id": "room-id-2",
-                "roomName": "Menengai",
-                "roomType": "ensuited",
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
-              "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-            Object {
-              "bedName": "bed 2",
-              "booked": false,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 4,
-              "roomId": "room-id-2",
-              "rooms": Object {
-                "bedCount": 3,
+              Object {
+                "bedName": "bed 2",
+                "booked": false,
                 "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
+                "id": 4,
+                "roomId": "room-id-2",
+                "rooms": Object {
+                  "bedCount": 3,
                   "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
+                  "faulty": false,
+                  "guestHouseId": "guest-house-1",
+                  "guestHouses": Object {
+                    "bathRooms": 1,
+                    "createdAt": "2018-08-16T11:11:52.181Z",
+                    "houseName": "Mini flat-B",
+                    "id": "guest-house-1",
+                    "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                    "location": "Lagos,Nigeria",
+                    "updatedAt": "2018-08-16T11:11:52.181Z",
+                    "userId": "-LJV4b1QTCYewOtk5F63",
+                  },
+                  "id": "room-id-2",
+                  "roomName": "Menengai",
+                  "roomType": "ensuited",
                   "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
                 },
-                "id": "room-id-2",
-                "roomName": "Menengai",
-                "roomType": "ensuited",
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
-              "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-            Object {
-              "bedName": "bed 3",
-              "booked": false,
-              "createdAt": "2018-08-16T11:11:52.181Z",
-              "id": 5,
-              "roomId": "room-id-2",
-              "rooms": Object {
-                "bedCount": 3,
+              Object {
+                "bedName": "bed 3",
+                "booked": false,
                 "createdAt": "2018-08-16T11:11:52.181Z",
-                "faulty": false,
-                "guestHouseId": "guest-house-1",
-                "guestHouses": Object {
-                  "bathRooms": 1,
+                "id": 5,
+                "roomId": "room-id-2",
+                "rooms": Object {
+                  "bedCount": 3,
                   "createdAt": "2018-08-16T11:11:52.181Z",
-                  "houseName": "Mini flat-B",
-                  "id": "guest-house-1",
-                  "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
-                  "location": "Lagos,Nigeria",
+                  "faulty": false,
+                  "guestHouseId": "guest-house-1",
+                  "guestHouses": Object {
+                    "bathRooms": 1,
+                    "createdAt": "2018-08-16T11:11:52.181Z",
+                    "houseName": "Mini flat-B",
+                    "id": "guest-house-1",
+                    "imageUrl": "https://www.dropbox.com/s/c2n63x2jamh3ndv/guesthouse2.jpg?raw=1",
+                    "location": "Lagos,Nigeria",
+                    "updatedAt": "2018-08-16T11:11:52.181Z",
+                    "userId": "-LJV4b1QTCYewOtk5F63",
+                  },
+                  "id": "room-id-2",
+                  "roomName": "Menengai",
+                  "roomType": "ensuited",
                   "updatedAt": "2018-08-16T11:11:52.181Z",
-                  "userId": "-LJV4b1QTCYewOtk5F63",
                 },
-                "id": "room-id-2",
-                "roomName": "Menengai",
-                "roomType": "ensuited",
                 "updatedAt": "2018-08-16T11:11:52.181Z",
               },
-              "updatedAt": "2018-08-16T11:11:52.181Z",
-            },
-          ],
+            ],
+          }
         }
-      }
-      customPropsForArrival={[Function]}
-      customPropsForDeparture={[Function]}
-      fetchRoomsOnFocus={[Function]}
-      handleDate={[Function]}
-      handlePickBed={[Function]}
-      itemId={0}
-      modalType="edit request"
-      onChangeInput={[Function]}
-      parentIds={1}
-      removeTrip={[Function]}
-      renderInput={[Function]}
-      requestOnEdit={
-        Object {
-          "createdAt": "2018-12-24T18:04:30.487Z",
-          "deletedAt": null,
-          "department": "Talent & Development",
-          "gender": "Male",
-          "id": "KOhl6UY8y",
-          "manager": "William Sserubiri",
-          "name": "william",
-          "picture": "https://lh6.googleusercontent.com/-JznmEmIIMek/AAAAAAAAAAI/AAAAAAAAAAc/KBISMb5Pa1E/photo.jpg?sz=50",
-          "role": "CEO",
-          "selection": "multi",
-          "status": "Open",
-          "travelCompletion": "0% complete",
-          "tripType": "multi",
-          "trips": Array [],
-          "updatedAt": "2018-12-25T18:04:30.487Z",
-          "userId": "-LOYLrl_4orw7UDhj6mo",
-          "value": "232px",
+        customPropsForArrival={[Function]}
+        customPropsForDeparture={[Function]}
+        fetchRoomsOnFocus={[Function]}
+        handleDate={[Function]}
+        handlePickBed={[Function]}
+        handleReason={[Function]}
+        itemId={0}
+        listTravelReasons={
+          Object {
+            "travelReasons": Array [
+              Object {
+                "id": 1,
+                "title": "Bootcamp",
+              },
+            ],
+          }
         }
-      }
-      selection="multi"
-      values={
-        Object {
-          "arrivalDate-1": "2019-10-29T23:00:00.000Z",
-          "bed-1": 1,
-          "departureDate-1": "2019-10-19T23:00:00.000Z",
-          "destination-1": "Lagos",
-          "gender": "Male",
+        modalType="edit request"
+        onChangeInput={[Function]}
+        parentIds={1}
+        removeTrip={[Function]}
+        renderInput={[Function]}
+        requestOnEdit={
+          Object {
+            "createdAt": "2018-12-24T18:04:30.487Z",
+            "deletedAt": null,
+            "department": "Talent & Development",
+            "gender": "Male",
+            "id": "KOhl6UY8y",
+            "manager": "William Sserubiri",
+            "name": "william",
+            "picture": "https://lh6.googleusercontent.com/-JznmEmIIMek/AAAAAAAAAAI/AAAAAAAAAAc/KBISMb5Pa1E/photo.jpg?sz=50",
+            "role": "CEO",
+            "selection": "multi",
+            "status": "Open",
+            "travelCompletion": "0% complete",
+            "tripType": "multi",
+            "trips": Array [],
+            "updatedAt": "2018-12-25T18:04:30.487Z",
+            "userId": "-LOYLrl_4orw7UDhj6mo",
+            "value": "232px",
+          }
         }
-      }
-    />
+        selection="multi"
+        values={
+          Object {
+            "arrivalDate-1": "2019-10-29T23:00:00.000Z",
+            "bed-1": 1,
+            "departureDate-1": "2019-10-19T23:00:00.000Z",
+            "destination-1": "Lagos",
+            "gender": "Male",
+          }
+        }
+      />
+    </div>
   </div>
   <AddInputRowButton
     addRowHandler={[Function]}

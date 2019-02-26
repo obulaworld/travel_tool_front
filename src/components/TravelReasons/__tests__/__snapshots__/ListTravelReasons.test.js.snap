@@ -77,19 +77,48 @@ Array [
                         18-01-2019
                     </td>
                     <td
-                        className="mdl-data-table__cell--non-numeric table__data"
+                        className="table__data"
                     >
-                        <i
-                            className="fa fa-ellipsis-v on"
-                            id="toggleIcon"
-                            role="presentation"
-                        />
+                        <span>
+                            <i
+                                className="fa fa-ellipsis-v on"
+                                onClick={[Function]}
+                                role="presentation"
+                            />
+                            <div
+                                className="context-menu table__menu-container false"
+                            >
+                                <ul
+                                    className="table__menu-list"
+                                >
+                                    <li
+                                        className="edit"
+                                        onClick={[Function]}
+                                        role="presentation"
+                                    >
+                                        <span>
+                                            Edit
+                                        </span>
+                                    </li>
+                                    <li
+                                        className="delete edit"
+                                        onClick={[Function]}
+                                        role="presentation"
+                                    >
+                                        <span>
+                                            Delete
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </span>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>,
+  "",
   <div
     className="reminder-email-templates"
 >

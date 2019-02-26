@@ -9,6 +9,7 @@ describe('<ListTravelReasons />',() => {
   const props = {
     fetchAllTravelReasonsAction: jest.fn(),
     renderDisplayTravelReasonDetails: jest.fn(),
+    openModal: jest.fn(),
     listTravelReasons: {
       pagination,
       travelReasons
@@ -39,5 +40,9 @@ describe('<ListTravelReasons />',() => {
     wrapper.find('.document-name').simulate('click');
     expect(wrapper.find('.document-name').length).toEqual(1);
     expect(props.renderDisplayTravelReasonDetails).toHaveBeenCalled();
+  });
+  it('handles delete travel reason', () => {
+    wrapper.find('.delete').simulate('click');
+    expect(props.openModal).toHaveBeenCalled();
   });
 });

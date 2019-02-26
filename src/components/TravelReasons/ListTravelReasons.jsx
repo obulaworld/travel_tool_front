@@ -2,12 +2,24 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import LoadingTravelReasonsTable from './TravelReasonsTable';
 import TemplatesPagination from '../ReminderSetup/TemplatesPagination';
-import NoTemplates from '../ReminderSetup/NoTemplates';
+import DeleteReasonModal from './DeleteTravelReasonModal';
 
 class ListTravelReasons extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { deleteReasonId: 1 };
+  }
+
   componentDidMount() {
     const { fetchAllTravelReasonsAction, location: {search} } = this.props;
     fetchAllTravelReasonsAction(search);
+  }
+
+  showDeleteModal = (reasonId) => {
+    let { openModal } = this.props;
+    this.setState({deleteReasonId: reasonId});
+    openModal(true, 'delete reason');
   }
 
   onPageChange = (direction) => {
@@ -30,6 +42,18 @@ class ListTravelReasons extends Component {
     );
   };
 
+  renderDeleteModal = (
+    closeModal,
+    shouldOpen, deleteTravelReason, modalType, deleteReasonId, isDeleting) => {
+    return (
+      <DeleteReasonModal
+        closeModal={closeModal} shouldOpen={shouldOpen} handleDelete={deleteTravelReason}
+        modalType={modalType} deleteReasonId={deleteReasonId} isDeleting={isDeleting}
+        title="Delete Travel Reason"
+      />
+    );
+  }
+
   render(){
     const {
       listTravelReasons: { travelReasons, pagination, isLoading, reasonDetails, isFetching },
@@ -38,21 +62,30 @@ class ListTravelReasons extends Component {
       shouldOpen,
       closeModal,
       modalType,
+      openModal,
+      deleteTravelReason,
+      isDeleting
     } = this.props;
     const { currentPage,  pageCount } = pagination;
+    const { deleteReasonId } = this.state;
     return (
       <Fragment>
         <LoadingTravelReasonsTable
           reasons={travelReasons}
           isLoading={isLoading}
           shouldOpen={shouldOpen}
+          showDeleteModal={this.showDeleteModal}
+          openModal={openModal}
           closeModal={closeModal}
           modalType={modalType}
           editTravelReason={editTravelReason}
           reasonDetails={reasonDetails}
           isFetching={isFetching}
+          deleteTravelReason={deleteTravelReason}
           renderDisplayTravelReasonDetails={renderDisplayTravelReasonDetails}
         />
+        {this.renderDeleteModal(closeModal,
+          shouldOpen,deleteTravelReason,modalType,deleteReasonId,isDeleting)}
         {!isLoading && pageCount === 0 ? null : this.Pagination(currentPage, pageCount, this.onPageChange)}
       </Fragment>
     );
@@ -67,7 +100,10 @@ ListTravelReasons.propTypes = {
   shouldOpen: PropTypes.bool,
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
-  editTravelReason: PropTypes.func
+  editTravelReason: PropTypes.func,
+  openModal: PropTypes.func,
+  deleteTravelReason: PropTypes.func,
+  isDeleting: PropTypes.bool,
 };
 
 ListTravelReasons.defaultProps = {
@@ -76,7 +112,10 @@ ListTravelReasons.defaultProps = {
   closeModal: null,
   fetchAllTravelReasonsAction: null,
   modalType: '',
-  editTravelReason: () => {}
+  editTravelReason: () => {},
+  openModal: null,
+  deleteTravelReason: () => {},
+  isDeleting: false,
 };
 
 export default ListTravelReasons;

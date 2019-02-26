@@ -51,8 +51,8 @@ describe('render reminder table', () => {
     const wrapper = mount(
       <BrowserRouter>
         <ReminderTable
-          {...props} 
-          reminders={reminderData}  
+          {...props}
+          reminders={reminderData}
         />
       </BrowserRouter>
     );
@@ -101,17 +101,17 @@ describe('render reminder table', () => {
       );
       const reminderTable = wrapper.find('ReminderTable');
       const handleViewReminderClick = jest.spyOn(reminderTable.instance(), 'handleViewReminderClick');
-  
+
       wrapper.instance().forceUpdate();
-  
+
       const detail = wrapper.find('.table__rows .reminder__condition-name').at(0);
       detail.simulate('click');
       expect(handleViewReminderClick).toHaveBeenCalled();
-  
+
       const reminderItems = wrapper.find('ReminderItem');
       expect(reminderItems).toHaveLength(1);
     });
-  
+
     it('should close modal when cancel button is clicked', () =>{
       const newProps = {
         ...props,
@@ -122,20 +122,20 @@ describe('render reminder table', () => {
           <ReminderTable {...{...newProps, reminders: reminderData}} />
         </BrowserRouter>
       );
-  
+
       const reminderTable = wrapper.find('ReminderTable');
       const handleViewReminderClick = jest.spyOn(reminderTable.instance(), 'handleViewReminderClick');
-  
+
       wrapper.instance().forceUpdate();
-  
+
       const openModal = wrapper.find('.table__rows .reminder__condition-name').at(0);
       openModal.simulate('click');
       expect(handleViewReminderClick).toHaveBeenCalled();
-  
+
       const handleCloseModal = jest.spyOn(reminderTable.instance(), 'handleCloseModal');
       wrapper.instance().forceUpdate();
       const cancelButton = wrapper.find('.table__rows #cancel').at(0);
-      
+
       cancelButton.simulate('click');
       const reminderItems = wrapper.find('ReminderItem');
       expect(handleCloseModal).toHaveBeenCalled();
@@ -178,5 +178,5 @@ describe('render reminder table', () => {
       expect(reminderTable).toHaveLength(1);
     });
   });
-  
+
 });

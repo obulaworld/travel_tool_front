@@ -10,6 +10,12 @@ describe('<ListTravelStipends />',() => {
     fetchAllTravelStipends: jest.fn(),
     listAllTravelStipends: {stipends}
   };
+  const props2 = {
+    fetchAllTravelStipends: jest.fn(),
+    listAllTravelStipends: {
+      stipends: []
+    }
+  };
   const wrapper = mount(
     <MemoryRouter>
       <ListTravelStipends {...props} />
@@ -17,6 +23,14 @@ describe('<ListTravelStipends />',() => {
   );
   it('renders without crashing', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+  it('renders without crashing', () => {
+    const wrapper2 = mount(
+      <MemoryRouter>
+        <ListTravelStipends {...props2} />
+      </MemoryRouter>
+    );
+    expect(wrapper2.find('.no-templates').length).toEqual(1);
   });
 });
 

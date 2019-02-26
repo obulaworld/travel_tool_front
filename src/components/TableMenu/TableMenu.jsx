@@ -166,7 +166,7 @@ class TableMenu extends PureComponent {
         <div className={`table__menu-container ${
           this.openToggleMenu(data) ? 'open' : ''}`
         }>
-          <ul className="table__menu-list">  
+          <ul className="table__menu-list">
             {!data.isVerified && (
               <li
                 className="table__menu-list-item" id="iconBtn2"

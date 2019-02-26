@@ -20,7 +20,14 @@ exports[`<ROleDetails /> renders correctly 1`] = `
       allMails={Array []}
       centers={
         Array [
-          Object {},
+          Object {
+            "id": 1444,
+            "location": "Nairobi, Kenya",
+          },
+          Object {
+            "id": 33441,
+            "location": "Lagos, Nigeria",
+          },
         ]
       }
       closeModal={[Function]}
@@ -86,10 +93,25 @@ exports[`<ROleDetails /> renders correctly 1`] = `
             "fullName": "A user",
             "id": 1,
           },
+          Object {
+            "centers": Array [
+              Object {
+                "id": 44445,
+                "location": "Lagos, Nigeria",
+              },
+            ],
+            "fullName": "B user",
+            "id": 2,
+          },
         ]
       }
       showDeleteRoleModal={[Function]}
     />
   </div>
+  <Pagination
+    currentPage={1}
+    onPageChange={[Function]}
+    pageCount={2}
+  />
 </Fragment>
 `;

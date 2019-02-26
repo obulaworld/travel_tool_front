@@ -6,17 +6,18 @@ import {
   viewTravelDetailsSuccess,
   viewTravelDetailsFailure,
   editTravelReasonSuccess,
-  editTravelReasonFailure
+  editTravelReasonFailure,
+  deleteTravelReasonSuccess,
+  deleteTravelReasonFailure
 } from '../actionCreator/travelReasonsActions';
-import apiErrorHandler from '../../services/apiErrorHandler';
-
 import {
   CREATE_TRAVEL_REASON, EDIT_TRAVEL_REASON,
-  VIEW_TRAVEL_REASON_DETAILS
+  VIEW_TRAVEL_REASON_DETAILS,
+  DELETE_TRAVEL_REASON
 } from '../constants/actionTypes';
-
 import TravelReasonsAPI from '../../services/TravelReasonsAPI';
 import { closeModal } from '../actionCreator/modalActions';
+import apiErrorHandler from '../../services/apiErrorHandler';
 
 export function* editTravelReasonSaga(action){
   const { body } = action;
@@ -73,4 +74,23 @@ export function* viewTravelReasonDetailsSaga(action) {
 
 export function* watchViewTravelReasonDetails() {
   yield takeLatest(VIEW_TRAVEL_REASON_DETAILS, viewTravelReasonDetailsSaga);
+}
+
+export function* deleteTravelReasonAsync(action) {
+  try{
+    const { reasonId } = action;
+    const response = yield call(TravelReasonsAPI.deleteTravelReason, reasonId);
+    yield put(deleteTravelReasonSuccess(reasonId, response.data.deletedReason));
+    toast.success(response.data.message);
+    yield put(closeModal());
+  }
+  catch (error) {
+    const errorMessage = apiErrorHandler(error);
+    yield put(deleteTravelReasonFailure(errorMessage));
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchDeleteTravelReason() {
+  yield takeLatest(DELETE_TRAVEL_REASON, deleteTravelReasonAsync);
 }

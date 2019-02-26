@@ -12,7 +12,7 @@ exports[`<AddInputRowButton /> renders 1`] = `
     type="button"
   >
     <img
-      alt="clicked"
+      alt=""
       className="addsvg"
       src="add.svg"
     />

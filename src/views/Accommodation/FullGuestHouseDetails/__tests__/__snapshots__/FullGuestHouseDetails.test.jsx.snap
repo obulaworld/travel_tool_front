@@ -235,6 +235,7 @@ exports[`<GuestHouseDetails /> renders properly 1`] = `
     }
     closeModal={[Function]}
     deleteMaintenanceRecord={[Function]}
+    disableGustHouseButtonState={false}
     editMaintenance={Object {}}
     fetchAvailableRooms={[Function]}
     fetchTimelineRoomsData={[Function]}

@@ -269,7 +269,6 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
                     }
                     className="input select  add_room_type"
                     data-parentid={0}
-                    error=""
                     label="Room Type"
                     name="roomType-0"
                     onChange={[Function]}
@@ -428,7 +427,9 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
     </div>
   </fieldset>
   <hr />
-  <fieldset>
+  <fieldset
+    className="submit__area-border"
+  >
     <div
       className="submit-area"
     >
@@ -444,6 +445,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
         className="bg-btn bg-btn--active"
         disabled={true}
         id="submit"
+        onClick={[Function]}
         type="submit"
       >
         <undefined />

@@ -35,6 +35,7 @@ exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             type="text"
+            value=""
           />
           <span
             className="error"
@@ -60,6 +61,7 @@ exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
           <textarea
             autoComplete="off"
             className=" textarea-box message-input"
+            data-gramm_editor="false"
             disabled={true}
             label="Message"
             name="message"

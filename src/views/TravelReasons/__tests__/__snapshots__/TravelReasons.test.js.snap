@@ -29,20 +29,122 @@ Array [
   "",
   Array [
     <div
-      className="no-templates list-templates"
+      className="list-reasons"
 >
       <div
-            className="content"
+            className="table__container"
       >
-            <img
-                  alt=""
-                  src="no-document.svg"
-            />
-            <p>
-                  No Travel Reasons have been created
-            </p>
+            <table
+                  className="mdl-data-table mdl-js-data-table readiness-table"
+            >
+                  <thead>
+                        <tr>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head"
+                              >
+                                    Reason
+                              </th>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                              >
+                                    <span />
+                              </th>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                              >
+                                    Created By
+                              </th>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head pl-sm-100d description-left"
+                              >
+                                    <span />
+                              </th>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head"
+                              >
+                                    Created On
+                              </th>
+                              <th
+                                    className="mdl-data-table__cell--non-numeric table__head"
+                              />
+                        </tr>
+                  </thead>
+                  <tbody
+                        className="table__body"
+                  >
+                        <tr
+                              className="table__rows"
+                        >
+                              <td
+                                    className="mdl-data-table__cell--non-numeric table__data readiness__cell-name"
+                              >
+                                    <span
+                                          className="document-name"
+                                          onClick={[Function]}
+                                          role="presentation"
+                                    >
+                                          Annual off-site
+                                    </span>
+                              </td>
+                              <td
+                                    className="mdl-data-table__cell--non-numeric table__data"
+                              />
+                              <td
+                                    className="mdl-data-table__cell--non-numeric table__data"
+                              >
+                                    Kevin Koech
+                              </td>
+                              <td
+                                    className="mdl-data-table__cell--non-numeric table__data"
+                              />
+                              <td
+                                    className="mdl-data-table__cell--non-numeric table__data"
+                              >
+                                    18-01-2019
+                              </td>
+                              <td
+                                    className="table__data"
+                              >
+                                    <span>
+                                          <i
+                                                className="fa fa-ellipsis-v on"
+                                                onClick={[Function]}
+                                                role="presentation"
+                                          />
+                                          <div
+                                                className="context-menu table__menu-container false"
+                                          >
+                                                <ul
+                                                      className="table__menu-list"
+                                                >
+                                                      <li
+                                                            className="edit"
+                                                            onClick={[Function]}
+                                                            role="presentation"
+                                                      >
+                                                            <span>
+                                                                  Edit
+                                                            </span>
+                                                      </li>
+                                                      <li
+                                                            className="delete edit"
+                                                            onClick={[Function]}
+                                                            role="presentation"
+                                                      >
+                                                            <span>
+                                                                  Delete
+                                                            </span>
+                                                      </li>
+                                                </ul>
+                                          </div>
+                                    </span>
+                              </td>
+                        </tr>
+                  </tbody>
+            </table>
       </div>
 </div>,
+    "",
     <div
       className="reminder-email-templates"
 >

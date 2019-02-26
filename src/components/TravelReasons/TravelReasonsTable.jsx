@@ -27,7 +27,8 @@ export class TravelReasonsTable extends Component {
     );
   }
 
-  renderTravelReasonsTableRow({id, key, title, createdOn, createdBy: {fullName}}) {
+  renderTravelReasonsTableRow({id,
+    key, showDeleteModal, deleteTravelReason, title, createdOn, createdBy: {fullName}}) {
     const {
       renderDisplayTravelReasonDetails, shouldOpen, closeModal, modalType,
       reasonDetails, isFetching , editTravelReason } = this.props;
@@ -60,6 +61,11 @@ export class TravelReasonsTable extends Component {
                 onClick={() => editTravelReason(id)}>
                 Edit
               </MenuItem>
+              <MenuItem
+                classNames="delete edit"
+                onClick={() => showDeleteModal(id)}>
+                Delete
+              </MenuItem>
             </ContextMenu>
           </td>
         </tr>
@@ -67,7 +73,7 @@ export class TravelReasonsTable extends Component {
     );
   }
 
-  renderTravelReasonsBody ({reasons, editTravelReason }) {
+  renderTravelReasonsBody ({reasons, editTravelReason, showDeleteModal, deleteTravelReason }) {
     return (
       <tbody className="table__body">
         {
@@ -77,6 +83,8 @@ export class TravelReasonsTable extends Component {
                 id: reason.id,
                 key: reason.id,
                 title: reason.title,
+                showDeleteModal,
+                deleteTravelReason,
                 createdOn: reason.createdAt,
                 editTravelReason: editTravelReason,
                 createdBy: reason.creator})
@@ -88,7 +96,7 @@ export class TravelReasonsTable extends Component {
   }
 
   render() {
-    const { reasons } = this.props;
+    const { reasons, showDeleteModal, deleteTravelReason } = this.props;
     return (
       reasons && reasons.length > 0 ?
         (
@@ -96,7 +104,7 @@ export class TravelReasonsTable extends Component {
             <div className="table__container">
               <table className="mdl-data-table mdl-js-data-table readiness-table">
                 {this.renderTravelReasonsTableHead()}
-                {this.renderTravelReasonsBody({ reasons })}
+                {this.renderTravelReasonsBody({ reasons,showDeleteModal, deleteTravelReason })}
               </table>
             </div>
           </div>
@@ -115,6 +123,8 @@ TravelReasonsTable.propTypes = {
   reasonDetails: PropTypes.object,
   isFetching: PropTypes.bool,
   editTravelReason: PropTypes.func.isRequired,
+  showDeleteModal: PropTypes.func.isRequired,
+  deleteTravelReason: PropTypes.func.isRequired,
 };
 
 TravelReasonsTable.defaultProps = {

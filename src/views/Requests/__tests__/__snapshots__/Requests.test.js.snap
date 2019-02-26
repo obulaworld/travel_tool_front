@@ -163,7 +163,6 @@ exports[`<Requests> renders as expected 1`] = `
           ],
         }
       }
-      centers={Array []}
       closeModal={[Function]}
       creatingRequest={false}
       errors={Array []}
@@ -172,6 +171,8 @@ exports[`<Requests> renders as expected 1`] = `
       fetchUserRequests={[Function]}
       handleCreateRequest={[Function]}
       handleEditRequest={[Function]}
+      history={Object {}}
+      listTravelReasons={Object {}}
       loading={false}
       managers={Array []}
       modalType={null}
@@ -181,6 +182,7 @@ exports[`<Requests> renders as expected 1`] = `
           "department": "Talent & Development",
           "gender": "Male",
           "id": "1",
+          "location": undefined,
           "manager": "Faluyi Seun",
           "name": "Seun Undefined",
           "role": "Software Developer",
@@ -240,6 +242,7 @@ exports[`<Requests> renders as expected 1`] = `
       loading={false}
       modalType={null}
       openModal={[Function]}
+      openNewRequestPage={[Function]}
       openRequestsCount={1}
       pastRequestsCount={1}
       requestsLength={3}

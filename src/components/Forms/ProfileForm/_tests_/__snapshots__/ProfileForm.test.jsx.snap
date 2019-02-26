@@ -82,6 +82,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           <button
             className="bg-btn bg-btn--inactive"
             data-value="Female"
+            disabled={false}
             key="Female"
             name="gender"
             onClick={[Function]}
@@ -92,6 +93,7 @@ exports[`<ProfileForm /> renders correctly 1`] = `
           <button
             className="bg-btn bg-btn--inactive"
             data-value="Male"
+            disabled={false}
             key="Male"
             name="gender"
             onClick={[Function]}
@@ -263,7 +265,6 @@ exports[`<ProfileForm /> renders correctly 1`] = `
               ]
             }
             className="input select  profile_dropdown no-disable"
-            error=""
             label="Location"
             name="location"
             onChange={[Function]}

@@ -19,6 +19,10 @@ class TravelReasonsAPI {
   static viewTravelReasonDetails(id) {
     return axios.get(`${baseUrl}/request/reasons/${id}`);
   }
-}
 
+  static deleteTravelReason(reasonId) {
+    return axios.delete(`${baseUrl}/request/reasons/${reasonId}`);
+  }
+
+}
 export default TravelReasonsAPI;

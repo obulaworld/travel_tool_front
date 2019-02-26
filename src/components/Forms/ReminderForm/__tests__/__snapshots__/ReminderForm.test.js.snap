@@ -91,7 +91,6 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   ]
                 }
                 className="input select  "
-                error=""
                 label="Reminder 1"
                 name="reminderTemplate-0"
                 onChange={[Function]}
@@ -274,7 +273,6 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                     ]
                   }
                   className="input select  period"
-                  error=""
                   label=""
                   name="period-0"
                   onChange={[Function]}
@@ -427,7 +425,6 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                   ]
                 }
                 className="input select  "
-                error=""
                 label="Reminder 2"
                 name="reminderTemplate-1"
                 onChange={[Function]}
@@ -610,7 +607,6 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
                     ]
                   }
                   className="input select  period"
-                  error=""
                   label=""
                   name="period-1"
                   onChange={[Function]}
@@ -734,7 +730,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
             type="button"
           >
             <img
-              alt="clicked"
+              alt=""
               className="addsvg"
               src="add.svg"
             />
@@ -742,7 +738,9 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
           </button>
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset
+        className="submit__area-border"
+      >
         <div
           className="submit-area"
         >
@@ -758,6 +756,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
             className="bg-btn bg-btn--active"
             disabled={true}
             id="submit"
+            onClick={[Function]}
             type="submit"
           >
             <undefined />
@@ -848,7 +847,6 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   ]
                 }
                 className="input select  "
-                error=""
                 label="Reminder 1"
                 name="reminderTemplate-0"
                 onChange={[Function]}
@@ -989,7 +987,6 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                     ]
                   }
                   className="input select  period"
-                  error=""
                   label=""
                   name="period-0"
                   onChange={[Function]}
@@ -1130,7 +1127,6 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                   ]
                 }
                 className="input select  "
-                error=""
                 label="Reminder 2"
                 name="reminderTemplate-1"
                 onChange={[Function]}
@@ -1271,7 +1267,6 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
                     ]
                   }
                   className="input select  period"
-                  error=""
                   label=""
                   name="period-1"
                   onChange={[Function]}
@@ -1395,7 +1390,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
             type="button"
           >
             <img
-              alt="clicked"
+              alt=""
               className="addsvg"
               src="add.svg"
             />
@@ -1403,7 +1398,9 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
           </button>
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset
+        className="submit__area-border"
+      >
         <div
           className="submit-area"
         >
@@ -1419,6 +1416,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
             className="bg-btn bg-btn--active"
             disabled={true}
             id="submit"
+            onClick={[Function]}
             type="submit"
           >
             <undefined />

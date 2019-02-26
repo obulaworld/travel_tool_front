@@ -163,7 +163,6 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
                 ]
               }
               className="input select  request_dropdown"
-              error=""
               label="Center"
               name="center"
               onChange={[Function]}
@@ -223,7 +222,9 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
     </div>
   </fieldset>
   <hr />
-  <fieldset>
+  <fieldset
+    className="submit__area-border"
+  >
     <div
       className="submit-area"
     >
@@ -239,6 +240,7 @@ exports[`<NewUserRoleForm /> renders correctly 1`] = `
         className="bg-btn bg-btn--active"
         disabled={true}
         id="submit"
+        onClick={[Function]}
         type="submit"
       >
         <undefined />

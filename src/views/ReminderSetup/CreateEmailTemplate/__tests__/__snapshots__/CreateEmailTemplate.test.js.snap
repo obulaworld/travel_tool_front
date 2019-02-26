@@ -213,6 +213,7 @@ exports[`<CreateEmailTemplate> page Should render correctly 1`] = `
             <textarea
               autoComplete="off"
               className=" textarea-box email-message"
+              data-gramm_editor="false"
               label="Email Message"
               name="message"
               onBlur={[Function]}

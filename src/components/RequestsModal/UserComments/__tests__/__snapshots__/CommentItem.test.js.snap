@@ -46,34 +46,34 @@ exports[`CommentItem component should match snapshot 1`] = `
           buttonText="Delete"
           isLoading={false}
         />
-        <Modal
-          closeDeleteModal={[Function]}
-          closeModal={null}
-          customModalStyles="delete-comment-modal"
-          customOverlayStyle="delete-modal-overlay"
-          modalBar={<div />}
-          modalContentId=""
-          modalId=""
-          requestId=""
-          showOverlay={false}
-          title="Delete Comment ?"
-          visibility="invisible"
-          width=""
-        >
-          <p
-            className="delete-comment-modal__text"
-          >
-            This action cannot be undone
-          </p>
-          <button
-            className="delete-comment-modal__btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Delete
-          </button>
-        </Modal>
       </button>
+      <Modal
+        closeDeleteModal={[Function]}
+        closeModal={null}
+        customModalStyles="delete-comment-modal"
+        customOverlayStyle="delete-modal-overlay"
+        modalBar={<div />}
+        modalContentId=""
+        modalId=""
+        requestId=""
+        showOverlay={false}
+        title="Delete Comment ?"
+        visibility="invisible"
+        width=""
+      >
+        <p
+          className="delete-comment-modal__text"
+        >
+          This action cannot be undone
+        </p>
+        <button
+          className="delete-comment-modal__btn"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </Modal>
     </span>
     <div
       className="modal__modal2"
@@ -137,34 +137,34 @@ exports[`CommentItem component should match snapshot 2`] = `
           buttonText="Delete"
           isLoading={false}
         />
-        <Modal
-          closeDeleteModal={[Function]}
-          closeModal={null}
-          customModalStyles="delete-comment-modal"
-          customOverlayStyle="delete-modal-overlay"
-          modalBar={<div />}
-          modalContentId=""
-          modalId=""
-          requestId=""
-          showOverlay={false}
-          title="Delete Comment ?"
-          visibility="invisible"
-          width=""
-        >
-          <p
-            className="delete-comment-modal__text"
-          >
-            This action cannot be undone
-          </p>
-          <button
-            className="delete-comment-modal__btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Delete
-          </button>
-        </Modal>
       </button>
+      <Modal
+        closeDeleteModal={[Function]}
+        closeModal={null}
+        customModalStyles="delete-comment-modal"
+        customOverlayStyle="delete-modal-overlay"
+        modalBar={<div />}
+        modalContentId=""
+        modalId=""
+        requestId=""
+        showOverlay={false}
+        title="Delete Comment ?"
+        visibility="invisible"
+        width=""
+      >
+        <p
+          className="delete-comment-modal__text"
+        >
+          This action cannot be undone
+        </p>
+        <button
+          className="delete-comment-modal__btn"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </Modal>
     </span>
     <div
       className="comment-box"
@@ -229,34 +229,34 @@ exports[`CommentItem component should match snapshot 3`] = `
           buttonText="Delete"
           isLoading={false}
         />
-        <Modal
-          closeDeleteModal={[Function]}
-          closeModal={null}
-          customModalStyles="delete-comment-modal"
-          customOverlayStyle="delete-modal-overlay"
-          modalBar={<div />}
-          modalContentId=""
-          modalId=""
-          requestId=""
-          showOverlay={false}
-          title="Delete Comment ?"
-          visibility="invisible"
-          width=""
-        >
-          <p
-            className="delete-comment-modal__text"
-          >
-            This action cannot be undone
-          </p>
-          <button
-            className="delete-comment-modal__btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Delete
-          </button>
-        </Modal>
       </button>
+      <Modal
+        closeDeleteModal={[Function]}
+        closeModal={null}
+        customModalStyles="delete-comment-modal"
+        customOverlayStyle="delete-modal-overlay"
+        modalBar={<div />}
+        modalContentId=""
+        modalId=""
+        requestId=""
+        showOverlay={false}
+        title="Delete Comment ?"
+        visibility="invisible"
+        width=""
+      >
+        <p
+          className="delete-comment-modal__text"
+        >
+          This action cannot be undone
+        </p>
+        <button
+          className="delete-comment-modal__btn"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </Modal>
     </span>
     <div
       className="comment-box"

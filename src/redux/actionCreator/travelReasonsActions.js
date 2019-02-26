@@ -1,5 +1,6 @@
 import {
   CREATE_TRAVEL_REASON,
+  DELETE_TRAVEL_REASON,
   CREATE_TRAVEL_REASON_SUCCESS,
   CREATE_TRAVEL_REASON_FAILURE,
   FETCH_TRAVEL_REASON,
@@ -9,6 +10,8 @@ import {
   VIEW_TRAVEL_REASON_DETAILS,
   VIEW_TRAVEL_REASON_DETAILS_SUCCESS,
   VIEW_TRAVEL_REASON_DETAILS_FAILURE,
+  DELETE_TRAVEL_REASON_SUCCESS,
+  DELETE_TRAVEL_REASON_FAILURE,
 } from '../constants/actionTypes';
 
 export const createTravelReason = (body, history) => ({
@@ -62,4 +65,22 @@ export const editTravelReasonSuccess = (response) => ({
 export const editTravelReasonFailure = (error) => ({
   type: EDIT_TRAVEL_REASON_FAILURE,
   error
+});
+
+export const deleteTravelReason = (reasonId) => {
+  return {
+    type: DELETE_TRAVEL_REASON,
+    reasonId
+  };
+};
+
+export const deleteTravelReasonSuccess = (reasonId, deletedReason) => ({
+  type: DELETE_TRAVEL_REASON_SUCCESS,
+  reasonId,
+  deletedReason,
+});
+
+export const deleteTravelReasonFailure = (error) => ({
+  type: DELETE_TRAVEL_REASON_FAILURE,
+  error,
 });

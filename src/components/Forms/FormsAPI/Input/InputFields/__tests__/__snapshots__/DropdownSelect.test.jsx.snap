@@ -16,7 +16,6 @@ exports[`<DropdownSelect /> renders fine 1`] = `
       ]
     }
     className="input select  "
-    error=""
     onChange={[Function]}
     onClick={[Function]}
     onKeyPress={[Function]}

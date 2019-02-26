@@ -5,6 +5,7 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import {
   watchCreateTravelReason,
   watchViewTravelReasonDetails,
+  watchDeleteTravelReason,
   watchEditTravelReason
 } from '../travelReasonsSaga';
 import TravelReasonsAPI from '../../../services/TravelReasonsAPI';
@@ -149,3 +150,49 @@ describe('Travel reasons Saga', () => {
       .silentRun();
   });
 });
+describe('Delete document', () => {
+  const reasonId = 2;
+  const response = {
+    data: {
+      deletedReason: {
+        id: 2,
+      }
+    }
+  };
+  it('deletes a reason successfully', () => {
+    return expectSaga(watchDeleteTravelReason)
+      .provide([[
+        call(TravelReasonsAPI.deleteTravelReason, reasonId),
+        response
+      ]])
+      .put({
+        type: 'DELETE_TRAVEL_REASON_SUCCESS',
+        reasonId,
+        deletedReason: response.data.deletedReason
+      })
+      .dispatch({
+        type: 'DELETE_TRAVEL_REASON',
+        reasonId,
+      })
+      .silentRun();
+  });
+  it('handles failed document deletion', () => {
+    const error = new Error('Server error, try again');
+    error.response = { status: 500 };
+    return expectSaga(watchDeleteTravelReason)
+      .provide([[
+        call(TravelReasonsAPI.deleteTravelReason, reasonId),
+        throwError(error)
+      ]])
+      .put({
+        type: 'DELETE_TRAVEL_REASON_FAILURE',
+        error: error.message
+      })
+      .dispatch({
+        type: 'DELETE_TRAVEL_REASON',
+        reasonId,
+      })
+      .silentRun();
+  });
+});
+
