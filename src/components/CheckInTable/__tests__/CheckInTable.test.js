@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { CheckInTable } from '..';
-import { notCheckInTrips } from '../../../redux/__mocks__/mocks';
+import { notCheckInTrips } from '../../../redux/__mocks__/reduxMocks';
 
 const props = { 
   handleCheckStatus: jest.fn(),

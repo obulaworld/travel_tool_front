@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
 import PageHeader from '../../components/PageHeader';
 import CreateTravelReasonModal from '../../components/TravelReasonsModal/TravelReasonsModal';
-import { createTravelReason, viewTravelDetails } from '../../redux/actionCreator/travelReasonsActions';
+import {createTravelReason, editTravelReason,
+  viewTravelDetails, fetchTravelReason
+} from '../../redux/actionCreator/travelReasonsActions';
 import ListTravelReasons from '../../components/TravelReasons/ListTravelReasons';
 import { fetchAllTravelReasons } from '../../redux/actionCreator/listTravelReasonsActions';
 
@@ -23,16 +25,18 @@ export class TravelReasons extends Component {
   createNewTravelReason = (body) => {
     const { createTravelReason, history } = this.props;
     return createTravelReason(body, history);
-  }
+  };
+
+  renderEditTravelReasonModal = (id) => {
+    const { openModal, fetchTravelReason} = this.props;
+    fetchTravelReason(id);
+    openModal(true, 'edit travel reasons');
+  };
 
   render() {
     const {
-      fetchAllTravelReasonsAction,
-      location,
-      closeModal,
-      shouldOpen,
-      modalType,
-      travelReason, travelReason: { isLoading }
+      fetchAllTravelReasonsAction, location, closeModal, shouldOpen,
+      modalType, editTravelReason, travelReason, travelReason: { isLoading }
     } = this.props;
 
     return (
@@ -49,9 +53,11 @@ export class TravelReasons extends Component {
           shouldOpen={shouldOpen}
           closeModal={closeModal}
           modalType={modalType}
+          editTravelReason={editTravelReason}
           createNewTravelReason={this.createNewTravelReason}
         />
         <ListTravelReasons
+          editTravelReason={this.renderEditTravelReasonModal}
           listTravelReasons={travelReason}
           fetchAllTravelReasonsAction={fetchAllTravelReasonsAction}
           location={location}
@@ -72,16 +78,19 @@ TravelReasons.propTypes = {
   modalType: PropTypes.string,
   viewTravelDetails: PropTypes.func,
   createTravelReason: PropTypes.func,
+  editTravelReason: PropTypes.func,
   travelReason: PropTypes.object,
   fetchAllTravelReasonsAction: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object,
+  fetchTravelReason: PropTypes.func.isRequired,
 };
 
 TravelReasons.defaultProps = {
   openModal: null,
   closeModal: null,
   createTravelReason: null,
+  editTravelReason: null,
   viewTravelDetails: null,
   travelReason: {},
   shouldOpen: false,
@@ -100,8 +109,10 @@ const actionCreators = {
   openModal,
   closeModal,
   createTravelReason,
+  fetchAllTravelReasonsAction: fetchAllTravelReasons,
+  editTravelReason,
+  fetchTravelReason,
   viewTravelDetails,
-  fetchAllTravelReasonsAction: fetchAllTravelReasons
 };
 
 export default connect(mapStateToProps, actionCreators)(TravelReasons);

@@ -6,7 +6,7 @@ import {
 import {
   fetchReadinessResponse, passportDetails
 
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 import {
   fetchReadinessFailure,
   fetchReadinessSuccess,

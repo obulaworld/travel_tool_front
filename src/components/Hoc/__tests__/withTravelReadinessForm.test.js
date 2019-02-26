@@ -1,6 +1,7 @@
 import React from 'react';
 import toast from 'toastr';
 import moxios from 'moxios';
+import moment from 'moment';
 import withTravelReadinessForm from '../withTravelReadinessForm';
 import VisaFormFieldset from '../../Forms/TravelReadinessForm/FormFieldsets/VisaFormFieldset';
 import OtherDocumentFieldSet from '../../Forms/TravelReadinessForm/FormFieldsets/OtherDocumentFieldSet';
@@ -26,8 +27,8 @@ const props = {
 const OtherDocumentDefault  = withTravelReadinessForm(OtherDocumentFieldSet, 'other', {
   values: {
     name: '',
-    dateOfIssue: '',
-    expiryDate: '',
+    expiryDate: moment(),
+    dateOfIssue: moment()
   },
   errors: {},
   hasBlankFields: true,
@@ -40,15 +41,15 @@ const document = {
   country: 'USA',
   image : 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpeg',
   name: 'Chris AKanmu',
-  expiryDate: '01/31/2018',
-  dateOfIssue: '01/30/2017'
+  expiryDate: moment(),
+  dateOfIssue: moment()
 };
 
 const NewOtherDocument= withTravelReadinessForm(OtherDocumentFieldSet, 'other', {
   values: {
     name: 'emeka',
-    dateOfIssue: '',
-    expiryDate: '',
+    expiryDate: moment(),
+    dateOfIssue: moment()
   },
   errors: {},
   hasBlankFields: true,
@@ -60,8 +61,8 @@ const NewOtherDocument= withTravelReadinessForm(OtherDocumentFieldSet, 'other', 
 const NewOtherDocumentII  = withTravelReadinessForm(OtherDocumentFieldSet, 'other', {
   values: {
     name: 'emeka',
-    dateOfIssue: '',
-    expiryDate: '',
+    expiryDate: moment(),
+    dateOfIssue: moment()
   },
   errors: {},
   hasBlankFields: true,
@@ -73,13 +74,13 @@ const NewOtherDocumentII  = withTravelReadinessForm(OtherDocumentFieldSet, 'othe
 const VisaDefault = withTravelReadinessForm(VisaFormFieldset, 'visa', {
   values: {
     name: '',
-    dateOfIssue: '',
-    expiryDate: '',
+    expiryDate: moment(),
+    dateOfIssue: moment()
   },
   value: {
     name: '',
-    dateOfIssue: '',
-    expiryDate: '',
+    expiryDate: moment(),
+    dateOfIssue: moment()
   },
   errors: {},
   hasBlankFields: true,
@@ -406,8 +407,8 @@ describe('<OtherDocumentForm />', () => {
       image: 'image.jpg',
       values:{
         name: '',
-        dateOfIssue: '02/01/2019',
-        expiryDate: '03/02/2019',
+        dateOfIssue: moment(),
+        expiryDate: moment(),
         image: 'image.jpg'}
     });
     const validFile = new Blob(['This is a valid png file'], {type : 'image/png', size: 1092});
@@ -416,7 +417,7 @@ describe('<OtherDocumentForm />', () => {
       preventDefault: jest.fn(),
       target:{
         files: [validFile]
-      }}
+      }};
     wrapperWithOtherDocumentField.instance().handleUpload(event);
     expect(wrapperWithOtherDocumentField.instance().state.hasBlankFields).toBe(true);
     wrapperWithOtherDocumentField.instance().setState({
@@ -424,8 +425,8 @@ describe('<OtherDocumentForm />', () => {
       image: 'image.jpg',
       values:{
         name: 'Kalyango',
-        dateOfIssue: '02/01/2019',
-        expiryDate: '03/02/2019',
+        dateOfIssue: moment(),
+        expiryDate: moment(),
         image: 'image.jpg'}
     });
     wrapperWithOtherDocumentField.instance().handleUpload(event);

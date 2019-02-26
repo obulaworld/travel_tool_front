@@ -3,6 +3,10 @@ import {
   createTravelReason,
   createTravelReasonSuccess,
   createTravelReasonFailure,
+  editTravelReason,
+  fetchTravelReason,
+  editTravelReasonSuccess,
+  editTravelReasonFailure,
   viewTravelDetails,
   viewTravelDetailsFailure,
   viewTravelDetailsSuccess,
@@ -12,6 +16,20 @@ const body = {
   title: 'title',
   description: 'description'
 };
+
+const travelReasons = [
+  {
+    id: 1,
+    title: 'First title',
+    description: 'First description'
+  },
+  {
+    id: 2,
+    title: 'Second title',
+    description: 'Second description'
+  }
+];
+
 
 const id = 1;
 
@@ -63,6 +81,56 @@ describe('Create Travel Reason actions', () => {
       expect(newState).toEqual(expectedState);
       expect(newState.isCreating).toBe(false);
     });
+
+  it('should handle EDIT_TRAVEL_REASON', () => {
+    const state = { ...initialState};
+    const action = editTravelReason(body);
+    const newState = travelReasonReducer(state, action);
+
+    const expectedSate = {...state, isEditing: true, errors: {}};
+    expect(newState).toEqual(expectedSate);
+  });
+
+  it('should handle FETCH_TRAVEL_REASON', () => {
+    const state = {...initialState, travelReasons };
+    const action = fetchTravelReason(1);
+    const newState = travelReasonReducer(state, action);
+
+    expect(newState).toEqual({
+      ...state,
+      editReason: travelReasons[0]
+    });
+  });
+
+  it('should handle EDIT_TRAVEL_REASON_SUCCESS', () => {
+    const state = {...initialState, travelReasons};
+    const travelReason = {
+      id: 1,
+      title: 'First New Title',
+      description: 'First New Description'
+    };
+
+    const action = editTravelReasonSuccess({ travelReason });
+    const newState = travelReasonReducer(state, action);
+
+    expect(newState).toEqual({
+      ...state,
+      travelReasons: [travelReason, travelReasons[1]]
+    });
+  });
+
+  it('should handle EDIT_TRAVEL_REASON_FAILURE', () => {
+    const state = {...initialState};
+    const action = editTravelReasonFailure('Something went wrong');
+
+    const newState = travelReasonReducer(state, action);
+    expect(newState)
+      .toEqual({
+        ...state,
+        errors: 'Something went wrong',
+        isEditing: false
+      });
+  });
 });
 
 describe('View Travel Reason Details actions', () => {

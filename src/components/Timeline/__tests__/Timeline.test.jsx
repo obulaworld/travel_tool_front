@@ -21,6 +21,7 @@ const props = {
   updateMaintenanceRecord: jest.fn(),
   deleteMaintenanceRecord: jest.fn(),
   fetchTimelineRoomsData: jest.fn(),
+  disableGustHouseButtonState: true,
   updateRoomState: jest.fn(),
   guestHouseId: 'guest-house-id-1',
   updateTripRoom: jest.fn(),

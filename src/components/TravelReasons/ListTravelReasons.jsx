@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import LoadingTravelReasonsTable from './TravelReasonsTable';
 import TemplatesPagination from '../ReminderSetup/TemplatesPagination';
+import NoTemplates from '../ReminderSetup/NoTemplates';
 
 class ListTravelReasons extends Component {
   componentDidMount() {
@@ -32,6 +33,7 @@ class ListTravelReasons extends Component {
   render(){
     const {
       listTravelReasons: { travelReasons, pagination, isLoading, reasonDetails, isFetching },
+      editTravelReason,
       renderDisplayTravelReasonDetails,
       shouldOpen,
       closeModal,
@@ -46,6 +48,7 @@ class ListTravelReasons extends Component {
           shouldOpen={shouldOpen}
           closeModal={closeModal}
           modalType={modalType}
+          editTravelReason={editTravelReason}
           reasonDetails={reasonDetails}
           isFetching={isFetching}
           renderDisplayTravelReasonDetails={renderDisplayTravelReasonDetails}
@@ -64,6 +67,7 @@ ListTravelReasons.propTypes = {
   shouldOpen: PropTypes.bool,
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
+  editTravelReason: PropTypes.func
 };
 
 ListTravelReasons.defaultProps = {
@@ -72,6 +76,7 @@ ListTravelReasons.defaultProps = {
   closeModal: null,
   fetchAllTravelReasonsAction: null,
   modalType: '',
+  editTravelReason: () => {}
 };
 
 export default ListTravelReasons;

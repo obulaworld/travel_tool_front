@@ -1,7 +1,7 @@
 import travelStipends from '../travelStipends';
 import {
   createStipendMock,
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 
 describe('travel stipends Reducer', () => {
 

@@ -3,7 +3,7 @@ import { throwError } from 'redux-saga-test-plan/providers';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import TravelCalendarAPI from '../../../services/TravelCalendarAPI';
 import { watchFetchCalendarAnalytics, watchDownloadCalendarAnalytics } from '../travelCalendarSaga';
-import { fetchTravelCalendarResponse } from '../../__mocks__/mocks';
+import { fetchTravelCalendarResponse } from '../../__mocks__/reduxMocks';
 import {
   FETCH_CALENDAR_ANALYTICS_SUCCESS,
   FETCH_CALENDAR_ANALYTICS,

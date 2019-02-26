@@ -8,7 +8,7 @@ import {
 } from '../travelReadinessSaga';
 import {
   fetchReadinessResponse, fetchTravelReadinessResponse, passportDetails
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 import {
   FETCH_TRAVEL_READINESS,
   FETCH_TRAVEL_READINESS_SUCCESS,

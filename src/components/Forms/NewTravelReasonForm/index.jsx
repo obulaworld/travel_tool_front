@@ -19,8 +19,23 @@ export default class NewTravelReasonForm extends Component {
     this.state = { ...this.defaultState };
   }
 
+  componentDidMount() {
+    this.setEditValues(this.props);
+  }
+
+  setEditValues = ({ editing, travelReason : { editReason }}) => {
+    if (editing) {
+      const { title, description } = editReason;
+      this.setState(
+        {
+          values: { title, description }
+        });
+    }
+  };
+
   validateLength = field => {
     let { values, optionalFields } = this.state;
+    const { editing, travelReason: { editReason } } = this.props;
 
     let tempErrorsObject = {
       title: '',
@@ -31,36 +46,58 @@ export default class NewTravelReasonForm extends Component {
 
     switch (field) {
     case 'title':
-      values[field].length === 0 ? (tempErrorsObject.title = 'This field is required') : null;
-      values[field].length >= 18 ? (tempErrorsObject.title = 'Titles can only be 18 characters long') : null;
+      values[field].length === 0 ?
+        (tempErrorsObject.title = 'This field is required')
+        : null;
+      values[field].length >= 18 ? (
+        tempErrorsObject.title = 'Titles can only be 18 characters long')
+        : null;
       values.title = values.title.slice(0,18);
       break;
     case 'description':
-      values[field].length >= 140 ? (tempErrorsObject.description = 'Descriptions can only be 140 characters long') : null;
+      values[field].length >= 140 ?
+        (tempErrorsObject.description = 'Descriptions can only be 140 characters long')
+        : null;
       values.description = values.description.slice(0, 140);
       break;
     default:
       break;
     }
 
-    hasBlankFields = Object.keys(values).some(key => !values[key] && !optionalFields.includes(key));
+    hasBlankFields = Object.keys(values).some(
+      key => !values[key] && !optionalFields.includes(key)
+    );
 
     this.setState(prevState => {
       return { ...prevState, errors: { ...tempErrorsObject }, hasBlankFields };
     });
 
+    if ( editing && !hasBlankFields && editReason.title && editReason.description ){
+      const title = values.title ? values.title.toLowerCase() : '';
+      const description = values.description ? values.description.toLowerCase() : '';
+      hasBlankFields = title === editReason.title.toLowerCase() &&
+        description === editReason.description.toLowerCase();
+    }
+
     return !hasBlankFields;
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const { createNewTravelReason } = this.props;
+    const { createNewTravelReason,
+      editing, editTravelReason ,
+      travelReason: { editReason}} = this.props;
     let { values } = this.state;
-    await createNewTravelReason(values);
-  }
+    if (editing) {
+      editTravelReason({id: editReason.id, ...values});
+    }else {
+      createNewTravelReason(values);
+    }
+  };
+
   render() {
     const { values, errors, hasBlankFields } = this.state;
-    const { closeModal, travelReason } = this.props;
+    const { closeModal, travelReason, send } = this.props;
     return (
       <FormContext values={values} errors={errors} targetForm={this} validatorName="validateLength">
         <form onSubmit={this.handleSubmit} className="new-request">
@@ -71,7 +108,7 @@ export default class NewTravelReasonForm extends Component {
             travelReason={travelReason}
             onCancel={closeModal}
             hasBlankFields={hasBlankFields}
-            send="Add Reason"
+            send={send}
           />
         </form>
       </FormContext>
@@ -82,11 +119,17 @@ export default class NewTravelReasonForm extends Component {
 NewTravelReasonForm.propTypes = {
   closeModal: PropTypes.func,
   createNewTravelReason: PropTypes.func,
+  editTravelReason: PropTypes.func,
   travelReason: PropTypes.object,
+  send: PropTypes.string,
+  editing: PropTypes.bool
 };
 
 NewTravelReasonForm.defaultProps = {
   closeModal: null,
   createNewTravelReason: null,
+  editTravelReason: null,
   travelReason: {},
+  send: 'Add Reason',
+  editing: false
 };

@@ -2,6 +2,10 @@ import {
   CREATE_TRAVEL_REASON,
   CREATE_TRAVEL_REASON_SUCCESS,
   CREATE_TRAVEL_REASON_FAILURE,
+  FETCH_TRAVEL_REASON,
+  EDIT_TRAVEL_REASON,
+  EDIT_TRAVEL_REASON_SUCCESS,
+  EDIT_TRAVEL_REASON_FAILURE,
   VIEW_TRAVEL_REASON_DETAILS,
   VIEW_TRAVEL_REASON_DETAILS_SUCCESS,
   VIEW_TRAVEL_REASON_DETAILS_FAILURE,
@@ -35,5 +39,27 @@ export const viewTravelDetailsSuccess = (response) => ({
 
 export const viewTravelDetailsFailure = (error) => ({
   type: VIEW_TRAVEL_REASON_DETAILS_FAILURE,
+  error
+});
+
+export const fetchTravelReason = (id) => ({
+  type: FETCH_TRAVEL_REASON,
+  travelReasonId: id
+});
+
+
+export const editTravelReason = (body) => ({
+  type: EDIT_TRAVEL_REASON,
+  body,
+});
+
+
+export const editTravelReasonSuccess = (response) => ({
+  type: EDIT_TRAVEL_REASON_SUCCESS,
+  response
+});
+
+export const editTravelReasonFailure = (error) => ({
+  type: EDIT_TRAVEL_REASON_FAILURE,
   error
 });

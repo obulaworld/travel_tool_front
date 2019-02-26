@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContextMenu /> component should render correctly 1`] = `
+<span>
+  <i
+    className="fa fa-ellipsis-v on"
+    onClick={[Function]}
+    role="presentation"
+  />
+  <div
+    className="context-menu table__menu-container false"
+  >
+    <ul
+      className="table__menu-list"
+    >
+      <li
+        className="edit"
+        onClick={[Function]}
+        role="presentation"
+      >
+        <span>
+          Edit
+        </span>
+      </li>
+    </ul>
+  </div>
+</span>
+`;

@@ -14,7 +14,7 @@ import {
   tripsResponse,
   updateTripResponse,
   updateTripRoomResponse
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 import Utils from '../../../helper/Utils';
 
 describe('Test suite for trips reducer', () => {

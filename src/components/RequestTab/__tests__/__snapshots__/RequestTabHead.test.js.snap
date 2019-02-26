@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RequestTabHead /> should render properly 1`] = `
+<div>
+  <div
+    className="new-request_title"
+  >
+    CREATE A NEW TRAVEL REQUEST
+  </div>
+  <div
+    className="request__tab"
+  >
+    <div
+      className="request__tab-card  complete"
+      key="1"
+    >
+      <div
+        className="mark"
+      >
+        <img
+          alt=""
+          src="mark.svg"
+        />
+      </div>
+      <div
+        className="tab-logo"
+      >
+        <personal
+          color="#10A36D"
+        />
+      </div>
+      <div
+        className="tab-title"
+      >
+        Personal Information
+      </div>
+      <div
+        className="foot-text"
+      />
+    </div>
+    <div
+      className="request__tab-card  complete"
+      key="2"
+    >
+      <div
+        className="mark"
+      >
+        <img
+          alt=""
+          src="mark.svg"
+        />
+      </div>
+      <div
+        className="tab-logo"
+      >
+        <tripDetails
+          color="#10A36D"
+        />
+      </div>
+      <div
+        className="tab-title"
+      >
+        Trip Details
+      </div>
+      <div
+        className="foot-text"
+      />
+    </div>
+    <div
+      className="request__tab-card current incomplete"
+      key="3"
+    >
+      <div
+        className="mark"
+      >
+        <img
+          alt=""
+          src="mark.svg"
+        />
+      </div>
+      <div
+        className="tab-logo"
+      >
+        <stipend
+          color="#3359DB"
+        />
+      </div>
+      <div
+        className="tab-title"
+      >
+        Travel Stipends
+      </div>
+      <div
+        className="foot-text"
+      />
+    </div>
+    <div
+      className="request__tab-card  incomplete"
+      key="4"
+    >
+      <div
+        className="mark"
+      >
+        <img
+          alt=""
+          src="mark.svg"
+        />
+      </div>
+      <div
+        className="tab-logo"
+      >
+        <checkList
+          color="#3359DB"
+        />
+      </div>
+      <div
+        className="tab-title"
+      >
+        Travel Checklist
+      </div>
+      <div
+        className="foot-text"
+      />
+    </div>
+  </div>
+</div>
+`;

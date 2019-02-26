@@ -5,7 +5,7 @@ import {
   FETCH_CALENDAR_ANALYTICS_FAILURE,
   DOWNLOAD_CALENDAR_ANALYTICS_FAILURE
 } from '../../constants/actionTypes';
-import { fetchTravelCalendarResponse } from '../../__mocks__/mocks'
+import { fetchTravelCalendarResponse } from '../../__mocks__/reduxMocks'
 
 
 

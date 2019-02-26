@@ -12,6 +12,10 @@ class TravelReasonsAPI {
     return axios.post(`${baseUrl}/request/reasons`, query);
   }
 
+  static editTravelReason(id, title, description) {
+    return axios.put(`${baseUrl}/request/reasons/${id}`, {title, description});
+  }
+
   static viewTravelReasonDetails(id) {
     return axios.get(`${baseUrl}/request/reasons/${id}`);
   }

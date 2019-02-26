@@ -17,7 +17,7 @@ describe('<PassportForm/>',  () => {
     editTravelReadinessDocument: jest.fn(),
     fetchingDocument: false,
     isLoading: false,
-    document: {},
+    document: { },
     errors: {},
     fetchUserData: jest.fn(),
     users: [],
@@ -61,8 +61,8 @@ describe('<PassportForm/>',  () => {
 
   it('renders the edit passport document modal', () => {
     const wrapperWithPassportField = mount(
-      <PassportForm 
-        {...props} 
+      <PassportForm
+        {...props}
         documentType="passport"
         modalType="edit passport"
       />
@@ -187,7 +187,7 @@ describe('<PassportForm/>',  () => {
 
     moxios.wait(() => {
       expect(wrapper.state().documentUploaded).toBeTruthy();
-      expect(createTravelReadinessDocument).toHaveBeenCalledWith('passport', document);
+      expect(props.createTravelReadinessDocument).toHaveBeenCalledWith('passport', document);
     });
   });
 
@@ -215,7 +215,7 @@ describe('<PassportForm/>',  () => {
           passportNumber: '6yy2',
           name: 'emeka',
           nationality: 'Nigerian',
-          placeOfIssue: 'Naija', 
+          placeOfIssue: 'Naija',
           cloudinaryUrl: 'image.com'
         }
       },
@@ -234,7 +234,7 @@ describe('<PassportForm/>',  () => {
           passportNumber: '6yy2',
           name: 'emeka',
           nationality: 'Nigerian',
-          placeOfIssue: 'Naija', 
+          placeOfIssue: 'Naija',
           cloudinaryUrl: 'image.com'
         }
       },
@@ -246,8 +246,6 @@ describe('<PassportForm/>',  () => {
 
   it('should show the year from 18 years ago on the birthdate', () => {
     wrapper = mount(<PassportForm {...props} />);
-
-    wrapper.find('input[name="dateOfBirth"]').simulate('click');
 
     const datePicker = wrapper.find('DateInput[name="dateOfBirth"]').find('DatePicker');
     expect(datePicker.props().showYearDropdown).toBeTruthy();

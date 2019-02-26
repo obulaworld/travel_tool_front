@@ -1,6 +1,15 @@
 import * as types from '../../constants/actionTypes';
 import * as actions from '../travelReasonsActions';
 
+
+const actionsTester = (action, TYPE, expected) => (...args) =>  {
+  expect(action(...args)).toEqual({
+    type: TYPE,
+    ...expected
+  });
+};
+
+
 describe('Travel Reasons actions', () => {
   describe('Create new Travel Reasons', () => {
     it('should return action type CREATE_TRAVEL_REASON', () => {
@@ -12,9 +21,11 @@ describe('Travel Reasons actions', () => {
         type: types.CREATE_TRAVEL_REASON,
         body
       };
-
-      const action = actions.createTravelReason(body);
-      expect(action).toEqual(expectedAction);
+      actionsTester(
+        actions.createTravelReason,
+        types.CREATE_TRAVEL_REASON,
+        { body}
+      )(body);
     });
 
     it('should return action type CREATE_TRAVEL_REASON_SUCCESS', () => {
@@ -23,25 +34,78 @@ describe('Travel Reasons actions', () => {
         error: {},
         travelReason: {}
       };
-      const expectedAction = {
-        type: types.CREATE_TRAVEL_REASON_SUCCESS,
-        response,
-      };
 
-      const action = actions.createTravelReasonSuccess(response);
-      expect(action).toEqual(expectedAction);
+      actionsTester(
+        actions.createTravelReasonSuccess,
+        types.CREATE_TRAVEL_REASON_SUCCESS,
+        {response}
+      )(response);
     });
 
     it('should return action type CREATE_TRAVEL_REASON_FAILURE', () => {
       const error = 'Error creating travel reason';
-      const expectedAction = {
-        type: types.CREATE_TRAVEL_REASON_FAILURE,
-        error,
+      actionsTester(
+        actions.createTravelReasonFailure,
+        types.CREATE_TRAVEL_REASON_FAILURE,
+        {error}
+      )(error);
+    });
+
+    it('should return action type FETCH_TRAVEL_REASON', () => {
+      const id = 1;
+      actionsTester(
+        actions.fetchTravelReason,
+        types.FETCH_TRAVEL_REASON,
+        {
+          travelReasonId: id }
+      )(id);
+    });
+
+    it('should return action type EDIT_TRAVEL_REASON', () => {
+      const body = {
+        title: 'This is a title',
+        description: 'This is a description'
       };
 
-      const action = actions.createTravelReasonFailure(error);
-      expect(action).toEqual(expectedAction);
+      actionsTester(
+        actions.editTravelReason,
+        types.EDIT_TRAVEL_REASON,
+        {
+          body
+        }
+      )(body);
     });
+
+    it('should return action type EDIT_TRAVEL_REASON_SUCCESS', () => {
+      const response = {
+        travelReason: {
+          id: 1
+        }
+      };
+
+      actionsTester(
+        actions.editTravelReasonSuccess,
+        types.EDIT_TRAVEL_REASON_SUCCESS,
+        {
+          response
+        }
+      )(response);
+    });
+
+    it('should return action type EDIT_TRAVEL_REASON_FAILURE', () => {
+      const error = {
+        message: 'Something failed'
+      };
+
+      actionsTester(
+        actions.editTravelReasonFailure,
+        types.EDIT_TRAVEL_REASON_FAILURE,
+        {
+          error
+        }
+      )(error);
+    });
+
   });
 
   describe('View Travel Reason Details', () => {

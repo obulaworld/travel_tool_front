@@ -13,7 +13,7 @@ import {
 import {
   reminderTemplateData,
   errorResponse
-} from '../../../views/ReminderSetup/__mocks__';
+} from '../../../views/ReminderSetup/__mocks__/ReminderSetup';
 
 describe('Reminder Email Templates reducer', () => {
   const initialState = {

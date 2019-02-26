@@ -10,7 +10,7 @@ import {
 import { fetchRequestsResponse,
   createRequestMock,
   fetchRequestsDetailsResponse
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 
 describe('Requests Reducer', () => {
   describe('Fetch Requests Reducer', () => {

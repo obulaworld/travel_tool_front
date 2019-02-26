@@ -2,8 +2,8 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 
-const SubmitArea = ({ onCancel, hasBlankFields, travelReason }) => {
-  const { isCreating } = travelReason;
+const SubmitArea = ({ onCancel, hasBlankFields, travelReason, send }) => {
+  const { isCreating, isEditing } = travelReason;
   return (
     <fieldset>
       <div className="submit-area delete-checklist-item__right">
@@ -16,9 +16,9 @@ const SubmitArea = ({ onCancel, hasBlankFields, travelReason }) => {
         <button
           type="submit"
           className="bg-btn bg-btn--active"
-          disabled={hasBlankFields || isCreating}
+          disabled={hasBlankFields || isCreating || isEditing}
         >
-          <ButtonLoadingIcon isLoading={isCreating} buttonText="Add Reason" />
+          <ButtonLoadingIcon isLoading={isCreating || isEditing} buttonText={send} />
         </button>
       </div>
     </fieldset>
@@ -28,11 +28,13 @@ const SubmitArea = ({ onCancel, hasBlankFields, travelReason }) => {
 SubmitArea.propTypes = {
   onCancel: PropTypes.func.isRequired,
   hasBlankFields: PropTypes.bool.isRequired,
-  travelReason: PropTypes.object
+  travelReason: PropTypes.object,
+  send: PropTypes.string
 };
 
 SubmitArea.defaultProps = {
-  travelReason: {}
+  travelReason: {},
+  send: 'Add Reason'
 };
 
 export default SubmitArea;

@@ -18,7 +18,7 @@ import {
 import {
   DISABLE_EMAIL_TEMPLATE_SUCCESS
 } from '../../constants/actionTypes';
-import templates from  '../../../views/ReminderSetup/__mocks__';
+import templates from '../../../views/ReminderSetup/__mocks__/ReminderSetup';
 import {fetchTemplate } from '../../actionCreator/templatedetailsAction';
 
 const { listOfTemplates, allTemplates } = templates;

@@ -2,8 +2,8 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 
 // good for types like text, email, passord 
-const HtmlInput = (props) => {
-  let htmlProps = {...props};
+const HtmlInput = ({...props, value = ''}) => {
+  let htmlProps = {...props, value};
   let { error } = props;
   let className = error? 'error': '';
   ['labelNote', 'toggleOptions', 'activeOption', 'selectedDate', 'error']

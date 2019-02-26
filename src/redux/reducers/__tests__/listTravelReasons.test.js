@@ -4,7 +4,7 @@ import {
   fetchAllTravelReasonsFailure,
   fetchAllTravelReasonsSuccess
 } from '../../actionCreator/listTravelReasonsActions';
-import mockData from '../../../views/TravelReasons/__mocks__';
+import mockData from '../../../views/TravelReasons/__mocks__/TravelReasons';
 
 describe('listTravelReasonsReducer', () => {
   const initialState = {

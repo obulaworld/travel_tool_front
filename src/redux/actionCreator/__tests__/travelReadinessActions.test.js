@@ -7,7 +7,7 @@ import {
   createTravelReadinessDocumentSuccess,
   createTravelReadinessDocumentFailure
 } from '../travelReadinessActions';
-import { fetchReadinessResponse } from '../../__mocks__/mocks';
+import { fetchReadinessResponse } from '../../__mocks__/reduxMocks';
 import {CREATE_TRAVEL_READINESS_DOCUMENT} from '../../constants/actionTypes';
 
 describe('Travel Readiness Action', () => {

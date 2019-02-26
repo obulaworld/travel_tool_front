@@ -1,12 +1,19 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
-import { watchCreateTravelReason, watchViewTravelReasonDetails } from '../travelReasonsSaga';
+import * as matchers from 'redux-saga-test-plan/matchers';
+import {
+  watchCreateTravelReason,
+  watchViewTravelReasonDetails,
+  watchEditTravelReason
+} from '../travelReasonsSaga';
 import TravelReasonsAPI from '../../../services/TravelReasonsAPI';
-import { closeModal } from '../../actionCreator/modalActions';
 import {
   CREATE_TRAVEL_REASON,
-  VIEW_TRAVEL_REASON_DETAILS
+  VIEW_TRAVEL_REASON_DETAILS,
+  EDIT_TRAVEL_REASON,
+  EDIT_TRAVEL_REASON_SUCCESS,
+  EDIT_TRAVEL_REASON_FAILURE,
 } from '../../constants/actionTypes';
 
 const body = {
@@ -25,16 +32,30 @@ const newReason = {
 const history = {
   push: jest.fn()
 };
+
+const response = {
+  data: {
+    success: true,
+    message: 'success',
+    newReason
+  }
+};
+
+const responseError = {
+  response: {
+    status: 500,
+    data: {
+      message: 'Server error, try again'
+    }
+  }
+};
+
+const error = new Error('Server error, try again');
+error.response = responseError.response;
+
 // closeModal = jest.fn();
 describe('Travel reasons Saga', () => {
   it('gets a response with travel reasons and dispatches CREATE_TRAVEL_REASON_SUCCESS', () => {
-    const response = {
-      data: {
-        success: true,
-        message: 'success',
-        newReason
-      }
-    };
     return expectSaga(watchCreateTravelReason)
       .provide([[call(TravelReasonsAPI.createTravelReasons, body), response]])
       .dispatch({
@@ -46,20 +67,49 @@ describe('Travel reasons Saga', () => {
   });
 
   it('handles an error', () => {
-    const error = {
-      response: {
-        data: {
-          status: 500,
-          message: 'Server error, try again'
-        }
-      }
-    };
     return expectSaga(watchCreateTravelReason)
       .provide([[call(TravelReasonsAPI.createTravelReasons, body), throwError(error)]])
       .dispatch({
         type: CREATE_TRAVEL_REASON,
         body,
         history
+      })
+      .silentRun();
+  });
+
+  it('gets a response with editing travel reason and dispatches action', () => {
+    const id = 1;
+    return expectSaga(watchEditTravelReason)
+      .provide([[matchers.call.fn(
+        TravelReasonsAPI.editTravelReason, id, body.title, body.description),
+      response]])
+      .put({
+        type: EDIT_TRAVEL_REASON_SUCCESS,
+        response: response.data
+      })
+      .dispatch({
+        type: EDIT_TRAVEL_REASON,
+        body
+      })
+      .silentRun();
+  });
+
+  it('handles travel reasons error', () => {
+    const id = 1;
+    return expectSaga(watchEditTravelReason)
+      .provide([[
+        matchers.call.fn(
+          TravelReasonsAPI.editTravelReason,
+          id, body.title, body.description
+        ), throwError(error)
+      ]])
+      .put({
+        type: EDIT_TRAVEL_REASON_FAILURE,
+        error: error.response.data
+      })
+      .dispatch({
+        type: EDIT_TRAVEL_REASON,
+        body
       })
       .silentRun();
   });

@@ -6,11 +6,13 @@ import withLoading from '../Hoc/withLoading';
 import listTravelReasonsPlaceHolder from '../Placeholders/TravelReasonsPlaceholders';
 import ViewTravelReasonDetailsModal from './viewTravelReasonDetailsModal';
 import NoTemplates from '../ReminderSetup/NoTemplates';
+import ContextMenu from '../ContextMenu/ContextMenu';
+import MenuItem from '../ContextMenu/MenuItem';
 
 const className = 'mdl-data-table__cell--non-numeric';
 
 export class TravelReasonsTable extends Component {
-  ReasonsTableHead () {
+  renderTravelReasonsTableHead () {
     return (
       <thead>
         <tr>
@@ -25,16 +27,17 @@ export class TravelReasonsTable extends Component {
     );
   }
 
-  ReasonsTableRow({key, title, createdOn, createdBy: {fullName}}) {
-    const { renderDisplayTravelReasonDetails, shouldOpen, closeModal, modalType, reasonDetails, isFetching } = this.props;
+  renderTravelReasonsTableRow({id, key, title, createdOn, createdBy: {fullName}}) {
+    const {
+      renderDisplayTravelReasonDetails, shouldOpen, closeModal, modalType,
+      reasonDetails, isFetching , editTravelReason } = this.props;
     return(
       <Fragment key={key}>
         <tr className="table__rows">
           <td className={`${className} table__data readiness__cell-name`}>
             <span
               onClick={() => renderDisplayTravelReasonDetails(key)}
-              role="presentation" className="document-name"
-            >
+              role="presentation" className="document-name">
               {_.capitalize(title)}
             </span>
             <Fragment>
@@ -50,27 +53,32 @@ export class TravelReasonsTable extends Component {
           <td className={`${className} table__data`}>
             {moment(new Date(createdOn)).format('DD-MM-YYYY')}
           </td>
-          <td className={`${className} table__data`}>
-            <i
-              className="fa fa-ellipsis-v on"
-              id="toggleIcon" role="presentation"
-            />
+          <td className="table__data">
+            <ContextMenu>
+              <MenuItem
+                classNames="edit"
+                onClick={() => editTravelReason(id)}>
+                Edit
+              </MenuItem>
+            </ContextMenu>
           </td>
         </tr>
       </Fragment>
     );
   }
 
-  ReasonsTableBody ({reasons}) {
+  renderTravelReasonsBody ({reasons, editTravelReason }) {
     return (
       <tbody className="table__body">
         {
           reasons.map(reason => {
             return(
-              this.ReasonsTableRow({
+              this.renderTravelReasonsTableRow({
+                id: reason.id,
                 key: reason.id,
                 title: reason.title,
                 createdOn: reason.createdAt,
+                editTravelReason: editTravelReason,
                 createdBy: reason.creator})
             );
           })
@@ -87,8 +95,8 @@ export class TravelReasonsTable extends Component {
           <div className="list-reasons">
             <div className="table__container">
               <table className="mdl-data-table mdl-js-data-table readiness-table">
-                {this.ReasonsTableHead()}
-                {this.ReasonsTableBody({ reasons })}
+                {this.renderTravelReasonsTableHead()}
+                {this.renderTravelReasonsBody({ reasons })}
               </table>
             </div>
           </div>
@@ -105,7 +113,8 @@ TravelReasonsTable.propTypes = {
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
   reasonDetails: PropTypes.object,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  editTravelReason: PropTypes.func.isRequired,
 };
 
 TravelReasonsTable.defaultProps = {

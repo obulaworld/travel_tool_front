@@ -2,7 +2,7 @@ import { call } from 'redux-saga/effects';
 import {expectSaga} from 'redux-saga-test-plan';
 import {throwError} from 'redux-saga-test-plan/providers';
 import { watchFetchAllEmailTemplates } from '../listEmailTemplatesSaga';
-import listOfTemplates from '../../../views/ReminderSetup/__mocks__';
+import listOfTemplates from '../../../views/ReminderSetup/__mocks__/ReminderSetup';
 import {
   FETCH_ALL_EMAIL_TEMPLATES,
   FETCH_ALL_EMAIL_TEMPLATES_FAILURE,

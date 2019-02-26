@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import ListEmailTemplates from '../ListEmailTemplates';
-import listOfTemplates from '../../../views/ReminderSetup/__mocks__/index';
+import listOfTemplates from '../../../views/ReminderSetup/__mocks__/ReminderSetup';
 
 describe('<ListEmailTemplates />', () => {
   const {templates, pagination} = listOfTemplates;

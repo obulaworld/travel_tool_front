@@ -4,17 +4,37 @@ import {
   createTravelReasonSuccess,
   createTravelReasonFailure,
   viewTravelDetailsSuccess,
-  viewTravelDetailsFailure
+  viewTravelDetailsFailure,
+  editTravelReasonSuccess,
+  editTravelReasonFailure
 } from '../actionCreator/travelReasonsActions';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
 import {
-  CREATE_TRAVEL_REASON,
+  CREATE_TRAVEL_REASON, EDIT_TRAVEL_REASON,
   VIEW_TRAVEL_REASON_DETAILS
 } from '../constants/actionTypes';
 
 import TravelReasonsAPI from '../../services/TravelReasonsAPI';
 import { closeModal } from '../actionCreator/modalActions';
+
+export function* editTravelReasonSaga(action){
+  const { body } = action;
+  try {
+    const response = yield call(
+      TravelReasonsAPI.editTravelReason,
+      body.id ,
+      body.title, body.description
+    );
+    yield put(editTravelReasonSuccess(response.data));
+    toast.success(response.data.message);
+    yield put(closeModal());
+  }catch(error){
+    toast.error(apiErrorHandler(error));
+    yield put(editTravelReasonFailure(error.response.data));
+  }
+}
+
 
 export function* createTravelReasonsSaga(action) {
   const { body, history } = action;
@@ -32,6 +52,11 @@ export function* createTravelReasonsSaga(action) {
 
 export function* watchCreateTravelReason(){
   yield takeLatest(CREATE_TRAVEL_REASON, createTravelReasonsSaga);
+}
+
+
+export function* watchEditTravelReason() {
+  yield takeLatest(EDIT_TRAVEL_REASON, editTravelReasonSaga);
 }
 
 export function* viewTravelReasonDetailsSaga(action) {

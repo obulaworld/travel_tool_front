@@ -38,7 +38,7 @@ import {
   addRoleSuccess
 } from '../roleActions';
 
-import { fetchRoleUsersResponse } from '../../__mocks__/mocks';
+import { fetchRoleUsersResponse } from '../../__mocks__/reduxMocks';
 
 const newRole = {
   roleName: 'Some role',

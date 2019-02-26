@@ -10,7 +10,7 @@ import {
   DELETE_USER_ROLE_SUCCESS,
   HIDE_DELETE_ROLE_MODAL
 } from '../../constants/actionTypes';
-import { fetchRoleUsersResponse } from '../../__mocks__/mocks';
+import { fetchRoleUsersResponse } from '../../__mocks__/reduxMocks';
 
 toast.success = jest.fn();
 toast.error = jest.fn();

@@ -3,7 +3,7 @@ import {expectSaga} from 'redux-saga-test-plan';
 import {throwError} from 'redux-saga-test-plan/providers';
 import {watchFetchAllTravelReasons} from '../listTravelReasonsSaga';
 import TravelReasonsAPI from '../../../services/TravelReasonsAPI';
-import mockData from '../../../views/TravelReasons/__mocks__/index';
+import mockData from '../../../views/TravelReasons/__mocks__/TravelReasons';
 import {
   FETCH_ALL_TRAVEL_REASONS,
   FETCH_ALL_TRAVEL_REASONS_FAILURE,

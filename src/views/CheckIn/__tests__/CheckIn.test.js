@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import moment from 'moment';
 import ConnectedCheckIn, { CheckIn } from '..';
-import { notCheckInTrips } from '../../../redux/__mocks__/mocks';
+import { notCheckInTrips } from '../../../redux/__mocks__/reduxMocks';
 
 const props = { 
   fetchTrips: jest.fn(),

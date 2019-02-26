@@ -294,7 +294,7 @@ describe('Documents Reducer', () => {
       done();
     });
 
-    it('should add error to state on unsuccessful document creation', (done) => {
+    it('should add error to state on unsuccessful document creation', () => {
       const currentState = {
         ...initialState,
         isUploading: true,
@@ -310,7 +310,6 @@ describe('Documents Reducer', () => {
         documentItem: {},
         error: 'Server Error'
       });
-      done();
     });
   });
 });

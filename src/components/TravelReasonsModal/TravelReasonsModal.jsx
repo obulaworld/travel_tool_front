@@ -3,13 +3,21 @@ import PropTypes from 'prop-types';
 import Modal from '../modal/Modal';
 import NewTravelReasonForm from '../Forms/NewTravelReasonForm';
 
-const TravelReasonsModal = (props) => {
-  const { shouldOpen, closeModal, modalType, createNewTravelReason, travelReason } = props;
+const TravelReasonsModal = (
+  { shouldOpen,
+    closeModal,
+    modalType,
+    createNewTravelReason,
+    editTravelReason,
+    travelReason
+  }
+) => {
+  const editing = /edit travel reasons/.test(modalType);
   return (
     <Modal
       customModalStyles="modal--add-user"
-      visibility={shouldOpen && modalType === 'create travel reasons' ? 'visible' : 'invisible'}
-      title="Add Travel Reason"
+      visibility={shouldOpen && /(edit|create) travel reasons/.test(modalType) ? 'visible' : 'invisible'}
+      title={`${editing ? 'Edit' : 'Add'} Travel Reason`}
       width="480px"
       closeModal={closeModal}
     >
@@ -17,8 +25,10 @@ const TravelReasonsModal = (props) => {
         onCancel={closeModal}
         hasBlankFields={false}
         closeModal={closeModal}
-        send="Add Reason"
+        editing={editing}
+        send={`${editing ? 'Edit': 'Add'} Reason`}
         createNewTravelReason={createNewTravelReason}
+        editTravelReason={editTravelReason}
         travelReason={travelReason}
       />
     </Modal>
@@ -30,6 +40,7 @@ TravelReasonsModal.propTypes = {
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
   createNewTravelReason: PropTypes.func,
+  editTravelReason: PropTypes.func,
   travelReason: PropTypes.object,
 };
 
@@ -37,6 +48,7 @@ TravelReasonsModal.defaultProps = {
   closeModal: null,
   modalType: null,
   createNewTravelReason: null,
+  editTravelReason: null,
   travelReason: {},
   shouldOpen: false
 };

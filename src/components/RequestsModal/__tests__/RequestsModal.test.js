@@ -11,7 +11,7 @@ import {
   fetchRequestsDetailsResponse,
   userImage,
   userEmail
-} from '../../../redux/__mocks__/mocks';
+} from '../../../redux/__mocks__/reduxMocks';
 import requestData from '../__mocks__/requestData';
 import testRequestDetailsResp from '../../../services/__mocks__/mockApprovals';
 import rootSaga from '../../../redux/middleware';

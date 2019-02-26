@@ -2,7 +2,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import * as matchers from 'redux-saga-test-plan/matchers';
-import { fetchOccupationsResponse } from '../../__mocks__/mocks';
+import { fetchOccupationsResponse } from '../../__mocks__/reduxMocks';
 import { watchFetchOccupations } from '../occupationSaga';
 import OccupationAPI from '../../../services/OccupationAPI';
 

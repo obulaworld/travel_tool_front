@@ -27,12 +27,10 @@ export const fetchAccommodation = () => ({
   type: FETCH_ACCOMMODATION_CENTRES,
 });
 
-export const savingAccommodation  = condition => {
-  return {
-    type: SAVING_ACCOMMODATION,
-    condition
-  };
-};
+export const savingAccommodation  = condition => ({
+  type: SAVING_ACCOMMODATION,
+  condition
+});
 
 export const fetchAccommodationSuccess = ({guestHouses}) => ({
   type: FETCH_ACCOMMODATION_CENTRES_SUCCESS,

@@ -3,7 +3,7 @@ import {
   fetchAllTravelReasonsFailure,
   fetchAllTravelReasonsSuccess
 } from '../listTravelReasonsActions';
-import mockData from '../../../views/TravelReasons/__mocks__';
+import mockData from '../../../views/TravelReasons/__mocks__/TravelReasons';
 
 
 describe('listTravelReasonsActions', () => {

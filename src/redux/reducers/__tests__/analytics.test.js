@@ -9,7 +9,7 @@ import {
 } from '../../constants/actionTypes';
 import {
   fetchDepartmentsTripsResponse
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 
 const initialState = {
   payload: {},

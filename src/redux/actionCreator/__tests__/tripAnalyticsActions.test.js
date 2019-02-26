@@ -6,7 +6,7 @@ import {
 import {
   fetchDepartmentsTripsResponse,
   fetchDepartmentsTripsError
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 
 describe('Departments Trips Analytics Action', () => {
   it('should return action type of FETCH_DEPARTMENT_TRIPS_ANALYTICS and payload', () => {

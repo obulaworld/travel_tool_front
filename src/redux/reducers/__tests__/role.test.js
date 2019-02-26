@@ -7,7 +7,7 @@ import {
   showDeleteRoleModal,
   hideDeleteRoleModal
 } from '../../actionCreator/roleActions';
-import { fetchRoleUsersResponse } from '../../__mocks__/mocks';
+import { fetchRoleUsersResponse } from '../../__mocks__/reduxMocks';
 import { travelTeamMembersMockData } from '../../__mocks__/role';
 
 const res = {

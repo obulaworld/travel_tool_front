@@ -13,7 +13,7 @@ import {
   tripsResponse,
   updateTripResponse,
   updateTripRoomResponse
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 
 describe('Trip Actions', () => {
   describe('Fetch trips actions', () => {

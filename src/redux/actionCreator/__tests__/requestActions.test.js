@@ -9,7 +9,7 @@ import {
   deleteRequestSuccess,
   deleteRequestFailure
 } from '../requestActions';
-import { fetchRequestsResponse } from '../../__mocks__/mocks';
+import { fetchRequestsResponse } from '../../__mocks__/reduxMocks';
 
 describe('Requests Actions', () => {
   describe('Fetch Requests Actions', () => {

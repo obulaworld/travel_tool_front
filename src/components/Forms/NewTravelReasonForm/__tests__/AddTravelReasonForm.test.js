@@ -6,7 +6,7 @@ import AddTravelReason from '../index';
 
 const props = {
   errors: {},
-  createTravelReason: jest.fn(),
+  createNewTravelReason: jest.fn(),
   closeModal: jest.fn(),
   travelReason: {},
   isLoading: false

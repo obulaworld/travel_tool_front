@@ -11,7 +11,7 @@ import {
 import {
   tripsResponse,
   updateTripResponse
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 import {
   FETCH_TRIPS,
   FETCH_TRIPS_SUCCESS,

@@ -39,6 +39,7 @@ describe('<NewAccommodation />', () => {
   const props = {
     createAccommodation: jest.fn(() => {}),
     fetchAccommodation: jest.fn(() => {}),
+    savingAccommodation: jest.fn(),
     closeModal: jest.fn(),
     editAccommodation: jest.fn(),
     initFetchTimelineData: jest.fn(),
@@ -66,7 +67,7 @@ describe('<NewAccommodation />', () => {
   FileReader.prototype.readAsDataURL = function(file) {
     this.result = this.fakeData;
   };
-  
+
   process.env.REACT_APP_CITY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyD-fvLImnNbTfYV3Pd1nJuK7NbzZJNr4ug&libraries=places';
 
   beforeEach(() => {

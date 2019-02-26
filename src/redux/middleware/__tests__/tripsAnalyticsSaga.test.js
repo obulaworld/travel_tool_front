@@ -10,7 +10,7 @@ import {
 import {
   fetchDepartmentsTripsResponse,
   fetchDepartmentsTripsError
-} from '../../__mocks__/mocks';
+} from '../../__mocks__/reduxMocks';
 import {
   FETCH_DEPARTMENT_TRIPS_ANALYTICS,
   FETCH_DEPARTMENT_TRIPS_ANALYTICS_SUCCESS,

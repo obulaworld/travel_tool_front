@@ -10,7 +10,7 @@ import {
   watchEditRequest,
   watchDeleteRequest
 } from '../requestsSaga';
-import { fetchRequestsResponse } from '../../__mocks__/mocks';
+import { fetchRequestsResponse } from '../../__mocks__/reduxMocks';
 
 const url = '/requests?page=2';
 const requestId = 'xDh20cuGx';

@@ -1,6 +1,7 @@
 import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import toast from 'toastr';
 import AccommodationAPI from '../../../services/AccommodationAPI';
 import {
@@ -44,7 +45,7 @@ describe('Accommodation Saga', () => {
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchFetchAccommodation, AccommodationAPI)
         .provide([
-          [call(AccommodationAPI.getAccommodationCentres), throwError(error)]
+          [matchers.call.fn(AccommodationAPI.getAccommodationCentres), throwError(error)]
         ])
         .put({
           type: 'FETCH_ACCOMMODATION_CENTRES_FAILURE',
@@ -81,7 +82,7 @@ describe('Accommodation Saga', () => {
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchFetchDisabledAccommodation, AccommodationAPI)
         .provide([
-          [call(AccommodationAPI.getDisabledAccommodations), throwError(error)]
+          [matchers.call.fn(AccommodationAPI.getDisabledAccommodations), throwError(error)]
         ])
         .put({
           type: 'FETCH_DISABLED_ACCOMMODATION_FAILURE',
@@ -125,7 +126,7 @@ describe('Accommodation Saga', () => {
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchDisableAccommodation)
         .provide([
-          [call(AccommodationAPI.disableOrRestoreAccommodation), throwError(error)]
+          [matchers.call.fn(AccommodationAPI.disableOrRestoreAccommodation), throwError(error)]
         ])
         .put({
           type: 'DISABLE_ACCOMMODATION_FAILURE',
@@ -170,7 +171,7 @@ describe('Accommodation Saga', () => {
     it('throws error if there is an error fetching a user\'s requests', () => {
       return expectSaga(watchRestoreDisabledAccommodation)
         .provide([
-          [call(AccommodationAPI.disableOrRestoreAccommodation), throwError(error)]
+          [matchers.call.fn(AccommodationAPI.disableOrRestoreAccommodation), throwError(error)]
         ])
         .put({
           type: 'RESTORE_DISABLED_ACCOMMODATION_FAILURE',
@@ -220,7 +221,7 @@ describe('Accommodation Saga', () => {
     it('throws error if there is an error updating the guesthouse', () => {
       return expectSaga(watchEditAccommodation)
         .provide([
-          [call(AccommodationAPI.editAccommodation), throwError(error)]
+          [matchers.call.fn(AccommodationAPI.editAccommodation), throwError(error)]
         ])
         .put({
           type: EDIT_ACCOMMODATION_DATA_FAILURE,

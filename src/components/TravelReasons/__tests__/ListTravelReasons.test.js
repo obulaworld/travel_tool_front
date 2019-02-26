@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
-import mockData from '../../../views/TravelReasons/__mocks__';
+import mockData from '../../../views/TravelReasons/__mocks__/TravelReasons';
 import ListTravelReasons from '../ListTravelReasons';
 
 describe('<ListTravelReasons />',() => {

@@ -32,7 +32,7 @@ import {
 } from '../../constants/actionTypes';
 import {
   reminderTemplateData, myResponse, enabledResponse
-} from '../../../views/ReminderSetup/__mocks__';
+} from '../../../views/ReminderSetup/__mocks__/ReminderSetup';
 
 describe('Reminder Management Saga', () => {
   const error = new Error('Server error, try again');

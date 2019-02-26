@@ -2,6 +2,7 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import toast from 'toastr';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import {
   watchFetchUsersReadinessDocuments,
   watchFetchReadinessDocuments,
@@ -228,7 +229,7 @@ describe('Travel Readiness Documents saga', () => {
 
     const error = {
       response: {
-        data: 'Possible network error, please reload the page',
+        data: 'Server error, try again',
         status: 500
       }
     };
@@ -255,7 +256,12 @@ describe('Travel Readiness Documents saga', () => {
     it('handles errors from update', () => {
       return expectSaga(watchEditTravelReadinessDocument)
         .provide([
-          [call(TravelReadinessDocumentsAPI.editTravelReadinessDocument, 'passport', documentId), throwError(error)]
+          [matchers.call.fn(
+            TravelReadinessDocumentsAPI.editTravelReadinessDocument,
+            'passport',{
+              name: 'value'
+            }, documentId),
+          throwError(error)]
         ])
         .put({
           type: types.EDIT_TRAVEL_READINESS_DOCUMENT_FAILURE,
