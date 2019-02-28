@@ -479,7 +479,7 @@ class NewRequestForm extends PureComponent {
         }]),
         values: { ...values, ...addedTripStateValues }
       };
-    }, this.validate);
+    }, () => {this.validate;});
   }
 
   removeTrip = (i) => {
@@ -500,7 +500,7 @@ class NewRequestForm extends PureComponent {
         delete errors[`${prop}-${i}`];
       });
       return { trips, values, parentIds, errors };
-    }, this.validate);
+    }, () => {this.validate;});
   };
 
   collapsible = () => {

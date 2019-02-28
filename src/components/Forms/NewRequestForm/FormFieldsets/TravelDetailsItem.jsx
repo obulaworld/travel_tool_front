@@ -177,6 +177,7 @@ class TravelDetailsItem extends Component {
       parentIds
     } = this.props;
     if (selection === 'multi' && itemId === parentIds - 1) {
+      delete values[`arrivalDate-${parentIds - 1}`];
       return null;
     }
     return(
