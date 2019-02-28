@@ -113,14 +113,14 @@ class ButtonGroup extends PureComponent {
           onClick={() => this.filterEntries('approvals', '&status=approved')}
           text="Pending Verifications"
         />
-        {/* <Button
+        <Button
           buttonClass={`bg-btn ${activeStatus === 'verified' ? 'bg-btn--active' : ''}`}
           responsiveText="Past"
           buttonId="past-button"
           text="Past Verifications"
           disabled={verifiedApprovalsCount === 0}
           onClick={() => this.filterEntries('approvals', '&status=verified')}
-        /> */}
+        />
       </Fragment>
     );
   }
