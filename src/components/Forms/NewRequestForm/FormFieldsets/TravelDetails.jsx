@@ -206,7 +206,7 @@ TravelDetailsFieldset.propTypes = {
   availableRooms: availableRooms.isRequired,
   listTravelReasons: listTravelReasons.isRequired,
   modalType: modalType,
-  requestOnEdit: requestOnEdit.isRequired
+  requestOnEdit: requestOnEdit.isRequired,
 };
 
 TravelDetailsFieldset.defaultProps = {

@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TravelChecklistsCard /> renders without crashing 1`] = `
+<div>
+  <div
+    className="travel-checklist-rectangle"
+  >
+    <div
+      className="travel-checklist-text"
+    >
+      <p>
+         Travel Checklist Required For This Trip
+      </p>
+    </div>
+    <hr
+      className="travel-checklist-line"
+    />
+    <div
+      className="pending-approvals-block"
+    >
+      <ul
+        className="approval-list-items"
+      >
+        <li
+          className="approval-item"
+          key="1"
+        >
+          <div
+            className="oval"
+          />
+          <div
+            className="checklist-name"
+          >
+            passport
+          </div>
+        </li>
+        <li
+          className="approval-item"
+          key="2"
+        >
+          <div
+            className="oval"
+          />
+          <div
+            className="checklist-name"
+          >
+            ticketDetails
+          </div>
+        </li>
+        <li
+          className="approval-item"
+          key="3"
+        >
+          <div
+            className="oval"
+          />
+          <div
+            className="checklist-name"
+          >
+            visa
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

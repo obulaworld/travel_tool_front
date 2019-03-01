@@ -39,6 +39,7 @@ describe('<NewRequestForm />', () => {
 
   const props = {
     loading: false,
+    hasBlankFields: false,
     user: {
       UserInfo: {
         id: '-LJNw1BsT0LP_E4l2peP',
@@ -87,7 +88,7 @@ describe('<NewRequestForm />', () => {
           bedId: beds[0].id,
           otherTravelReasons: 'my reason'
         }
-      ]
+      ],
     },
     availableRooms: {
       beds
@@ -118,6 +119,25 @@ describe('<NewRequestForm />', () => {
         {id: 1, title: 'Bootcamp'}
       ]
     },
+    travelChecklists: {
+      isLoading: false,
+      checklistItems: [
+        {
+          id: 1,
+          name: 'Lagos, Nigeria'
+        }
+      ]
+    },
+    trips: [{
+      trip:
+      {
+        destination: 'Lagos, Nigeria'
+      }
+    }],
+    tripDestinations: {
+      destination: 'Lagos, Nigeria'
+    },
+    fetchTravelChecklist: jest.fn(),
     centers,
     history:{
       push: jest.fn()
@@ -836,16 +856,6 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.state().trips[tripIndex].travelReasons).toEqual(null);
   });
 
-  it('should set currentTab in state to 2 when backToTripDetails is called', () => {
-    const tripIndex = 0;
-    const shallowWrapper = shallow(<NewRequestForm {...props} backToTripDetails={backToTripDetails} />);
-    shallowWrapper.setState({
-      currentTab: 0
-    });
-    shallowWrapper.instance().backToTripDetails();
-    expect(shallowWrapper.state().currentTab).toEqual(2);
-  });
-
   it('should call handleCreateRequest to create a request when handleSubmit is called', () => {
     const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm
@@ -881,11 +891,19 @@ describe('<NewRequestForm />', () => {
     const shallowWrapper = mount(<NewRequestForm {...newProps} />);
     shallowWrapper.setState({
       currentTab: 3,
-      trips: [
-        {
-          destination: 'Nairobi, Kenya'
-        }
-      ]
+      trips: [ { id: '1',
+        origin: 'Nairobi Kenya',
+        destination: 'Lagos Nigeria',
+        departureDate: '2018-09-30',
+        returnDate: '2018-09-30',
+        createdAt: '2018-09-27T18:49:03.626Z',
+        updatedAt: '2018-09-27T18:49:43.803Z',
+        requestId: 'NfR-9KoCP',
+        accomodationType: 'Not Required',
+        bedId: 1 },
+      {
+        destination: 'Nairobi, Kenya'
+      } ]
     });
     const nextButton = shallowWrapper.find('#stipend-next');
     const event = {
@@ -946,7 +964,17 @@ describe('<NewRequestForm />', () => {
     const shallowWrapper = mount(<NewRequestForm {...props} />);
     shallowWrapper.setState({
       currentTab: 4,
-      errors: { manager:'' }
+      errors: { manager:'' },
+      trips: [ { id: '1',
+        origin: 'Nairobi Kenya',
+        destination: 'Lagos Nigeria',
+        departureDate: '2018-09-30',
+        returnDate: '2018-09-30',
+        createdAt: '2018-09-27T18:49:03.626Z',
+        updatedAt: '2018-09-27T18:49:43.803Z',
+        requestId: 'NfR-9KoCP',
+        accomodationType: 'Not Required',
+        bedId: 1 } ]
     });
     sinon.spy(shallowWrapper.instance(), 'renderTravelCheckList');
     shallowWrapper.instance().renderTravelCheckList();
@@ -972,12 +1000,6 @@ describe('<NewRequestForm />', () => {
       shallowWrapper.update();
       expect(shallowWrapper.state().errors['departureDate-0']).toBe('This field is required');
     });
-
-    it('should return to trip details', ()=>{
-      shallowWrapper.instance().backToTripDetails();
-      expect(shallowWrapper.state().currentTab).toEqual(2);
-    });
-
 
   });
   it('should return null when user clicks others', () => {

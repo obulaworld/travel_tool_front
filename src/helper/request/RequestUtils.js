@@ -110,6 +110,21 @@ class RequestUtils {
       return location;
     }
   }
+  static cleanChecklists(checklistItems, userData) {
+    let trimmedCheckLists = [];
+    let finalCheckLists = [];
+    if(checklistItems.length) {
+      checklistItems.forEach(item => {
+        if(item && item.checklist) {
+          trimmedCheckLists.push(...item.checklist);
+        }
+      });
+      finalCheckLists = trimmedCheckLists.filter(trip => {
+        return !trip.destinationName.startsWith(userData.location);
+      });
+    }
+    return finalCheckLists;
+  }
 }
 
 export default RequestUtils;

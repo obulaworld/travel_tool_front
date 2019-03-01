@@ -168,6 +168,7 @@ exports[`<Requests> renders as expected 1`] = `
       errors={Array []}
       fetchAvailableRooms={[Function]}
       fetchAvailableRoomsSuccess={[Function]}
+      fetchTravelChecklist={[Function]}
       fetchUserRequests={[Function]}
       handleCreateRequest={[Function]}
       handleEditRequest={[Function]}
@@ -205,6 +206,7 @@ exports[`<Requests> renders as expected 1`] = `
           "userId": "lorem-ipsum",
         }
       }
+      travelChecklists={Object {}}
       updateUserProfile={[Function]}
       user={
         Object {

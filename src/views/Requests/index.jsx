@@ -217,7 +217,6 @@ export class Requests extends Base {
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
     } = this.props;
     const { url } = this.state;
-
     return (
       <Modal
         closeModal={closeModal}

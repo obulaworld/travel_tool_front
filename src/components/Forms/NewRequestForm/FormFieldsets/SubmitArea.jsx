@@ -54,7 +54,7 @@ class SubmitArea extends Component{
       const { hasBlankFields,sameOriginDestination, onCancel, send, modalType,
         onEditCancel, selection, loading, isCreating, disableOnChangeProfile, nextStep } = this.props;
       return(
-        <fieldset className="submit__area-border">
+        <fieldset className={send==='Next' ?'submit__area-border': null}>
           <div className={selection ? `submit-area submit-area--${selection}` : 'submit-area'}>
             {send==='Next' && this.commentSession() }
             { onCancel ? this.renderCancelButton(modalType, onEditCancel, onCancel) : (<div />)}
@@ -87,7 +87,6 @@ SubmitArea.propTypes = {
   isCreating: PropTypes.bool,
   disableOnChangeProfile: PropTypes.bool,
   nextStep: PropTypes.func,
-
 };
 
 SubmitArea.defaultProps = {

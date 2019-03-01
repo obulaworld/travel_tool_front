@@ -14,8 +14,7 @@ import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../../redux/actionCreator/occupationActions';
 import {fetchAllTravelReasons} from '../../../redux/actionCreator/listTravelReasonsActions';
 import { fetchAllTravelStipends } from '../../../redux/actionCreator/travelStipendsActions';
-
-
+import { fetchTravelChecklist } from '../../../redux/actionCreator/travelChecklistActions';
 
 export class NewRequests extends Base {
   constructor(props) {
@@ -40,7 +39,7 @@ export class NewRequests extends Base {
       user, createNewRequest, listTravelReasons,
       loading, errors,
       modalType, roleUsers, requestOnEdit, editRequest,
-      fetchUserRequests, occupations,
+      fetchUserRequests, occupations, travelChecklists, fetchTravelChecklist,
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
       fetchAllTravelReasons,
       history,
@@ -61,6 +60,8 @@ export class NewRequests extends Base {
         userDataUpdate={fetchPostUserData}
         fetchAllTravelReasons={fetchAllTravelReasons}
         listTravelReasons={listTravelReasons}
+        travelChecklists={travelChecklists}
+        fetchTravelChecklist={fetchTravelChecklist}
         requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
         history={history}
         fetchAllTravelStipends={fetchAllTravelStipends}
@@ -76,6 +77,7 @@ const mapStateToProps = ({requests, user, role, availableRooms,
   teammates, 
   travelReason, 
   travelStipends,
+  travelChecklist
 }) => ({
   ...requests,
   ...role,
@@ -88,6 +90,7 @@ const mapStateToProps = ({requests, user, role, availableRooms,
   department: user.currentUser.department,
   listTravelReasons: travelReason,
   travelStipends,
+  travelChecklists: travelChecklist,
 });
 
 const actionCreators = {
@@ -102,6 +105,7 @@ const actionCreators = {
   getOccupation,
   fetchAllTravelReasons,
   fetchAllTravelStipends,
+  fetchTravelChecklist
 };
 
 export default connect(mapStateToProps, actionCreators)(NewRequests);

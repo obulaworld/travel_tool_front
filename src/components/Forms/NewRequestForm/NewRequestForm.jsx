@@ -13,13 +13,14 @@ import StipendDetails from './Stipend/StipendDetails';
 import './NewRequestForm.scss';
 import tabIcons from '../../../images/icons/new-request-icons';
 import travelStipendHelper from '../../../helper/request/RequestUtils';
-
+import TravelChecklistsCard from './FormFieldsets/TravelChecklistsCard';
+import PendingApprovals from './FormFieldsets/PendingApprovalsCard';
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
     this.setUp();
-    this.state = {
+    this.state = { 
       ...this.defaultState 
     };
     this.validate = getDefaultBlanksValidatorFor(this);
@@ -50,7 +51,7 @@ class NewRequestForm extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { values, trips, selection } = this.state;
+    const { values, trips, selection, currentTab } = this.state;
     if ((
       (prevState.values.gender !== values.gender) || (prevState.values.role !== values.role))
       && selection !== 'oneWay') {
@@ -553,10 +554,6 @@ class NewRequestForm extends PureComponent {
       });
     }
   }
-  
-  backToTripDetails =()=> {
-    this.setState({ currentTab: 2 });
-  }
 
   renderPersonalDetailsFieldset = () => {
     const { collapse, title, position, line, values, hasBlankFields, errors } = this.state;
@@ -708,7 +705,7 @@ class NewRequestForm extends PureComponent {
   
 
   renderSubmitArea = (hasBlankFields, errors, sameOriginDestination, 
-    selection, creatingRequest, disableOnChangeProfile, modalType) => {
+    selection, creatingRequest, disableOnChangeProfile, modalType, currentTab) => {
     return (
       <div className="trip__tab-body">
         {this.renderTravelDetailsFieldset()}
@@ -728,27 +725,33 @@ class NewRequestForm extends PureComponent {
           disableOnChangeProfile={disableOnChangeProfile}
           send={modalType === 'edit request' ? 'Update Request' : 'Next'} 
           nextStep={this.nextStep}
+          currentTab={currentTab}
         />
       </div>
     );
   }
 
-  renderTravelCheckList =  ( hasBlankFields, errors, selection, creatingRequest) => {
+  renderTravelCheckList =  (hasBlankFields, selection, creatingRequest,
+    currentTab, fetchTravelChecklist, trips, checklistItems, isLoading, userData) => {
     return(
-      <div className="personal-rectangle">
-        <div>
-          <h1> Travel Checklist goes...</h1> 
+      <div>
+        <div className="travel-checklist__tab ">
+          <TravelChecklistsCard 
+            fetchTravelChecklist={fetchTravelChecklist}
+            trips={trips}
+            checklistItems={checklistItems}
+            isLoading={isLoading}
+            userData={userData}
+          />
+          <PendingApprovals />
         </div>
-        <div className="request-submit-area submit-area">
+        <div className="travel-checklist__submit-area submit-area">
           <SubmitArea
-            hasBlankFields={
-              !hasBlankFields
-                ? false : true
-            }
-            onCancel={this.backToTripDetails}
+            hasBlankFields={hasBlankFields = false}
             selection={selection}
             loading={creatingRequest}
-            send="Submit"
+            send="SUBMIT"
+            currentTab={currentTab}
           />
         </div>
       </div>
@@ -756,9 +759,10 @@ class NewRequestForm extends PureComponent {
   }
 
   renderForm = () => {
-    const { errors, values, hasBlankFields, selection,
+    const { errors, values, hasBlankFields, selection, trips, 
       sameOriginDestination, steps, currentTab} = this.state;
-    const { modalType, creatingRequest } = this.props;
+    const { modalType, creatingRequest, fetchTravelChecklist,
+      travelChecklists: { checklistItems, isLoading }, userData } = this.props;
     const { requestOnEdit } = this.props;
     const { name, gender, department, role, manager } = requestOnEdit || {};
     const { name: stateName, manager: stateManager, gender: stateGender,
@@ -781,12 +785,16 @@ class NewRequestForm extends PureComponent {
               hasBlankFields, errors, sameOriginDestination,
               selection, creatingRequest, disableOnChangeProfile, modalType)
             }
-            { currentTab === 3  && this.renderTravelStipend()}
-            { currentTab === 4 &&
-              this.renderTravelCheckList(hasBlankFields, errors, selection, creatingRequest)}
+            { currentTab === 3 &&
+              this.renderTravelStipend()}
+            { currentTab === 4 && 
+              this.renderTravelCheckList(
+                hasBlankFields, selection, creatingRequest,
+                currentTab, fetchTravelChecklist, trips, checklistItems, isLoading, userData)}
           </form>
         </FormContext>
       </div>
+      
     );
   };
 
@@ -817,6 +825,8 @@ NewRequestForm.propTypes = {
   history: PropTypes.object,
   fetchAllTravelStipends: PropTypes.func.isRequired,
   travelStipends: PropTypes.object,
+  fetchTravelChecklist: PropTypes.func,
+  travelChecklists: PropTypes.object
 };
 
 NewRequestForm.defaultProps = {
@@ -831,7 +841,9 @@ NewRequestForm.defaultProps = {
   travelStipends: {
     isLoading: false,
     stipends: []
-  }
+  },
+  travelChecklists: {},
+  fetchTravelChecklist: () => {}
 };
 
 export default NewRequestForm;

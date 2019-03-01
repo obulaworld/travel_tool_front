@@ -417,3 +417,129 @@ form.new-request {
     }
   }
 }
+
+
+.personal-rectangle {
+  box-shadow: 0 0 0 1px #e4e4e4;
+  border: 0.2px solid #e4e4e4;
+  border-radius: 9px;
+  background-color: #ffffff;
+  margin: 35px 0px 20px 0px;
+  color: gray;
+  padding-left: 60px;
+  padding-top: 43px;
+  padding-right: 89px;
+}
+.travel-checklist__tab {
+  margin-top: 26px;
+  margin-bottom: 45px;
+  display: flex;
+  justify-content: space-between;
+}
+.travel-checklist-line {
+  box-sizing: border-box;	
+  height: 1px;	
+  width: 100%;	
+  border: 1px solid #E4E4E4;
+  margin-left: 30px
+}
+.pending-approvals-line {
+  box-sizing: border-box;	
+  height: 1px;	
+  width: 100%;	
+  border: 1px solid #E4E4E4;
+  margin-left: 30px
+}
+.travel-checklist-rectangle {
+  height: 353px;
+  width: 594px;
+  border: 1px solid #E4E4E4;	
+  border-radius: 6px;	
+  background-color: #FFFFFF;
+  overflow-y: scroll
+}
+.pending-approvals-rectangle {
+  height: 353px;
+  width: 394px;
+  margin-left: 9px;
+  border: 1px solid #E4E4E4;	
+  border-radius: 6px;	
+  background-color: #FFFFFF;
+  overflow-y: scroll
+}
+.travel-checklist-text {	
+  height: 18px;	
+  width: 243px;	
+  color: #4F4F4F;	
+  font-family: "DIN Pro";	
+  font-size: 14px;	
+  line-height: 18px;	
+  text-align: center;
+  margin: 22px 176.5px 13px 174.5px
+}
+.pending-approvals-text {	
+  height: 18px;	
+  width: 226px;	
+  color: #4F4F4F;	
+  font-family: "DIN Pro";	
+  font-size: 14px;	
+  line-height: 18px;	
+  text-align: center;
+  margin: 22px 176.5px 13px 84px
+}
+.travel-checklist__submit-area  {
+  margin-top: -30px;
+  .submit-area {
+      margin-left: 45px
+  }
+}
+.pending-approvals-block {	
+  height: 90px;	
+  width: 184px;	
+  color: #4A4A4A;	
+  font-family: "DIN Pro";	
+  font-size: 14px;	
+  font-weight: 500;	
+  line-height: 18px;
+  .approval-list-items {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5em;
+    width: 180%;
+    .approval-item {
+      display: flex;
+      justify-content: flex-start;
+      align-content: center;
+      .oval{
+        margin-top: .7em;
+        margin-right: .6em;
+      }
+    }
+  }
+}
+.travel-checklist-items__group {	
+  height: 126px;	
+}
+.travel-checklist-items {	
+  height: 126px;	
+  color: #4A4A4A;	
+  font-family: "DIN Pro";	
+  font-size: 14px;	
+  font-weight: 500;	
+  line-height: 18px;
+  margin: 30px 21px 180px 67px
+}
+
+.oval {	
+  height: 7px;	
+  width: 7px;	
+  background-color: #3359DB;
+  border-radius: 50px;
+}
+.submit__area-border {
+  border-top: 1px solid #DFE3E8;
+  .submit-area {
+      width: 100%!important;
+      justify-content:space-between!important;
+  }
+}
