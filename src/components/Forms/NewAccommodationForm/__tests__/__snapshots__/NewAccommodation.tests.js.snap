@@ -428,7 +428,7 @@ exports[`<NewAccommodation /> renders correctly 1`] = `
   </fieldset>
   <hr />
   <fieldset
-    className="submit__area-border"
+    className={null}
   >
     <div
       className="submit-area"

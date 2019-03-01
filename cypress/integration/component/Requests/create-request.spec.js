@@ -1,5 +1,5 @@
 const baseAPI = Cypress.env('REACT_APP_API_URL');
-const userDataURL = 'http://127.0.0.1:5000/api/v1/user/-LSsFyueC086niFc9rrz';
+const userDataURL = /api\/v1\/user\/\W+/;
 
 describe('Requests page(create new request)', () => {
   let data;
@@ -39,7 +39,7 @@ describe('Requests page(create new request)', () => {
       cy.get('input[type=radio]#return').should('be.checked');
     });
 
-    it(`shows validation error for empty fields after	
+    it(`shows validation error for empty fields after
           user focuses and leaves the field without filling it`, () => {
       cy.get('input[name=origin-0]')
         .focus()
@@ -49,7 +49,7 @@ describe('Requests page(create new request)', () => {
       cy.get('@error-span').contains('This field is required');
     });
 
-    it(`disables the submission button when some of	
+    it(`disables the submission button when some of
         the fields are missing`, () => {
       cy.get('button#submit').should('be.disabled');
     });

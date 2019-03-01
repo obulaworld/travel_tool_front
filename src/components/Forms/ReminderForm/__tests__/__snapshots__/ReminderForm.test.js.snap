@@ -739,7 +739,7 @@ exports[`Reminder Form Create Reminder Form renders correctly 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className="submit__area-border"
+        className={null}
       >
         <div
           className="submit-area"
@@ -1399,7 +1399,7 @@ exports[`Reminder Form Reminder Update Form renders correctly in edit mode 1`] =
         </div>
       </fieldset>
       <fieldset
-        className="submit__area-border"
+        className={null}
       >
         <div
           className="submit-area"
