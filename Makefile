@@ -60,7 +60,7 @@ test:background
 	@ ${INFO} "Running tests in docker container"
 	@ docker-compose -f $(DOCKER_DEV_COMPOSE_FILE) exec web yarn test
 
-## Run end-to-end tests; make e2e-test BACKEND=path/to/backend [BRANCH=backend branch to run the tests against] [SPEC=specific test file to run]
+## Run end-to-end tests; make e2e-tests BACKEND=path/to/backend [BRANCH=backend branch to run the tests against] [SPEC=specific test file to run]
 e2e-tests:
 ifeq ($(BACKEND),)
 	$(error BACKEND is not set: make e2e-tests BACKEND=absolute-path/to/backend/repo)
