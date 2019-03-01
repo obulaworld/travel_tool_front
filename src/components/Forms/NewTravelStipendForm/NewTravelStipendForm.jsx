@@ -21,12 +21,50 @@ class NewTravelStipendForm extends PureComponent {
     this.validate = getDefaultBlanksValidatorFor(this);
   }
 
-  handleSubmit =  event => {
+  componentDidMount() {
+    this.updateStateData(this.props);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    const { updatedStipend : { isSaving }} = nextProps;
+    this.setState({errors: nextProps.editing
+      ? nextProps.travelStipends.updatedStipend.errors
+      : nextProps.travelStipends.error });
+    if (!isSaving) {
+      this.updateStateData(nextProps);
+    }
+  }
+
+  updateStateData = ({ editing, travelStipends: { selectedStipend } }) => {
+    if(editing && selectedStipend ){
+      const { amount:  stipend, center: { location } } = selectedStipend;
+      this.setState({
+        values: {
+          center: location,
+          stipend
+        }
+      });
+    }
+  }
+
+  handleSubmit = event => {
     event.preventDefault();
-    const { handleCreateTravelStipend, history } = this.props;
-    let { values } = this.state;
-    handleCreateTravelStipend(values, history);
-   
+    let { values, hasBlankFields } = this.state;
+    if (!hasBlankFields) {
+      const {
+        handleCreateTravelStipend,
+        history,
+        updateTravelStipend,
+        editing,
+        travelStipends: { selectedStipend: { id } }
+      } = this.props;
+
+      if (editing) {
+        updateTravelStipend(id, values);
+      } else {
+        handleCreateTravelStipend(values, history);
+      }
+    }
   };
 
   handleShowEventError = (event) => {
@@ -50,7 +88,7 @@ class NewTravelStipendForm extends PureComponent {
 
   renderTravelStipendFieldset = (isEmpty) => {
     const { values, isValidAmount,  } = this.state;
-    const { centers } = this.props;
+    const { centers, editing } = this.props;
     return (
       <TravelStipendFieldset
         centers={centers}
@@ -60,6 +98,7 @@ class NewTravelStipendForm extends PureComponent {
         onChangeAmountInput={this.handleOnchange}
         isValidAmount={isValidAmount}
         value="245px"
+        editing={editing}
       />
     );
   };
@@ -73,7 +112,12 @@ class NewTravelStipendForm extends PureComponent {
       }, 
       isValidAmount 
     } = this.state;
-    const { closeModal, travelStipends } = this.props;
+    const {
+      closeModal,
+      travelStipends,
+      editing,
+      updatedStipend: { isSaving }
+    } = this.props;
     const isEmpty = stipend === 'This field is required';
     return (
       <FormContext
@@ -88,7 +132,8 @@ class NewTravelStipendForm extends PureComponent {
             travelStipends={travelStipends} 
             hasBlankFields={hasBlankFields || !isValidAmount}
             selection={selection}
-            send="Add Stipend" />
+            loading={isSaving}
+            send={editing ? 'Edit Stipend' : 'Add Stipend'} />
         </form>
       </FormContext>
     );
@@ -104,7 +149,10 @@ NewTravelStipendForm.propTypes = {
   centers: PropTypes.array,
   travelStipends: PropTypes.object,
   handleCreateTravelStipend: PropTypes.func.isRequired,
-  history: PropTypes.object
+  history: PropTypes.object,
+  editing: PropTypes.bool,
+  updateTravelStipend: PropTypes.func,
+  updatedStipend: PropTypes.object
 };
 
 NewTravelStipendForm.defaultProps = {
@@ -113,6 +161,11 @@ NewTravelStipendForm.defaultProps = {
   travelStipends: {},
   history: {
     push : () => {}
+  },
+  editing: false,
+  updateTravelStipend: () => {},
+  updatedStipend: {
+    isSaving: false
   }
 };
 

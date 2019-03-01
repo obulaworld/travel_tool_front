@@ -1,9 +1,10 @@
-import {takeLatest, call, put} from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import toast from 'toastr';
 import {
   CREATE_TRAVEL_STIPEND,
   FETCH_ALL_TRAVEL_STIPENDS,
-  DELETE_TRAVEL_STIPEND
+  DELETE_TRAVEL_STIPEND,
+  EDIT_TRAVEL_STIPEND
 } from '../constants/actionTypes';
 import {
   deleteTravelStipendSuccess,
@@ -11,11 +12,14 @@ import {
   createTravelStipendFailure,
   fetchAllTravelStipendsFailure,
   fetchAllTravelStipendsSuccess,
-  deleteTravelStipendFailure
+  deleteTravelStipendFailure,
+  updateTravelStipendSuccess,
+  updateTravelStipendFailure
 } from '../actionCreator/travelStipendsActions';
 import apiErrorHandler from '../../services/apiErrorHandler';
 import TravelStipendsAPI from '../../services/TravelStipendsAPI';
-import {closeModal} from '../actionCreator/modalActions';
+import { closeModal } from '../actionCreator/modalActions';
+import apiValidationErrorHandler from '../../services/apiValidationErrorHandler';
 
 export function* createTravelStipendSagaAsync(action) {
   const { history } = action;
@@ -71,6 +75,35 @@ export function* deleteTravelStipendSaga(action) {
 export function* watchDeleteTravelStipend(){
   yield takeLatest(DELETE_TRAVEL_STIPEND, deleteTravelStipendSaga);
 }
+
+export function* watchUpdateTravelStipend(){
+  yield takeLatest(EDIT_TRAVEL_STIPEND, updateTravelStipendSaga);
+}
+
+export function* updateTravelStipendSaga(action){
+  const { payload, stipendId } = action;
+  try {
+    const response = yield call(TravelStipendsAPI.updateTravelStipend, stipendId, payload);
+
+    yield put(updateTravelStipendSuccess(response.data));
+
+    toast.success('Travel stipend successfully updated');
+    yield put(closeModal());
+
+  } catch (error){
+
+    let errors = {};
+
+    if(error.response.status === 422){
+      errors = apiValidationErrorHandler(error);
+    } else {
+      let errorMessage = apiErrorHandler(error);
+      toast.error(errorMessage);
+    }
+    yield put(updateTravelStipendFailure(errors));
+  }
+}
+
 
 
 

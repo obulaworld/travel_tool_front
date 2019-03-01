@@ -4,6 +4,6 @@
 */
 import inputLabels from './inputLabels';
 
-export default {
-  inputLabels,
-};
+export default (editing) =>  ({
+  inputLabels: inputLabels(editing),
+});

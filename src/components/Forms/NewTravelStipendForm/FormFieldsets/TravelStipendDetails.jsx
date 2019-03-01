@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InputRenderer from '../../FormsAPI';
-import * as formMetadata from '../../FormsMetadata/NewTravelStipendFormMetadata';
+import formMetadata from '../../FormsMetadata/NewTravelStipendFormMetadata';
 
 class TravelStipendFieldset extends Component {
 
+  renderCenter = (renderInput, editing, centerChoices) => (
+    editing ? (renderInput('center', 'text', {
+      disabled: true,
+      className: 'stipend-location'
+    })) :
+      (
+        renderInput('center', 'dropdown-select', {
+          choices: centerChoices,
+          size: '',
+          className: 'request_dropdown stipend-location',
+          id: 'user-location'
+        })
+      )
+  );
   renderfields = () => {
     const { 
       centers, 
       handleShowEventError, isValidAmount, 
       onChangeAmountInput, 
-      isEmpty 
+      isEmpty,
+      editing
     } = this.props;
     const centerChoices = centers.map(center => center.location);
     const { renderInput } = this.inputRenderer;
@@ -20,12 +35,7 @@ class TravelStipendFieldset extends Component {
           <div className="input-group">
             <div className="spaces">
               {
-                renderInput('center', 'dropdown-select', {
-                  choices: centerChoices,
-                  size: '',
-                  className: 'request_dropdown stipend-location',
-                  id: 'user-location'
-                })
+                this.renderCenter(renderInput, editing, centerChoices)
               }
             </div>
             <div className="spaces">
@@ -55,7 +65,8 @@ class TravelStipendFieldset extends Component {
   };
 
   render() {
-    const { default: labels } = formMetadata;
+    const { editing } = this.props;
+    const labels = formMetadata(editing);
     this.inputRenderer = new InputRenderer(labels);
 
     return (
@@ -72,7 +83,8 @@ TravelStipendFieldset.propTypes = {
   handleShowEventError: PropTypes.func,
   isValidAmount: PropTypes.bool,
   onChangeAmountInput: PropTypes.func,
-  isEmpty: PropTypes.bool
+  isEmpty: PropTypes.bool,
+  editing: PropTypes.bool
 };
 
 TravelStipendFieldset.defaultProps = {
@@ -80,7 +92,8 @@ TravelStipendFieldset.defaultProps = {
   handleShowEventError: () => {},
   isValidAmount: true,
   isEmpty: true,
-  onChangeAmountInput: () => {}
+  onChangeAmountInput: () => {},
+  editing: false
 };
 
 export default TravelStipendFieldset;

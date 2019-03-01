@@ -126,7 +126,8 @@ import { watchFetchAllTravelReasons } from './listTravelReasonsSaga';
 import {
   watchCreateTravelStipendAsync,
   watchDeleteTravelStipend,
-  watchgetAllTravelStipends
+  watchgetAllTravelStipends,
+  watchUpdateTravelStipend
 } from './travelStipendsSaga';
 import {watchCreateTravelReason, watchEditTravelReason, watchDeleteTravelReason, watchViewTravelReasonDetails} from './travelReasonsSaga';
 
@@ -226,7 +227,8 @@ function* rootSaga() {
     watchEditTravelReason(),
     watchCreateTravelStipendAsync(),
     watchViewTravelReasonDetails(),
-    watchDeleteTravelReason()
+    watchDeleteTravelReason(),
+    watchUpdateTravelStipend(),
   ]);
 }
 

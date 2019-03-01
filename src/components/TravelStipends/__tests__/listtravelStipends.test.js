@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import ListTravelStipends from '../TravelStipends';
 import mockData from '../../../mockData/travelStipend';
-import {TravelStipendsCards} from '../TravelStipendsCards';
+import { TravelStipendsCard, TravelStipendsCards } from '../TravelStipendsCards';
 
 describe('<ListTravelStipends />',() => {
   const { stipends }  = mockData;
@@ -12,7 +12,9 @@ describe('<ListTravelStipends />',() => {
     deleteTravelStipend: jest.fn(),
     fetchSingleTravelStipend: jest.fn(),
     openModal: jest.fn(),
-    closeModal: jest.fn()
+    closeModal: jest.fn(),
+    location: '',
+    stipend: 2
   };
   const props2 = {
     listAllTravelStipends: {
@@ -57,6 +59,15 @@ describe('<ListTravelStipends />',() => {
     wrapper.find('.delete').simulate('click');
 
     expect(props.openModal).toHaveBeenCalledWith(true, 'Delete Stipend');
+  });
+
+  it('should open the edit stipend modal when edit is clicked', () => {
+    const wrapper = mount(<TravelStipendsCard {...props} />);
+
+    wrapper.find('.fa-ellipsis-v').first().simulate('click');
+    wrapper.find('.edit').first().simulate('click');
+
+    expect(props.openModal).toHaveBeenCalledWith(true, 'edit travel stipend');
   });
 });
 

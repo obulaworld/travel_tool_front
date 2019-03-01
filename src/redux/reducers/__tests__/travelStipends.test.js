@@ -137,7 +137,9 @@ describe('travel stipends Reducer', () => {
       receivedState = {
         ...initialState,
         isLoading: false,
-        error: 'failed to add new stipend',
+        error: {
+          error: 'failed to add new stipend'
+        },
         travelStipend: {}
       };
       expect(newState).toEqual(receivedState);
@@ -156,7 +158,7 @@ describe('travel stipends Reducer', () => {
       receivedState = {
         isLoading: false,
         travelStipend: action.newStipend,
-        error: ''
+        error: {}
       };
 
       expect(newState).toEqual(receivedState);
@@ -164,4 +166,3 @@ describe('travel stipends Reducer', () => {
     });
   });
 });
-

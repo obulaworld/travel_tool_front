@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from '../../components/modal/Modal';
 import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
-import {fetchCenters} from '../../redux/actionCreator/centersActions';
+import { fetchCenters } from '../../redux/actionCreator/centersActions';
 import {
   createTravelStipend,
   fetchAllTravelStipends,
   deleteTravelStipend,
   fetchSingleTravelStipend,
+  updateTravelStipend,
 } from '../../redux/actionCreator/travelStipendsActions';
-import { NewTravelStipendForm }  from '../../components/Forms';
+import { NewTravelStipendForm } from '../../components/Forms';
 import PageHeader from '../../components/PageHeader';
 import ListTravelStipends from '../../components/TravelStipends/TravelStipends';
 
@@ -21,6 +22,7 @@ export class TravelStipends extends Component {
     const { fetchCenters } = this.props;
     fetchCenters();
   }
+
   renderCreateTravelStipendModal = () => {
     const { openModal } = this.props;
     openModal(true, 'create travel stipend');
@@ -32,13 +34,17 @@ export class TravelStipends extends Component {
       closeModal, shouldOpen, modalType, centers, createTravelStipend,
       travelStipends,
       history,
+      fetchSingleTravelStipend,
+      updateTravelStipend,
+      travelStipends: {updatedStipend},
     } = this.props;
+    const editing = /edit travel stipend/.test(modalType);
     return (
       <Modal
         customModalStyles="modal--add-user" width="480px"
-        visibility={shouldOpen && (modalType === 'create travel stipend')
+        visibility={shouldOpen && (/(create|edit) travel stipend/.test(modalType))
           ? 'visible' : 'invisible'}
-        title="Add Travel Stipend"
+        title={editing ? 'Edit Travel Stipend' : 'Add Travel Stipend'}
         closeModal={closeModal}
       >
         <NewTravelStipendForm
@@ -47,14 +53,20 @@ export class TravelStipends extends Component {
           handleCreateTravelStipend={createTravelStipend}
           centers={centers && centers.centers}
           travelStipends={travelStipends}
+          editing={editing}
+          fetchSingleStipend={fetchSingleTravelStipend}
+          updateTravelStipend={updateTravelStipend}
+          updatedStipend={updatedStipend}
         />
       </Modal>
     );
   }
 
   render() {
-    const {fetchAllTravelStipends, travelStipends,
-      fetchSingleTravelStipend, deleteTravelStipend, shouldOpen,modalType , openModal, closeModal} = this.props;
+    const {
+      fetchAllTravelStipends, travelStipends, fetchSingleTravelStipend,
+      deleteTravelStipend, shouldOpen, modalType, openModal, closeModal
+    } = this.props;
     return (
       <Fragment>
         <div className="travelStipends--header">
@@ -94,7 +106,8 @@ TravelStipends.propTypes = {
   createTravelStipend: PropTypes.func,
   travelStipends: PropTypes.object,
   fetchAllTravelStipends: PropTypes.func.isRequired,
-  history: PropTypes.object
+  history: PropTypes.object,
+  updateTravelStipend: PropTypes.func,
 };
 
 TravelStipends.defaultProps = {
@@ -102,13 +115,17 @@ TravelStipends.defaultProps = {
   closeModal: null,
   modalType: '',
   travelStipends: {},
-  createTravelStipend: () => {},
+  createTravelStipend: () => {
+  },
   history: {
-    push : () => {}
+    push: () => {
+    }
+  },
+  updateTravelStipend: () => {
   }
 };
 
-export const mapStateToProps = ({ modal, centers, travelStipends }) => ({
+export const mapStateToProps = ({modal, centers, travelStipends}) => ({
   ...modal.modal,
   centers,
   travelStipends
@@ -121,7 +138,8 @@ const actionCreators = {
   createTravelStipend,
   fetchAllTravelStipends,
   deleteTravelStipend,
-  fetchSingleTravelStipend
+  fetchSingleTravelStipend,
+  updateTravelStipend
 };
 
 export default connect(mapStateToProps, actionCreators)(TravelStipends);

@@ -2,7 +2,12 @@ import { call } from 'redux-saga/effects';
 import {expectSaga} from 'redux-saga-test-plan';
 import {throwError} from 'redux-saga-test-plan/providers';
 import * as matchers from 'redux-saga-test-plan/matchers';
-import {watchgetAllTravelStipends, watchDeleteTravelStipend,  watchCreateTravelStipendAsync,} from '../travelStipendsSaga';
+import {
+  watchgetAllTravelStipends,
+  watchDeleteTravelStipend,
+  watchCreateTravelStipendAsync,
+  watchUpdateTravelStipend,
+} from '../travelStipendsSaga';
 import TravelStipendsAPI from '../../../services/TravelStipendsAPI';
 import {
   DELETE_TRAVEL_STIPEND_SUCCESS,
@@ -10,7 +15,10 @@ import {
   FETCH_ALL_TRAVEL_STIPENDS_FAILURE,
   FETCH_ALL_TRAVEL_STIPENDS_SUCCESS,
   DELETE_TRAVEL_STIPEND_FAILURE,
-  DELETE_TRAVEL_STIPEND
+  DELETE_TRAVEL_STIPEND,
+  EDIT_TRAVEL_STIPEND,
+  EDIT_TRAVEL_STIPEND_SUCCESS,
+  EDIT_TRAVEL_STIPEND_FAILURE
 } from '../../constants/actionTypes';
 import mockData from '../../../mockData/travelStipend';
 
@@ -163,4 +171,76 @@ describe('Delete travel stipend saga', () => {
       })
       .silentRun();
   });
+});
+
+describe('Update Travel Stipend', () => {
+  const { action, validationError, response, otherError } = mockData;
+  const { stipendId, payload } = action;
+  const { response: { data: { errors } } } = validationError;
+
+  it('renders validation errors while editing a travel stipend', () => {
+    return expectSaga(watchUpdateTravelStipend, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(
+          TravelStipendsAPI.updateTravelStipend,
+          stipendId,
+          payload
+        ), throwError(validationError)]
+      ])
+      .put({
+        type: EDIT_TRAVEL_STIPEND_FAILURE,
+        errors: {
+          stipend: errors[0].message
+        }
+      })
+      .dispatch({
+        type: EDIT_TRAVEL_STIPEND,
+        stipendId,
+        payload
+      })
+      .silentRun();
+  });
+
+  it('renders errors while editing a travel stipend', () => {
+    return expectSaga(watchUpdateTravelStipend, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(
+          TravelStipendsAPI.updateTravelStipend,
+          stipendId,
+          payload
+        ), throwError(otherError)]
+      ])
+      .put({
+        type: EDIT_TRAVEL_STIPEND_FAILURE,
+        errors: {}
+      })
+      .dispatch({
+        type: EDIT_TRAVEL_STIPEND,
+        stipendId,
+        payload
+      })
+      .silentRun();
+  });
+
+  it('should update a travel stipend', () => {
+    return expectSaga(watchUpdateTravelStipend, TravelStipendsAPI)
+      .provide([
+        [matchers.call.fn(
+          TravelStipendsAPI.updateTravelStipend,
+          stipendId,
+          payload
+        ), response]
+      ])
+      .put({
+        type: EDIT_TRAVEL_STIPEND_SUCCESS,
+        response: response.data
+      })
+      .dispatch({
+        type: EDIT_TRAVEL_STIPEND,
+        stipendId,
+        payload
+      })
+      .silentRun();
+  });
+
 });

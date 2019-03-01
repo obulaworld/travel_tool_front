@@ -13,7 +13,9 @@ class TravelStipendsAPI {
   static deleteTravelStipend = (stipendId) => {
     return axios.delete(`${baseUrl}/travelStipend/${stipendId}`);
   }
-
+  static updateTravelStipend = (stipendId, payload) => {
+    return axios.put(`${baseUrl}/travelStipend/${stipendId}`, payload);
+  }
 }
 
 export default TravelStipendsAPI;

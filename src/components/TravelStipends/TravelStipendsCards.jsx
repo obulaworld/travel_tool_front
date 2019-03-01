@@ -6,8 +6,9 @@ import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
 import ContextMenu from '../ContextMenu/ContextMenu';
 import MenuItem from '../ContextMenu/MenuItem';
 
-const handleDelete = (id, openModal, fetchSingleTravelStipend) => {
-  openModal(true, 'Delete Stipend');
+const handleAction = (action, id, openModal, fetchSingleTravelStipend) => {
+  (action === 'edit') && openModal(true, 'edit travel stipend');
+  (action === 'delete') && openModal(true, 'Delete Stipend');
   fetchSingleTravelStipend(id);
 };
 
@@ -17,8 +18,17 @@ export const TravelStipendsCard = ({location, stipend,openModal, id, fetchSingle
       <div className="travel_stipend_menu">
         <ContextMenu classNames="table__menu-container">
           <MenuItem
+            classNames="edit"
+            onClick={
+              () => handleAction('edit', id, openModal, fetchSingleTravelStipend)
+            }>
+            Edit
+          </MenuItem>
+          <MenuItem
             classNames="delete"
-            onClick={() => handleDelete(id, openModal, fetchSingleTravelStipend)}>
+            onClick={
+              () => handleAction('delete', id, openModal, fetchSingleTravelStipend)
+            }>
           Delete
           </MenuItem>
         </ContextMenu>

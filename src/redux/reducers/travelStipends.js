@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   FETCH_ALL_TRAVEL_STIPENDS,
   FETCH_ALL_TRAVEL_STIPENDS_SUCCESS,
@@ -8,7 +9,10 @@ import {
   FETCH_SINGLE_TRAVEL_STIPEND,
   CREATE_TRAVEL_STIPEND,
   CREATE_TRAVEL_STIPEND_SUCCESS,
-  CREATE_TRAVEL_STIPEND_FAILURE
+  CREATE_TRAVEL_STIPEND_FAILURE,
+  EDIT_TRAVEL_STIPEND,
+  EDIT_TRAVEL_STIPEND_SUCCESS,
+  EDIT_TRAVEL_STIPEND_FAILURE
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -16,10 +20,54 @@ const initialState = {
   isDeleting: false,
   stipends: [],
   error: {},
-  selectedStipend: {}
+  selectedStipend: {},
+  updatedStipend: {
+    isSaving: false,
+    errors: {},
+    data: {}
+  }
 };
 
+const editTravelStipend = (state = initialState, action) => {
+  switch (action.type) {
+  case EDIT_TRAVEL_STIPEND:
+    return {...state,
+      updatedStipend: {
+        isSaving: true,
+        errors: {}
+      }
+    };
+  case EDIT_TRAVEL_STIPEND_FAILURE:
+    return {
+      ...state,
+      updatedStipend: {
+        isSaving: false,
+        errors: action.errors || action.error || action.message || {}
+      }
+    };
 
+  case EDIT_TRAVEL_STIPEND_SUCCESS:{
+    const stipendsList = state.stipends.slice();
+    const {response: { travelStipend: { id, amount } } } = action;
+    const index = _.findIndex(stipendsList, { id });
+
+    stipendsList[index] = { ...stipendsList[index],
+      amount
+    };
+
+    return {...state,
+      stipends: stipendsList,
+      updatedStipend: {
+        isSaving: false,
+        errors: {},
+        data: action.response.travelStipend
+      }
+    };
+  }
+  default:
+    return state;
+  }
+};
 const deleteTravelStipend = (state = initialState, action) => {
   switch(action.type){
   case  FETCH_SINGLE_TRAVEL_STIPEND: {
@@ -49,7 +97,8 @@ const deleteTravelStipend = (state = initialState, action) => {
       isDeleting: false,
       error: action.error
     };
-  default: { return state;}
+  default:
+    return editTravelStipend(state, action);
   }
 };
 
@@ -58,8 +107,7 @@ const travelStipends = (state = initialState, action) => {
   case FETCH_ALL_TRAVEL_STIPENDS:
     return {...state, isLoading: true};
   case FETCH_ALL_TRAVEL_STIPENDS_SUCCESS:
-    return {
-      ...state,
+    return {...state,
       isLoading: false,
       stipends: action.stipends
     };
@@ -72,16 +120,26 @@ const travelStipends = (state = initialState, action) => {
     return {
       ...state,
       travelStipend: action.newStipend,
-      error: '',
+      error: {},
       isLoading: false
     };
   case CREATE_TRAVEL_STIPEND_FAILURE:
-    return {
-      ...state,
+    return {...state,
       travelStipend: {},
-      error: action.error,
+      error: {
+        error:
+      action.error,
+      },
       isLoading: false
     };
+  case  FETCH_SINGLE_TRAVEL_STIPEND: {
+    const { stipends } = state;
+    return {...state,
+      selectedStipend: stipends.find(
+        stipend => stipend.id === action.stipendId)
+        || {},
+    };
+  }
   default:
     return deleteTravelStipend(state,action);
   }

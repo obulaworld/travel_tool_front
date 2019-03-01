@@ -9,6 +9,9 @@ import {
   CREATE_TRAVEL_STIPEND,
   CREATE_TRAVEL_STIPEND_SUCCESS,
   CREATE_TRAVEL_STIPEND_FAILURE,
+  EDIT_TRAVEL_STIPEND,
+  EDIT_TRAVEL_STIPEND_SUCCESS,
+  EDIT_TRAVEL_STIPEND_FAILURE
 } from '../constants/actionTypes';
 
 export const fetchAllTravelStipends = action => {
@@ -62,4 +65,20 @@ export const deleteTravelStipendSuccess = (deleteMessage, stipendId) => ({
 export const deleteTravelStipendFailure = (error) => ({
   type: DELETE_TRAVEL_STIPEND_FAILURE,
   error,
+});
+
+export const updateTravelStipend = (stipendId, payload) => ({
+  type: EDIT_TRAVEL_STIPEND,
+  stipendId,
+  payload
+});
+
+export const updateTravelStipendSuccess = (response) => ({
+  type: EDIT_TRAVEL_STIPEND_SUCCESS,
+  response
+});
+
+export const updateTravelStipendFailure = (errors) => ({
+  type: EDIT_TRAVEL_STIPEND_FAILURE,
+  errors
 });

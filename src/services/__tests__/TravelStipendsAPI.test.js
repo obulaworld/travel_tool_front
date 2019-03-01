@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 import TravelStipendsAPI from '../TravelStipendsAPI';
-import RequestAPI from "../RequestAPI";
+import RequestAPI from '../RequestAPI';
 
 describe('TravelStipendsAPI', () => {
   const baseUrl = 'http://127.0.0.1:5000/api/v1';
@@ -32,6 +32,27 @@ describe('TravelStipendsAPI', () => {
     expect(moxios.requests.mostRecent().config.method).toEqual('delete');
     expect(response.data).toEqual({
       message: 'Travel stipend deleted successfully'
+    });
+  });
+
+  it('should send a PUT api/v1/travelStipends/:id', async () => {
+    const stipendId = '2';
+    const updateURL = `${baseUrl}/travelStipend/${stipendId}`;
+    const updateData = {
+      stipend: 3000
+    };
+    moxios.stubRequest(updateURL, {
+      status: 200,
+      success: true,
+      response: {
+        message: 'Travel stipend updated successfully'
+      }
+    });
+    const response = await TravelStipendsAPI.updateTravelStipend(stipendId, updateData);
+    expect(moxios.requests.mostRecent().url).toEqual(updateURL);
+    expect(moxios.requests.mostRecent().config.method).toEqual('put');
+    expect(response.data).toEqual({
+      message: 'Travel stipend updated successfully'
     });
   });
 });
