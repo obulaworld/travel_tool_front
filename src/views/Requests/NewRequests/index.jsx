@@ -13,6 +13,8 @@ import { openModal } from '../../../redux/actionCreator/modalActions';
 import { fetchRoleUsers } from '../../../redux/actionCreator/roleActions';
 import { getOccupation } from '../../../redux/actionCreator/occupationActions';
 import {fetchAllTravelReasons} from '../../../redux/actionCreator/listTravelReasonsActions';
+import { fetchAllTravelStipends } from '../../../redux/actionCreator/travelStipendsActions';
+
 
 
 export class NewRequests extends Base {
@@ -40,7 +42,10 @@ export class NewRequests extends Base {
       modalType, roleUsers, requestOnEdit, editRequest,
       fetchUserRequests, occupations,
       fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
-      fetchAllTravelReasons, history
+      fetchAllTravelReasons,
+      history,
+      fetchAllTravelStipends,
+      travelStipends,
     } = this.props;
     const { url } = this.state;
     return (
@@ -58,12 +63,20 @@ export class NewRequests extends Base {
         listTravelReasons={listTravelReasons}
         requestOnEdit={requestOnEdit} fetchUserRequests={() => fetchUserRequests(url)}
         history={history}
+        fetchAllTravelStipends={fetchAllTravelStipends}
+        travelStipends={travelStipends}
       />
     );
   }
 }
 
-const mapStateToProps = ({requests, user, role, availableRooms, occupations, modal, teammates, travelReason}) => ({
+const mapStateToProps = ({requests, user, role, availableRooms, 
+  occupations,
+  modal, 
+  teammates, 
+  travelReason, 
+  travelStipends,
+}) => ({
   ...requests,
   ...role,
   ...occupations,
@@ -74,6 +87,7 @@ const mapStateToProps = ({requests, user, role, availableRooms, occupations, mod
   availableRooms,
   department: user.currentUser.department,
   listTravelReasons: travelReason,
+  travelStipends,
 });
 
 const actionCreators = {
@@ -87,6 +101,7 @@ const actionCreators = {
   fetchRoleUsers,
   getOccupation,
   fetchAllTravelReasons,
+  fetchAllTravelStipends,
 };
 
 export default connect(mapStateToProps, actionCreators)(NewRequests);

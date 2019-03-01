@@ -7,7 +7,7 @@ import {
   FETCH_TRIPS_FAILURE,
   UPDATE_TRIP_ROOM,
   UPDATE_TRIP_ROOM_SUCCESS,
-  UPDATE_TRIP_ROOM_FAILURE
+  UPDATE_TRIP_ROOM_FAILURE,
 } from '../constants/actionTypes';
 
 export const updateTrip = ({tripId, tripData}) => ({

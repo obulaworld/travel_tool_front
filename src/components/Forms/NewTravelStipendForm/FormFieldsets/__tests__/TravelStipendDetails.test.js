@@ -25,4 +25,16 @@ describe('<TravelStipendFieldset />', () => {
     const wrapper = setup(props);
     expect(wrapper).toMatchSnapshot();
   });
+  
+  it('should match snapshot', () => {
+    const newProps = {
+      ...props,
+      isValidAmount: false,
+      isEmpty: false,
+    };
+    const wrapper = setup(newProps);
+    expect(wrapper.find('span.show-error').text())
+      .toBe('Amount should be a positive integer');
+  });
+
 });

@@ -9,8 +9,11 @@ import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
 import TravelDetailsFieldset from './FormFieldsets/TravelDetails';
 import SubmitArea from './FormFieldsets/SubmitArea';
 import RequestTabHeader from '../../RequestTab/RequestTabHead';
+import StipendDetails from './Stipend/StipendDetails';
 import './NewRequestForm.scss';
 import tabIcons from '../../../images/icons/new-request-icons';
+import travelStipendHelper from '../../../helper/request/RequestUtils';
+
 
 class NewRequestForm extends PureComponent {
   constructor(props) {
@@ -102,6 +105,7 @@ class NewRequestForm extends PureComponent {
       ],
       currentTab: 1,
     };
+    this.stipendField = React.createRef();
   };
 
   getPersonalDetails = (modalType, detailsSource) => {
@@ -392,7 +396,7 @@ class NewRequestForm extends PureComponent {
       user,
       history
     } = this.props;
-    const { values, selection, trips } = this.state;
+    const { values, selection, trips, stipend } = this.state;
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
@@ -402,7 +406,8 @@ class NewRequestForm extends PureComponent {
     const newData = {
       ...newUserData,
       trips,
-      tripType: selection
+      tripType: selection,
+      stipend
     };
 
     if (selection === 'oneWay') {
@@ -522,7 +527,7 @@ class NewRequestForm extends PureComponent {
     }
   };
 
-  nextStep = (e) => {
+  nextStep = (e, totalStipend) => {
     e.preventDefault();
     const {  steps, currentTab } = this.state;
     const newSteps = steps;
@@ -535,9 +540,21 @@ class NewRequestForm extends PureComponent {
       currentTab: currentTab + 1,
     });
 
-  }
+    if(currentTab === 2) {
+      const { fetchAllTravelStipends } = this.props;
+      fetchAllTravelStipends();
+    }
 
-  backToTripDetails = () => {
+    if(currentTab === 3) {
+      this.setState({
+        stipend: totalStipend === 'N/A' 
+          ? 0
+          : totalStipend.split(' ')[1]
+      });
+    }
+  }
+  
+  backToTripDetails =()=> {
     this.setState({ currentTab: 2 });
   }
 
@@ -649,7 +666,46 @@ class NewRequestForm extends PureComponent {
         listTravelReasons={listTravelReasons}
       />
     );
-  };
+  }
+
+  renderTravelStipend = ()=>{
+    const { trips, selection } = this.state;
+    const { travelStipends: { stipends, isLoading }  } = this.props;
+    let total = '';
+    let travelStipends = [];
+    if(!isLoading && stipends.length) {
+      const { totalStipend, stipendSubTotals } = travelStipendHelper
+        .getAllTripsStipend(trips, stipends, selection); 
+      total = totalStipend;
+      travelStipends = stipendSubTotals;
+    }
+    return(
+      <div className="personal-rectangle">
+        {
+          <StipendDetails
+            stipends={stipends}
+            trips={trips}
+            total={total}
+            travelStipends={travelStipends}
+            isLoading={isLoading} 
+          />
+        }
+        {!isLoading && (
+          <div className="request-submit-area submit-area">
+            <button
+              onClick={e => this.nextStep(e, total)}
+              disabled={isLoading}
+              type="button"
+              className="bg-btn bg-btn--active" id="stipend-next">
+                     Next
+            </button>
+          </div>
+        )
+        }
+      </div>
+    );
+  }
+  
 
   renderSubmitArea = (hasBlankFields, errors, sameOriginDestination, 
     selection, creatingRequest, disableOnChangeProfile, modalType) => {
@@ -677,24 +733,6 @@ class NewRequestForm extends PureComponent {
     );
   }
 
-   renderTravelStipend = () => {
-     const { currentTab } = this.state;
-     return(
-       <div className="personal-rectangle">
-         <div>
-           <h1> Travel Stipends goes here...</h1> 
-         </div>
-         <div className="request-submit-area submit-area">
-           <button
-             onClick={e => this.nextStep(e)}
-             type="button"
-             className="bg-btn bg-btn--active" id="stipend-next">
-            Next
-           </button>
-         </div>
-       </div>
-     );
-   }
   renderTravelCheckList =  ( hasBlankFields, errors, selection, creatingRequest) => {
     return(
       <div className="personal-rectangle">
@@ -736,7 +774,6 @@ class NewRequestForm extends PureComponent {
           values={values}
           errors={errors}
           validatorName="validate">
-
           <form onSubmit={this.handleSubmit} className="new-request">
             { currentTab === 1 &&
               this.renderPersonalDetailsFieldset()}
@@ -744,11 +781,9 @@ class NewRequestForm extends PureComponent {
               hasBlankFields, errors, sameOriginDestination,
               selection, creatingRequest, disableOnChangeProfile, modalType)
             }
-            { currentTab === 3 &&
-              this.renderTravelStipend()}
+            { currentTab === 3  && this.renderTravelStipend()}
             { currentTab === 4 &&
               this.renderTravelCheckList(hasBlankFields, errors, selection, creatingRequest)}
-
           </form>
         </FormContext>
       </div>
@@ -780,6 +815,8 @@ NewRequestForm.propTypes = {
   ]),
   listTravelReasons: PropTypes.object,
   history: PropTypes.object,
+  fetchAllTravelStipends: PropTypes.func.isRequired,
+  travelStipends: PropTypes.object,
 };
 
 NewRequestForm.defaultProps = {
@@ -790,7 +827,11 @@ NewRequestForm.defaultProps = {
   userDataUpdate: [],
   requestOnEdit: {},
   listTravelReasons: {},
-  history: {}
+  history: {},
+  travelStipends: {
+    isLoading: false,
+    stipends: []
+  }
 };
 
 export default NewRequestForm;

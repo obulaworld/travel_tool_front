@@ -25,7 +25,6 @@ const HomeRequests = ({ requests, isLoading }) => {
         };
       });
     }
-
     return data;
   };
 
@@ -35,7 +34,6 @@ const HomeRequests = ({ requests, isLoading }) => {
         <p>Your Requests</p>
         {renderRequests() && renderRequests().length > 0 && <u><Link to="/requests">View All</Link></u>}
       </div>
-
       {
         isLoading ?
           <div className="centered-flex">Loading...</div> :

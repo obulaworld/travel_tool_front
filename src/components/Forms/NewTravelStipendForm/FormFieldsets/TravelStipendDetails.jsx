@@ -6,11 +6,14 @@ import * as formMetadata from '../../FormsMetadata/NewTravelStipendFormMetadata'
 class TravelStipendFieldset extends Component {
 
   renderfields = () => {
-    const { centers } = this.props;
-
+    const { 
+      centers, 
+      handleShowEventError, isValidAmount, 
+      onChangeAmountInput, 
+      isEmpty 
+    } = this.props;
     const centerChoices = centers.map(center => center.location);
     const { renderInput } = this.inputRenderer;
-  
     return (
       <div>
         <div>
@@ -26,11 +29,24 @@ class TravelStipendFieldset extends Component {
               }
             </div>
             <div className="spaces">
-              {renderInput('stipend', 'text', {
+              {renderInput('stipend', 'number', {
                 size: '',
-                className: 'request_dropdown stipend-amount',
+                min: '1',
+                onChange: (event) => onChangeAmountInput(event),
+                onInvalid: (event) => handleShowEventError(event),
+                placeholder: '1000',
+                className: `request_dropdown stipend-amount ${isValidAmount
+                  || isEmpty ? '' : 'input-border-error'}`,
                 id: 'your-manager',
               })}
+              {
+                <span 
+                  className={`${isValidAmount 
+                    || isEmpty ? 'hide-error': 'show-error'}`}
+                >
+                  Amount should be a positive integer
+                </span>
+              }
             </div>
           </div>
         </div>
@@ -53,10 +69,18 @@ class TravelStipendFieldset extends Component {
 
 TravelStipendFieldset.propTypes = {
   centers: PropTypes.array,
+  handleShowEventError: PropTypes.func,
+  isValidAmount: PropTypes.bool,
+  onChangeAmountInput: PropTypes.func,
+  isEmpty: PropTypes.bool
 };
 
 TravelStipendFieldset.defaultProps = {
   centers: [],
+  handleShowEventError: () => {},
+  isValidAmount: true,
+  isEmpty: true,
+  onChangeAmountInput: () => {}
 };
 
 export default TravelStipendFieldset;

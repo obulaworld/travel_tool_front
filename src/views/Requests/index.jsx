@@ -25,6 +25,7 @@ import {
   fetchSubmission, postSubmission } from '../../redux/actionCreator/checkListSubmissionActions';
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 import {fetchCenters} from '../../redux/actionCreator/centersActions';
+import { fetchAllTravelStipends } from '../../redux/actionCreator/travelStipendsActions';
 
 export class Requests extends Base {
   state = {
@@ -209,12 +210,11 @@ export class Requests extends Base {
   renderNewRequestForm() {
     const {
       updateUserProfile, userData, fetchPostUserData,
-      user, createNewRequest,
-      loading,errors,closeModal,shouldOpen,
+      loading,errors,closeModal,shouldOpen, createNewRequest,
       modalType, roleUsers,requestOnEdit,editRequest,
-      fetchUserRequests,
+      fetchUserRequests, fetchAllTravelStipends, user,
       centers, userData: { result: { location}},
-      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest
+      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
     } = this.props;
     const { url } = this.state;
 
@@ -239,6 +239,7 @@ export class Requests extends Base {
           fetchUserRequests={() => fetchUserRequests(url)}
           fetchAvailableRooms={fetchAvailableRooms}
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
+          fetchAllTravelStipends={fetchAllTravelStipends}
           creatingRequest={creatingRequest}
         />
       </Modal>
@@ -302,6 +303,7 @@ Requests.propTypes = {
   fetchAvailableRoomsSuccess: PropTypes.func.isRequired,
   submissionInfo: PropTypes.object.isRequired,
   fileUploads: PropTypes.object.isRequired,
+  fetchAllTravelStipends: PropTypes.func.isRequired,
 };
 Requests.defaultProps = {
   url: '',
@@ -348,7 +350,8 @@ const actionCreators = {
   postSubmission,
   fetchAvailableRoomsSuccess,
   uploadFile,
-  deleteRequest
+  deleteRequest,
+  fetchAllTravelStipends
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

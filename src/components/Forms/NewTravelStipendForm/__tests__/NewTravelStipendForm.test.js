@@ -72,5 +72,42 @@ describe('<NewTravelStipendForm />', () => {
     form.simulate('submit');
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
+
+  it('renders the travel stipend amount input without validation error', () => {
+    const stipendInput = wrapper.find('input[name="stipend"]');
+    const handleOnchange = jest.spyOn(wrapper.instance(), 'handleOnchange');
+
+    wrapper.instance().forceUpdate();
+
+    stipendInput.simulate('change', { target: { name: 'stipend', value: '1000'}});
+    expect(handleOnchange).toHaveBeenCalled();
+    expect(wrapper.find('.input-group span.hide-error')).toHaveLength(1);
+    expect(wrapper.instance().state.isValidAmount).toBe(true);
+  });
+
+
+  it('renders the travel stipend amount input with validation error', () => {
+    const stipendInput = wrapper.find('input[name="stipend"]');
+    const handleOnchange = jest.spyOn(wrapper.instance(), 'handleOnchange');
+    const handleShowEventError = jest.spyOn(wrapper.instance(), 'handleShowEventError');
+
+    wrapper.instance().forceUpdate();
+
+    stipendInput.simulate('change', { target: { name: 'stipend', value: '-1000'}});
+    expect(handleOnchange).toHaveBeenCalled();
+    stipendInput.simulate('invalid', { target: { name: 'stipend', value: '-1000'}});
+    expect(handleShowEventError).toHaveBeenCalled();
+    expect(wrapper.find('.input-group span.show-error')).toHaveLength(1);
+    expect(wrapper.instance().state.isValidAmount).toBe(false);
+  });
+
+  it('renders the travel stipend amount input with validation error on `blur`', () => {
+    const stipendInput = wrapper.find('input[name="stipend"]');
+  
+    wrapper.instance().forceUpdate();
+
+    stipendInput.simulate('blur', { target: { name: 'stipend', value: ''}});
+    expect(wrapper.find('.stipend-amount span.error').text()).toBe('This field is required');
+  });
 });
 

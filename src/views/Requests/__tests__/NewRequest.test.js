@@ -136,6 +136,7 @@ let props = {
   getOccupation: jest.fn(),
   getUserData: jest.fn(),
   fetchAvailableRoomsSuccess: jest.fn(),
+  fetchAllTravelStipends: jest.fn(),
   loading: false,
   errors: [],
   modalType: null,

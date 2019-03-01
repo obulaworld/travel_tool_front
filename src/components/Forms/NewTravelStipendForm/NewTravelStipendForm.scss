@@ -3,8 +3,23 @@ form.new-request {
     input {
       width: 421px;
     }
+  }
+  .input-border-error {
+    input {
+      border: 1px solid red;
+    }
+  }
 
-    margin-right: 10px;
+  .spaces {
+    .show-error {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-top: -20px;
+    }
+    .hide-error {
+      display: none;
+    }
   }
 
   .stipend-location {

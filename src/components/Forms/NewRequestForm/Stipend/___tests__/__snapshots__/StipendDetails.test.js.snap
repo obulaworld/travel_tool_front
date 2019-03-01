@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StipendDetails /> renders without crashing 1`] = `
+<div
+  className="false stipend-container-block "
+>
+  <div
+    className="stipend-row header-tile"
+  >
+    <div>
+      Destination
+    </div>
+    <div>
+      Daily Rate
+    </div>
+    <div>
+      Duration
+    </div>
+    <div>
+      SubTotal
+    </div>
+  </div>
+  <div
+    className="stipend-row single-trip"
+    key="Nairobi"
+  >
+    <div
+      className="item"
+    >
+      Nairobi[NBO]
+    </div>
+    <div
+      className="item"
+    >
+      $ 100
+    </div>
+    <div
+      className="item"
+    >
+      9 days
+    </div>
+    <div
+      className="item"
+    >
+      $ 900
+    </div>
+  </div>
+  <div
+    className="stipend-row single-trip"
+    key="Kampala"
+  >
+    <div
+      className="item"
+    >
+      Kampala[KLA]
+    </div>
+    <div
+      className="item"
+    >
+      $ 100
+    </div>
+    <div
+      className="item"
+    >
+      29 days
+    </div>
+    <div
+      className="item"
+    >
+      $ 2900
+    </div>
+  </div>
+  <div
+    className="stipend-row single-trip"
+    key="UK"
+  >
+    <div
+      className="item"
+    >
+      UK
+    </div>
+    <div
+      className="item"
+    >
+      N/A
+    </div>
+    <div
+      className="item"
+    >
+      1 day
+    </div>
+    <div
+      className="item"
+    >
+      N/A
+    </div>
+  </div>
+  <div
+    className="total-stipend"
+  >
+    <span
+      className="total-title"
+    >
+      Total
+    </span>
+    $ 3800
+  </div>
+</div>
+`;

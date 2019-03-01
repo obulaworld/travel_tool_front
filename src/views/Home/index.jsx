@@ -91,8 +91,8 @@ const actionCreators = {
   fetchAvailableRooms,
   fetchAvailableRoomsSuccess,
   fetchTeammates,
-  fetchRoleUsers,
   getOccupation,
+  fetchRoleUsers,
 };
 
 Home.propTypes = {
@@ -100,13 +100,13 @@ Home.propTypes = {
   fetchAvailableRooms: PropTypes.func.isRequired,
   fetchTeammates: PropTypes.func.isRequired,
   fetchRoleUsers: PropTypes.func.isRequired,
-  getOccupation: PropTypes.func.isRequired,
-  requests: PropTypes.array,
   isFetching: PropTypes.bool,
   teammates: PropTypes.object,
   availableRooms: PropTypes.object,
   location: PropTypes.object,
   department: PropTypes.string,
+  requests: PropTypes.array,
+  getOccupation: PropTypes.func.isRequired
 };
 
 Home.defaultProps = {
@@ -115,7 +115,7 @@ Home.defaultProps = {
   availableRooms: {},
   location: { url: '' },
   department: '',
-  isFetching: false
+  isFetching: false,
 };
 
 export default connect(mapStateToProps, actionCreators)(Home);

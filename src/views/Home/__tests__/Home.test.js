@@ -52,6 +52,7 @@ beforeEach(() => {
     fetchUserRequests: jest.fn(),
     occupations: [],
     updateUserProfile: jest.fn(),
+    createNewRequest: jest.fn(),
     errors: {},
     centers: {
       centers: [

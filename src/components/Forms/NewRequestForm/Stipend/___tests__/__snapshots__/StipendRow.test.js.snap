@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TemplateDetailsForm /> renders without crashing 1`] = `
+<div
+  className="stipend-row single-trip"
+  key="Lagos"
+>
+  <div
+    className="item"
+  >
+    Lagos[LOS]
+  </div>
+  <div
+    className="item"
+  >
+    $ 1
+  </div>
+  <div
+    className="item"
+  >
+    2 days
+  </div>
+  <div
+    className="item"
+  >
+    $ 100
+  </div>
+</div>
+`;

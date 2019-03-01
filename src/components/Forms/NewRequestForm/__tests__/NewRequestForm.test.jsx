@@ -4,6 +4,7 @@ import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 import profileMock from '../../ProfileForm/__mocks__';
 import tabIcons from '../../../../images/icons/new-request-icons';
+import travelStipendHelper from '../../../../helper/request/RequestUtils';
 
 
 const { centers } = profileMock;
@@ -100,6 +101,7 @@ describe('<NewRequestForm />', () => {
     fetchUserRequests: jest.fn(() => {}),
     fetchAvailableRooms: jest.fn(() => {}),
     fetchAvailableRoomsSuccess: jest.fn(() => {}),
+    fetchAllTravelStipends: jest.fn(),
     closeModal: jest.fn(),
     choices: ['director', 'chef'],
     managers: [{
@@ -119,7 +121,36 @@ describe('<NewRequestForm />', () => {
     centers,
     history:{
       push: jest.fn()
-    }
+    },
+    travelStipends: { 
+      stipends:[
+        {
+          'id': 1,
+          'amount': 100,
+          'creator': {
+            'fullName': 'Victor Ugwueze',
+            'id': 1
+          },
+          'center': {
+            'location': 'Lagos, Nigeria'
+          }
+        }
+      ],
+      isLoading: true
+    },
+    stipends:[
+      {
+        'id': 1,
+        'amount': 100,
+        'creator': {
+          'fullName': 'Victor Ugwueze',
+          'id': 1
+        },
+        'center': {
+          'location': 'Lagos, Nigeria'
+        }
+      }
+    ],
   };
   const event = {
     preventDefault: jest.fn(),
@@ -765,7 +796,7 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should set otherTravelReasons in state when handleReason is called', () => {
-    const tripIndex = 0
+    const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     shallowWrapper.setState({
       trips: [
@@ -777,12 +808,12 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should set travelReasons in state when handleReason is called', () => {
-    const tripIndex = 0
+    const tripIndex = 0;
     const listTravelReasons = {
       travelReasons: [
         {title: 'reason', id: 2}
       ]
-    }
+    };
     const shallowWrapper = shallow(<NewRequestForm {...props} listTravelReasons={listTravelReasons} />);
     shallowWrapper.setState({
       trips: [
@@ -794,7 +825,7 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should not set travelReasons in state when handleReason is called with other reasons', () => {
-    const tripIndex = 0
+    const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm {...props} />);
     shallowWrapper.setState({
       trips: [
@@ -806,7 +837,7 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should set currentTab in state to 2 when backToTripDetails is called', () => {
-    const tripIndex = 0
+    const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm {...props} backToTripDetails={backToTripDetails} />);
     shallowWrapper.setState({
       currentTab: 0
@@ -816,7 +847,7 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should call handleCreateRequest to create a request when handleSubmit is called', () => {
-    const tripIndex = 0
+    const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm
       {...props}
       handleCreateRequest={handleCreateRequest}
@@ -833,9 +864,28 @@ describe('<NewRequestForm />', () => {
   });
 
   it('should display next step on trip stipend  ', () => {
-    const shallowWrapper = mount(<NewRequestForm {...props} />);
+    const newProps = {
+      ...props,
+      travelStipends: {
+        stipends: [
+          {
+            'amount': 100,
+            'center': {
+              'location': 'Lagos, Nigeria'
+            }
+          }
+        ],
+        isLoading: false
+      }
+    };
+    const shallowWrapper = mount(<NewRequestForm {...newProps} />);
     shallowWrapper.setState({
-      currentTab: 3
+      currentTab: 3,
+      trips: [
+        {
+          destination: 'Nairobi, Kenya'
+        }
+      ]
     });
     const nextButton = shallowWrapper.find('#stipend-next');
     const event = {
@@ -845,10 +895,53 @@ describe('<NewRequestForm />', () => {
       }
     };
     nextButton.simulate('click', event);
-    sinon.spy(shallowWrapper.instance(), 'renderTravelStipend');
     expect(event.preventDefault).toBeCalled();
     expect(shallowWrapper.state().currentTab).toEqual(4);
   });
+
+  it('should render stipend on next click', () => {
+    const newProps = {
+      ...props,
+      travelStipends: {
+        stipends: [
+          {
+            'amount': 100,
+            'center': {
+              'location': 'Lagos, Nigeria'
+            }
+          }
+        ],
+        isLoading: false
+      }
+    };
+    const shallowWrapper = mount(<NewRequestForm {...newProps} />);
+    shallowWrapper.instance().setState({
+      currentTab: 2,
+      trips: [
+        {
+          destination: 'Nairobi, Kenya'
+        }
+      ]
+    });
+    const nextButton = shallowWrapper.find('#submit');
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'Next',
+      }
+    };
+
+    jest.spyOn(shallowWrapper.instance(), 'renderTravelStipend');
+    jest.spyOn(travelStipendHelper, 'getAllTripsStipend');
+    shallowWrapper.instance().forceUpdate();
+    nextButton.simulate('click', event);
+    expect(event.preventDefault).toBeCalled();
+    expect(travelStipendHelper.getAllTripsStipend).toHaveBeenCalled();
+    expect(shallowWrapper.instance().renderTravelStipend).toBeCalled();
+    expect(wrapper.find('StipendDetails')).toBeTruthy();
+    expect(shallowWrapper.state().currentTab).toEqual(3);
+  });
+  
   it('should display trip checkList  ', () => {
     const shallowWrapper = mount(<NewRequestForm {...props} />);
     shallowWrapper.setState({
