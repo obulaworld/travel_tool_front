@@ -205,21 +205,23 @@ export class NavBar extends PureComponent {
       showSearch='block';
     }
     return (
-      <header className="mdl-layout__header navbar__layout_header">
-        {this.renderHeader(handleShowDrawer)}
-        <button type="button" className="navbar__search-icon--btn" onClick={handleHideSearchBar}>
-          <div>
-            <i className="material-icons navbar__search-icon">
+      <div className="header-container">
+        <header className="mdl-layout__header navbar__layout_header">
+          {this.renderHeader(handleShowDrawer)}
+          <button type="button" className="navbar__search-icon--btn" onClick={handleHideSearchBar}>
+            <div>
+              <i className="material-icons navbar__search-icon">
           search
-            </i>
-          </div>
-        </button>
-        <div
-          className="navbar__search-size 
+              </i>
+            </div>
+          </button>
+          <div
+            className="navbar__search-size 
                   mdl-cell--hide-desktop mdl-cell--hide-tablet" style={{display: `${showSearch}`}}>
-          <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
-        </div>
-      </header>
+            <SearchBar onChange={this.onChange} onSubmit={this.onSubmit} />
+          </div>
+        </header>
+      </div>
     );
   }
 }
