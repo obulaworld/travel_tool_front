@@ -55,13 +55,13 @@ describe('ConfirmDialog component', () => {
     wrapper.setProps({ buttonSelected: 'Approve' });
     const button = wrapper.find('#Approve');
     button.simulate('click');
-    expect(props.handleApprove).toHaveBeenCalledTimes(4);
+    expect(props.handleApprove).toHaveBeenCalledTimes(1);
   });
 
   it('should call handleApprove method when approve button is clicked', () => {
     wrapper.setProps({ buttonSelected: 'Reject' });
     const button = wrapper.find('#Reject');
     button.simulate('click');
-    expect(props.handleApprove).toHaveBeenCalledTimes(4);
+    expect(props.handleApprove).toHaveBeenCalledTimes(1);
   });
 });

@@ -9,6 +9,8 @@ import {
   updateRequestStatusSuccess,
   updateRequestStatusFailure
 } from '../actionCreator';
+
+import { fetchUserRequestDetailsSuccess } from '../actionCreator/requestActions';
 import apiErrorHandler from '../../services/apiErrorHandler';
 
 export function* fetchUserApprovalsSaga(action) {
@@ -34,6 +36,7 @@ export function* updateRequestStatusSaga(action) {
     const { message, updatedRequest } = response.data;
     toast.success(message);
     yield put(updateRequestStatusSuccess(updatedRequest));
+    yield put(fetchUserRequestDetailsSuccess(updatedRequest));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(updateRequestStatusFailure(errorMessage));

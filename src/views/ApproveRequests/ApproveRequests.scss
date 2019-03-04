@@ -1,0 +1,67 @@
+.request-comment {
+  margin: 2em 0 0;
+
+  .editor__editor-form {
+
+    .quill-contents {
+
+      .ql-snow {
+        background-color: #FFF;
+      }
+    
+      .ql-toolbar {
+        border-top-left-radius: 0.1em;
+        border-top-right-radius: 0.1em;
+      }
+    
+      .ql-container {
+        border-bottom-left-radius: 0.1em;
+        border-bottom-right-radius: 0.1em;
+      }
+    }
+
+    .editor__btn-size {
+
+      .editor__btn-wrap {
+        
+        .editor__post-btn {
+          border-radius: 0.1em;
+        }
+      }
+    }
+  }
+
+  .modal__modal1 {
+    margin: 0 0 1em;
+
+    &:last-child {
+      margin: 0 0 3em;
+    }
+    hr {
+      display: none;
+    }
+
+    .modal__mdl-icons {
+
+      .modal__dialog {
+
+        .overlay {
+          left: 35%;
+        }
+      }
+
+      img {
+        margin: 0 1em 0 0;
+      }
+
+      .modal__modal2 {
+        margin: 0;
+        padding-left: 3.2em;
+
+        p {
+          color: #4F4F4F;
+        }
+      }
+    }
+  }
+}

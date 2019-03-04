@@ -430,7 +430,7 @@ exports[`<Timeline /> renders correctly 1`] = `
               <strong>
                 Requester
               </strong>
-               will be automatically notified of the room change.
+               will be automatically notified of the room change.
             </span>
           </div>
           <div
@@ -789,7 +789,7 @@ exports[`<Timeline /> renders the weekly view correctly 1`] = `
               <strong>
                 Requester
               </strong>
-               will be automatically notified of the room change.
+               will be automatically notified of the room change.
             </span>
           </div>
           <div
@@ -1173,7 +1173,7 @@ exports[`<Timeline /> renders the year view correctly 1`] = `
               <strong>
                 Requester
               </strong>
-               will be automatically notified of the room change.
+               will be automatically notified of the room change.
             </span>
           </div>
           <div

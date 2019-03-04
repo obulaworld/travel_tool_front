@@ -24,8 +24,8 @@ class ConfirmDialog extends Component {
           type="button"
           id={buttonSelected}
           onClick={
-            (['Approve', 'Verify'].includes(buttonSelected)) ? handleApprove && handleApprove(id)
-              || handleVerify : handleReject(id)
+            (['Approve', 'Verify', 'approve'].includes(buttonSelected))
+              ? () => handleApprove(id) || handleVerify(id) : () => handleReject(id)
           }
         >
           {buttonSelected}

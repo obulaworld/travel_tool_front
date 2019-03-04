@@ -17,7 +17,8 @@ import {
   EDIT_COMMENT_SUCCESS,
   DELETE_REQUEST,
   DELETE_REQUEST_SUCCESS,
-  DELETE_REQUEST_FAILURE
+  DELETE_REQUEST_FAILURE,
+  UPDATE_REQUEST_STATUS_SUCCESS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -197,6 +198,13 @@ const requests = (state = initialState, action) => {
         comments
       },
       comments
+    };
+  case UPDATE_REQUEST_STATUS_SUCCESS:
+    return {
+      ...state,
+      requestData: {
+        ...state.requestData,
+        status: action.updatedRequest.request.status },
     };
   default:
     return state;

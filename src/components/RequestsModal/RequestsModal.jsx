@@ -211,8 +211,8 @@ export class RequestDetailsModal extends Component {
             buttonSelected={buttonTextValuePair[buttonSelected]}
             renderDialogText={renderDialogText}
             closeDeleteModal={handleConfirmModal}
-            handleApprove={handleApprove}
-            handleReject={handleReject}
+            handleApprove={handleApprove(requestData.id)}
+            handleReject={handleReject(requestData.id)}
           />
         </div>
         <div className="request-details">

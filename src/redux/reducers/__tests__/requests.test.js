@@ -414,4 +414,34 @@ describe('Requests Reducer', () => {
       });
     });
   });
+
+  describe('update request status reducer', () => {
+    it('returns correct state for UPDATE_REQUEST_STATUS_SUCCESS', () => {
+      const action = {
+        type: 'UPDATE_REQUEST_STATUS_SUCCESS',
+        updatedRequest: {
+          request: {
+            id: 1,
+            status: 'Approved'
+          },
+        }
+      };
+      const initialState = {
+        requestData: {
+          trips: [],
+          comments: [],
+        },
+        comments: []
+      };
+
+      expect(requests(initialState, action)).toEqual({
+        requestData: {
+          ...initialState.requestData,
+          status: 'Approved',
+          comments: []
+        },
+        comments: []
+      });
+    });
+  });
 });

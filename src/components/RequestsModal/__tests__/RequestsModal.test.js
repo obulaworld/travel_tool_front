@@ -166,14 +166,14 @@ describe('Render RequestsModal component', () => {
 
   it('should call handleApprove', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleApprove');
-    wrapper.instance().handleApprove('2jhd13')();
-    expect(spy).toHaveBeenCalledTimes(3);
+    wrapper.instance().handleApprove('2jhd13');
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should call handleReject', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleReject');
-    wrapper.instance().handleReject('2jhd13')();
-    expect(spy).toHaveBeenCalledTimes(3);
+    wrapper.instance().handleReject('2jhd13');
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should call getRequestTripsDetails', () => {

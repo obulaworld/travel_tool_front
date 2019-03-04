@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TEST REQUEST DETAILS COMPONENT TEST COMPONENT WHEN REQUEST IS LOADING should return loader when request is still fetching 1`] = `
+<div
+  className="approval"
+>
+  <h1
+    className="header text--black"
+  >
+    <a
+      href="/requests/my-approvals"
+      onClick={[Function]}
+    >
+      <img
+        alt="back icon"
+        className="header__link"
+        src="back-icon.svg"
+      />
+    </a>
+    REQUEST #nXCj4U57J
+    <span
+      className="stage"
+      key="Managers Approval"
+    >
+      Managers Approval
+    </span>
+  </h1>
+  <div
+    className="preloader"
+  >
+    <div
+      className="spinner "
+    />
+  </div>
+</div>
+`;

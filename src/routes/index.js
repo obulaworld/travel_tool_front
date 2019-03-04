@@ -27,6 +27,7 @@ import NotFound from '../views/ErrorPages';
 import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
 import ConnectedTravelReasons from '../views/TravelReasons';
 import ConnectedTravelStipend from '../views/TravelStipends';
+import ConnectedApproveRequests from '../views/ApproveRequests';
 
 import {
   TRAVEL_ADMINISTRATOR,
@@ -120,7 +121,7 @@ const Routes = () => (
           <Route
             path="/requests/my-approvals/:requestId"
             exact
-            component={RequireAuth(ConnectedApprovals)}
+            component={RequireAuth(ConnectedApproveRequests)}
           />
           <Route
             path="/residence/manage"
