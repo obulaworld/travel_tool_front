@@ -167,7 +167,7 @@ const NavItemsMetadata = [
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']
       },
       {
-        link_to: '/settings/travelStipends',
+        link_to: '/settings/travel-stipends',
         exact: true,
         text: 'Travel Stipend',
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member']

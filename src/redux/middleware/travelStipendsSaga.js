@@ -30,7 +30,7 @@ export function* createTravelStipendSagaAsync(action) {
     yield put(createTravelStipendSuccess(response.data));
     toast.success(response.data.message);
     yield put(closeModal());
-    history.push('/settings/travelStipends');
+    history.push('/settings/travel-stipends');
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
     yield put(createTravelStipendFailure(errorMessage));
