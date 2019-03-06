@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
+import toast from 'toastr';
 import sanitizeHtml from 'sanitize-html-react';
 import {
   createComment,
@@ -14,10 +15,11 @@ import ButtonLoadingIcon from '../../Forms/ButtonLoadingIcon';
 export class CommentBox extends Component {
   constructor(props) {
     super(props);
-    const { comment, startSubmitReady } = this.props;
+    const { comment, startSubmitReady, newRequest } = this.props;
     this.state = {
       text: comment || '',
-      submitReady: startSubmitReady || false
+      submitReady: startSubmitReady || false,
+      newRequest: newRequest || false,
     };
   }
 
@@ -72,11 +74,19 @@ export class CommentBox extends Component {
   };
 
   handleSubmit = event => {
-    const { text } = this.state;
-    const { createComment, requestId, documentId } = this.props;
+    const { text, newRequest } = this.state;
+    const { createComment, requestId, documentId, handleComment } = this.props;
     event.preventDefault();
     if (text.trim() !== '') {
-      createComment(requestId, documentId, this.sanitizeInputData(text));
+      if (newRequest) {
+        handleComment(this.sanitizeInputData(text));
+        toast.success('Comment Added Successfully. Please proceed to submit the request.');
+        this.setState({
+          text: ''
+        });
+      } else {
+        createComment(requestId, documentId, this.sanitizeInputData(text));
+      }
     }
     this.setState({
       submitReady: false
@@ -119,7 +129,7 @@ export class CommentBox extends Component {
   };
 
   renderButtons = () => {
-    const { submitReady } = this.state;
+    const { submitReady, newRequest } = this.state;
     const { comment , creatingComment } = this.props;
     const status = submitReady ? '--active' : '';
     return (
@@ -144,7 +154,7 @@ export class CommentBox extends Component {
             onClick={this.handleSubmit}
             disabled={!submitReady}
           >
-            <ButtonLoadingIcon isLoading={creatingComment} buttonText="Post" />
+            <ButtonLoadingIcon isLoading={creatingComment} buttonText={newRequest ? 'Add comment' : 'Post'} />
           </button>
         )}
       </span>
@@ -154,7 +164,7 @@ export class CommentBox extends Component {
   render() {
     const { text } = this.state;
     return (
-      <form className="editor__editor-form">
+      <div className="editor__editor-form">
         <ReactQuill
           value={text}
           className="quill-contents"
@@ -166,7 +176,7 @@ export class CommentBox extends Component {
         <div className="editor__btn-size">
           {this.renderButtons()}
         </div>
-      </form>
+      </div>
     );
   }
 }
@@ -188,12 +198,14 @@ CommentBox.propTypes = {
   editComment: PropTypes.func.isRequired,
   requestId: PropTypes.string,
   documentId: PropTypes.string,
+  newRequest: PropTypes.bool,
   comment: PropTypes.string,
   id: PropTypes.string,
   creatingComment: PropTypes.bool,
   afterSubmit: PropTypes.func,
   handleNoEdit: PropTypes.func,
-  startSubmitReady: PropTypes.bool
+  startSubmitReady: PropTypes.bool,
+  handleComment: PropTypes.func,
 };
 
 CommentBox.defaultProps = {
@@ -201,9 +213,11 @@ CommentBox.defaultProps = {
   requestId: '',
   creatingComment: false,
   documentId: '',
+  newRequest: false,
   comment: '',
   id: '',
   handleNoEdit: () => {},
+  handleComment: () => {},
   startSubmitReady: false
 };
 

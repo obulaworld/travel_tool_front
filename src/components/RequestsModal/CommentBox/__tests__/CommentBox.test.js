@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import toast from 'toastr';
 import { CommentBox } from '../CommentBox';
 
 describe('Render CommentBox component', () => {
@@ -13,6 +14,7 @@ describe('Render CommentBox component', () => {
       preventDefault: jest.fn().mockImplementation()
     }
   };
+  const handleComment = jest.fn();
   const event = {
     target: {
       editorContainer: {
@@ -22,6 +24,7 @@ describe('Render CommentBox component', () => {
       }
     }
   };
+  toast.success = jest.fn();
   const wrapper = shallow(<CommentBox {...props} />);
   const wrapperInstance = wrapper.instance();
 
@@ -97,6 +100,19 @@ describe('Render CommentBox component', () => {
     const button = wrapper.find('#post-submit').at(0);
     button.simulate('click', event);
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should submit comment on a new request', () => {
+    const event = { preventDefault: jest.fn(), value: 'VALUE' };
+    const wrapper = shallow(<CommentBox {...props} handleComment={handleComment} />);
+    wrapper.state().text = 'comment';
+    wrapper.state().newRequest = true;
+    const button = wrapper.find('#post-submit').at(0);
+    button.simulate('click', event);
+    expect(handleComment).toHaveBeenCalled();
+    expect(toast.success).toHaveBeenCalled();
+    expect(wrapper.state().text).toEqual('');
+    toast.success.mockReset();
   });
 
   it('should handle handleChange', () => {

@@ -13,6 +13,7 @@ import StipendDetails from './Stipend/StipendDetails';
 import './NewRequestForm.scss';
 import tabIcons from '../../../images/icons/new-request-icons';
 import travelStipendHelper from '../../../helper/request/RequestUtils';
+import hideSection from '../../../helper/hideSection';
 import TravelChecklistsCard from './FormFieldsets/TravelChecklistsCard';
 import PendingApprovals from './FormFieldsets/PendingApprovalsCard';
 
@@ -88,6 +89,7 @@ class NewRequestForm extends PureComponent {
         ...editTripsStateValues
       },
       trips: requestTrips,
+      comments: {},
       errors: {},
       hasBlankFields: true,
       sameOriginDestination: true,
@@ -95,6 +97,7 @@ class NewRequestForm extends PureComponent {
       selection: 'return',
       collapse: false,
       title: 'Hide Details',
+      commentTitle: 'Add Comment',
       position: 'none',
       line: '1px solid #E4E4E4',
       parentIds: 1,
@@ -313,7 +316,6 @@ class NewRequestForm extends PureComponent {
       this.validate
     );
     if (tripType === 'multi' && !collapse) {
-      this.collapsible();
       let parentIds,
         secondTripStateValues = {};
       if (modalType === 'edit request') {
@@ -397,7 +399,7 @@ class NewRequestForm extends PureComponent {
       user,
       history
     } = this.props;
-    const { values, selection, trips, stipend } = this.state;
+    const { values, selection, trips, stipend, comments } = this.state;
     userData.name = userData.passportName;
     userData.role = userData.occupation;
 
@@ -408,7 +410,8 @@ class NewRequestForm extends PureComponent {
       ...newUserData,
       trips,
       tripType: selection,
-      stipend
+      stipend,
+      comments
     };
 
     if (selection === 'oneWay') {
@@ -513,7 +516,7 @@ class NewRequestForm extends PureComponent {
     const { collapse } = this.state;
     if (!collapse) {
       this.setState({
-        collapse: false,
+        collapse: true,
         title: 'Show Details',
         position: 'rotate(266deg)',
         line: 'none'
@@ -526,6 +529,15 @@ class NewRequestForm extends PureComponent {
         line: '1px solid #E4E4E4'
       });
     }
+  };
+
+  showComments = () => {
+    const { collapse } = this.state;
+    const { collapseValue, commentTitle } = hideSection(collapse);
+    this.setState({
+      collapse: collapseValue,
+      commentTitle: commentTitle,
+    });
   };
 
   nextStep = (e, totalStipend) => {
@@ -596,6 +608,15 @@ class NewRequestForm extends PureComponent {
       };
     }, () => {
       this.validate(fieldName);
+    });
+  }
+
+  handleComment = (commentText) => {
+    this.setState(prevState => {
+      const { comments } = prevState;
+      if (commentText) {
+        comments.comment = commentText;
+      }
     });
   }
 
@@ -705,7 +726,8 @@ class NewRequestForm extends PureComponent {
   
 
   renderSubmitArea = (hasBlankFields, errors, sameOriginDestination, 
-    selection, creatingRequest, disableOnChangeProfile, modalType, currentTab) => {
+    selection, creatingRequest, disableOnChangeProfile, modalType,
+    collapse, commentTitle, currentTab) => {
     return (
       <div className="trip__tab-body">
         {this.renderTravelDetailsFieldset()}
@@ -726,6 +748,10 @@ class NewRequestForm extends PureComponent {
           send={modalType === 'edit request' ? 'Update Request' : 'Next'} 
           nextStep={this.nextStep}
           currentTab={currentTab}
+          collapsible={this.showComments}
+          collapse={collapse}
+          commentTitle={commentTitle}
+          handleComment={this.handleComment}
         />
       </div>
     );
@@ -759,8 +785,8 @@ class NewRequestForm extends PureComponent {
   }
 
   renderForm = () => {
-    const { errors, values, hasBlankFields, selection, trips, 
-      sameOriginDestination, steps, currentTab} = this.state;
+    const { errors, values, hasBlankFields, selection, trips,
+      sameOriginDestination, steps, currentTab, collapse, commentTitle } = this.state;
     const { modalType, creatingRequest, fetchTravelChecklist,
       travelChecklists: { checklistItems, isLoading }, userData } = this.props;
     const { requestOnEdit } = this.props;
@@ -783,7 +809,8 @@ class NewRequestForm extends PureComponent {
               this.renderPersonalDetailsFieldset()}
             { currentTab === 2 && this.renderSubmitArea(
               hasBlankFields, errors, sameOriginDestination,
-              selection, creatingRequest, disableOnChangeProfile, modalType)
+              selection, creatingRequest, disableOnChangeProfile, modalType,
+              collapse, commentTitle)
             }
             { currentTab === 3 &&
               this.renderTravelStipend()}

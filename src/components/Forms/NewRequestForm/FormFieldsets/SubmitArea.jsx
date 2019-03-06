@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {PropTypes} from 'prop-types';
 import ButtonLoadingIcon from '../../ButtonLoadingIcon';
 import commentIcon from '../../../../images/icons/new-request-icons/Chat.svg';
+import ConnectedCommentBox from '../../../RequestsModal/CommentBox/CommentBox';
 
 class SubmitArea extends Component{
   constructor(props){
@@ -9,12 +10,29 @@ class SubmitArea extends Component{
   }
 
     commentSession = () =>{
+      const { collapsible, collapse, commentTitle, handleComment } = this.props;
       return(
-        <div>
-          <img src={commentIcon} alt="" />
-          <span className="request__new-comment">
-              Add comment
-          </span>
+        <div className="submit-area__comment">
+          <div
+            className="comment-area__title"
+            onClick={collapsible}
+            onKeyPress={this.handleKeyDown}
+            role="button"
+            tabIndex={0}>
+            <img src={commentIcon} alt="" />
+            <span className="comment-area__title__text">
+              {commentTitle}
+            </span>
+          </div>
+          <div className="comments-box">
+            {collapse ? (
+              <ConnectedCommentBox
+                requestId={null}
+                documentId={null}
+                handleComment={handleComment}
+                newRequest
+              />) : null}
+          </div>
         </div>
       );
     }
@@ -87,6 +105,11 @@ SubmitArea.propTypes = {
   isCreating: PropTypes.bool,
   disableOnChangeProfile: PropTypes.bool,
   nextStep: PropTypes.func,
+  collapsible: PropTypes.func,
+  handleComment: PropTypes.func,
+  collapse: PropTypes.bool,
+  commentTitle: PropTypes.string,
+
 };
 
 SubmitArea.defaultProps = {
@@ -99,6 +122,10 @@ SubmitArea.defaultProps = {
   onEditCancel: () => {},
   nextStep: () => {},
   onCancel: null,
+  collapsible: () => {},
+  handleComment: () => {},
+  collapse: false,
+  commentTitle: '',
 };
 
 export default SubmitArea;

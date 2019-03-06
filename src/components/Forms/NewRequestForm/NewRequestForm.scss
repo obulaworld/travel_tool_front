@@ -280,17 +280,6 @@ form.new-request {
     top: 35px;
   }
 
-  .trip__tab-body{
-    box-shadow: 0 0 0 1px #e4e4e4;
-    border: 0.2px solid #e4e4e4;
-    border-radius: 9px;
-    background-color: #ffffff;
-    margin: 35px 0px 20px 0px !important;
-    color: gray;
-    padding: 18px 60px 0px 50px;
-
-  }
-
   .personal-rectangle {
     box-shadow: 0 0 0 1px #e4e4e4;
     border: 0.2px solid #e4e4e4;
@@ -303,10 +292,66 @@ form.new-request {
     padding-right: 89px;
   }
   .trip__tab-body{
+    box-shadow: 0 0 0 1px #e4e4e4;
+    border: 0.2px solid #e4e4e4;
+    border-radius: 9px;
+    background-color: #ffffff;
+    margin: 35px 0px 20px 0px !important;
+    color: gray;
+    padding: 18px 60px 0px 50px;
     .submit__area-border {
       border-top: 1px solid #DFE3E8;
       .submit-area {
-          justify-content:flex-end;
+        height: inherit;
+        justify-content:flex-end;
+        width: 100%!important;
+        justify-content: space-between;
+        button:first-child{
+          display:none;
+        }
+        .submit-area__comment {
+          flex:0,0, 50%;
+          width: 46%;
+          padding: 20px 0px 20px 0px;
+          .comments-box{
+            padding: 20px 0px 0px 0px;
+            button:first-child{
+              display:flex;
+            }
+            .editor__post-btn {
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              height: 29px;
+              width: 125px;
+              border: 1px solid #d4d4d4;
+              border-radius: 1px;
+              background-color: #ffffff;
+              color: #999999;
+              font-family: 'DIN Pro';
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 18px;
+              text-align: center!important;
+              margin: 20px 0 20px 0;
+              padding-left: 20px;
+              cursor: default;
+            }
+            .editor__post-btn--active {
+              border: none;
+              background-color: #3359db;
+              color: white;
+              cursor: pointer;
+            }
+          }
+          .comment-area__title {
+            color: #385BD3;
+            outline: none;
+            cursor: pointer;
+            .comment-area__title__text {
+              padding: 0px 0px 0px 10px;
+            }
+          }
+        }
       }
     }
   }
@@ -377,15 +422,6 @@ form.new-request {
         margin-bottom: 5px;
     }
 }
-.trip__tab-body {
-    .submit__area-border {
-        .submit-area {
-            button:first-child{
-                display:none;
-            }
-        }
-    }
-}
 .trip-heading-rectangle {
   height: 26px;
   width: 53px;
@@ -409,27 +445,7 @@ form.new-request {
   color: #FFFFFF;
   cursor: not-allowed;
 }
-.trip__tab-body {
-  .submit__area-border {
-    .submit-area {
-      width: 100%!important;
-      justify-content: space-between;
-    }
-  }
-}
 
-
-.personal-rectangle {
-  box-shadow: 0 0 0 1px #e4e4e4;
-  border: 0.2px solid #e4e4e4;
-  border-radius: 9px;
-  background-color: #ffffff;
-  margin: 35px 0px 20px 0px;
-  color: gray;
-  padding-left: 60px;
-  padding-top: 43px;
-  padding-right: 89px;
-}
 .travel-checklist__tab {
   margin-top: 26px;
   margin-bottom: 45px;

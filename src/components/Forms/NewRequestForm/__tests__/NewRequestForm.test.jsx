@@ -844,6 +844,30 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.state().trips[tripIndex].travelReasons).toEqual(2);
   });
 
+  it('should set comments in state when handleComment is called', () => {
+    const commentText = 'Muhanguzi David';
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      comments: {
+        comment: ''
+      },
+    });
+    shallowWrapper.instance().handleComment(commentText);
+    expect(shallowWrapper.state().comments.comment).toEqual('Muhanguzi David');
+  });
+
+  it('should set commentTitle and collapse in state when showComments is called', () => {
+    const commentText = 'Muhanguzi David';
+    const shallowWrapper = shallow(<NewRequestForm {...props} />);
+    shallowWrapper.setState({
+      collapse: false,
+      commentTitle: '',
+    });
+    shallowWrapper.instance().showComments();
+    expect(shallowWrapper.state().collapse).toEqual(true);
+    expect(shallowWrapper.state().commentTitle).toEqual('Hide Comment');
+  });
+
   it('should not set travelReasons in state when handleReason is called with other reasons', () => {
     const tripIndex = 0;
     const shallowWrapper = shallow(<NewRequestForm {...props} />);

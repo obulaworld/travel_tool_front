@@ -14,6 +14,7 @@ import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedReadiness from '../views/Readiness';
+import ConnectedRequestDetailsPage from '../views/Requests/RequestDetails';
 import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
 import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
 import ConnectedHome from '../views/Home';
@@ -48,7 +49,7 @@ const routes = {
   '/requests/new-request': [ConnectedNewRequests],
   '/travel_readiness': [ConnectedReadiness],
   '/settings/roles': [ConnectedRole, [SUPER_ADMINISTRATOR]],
-  '/requests/:requestId': [ConnectedRequests],
+  '/requests/:requestId': [ConnectedRequestDetailsPage],
   '/requests/:requestId/checklist': [ConnectedRequests],
   '/settings/profile': [ConnectedUserProfile],
   '/residence/manage': [ConnectedAccommodation, TRAVEL_MANAGERS],
