@@ -54,6 +54,11 @@ const NavItemsMetadata = [
         text: 'My Approvals'
       },
       {
+        onlyVisibleTo: ['Super Administrator', 'Budget Checker'],
+        link_to: '/requests/budgets/',
+        text: 'Budget Checks'
+      },
+      {
         onlyVisibleTo: ['Travel Administrator', 'Super Administrator', 'Travel Team Member'],
         link_to: '/requests/my-verifications',
         text: 'My Verifications'

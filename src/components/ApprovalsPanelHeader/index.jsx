@@ -13,6 +13,7 @@ class ApprovalsPanelHeader extends PureComponent {
       fetchApprovals,
       activeStatus,
       approvalsLength,
+      type,
       url
     } = this.props;
     return (
@@ -21,6 +22,7 @@ class ApprovalsPanelHeader extends PureComponent {
         fetchApprovals={fetchApprovals}
         pastApprovalsCount={pastApprovalsCount}
         url={url}
+        budgetChecker={/budget/.test(type)}
         activeStatus={activeStatus}
         buttonsType="approvals"
       />
@@ -28,10 +30,10 @@ class ApprovalsPanelHeader extends PureComponent {
   };
 
   render() {
-    const { url, approvalsLength, getApprovalsWithLimit, loading } = this.props;
+    const { url, approvalsLength, getApprovalsWithLimit, loading, type } = this.props;
     return (
       <div className="request-panel-header">
-        <PageHeader title="APPROVALS" />
+        <PageHeader title={`${ /manager/.test(type) ? 'MANAGER APPROVALS': 'BUDGET APPROVALS'}`} />
         {
           approvalsLength > 0 && !loading && (
             <div className="open-requests">
@@ -52,6 +54,7 @@ ApprovalsPanelHeader.propTypes = {
   approvalsLength: PropTypes.number,
   url: PropTypes.string.isRequired,
   loading: PropTypes.bool,
+  type: PropTypes.string.isRequired,
   getApprovalsWithLimit: PropTypes.func.isRequired
 };
 
@@ -60,7 +63,7 @@ ApprovalsPanelHeader.defaultProps = {
   openApprovalsCount: null,
   pastApprovalsCount: null,
   loading: false,
-  approvalsLength: null
+  approvalsLength: null,
 };
 
 export default ApprovalsPanelHeader;

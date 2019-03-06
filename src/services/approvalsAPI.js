@@ -4,8 +4,8 @@ import { resolveBaseUrl } from '.';
 const baseUrl = resolveBaseUrl();
 
 class ApprovalsApi {
-  static getUserApprovals(query) {
-    return axios.get(`${baseUrl}/approvals${query}`);
+  static getUserApprovals(query, budgetChecker) {
+    return axios.get(`${baseUrl}/approvals${budgetChecker ? '/budget': ''}${query}`);
   }
 
   static updateRequestStatus(data) {

@@ -12,6 +12,26 @@ describe('ApprovalAPI', () => {
     moxios.uninstall();
   });
 
+  it('should send a GET request to fetch budget approvals', async () => {
+    const url = '?budgetStatus=open';
+
+    moxios.stubRequest(`${baseUrl}/approvals/budget${url}`, {
+      status: 200,
+      response: {
+        data: {
+          name: 'Moses Gitau'
+        }
+      }
+    });
+
+    const response = await ApprovalAPI.getUserApprovals(url, true);
+    expect(response.data).toEqual({
+      data: {
+        name: 'Moses Gitau'
+      }
+    });
+  });
+
   it('should send a Get request to retrieve approvals', async () => {
     const url = '?status=open';
 
@@ -74,4 +94,5 @@ describe('ApprovalAPI', () => {
       status: 'Verified'
     });
   });
+
 });

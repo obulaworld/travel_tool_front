@@ -70,6 +70,9 @@ $font-normal: 'DIN Pro';
   &--verified {
     @include request__status(#08c75e);
   }
+  &--checked {
+    @include request__status(#f29000);
+  }
 }
 .freeze {
   @media (max-width: 839px) {
@@ -200,7 +203,6 @@ td.pl-sm-100 {
       color: #ff5359;
     }
     &__status {
-      border-right: 1px solid $border-color;
       padding: 0 !important;
     }
     &__destination {

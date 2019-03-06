@@ -18,10 +18,30 @@ class ButtonGroup extends PureComponent {
       fetchRequests(`${paginationQuery}${statusQuery}${searchQuery}`);
     else
       fetchApprovals(`${paginationQuery}${statusQuery}${searchQuery}`);
-  }
+  };
 
+  renderPendingApprovalsButton(){
+    const { openApprovalsCount, activeStatus, budgetChecker } = this.props;
+    return (
+      <Button
+        buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ?
+          'bg-btn--active' : ''}`}
+        responsiveText="Open"
+        disabled={openApprovalsCount === 0}
+        badge={openApprovalsCount}
+        showBadge={openApprovalsCount > 0}
+        badgeClass={activeStatus === 'open' ?
+          'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
+        buttonId="open-button"
+        onClick={() => this.filterEntries(
+          'approvals',
+          `${budgetChecker ? '&budgetStatus=open' : '&status=open'}`)}
+        text="Pending Approvals"
+      />
+    );
+  }
   renderApprovalsButton () {
-    const { openApprovalsCount, pastApprovalsCount, activeStatus } = this.props;
+    const {  pastApprovalsCount, activeStatus, budgetChecker } = this.props;
     return (
       <Fragment>
         <Button
@@ -30,26 +50,20 @@ class ButtonGroup extends PureComponent {
           buttonId="all-button"
           onClick={() => this.filterEntries('approvals', '')}
         />
+        {this.renderPendingApprovalsButton()}
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ?
-            'bg-btn--active' : ''}`}
-          responsiveText="Open"
-          disabled={openApprovalsCount === 0}
-          badge={openApprovalsCount}
-          showBadge={openApprovalsCount > 0}
-          badgeClass={activeStatus === 'open' ? 
-            'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
-          buttonId="open-button"
-          onClick={() => this.filterEntries('approvals', '&status=open')}
-          text="Pending Approvals"
-        />
-        <Button
-          buttonClass={`bg-btn ${activeStatus === 'past' ? 'bg-btn--active' : ''}`}
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'past' ? 'bg-btn--active' : ''}`}
           responsiveText="Past"
           buttonId="past-button"
+          showBadge={pastApprovalsCount > 0}
+          badge={pastApprovalsCount}
+          badgeClass={activeStatus === 'past' ?
+            'bg-btn--with-badge--active' : 'bg-btn--with-badge__approvals--inactive'}
           text="Past Approvals"
           disabled={pastApprovalsCount === 0}
-          onClick={() => this.filterEntries('approvals', '&status=past')}
+          onClick={() => this.filterEntries(
+            'approvals',
+            `${ budgetChecker ? '&budgetStatus=past': '&status=past'}`)}
         />
       </Fragment>
     );
@@ -66,7 +80,7 @@ class ButtonGroup extends PureComponent {
           onClick={() => this.filterEntries('requests', '')}
         />
         <Button
-          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ? 
+          buttonClass={`bg-btn bg-btn--with-badge ${activeStatus === 'open' ?
             'bg-btn--active' : ''}`}
           text="Open Requests"
           responsiveText="Open"
@@ -74,7 +88,7 @@ class ButtonGroup extends PureComponent {
           disabled={openRequestsCount === 0}
           badge={openRequestsCount}
           showBadge={openRequestsCount > 0}
-          badgeClass={activeStatus === 'open' ? 
+          badgeClass={activeStatus === 'open' ?
             'bg-btn--with-badge--active' : 'bg-btn--with-badge--inactive'}
           onClick={() => this.filterEntries('requests', '&status=open')}
         />
@@ -148,6 +162,7 @@ ButtonGroup.propTypes = {
   fetchApprovals: PropTypes.func,
   fetchRequests: PropTypes.func,
   url: PropTypes.string,
+  budgetChecker: PropTypes.bool,
   buttonsType: PropTypes.string.isRequired,
   activeStatus: PropTypes.string,
 };
@@ -161,6 +176,7 @@ ButtonGroup.defaultProps = {
   verifiedApprovalsCount: null,
   fetchApprovals: null,
   fetchRequests: null,
+  budgetChecker: false,
   url: '',
   activeStatus: 'all'
 };

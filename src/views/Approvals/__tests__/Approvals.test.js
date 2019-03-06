@@ -4,9 +4,13 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import { Approvals } from '..';
+import { Approvals as ApprovalsWrapper } from '..';
 import { submissionInfo } from '../../../mockData/checklistSubmissionMockData';
+import PageHeader from '../../../components/PageHeader';
 
+const Approvals = ApprovalsWrapper();
+
+const BudgetApprovals = ApprovalsWrapper('budget');
 
 const middleware = [createSagaMiddleware];
 const mockStore = configureStore(middleware);
@@ -126,12 +130,21 @@ describe('<ApprovalsPage>', () => {
 
   describe('Approvals page filters', () => {
     let wrapper;
+    let budgetWrapper;
 
     beforeEach(() => {
       wrapper = mount(
         <Provider store={store}>
           <MemoryRouter>
             <Approvals {...props} />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      budgetWrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter>
+            <BudgetApprovals {...props} />
           </MemoryRouter>
         </Provider>
       );
@@ -159,10 +172,19 @@ describe('<ApprovalsPage>', () => {
       expect(props.history.push).toHaveBeenCalledWith('/requests/my-approvals?page=1');
     });
 
-    it('updates searchQuery on receiving receiving location props', () => {
-      const approvals = wrapper.find(Approvals);
-      approvals.instance().fetchFilteredApprovals('?status=open');
-      expect(approvals.instance().state.searchQuery).toEqual('?status=open');
+    it('should render the Budget Approvals page', () => {
+      expect(budgetWrapper.find(PageHeader).props().title).toEqual('BUDGET APPROVALS');
+      expect(wrapper.find(PageHeader).props().title).toEqual('MANAGER APPROVALS');
+    });
+
+    it('should fetch all budget approvals by clicking all', () => {
+      budgetWrapper.find('#all-button').simulate('click');
+      expect(props.history.push).toHaveBeenCalledWith('/requests/budgets/?page=1');
+    });
+
+    it('filters budget approvals based on budgetStatus=past', () => {
+      budgetWrapper.find('#past-button').simulate('click');
+      expect(props.history.push).toHaveBeenCalledWith('/requests/budgets/?page=1&budgetStatus=past');
     });
   });
 });

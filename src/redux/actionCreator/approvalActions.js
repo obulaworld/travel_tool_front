@@ -7,9 +7,10 @@ import {
   UPDATE_REQUEST_STATUS_FAILURE
 } from '../constants/actionTypes';
 
-export const fetchUserApprovals = (url) => ({ //eslint-disable-line
+export const fetchUserApprovals = (url, budgetChecker = false) => ({ //eslint-disable-line
   type: FETCH_USER_APPROVALS,
-  url
+  url,
+  budgetChecker
 });
 
 

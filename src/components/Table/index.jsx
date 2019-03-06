@@ -42,6 +42,7 @@ export class Table extends Component {
     newStatus = (status === 'Open') ? 'request__status--open' : newStatus;
     newStatus = (status === 'Rejected') ? 'request__status--rejected' : newStatus;
     newStatus = (status === 'Verified') ? 'request__status--verified' : newStatus;
+    newStatus = (status === 'Checked') ? 'request__status--checked': newStatus;
     return newStatus;
   }
 
@@ -102,6 +103,21 @@ export class Table extends Component {
     return destinations;
   }
 
+
+
+  computeRequestStatus({status, budgetStatus}) {
+    const { type, approvalsType } = this.props;
+    if( type === 'approvals' && approvalsType === 'budget') {
+      return budgetStatus;
+    }
+    budgetStatus = budgetStatus === 'Approved' ? 'Checked' : budgetStatus;
+    return budgetStatus === 'Checked' || budgetStatus === 'Rejected' ? budgetStatus : status;
+  }
+
+  renderError(error) {
+    return <div className="table__requests--error">{error}</div>;
+  }
+
   renderNoRequests(message) {
     return (
       <div className="table__requests--empty">
@@ -111,12 +127,7 @@ export class Table extends Component {
       </div>
     );
   }
-
-  renderError(error) {
-    return <div className="table__requests--error">{error}</div>;
-  }
-
-  renderRequestStatus(request) {
+  renderRequestStatus(request){
     const {
       editRequest, type, showTravelChecklist, uploadTripSubmissions, deleteRequest,
       openModal, closeModal, shouldOpen, modalType
@@ -127,9 +138,9 @@ export class Table extends Component {
         <div className="table__menu">
           <div
             id={`status-${request.id}`}
-            className={this.getRequestStatusClassName(request.status)}
+            className={this.getRequestStatusClassName(this.computeRequestStatus(request))}
           >
-            {request.status}
+            {this.computeRequestStatus(request)}
           </div>
           {
             type !== 'approvals' && (
@@ -406,6 +417,7 @@ Table.propTypes = {
   uploadFile: PropTypes.func,
   fileUploads: PropTypes.object,
   deleteRequest: PropTypes.func,
+  approvalsType: PropTypes.string,
   openModal: PropTypes.func.isRequired,
   handleCloseSubmissionModal: PropTypes.func,
   handleCloseChecklistModal: PropTypes.func,
@@ -416,6 +428,7 @@ Table.defaultProps = {
   type: 'requests',
   fetchRequestsError: null,
   requests: [],
+  approvalsType: '',
   closeModal: () => {},
   shouldOpen: false,
   modalType: null,

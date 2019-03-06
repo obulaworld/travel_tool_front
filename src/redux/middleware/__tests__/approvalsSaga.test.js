@@ -12,7 +12,8 @@ import { watchUpdateRequestStatus, watchFetchApprovals } from '../approvalsSaga'
 
 const action = {
   type: 'FETCH_USER_APPROVALS',
-  url: '?status=open'
+  url: '?status=open',
+  budgetChecker: false
 };
 
 describe('Approvals saga', () => {
@@ -36,7 +37,7 @@ describe('Approvals saga', () => {
     it('should yield a call to getUserApprovals with correct url', async () => {
       const url = action.url;
       expect(testSaga.next().value)
-        .toEqual(call(ApprovalsApi.getUserApprovals, url));
+        .toEqual(call(ApprovalsApi.getUserApprovals, url, action.budgetChecker));
     });
 
     it('sends a get request with the correct url', async () => {
@@ -70,7 +71,8 @@ describe('Approvals saga', () => {
 
   describe('Update Request Status Saga', () => {
     const action = {
-      url: '?status=open'
+      url: '?status=open',
+      budgetChecker: false,
     };
 
     const response = {
@@ -89,7 +91,7 @@ describe('Approvals saga', () => {
     it('Fetch approvals successfully', () => {
       return expectSaga(watchFetchApprovals, ApprovalsAPI)
         .provide([
-          [call(ApprovalsAPI.getUserApprovals, action.url), response]
+          [call(ApprovalsAPI.getUserApprovals, action.url, action.budgetChecker), response]
         ])
         .put({
           type: 'FETCH_USER_APPROVALS_SUCCESS',
@@ -99,7 +101,8 @@ describe('Approvals saga', () => {
         })
         .dispatch({
           type: 'FETCH_USER_APPROVALS',
-          url: action.url
+          url: action.url,
+          budgetChecker: action.budgetChecker
         })
         .silentRun();
     });
@@ -107,7 +110,7 @@ describe('Approvals saga', () => {
     it('throws error while fetching approvals', () => {
       return expectSaga(watchFetchApprovals, ApprovalsAPI)
         .provide([
-          [call(ApprovalsAPI.getUserApprovals, action.url),
+          [call(ApprovalsAPI.getUserApprovals, action.url, action.budgetChecker),
             throwError(error.response.data)]
         ])
         .put({
@@ -116,7 +119,8 @@ describe('Approvals saga', () => {
         })
         .dispatch({
           type: 'FETCH_USER_APPROVALS',
-          url: action.url
+          url: action.url,
+          budgetChecker: action.budgetChecker
         })
         .silentRun();
     });

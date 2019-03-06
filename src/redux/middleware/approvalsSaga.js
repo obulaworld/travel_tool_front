@@ -15,7 +15,7 @@ import apiErrorHandler from '../../services/apiErrorHandler';
 
 export function* fetchUserApprovalsSaga(action) {
   try {
-    const approvals = yield call(ApprovalsApi.getUserApprovals, action.url);
+    const approvals = yield call(ApprovalsApi.getUserApprovals, action.url, action.budgetChecker);
     yield put(fetchUserApprovalsSuccess(approvals.data));
   } catch (error) {
     const errorMessage = apiErrorHandler(error);
