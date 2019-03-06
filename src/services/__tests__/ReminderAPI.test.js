@@ -70,4 +70,13 @@ describe('ReminderAPI', () => {
 
     expect(res.data).toEqual(response);
   });
+
+  it('retrieves one reminder', async () => {
+    moxios.stubRequest(`${baseUrl}/reminders/1`, {
+      status: 200,
+      response
+    });
+    const res = await ReminderAPI.getSingleReminder('1');
+    expect(res.data).toEqual(response);
+  });
 });

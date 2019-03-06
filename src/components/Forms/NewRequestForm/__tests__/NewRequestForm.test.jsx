@@ -1,5 +1,6 @@
 import React from 'react';
 import sinon from 'sinon';
+import moxios from 'moxios';
 import NewRequestForm from '../NewRequestForm';
 import beds from '../../../../views/AvailableRooms/__mocks__/mockData/availableRooms';
 import profileMock from '../../ProfileForm/__mocks__';
@@ -171,6 +172,7 @@ describe('<NewRequestForm />', () => {
         }
       }
     ],
+    validateTrips: jest.fn(),
   };
   const event = {
     preventDefault: jest.fn(),
@@ -976,12 +978,20 @@ describe('<NewRequestForm />', () => {
     jest.spyOn(shallowWrapper.instance(), 'renderTravelStipend');
     jest.spyOn(travelStipendHelper, 'getAllTripsStipend');
     shallowWrapper.instance().forceUpdate();
+    moxios.install();
     nextButton.simulate('click', event);
-    expect(event.preventDefault).toBeCalled();
-    expect(travelStipendHelper.getAllTripsStipend).toHaveBeenCalled();
-    expect(shallowWrapper.instance().renderTravelStipend).toBeCalled();
-    expect(wrapper.find('StipendDetails')).toBeTruthy();
-    expect(shallowWrapper.state().currentTab).toEqual(3);
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status:200
+      });
+      expect(event.preventDefault).toBeCalled();
+      expect(travelStipendHelper.getAllTripsStipend).toHaveBeenCalled();
+      expect(shallowWrapper.instance().renderTravelStipend).toBeCalled();
+      expect(wrapper.find('StipendDetails')).toBeTruthy();
+      expect(shallowWrapper.state().currentTab).toEqual(3);
+    });
+    moxios.uninstall();
   });
   
   it('should display trip checkList  ', () => {
@@ -1034,4 +1044,33 @@ describe('<NewRequestForm />', () => {
     expect(shallowWrapper.instance().handleReasonsId('Other..')).toEqual(null);
   });
 
+  it('returns trip details page if trip validation fails', (done) => {
+    const wrapper = mount(<NewRequestForm {...props} />);
+    const trips = [{ id: '1',
+      origin: 'Nairobi Kenya',
+      destination: 'Lagos Nigeria',
+      departureDate: '2018-09-30',
+      returnDate: '2018-09-30',
+      createdAt: '2018-09-27T18:49:03.626Z',
+      updatedAt: '2018-09-27T18:49:43.803Z',
+      requestId: 'NfR-9KoCP',
+      accomodationType: 'Not Required',
+      bedId: 1 }];
+    wrapper.instance().setState({
+      currentTab: 2,
+      trips
+    });
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'Next',
+      }
+    };
+    jest.spyOn(wrapper.instance(), 'validator');
+    wrapper.find('#submit').simulate('click', event);
+    expect(props.validateTrips).toHaveBeenCalled();
+    expect(wrapper.instance().validator).toHaveBeenCalled();
+    expect(props.fetchAllTravelStipends).toHaveBeenCalled();
+    done();
+  });
 });

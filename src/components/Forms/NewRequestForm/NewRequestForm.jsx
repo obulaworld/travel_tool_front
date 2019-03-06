@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import Script from 'react-load-script';
 import { isEqual, pick } from 'lodash';
-import toast from 'toastr';
 import moment from 'moment';
 import { FormContext, getDefaultBlanksValidatorFor } from '../FormsAPI';
 import PersonalDetailsFieldset from './FormFieldsets/PersonalDetails';
@@ -11,6 +10,7 @@ import SubmitArea from './FormFieldsets/SubmitArea';
 import RequestTabHeader from '../../RequestTab/RequestTabHead';
 import StipendDetails from './Stipend/StipendDetails';
 import './NewRequestForm.scss';
+import './RequestLoader.scss';
 import tabIcons from '../../../images/icons/new-request-icons';
 import travelStipendHelper from '../../../helper/request/RequestUtils';
 import hideSection from '../../../helper/hideSection';
@@ -21,8 +21,8 @@ class NewRequestForm extends PureComponent {
   constructor(props) {
     super(props);
     this.setUp();
-    this.state = { 
-      ...this.defaultState 
+    this.state = {
+      ...this.defaultState
     };
     this.validate = getDefaultBlanksValidatorFor(this);
   }
@@ -108,6 +108,7 @@ class NewRequestForm extends PureComponent {
         { id:4, name:'Travel Checklist', status:'', icon: tabIcons.checkList }
       ],
       currentTab: 1,
+      isLoading: false
     };
     this.stipendField = React.createRef();
   };
@@ -455,7 +456,7 @@ class NewRequestForm extends PureComponent {
       const newError =  { ...prevState.errors, manager: '' };
       return { ...prevState, errors: { ...newError } };
     });
-  }
+  };
 
   setManagerError = () => {
     return this.setState((prevState) => {
@@ -489,7 +490,7 @@ class NewRequestForm extends PureComponent {
         values: { ...values, ...addedTripStateValues }
       };
     }, () => {this.validate;});
-  }
+  };
 
   removeTrip = (i) => {
     const tripProps = ['origin', 'destination', 'arrivalDate', 'departureDate', 'bed'];
@@ -540,32 +541,40 @@ class NewRequestForm extends PureComponent {
     });
   };
 
-  nextStep = (e, totalStipend) => {
+  validator = (trips) => {
+    const newState = {
+      currentTab: 3, isLoading: false
+    };
+    const isLoading = false;
+    const { fetchAllTravelStipends, validateTrips } = this.props;
+    validateTrips(trips, () => this.setState(newState), () => this.setState({ isLoading }));
+    fetchAllTravelStipends();
+  };
+  nextStep =  (e, totalStipend) => {
     e.preventDefault();
-    const {  steps, currentTab } = this.state;
+    const {  steps, currentTab, trips } = this.state;
+    if(currentTab === 2) {
+      this.setState({ isLoading: true});
+      return this.validator({trips});
+    }
     const newSteps = steps;
     const prev = steps[currentTab-1];
-    const next = steps[currentTab]; 
+    const next = steps[currentTab];
     prev.status = '';
     next.status = 'You are currently here';
-    this.setState({ 
+    this.setState({
       steps: newSteps,
       currentTab: currentTab + 1,
     });
 
-    if(currentTab === 2) {
-      const { fetchAllTravelStipends } = this.props;
-      fetchAllTravelStipends();
-    }
-
     if(currentTab === 3) {
       this.setState({
-        stipend: totalStipend === 'N/A' 
+        stipend: totalStipend === 'N/A'
           ? 0
           : totalStipend.split(' ')[1]
       });
     }
-  }
+  };
 
   renderPersonalDetailsFieldset = () => {
     const { collapse, title, position, line, values, hasBlankFields, errors } = this.state;
@@ -583,8 +592,7 @@ class NewRequestForm extends PureComponent {
         managers={managers}
         value="245px"
         hasBlankFields={
-          !errors.manager
-            ? false : true
+          !!errors.manager
         }
         loading={creatingRequest}
         send="Next"
@@ -662,7 +670,7 @@ class NewRequestForm extends PureComponent {
 
   renderTravelDetailsFieldset = () => {
     const { selection, parentIds, values } = this.state;
-    const { fetchAvailableRooms, availableRooms, 
+    const { fetchAvailableRooms, availableRooms,
       modalType, requestOnEdit, listTravelReasons } = this.props;
     return (
       <TravelDetailsFieldset
@@ -684,7 +692,7 @@ class NewRequestForm extends PureComponent {
         listTravelReasons={listTravelReasons}
       />
     );
-  }
+  };
 
   renderTravelStipend = ()=>{
     const { trips, selection } = this.state;
@@ -693,7 +701,7 @@ class NewRequestForm extends PureComponent {
     let travelStipends = [];
     if(!isLoading && stipends.length) {
       const { totalStipend, stipendSubTotals } = travelStipendHelper
-        .getAllTripsStipend(trips, stipends, selection); 
+        .getAllTripsStipend(trips, stipends, selection);
       total = totalStipend;
       travelStipends = stipendSubTotals;
     }
@@ -705,7 +713,7 @@ class NewRequestForm extends PureComponent {
             trips={trips}
             total={total}
             travelStipends={travelStipends}
-            isLoading={isLoading} 
+            isLoading={isLoading}
           />
         }
         {!isLoading && (
@@ -722,14 +730,15 @@ class NewRequestForm extends PureComponent {
         }
       </div>
     );
-  }
-  
+  };
 
   renderSubmitArea = (hasBlankFields, errors, sameOriginDestination, 
     selection, creatingRequest, disableOnChangeProfile, modalType,
     collapse, commentTitle, currentTab) => {
+    const { isLoading } = this.state;
     return (
       <div className="trip__tab-body">
+        <span className={`trip-${isLoading?'loading':'not-loading'}`}><div id="trip-loader" /></span>
         {this.renderTravelDetailsFieldset()}
         <Script
           url={process.env.REACT_APP_CITY}
@@ -745,7 +754,7 @@ class NewRequestForm extends PureComponent {
           selection={selection}
           loading={creatingRequest}
           disableOnChangeProfile={disableOnChangeProfile}
-          send={modalType === 'edit request' ? 'Update Request' : 'Next'} 
+          send={modalType === 'edit request' ? 'Update Request' : 'Next'}
           nextStep={this.nextStep}
           currentTab={currentTab}
           collapsible={this.showComments}
@@ -755,7 +764,7 @@ class NewRequestForm extends PureComponent {
         />
       </div>
     );
-  }
+  };
 
   renderTravelCheckList =  (hasBlankFields, selection, creatingRequest,
     currentTab, fetchTravelChecklist, trips, checklistItems, isLoading, userData) => {
@@ -782,7 +791,7 @@ class NewRequestForm extends PureComponent {
         </div>
       </div>
     );
-  }
+  };
 
   renderForm = () => {
     const { errors, values, hasBlankFields, selection, trips,
@@ -853,7 +862,8 @@ NewRequestForm.propTypes = {
   fetchAllTravelStipends: PropTypes.func.isRequired,
   travelStipends: PropTypes.object,
   fetchTravelChecklist: PropTypes.func,
-  travelChecklists: PropTypes.object
+  travelChecklists: PropTypes.object,
+  validateTrips: PropTypes.func.isRequired
 };
 
 NewRequestForm.defaultProps = {

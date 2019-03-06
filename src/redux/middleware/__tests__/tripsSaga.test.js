@@ -6,7 +6,7 @@ import TripsAPI from '../../../services/TripsAPI';
 import {
   watchFetchTrips,
   watchUpdateTrip,
-  watchUpdateTripRoom
+  watchUpdateTripRoom, watchValidateTrips
 } from '../tripsSaga';
 import {
   tripsResponse,
@@ -187,6 +187,29 @@ describe('Test suite for Trips Saga', () => {
 
     it('should have called the toast error method', () => {
       expect(toast.error).toHaveBeenCalledTimes(1);
+    });
+
+    it('validates a trip', () => {
+      const action = {
+        tripData: {
+          trips: [{
+            'origin':'Nashville, United States',
+            'destination':'Dschang, Cameroon',
+            'departureDate':'2019-04-20',
+            'returnDate':'2019-04-30',
+            'bedId':-1
+          }]
+        },
+      };
+      return expectSaga(watchValidateTrips, TripsAPI)
+        .provide([call(TripsAPI.validateTrips, action.tripData), {}])
+        .dispatch({
+          type: 'VALIDATE_TRIP',
+          tripData: action.tripData,
+          cb: jest.fn(),
+          errorFunction: jest.fn(),
+        })
+        .silentRun();
     });
   });
 });

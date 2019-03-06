@@ -15,6 +15,10 @@ class TripsAPI {
   static updateTripRoom(tripId, tripData) {
     return axios.put(`${baseUrl}/trips/${tripId}/room`, tripData);
   }
+
+  static validateTrips(tripData) {
+    return axios.post(`${baseUrl}/trips`, tripData);
+  }
 }
 
 export default TripsAPI;

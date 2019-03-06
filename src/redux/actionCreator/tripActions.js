@@ -58,3 +58,8 @@ export const updateTripRoomFailure = (error) => ({
   type: UPDATE_TRIP_ROOM_FAILURE,
   error
 });
+
+export const validateTrips = (tripData, cb, errorFunction) => ({
+  type: 'VALIDATE_TRIP',
+  tripData, cb, errorFunction
+});

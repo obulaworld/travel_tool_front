@@ -7,7 +7,7 @@ import {
   fetchTripsFailure,
   updateTripRoom,
   updateTripRoomSuccess,
-  updateTripRoomFailure
+  updateTripRoomFailure, validateTrips
 } from '../tripActions';
 import {
   tripsResponse,
@@ -128,6 +128,11 @@ describe('Trip Actions', () => {
       };
       const createdAction = updateTripRoomSuccess();
       expect(createdAction).toEqual(receivedAction);
+    });
+
+    it('should return action of type VALIDATE_TRIPS', () => {
+      const action = validateTrips();
+      expect(action.type).toEqual('VALIDATE_TRIP');
     });
   });
 });

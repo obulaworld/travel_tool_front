@@ -56,7 +56,8 @@ import { watchFetchTeammates } from './homeSaga';
 import {
   watchFetchTrips,
   watchUpdateTrip,
-  watchUpdateTripRoom
+  watchUpdateTripRoom,
+  watchValidateTrips,
 } from './tripsSaga';
 import {
   watchCreateChecklist,
@@ -229,6 +230,7 @@ function* rootSaga() {
     watchViewTravelReasonDetails(),
     watchDeleteTravelReason(),
     watchUpdateTravelStipend(),
+    watchValidateTrips(),
   ]);
 }
 

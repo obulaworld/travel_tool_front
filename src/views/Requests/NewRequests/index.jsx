@@ -15,6 +15,7 @@ import { getOccupation } from '../../../redux/actionCreator/occupationActions';
 import {fetchAllTravelReasons} from '../../../redux/actionCreator/listTravelReasonsActions';
 import { fetchAllTravelStipends } from '../../../redux/actionCreator/travelStipendsActions';
 import { fetchTravelChecklist } from '../../../redux/actionCreator/travelChecklistActions';
+import { validateTrips } from '../../../redux/actionCreator/tripActions';
 
 export class NewRequests extends Base {
   constructor(props) {
@@ -28,7 +29,10 @@ export class NewRequests extends Base {
   }
 
   componentDidMount() {
-    const { fetchRoleUsers, fetchAllTravelReasons } = this.props;
+    const {
+      fetchRoleUsers,
+      fetchAllTravelReasons
+    } = this.props;
     fetchRoleUsers(53019);
     fetchAllTravelReasons('');
   }
@@ -44,7 +48,7 @@ export class NewRequests extends Base {
       fetchAllTravelReasons,
       history,
       fetchAllTravelStipends,
-      travelStipends,
+      travelStipends, validateTrips
     } = this.props;
     const { url } = this.state;
     return (
@@ -66,6 +70,7 @@ export class NewRequests extends Base {
         history={history}
         fetchAllTravelStipends={fetchAllTravelStipends}
         travelStipends={travelStipends}
+        validateTrips={validateTrips}
       />
     );
   }
@@ -93,7 +98,7 @@ const mapStateToProps = ({requests, user, role, availableRooms,
   travelChecklists: travelChecklist,
 });
 
-const actionCreators = {
+const actions = () => ({
   fetchUserRequests,
   updateUserProfile,
   createNewRequest,
@@ -105,7 +110,8 @@ const actionCreators = {
   getOccupation,
   fetchAllTravelReasons,
   fetchAllTravelStipends,
-  fetchTravelChecklist
-};
+  fetchTravelChecklist,
+  validateTrips
+});
 
-export default connect(mapStateToProps, actionCreators)(NewRequests);
+export default connect(mapStateToProps, actions())(NewRequests);

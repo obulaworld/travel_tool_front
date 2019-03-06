@@ -161,6 +161,7 @@ let props = {
   fileUploads: {},
   fetchSubmission: jest.fn(),
   postSubmission: jest.fn(),
+  validateTrips: jest.fn(),
 };
 
 const initialState = {

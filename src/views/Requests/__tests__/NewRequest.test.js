@@ -150,8 +150,8 @@ let props = {
   fetchSubmission: jest.fn(),
   postSubmission: jest.fn(),
   fetchAllTravelReasons: sinon.spy(() => Promise.resolve()),
-  listTravelReasons: {}
-
+  listTravelReasons: {},
+  validateTrips: jest.fn()
 };
 
 const initialState = {

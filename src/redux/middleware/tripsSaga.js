@@ -75,3 +75,18 @@ export function* updateTripRoomSaga(action) {
 export function* watchUpdateTripRoom() {
   yield takeLatest(UPDATE_TRIP_ROOM, updateTripRoomSaga);
 }
+
+export function* validateTripsSaga(action) {
+  try {
+    yield call(TripsAPI.validateTrips, action.tripData);
+    action.cb();
+  } catch(error) {
+    action.errorFunction();
+    const errorMessage = apiErrorHandler(error);
+    toast.error(errorMessage);
+  }
+}
+
+export function* watchValidateTrips() {
+  yield takeLatest('VALIDATE_TRIP', validateTripsSaga);
+}

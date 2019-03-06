@@ -26,6 +26,7 @@ import {
 import { uploadFile } from '../../redux/actionCreator/fileUploadActions';
 import {fetchCenters} from '../../redux/actionCreator/centersActions';
 import { fetchAllTravelStipends } from '../../redux/actionCreator/travelStipendsActions';
+import {validateTrips} from '../../redux/actionCreator/tripActions';
 
 export class Requests extends Base {
   state = {
@@ -210,11 +211,9 @@ export class Requests extends Base {
   renderNewRequestForm() {
     const {
       updateUserProfile, userData, fetchPostUserData,
-      loading,errors,closeModal,shouldOpen, createNewRequest,
-      modalType, roleUsers,requestOnEdit,editRequest,
-      fetchUserRequests, fetchAllTravelStipends, user,
-      centers, userData: { result: { location}},
-      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest,
+      loading,errors,closeModal,shouldOpen, createNewRequest, modalType, roleUsers,requestOnEdit,editRequest,
+      fetchUserRequests, fetchAllTravelStipends, user, centers, userData: { result: { location}},
+      fetchAvailableRooms, availableRooms, fetchAvailableRoomsSuccess, creatingRequest, validateTrips
     } = this.props;
     const { url } = this.state;
     return (
@@ -240,6 +239,7 @@ export class Requests extends Base {
           fetchAvailableRoomsSuccess={fetchAvailableRoomsSuccess}
           fetchAllTravelStipends={fetchAllTravelStipends}
           creatingRequest={creatingRequest}
+          validateTrips={validateTrips}
         />
       </Modal>
     );
@@ -303,6 +303,7 @@ Requests.propTypes = {
   submissionInfo: PropTypes.object.isRequired,
   fileUploads: PropTypes.object.isRequired,
   fetchAllTravelStipends: PropTypes.func.isRequired,
+  validateTrips: PropTypes.func.isRequired
 };
 Requests.defaultProps = {
   url: '',
@@ -350,7 +351,8 @@ const actionCreators = {
   fetchAvailableRoomsSuccess,
   uploadFile,
   deleteRequest,
-  fetchAllTravelStipends
+  fetchAllTravelStipends,
+  validateTrips
 };
 
 export default connect(mapStateToProps,actionCreators)(Requests);

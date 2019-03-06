@@ -62,4 +62,33 @@ describe('TripsAPI', () => {
     expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/trips/${tripId}/room`);
     expect(response.data).toEqual(singleTripResponse);
   });
+
+  it('validates a trip', async () => {
+    const tripData = {
+      trips: [
+        {
+          'origin':'Nashvillec, United States',
+          'destination':'Dschang, Cameroon',
+          'departureDate':'2019-04-20',
+          'returnDate':'2019-04-30',
+          'bedId':-1
+        },
+        {
+          'origin':' b',
+          'destination':'Dschang, Cameroon',
+          'departureDate':'2019-04-20',
+          'returnDate':'2019-04-30',
+          'bedId':-1
+        }
+      ]
+    };
+    moxios.stubRequest(`${baseUrl}/trips`, {
+      status: 200,
+      response: {
+        success: true
+      }
+    });
+    await TripsAPI.validateTrips(tripData);
+    expect(moxios.requests.mostRecent().url).toEqual(`${baseUrl}/trips`);
+  });
 });
