@@ -199,13 +199,13 @@ export class NavBar extends PureComponent {
   }
 
   render() {
-    const {handleHideSearchBar, handleShowDrawer, openSearch } = this.props;
+    const {handleHideSearchBar, handleShowDrawer, openSearch, shouldOpen } = this.props;
     let showSearch='none';
     if(openSearch) {
       showSearch='block';
     }
     return (
-      <div className="header-container">
+      <div className={shouldOpen ? '' : 'header-container'}>
         <header className="mdl-layout__header navbar__layout_header">
           {this.renderHeader(handleShowDrawer)}
           <button type="button" className="navbar__search-icon--btn" onClick={handleHideSearchBar}>
@@ -234,19 +234,22 @@ NavBar.propTypes = {
   avatar: PropTypes.string.isRequired,
   handleHideSearchBar: PropTypes.func.isRequired,
   openSearch: PropTypes.bool,
+  shouldOpen: PropTypes.bool,
   handleShowDrawer: PropTypes.func,
   notifications: PropTypes.array
 };
 
 NavBar.defaultProps = {
   openSearch: false,
+  shouldOpen: false,
   handleShowDrawer:()=>{},
   notifications: []
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  ...state.notifications
+  ...state.notifications,
+  ...state.modal.modal,
 });
 
 export default withRouter(connect(mapStateToProps)(NavBar));
