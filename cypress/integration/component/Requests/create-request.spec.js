@@ -61,11 +61,11 @@ describe('Requests page(create new request)', () => {
       cy.get('label').contains('One Way').click();
       cy.get('input[type=radio]#oneWay').should('be.checked');
       cy.get('input[name=origin-0]')
-        .type('Nairobi')
+        .type('Lagos')
         .wait(2000)
         .type('{downarrow}{enter}');
       cy.get('input[name=destination-0]')
-        .type('Kampala')
+        .type('Nairobi')
         .wait(2000)
         .type('{downarrow}{enter}');
       cy.get('input[name=departureDate-0]').click();
@@ -93,6 +93,21 @@ describe('Requests page(create new request)', () => {
 
       //send the request
       cy.get('button#stipend-next').click();
+
+      //View travel checklist and pending approvals
+      cy.get('.travel-checklist-rectangle').as('travel-checklist').should('be.visible');
+      cy.get('@travel-checklist').contains('Travel Checklist Required For This Trip').should('be.visible');
+      cy.get('@travel-checklist').contains('Travel Ticket Details').should('be.visible');
+
+      /*Passport is one of the travel chcklist items required for 
+      Nairobi but it is not visble since the requester's location is Nairobi*/
+      cy.get('@travel-checklist').contains('Passport').should('not.be.visible');
+      cy.get('.pending-approvals-rectangle').as('pending-approvals').should('be.visible');
+      cy.get('@pending-approvals').contains('Pending Approvals For This Request').should('be.visible');
+      cy.get('@pending-approvals').contains('Line Manager Approval').should('be.visible');
+      cy.get('@pending-approvals').contains('Budget Checker Approval').should('be.visible');
+      cy.get('@pending-approvals').contains('Travel readiness Verification').should('be.visible');
+      
       cy.get('button#submit').click();
       cy.wait('@createRequest').then(createdRequest => {
         cy.get('.toast-message')

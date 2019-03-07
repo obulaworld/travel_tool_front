@@ -148,6 +148,17 @@ describe('Should create multiple trips', () => {
       .click();
     cy.get('#stipend-next')
       .click();
+
+    //View travel checklist and pending approvals
+    cy.get('.travel-checklist-rectangle').as('travel-checklist').should('be.visible');
+    cy.get('@travel-checklist').contains('Travel Checklist Required For This Trip').should('be.visible');
+    cy.get('@travel-checklist').contains('Travel Ticket Details').should('be.visible');
+    cy.get('.pending-approvals-rectangle').as('pending-approvals').should('be.visible');
+    cy.get('@pending-approvals').contains('Pending Approvals For This Request').should('be.visible');
+    cy.get('@pending-approvals').contains('Line Manager Approval').should('be.visible');
+    cy.get('@pending-approvals').contains('Budget Checker Approval').should('be.visible');
+    cy.get('@pending-approvals').contains('Travel readiness Verification').should('be.visible');
+
     cy.get('#submit')
       .click();
     cy.authenticateUser();
@@ -159,6 +170,6 @@ describe('Should create multiple trips', () => {
       .click();
     cy.get(':nth-child(1) > .table__requests__status > :nth-child(1) > .table__menu > .menu__container > :nth-child(1) > .table__menu-container > .table__menu-list > #deleteRequest')
       .click();
-    cy.get('.delete-checklist-item__footer > .bg-btn').click();
+    cy.get('.delete-checklist-item__footer > .bg-btn').contains('Delete').click({force:true});
   });
 });
