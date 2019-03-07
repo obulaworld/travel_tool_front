@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { PropTypes } from 'prop-types';
-import './RequestTabHead.scss';
-import mark from '../../images/icons/new-request-icons/mark.svg';
+import '../../../RequestTab/RequestTabHead.scss';
+import './RequestDetailsTab.scss';
+import mark from '../../../../images/icons/new-request-icons/mark.svg';
 
 class RequestTabHead extends Component {
   constructor(props){
@@ -10,11 +11,11 @@ class RequestTabHead extends Component {
   }
 
   renderTab(obj, currentTab, Icon){
-    const { id, name, status } = obj;
+    const { id, name, status, statusDate } = obj;
     const range = _.range(1,currentTab);
     const current = id === currentTab ? 'current': '';
-    const completed = range.indexOf(id) !== -1? 'complete' : 'incomplete'; 
-    const iconColor = range.indexOf(id) !== -1? '#10A36D' : '#3359DB'; 
+    const completed = range.indexOf(id) !== -1? 'complete' : 'incomplete';
+    const iconColor = range.indexOf(id) !== -1? '#10A36D' : '#3359DB';
     return(
       <div key={id} className={`request__tab-card ${current} ${completed}`}>
         <div className="mark">
@@ -29,14 +30,9 @@ class RequestTabHead extends Component {
         <div className="foot-text">
           {status}
         </div>
-      </div>
-    );
-  }
-
-  renderTitle(){
-    return (
-      <div className="new-request_title">
-        CREATE A NEW TRAVEL REQUEST
+        <div className="foot-text">
+          {statusDate}
+        </div>
       </div>
     );
   }
@@ -44,13 +40,12 @@ class RequestTabHead extends Component {
   render(){
     const {steps, currentTab } = this.props;
     return (
-      <div>
-        {this.renderTitle()}
+      <div className="request-details__tab">
         <div className="request__tab">
           {steps && steps.map(step => this.renderTab(step, currentTab, step.icon))}
         </div>
       </div>
-    );  
+    );
   }
 
 }

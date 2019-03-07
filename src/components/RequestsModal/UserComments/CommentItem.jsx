@@ -84,7 +84,6 @@ export default class CommentItem extends Component {
     const { deletingComment } = this.state;
     return (
       <div className="modal__modal1" key={comment.id}>
-        <hr />
         <div className="modal__mdl-icons">
           <ImageLink
             imageSrc={comment.userId === currentUser.id ? currentUser.picture : comment.user.picture}

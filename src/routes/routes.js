@@ -14,7 +14,7 @@ import ConnectedCheckIn from '../views/CheckIn';
 import ConnectedChecklist from '../views/Checklist';
 import ConnectedRoleDetails from '../views/RoleDetails';
 import ConnectedReadiness from '../views/Readiness';
-import ConnectedRequestDetailsPage from '../views/Requests/RequestDetails';
+import ConnectedRequestDetailsPage from '../views/Requests/NewRequestPage';
 import ConnectedTravelReadinessDocuments from '../views/TravelReadinessDocuments';
 import ConnectedUserTravelReadinessDetails from '../views/TravelReadinessDocuments/UserTravelReadinessDetails';
 import ConnectedHome from '../views/Home';

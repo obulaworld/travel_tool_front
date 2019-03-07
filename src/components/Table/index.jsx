@@ -15,6 +15,7 @@ import RequestPlaceholder from '../Placeholders/RequestsPlaceholder';
 import getTripDuration from '../../helper/getTripDuration';
 import formatTripType from '../../helper/formatTripType';
 import retrieveStatusTag from '../../helper/retrieveStatusTag';
+import RequestDetailsView from '../../views/Requests/NewRequestPage';
 
 export class Table extends Component {
   state = {
@@ -96,7 +97,7 @@ export class Table extends Component {
     const { uploadFile } = this.props;
     delete axios.defaults.headers.common['Authorization'];
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
-  }
+  };
 
   fetchRequestChecklist(trips){
     const destinations=trips.map(trip=>{return this.fetchChecklistData(trip.destination);});
@@ -161,8 +162,7 @@ export class Table extends Component {
 
   renderApprovalsIdCell(request) {
     return (
-      <td className="mdl-data-table__cell--non-numeric
-                      table__data freeze">
+      <td className="mdl-data-table__cell--non-numeric table__data freeze">
         <div
           onKeyPress={() => {}}
           onClick={() => this.handleClickRequest(request.id)}
@@ -264,7 +264,6 @@ export class Table extends Component {
     );
   }
 
-
   renderDetailsModal() {
     const { closeModal, shouldOpen, modalType, requestId, page, requestData, type } = this.props;
     const redirectLink = ['Verifications', 'Approvals'].includes(page) ?
@@ -286,11 +285,11 @@ export class Table extends Component {
           <div className="table__modal-bar-text">{retrieveStatusTag(requestData, type)}</div>
         }
       >
-        {(type === 'verifications') &&
+        {(type === 'verifications' || type === 'approvals') &&
           <RequestsModal navigatedPage={page} redirectLink={redirectLink} requestId={requestId} />
         }
-        {(type !== 'verifications') &&
-          <RequestsModal navigatedPage={page} redirectLink={redirectLink} requestId={requestId} />
+        {(type !== 'verifications' && type !== 'approvals') &&
+          <RequestDetailsView navigatedPage={page} redirectLink={redirectLink} requestId={requestId} />
         }
       </Modal>
     );
@@ -366,7 +365,7 @@ export class Table extends Component {
   }
 
   render() {
-    const { requests, type, fetchRequestsError, message,requestId } = this.props;
+    const { requests, type, fetchRequestsError, message, requestId } = this.props;
     return (
       <Fragment>
         <div className="table__container">
@@ -449,7 +448,7 @@ Table.defaultProps = {
   handleCloseSubmissionModal: () => {},
   handleCloseChecklistModal: null,
   openChecklist: false,
-  setOpenChecklist: () => {}
+  setOpenChecklist: () => {},
 };
 
 export default withLoading(Table, RequestPlaceholder);

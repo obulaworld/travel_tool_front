@@ -498,7 +498,7 @@ describe('<Requests>', () => {
 
     /> );
 
-    wrapper.find('Modal').at(3).find('.modal-close').simulate('click');
+    wrapper.find('Modal').find('.modal-close').simulate('click');
 
     expect(closeModal).toHaveBeenCalled();
     expect(history.push).toHaveBeenCalledWith('/requests');
