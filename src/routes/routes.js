@@ -1,6 +1,4 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
-import _ from 'lodash';
 import ConnectedDashboard from '../views/Dashboard';
 import ConnectedRequests from '../views/Requests';
 import ConnectedNewRequests from '../views/Requests/NewRequests';
@@ -26,7 +24,6 @@ import ConnectedCreateReminder from '../views/Reminders/CreateReminder';
 import ConnectedTravelReasons from '../views/TravelReasons';
 import ConnectedTravelStipend from '../views/TravelStipends';
 import ConnectedApproveRequests from '../views/ApproveRequests';
-import RequireAuth from '../hoc/authHoc';
 
 
 import {
@@ -41,8 +38,8 @@ const routes = {
   '/home': [ConnectedHome] ,
   '/requests/my-approvals/': [ConnectedApprovals(), [SUPER_ADMINISTRATOR, MANAGER]],
   '/requests/my-approvals/:requestId': [ConnectedApproveRequests, [SUPER_ADMINISTRATOR, MANAGER]],
-  '/requests/budgets/:requestId': [ConnectedApprovals('budget')],
   '/requests/budgets/': [ConnectedApprovals('budget'), [SUPER_ADMINISTRATOR, BUDGET_CHECKER]],
+  '/requests/budgets/:requestId': [ConnectedApprovals('budget')],
   '/requests/my-verifications': [ConnectedVerifications, TRAVEL_MANAGERS],
   '/requests/my-verifications/:requestId': [ConnectedVerifications, TRAVEL_MANAGERS],
   '/requests': [ConnectedRequests],
@@ -69,17 +66,4 @@ const routes = {
   '/settings/travel-stipends': [ConnectedTravelStipend, TRAVEL_MANAGERS],
 };
 
-const buildRoute = (route) => {
-  const [ component, auth = [] , ...otherProps] = routes[route];
-  return (
-    <Route
-      path={route}
-      key={route}
-      exact
-      {...otherProps}
-      component={RequireAuth( component, ...auth )}
-    />
-  );
-};
-export default _.keys(routes).map(buildRoute);
-
+export default routes;

@@ -87,7 +87,7 @@ describe('<ApprovalsPage>', () => {
     );
     expect(wrapper.find('Approvals').length).toBe(1);
     wrapper.unmount();
-  }); 
+  });
 
   it('calls the onPageChange method', () => {
     props.approvals.pagination.pageCount = 4;
@@ -185,6 +185,22 @@ describe('<ApprovalsPage>', () => {
     it('filters budget approvals based on budgetStatus=past', () => {
       budgetWrapper.find('#past-button').simulate('click');
       expect(props.history.push).toHaveBeenCalledWith('/requests/budgets/?page=1&budgetStatus=past');
+    });
+
+    it('ensures the fetchUserApprovals is called when the navigation is changed', () => {
+      jest.resetAllMocks();
+      const history = {
+        push: jest.fn((url) => {
+          props.location.search = url;
+          wrapper.setProps({ location: { search: url}});
+          wrapper.update();
+        })};
+
+      const wrapper = mount( <Approvals {...props} history={history} /> );
+      wrapper.find('#past-button').simulate('click');
+
+      expect(history.push).toHaveBeenCalledWith('/requests/my-approvals?page=1&status=past');
+      expect(props.fetchUserApprovals).toHaveBeenCalled();
     });
   });
 });

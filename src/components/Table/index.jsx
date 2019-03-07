@@ -99,20 +99,26 @@ export class Table extends Component {
     uploadFile(file.files[0], { checklistItemId, tripId}, checkId, requestId);
   };
 
-  fetchRequestChecklist(trips){
-    const destinations=trips.map(trip=>{return this.fetchChecklistData(trip.destination);});
-    return destinations;
-  }
-
-
+  getApprovalStatus = (type) => (status, budgetStatus) => {
+    if (type === 'verifications'){
+      return status === 'Verified' ? status : budgetStatus;
+    }
+    return budgetStatus === 'Checked' || budgetStatus === 'Rejected' ?
+      budgetStatus :
+      status;
+  };
 
   computeRequestStatus({status, budgetStatus}) {
     const { type, approvalsType } = this.props;
-    if( type === 'approvals' && approvalsType === 'budget') {
+
+    if(approvalsType === 'budget') {
       return budgetStatus;
     }
+
     budgetStatus = budgetStatus === 'Approved' ? 'Checked' : budgetStatus;
-    return budgetStatus === 'Checked' || budgetStatus === 'Rejected' ? budgetStatus : status;
+
+    return this.getApprovalStatus(type)(status, budgetStatus);
+
   }
 
   renderError(error) {

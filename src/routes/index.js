@@ -14,7 +14,20 @@ const Routes = () => (
     <Route>
       <LayoutShell>
         <Switch>
-          { TravelaRoutes }
+          {
+            Object.keys(TravelaRoutes).map( (route) => {
+              const [ component, auth = [] , ...otherProps] = TravelaRoutes[route];
+              return (
+                <Route
+                  path={route}
+                  key={route}
+                  exact
+                  {...otherProps}
+                  component={RequireAuth( component, ...auth )}
+                />
+              );
+            })
+          }
           <Route component={RequireAuth(NotFound)} />
         </Switch>
       </LayoutShell>

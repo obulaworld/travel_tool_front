@@ -1,8 +1,8 @@
-import React, {Fragment}  from  'react';
+import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import ApprovalsPanelHeader from '../../components/ApprovalsPanelHeader';
-import { fetchUserApprovals } from '../../redux/actionCreator/approvalActions';
-import { openModal, closeModal } from '../../redux/actionCreator/modalActions';
+import {fetchUserApprovals} from '../../redux/actionCreator/approvalActions';
+import {closeModal, openModal} from '../../redux/actionCreator/modalActions';
 import WithLoadingTable from '../../components/Table';
 import Base from '../Base';
 import Utils from '../../helper/Utils';
@@ -29,7 +29,7 @@ export const Approvals = ( type = 'manager') => {
 
     storeRequestIdApproval = (requestId) => {
       this.setState({requestId: requestId});
-    }
+    };
 
     renderApprovalsTable() {
       const {
@@ -62,7 +62,7 @@ export const Approvals = ( type = 'manager') => {
     }
 
     fetchFilteredApprovals = (query) => {
-      const {history} = this.props;
+      const { history } = this.props;
       history.push(`/requests/${ /manager/.test(type) ? 'my-approvals' : 'budgets/'}${query}`);
     };
 
@@ -76,7 +76,7 @@ export const Approvals = ( type = 'manager') => {
       const {searchQuery} = this.state;
       const {approvals} = this.props;
       this.getEntriesWithLimit(limit, searchQuery, approvals.pagination, this.fetchFilteredApprovals);
-    }
+    };
 
     renderApprovalsPanelHeader(loading) {
       const {activeStatus, searchQuery} = this.state;
