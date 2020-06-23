@@ -130,7 +130,7 @@ describe('renders <TravelReadinessDocuments />', () =>{
       </Provider>
     );
     wrapper.find('button#no').simulate('click');
-    expect(wrapper.find('Modal').at(2).props().visibility).toEqual('invisible')
+    expect(wrapper.find('Modal').at(2).props().visibility).toEqual('invisible');
   });
   it('renders edit visa form', () => {
     const wrapper = mount(
